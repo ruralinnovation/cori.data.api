@@ -4,7 +4,7 @@
   "description": "CORI Data API Project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "swagger": "./run-swagger.sh"
   },
   "author": "Merging Futures LLC.",
   "license": "ISC"
