@@ -2,6 +2,7 @@ node_modules
 **/cdk.out/*
 **/packages/infrastructure/dist/**
 **node_modules**
+./swagger/dist/**
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
