@@ -1,3 +1,3 @@
-cp swagger.yaml ./swagger-ui/dev-helpers/examples/api-spec.yaml
-cd swagger-ui
+cp swagger.yaml ./swagger/dev-helpers/examples/api-spec.yaml
+cd swagger
 npm run dev
