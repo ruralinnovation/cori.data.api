@@ -47,5 +47,9 @@
         ]
       }
     ]
+  },
+  "security-group:account=190686435752:region=us-east-1:securityGroupId=sg-0cdb6d6c66b8e6a4a": {
+    "securityGroupId": "sg-0cdb6d6c66b8e6a4a",
+    "allowAllOutbound": false
   }
 }
