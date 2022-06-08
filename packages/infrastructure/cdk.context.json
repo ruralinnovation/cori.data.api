@@ -57,5 +57,6 @@
   "security-group:account=190686435752:region=us-east-1:securityGroupId=sg-0be66ca1818bcc0e0": {
     "securityGroupId": "sg-0be66ca1818bcc0e0",
     "allowAllOutbound": false
-  }
+  },
+  "ssm:account=190686435752:parameterName=/cori/redis-cluster-credentials:region=us-east-1": "erwLAwDVzdkm0Vp07tSf8dZwtx6KfMMK"
 }
