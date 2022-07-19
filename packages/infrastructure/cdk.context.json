@@ -114,5 +114,6 @@
     "securityGroupId": "sg-01ddcc192d814136f",
     "allowAllOutbound": false
   },
-  "ssm:account=190686435752:parameterName=/cori/int-test-user-name:region=us-east-1": "mf-int-test@yopmail.com"
+  "ssm:account=190686435752:parameterName=/cori/int-test-user-name:region=us-east-1": "mf-int-test@yopmail.com",
+  "ssm:account=190686435752:parameterName=/cori/int-test-user-pw:region=us-east-1": "k^ynPg*JDkzW3MKy6Kh&tcD9"
 }
