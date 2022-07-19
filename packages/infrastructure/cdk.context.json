@@ -113,5 +113,6 @@
   "security-group:account=312512371189:region=us-east-1:securityGroupId=sg-01ddcc192d814136f": {
     "securityGroupId": "sg-01ddcc192d814136f",
     "allowAllOutbound": false
-  }
+  },
+  "ssm:account=190686435752:parameterName=/cori/int-test-user-name:region=us-east-1": "mf-int-test@yopmail.com"
 }
