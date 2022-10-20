@@ -1,9 +1,15 @@
-*.idea
-node_modules
-**/cdk.out/*
-**/packages/infrastructure/dist/**
-**node_modules**
-./swagger/dist/**
+*.Rproj
+**/.idea
+**/cdk.out
+**/node_modules
+**/packages/frontend/build
+**/packages/infrastructure/dist
+**/spec
+**/swagger/dist
+
+.Rhistory
+.Rprofile
+.Rproj.user
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
