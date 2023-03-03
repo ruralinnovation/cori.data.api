@@ -1,15 +1,17 @@
-*.Rproj
-**/.idea
-**/cdk.out
-**/node_modules
-**/packages/frontend/build
+*.idea
+*.run
+node_modules
+**/cdk.out/*
 **/packages/infrastructure/dist
 **/spec
 **/swagger/dist
+**node_modules**
+./swagger/dist/**
 
 .Rhistory
 .Rprofile
 .Rproj.user
+*.Rproj
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -26,3 +26,6 @@
 ^\.prettierignore$
 ^\.prettierrc$
 ^LICENSE\.md$
+^LOCAL\.md$
+^src\/pm\.mjs$
+^src\/pre-request-script\.js$
