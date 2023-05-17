@@ -1,4 +1,6 @@
 *.Rproj
+**/*.backup
+**/*.bak
 **/.idea
 **/cdk.out
 **/node_modules

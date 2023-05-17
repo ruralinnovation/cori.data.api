@@ -1,0 +1,1 @@
+pg_restore --host "cori-risi-ad-postgresql.c6zaibvi9wyg.us-east-1.rds.amazonaws.com" --port "5432" --username "jhall@AWS.RURALINNOVATION.US" --role "admin@AWS.RURALINNOVATION.US" --schema "bcat" --dbname "data" --clean --if-exists --single-transaction --verbose "bcat-2023-01-10.backup"
