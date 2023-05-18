@@ -7,5 +7,9 @@ Authors@R:
 Description: This package contains helper functions and objects that can be used in R to both make requests to the CORI Data API and to manage the change migrations from our development database (cori-risi.c6zaibvi9wyg.us-east-1.rds.amazonaws.com) to the API's production database (cori-risi-ad-postgresql.c6zaibvi9wyg.us-east-1.rds.amazonaws.com).
 License: MIT + file LICENSE
 Encoding: UTF-8
+Imports: 
+    Rcpp
+LinkingTo: 
+    Rcpp
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
