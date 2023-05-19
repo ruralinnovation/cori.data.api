@@ -1,6 +1,6 @@
 Package: cori.data.api
 Title: Access and update the CORI Data API
-Version: 0.0.0.1
+Version: 0.0.1
 Authors@R: 
     person("John", "Hall", , "john.hall@ruralinnovation.us", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))

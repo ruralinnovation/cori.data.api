@@ -15,11 +15,17 @@ module.exports = {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly'
   },
-  parser: '@typescript-eslint/parser',
+  parser: '@babel/eslint-parser',
   parserOptions: {
+    "ecmaFeatures": {
+      "jsx": true
+    },
     ecmaVersion: 'es2020',
     sourceType: 'module',
-    project: './tsconfig.json'
+    "requireConfigFile": false,
+    "babelOptions": {
+      "presets": ["@babel/react"]
+    }
   },
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {

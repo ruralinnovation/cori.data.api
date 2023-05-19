@@ -1,0 +1,68 @@
+import React from "react";
+import {
+    ApolloClient,
+    ApolloProvider,
+    HttpLink,
+    InMemoryCache,
+    from
+} from "@apollo/client";
+import { onError } from "@apollo/client/link/error";
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
+import immutableStateInvariantMiddleware from "redux-immutable-state-invariant";
+import { countyReducer, selectedCountyReducer } from "../reducers/countyReducers";
+
+const composeEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose, // add support for Redux dev tools
+    redux_immutable_state_invariant = immutableStateInvariantMiddleware();
+
+/** UNFORTUNATELY, THIS CONFIGURATION FOR ApolloClient/Redux STORE NO LONGER WORKS...
+ *  https://github.com/apollographql/apollo-client/issues/2273
+ */
+
+const client = new ApolloClient(
+        {
+            uri: "http://localhost:4000",
+            cache: new InMemoryCache({
+                // typePolicies: { ... }
+            }),
+            link: // new Ht?tpLink({ uri: `http://localhost:4000/`, fetch })
+                from([
+                    onError((gqlErrors, netError) => {
+                        if (!!gqlErrors && gqlErrors.length > 0) {
+                            gqlErrors.map((err /*: { message, location, path }*/) => {
+                                console.log("GraphQL Error: ", err);
+                            })
+                        }
+                        if (!!netError){
+                            console.log("Network Error: ", netError)
+                        }
+                    }),
+                    new HttpLink({ uri: `http://localhost:4000/`, fetch })
+                ])
+        });
+
+const reducer = client.reducer();
+const middleware = client.middleware();
+
+const store = createStore(
+    combineReducers({
+        "apollo": reducer(),
+        "counties": countyReducer,
+        "selected_counties": selectedCountyReducer
+    }),
+    { },
+    composeEnhancers(applyMiddleware(
+        middleware(),
+        redux_immutable_state_invariant
+    ))
+);
+
+export default function ApolloGraphQLProvider (props) {
+    const { children } = props;
+
+    return (
+        <ApolloProvider client={client} store={store}>
+            {children}
+        </ApolloProvider>
+    );
+}

@@ -1,0 +1,14 @@
+.control-panel {
+    position: absolute;
+    top: 152px;
+    left: 76.5%;
+}
+.controls {
+    font-size: 0.75em !important;
+    max-width: max-content;
+    padding: 8px;
+    background-color: var(--amplify-components-authenticator-router-background-color);
+    border-color: transparent;
+    border-radius: 6px;
+    box-shadow: var(--amplify-components-authenticator-router-box-shadow);
+}
