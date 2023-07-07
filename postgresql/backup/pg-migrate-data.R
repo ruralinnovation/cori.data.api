@@ -1,13 +1,14 @@
 ## Dump schema from cori-risi "data" db ------------------------------------------
 
-yyyy_mm_dd <- "2023-05-19"
+yyyy_mm_dd <- Sys.Date()
 db_host <- "cori-risi.c6zaibvi9wyg.us-east-1.rds.amazonaws.com"
 db_port <- "5432"
 db_user <- Sys.getenv("DB_USER")
 db_pwd <- Sys.getenv("DB_PWD")
 db_role <- "admin@AWS.RURALINNOVATION.US"
-db_schema <- "sch_broadband"
 db_database <- "data"
+
+db_schema <- "sch_proj_climate"
 
 Sys.setenv(PGPASSWORD=db_pwd)
 
@@ -181,7 +182,10 @@ dbExecute(conn, '
 GRANT USAGE ON SCHEMA
   public,
 	acs,
-  bcat
+  bcat,
+  sch_broadband,
+  sch_census_tiger,
+  sch_proj_climate
 	TO read_only_access;
 '
 )
@@ -190,7 +194,10 @@ dbExecute(conn, '
 GRANT SELECT ON ALL TABLES IN SCHEMA
 	public,
 	acs,
-  bcat
+  bcat,
+  sch_broadband,
+  sch_census_tiger,
+  sch_proj_climate
 	TO read_only_access;
 '
 )
@@ -199,7 +206,10 @@ dbExecute(conn, '
 GRANT USAGE ON SCHEMA
   public,
 	acs,
-  bcat
+  bcat,
+  sch_broadband,
+  sch_census_tiger,
+  sch_proj_climate
 	TO mda_read_all;
 '
 )
@@ -208,7 +218,10 @@ dbExecute(conn, '
 GRANT SELECT ON ALL TABLES IN SCHEMA
 	public,
 	acs,
-  bcat
+  bcat,
+  sch_broadband,
+  sch_census_tiger,
+  sch_proj_climate
 	TO mda_read_all;
 '
 )
