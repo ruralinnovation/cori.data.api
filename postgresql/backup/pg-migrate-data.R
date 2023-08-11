@@ -8,7 +8,10 @@ db_pwd <- Sys.getenv("DB_PWD")
 db_role <- "admin@AWS.RURALINNOVATION.US"
 db_database <- "data"
 
-db_schema <- "sch_proj_climate"
+# db_schema <- "bcat"
+# db_schema <- "sch_broadband"
+# db_schema <- "sch_proj_climate"
+db_schema <- "metadata"
 
 Sys.setenv(PGPASSWORD=db_pwd)
 
@@ -143,6 +146,13 @@ conn
 
 ## Restore bcat schema to cori-risi-ad-postgresql "data" db ----------------
 
+
+# DELETE EXISTING SCHEMA
+dbExecute(conn, sprintf(
+  'DROP SCHEMA  "%s" CASCADE;',
+  db_schema
+))
+
 # CREATE SCHEMA IF NOT EXISTS bcat AUTHORIZATION "admin@AWS.RURALINNOVATION.US";
 dbExecute(conn, sprintf(
     'CREATE SCHEMA IF NOT EXISTS "%s" AUTHORIZATION "%s";',
@@ -188,7 +198,7 @@ GRANT USAGE ON SCHEMA
   sch_broadband,
   sch_census_tiger,
   sch_proj_climate
-	TO read_only_access;
+	TO mda_read_all;
 '
 )
 
@@ -200,7 +210,7 @@ GRANT SELECT ON ALL TABLES IN SCHEMA
   sch_broadband,
   sch_census_tiger,
   sch_proj_climate
-	TO read_only_access;
+	TO mda_read_all;
 '
 )
 
@@ -212,7 +222,7 @@ GRANT USAGE ON SCHEMA
   sch_broadband,
   sch_census_tiger,
   sch_proj_climate
-	TO mda_read_all;
+	TO read_only_access;
 '
 )
 
@@ -224,7 +234,7 @@ GRANT SELECT ON ALL TABLES IN SCHEMA
   sch_broadband,
   sch_census_tiger,
   sch_proj_climate
-	TO mda_read_all;
+	TO read_only_access;
 '
 )
 
