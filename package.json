@@ -2,7 +2,7 @@
   "name": "@cori-risi/cori.data.api",
   "version": "0.0.1",
   "description": "CORI Data API Package",
-  "main": "inst/index.js",
+  "main": "index.js",
   "private": true,
   "repository": {
     "type": "git",
