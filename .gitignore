@@ -3,15 +3,9 @@
 **/*.backup
 **/*.bak
 **/.idea
-**/cdk.out
-**/cdk.out/*
 **/node_modules
-**/packages/frontend/build
-**/packages/infrastructure/dist
 **/spec
 **/swagger/dist
-**node_modules**
-./swagger/dist/**
 
 .Rhistory
 .Rprofile
