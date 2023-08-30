@@ -1,34 +1,44 @@
 ## Dump schema from cori-risi "data" db ------------------------------------------
 
-yyyy_mm_dd <- Sys.Date()
-db_host <- "cori-risi.c6zaibvi9wyg.us-east-1.rds.amazonaws.com"
-db_port <- "5432"
-db_user <- Sys.getenv("DB_USER")
-db_pwd <- Sys.getenv("DB_PWD")
-db_role <- "admin@AWS.RURALINNOVATION.US"
-db_database <- "data"
+  # db_schema <- "bcat"
+  # db_schema <- "sch_broadband"
+  # db_schema <- "sch_proj_climate"
+ 
 
-# db_schema <- "bcat"
-# db_schema <- "sch_broadband"
-# db_schema <- "sch_proj_climate"
-db_schema <- "metadata"
+dump_a_sch <- function(schema) {
+  yyyy_mm_dd <- Sys.Date()
+  db_host <- "cori-risi.c6zaibvi9wyg.us-east-1.rds.amazonaws.com"
+  db_port <- "5432"
+  db_user <- Sys.getenv("DB_USER")
+  db_pwd <- Sys.getenv("DB_PWD")
+  db_role <- "admin@AWS.RURALINNOVATION.US"
+  db_database <- "data"
 
-Sys.setenv(PGPASSWORD=db_pwd)
+  db_schema <- schema
 
-# setwd("postgresql/backup")
+  Sys.setenv(PGPASSWORD=db_pwd)
 
-pg_dump_cmd <- sprintf(
-    'pg_dump --file "%s" --host "%s" --port "%s" --username "%s" --verbose --role "%s" --format=c --no-owner --section=pre-data --section=data --section=post-data --no-privileges --encoding "UTF8" --schema "%s" "%s"',
-    paste0(db_schema, "-", yyyy_mm_dd, ".backup"),
-    db_host,
-    db_port,
-    db_user,
-    db_role,
-    db_schema,
-    db_database
-)
+  # setwd("postgresql/backup")
 
-cat(pg_dump_cmd)
+  pg_dump_cmd <- sprintf(
+      paste0('pg_dump --file "%s" --host "%s" --port "%s" ',
+            '--username "%s" --verbose --role "%s" --format=c ',
+            '--no-owner --section=pre-data --section=data ',
+            '--section=post-data --no-privileges --encoding "UTF8" ',
+            '--schema "%s" -d "%s"')
+          ,
+      paste0(db_schema, "-", yyyy_mm_dd, ".backup"),
+      db_host,
+      db_port,
+      db_user,
+      db_role,
+      db_schema,
+      db_database
+  )
+  cat(pg_dump_cmd)
+}
+
+dump_a_sch("metadata")
 
 system(pg_dump_cmd)
 
