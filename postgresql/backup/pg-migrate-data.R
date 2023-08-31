@@ -3,7 +3,6 @@
   # db_schema <- "bcat"
   # db_schema <- "sch_broadband"
   # db_schema <- "sch_proj_climate"
- 
 
 dump_a_sch <- function(schema) {
   yyyy_mm_dd <- Sys.Date()
@@ -56,13 +55,15 @@ con <- DBI::dbConnect(drv = RPostgres::Postgres(),
 
 
 is_schema_here <- function(con, schema) {
-query_schema <- gsub("\\\"", "\'",
-    sprintf('select exists (select * from pg_catalog.pg_namespace where nspname = "%s");',
-    schema))
-DBI::dbGetQuery(con, query_schema)[1, ]
+  query_schema <- gsub("\\\"", "\'",
+      sprintf(
+        paste0('select exists ',
+         '(select * from pg_catalog.pg_namespace where nspname = "%s");'),
+      schema))
+  DBI::dbGetQuery(con, query_schema)[1, ]
 }
 
-is_schema_here(con, "sch_layer")
+is_schema_here(con, "acs")
 is_schema_here(con, "bob")
 
 dump_a_schema <- function(a_dump_cmd) {
@@ -89,7 +90,6 @@ conn = dbConnect(
 )
 
 con
-
 
 # ## Restore bcat schema to cori-risi-ad-postgresql "data-dev" db ----------------
 # # -- Database: data-dev
