@@ -36,12 +36,23 @@ dump_a_sch <- function(schema) {
       db_database
   )
   cat(pg_dump_cmd)
+  return(gsub("\\\"", "", pg_dump_cmd))
 }
 
-dump_a_sch("metadata")
+dump_acs_cmd <- dump_a_sch("acs")
 
-system(pg_dump_cmd)
+is_psql_here <- function() {
+  if (system2(command = "which", args = "psql")) {
+  stop("it seems psql is not installed")
+  }
+}
 
+dump_a_schema <- function(a_dump_cmd){
+ is_psql_here()
+ system(a_dump_cmd)
+}
+
+dump_a_schema(dump_acs_cmd)
 
 # install.packages("RPostgreSQL")
 library(RPostgreSQL)
