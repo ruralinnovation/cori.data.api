@@ -47,7 +47,25 @@ is_psql_here <- function() {
   }
 }
 
-dump_a_schema <- function(a_dump_cmd){
+con <- DBI::dbConnect(drv = RPostgres::Postgres(),
+                        user = Sys.getenv("DB_USER"),
+                        password = Sys.getenv("DB_PWD"),
+                        host = "cori-risi.c6zaibvi9wyg.us-east-1.rds.amazonaws.com",
+                        port = 5432,
+                        dbname = "data")
+
+
+is_schema_here <- function(con, schema) {
+query_schema <- gsub("\\\"", "\'",
+    sprintf('select exists (select * from pg_catalog.pg_namespace where nspname = "%s");',
+    schema))
+DBI::dbGetQuery(con, query_schema)[1, ]
+}
+
+is_schema_here(con, "sch_layer")
+is_schema_here(con, "bob")
+
+dump_a_schema <- function(a_dump_cmd) {
  is_psql_here()
  system(a_dump_cmd)
 }
@@ -57,9 +75,9 @@ dump_a_schema(dump_acs_cmd)
 # install.packages("RPostgreSQL")
 library(RPostgreSQL)
 
-db_host <- "cori-risi-ad-postgresql.c6zaibvi9wyg.us-east-1.rds.amazonaws.com"
+db_host <- "cori-risi.c6zaibvi9wyg.us-east-1.rds.amazonaws.com"
 db_port <- "5432"
-db_user <- "jhall@AWS.RURALINNOVATION.US"
+db_user <- "postgres"
 
 olddrv <- dbDriver('PostgreSQL')
 conn = dbConnect(
@@ -70,7 +88,7 @@ conn = dbConnect(
     user = db_user
 )
 
-conn
+con
 
 
 # ## Restore bcat schema to cori-risi-ad-postgresql "data-dev" db ----------------
