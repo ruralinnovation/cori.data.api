@@ -4,7 +4,12 @@
   # db_schema <- "sch_broadband"
   # db_schema <- "sch_proj_climate"
 
-dump_a_sch <- function(schema) {
+dump_a_sch <- function(schema, back_up_format = "c") {
+  if (!back_up_format %in% c("c", "d", "p", "t")) {
+    stop("back_up_format can only be p, c, d or t")
+  }
+
+
   yyyy_mm_dd <- Sys.Date()
   db_host <- "cori-risi.c6zaibvi9wyg.us-east-1.rds.amazonaws.com"
   db_port <- "5432"
@@ -12,6 +17,7 @@ dump_a_sch <- function(schema) {
   db_pwd <- Sys.getenv("DB_PWD")
   db_role <- "admin@AWS.RURALINNOVATION.US"
   db_database <- "data"
+  backup_format <- back_up_format
 
   db_schema <- schema
 
@@ -21,7 +27,7 @@ dump_a_sch <- function(schema) {
 
   pg_dump_cmd <- sprintf(
       paste0('pg_dump --file "%s" --host "%s" --port "%s" ',
-            '--username "%s" --verbose --role "%s" --format=c ',
+            '--username "%s" --verbose --role "%s" -F "%s" ',
             '--no-owner --section=pre-data --section=data ',
             '--section=post-data --no-privileges --encoding "UTF8" ',
             '--schema "%s" -d "%s"')
@@ -31,6 +37,7 @@ dump_a_sch <- function(schema) {
       db_port,
       db_user,
       db_role,
+      backup_format,
       db_schema,
       db_database
   )
@@ -38,7 +45,7 @@ dump_a_sch <- function(schema) {
   return(gsub("\\\"", "", pg_dump_cmd))
 }
 
-dump_acs_cmd <- dump_a_sch("acs")
+dump_rii_cmd <- dump_a_sch("rii_diagnostic", "p")
 
 is_psql_here <- function() {
   if (system2(command = "which", args = "psql")) {
@@ -63,7 +70,7 @@ is_schema_here <- function(con, schema) {
   DBI::dbGetQuery(con, query_schema)[1, ]
 }
 
-is_schema_here(con, "acs")
+is_schema_here(con, "rii_diagnostic")
 is_schema_here(con, "bob")
 
 dump_a_schema <- function(a_dump_cmd) {
@@ -71,7 +78,7 @@ dump_a_schema <- function(a_dump_cmd) {
  system(a_dump_cmd)
 }
 
-dump_a_schema(dump_acs_cmd)
+dump_a_schema(dump_rii_cmd)
 
 # install.packages("RPostgreSQL")
 library(RPostgreSQL)
