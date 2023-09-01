@@ -1,14 +1,79 @@
+/*[data-amplify-theme="default-theme"] * {*/
+/*    font-family: "TT Hoves Light",Montserrat,sans-serif;*/
+/*}*/
+
 .control-panel {
-    position: absolute;
-    top: 152px;
-    left: 76.5%;
-}
-.controls {
-    font-size: 0.75em !important;
-    max-width: max-content;
+    font-family: "TT Hoves Light",Montserrat,sans-serif;
+    position: fixed;
+    top: calc(1em + 66px);
+    /*left: 76.5%;*/
+    /*bottom: calc(1em + 36px);*/
+    right: 1em;
     padding: 8px;
+    z-index: 1;
+}
+
+@media print {
+    .control-panel {
+        display: none !important;
+    }
+}
+
+.controls {
+    font-size: 0.55em;
+    width: min-content;
+    padding: 6px;
     background-color: var(--amplify-components-authenticator-router-background-color);
     border-color: transparent;
     border-radius: 6px;
     box-shadow: var(--amplify-components-authenticator-router-box-shadow);
+}
+
+.controls * button {
+    font-family: "TT Hoves Light",Montserrat,sans-serif;
+    background-color: rgb(38, 83, 92);
+}
+
+.controls * button:hover {
+    background-color: rgb(4, 125, 149);
+}
+
+#info,
+#print-config *,
+#print-exec *,
+#data-download-link * {
+    display: none;
+}
+
+.show,
+#info.show,
+#print-config *.show,
+#print-exec *.show,
+#data-download-link *.show,
+#data-download-btn.show {
+    display: block;
+}
+
+#auth-control button,
+#data-download-link button ,
+#print-config button,
+#print-exec button{
+    min-width: 144px;
+    width: 120px;
+    margin: 1px;
+    text-align: center;
+}
+
+@media print {
+    #print-config, #print-exec {
+        display: none !important;
+    }
+}
+
+#sign-out {
+    float: right;
+    max-width: 120px;
+    min-width: 120px;
+    width: 120px;
+    margin: 1px;
 }

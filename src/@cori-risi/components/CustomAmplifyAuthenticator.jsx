@@ -1,11 +1,15 @@
-import { Authenticator, Button, Heading, Image, View, useAuthenticator, useTheme } from "@aws-amplify/ui-react";
-import ApolloGraphQLProvider from "../contexts/ApolloGraphQLProvider";
-import ControlPanel from "./ControlPanel";
-import GoogleSignIn from "./GoogleLoginButton";
-import { AmplifyService } from "../services";
-import { Auth } from "aws-amplify";
+import "./styles/CustomAmplifyAuthenticator.css";
+import {
+    Authenticator,
+    Button,
+    Heading,
+    // Image,
+    View,
+    useAuthenticator,
+    useTheme
+} from "@aws-amplify/ui-react";
+import ControlPanel from "./ControlPanel.jsx";
 // import GoogleSignIn from "./GoogleLoginButton";
-
 
 const components = {
     Header() {
@@ -26,15 +30,17 @@ const components = {
 
         return (
             <View textAlign="center" padding={tokens.space.large}>
-                <div>
-                    &copy; All Rights Reserved
-                </div>
+                {/*<div>*/}
+                {/*    /!*&copy; All Rights Reserved*!/*/}
+                {/*    &copy; 2023 Center on Rural Innovation<br />*/}
+                {/*    Supported by Connect Humanity*/}
+                {/*</div>*/}
             </View>
         );
     },
 
     SignIn: {
-        Header(props) {
+        Header: (props) => {
             const { tokens } = useTheme();
 
             return (
@@ -46,27 +52,42 @@ const components = {
                 </Heading>
             );
         },
-        // Footer() {
+        // Footer: () => {
         //     const { toResetPassword } = useAuthenticator();
+        //
+        //     function ReturnGoogleSignIn () {
+        //         return (
+        //         <GoogleSignIn
+        //             googleSignIn={
+        //                 async () => await AmplifyService.federatedLogin(/*'Google'*/)
+        //             }
+        //             cognitoSignOut={
+        //                 async () => await Auth.signOut()
+        //             }
+        //         />
+        //         )
+        //     }
+        //
+        //     // <Button
+        //     //     fontWeight="normal"
+        //     //     onClick={toResetPassword}
+        //     //     size="small"
+        //     //     variation="link"
+        //     // >
+        //     //     Reset Password
+        //     // </Button>
         //
         //     return (
         //         <View style={{"marginBottom": "40px"}} textAlign="center">
-        //             <GoogleSignIn
-        //                 googleSignIn={
-        //                     async () => await AmplifyService.federatedLogin(/*'Google'*/)
-        //                 }
-        //                 cognitoSignOut={
-        //                     async () => await Auth.signOut()
-        //                 }
-        //             />
-        //             {/*<Button*/}
-        //             {/*    fontWeight="normal"*/}
-        //             {/*    onClick={toResetPassword}*/}
-        //             {/*    size="small"*/}
-        //             {/*    variation="link"*/}
-        //             {/*>*/}
-        //             {/*    Reset Password*/}
-        //             {/*</Button>*/}
+        //             {/*<ReturnGoogleSignIn />*/}
+        //             <Button
+        //                 fontWeight="normal"
+        //                 onClick={toResetPassword}
+        //                 size="small"
+        //                 variation="link"
+        //             >
+        //                 Reset Password
+        //             </Button>
         //         </View>
         //     );
         // },

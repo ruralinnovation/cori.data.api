@@ -51,9 +51,10 @@
     --amplify-components-tabs-item-border-style: 4px solid #2c3e50;
     --amplify-components-tabs-item-active-border-color:  #2c3e50;
 }
-[data-amplify-theme="default-theme"] * {
-    font-family: "TT Hoves Light",Montserrat,sans-serif;
-}
+
+/*[data-amplify-theme="default-theme"] * {*/
+/*    font-family: "TT Hoves Light",Montserrat,sans-serif;*/
+/*}*/
 
 [data-amplify-theme="default-theme"] [data-amplify-authenticator] [data-amplify-router] {
     background-color: var(--amplify-components-authenticator-router-background-color);

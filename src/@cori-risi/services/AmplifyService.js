@@ -1,4 +1,3 @@
-import { CognitoIdToken } from "amazon-cognito-identity-js";
 import { Amplify, Auth, Hub, Logger } from "aws-amplify";
 
 const logger = new Logger('AmplifyService');
