@@ -3,7 +3,7 @@ import "../components/styles/ControlPanel.css";
 import React, { createContext, useEffect, useState } from "react";
 import { AmplifyProvider } from "@aws-amplify/ui-react";
 import { AmplifyService } from '../services';
-// import { CustomAmplifyAuthenticator } from "../components/CustomAmplifyAuthenticator";
+import { CustomAmplifyAuthenticator } from "../components";
 
 import queryString from 'query-string';
 import {autoSignIn} from "../utils";
@@ -192,17 +192,17 @@ export default function ApiContextProvider (props) {
     return (
         <AmplifyProvider>
             <ApiContext.Provider className={"controls"} value={state}>
-                 {/*<CustomAmplifyAuthenticator*/}
-                 {/*    authenticated_user={authenticated_user}*/}
-                 {/*    setAuthenticatedUser={setAuthenticatedUser}>*/}
-                 {/*    {(!!ready) ? (*/}
-                 {/*           // <ApolloGraphQLProviderRedux aws_amplify_token={token} setReady={setReady}>{*/}
-                 {/*               props.children*/}
-                 {/*           // }</ApolloGraphQLProviderRedux>*/}
-                 {/*    ) : (*/}
-                 {/*        <span>LOADING</span>*/}
-                 {/*    )}*/}
-                 {/*</CustomAmplifyAuthenticator>*/}
+                 <CustomAmplifyAuthenticator
+                     authenticated_user={authenticated_user}
+                     setAuthenticatedUser={setAuthenticatedUser}>
+                     {(!!ready) ? (
+                            // <ApolloGraphQLProviderRedux aws_amplify_token={token} setReady={setReady}>{
+                                props.children
+                            // }</ApolloGraphQLProviderRedux>
+                     ) : (
+                         <span>LOADING</span>
+                     )}
+                 </CustomAmplifyAuthenticator>
             </ApiContext.Provider>
         </AmplifyProvider>
     );
