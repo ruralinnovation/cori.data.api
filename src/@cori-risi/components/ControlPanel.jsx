@@ -1,4 +1,4 @@
-// import "./styles/ControlPanel.css"
+import "./styles/ControlPanel.css"
 import React, { useEffect } from "react";
 import {autoSignIn} from "../utils";
 

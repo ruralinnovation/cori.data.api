@@ -1,7 +1,3 @@
-import { ControlPanel } from './@cori-risi/components/ControlPanel.jsx';
-// import { ControlPanel, CustomAmplifyAuthenticator } from './@cori-risi/components';
-// import ApiContextProvider from './@cori-risi/contexts/ApiContextProvider.jsx';
+export * from './@cori-risi/components';
+export * from './@cori-risi/contexts';
 
-export {
-  ControlPanel
-};

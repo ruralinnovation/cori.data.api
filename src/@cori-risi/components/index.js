@@ -1,7 +1,2 @@
-import ControlPanel from './ControlPanel.jsx';
-import CustomAmplifyAuthenticator from './CustomAmplifyAuthenticator.jsx';
-
-export {
-  ControlPanel,
-  CustomAmplifyAuthenticator
-}
+export { default as ControlPanel } from './ControlPanel';
+export { default as CustomAmplifyAuthenticator } from './CustomAmplifyAuthenticator';
