@@ -3,7 +3,7 @@ import "../components/styles/ControlPanel.css";
 import React, { createContext, useEffect, useState } from "react";
 import { AmplifyProvider } from "@aws-amplify/ui-react";
 import { AmplifyService } from '../services';
-import { CustomAmplifyAuthenticator } from "../components";
+import CustomAmplifyAuthenticator from "../components/CustomAmplifyAuthenticator";
 
 import queryString from 'query-string';
 import {autoSignIn} from "../utils";
@@ -57,65 +57,65 @@ export default function ApiContextProvider (props) {
         } else {
 
             AmplifyService.setHubListener(setAuthenticatedUser)
-                .then(() => {
-                    console.log("Passed setAuthenticatedUser to AmplifyService");
-                });
+              .then(() => {
+                  console.log("Passed setAuthenticatedUser to AmplifyService");
+              });
 
             AmplifyService.isAuthenticated()
-                .then(authenticated => {
-                    console.log('Authenticated ', authenticated);
+              .then(authenticated => {
+                  console.log('Authenticated ', authenticated);
 
-                    if (authenticated) {
-                        console.log("Get Amplify claims...");
+                  if (authenticated) {
+                      console.log("Get Amplify claims...");
 
-                        AmplifyService.getClaims()
-                            .then(claims => {
-                                const saved = localStorage.getItem("redirect_after_auth");
-                                console.log(JSON.parse(saved));
+                      AmplifyService.getClaims()
+                        .then(claims => {
+                            const saved = localStorage.getItem("redirect_after_auth");
+                            console.log(JSON.parse(saved));
 
-                                if (!claims) {
-                                    console.log('No claims found');
-                                    // AmplifyService.federatedLogin('Google');
+                            if (!claims) {
+                                console.log('No claims found');
+                                // AmplifyService.federatedLogin('Google');
+                            } else {
+
+                                if (authenticated_user === null) {
+                                    setAuthenticatedUser({
+                                        username: claims.username,
+                                        userType: 'admin',
+                                        groups: claims.groups,
+                                        email: claims.email
+                                    });
                                 } else {
-
-                                    if (authenticated_user === null) {
-                                        setAuthenticatedUser({
-                                            username: claims.username,
-                                            userType: 'admin',
-                                            groups: claims.groups,
-                                            email: claims.email
-                                        });
-                                    } else {
-                                        setAuthenticatedUser({
-                                            ...authenticated_user,
-                                            username: claims.username,
-                                            userType: 'admin',
-                                            groups: claims.groups,
-                                            email: claims.email
-                                        });
-                                    }
-
-                                    setReady(true);
+                                    setAuthenticatedUser({
+                                        ...authenticated_user,
+                                        username: claims.username,
+                                        userType: 'admin',
+                                        groups: claims.groups,
+                                        email: claims.email
+                                    });
                                 }
-                            })
-                            .catch(err => {
-                                console.log(err);
-                                setAuthenticatedUser(null);
-                            });
 
-                    } else {
-                        // AmplifyService.federatedLogin('Google');
-                        setAuthenticatedUser({
-                            username: "",
-                            userType: "",
-                            groups: [],
-                            email: "",
+                                setReady(true);
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                            setAuthenticatedUser(null);
                         });
-                    }
-                })
-                .catch(err => {
-                    console.log('ERROR', err);
-                });
+
+                  } else {
+                      // AmplifyService.federatedLogin('Google');
+                      setAuthenticatedUser({
+                          username: "",
+                          userType: "",
+                          groups: [],
+                          email: "",
+                      });
+                  }
+              })
+              .catch(err => {
+                  console.log('ERROR', err);
+              });
         }
 
     }, [ config ]);
@@ -169,16 +169,16 @@ export default function ApiContextProvider (props) {
             });
 
             AmplifyService.getIdToken()
-                .then((t) => {
-                    console.log("token:", t);
+              .then((t) => {
+                  console.log("token:", t);
 
-                    // TODO: set token and connect ApolloGraphQLProvider to CORI Data API /graphql endpoint
-                    setToken(t);
-                    // setReady(true);
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+                  // TODO: set token and connect ApolloGraphQLProvider to CORI Data API /graphql endpoint
+                  setToken(t);
+                  // setReady(true);
+              })
+              .catch(error => {
+                  console.log(error);
+              });
         }
     }, [authenticated_user]);
 
@@ -190,20 +190,20 @@ export default function ApiContextProvider (props) {
     }, [ token ])
 
     return (
-        <AmplifyProvider>
-            <ApiContext.Provider className={"controls"} value={state}>
-                 <CustomAmplifyAuthenticator
-                     authenticated_user={authenticated_user}
-                     setAuthenticatedUser={setAuthenticatedUser}>
-                     {(!!ready) ? (
-                            // <ApolloGraphQLProviderRedux aws_amplify_token={token} setReady={setReady}>{
-                                props.children
-                            // }</ApolloGraphQLProviderRedux>
-                     ) : (
-                         <span>LOADING</span>
-                     )}
-                 </CustomAmplifyAuthenticator>
-            </ApiContext.Provider>
-        </AmplifyProvider>
+      <AmplifyProvider>
+          <ApiContext.Provider className={"controls"} value={state}>
+              <CustomAmplifyAuthenticator
+                authenticated_user={authenticated_user}
+                setAuthenticatedUser={setAuthenticatedUser}>
+                  {(!!ready) ? (
+                    // <ApolloGraphQLProviderRedux aws_amplify_token={token} setReady={setReady}>{
+                    props.children
+                    // }</ApolloGraphQLProviderRedux>
+                  ) : (
+                    <span>LOADING</span>
+                  )}
+              </CustomAmplifyAuthenticator>
+          </ApiContext.Provider>
+      </AmplifyProvider>
     );
 }
