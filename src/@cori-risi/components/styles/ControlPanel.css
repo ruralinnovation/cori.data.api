@@ -1,9 +1,21 @@
-/*.control-panel {*/
-/*    position: absolute;*/
-/*    top: 152px;*/
-/*    left: 76.5%;*/
-/*}*/
 .controls {
+    /*.control-panel {*/
+    /*    position: absolute;*/
+    /*    top: 152px;*/
+    /*    left: 76.5%;*/
+    /*}*/
+
+    /*.control-panel {*/
+        font-family: "TT Hoves Light",Montserrat,sans-serif;
+        position: fixed;
+        /*top: calc(1em + 66px);*/
+        /*left: 76.5%;*/
+        bottom: calc(1em + 90px);
+        right: 3em;
+        padding: 8px;
+        z-index: 1;
+    /*}*/
+
     font-size: 0.75em !important;
     max-width: max-content;
     padding: 8px;
@@ -11,17 +23,6 @@
     border-color: transparent;
     border-radius: 6px;
     box-shadow: var(--amplify-components-authenticator-router-box-shadow);
-/*}*/
-
-/*.control-panel {*/
-    font-family: "TT Hoves Light",Montserrat,sans-serif;
-    position: fixed;
-    /*top: calc(1em + 66px);*/
-    /*left: 76.5%;*/
-    bottom: calc(1em + 90px);
-    right: 3em;
-    padding: 8px;
-    z-index: 1;
 }
 
 @media print {

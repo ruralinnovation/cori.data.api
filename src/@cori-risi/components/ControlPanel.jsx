@@ -19,7 +19,7 @@ function ControlPanel (props) {
     // }
 
     return (
-        <div className={style["controls"]}>
+        <div className="control-panel controls">
             {(user !== null) ? (
                 <div>
                     <h5>{
