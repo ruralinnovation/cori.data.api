@@ -23,14 +23,16 @@ function ControlPanel (props) {
             {(user !== null) ? (
                 <div>
                     <h5>{
-                        (user.hasOwnProperty("signInUserSession") && !!user.signInUserSession) ? (
-                            (user.signInUserSession.hasOwnProperty("name") && !!user.signInUserSession.name) ?
-                              user.signInUserSession.name :
-                              (user.signInUserSession.hasOwnProperty("email") && !!user.signInUserSession.email) ?
-                                user.signInUserSession.email :
+                        (user.hasOwnProperty("signInUserSession") && user.signInUserSession.hasOwnProperty("idToken") && user.signInUserSession.idToken.hasOwnProperty("payload")) ? (
+                            (user.signInUserSession.idToken.payload.hasOwnProperty("name") && !!user.signInUserSession.idToken.payload.name) ?
+                              user.signInUserSession.idToken.payload.name :
+                              (user.signInUserSession.idToken.payload.hasOwnProperty("email") && !!user.signInUserSession.idToken.payload.email) ?
+                                user.signInUserSession.idToken.payload.email :
                                   user.username
                         ) :
-                          user.username
+                          (user.hasOwnProperty("email") && !!user.email) ?
+                            user.email :
+                            user.username
                     }</h5>
                     {/*<br />*/}
 
