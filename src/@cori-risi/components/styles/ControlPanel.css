@@ -11,9 +11,9 @@
     border-color: transparent;
     border-radius: 6px;
     box-shadow: var(--amplify-components-authenticator-router-box-shadow);
-}
+/*}*/
 
-.control-panel {
+/*.control-panel {*/
     font-family: "TT Hoves Light",Montserrat,sans-serif;
     position: fixed;
     /*top: calc(1em + 66px);*/
@@ -25,7 +25,8 @@
 }
 
 @media print {
-    .control-panel {
+    /*.control-panel {*/
+    .controls {
         display: none !important;
     }
 }

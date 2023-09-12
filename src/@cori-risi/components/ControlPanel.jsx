@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./styles/ControlPanel.css"
+import style from "./styles/ControlPanel.css";
 import {autoSignIn} from "../utils";
 
 function ControlPanel (props) {
@@ -18,10 +19,19 @@ function ControlPanel (props) {
     // }
 
     return (
-        <div className="control-panel controls">
+        <div className={style["controls"]}>
             {(user !== null) ? (
                 <div>
-                    <h5>{(user.hasOwnProperty("email") && !!user.email) ? user.email : (user.hasOwnProperty("name") && !!user.name) ? user.name : user.username}</h5>
+                    <h5>{
+                        (user.hasOwnProperty("signInUserSession") && !!user.signInUserSession) ? (
+                            (user.signInUserSession.hasOwnProperty("name") && !!user.signInUserSession.name) ?
+                              user.signInUserSession.name :
+                              (user.signInUserSession.hasOwnProperty("email") && !!user.signInUserSession.email) ?
+                                user.signInUserSession.email :
+                                  user.username
+                        ) :
+                          user.username
+                    }</h5>
                     {/*<br />*/}
 
                     <p id="info">&nbsp;</p>
