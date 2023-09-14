@@ -10,7 +10,7 @@
         position: fixed;
         /*top: calc(1em + 66px);*/
         /*left: 76.5%;*/
-        bottom: calc(4em + 90px);
+        bottom: calc(90px - 4em);
         right: 4em;
         padding: 8px;
         z-index: 1;
