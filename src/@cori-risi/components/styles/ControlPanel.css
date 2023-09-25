@@ -42,6 +42,11 @@
 /*    box-shadow: var(--amplify-components-authenticator-router-box-shadow);*/
 /*}*/
 
+.row {
+    margin-right: auto;
+    margin-left: auto;
+}
+
 .controls * button {
     font-family: "TT Hoves Light",Montserrat,sans-serif;
     background-color: rgb(38, 83, 92);

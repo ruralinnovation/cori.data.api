@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import "./styles/ControlPanel.css"
-import style from "./styles/ControlPanel.css";
-import {autoSignIn} from "../utils";
+import { autoSignIn } from "../utils";
 
 function ControlPanel (props) {
     const signOut = props.signOut;
