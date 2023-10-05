@@ -180,10 +180,12 @@ output.xml
 report.html
 
 .DS_Store
+.graphqlconfig
 AWS_SAM_CLI_64_PY3.msi
 aws-sam-cli-linux-x86_64.zip
 amplify.yml
 aws-config.js
-.graphqlconfig
+pm.mjs
+pre-request-script.js
 sam-beta-installation
 spec
