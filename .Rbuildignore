@@ -12,7 +12,7 @@
 ^node_modules$
 ^packages$
 ^postgresql
-^python-microservices$
+^python-lambdas$
 ^samples$
 ^spec$
 ^api-spec-1\.0\.0\.yml$

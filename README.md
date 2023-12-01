@@ -22,13 +22,13 @@
 - `docs` - Documentation resources
 - `postgresql` - supportive database scripts and documentation
 - `packages/*` - Typescript/NodeJS Infrastructure and Code
-- `python-microservices` - Python Lambdas, Business Logic and Code
+- `python-lambdas` - Python Lambdas, Business Logic and Code
 
 infrastructure
 
 schemas
 
-python-microservices
+python-lambdas
 
 > This project uses NPM Workspaces to managing multiple packages from your local file system from within a singular top-level, root package.
 
@@ -141,7 +141,7 @@ This zipped filed is then deployed as a labda layer dependency for all python la
 
 ```bash
 # Change into the Python Microservices directory
-cd python-microservices
+cd python-lambdas
 
 # Activate the Python environment
 source .env/bin/activate
@@ -160,4 +160,4 @@ cp -r ./.env/lib/python3.8/site-packages ./dist/python
 ### BCAT Service
 
 There are 10 different tables in the BCAT Schema. Because we need GeoJSON and MVT from each table, we decided it was best to create a single BCAT Service that can dynamically query different tables based on URL params.
-This reduces code redundancies. The BCAT Service Lambda is in the `python-microservices/bcat` directory. This service has supporting methods that parse incoming requests, and leverage a BCAT Database Configuration service to determine PostGIS query process.
+This reduces code redundancies. The BCAT Service Lambda is in the `python-lambdas/bcat` directory. This service has supporting methods that parse incoming requests, and leverage a BCAT Database Configuration service to determine PostGIS query process.
