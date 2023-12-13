@@ -1,6 +1,7 @@
 {
   "name": "@cori-risi/cori.data.api",
   "version": "0.0.1",
+  "author": "Rural Innovation Strategies, Inc.",
   "description": "CORI Data API Package",
   "main": "inst/dist/cjs/index.js",
   "module": "inst/dist/esm/index.js",
@@ -9,7 +10,6 @@
     "type": "git",
     "url": "git+https://github.com/ruralinnovation/cori.data.api.git"
   },
-  "author": "Rural Innovation Strategies, Inc.",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ruralinnovation/cori.data.api/issues"
