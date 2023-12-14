@@ -96,5 +96,6 @@
     "build:lib": "rollup -c",
     "test": "echo test"
   },
-  "type": "module"
+  "type": "module",
+  "types": "inst/dist/cjs/index.d.ts"
 }
