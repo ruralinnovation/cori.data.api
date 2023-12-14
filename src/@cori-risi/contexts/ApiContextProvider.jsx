@@ -10,6 +10,7 @@ import {autoSignIn} from "../utils";
 
 export const ApiContext = createContext({ authenticated_user: null });
 
+/** @type {React.FunctionComponent} */
 export default function ApiContextProvider (props) {
     const [ authenticated_user, setAuthenticatedUser ] = useState(null);
     const [ config, setConfig ] = useState(null);
