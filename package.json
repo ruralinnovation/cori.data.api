@@ -86,8 +86,8 @@
     "react-dom": "^18.2.0"
   },
   "scripts": {
-    "build": "npm run build-lib",
-    "build-lib": "rollup -c",
+    "build": "npm run build:lib",
+    "build:lib": "rollup -c",
     "test": "echo test"
   },
   "type": "module"
