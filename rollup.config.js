@@ -78,7 +78,7 @@ export default [
 
       commonjs({ include: ['node_modules/**'] }),
 
-      css(),
+      css({ output: "styles.css"}),
 
       terser(),
 
