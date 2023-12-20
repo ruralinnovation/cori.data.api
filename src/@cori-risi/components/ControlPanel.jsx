@@ -68,7 +68,7 @@ function ControlPanel (props) {
                                 <div className="col-sm-5">
                                     <div className="form-group">
                                         <label htmlFor="styleSelect">Map style</label>
-                                        <select id="styleSelect" className="form-control" readOnly>
+                                        <select id="styleSelect" className="form-control">
                                             <option value="mapbox://styles/mapbox/light-v9">Mapbox Light</option>
                                             <option value="mapbox://styles/mapbox/streets-v10">Mapbox Streets</option>
                                             <option value="https://tiles.stadiamaps.com/styles/alidade_smooth.json">Stadia Maps
@@ -145,7 +145,7 @@ function ControlPanel (props) {
                     <div id={"print-exec"} className="row">
                         <button type="submit" className={"amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg"} id={"config-btn"}>Show print options</button>
                         <button type="submit" className={"amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg"} id={"generate-btn"}>Print report</button>
-                        <div id="spinner"></div>
+                        <div id='spinner' />
                     </div>
 
                     <div id={"auth-control"} className="row show">
@@ -158,7 +158,7 @@ function ControlPanel (props) {
                     </div>
                 </div>
             ) : (
-                <div></div>
+                <div />
             )}
 
         </div>
