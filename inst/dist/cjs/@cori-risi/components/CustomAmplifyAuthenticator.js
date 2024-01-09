@@ -4,4 +4,302 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var e=require("@aws-amplify/ui-react"),r=require("./ControlPanel.js"),n=require("react/jsx-runtime");const s={Header(){const{tokens:r}=e.useTheme();return n.jsx(e.View,{textAlign:"center",padding:r.space.large})},Footer(){const{tokens:r}=e.useTheme();return n.jsx(e.View,{textAlign:"center",padding:r.space.large})},SignIn:{Header:r=>{const{tokens:s}=e.useTheme();return n.jsx(e.Heading,{padding:`${s.space.xl} 0 0 ${s.space.xl}`,level:3})}},SignUp:{Header(){const{tokens:r}=e.useTheme();return n.jsx(e.Heading,{padding:`${r.space.xl} 0 0 ${r.space.xl}`,level:3,children:"Create a new account"})},Footer(){const{toSignIn:r}=e.useAuthenticator();return n.jsx(e.View,{textAlign:"center",children:n.jsx(e.Button,{fontWeight:"normal",onClick:r,size:"small",variation:"link",children:"Back to Sign In"})})}},ConfirmSignUp:{Header(){const{tokens:r}=e.useTheme();return n.jsx(e.Heading,{padding:`${r.space.xl} 0 0 ${r.space.xl}`,level:3,children:"Enter Information:"})},Footer:()=>n.jsx(Text,{children:"Footer Information"})},SetupTOTP:{Header(){const{tokens:r}=e.useTheme();return n.jsx(e.Heading,{padding:`${r.space.xl} 0 0 ${r.space.xl}`,level:3,children:"Enter Information:"})},Footer:()=>n.jsx(Text,{children:"Footer Information"})},ConfirmSignIn:{Header(){const{tokens:r}=e.useTheme();return n.jsx(e.Heading,{padding:`${r.space.xl} 0 0 ${r.space.xl}`,level:3,children:"Enter Information:"})},Footer:()=>n.jsx(Text,{children:"Footer Information"})},ResetPassword:{Header(){const{tokens:r}=e.useTheme();return n.jsx(e.Heading,{padding:`${r.space.xl} 0 0 ${r.space.xl}`,level:3,children:"Enter Information:"})},Footer:()=>n.jsx(Text,{children:"Footer Information"})},ConfirmResetPassword:{Header(){const{tokens:r}=e.useTheme();return n.jsx(e.Heading,{padding:`${r.space.xl} 0 0 ${r.space.xl}`,level:3,children:"Enter Information:"})},Footer:()=>n.jsx(Text,{children:"Footer Information"})}},t={signIn:{username:{placeholder:"Enter your email"}},signUp:{password:{label:"Password:",placeholder:"Enter your Password:",isRequired:!1,order:2},confirm_password:{label:"Confirm Password:",order:1}},forceNewPassword:{password:{placeholder:"Enter your Password:"}},resetPassword:{username:{placeholder:"Enter your email:"}},confirmResetPassword:{confirmation_code:{placeholder:"Enter your Confirmation Code:",label:"New Label",isRequired:!1},confirm_password:{placeholder:"Enter your Password Please:"}},setupTOTP:{QR:{totpIssuer:"test issuer",totpUsername:"amplify_qr_test_user"},confirmation_code:{label:"New Label",placeholder:"Enter your Confirmation Code:",isRequired:!1}},confirmSignIn:{confirmation_code:{label:"New Label",placeholder:"Enter your Confirmation Code:",isRequired:!1}}};exports.default=function(o){return n.jsx(e.Authenticator,{components:s,formFields:t,socialProviders:["google"],children:e=>{let{signOut:s,user:t}=e;return t&&function(e){return"function"==typeof o.setAuthenticatedUser&&(null===o.authenticated_user?(console.log("User session: ",e.signInUserSession),setTimeout((e=>{o.setAuthenticatedUser(e)}),533,e)):o.authenticated_user.hasOwnProperty("signInUserSession")||(console.log("User session: ",e.signInUserSession),setTimeout((e=>{o.setAuthenticatedUser({username:o.authenticated_user.username,userType:"admin",groups:o.authenticated_user.groups,email:o.authenticated_user.email,signInUserSession:e.signInUserSession})}),533,e))),!0}(t)?n.jsxs("main",{children:[o.children,n.jsx(r.default,{signOut:s,user:o.authenticated_user})]}):n.jsxs("main",{children:["Authentication Error: No user",n.jsx(r.default,{signOut:s,user:o.authenticated_user})]})}})};
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var uiReact = require('@aws-amplify/ui-react');
+var ControlPanel = require('./ControlPanel.js');
+var jsxRuntime = require('react/jsx-runtime');
+
+const components = {
+  Header() {
+    const {
+      tokens
+    } = uiReact.useTheme();
+    return /*#__PURE__*/jsxRuntime.jsx(uiReact.View, {
+      textAlign: "center",
+      padding: tokens.space.large
+    });
+  },
+  Footer() {
+    const {
+      tokens
+    } = uiReact.useTheme();
+    return /*#__PURE__*/jsxRuntime.jsx(uiReact.View, {
+      textAlign: "center",
+      padding: tokens.space.large
+    });
+  },
+  SignIn: {
+    Header: props => {
+      const {
+        tokens
+      } = uiReact.useTheme();
+      return /*#__PURE__*/jsxRuntime.jsx(uiReact.Heading, {
+        padding: `${tokens.space.xl} 0 0 ${tokens.space.xl}`,
+        level: 3
+      });
+    }
+    // Footer: () => {
+    //     const { toResetPassword } = useAuthenticator();
+    //
+    //     function ReturnGoogleSignIn () {
+    //         return (
+    //         <GoogleSignIn
+    //             googleSignIn={
+    //                 async () => await AmplifyService.federatedLogin(/*'Google'*/)
+    //             }
+    //             cognitoSignOut={
+    //                 async () => await Auth.signOut()
+    //             }
+    //         />
+    //         )
+    //     }
+    //
+    //     // <Button
+    //     //     fontWeight="normal"
+    //     //     onClick={toResetPassword}
+    //     //     size="small"
+    //     //     variation="link"
+    //     // >
+    //     //     Reset Password
+    //     // </Button>
+    //
+    //     return (
+    //         <View style={{"marginBottom": "40px"}} textAlign="center">
+    //             {/*<ReturnGoogleSignIn />*/}
+    //             <Button
+    //                 fontWeight="normal"
+    //                 onClick={toResetPassword}
+    //                 size="small"
+    //                 variation="link"
+    //             >
+    //                 Reset Password
+    //             </Button>
+    //         </View>
+    //     );
+    // },
+  },
+  SignUp: {
+    Header() {
+      const {
+        tokens
+      } = uiReact.useTheme();
+      return /*#__PURE__*/jsxRuntime.jsx(uiReact.Heading, {
+        padding: `${tokens.space.xl} 0 0 ${tokens.space.xl}`,
+        level: 3,
+        children: "Create a new account"
+      });
+    },
+    Footer() {
+      const {
+        toSignIn
+      } = uiReact.useAuthenticator();
+      return /*#__PURE__*/jsxRuntime.jsx(uiReact.View, {
+        textAlign: "center",
+        children: /*#__PURE__*/jsxRuntime.jsx(uiReact.Button, {
+          fontWeight: "normal",
+          onClick: toSignIn,
+          size: "small",
+          variation: "link",
+          children: "Back to Sign In"
+        })
+      });
+    }
+  },
+  ConfirmSignUp: {
+    Header() {
+      const {
+        tokens
+      } = uiReact.useTheme();
+      return /*#__PURE__*/jsxRuntime.jsx(uiReact.Heading, {
+        padding: `${tokens.space.xl} 0 0 ${tokens.space.xl}`,
+        level: 3,
+        children: "Enter Information:"
+      });
+    },
+    Footer() {
+      return /*#__PURE__*/jsxRuntime.jsx(Text, {
+        children: "Footer Information"
+      });
+    }
+  },
+  SetupTOTP: {
+    Header() {
+      const {
+        tokens
+      } = uiReact.useTheme();
+      return /*#__PURE__*/jsxRuntime.jsx(uiReact.Heading, {
+        padding: `${tokens.space.xl} 0 0 ${tokens.space.xl}`,
+        level: 3,
+        children: "Enter Information:"
+      });
+    },
+    Footer() {
+      return /*#__PURE__*/jsxRuntime.jsx(Text, {
+        children: "Footer Information"
+      });
+    }
+  },
+  ConfirmSignIn: {
+    Header() {
+      const {
+        tokens
+      } = uiReact.useTheme();
+      return /*#__PURE__*/jsxRuntime.jsx(uiReact.Heading, {
+        padding: `${tokens.space.xl} 0 0 ${tokens.space.xl}`,
+        level: 3,
+        children: "Enter Information:"
+      });
+    },
+    Footer() {
+      return /*#__PURE__*/jsxRuntime.jsx(Text, {
+        children: "Footer Information"
+      });
+    }
+  },
+  ResetPassword: {
+    Header() {
+      const {
+        tokens
+      } = uiReact.useTheme();
+      return /*#__PURE__*/jsxRuntime.jsx(uiReact.Heading, {
+        padding: `${tokens.space.xl} 0 0 ${tokens.space.xl}`,
+        level: 3,
+        children: "Enter Information:"
+      });
+    },
+    Footer() {
+      return /*#__PURE__*/jsxRuntime.jsx(Text, {
+        children: "Footer Information"
+      });
+    }
+  },
+  ConfirmResetPassword: {
+    Header() {
+      const {
+        tokens
+      } = uiReact.useTheme();
+      return /*#__PURE__*/jsxRuntime.jsx(uiReact.Heading, {
+        padding: `${tokens.space.xl} 0 0 ${tokens.space.xl}`,
+        level: 3,
+        children: "Enter Information:"
+      });
+    },
+    Footer() {
+      return /*#__PURE__*/jsxRuntime.jsx(Text, {
+        children: "Footer Information"
+      });
+    }
+  }
+};
+const formFields = {
+  signIn: {
+    username: {
+      placeholder: 'Enter your email'
+    }
+  },
+  signUp: {
+    password: {
+      label: 'Password:',
+      placeholder: 'Enter your Password:',
+      isRequired: false,
+      order: 2
+    },
+    confirm_password: {
+      label: 'Confirm Password:',
+      order: 1
+    }
+  },
+  forceNewPassword: {
+    password: {
+      placeholder: 'Enter your Password:'
+    }
+  },
+  resetPassword: {
+    username: {
+      placeholder: 'Enter your email:'
+    }
+  },
+  confirmResetPassword: {
+    confirmation_code: {
+      placeholder: 'Enter your Confirmation Code:',
+      label: 'New Label',
+      isRequired: false
+    },
+    confirm_password: {
+      placeholder: 'Enter your Password Please:'
+    }
+  },
+  setupTOTP: {
+    QR: {
+      totpIssuer: 'test issuer',
+      totpUsername: 'amplify_qr_test_user'
+    },
+    confirmation_code: {
+      label: 'New Label',
+      placeholder: 'Enter your Confirmation Code:',
+      isRequired: false
+    }
+  },
+  confirmSignIn: {
+    confirmation_code: {
+      label: 'New Label',
+      placeholder: 'Enter your Confirmation Code:',
+      isRequired: false
+    }
+  }
+};
+function CustomAmplifyAuthenticator(props) {
+  function syncUser(user) {
+    if (typeof props.setAuthenticatedUser === "function") {
+      if (props.authenticated_user === null) {
+        console.log("User session: ", user.signInUserSession);
+        setTimeout(user => {
+          props.setAuthenticatedUser(user);
+        }, 533, user);
+      } else if (!props.authenticated_user.hasOwnProperty("signInUserSession")) {
+        console.log("User session: ", user.signInUserSession);
+        setTimeout(user => {
+          props.setAuthenticatedUser({
+            username: props.authenticated_user.username,
+            userType: 'admin',
+            groups: props.authenticated_user.groups,
+            email: props.authenticated_user.email,
+            signInUserSession: user.signInUserSession
+          });
+        }, 533, user);
+      }
+    }
+    return true;
+  }
+  return (
+    /*#__PURE__*/
+    // <Authenticator hide={[ SignIn ]} amplifyConfig={aws_config}>
+    jsxRuntime.jsx(uiReact.Authenticator, {
+      components: components,
+      formFields: formFields,
+      socialProviders: ['google'],
+      children: _ref => {
+        let {
+          signOut,
+          user
+        } = _ref;
+        return user && syncUser(user) ? /*#__PURE__*/jsxRuntime.jsxs("main", {
+          children: [props.children, /*#__PURE__*/jsxRuntime.jsx(ControlPanel["default"], {
+            signOut: signOut,
+            user: props.authenticated_user
+          })]
+        }) : /*#__PURE__*/jsxRuntime.jsxs("main", {
+          children: ["Authentication Error: No user", /*#__PURE__*/jsxRuntime.jsx(ControlPanel["default"], {
+            signOut: signOut,
+            user: props.authenticated_user
+          })]
+        });
+      }
+    })
+  );
+}
+
+exports["default"] = CustomAmplifyAuthenticator;

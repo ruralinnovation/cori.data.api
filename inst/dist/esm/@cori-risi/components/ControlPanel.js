@@ -4,4 +4,278 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-import e,{useEffect as l}from"react";import i from"../utils/autoSignIn.js";import{jsx as a,jsxs as t}from"react/jsx-runtime";function o(e){const o=e.signOut,n=e.user;return l((()=>{console.log("Current user: ",e.user)}),[e.user]),a("div",{className:"control-panel controls",children:null!==n?t("div",{children:[a("h5",{children:n.hasOwnProperty("signInUserSession")&&n.signInUserSession.hasOwnProperty("idToken")&&n.signInUserSession.idToken.hasOwnProperty("payload")?n.signInUserSession.idToken.payload.hasOwnProperty("name")&&n.signInUserSession.idToken.payload.name?n.signInUserSession.idToken.payload.name:n.signInUserSession.idToken.payload.hasOwnProperty("email")&&n.signInUserSession.idToken.payload.email?n.signInUserSession.idToken.payload.email:n.username:n.hasOwnProperty("email")&&n.email?n.email:n.username}),a("p",{id:"info",children:" "}),a("form",{id:"print-config",children:t("fieldset",{id:"config-fields",children:[t("div",{className:"row",children:[a("div",{className:"col-sm-4",children:t("div",{className:"form-group",children:[a("label",{children:"Unit"}),a("br",{}),t("label",{className:"radio-inline",children:[a("input",{type:"radio",name:"unitOptions",value:"in",id:"inUnit",checked:!0,readOnly:!0})," Inch"]}),t("label",{className:"radio-inline",children:[a("input",{type:"radio",name:"unitOptions",value:"mm",id:"mmUnit",readOnly:!0})," Millimeter"]})]})}),a("div",{className:"col-sm-3",children:t("div",{className:"form-group",children:[a("label",{children:"Output format"}),a("br",{}),t("label",{className:"radio-inline",children:[a("input",{type:"radio",name:"outputOptions",value:"png",checked:!0,readOnly:!0})," PNG"]}),t("label",{className:"radio-inline",children:[a("input",{type:"radio",name:"outputOptions",value:"pdf",readOnly:!0})," PDF"]})]})}),a("div",{className:"col-sm-5",children:t("div",{className:"form-group",children:[a("label",{htmlFor:"styleSelect",children:"Map style"}),t("select",{id:"styleSelect",className:"form-control",readOnly:!0,children:[a("option",{value:"mapbox://styles/mapbox/light-v9",children:"Mapbox Light"}),a("option",{value:"mapbox://styles/mapbox/streets-v10",children:"Mapbox Streets"}),a("option",{value:"https://tiles.stadiamaps.com/styles/alidade_smooth.json",children:"Stadia Maps Alidade Smooth"}),a("option",{value:"https://tiles.stadiamaps.com/styles/alidade_smooth_dark.json",children:"Stadia Maps Alidade Smooth Dark"}),a("option",{value:"https://tiles.stadiamaps.com/styles/outdoors.json",children:"Stadia Maps Outdoors"}),a("option",{value:"https://tiles.stadiamaps.com/styles/osm_bright.json",children:"Stadia Maps OSM Bright"})]})]})})]}),t("div",{className:"row",children:[a("div",{className:"col-sm-2",children:t("div",{className:"form-group",id:"widthGroup",children:[a("label",{htmlFor:"widthInput",children:"Width"}),a("input",{type:"text",className:"form-control",id:"widthInput",autoComplete:"off",readOnly:!0,value:"8"})]})}),a("div",{className:"col-sm-2",children:t("div",{className:"form-group",id:"heightGroup",children:[a("label",{htmlFor:"heightInput",children:"Height"}),a("input",{type:"text",className:"form-control",id:"heightInput",autoComplete:"off",readOnly:!0,value:"6"})]})}),a("div",{className:"col-sm-3",children:t("div",{className:"form-group",id:"dpiGroup",children:[a("label",{htmlFor:"dpiInput",children:"DPI"}),a("input",{type:"text",className:"form-control",id:"dpiInput",autoComplete:"off",readOnly:!0,value:"300"})]})}),a("div",{className:"col-sm-5",children:t("div",{className:"row",children:[a("div",{className:"col-sm-4",children:t("div",{className:"form-group",id:"latGroup",children:[a("label",{htmlFor:"latInput",children:"Latitude"}),a("input",{type:"text",className:"form-control",id:"latInput",autoComplete:"off",readOnly:!0,value:""})]})}),a("div",{className:"col-sm-4",children:t("div",{className:"form-group",id:"lonGroup",children:[a("label",{htmlFor:"lonInput",children:"Longitude"}),a("input",{type:"text",className:"form-control",id:"lonInput",autoComplete:"off",readOnly:!0,value:""})]})}),a("div",{className:"col-sm-4",children:t("div",{className:"form-group",id:"zoomGroup",children:[a("label",{htmlFor:"zoomInput",children:"Zoom"}),a("input",{type:"text",className:"form-control",id:"zoomInput",autoComplete:"off",readOnly:!0,value:""})]})})]})})]})]})}),a("a",{id:"data-download-link",className:"row",children:a("button",{type:"submit",className:"amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",id:"data-download-btn",children:"Download data"})}),t("div",{id:"print-exec",className:"row",children:[a("button",{type:"submit",className:"amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",id:"config-btn",children:"Show print options"}),a("button",{type:"submit",className:"amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",id:"generate-btn",children:"Print report"}),a("div",{id:"spinner"})]}),a("div",{id:"auth-control",className:"row show",children:a("button",null!==o?{id:"sign-out",className:"amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",onClick:()=>{i(),o()},children:"Sign out"}:{children:"No Auth Controls"})})]}):a("div",{})})}var n=e.memo(o);export{n as default};
+import React, { useEffect } from 'react';
+import autoSignIn from '../utils/autoSignIn.js';
+import { jsx, jsxs } from 'react/jsx-runtime';
+
+function ControlPanel(props) {
+  const signOut = props.signOut;
+  const user = props.user;
+  useEffect(() => {
+    console.log("Current user: ", props.user);
+  }, [props.user]);
+
+  // if (document.querySelector("#sidebar .sidebar-content") !== null) {
+  //     setTimeout(() => document.querySelector("#sidebar .sidebar-content")
+  //         .before(document.querySelector(".control-panel.controls")),
+  //         533
+  //     )
+  // }
+
+  return /*#__PURE__*/jsx("div", {
+    className: "control-panel controls",
+    children: user !== null ? /*#__PURE__*/jsxs("div", {
+      children: [/*#__PURE__*/jsx("h5", {
+        children: user.hasOwnProperty("signInUserSession") && user.signInUserSession.hasOwnProperty("idToken") && user.signInUserSession.idToken.hasOwnProperty("payload") ? user.signInUserSession.idToken.payload.hasOwnProperty("name") && !!user.signInUserSession.idToken.payload.name ? user.signInUserSession.idToken.payload.name : user.signInUserSession.idToken.payload.hasOwnProperty("email") && !!user.signInUserSession.idToken.payload.email ? user.signInUserSession.idToken.payload.email : user.username : user.hasOwnProperty("email") && !!user.email ? user.email : user.username
+      }), /*#__PURE__*/jsx("p", {
+        id: "info",
+        children: "\xA0"
+      }), /*#__PURE__*/jsx("form", {
+        id: "print-config",
+        children: /*#__PURE__*/jsxs("fieldset", {
+          id: "config-fields",
+          children: [/*#__PURE__*/jsxs("div", {
+            className: "row",
+            children: [/*#__PURE__*/jsx("div", {
+              className: "col-sm-4",
+              children: /*#__PURE__*/jsxs("div", {
+                className: "form-group",
+                children: [/*#__PURE__*/jsx("label", {
+                  children: "Unit"
+                }), /*#__PURE__*/jsx("br", {}), /*#__PURE__*/jsxs("label", {
+                  className: "radio-inline",
+                  children: [/*#__PURE__*/jsx("input", {
+                    type: "radio",
+                    name: "unitOptions",
+                    value: "in",
+                    id: "inUnit",
+                    checked: true,
+                    readOnly: true
+                  }), " Inch"]
+                }), /*#__PURE__*/jsxs("label", {
+                  className: "radio-inline",
+                  children: [/*#__PURE__*/jsx("input", {
+                    type: "radio",
+                    name: "unitOptions",
+                    value: "mm",
+                    id: "mmUnit",
+                    readOnly: true
+                  }), " Millimeter"]
+                })]
+              })
+            }), /*#__PURE__*/jsx("div", {
+              className: "col-sm-3",
+              children: /*#__PURE__*/jsxs("div", {
+                className: "form-group",
+                children: [/*#__PURE__*/jsx("label", {
+                  children: "Output format"
+                }), /*#__PURE__*/jsx("br", {}), /*#__PURE__*/jsxs("label", {
+                  className: "radio-inline",
+                  children: [/*#__PURE__*/jsx("input", {
+                    type: "radio",
+                    name: "outputOptions",
+                    value: "png",
+                    checked: true,
+                    readOnly: true
+                  }), " PNG"]
+                }), /*#__PURE__*/jsxs("label", {
+                  className: "radio-inline",
+                  children: [/*#__PURE__*/jsx("input", {
+                    type: "radio",
+                    name: "outputOptions",
+                    value: "pdf",
+                    readOnly: true
+                  }), " PDF"]
+                })]
+              })
+            }), /*#__PURE__*/jsx("div", {
+              className: "col-sm-5",
+              children: /*#__PURE__*/jsxs("div", {
+                className: "form-group",
+                children: [/*#__PURE__*/jsx("label", {
+                  htmlFor: "styleSelect",
+                  children: "Map style"
+                }), /*#__PURE__*/jsxs("select", {
+                  id: "styleSelect",
+                  className: "form-control",
+                  children: [/*#__PURE__*/jsx("option", {
+                    value: "mapbox://styles/mapbox/light-v9",
+                    children: "Mapbox Light"
+                  }), /*#__PURE__*/jsx("option", {
+                    value: "mapbox://styles/mapbox/streets-v10",
+                    children: "Mapbox Streets"
+                  }), /*#__PURE__*/jsx("option", {
+                    value: "https://tiles.stadiamaps.com/styles/alidade_smooth.json",
+                    children: "Stadia Maps Alidade Smooth"
+                  }), /*#__PURE__*/jsx("option", {
+                    value: "https://tiles.stadiamaps.com/styles/alidade_smooth_dark.json",
+                    children: "Stadia Maps Alidade Smooth Dark"
+                  }), /*#__PURE__*/jsx("option", {
+                    value: "https://tiles.stadiamaps.com/styles/outdoors.json",
+                    children: "Stadia Maps Outdoors"
+                  }), /*#__PURE__*/jsx("option", {
+                    value: "https://tiles.stadiamaps.com/styles/osm_bright.json",
+                    children: "Stadia Maps OSM Bright"
+                  })]
+                })]
+              })
+            })]
+          }), /*#__PURE__*/jsxs("div", {
+            className: "row",
+            children: [/*#__PURE__*/jsx("div", {
+              className: "col-sm-2",
+              children: /*#__PURE__*/jsxs("div", {
+                className: "form-group",
+                id: "widthGroup",
+                children: [/*#__PURE__*/jsx("label", {
+                  htmlFor: "widthInput",
+                  children: "Width"
+                }), /*#__PURE__*/jsx("input", {
+                  type: "text",
+                  className: "form-control",
+                  id: "widthInput",
+                  autoComplete: "off",
+                  readOnly: true,
+                  value: "8"
+                })]
+              })
+            }), /*#__PURE__*/jsx("div", {
+              className: "col-sm-2",
+              children: /*#__PURE__*/jsxs("div", {
+                className: "form-group",
+                id: "heightGroup",
+                children: [/*#__PURE__*/jsx("label", {
+                  htmlFor: "heightInput",
+                  children: "Height"
+                }), /*#__PURE__*/jsx("input", {
+                  type: "text",
+                  className: "form-control",
+                  id: "heightInput",
+                  autoComplete: "off",
+                  readOnly: true,
+                  value: "6"
+                })]
+              })
+            }), /*#__PURE__*/jsx("div", {
+              className: "col-sm-3",
+              children: /*#__PURE__*/jsxs("div", {
+                className: "form-group",
+                id: "dpiGroup",
+                children: [/*#__PURE__*/jsx("label", {
+                  htmlFor: "dpiInput",
+                  children: "DPI"
+                }), /*#__PURE__*/jsx("input", {
+                  type: "text",
+                  className: "form-control",
+                  id: "dpiInput",
+                  autoComplete: "off",
+                  readOnly: true,
+                  value: "300"
+                })]
+              })
+            }), /*#__PURE__*/jsx("div", {
+              className: "col-sm-5",
+              children: /*#__PURE__*/jsxs("div", {
+                className: "row",
+                children: [/*#__PURE__*/jsx("div", {
+                  className: "col-sm-4",
+                  children: /*#__PURE__*/jsxs("div", {
+                    className: "form-group",
+                    id: "latGroup",
+                    children: [/*#__PURE__*/jsx("label", {
+                      htmlFor: "latInput",
+                      children: "Latitude"
+                    }), /*#__PURE__*/jsx("input", {
+                      type: "text",
+                      className: "form-control",
+                      id: "latInput",
+                      autoComplete: "off",
+                      readOnly: true,
+                      value: ""
+                    })]
+                  })
+                }), /*#__PURE__*/jsx("div", {
+                  className: "col-sm-4",
+                  children: /*#__PURE__*/jsxs("div", {
+                    className: "form-group",
+                    id: "lonGroup",
+                    children: [/*#__PURE__*/jsx("label", {
+                      htmlFor: "lonInput",
+                      children: "Longitude"
+                    }), /*#__PURE__*/jsx("input", {
+                      type: "text",
+                      className: "form-control",
+                      id: "lonInput",
+                      autoComplete: "off",
+                      readOnly: true,
+                      value: ""
+                    })]
+                  })
+                }), /*#__PURE__*/jsx("div", {
+                  className: "col-sm-4",
+                  children: /*#__PURE__*/jsxs("div", {
+                    className: "form-group",
+                    id: "zoomGroup",
+                    children: [/*#__PURE__*/jsx("label", {
+                      htmlFor: "zoomInput",
+                      children: "Zoom"
+                    }), /*#__PURE__*/jsx("input", {
+                      type: "text",
+                      className: "form-control",
+                      id: "zoomInput",
+                      autoComplete: "off",
+                      readOnly: true,
+                      value: ""
+                    })]
+                  })
+                })]
+              })
+            })]
+          })]
+        })
+      }), /*#__PURE__*/jsx("a", {
+        id: "data-download-link",
+        className: "row",
+        children: /*#__PURE__*/jsx("button", {
+          type: "submit",
+          className: "amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",
+          id: "data-download-btn",
+          children: "Download data"
+        })
+      }), /*#__PURE__*/jsxs("div", {
+        id: "print-exec",
+        className: "row",
+        children: [/*#__PURE__*/jsx("button", {
+          type: "submit",
+          className: "amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",
+          id: "config-btn",
+          children: "Show print options"
+        }), /*#__PURE__*/jsx("button", {
+          type: "submit",
+          className: "amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",
+          id: "generate-btn",
+          children: "Print report"
+        }), /*#__PURE__*/jsx("div", {
+          id: "spinner"
+        })]
+      }), /*#__PURE__*/jsx("div", {
+        id: "auth-control",
+        className: "row show",
+        children: signOut !== null ? /*#__PURE__*/jsx("button", {
+          id: "sign-out",
+          className: "amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",
+          onClick: () => {
+            autoSignIn();
+            signOut();
+          },
+          children: "Sign out"
+        }) : /*#__PURE__*/jsx("button", {
+          children: "No Auth Controls"
+        })
+      })]
+    }) : /*#__PURE__*/jsx("div", {})
+  });
+}
+var ControlPanel$1 = /*#__PURE__*/React.memo(ControlPanel);
+
+export { ControlPanel$1 as default };

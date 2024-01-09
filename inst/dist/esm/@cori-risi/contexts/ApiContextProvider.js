@@ -4,4 +4,180 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-import{useState as e,useEffect as o,createContext as t}from"react";import{AmplifyProvider as n}from"@aws-amplify/ui-react";import l from"../services/AmplifyService.js";import i from"../components/CustomAmplifyAuthenticator.js";import s from"query-string";import r from"../utils/autoSignIn.js";import{jsx as a}from"react/jsx-runtime";const c=t({authenticated_user:null});function u(t){const[u,m]=e(null),[h,g]=e(null),[d,p]=e({clientId:"",identityPoolId:"",userPoolId:"",domain:"",hostedAuthenticationUrl:"",logoutUrl:""}),[f,A]=e(!1);e(null);const[y,I]=e(null),_=s.parse(location.search).geoid,v=s.parse(location.search).location,[O,S]=e(location.pathname+""),[P,k]=e(_),[w,T]=e(v),[N,j]=e({authenticated_user:u,token:y});return window.AmplifyService=l,o((()=>{if(console.log("Init Amplify config:",h),null===h){const e=l.configure(t.aws_config,g),o={};for(const t in d)e.Auth.hasOwnProperty(t)&&(o[t]=e.Auth[t]);p(o)}else l.setHubListener(m).then((()=>{console.log("Passed setAuthenticatedUser to AmplifyService")})),l.isAuthenticated().then((e=>{console.log("Authenticated ",e),e?(console.log("Get Amplify claims..."),l.getClaims().then((e=>{const o=localStorage.getItem("redirect_after_auth");console.log(JSON.parse(o)),e?(m(null===u?{username:e.username,userType:"admin",groups:e.groups,email:e.email}:{...u,username:e.username,userType:"admin",groups:e.groups,email:e.email}),A(!0)):console.log("No claims found")})).catch((e=>{console.log(e),m(null)}))):m({username:"",userType:"",groups:[],email:""})})).catch((e=>{console.log("ERROR",e)}))}),[h]),o((()=>{if(!f){if(console.log("Init Amplify cognito: ",d),d.clientId)return console.log("If not authenticated, save initial path to localStorage."),console.log("GEOID: ",P),console.log("LOCATION: ",w),console.log("PATH: ",O),localStorage.setItem("redirect_after_auth",{init_path:O,geoid:P,location_label:w}),r(),void A(!0);if(null!==h){const e={};for(const o in d)h.Auth.hasOwnProperty(o)&&(e[o]=h.Auth[o]);p(e),A(!0)}}}),[d]),o((()=>{u&&null!==u&&null===y&&(console.log("Attempt to get access token"),j({authenticated_user:u,token:y}),l.getIdToken().then((e=>{console.log("token:",e),I(e)})).catch((e=>{console.log(e)})))}),[u]),o((()=>{j({authenticated_user:u,token:y})}),[y]),a(n,{children:a(c.Provider,{className:"controls",value:N,children:a(i,{authenticated_user:u,setAuthenticatedUser:m,children:f?t.children:a("span",{children:"LOADING"})})})})}export{c as ApiContext,u as default};
+import { useState, useEffect, createContext } from 'react';
+import { AmplifyProvider } from '@aws-amplify/ui-react';
+import AmplifyService from '../services/AmplifyService.js';
+import CustomAmplifyAuthenticator from '../components/CustomAmplifyAuthenticator.js';
+import queryString from 'query-string';
+import autoSignIn from '../utils/autoSignIn.js';
+import { jsx } from 'react/jsx-runtime';
+
+const ApiContext = /*#__PURE__*/createContext({
+  authenticated_user: null
+});
+
+/** @type {React.FunctionComponent} */
+function ApiContextProvider(_ref) {
+  let {
+    aws_config,
+    children
+  } = _ref;
+  const [authenticated_user, setAuthenticatedUser] = useState(null);
+  const [config, setConfig] = useState(null);
+  const [cognito, setCognito] = useState({
+    clientId: '',
+    identityPoolId: '',
+    userPoolId: '',
+    domain: '',
+    hostedAuthenticationUrl: '',
+    logoutUrl: ''
+  });
+  const [ready, setReady] = useState(false);
+  useState(null);
+  const [token, setToken] = useState(null);
+  const init_geoid = queryString.parse(location.search).geoid; //<- This is not constant because of search bar
+  const init_location_label = queryString.parse(location.search).location; //<- ...same
+  const [init_path, setInitPath] = useState(location.pathname + "");
+  const [geoid, setGeoid] = useState(init_geoid);
+  const [location_label, setLocationLabel] = useState(init_location_label);
+  const [state, setState] = useState({
+    authenticated_user,
+    token
+  });
+  window.AmplifyService = AmplifyService;
+  useEffect(() => {
+    console.log('Init Amplify config:', config);
+    if (config === null) {
+      const cfg = AmplifyService.configure(aws_config, setConfig);
+      const cognito_cfg = {};
+      for (const c in cognito) {
+        if (cfg.Auth.hasOwnProperty(c)) {
+          cognito_cfg[c] = cfg.Auth[c];
+        }
+      }
+      setCognito(cognito_cfg);
+    } else {
+      AmplifyService.setHubListener(setAuthenticatedUser).then(() => {
+        console.log("Passed setAuthenticatedUser to AmplifyService");
+      });
+      AmplifyService.isAuthenticated().then(authenticated => {
+        console.log('Authenticated ', authenticated);
+        if (authenticated) {
+          console.log("Get Amplify claims...");
+          AmplifyService.getClaims().then(claims => {
+            const saved = localStorage.getItem("redirect_after_auth");
+            console.log(JSON.parse(saved));
+            if (!claims) {
+              console.log('No claims found');
+              // AmplifyService.federatedLogin('Google');
+            } else {
+              if (authenticated_user === null) {
+                setAuthenticatedUser({
+                  username: claims.username,
+                  userType: 'admin',
+                  groups: claims.groups,
+                  email: claims.email
+                });
+              } else {
+                setAuthenticatedUser({
+                  ...authenticated_user,
+                  username: claims.username,
+                  userType: 'admin',
+                  groups: claims.groups,
+                  email: claims.email
+                });
+              }
+              setReady(true);
+            }
+          }).catch(err => {
+            console.log(err);
+            setAuthenticatedUser(null);
+          });
+        } else {
+          // AmplifyService.federatedLogin('Google');
+          setAuthenticatedUser({
+            username: "",
+            userType: "",
+            groups: [],
+            email: ""
+          });
+        }
+      }).catch(err => {
+        console.log('ERROR', err);
+      });
+    }
+  }, [config]);
+  useEffect(() => {
+    if (!ready) {
+      console.log('Init Amplify cognito: ', cognito);
+      if (!!cognito.clientId) {
+        console.log("If not authenticated, save initial path to localStorage.");
+        console.log("GEOID: ", geoid);
+        console.log("LOCATION: ", location_label);
+        console.log("PATH: ", init_path);
+        localStorage.setItem("redirect_after_auth", {
+          init_path,
+          geoid,
+          location_label
+        });
+
+        // Allow auto sign-in by clicking "Continue"
+        autoSignIn();
+        setReady(true);
+        return;
+      } else if (config !== null) {
+        const cognito_cfg = {};
+        for (const c in cognito) {
+          if (config.Auth.hasOwnProperty(c)) {
+            cognito_cfg[c] = config.Auth[c];
+          }
+        }
+        setCognito(cognito_cfg);
+        setReady(true);
+      }
+    }
+  }, [cognito]);
+  useEffect(() => {
+    if (!!authenticated_user && authenticated_user !== null && token === null) {
+      console.log("Attempt to get access token");
+      setState({
+        authenticated_user,
+        token
+      });
+      AmplifyService.getIdToken().then(t => {
+        console.log("token:", t);
+
+        // TODO: set token and connect ApolloGraphQLProvider to CORI Data API /graphql endpoint
+        setToken(t);
+        // setReady(true);
+      }).catch(error => {
+        console.log(error);
+      });
+    }
+  }, [authenticated_user]);
+  useEffect(() => {
+    setState({
+      authenticated_user,
+      token
+    });
+  }, [token]);
+  return /*#__PURE__*/jsx(AmplifyProvider, {
+    children: /*#__PURE__*/jsx(ApiContext.Provider, {
+      className: "controls",
+      value: state,
+      children: /*#__PURE__*/jsx(CustomAmplifyAuthenticator, {
+        authenticated_user: authenticated_user,
+        setAuthenticatedUser: setAuthenticatedUser,
+        children: !!ready ?
+        // <ApolloGraphQLProviderRedux aws_amplify_token={token} setReady={setReady}>{
+        children
+        // }</ApolloGraphQLProviderRedux>
+        : /*#__PURE__*/jsx("span", {
+          children: "LOADING"
+        })
+      })
+    })
+  });
+}
+
+export { ApiContext, ApiContextProvider as default };

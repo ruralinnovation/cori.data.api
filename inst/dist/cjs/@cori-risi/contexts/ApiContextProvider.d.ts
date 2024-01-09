@@ -1,5 +1,8 @@
 /** @type {React.FunctionComponent} */
-export default function ApiContextProvider(props: any): JSX.Element;
+export default function ApiContextProvider({ aws_config, children }: {
+    aws_config: any;
+    children: any;
+}): JSX.Element;
 export const ApiContext: import("react").Context<{
     authenticated_user: null;
 }>;

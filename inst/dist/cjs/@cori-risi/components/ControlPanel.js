@@ -4,4 +4,286 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var e=require("react"),s=require("../utils/autoSignIn.js"),l=require("react/jsx-runtime");function i(e){return e&&"object"==typeof e&&"default"in e?e:{default:e}}function t(i){const t=i.signOut,a=i.user;return e.useEffect((()=>{console.log("Current user: ",i.user)}),[i.user]),l.jsx("div",{className:"control-panel controls",children:null!==a?l.jsxs("div",{children:[l.jsx("h5",{children:a.hasOwnProperty("signInUserSession")&&a.signInUserSession.hasOwnProperty("idToken")&&a.signInUserSession.idToken.hasOwnProperty("payload")?a.signInUserSession.idToken.payload.hasOwnProperty("name")&&a.signInUserSession.idToken.payload.name?a.signInUserSession.idToken.payload.name:a.signInUserSession.idToken.payload.hasOwnProperty("email")&&a.signInUserSession.idToken.payload.email?a.signInUserSession.idToken.payload.email:a.username:a.hasOwnProperty("email")&&a.email?a.email:a.username}),l.jsx("p",{id:"info",children:" "}),l.jsx("form",{id:"print-config",children:l.jsxs("fieldset",{id:"config-fields",children:[l.jsxs("div",{className:"row",children:[l.jsx("div",{className:"col-sm-4",children:l.jsxs("div",{className:"form-group",children:[l.jsx("label",{children:"Unit"}),l.jsx("br",{}),l.jsxs("label",{className:"radio-inline",children:[l.jsx("input",{type:"radio",name:"unitOptions",value:"in",id:"inUnit",checked:!0,readOnly:!0})," Inch"]}),l.jsxs("label",{className:"radio-inline",children:[l.jsx("input",{type:"radio",name:"unitOptions",value:"mm",id:"mmUnit",readOnly:!0})," Millimeter"]})]})}),l.jsx("div",{className:"col-sm-3",children:l.jsxs("div",{className:"form-group",children:[l.jsx("label",{children:"Output format"}),l.jsx("br",{}),l.jsxs("label",{className:"radio-inline",children:[l.jsx("input",{type:"radio",name:"outputOptions",value:"png",checked:!0,readOnly:!0})," PNG"]}),l.jsxs("label",{className:"radio-inline",children:[l.jsx("input",{type:"radio",name:"outputOptions",value:"pdf",readOnly:!0})," PDF"]})]})}),l.jsx("div",{className:"col-sm-5",children:l.jsxs("div",{className:"form-group",children:[l.jsx("label",{htmlFor:"styleSelect",children:"Map style"}),l.jsxs("select",{id:"styleSelect",className:"form-control",readOnly:!0,children:[l.jsx("option",{value:"mapbox://styles/mapbox/light-v9",children:"Mapbox Light"}),l.jsx("option",{value:"mapbox://styles/mapbox/streets-v10",children:"Mapbox Streets"}),l.jsx("option",{value:"https://tiles.stadiamaps.com/styles/alidade_smooth.json",children:"Stadia Maps Alidade Smooth"}),l.jsx("option",{value:"https://tiles.stadiamaps.com/styles/alidade_smooth_dark.json",children:"Stadia Maps Alidade Smooth Dark"}),l.jsx("option",{value:"https://tiles.stadiamaps.com/styles/outdoors.json",children:"Stadia Maps Outdoors"}),l.jsx("option",{value:"https://tiles.stadiamaps.com/styles/osm_bright.json",children:"Stadia Maps OSM Bright"})]})]})})]}),l.jsxs("div",{className:"row",children:[l.jsx("div",{className:"col-sm-2",children:l.jsxs("div",{className:"form-group",id:"widthGroup",children:[l.jsx("label",{htmlFor:"widthInput",children:"Width"}),l.jsx("input",{type:"text",className:"form-control",id:"widthInput",autoComplete:"off",readOnly:!0,value:"8"})]})}),l.jsx("div",{className:"col-sm-2",children:l.jsxs("div",{className:"form-group",id:"heightGroup",children:[l.jsx("label",{htmlFor:"heightInput",children:"Height"}),l.jsx("input",{type:"text",className:"form-control",id:"heightInput",autoComplete:"off",readOnly:!0,value:"6"})]})}),l.jsx("div",{className:"col-sm-3",children:l.jsxs("div",{className:"form-group",id:"dpiGroup",children:[l.jsx("label",{htmlFor:"dpiInput",children:"DPI"}),l.jsx("input",{type:"text",className:"form-control",id:"dpiInput",autoComplete:"off",readOnly:!0,value:"300"})]})}),l.jsx("div",{className:"col-sm-5",children:l.jsxs("div",{className:"row",children:[l.jsx("div",{className:"col-sm-4",children:l.jsxs("div",{className:"form-group",id:"latGroup",children:[l.jsx("label",{htmlFor:"latInput",children:"Latitude"}),l.jsx("input",{type:"text",className:"form-control",id:"latInput",autoComplete:"off",readOnly:!0,value:""})]})}),l.jsx("div",{className:"col-sm-4",children:l.jsxs("div",{className:"form-group",id:"lonGroup",children:[l.jsx("label",{htmlFor:"lonInput",children:"Longitude"}),l.jsx("input",{type:"text",className:"form-control",id:"lonInput",autoComplete:"off",readOnly:!0,value:""})]})}),l.jsx("div",{className:"col-sm-4",children:l.jsxs("div",{className:"form-group",id:"zoomGroup",children:[l.jsx("label",{htmlFor:"zoomInput",children:"Zoom"}),l.jsx("input",{type:"text",className:"form-control",id:"zoomInput",autoComplete:"off",readOnly:!0,value:""})]})})]})})]})]})}),l.jsx("a",{id:"data-download-link",className:"row",children:l.jsx("button",{type:"submit",className:"amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",id:"data-download-btn",children:"Download data"})}),l.jsxs("div",{id:"print-exec",className:"row",children:[l.jsx("button",{type:"submit",className:"amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",id:"config-btn",children:"Show print options"}),l.jsx("button",{type:"submit",className:"amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",id:"generate-btn",children:"Print report"}),l.jsx("div",{id:"spinner"})]}),l.jsx("div",{id:"auth-control",className:"row show",children:null!==t?l.jsx("button",{id:"sign-out",className:"amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",onClick:()=>{s.default(),t()},children:"Sign out"}):l.jsx("button",{children:"No Auth Controls"})})]}):l.jsx("div",{})})}var a=i(e).default.memo(t);exports.default=a;
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var React = require('react');
+var autoSignIn = require('../utils/autoSignIn.js');
+var jsxRuntime = require('react/jsx-runtime');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+
+function ControlPanel(props) {
+  const signOut = props.signOut;
+  const user = props.user;
+  React.useEffect(() => {
+    console.log("Current user: ", props.user);
+  }, [props.user]);
+
+  // if (document.querySelector("#sidebar .sidebar-content") !== null) {
+  //     setTimeout(() => document.querySelector("#sidebar .sidebar-content")
+  //         .before(document.querySelector(".control-panel.controls")),
+  //         533
+  //     )
+  // }
+
+  return /*#__PURE__*/jsxRuntime.jsx("div", {
+    className: "control-panel controls",
+    children: user !== null ? /*#__PURE__*/jsxRuntime.jsxs("div", {
+      children: [/*#__PURE__*/jsxRuntime.jsx("h5", {
+        children: user.hasOwnProperty("signInUserSession") && user.signInUserSession.hasOwnProperty("idToken") && user.signInUserSession.idToken.hasOwnProperty("payload") ? user.signInUserSession.idToken.payload.hasOwnProperty("name") && !!user.signInUserSession.idToken.payload.name ? user.signInUserSession.idToken.payload.name : user.signInUserSession.idToken.payload.hasOwnProperty("email") && !!user.signInUserSession.idToken.payload.email ? user.signInUserSession.idToken.payload.email : user.username : user.hasOwnProperty("email") && !!user.email ? user.email : user.username
+      }), /*#__PURE__*/jsxRuntime.jsx("p", {
+        id: "info",
+        children: "\xA0"
+      }), /*#__PURE__*/jsxRuntime.jsx("form", {
+        id: "print-config",
+        children: /*#__PURE__*/jsxRuntime.jsxs("fieldset", {
+          id: "config-fields",
+          children: [/*#__PURE__*/jsxRuntime.jsxs("div", {
+            className: "row",
+            children: [/*#__PURE__*/jsxRuntime.jsx("div", {
+              className: "col-sm-4",
+              children: /*#__PURE__*/jsxRuntime.jsxs("div", {
+                className: "form-group",
+                children: [/*#__PURE__*/jsxRuntime.jsx("label", {
+                  children: "Unit"
+                }), /*#__PURE__*/jsxRuntime.jsx("br", {}), /*#__PURE__*/jsxRuntime.jsxs("label", {
+                  className: "radio-inline",
+                  children: [/*#__PURE__*/jsxRuntime.jsx("input", {
+                    type: "radio",
+                    name: "unitOptions",
+                    value: "in",
+                    id: "inUnit",
+                    checked: true,
+                    readOnly: true
+                  }), " Inch"]
+                }), /*#__PURE__*/jsxRuntime.jsxs("label", {
+                  className: "radio-inline",
+                  children: [/*#__PURE__*/jsxRuntime.jsx("input", {
+                    type: "radio",
+                    name: "unitOptions",
+                    value: "mm",
+                    id: "mmUnit",
+                    readOnly: true
+                  }), " Millimeter"]
+                })]
+              })
+            }), /*#__PURE__*/jsxRuntime.jsx("div", {
+              className: "col-sm-3",
+              children: /*#__PURE__*/jsxRuntime.jsxs("div", {
+                className: "form-group",
+                children: [/*#__PURE__*/jsxRuntime.jsx("label", {
+                  children: "Output format"
+                }), /*#__PURE__*/jsxRuntime.jsx("br", {}), /*#__PURE__*/jsxRuntime.jsxs("label", {
+                  className: "radio-inline",
+                  children: [/*#__PURE__*/jsxRuntime.jsx("input", {
+                    type: "radio",
+                    name: "outputOptions",
+                    value: "png",
+                    checked: true,
+                    readOnly: true
+                  }), " PNG"]
+                }), /*#__PURE__*/jsxRuntime.jsxs("label", {
+                  className: "radio-inline",
+                  children: [/*#__PURE__*/jsxRuntime.jsx("input", {
+                    type: "radio",
+                    name: "outputOptions",
+                    value: "pdf",
+                    readOnly: true
+                  }), " PDF"]
+                })]
+              })
+            }), /*#__PURE__*/jsxRuntime.jsx("div", {
+              className: "col-sm-5",
+              children: /*#__PURE__*/jsxRuntime.jsxs("div", {
+                className: "form-group",
+                children: [/*#__PURE__*/jsxRuntime.jsx("label", {
+                  htmlFor: "styleSelect",
+                  children: "Map style"
+                }), /*#__PURE__*/jsxRuntime.jsxs("select", {
+                  id: "styleSelect",
+                  className: "form-control",
+                  children: [/*#__PURE__*/jsxRuntime.jsx("option", {
+                    value: "mapbox://styles/mapbox/light-v9",
+                    children: "Mapbox Light"
+                  }), /*#__PURE__*/jsxRuntime.jsx("option", {
+                    value: "mapbox://styles/mapbox/streets-v10",
+                    children: "Mapbox Streets"
+                  }), /*#__PURE__*/jsxRuntime.jsx("option", {
+                    value: "https://tiles.stadiamaps.com/styles/alidade_smooth.json",
+                    children: "Stadia Maps Alidade Smooth"
+                  }), /*#__PURE__*/jsxRuntime.jsx("option", {
+                    value: "https://tiles.stadiamaps.com/styles/alidade_smooth_dark.json",
+                    children: "Stadia Maps Alidade Smooth Dark"
+                  }), /*#__PURE__*/jsxRuntime.jsx("option", {
+                    value: "https://tiles.stadiamaps.com/styles/outdoors.json",
+                    children: "Stadia Maps Outdoors"
+                  }), /*#__PURE__*/jsxRuntime.jsx("option", {
+                    value: "https://tiles.stadiamaps.com/styles/osm_bright.json",
+                    children: "Stadia Maps OSM Bright"
+                  })]
+                })]
+              })
+            })]
+          }), /*#__PURE__*/jsxRuntime.jsxs("div", {
+            className: "row",
+            children: [/*#__PURE__*/jsxRuntime.jsx("div", {
+              className: "col-sm-2",
+              children: /*#__PURE__*/jsxRuntime.jsxs("div", {
+                className: "form-group",
+                id: "widthGroup",
+                children: [/*#__PURE__*/jsxRuntime.jsx("label", {
+                  htmlFor: "widthInput",
+                  children: "Width"
+                }), /*#__PURE__*/jsxRuntime.jsx("input", {
+                  type: "text",
+                  className: "form-control",
+                  id: "widthInput",
+                  autoComplete: "off",
+                  readOnly: true,
+                  value: "8"
+                })]
+              })
+            }), /*#__PURE__*/jsxRuntime.jsx("div", {
+              className: "col-sm-2",
+              children: /*#__PURE__*/jsxRuntime.jsxs("div", {
+                className: "form-group",
+                id: "heightGroup",
+                children: [/*#__PURE__*/jsxRuntime.jsx("label", {
+                  htmlFor: "heightInput",
+                  children: "Height"
+                }), /*#__PURE__*/jsxRuntime.jsx("input", {
+                  type: "text",
+                  className: "form-control",
+                  id: "heightInput",
+                  autoComplete: "off",
+                  readOnly: true,
+                  value: "6"
+                })]
+              })
+            }), /*#__PURE__*/jsxRuntime.jsx("div", {
+              className: "col-sm-3",
+              children: /*#__PURE__*/jsxRuntime.jsxs("div", {
+                className: "form-group",
+                id: "dpiGroup",
+                children: [/*#__PURE__*/jsxRuntime.jsx("label", {
+                  htmlFor: "dpiInput",
+                  children: "DPI"
+                }), /*#__PURE__*/jsxRuntime.jsx("input", {
+                  type: "text",
+                  className: "form-control",
+                  id: "dpiInput",
+                  autoComplete: "off",
+                  readOnly: true,
+                  value: "300"
+                })]
+              })
+            }), /*#__PURE__*/jsxRuntime.jsx("div", {
+              className: "col-sm-5",
+              children: /*#__PURE__*/jsxRuntime.jsxs("div", {
+                className: "row",
+                children: [/*#__PURE__*/jsxRuntime.jsx("div", {
+                  className: "col-sm-4",
+                  children: /*#__PURE__*/jsxRuntime.jsxs("div", {
+                    className: "form-group",
+                    id: "latGroup",
+                    children: [/*#__PURE__*/jsxRuntime.jsx("label", {
+                      htmlFor: "latInput",
+                      children: "Latitude"
+                    }), /*#__PURE__*/jsxRuntime.jsx("input", {
+                      type: "text",
+                      className: "form-control",
+                      id: "latInput",
+                      autoComplete: "off",
+                      readOnly: true,
+                      value: ""
+                    })]
+                  })
+                }), /*#__PURE__*/jsxRuntime.jsx("div", {
+                  className: "col-sm-4",
+                  children: /*#__PURE__*/jsxRuntime.jsxs("div", {
+                    className: "form-group",
+                    id: "lonGroup",
+                    children: [/*#__PURE__*/jsxRuntime.jsx("label", {
+                      htmlFor: "lonInput",
+                      children: "Longitude"
+                    }), /*#__PURE__*/jsxRuntime.jsx("input", {
+                      type: "text",
+                      className: "form-control",
+                      id: "lonInput",
+                      autoComplete: "off",
+                      readOnly: true,
+                      value: ""
+                    })]
+                  })
+                }), /*#__PURE__*/jsxRuntime.jsx("div", {
+                  className: "col-sm-4",
+                  children: /*#__PURE__*/jsxRuntime.jsxs("div", {
+                    className: "form-group",
+                    id: "zoomGroup",
+                    children: [/*#__PURE__*/jsxRuntime.jsx("label", {
+                      htmlFor: "zoomInput",
+                      children: "Zoom"
+                    }), /*#__PURE__*/jsxRuntime.jsx("input", {
+                      type: "text",
+                      className: "form-control",
+                      id: "zoomInput",
+                      autoComplete: "off",
+                      readOnly: true,
+                      value: ""
+                    })]
+                  })
+                })]
+              })
+            })]
+          })]
+        })
+      }), /*#__PURE__*/jsxRuntime.jsx("a", {
+        id: "data-download-link",
+        className: "row",
+        children: /*#__PURE__*/jsxRuntime.jsx("button", {
+          type: "submit",
+          className: "amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",
+          id: "data-download-btn",
+          children: "Download data"
+        })
+      }), /*#__PURE__*/jsxRuntime.jsxs("div", {
+        id: "print-exec",
+        className: "row",
+        children: [/*#__PURE__*/jsxRuntime.jsx("button", {
+          type: "submit",
+          className: "amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",
+          id: "config-btn",
+          children: "Show print options"
+        }), /*#__PURE__*/jsxRuntime.jsx("button", {
+          type: "submit",
+          className: "amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",
+          id: "generate-btn",
+          children: "Print report"
+        }), /*#__PURE__*/jsxRuntime.jsx("div", {
+          id: "spinner"
+        })]
+      }), /*#__PURE__*/jsxRuntime.jsx("div", {
+        id: "auth-control",
+        className: "row show",
+        children: signOut !== null ? /*#__PURE__*/jsxRuntime.jsx("button", {
+          id: "sign-out",
+          className: "amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",
+          onClick: () => {
+            autoSignIn["default"]();
+            signOut();
+          },
+          children: "Sign out"
+        }) : /*#__PURE__*/jsxRuntime.jsx("button", {
+          children: "No Auth Controls"
+        })
+      })]
+    }) : /*#__PURE__*/jsxRuntime.jsx("div", {})
+  });
+}
+var ControlPanel$1 = /*#__PURE__*/React__default["default"].memo(ControlPanel);
+
+exports["default"] = ControlPanel$1;

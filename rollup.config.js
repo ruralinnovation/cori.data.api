@@ -80,7 +80,7 @@ export default [
 
       css({ output: "styles.css"}),
 
-      terser(),
+      // terser(),
 
       image(),
     ]

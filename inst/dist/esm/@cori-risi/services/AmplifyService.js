@@ -4,4 +4,157 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-import{Logger as t,Amplify as e,Auth as r,Hub as n}from"aws-amplify";const i=new t("AmplifyService");class a{constructor(){}static configure(t,r){return"function"==typeof r?r(e.configure(t)):e.configure(t),t}static federatedLogin(t){return console.log(`Attempt federated login ${t?"with provider: "+t:""} ...`),i.info(`Attempt federated login ${t?"with provider: "+t:""} ...`),t?r.federatedSignIn({provider:t}):r.federatedSignIn()}static async getAccessJwtToken(){try{const t=await r.currentSession();return t.getAccessToken().getJwtToken()}catch(t){throw i.error("Cannot get JWT Token because Amplify is not currently authenticated: ",t),t}}static async getIdToken(){try{const t=await r.currentSession();return t.getIdToken().getJwtToken()}catch(t){throw i.error("Unable to get ID token",t),t}}static async getClaims(){try{const t=await r.currentSession(),e=t.getIdToken().decodePayload();return{username:e["cognito:username"],email:e.email,groups:e["cognito:groups"]?e["cognito:groups"]:[]}}catch(t){throw i.error("Cannot get claims because Amplify is not currently authenticated: ",t),t}}static async getCredentials(){try{const t=await r.currentUserCredentials();return r.essentialCredentials(t)}catch(t){throw i.error("Error retrieving credentials: ",t),t}}static async getUserId(t){let e=null;try{const n=await r.currentAuthenticatedUser();"function"==typeof t&&t(n),e=n.hasOwnProperty("identities")&&n.identities.length>0?n.identities[0].userId:n.email}catch(t){i.error("Amplify is not currently authenticated: ",t)}return e}static async isAuthenticated(t){try{const e=await r.currentAuthenticatedUser();return"function"==typeof t&&t(e),!0}catch(t){return i.error("Amplify is not currently authenticated: ",t),!1}}static async setHubListener(t){i.info("Set Hub listener called with current updateAuthUser:",JSON.stringify(t));try{n.listen("auth",(e=>{let{payload:{event:r,data:n}}=e;if(i.info("Call Hub listener called with event:",r),"signIn"===r)this.getClaims().then((e=>{e?t({username:e.username,userType:"user",groups:e.groups,email:e.email}):this.isAuthenticated()?i.info("No authenticated claims found"):i.info("Amplify is not currently authenticated")})).catch((t=>{i.error("Cannot get claims because Amplify is not currently authenticated: ",t)}));else i.info("Sign out")}))}catch(t){i.error("Cannot get claims: ",t)}}}export{a as default};
+import { Amplify, Auth } from 'aws-amplify';
+
+// import { Hub } from 'aws-amplify';
+// import { Logger } from 'aws-amplify';
+
+// const logger = new Logger('AmplifyService');
+
+class AmplifyService {
+  constructor() {}
+  static configure(aws_config, setConfig) {
+    if (typeof setConfig === 'function') {
+      setConfig(Amplify.configure(aws_config));
+    } else {
+      Amplify.configure(aws_config);
+    }
+    return aws_config;
+  }
+
+  /**
+   * Initiates federated sign-in. When custom provider is passed in, will redirect to IDP without showing hosted ui.
+   * @param customProvider Cognito Identity Provider Id
+   */
+  static federatedLogin(customProvider) {
+    console.log(`Attempt federated login ${!!customProvider ? "with provider: " + customProvider : ""} ...`);
+    // logger.info(`Attempt federated login ${(!!customProvider) ? "with provider: " + customProvider : ""} ...`);
+    if (!!customProvider) {
+      return Auth.federatedSignIn({
+        provider: customProvider
+      });
+    } else {
+      return Auth.federatedSignIn();
+    }
+  }
+  static async getAccessJwtToken() {
+    try {
+      const session = await Auth.currentSession();
+      const accessToken = session.getAccessToken();
+      return accessToken.getJwtToken();
+    } catch (error) {
+      // logger.error("Cannot get JWT Token because Amplify is not currently authenticated: ", error);
+      throw error;
+    }
+  }
+  static async getIdToken() {
+    try {
+      const session = await Auth.currentSession();
+      const idToken = session.getIdToken();
+      return idToken.getJwtToken();
+    } catch (error) {
+      // logger.error('Unable to get ID token', error);
+      throw error;
+    }
+  }
+  static async getClaims() {
+    try {
+      const session = await Auth.currentSession();
+      const idToken = session.getIdToken();
+      const payload = idToken.decodePayload();
+      return {
+        username: payload['cognito:username'],
+        email: payload.email,
+        groups: payload['cognito:groups'] ? payload['cognito:groups'] : []
+      };
+    } catch (error) {
+      // logger.error("Cannot get claims because Amplify is not currently authenticated: ", error);
+      throw error;
+    }
+  }
+  static async getCredentials() {
+    try {
+      const credentials = await Auth.currentUserCredentials();
+      return Auth.essentialCredentials(credentials);
+    } catch (error) {
+      // logger.error("Error retrieving credentials: ", error);
+      throw error;
+    }
+  }
+  static async getUserId(setUser) {
+    let email = null;
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      if (typeof setUser === 'function') {
+        setUser(user);
+      }
+      if (user.hasOwnProperty("identities") && user.identities.length > 0) {
+        // Federated Auth
+        email = user.identities[0].userId;
+      } else {
+        // User Pool Auth
+        email = user.email;
+      }
+    } catch (error) {
+      // logger.error("Amplify is not currently authenticated: ", error);
+    }
+    return email;
+  }
+  static async isAuthenticated(setUser) {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      if (typeof setUser === 'function') {
+        setUser(user);
+      }
+      return true;
+    } catch (error) {
+      // logger.error("Amplify is not currently authenticated: ", error);
+      return false;
+    }
+  }
+
+  // static async setHubListener (updateAuthUser) {
+  //     logger.info("Set Hub listener called with current updateAuthUser:", JSON.stringify(updateAuthUser));
+  //
+  //     try {
+  //         Hub.listen('auth', ({ payload: { event, data } }) => {
+  //
+  //             logger.info("Call Hub listener called with event:", event);
+  //
+  //             switch (event) {
+  //                 case 'signIn':
+  //                     this.getClaims()
+  //                         .then(claims => {
+  //                             if (!claims) {
+  //                                 if (!!this.isAuthenticated()) {
+  //                                     logger.info("No authenticated claims found")
+  //                                 } else {
+  //                                     logger.info("Amplify is not currently authenticated");
+  //                                     // AmplifyService.federatedLogin('Google');
+  //                                 }
+  //                             } else {
+  //                                 updateAuthUser({
+  //                                     username: claims.username,
+  //                                     userType: 'user',
+  //                                     groups: claims.groups,
+  //                                     email: claims.email,
+  //                                 });
+  //                             }
+  //                         })
+  //                         .catch(error => {
+  //                             logger.error("Cannot get claims because Amplify is not currently authenticated: ", error);
+  //                             //window.location.replace(`${window.location.origin}/error-pages/error-500`);
+  //                         });
+  //                     break;
+  //                 default: // case 'signOut':
+  //                     logger.info('Sign out');
+  //                     break;
+  //             }
+  //         });
+  //     } catch (error) {
+  //         logger.error("Cannot get claims: ", error);
+  //     }
+  // }
+}
+
+export { AmplifyService as default };

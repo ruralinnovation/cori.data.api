@@ -15,6 +15,5 @@ export default class AmplifyService {
     static getCredentials(): Promise<any>;
     static getUserId(setUser: any): Promise<any>;
     static isAuthenticated(setUser: any): Promise<boolean>;
-    static setHubListener(updateAuthUser: any): Promise<void>;
 }
 //# sourceMappingURL=AmplifyService.d.ts.map
