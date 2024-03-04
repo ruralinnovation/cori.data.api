@@ -4,15 +4,15 @@ export default class AmplifyService {
      * Initiates federated sign-in. When custom provider is passed in, will redirect to IDP without showing hosted ui.
      * @param customProvider Cognito Identity Provider Id
      */
-    static federatedLogin(customProvider: any): any;
-    static getAccessJwtToken(): Promise<any>;
-    static getIdToken(): Promise<any>;
+    static federatedLogin(customProvider: any): Promise<import("@aws-amplify/core").ICredentials>;
+    static getAccessJwtToken(): Promise<string>;
+    static getIdToken(): Promise<string>;
     static getClaims(): Promise<{
         username: any;
         email: any;
         groups: any;
     }>;
-    static getCredentials(): Promise<any>;
+    static getCredentials(): Promise<import("@aws-amplify/core").ICredentials>;
     static getUserId(setUser: any): Promise<any>;
     static isAuthenticated(setUser: any): Promise<boolean>;
 }

@@ -1,12 +1,16 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
+  env: {
+    es2020: true,
+    jest: true
+  },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
+    'plugin:prettier/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript'
   ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly'
@@ -23,7 +27,7 @@ module.exports = {
       "presets": ["@babel/react"]
     }
   },
-  plugins: ['@typescript-eslint', 'prettier', 'react-refresh'],
+  plugins: ['@typescript-eslint', 'prettier'],
   rules: {
     // base eslint rules
     'curly': 'error',
@@ -69,12 +73,6 @@ module.exports = {
     ],
     '@typescript-eslint/no-empty-function': 'error',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    'import/first': 'error',
-    'react-refresh/only-export-components': [
-      'warn',
-      {
-        allowConstantExport: true,
-      },
-    ],
+    'import/first': 'error'
   }
 };
