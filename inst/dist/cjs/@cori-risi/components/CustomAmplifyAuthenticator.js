@@ -1,5 +1,5 @@
 /*
- * CORI Data API Package
+ * CORI Data API components package
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
@@ -287,12 +287,12 @@ function CustomAmplifyAuthenticator(props) {
           user
         } = _ref;
         return user && syncUser(user) ? /*#__PURE__*/jsxRuntime.jsxs("main", {
-          children: [props.children, /*#__PURE__*/jsxRuntime.jsx(ControlPanel["default"], {
+          children: [props.children, /*#__PURE__*/jsxRuntime.jsx(ControlPanel.default, {
             signOut: signOut,
             user: props.authenticated_user
           })]
         }) : /*#__PURE__*/jsxRuntime.jsxs("main", {
-          children: ["Authentication Error: No user", /*#__PURE__*/jsxRuntime.jsx(ControlPanel["default"], {
+          children: ["Authentication Error: No user", /*#__PURE__*/jsxRuntime.jsx(ControlPanel.default, {
             signOut: signOut,
             user: props.authenticated_user
           })]
@@ -302,4 +302,4 @@ function CustomAmplifyAuthenticator(props) {
   );
 }
 
-exports["default"] = CustomAmplifyAuthenticator;
+exports.default = CustomAmplifyAuthenticator;

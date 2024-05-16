@@ -1,5 +1,5 @@
 /*
- * CORI Data API Package
+ * CORI Data API components package
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
@@ -11,10 +11,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var React = require('react');
 var autoSignIn = require('../utils/autoSignIn.js');
 var jsxRuntime = require('react/jsx-runtime');
-
-function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
 function ControlPanel(props) {
   const signOut = props.signOut;
@@ -273,7 +269,7 @@ function ControlPanel(props) {
           id: "sign-out",
           className: "amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn btn-primary btn-lg",
           onClick: () => {
-            autoSignIn["default"]();
+            autoSignIn.default();
             signOut();
           },
           children: "Sign out"
@@ -284,6 +280,6 @@ function ControlPanel(props) {
     }) : /*#__PURE__*/jsxRuntime.jsx("div", {})
   });
 }
-var ControlPanel$1 = /*#__PURE__*/React__default["default"].memo(ControlPanel);
+var ControlPanel$1 = /*#__PURE__*/React.memo(ControlPanel);
 
-exports["default"] = ControlPanel$1;
+exports.default = ControlPanel$1;

@@ -1,5 +1,5 @@
 /*
- * CORI Data API Package
+ * CORI Data API components package
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC

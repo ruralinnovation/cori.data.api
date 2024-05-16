@@ -1,5 +1,5 @@
 /*
- * CORI Data API Package
+ * CORI Data API components package
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
@@ -15,10 +15,6 @@ var CustomAmplifyAuthenticator = require('../components/CustomAmplifyAuthenticat
 var queryString = require('query-string');
 var autoSignIn = require('../utils/autoSignIn.js');
 var jsxRuntime = require('react/jsx-runtime');
-
-function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-var queryString__default = /*#__PURE__*/_interopDefaultLegacy(queryString);
 
 const ApiContext = /*#__PURE__*/React.createContext({
   authenticated_user: null
@@ -43,8 +39,8 @@ function ApiContextProvider(_ref) {
   const [ready, setReady] = React.useState(false);
   React.useState(null);
   const [token, setToken] = React.useState(null);
-  const init_geoid = queryString__default["default"].parse(location.search).geoid; //<- This is not constant because of search bar
-  const init_location_label = queryString__default["default"].parse(location.search).location; //<- ...same
+  const init_geoid = queryString.parse(location.search).geoid; //<- This is not constant because of search bar
+  const init_location_label = queryString.parse(location.search).location; //<- ...same
   const [init_path, setInitPath] = React.useState(location.pathname + "");
   const [geoid, setGeoid] = React.useState(init_geoid);
   const [location_label, setLocationLabel] = React.useState(init_location_label);
@@ -52,11 +48,11 @@ function ApiContextProvider(_ref) {
     authenticated_user,
     token
   });
-  window.AmplifyService = AmplifyService["default"];
+  window.AmplifyService = AmplifyService.default;
   React.useEffect(() => {
     console.log('Init Amplify config:', config);
     if (config === null) {
-      const cfg = AmplifyService["default"].configure(aws_config, setConfig);
+      const cfg = AmplifyService.default.configure(aws_config, setConfig);
       const cognito_cfg = {};
       for (const c in cognito) {
         if (cfg.Auth.hasOwnProperty(c)) {
@@ -65,14 +61,14 @@ function ApiContextProvider(_ref) {
       }
       setCognito(cognito_cfg);
     } else {
-      AmplifyService["default"].setHubListener(setAuthenticatedUser).then(() => {
+      AmplifyService.default.setHubListener(setAuthenticatedUser).then(() => {
         console.log("Passed setAuthenticatedUser to AmplifyService");
       });
-      AmplifyService["default"].isAuthenticated().then(authenticated => {
+      AmplifyService.default.isAuthenticated().then(authenticated => {
         console.log('Authenticated ', authenticated);
         if (authenticated) {
           console.log("Get Amplify claims...");
-          AmplifyService["default"].getClaims().then(claims => {
+          AmplifyService.default.getClaims().then(claims => {
             const saved = localStorage.getItem("redirect_after_auth");
             console.log(JSON.parse(saved));
             if (!claims) {
@@ -130,7 +126,7 @@ function ApiContextProvider(_ref) {
         });
 
         // Allow auto sign-in by clicking "Continue"
-        autoSignIn["default"]();
+        autoSignIn.default();
         setReady(true);
         return;
       } else if (config !== null) {
@@ -152,7 +148,7 @@ function ApiContextProvider(_ref) {
         authenticated_user,
         token
       });
-      AmplifyService["default"].getIdToken().then(t => {
+      AmplifyService.default.getIdToken().then(t => {
         console.log("token:", t);
 
         // TODO: set token and connect ApolloGraphQLProvider to CORI Data API /graphql endpoint
@@ -173,7 +169,7 @@ function ApiContextProvider(_ref) {
     children: /*#__PURE__*/jsxRuntime.jsx(ApiContext.Provider, {
       className: "controls",
       value: state,
-      children: /*#__PURE__*/jsxRuntime.jsx(CustomAmplifyAuthenticator["default"], {
+      children: /*#__PURE__*/jsxRuntime.jsx(CustomAmplifyAuthenticator.default, {
         authenticated_user: authenticated_user,
         setAuthenticatedUser: setAuthenticatedUser,
         children: !!ready ?
@@ -189,4 +185,4 @@ function ApiContextProvider(_ref) {
 }
 
 exports.ApiContext = ApiContext;
-exports["default"] = ApiContextProvider;
+exports.default = ApiContextProvider;
