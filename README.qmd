@@ -1,0 +1,14 @@
+---
+title: "Frontend React UI library for CORI Data API"
+execute:
+    echo: true
+    output: true
+    message: false
+    warning: false
+format:
+    html:
+        code-fold: true
+---
+
+This is a set of React UI components, contexts, and services for any web application that is intended to interact with the CORI Data API backend.
+
