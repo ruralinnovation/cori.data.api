@@ -1,13 +1,16 @@
-import { fileURLToPath } from 'node:url';
-import alias from '@rollup/plugin-alias';
+import alias from "@rollup/plugin-alias";
 import babel from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
-import css from "rollup-plugin-import-css";
+import image from "@rollup/plugin-image";
+import json from "@rollup/plugin-json";
 import nodeResolve from "@rollup/plugin-node-resolve";
-import image from '@rollup/plugin-image';
-import terser from '@rollup/plugin-terser';
+import css from "rollup-plugin-import-css";
+import { fileURLToPath } from 'node:url';
+import { readFileSync } from "fs";
 
-const pkg = require('./package.json');
+// const pkg = require('./package.json');
+const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8'));
+console.log(`running version ${pkg.version}`);
 
 // Most of the config below is explained/borrowed from:
 // https://www.misha.wtf/blog/rollup-library-starter
@@ -18,7 +21,7 @@ const outputOptions = {
   exports: 'named',
   preserveModules: true,
   banner: `/*
- * CORI Data API Package
+ * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
@@ -54,11 +57,11 @@ export default [
       }
     ],
     plugins: [
-      alias({
-        entries: {
-          src: fileURLToPath(new URL('src', import.meta.url)),
-        },
-      }),
+      // alias({
+      //   entries: {
+      //     src: fileURLToPath(new URL('src', import.meta.url)),
+      //   },
+      // }),
 
       nodeResolve({
         extensions: ['.js', '.jsx']
@@ -80,9 +83,9 @@ export default [
 
       css({ output: "styles.css"}),
 
-      terser(),
-
       image(),
+
+      json(),
     ]
   }
 ]

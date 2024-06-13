@@ -1,6 +1,9 @@
-import { Amplify, Auth, Hub, Logger } from "aws-amplify";
+import { Amplify } from "aws-amplify";
+import { Auth } from 'aws-amplify';
+// import { Hub } from 'aws-amplify';
+// import { Logger } from 'aws-amplify';
 
-const logger = new Logger('AmplifyService');
+// const logger = new Logger('AmplifyService');
 
 export default class AmplifyService {
 
@@ -21,7 +24,7 @@ export default class AmplifyService {
      */
     static federatedLogin (customProvider) {
         console.log(`Attempt federated login ${(!!customProvider) ? "with provider: " + customProvider : ""} ...`);
-        logger.info(`Attempt federated login ${(!!customProvider) ? "with provider: " + customProvider : ""} ...`);
+        // logger.info(`Attempt federated login ${(!!customProvider) ? "with provider: " + customProvider : ""} ...`);
         if (!!customProvider) {
             return Auth.federatedSignIn({
                 provider: customProvider
@@ -38,7 +41,7 @@ export default class AmplifyService {
             return accessToken.getJwtToken();
 
         } catch (error) {
-            logger.error("Cannot get JWT Token because Amplify is not currently authenticated: ", error);
+            // logger.error("Cannot get JWT Token because Amplify is not currently authenticated: ", error);
             throw error;
         }
     }
@@ -50,7 +53,7 @@ export default class AmplifyService {
             return idToken.getJwtToken();
 
         } catch (error) {
-            logger.error('Unable to get ID token', error);
+            // logger.error('Unable to get ID token', error);
             throw error;
         }
     }
@@ -68,7 +71,7 @@ export default class AmplifyService {
             };
 
         } catch (error) {
-            logger.error("Cannot get claims because Amplify is not currently authenticated: ", error);
+            // logger.error("Cannot get claims because Amplify is not currently authenticated: ", error);
             throw error;
         }
     }
@@ -78,7 +81,7 @@ export default class AmplifyService {
             const credentials = await Auth.currentUserCredentials();
             return Auth.essentialCredentials(credentials);
         } catch (error) {
-            logger.error("Error retrieving credentials: ", error);
+            // logger.error("Error retrieving credentials: ", error);
             throw error;
         }
     }
@@ -100,7 +103,7 @@ export default class AmplifyService {
             }
 
         } catch (error) {
-            logger.error("Amplify is not currently authenticated: ", error);
+            // logger.error("Amplify is not currently authenticated: ", error);
         }
 
         return email;
@@ -114,52 +117,52 @@ export default class AmplifyService {
             }
             return true;
         } catch (error) {
-            logger.error("Amplify is not currently authenticated: ", error);
+            // logger.error("Amplify is not currently authenticated: ", error);
             return false
         }
     }
 
-    static async setHubListener (updateAuthUser) {
-        logger.info("Set Hub listener called with current updateAuthUser:", JSON.stringify(updateAuthUser));
-
-        try {
-            Hub.listen('auth', ({ payload: { event, data } }) => {
-
-                logger.info("Call Hub listener called with event:", event);
-
-                switch (event) {
-                    case 'signIn':
-                        this.getClaims()
-                            .then(claims => {
-                                if (!claims) {
-                                    if (!!this.isAuthenticated()) {
-                                        logger.info("No authenticated claims found")
-                                    } else {
-                                        logger.info("Amplify is not currently authenticated");
-                                        // AmplifyService.federatedLogin('Google');
-                                    }
-                                } else {
-                                    updateAuthUser({
-                                        username: claims.username,
-                                        userType: 'user',
-                                        groups: claims.groups,
-                                        email: claims.email,
-                                    });
-                                }
-                            })
-                            .catch(error => {
-                                logger.error("Cannot get claims because Amplify is not currently authenticated: ", error);
-                                //window.location.replace(`${window.location.origin}/error-pages/error-500`);
-                            });
-                        break;
-                    default: // case 'signOut':
-                        logger.info('Sign out');
-                        break;
-                }
-            });
-        } catch (error) {
-            logger.error("Cannot get claims: ", error);
-        }
-    }
+    // static async setHubListener (updateAuthUser) {
+    //     logger.info("Set Hub listener called with current updateAuthUser:", JSON.stringify(updateAuthUser));
+    //
+    //     try {
+    //         Hub.listen('auth', ({ payload: { event, data } }) => {
+    //
+    //             logger.info("Call Hub listener called with event:", event);
+    //
+    //             switch (event) {
+    //                 case 'signIn':
+    //                     this.getClaims()
+    //                         .then(claims => {
+    //                             if (!claims) {
+    //                                 if (!!this.isAuthenticated()) {
+    //                                     logger.info("No authenticated claims found")
+    //                                 } else {
+    //                                     logger.info("Amplify is not currently authenticated");
+    //                                     // AmplifyService.federatedLogin('Google');
+    //                                 }
+    //                             } else {
+    //                                 updateAuthUser({
+    //                                     username: claims.username,
+    //                                     userType: 'user',
+    //                                     groups: claims.groups,
+    //                                     email: claims.email,
+    //                                 });
+    //                             }
+    //                         })
+    //                         .catch(error => {
+    //                             logger.error("Cannot get claims because Amplify is not currently authenticated: ", error);
+    //                             //window.location.replace(`${window.location.origin}/error-pages/error-500`);
+    //                         });
+    //                     break;
+    //                 default: // case 'signOut':
+    //                     logger.info('Sign out');
+    //                     break;
+    //             }
+    //         });
+    //     } catch (error) {
+    //         logger.error("Cannot get claims: ", error);
+    //     }
+    // }
 }
 

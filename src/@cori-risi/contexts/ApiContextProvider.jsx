@@ -11,7 +11,7 @@ import {autoSignIn} from "../utils";
 export const ApiContext = createContext({ authenticated_user: null });
 
 /** @type {React.FunctionComponent} */
-export default function ApiContextProvider (props) {
+export default function ApiContextProvider ({ aws_config, children }) {
     const [ authenticated_user, setAuthenticatedUser ] = useState(null);
     const [ config, setConfig ] = useState(null);
     const [ cognito, setCognito ] = useState({
@@ -44,7 +44,7 @@ export default function ApiContextProvider (props) {
         console.log('Init Amplify config:', config);
 
         if (config === null) {
-            const cfg = AmplifyService.configure(props.aws_config, setConfig);
+            const cfg = AmplifyService.configure(aws_config, setConfig);
             const cognito_cfg = {};
 
             for (const c in cognito) {
@@ -198,7 +198,7 @@ export default function ApiContextProvider (props) {
                 setAuthenticatedUser={setAuthenticatedUser}>
                   {(!!ready) ? (
                     // <ApolloGraphQLProviderRedux aws_amplify_token={token} setReady={setReady}>{
-                    props.children
+                    children
                     // }</ApolloGraphQLProviderRedux>
                   ) : (
                     <span>LOADING</span>
