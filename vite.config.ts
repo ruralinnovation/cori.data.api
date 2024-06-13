@@ -9,8 +9,10 @@ export default defineConfig({
   build: {
     // copyPublicDir: false,
     lib: {
-      entry: resolve(__dirname, "lib/main.ts"),
+      entry: resolve(__dirname, "lib/cori.data.api.ts"),
       // formats: [ "es" ]
+      name: '@cori-risi/cori.data.api',
+      fileName: 'cori.data.api'
     },
     rollupOptions: {
       output: [
@@ -33,7 +35,8 @@ export default defineConfig({
   plugins: [
       dts({
           include: [ "lib" ],
-          outDir: "inst/dist"
+          outDir: "inst/dist",
+
       }),
       react()
   ],
