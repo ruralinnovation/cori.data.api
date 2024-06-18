@@ -1,14 +1,40 @@
-import { __module as e } from "./cori.data.api4.js";
-import { __require as r } from "./cori.data.api5.js";
-import { __require as o } from "./cori.data.api6.js";
+import { j as o } from "./cori.data.api4.js";
+import { r as a } from "./cori.data.api5.js";
+import i from "./cori.data.api6.js";
+/* empty css               */
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-process.env.NODE_ENV === "production" ? e.exports = r() : e.exports = o();
-var m = e.exports;
+var n = { BASE_URL: "/", MODE: "production", DEV: !1, PROD: !0, SSR: !1 };
+const t = `${n.VITE_CORI_DATA_API}`, e = i.create({
+  baseURL: t,
+  headers: {
+    "Content-Type": "application/json"
+  }
+}), s = a.createContext({
+  apiClient: e,
+  // authenticated: false,
+  // authenticated_user: null,
+  // autoSignOut: null,
+  baseURL: t,
+  // token: null,
+  data: {}
+});
+function f(r) {
+  return /* @__PURE__ */ o.jsx(s.Provider, { value: {
+    apiClient: e,
+    // authenticated: false,
+    // authenticated_user: null,
+    // autoSignOut: null,
+    baseURL: t,
+    // token: null,
+    data: {}
+  }, children: r.children });
+}
 export {
-  m as j
+  s as ApiContext,
+  f as default
 };

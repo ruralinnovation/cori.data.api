@@ -4,7 +4,7 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var r = {};
+var e = { exports: {} };
 export {
-  r as __exports
+  e as __module
 };

@@ -1,1 +1,0 @@
-pg_dump --file "bcat-2023-01-10.backup" --host "cori-risi.c6zaibvi9wyg.us-east-1.rds.amazonaws.com" --port "5432" --username "risi_fanniemae" password --verbose --role "admin@AWS.RURALINNOVATION.US" --format=c --no-owner --section=pre-data --section=data --section=post-data --no-privileges --encoding "UTF8" --schema "bcat" "data"
