@@ -50,3 +50,4 @@ r.default = r;
 export {
   r as default
 };
+//# sourceMappingURL=cori.data.api6.js.map

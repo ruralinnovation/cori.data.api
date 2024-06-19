@@ -8,3 +8,4 @@ const l = typeof Blob < "u" ? Blob : null;
 export {
   l as default
 };
+//# sourceMappingURL=cori.data.api61.js.map

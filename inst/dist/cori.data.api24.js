@@ -15,3 +15,4 @@ i.inherits(l, r, {
 export {
   l as default
 };
+//# sourceMappingURL=cori.data.api24.js.map

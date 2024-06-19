@@ -8,3 +8,4 @@ const o = "1.7.2";
 export {
   o as VERSION
 };
+//# sourceMappingURL=cori.data.api27.js.map

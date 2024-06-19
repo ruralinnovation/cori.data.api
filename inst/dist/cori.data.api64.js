@@ -41,3 +41,4 @@ const f = c.hasStandardBrowserEnv ? (
 export {
   f as default
 };
+//# sourceMappingURL=cori.data.api64.js.map

@@ -17,3 +17,4 @@ export {
   p as Label,
   o as helloAnything
 };
+//# sourceMappingURL=cori.data.api.js.map

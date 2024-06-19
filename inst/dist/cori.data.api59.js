@@ -9,3 +9,4 @@ const e = typeof URLSearchParams < "u" ? URLSearchParams : a;
 export {
   e as default
 };
+//# sourceMappingURL=cori.data.api59.js.map

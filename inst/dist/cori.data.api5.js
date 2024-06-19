@@ -1,6 +1,6 @@
-import { __module as r } from "./cori.data.api13.js";
-import { __require as e } from "./cori.data.api14.js";
-import { __require as o } from "./cori.data.api15.js";
+import { __module as r } from "./cori.data.api11.js";
+import { __require as e } from "./cori.data.api12.js";
+import { __require as o } from "./cori.data.api13.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
@@ -12,3 +12,4 @@ var s = r.exports;
 export {
   s as r
 };
+//# sourceMappingURL=cori.data.api5.js.map

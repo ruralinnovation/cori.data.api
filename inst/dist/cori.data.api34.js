@@ -75,3 +75,4 @@ Object.entries(e).forEach(([t, o]) => {
 export {
   e as default
 };
+//# sourceMappingURL=cori.data.api34.js.map

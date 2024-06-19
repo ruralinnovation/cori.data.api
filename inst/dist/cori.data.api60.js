@@ -8,3 +8,4 @@ const a = typeof FormData < "u" ? FormData : null;
 export {
   a as default
 };
+//# sourceMappingURL=cori.data.api60.js.map

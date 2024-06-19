@@ -37,3 +37,4 @@ c.toString = function(t) {
 export {
   a as default
 };
+//# sourceMappingURL=cori.data.api47.js.map

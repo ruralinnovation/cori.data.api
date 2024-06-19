@@ -232,3 +232,4 @@ const pe = (e) => {
 export {
   we as default
 };
+//# sourceMappingURL=cori.data.api18.js.map

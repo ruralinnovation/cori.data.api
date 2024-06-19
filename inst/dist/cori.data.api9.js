@@ -1,4 +1,4 @@
-import { __exports as t } from "./cori.data.api11.js";
+import { __exports as t } from "./cori.data.api14.js";
 import { r as y } from "./cori.data.api5.js";
 /*
  * CORI Data API component library
@@ -36,3 +36,4 @@ function O() {
 export {
   O as __require
 };
+//# sourceMappingURL=cori.data.api9.js.map

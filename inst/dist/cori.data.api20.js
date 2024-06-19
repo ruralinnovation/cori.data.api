@@ -137,3 +137,4 @@ d.forEach(["post", "put", "patch"], function(t) {
 export {
   k as default
 };
+//# sourceMappingURL=cori.data.api20.js.map

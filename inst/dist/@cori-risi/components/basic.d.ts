@@ -1,5 +1,12 @@
-import { default as React } from 'react';
+import { ReactElement } from 'react';
 
-export declare function Button(props: React.ButtonHTMLAttributes<HTMLButtonElement>): import("react/jsx-runtime").JSX.Element;
-export declare function Input(props: React.InputHTMLAttributes<HTMLInputElement>): import("react/jsx-runtime").JSX.Element;
-export declare function Label(props: React.LabelHTMLAttributes<HTMLLabelElement>): import("react/jsx-runtime").JSX.Element;
+export declare function Button(props: {
+    children?: ReactElement;
+    onClick: () => void;
+}): import("react/jsx-runtime").JSX.Element;
+export declare function Input(props: {
+    children?: ReactElement;
+}): import("react/jsx-runtime").JSX.Element;
+export declare function Label(props: {
+    children?: ReactElement;
+}): import("react/jsx-runtime").JSX.Element;

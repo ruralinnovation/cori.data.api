@@ -1,4 +1,4 @@
-import { __exports as T } from "./cori.data.api12.js";
+import { __exports as T } from "./cori.data.api15.js";
 import { r as or } from "./cori.data.api5.js";
 /*
  * CORI Data API component library
@@ -612,3 +612,4 @@ React keys must be passed directly to JSX without using spread:
 export {
   lr as __require
 };
+//# sourceMappingURL=cori.data.api10.js.map

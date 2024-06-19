@@ -12,3 +12,4 @@ export {
   t as hasStandardBrowserWebWorkerEnv,
   r as origin
 };
+//# sourceMappingURL=cori.data.api52.js.map

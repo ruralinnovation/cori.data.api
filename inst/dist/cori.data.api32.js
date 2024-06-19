@@ -177,3 +177,4 @@ i.freezeMethods(b);
 export {
   b as default
 };
+//# sourceMappingURL=cori.data.api32.js.map

@@ -58,3 +58,4 @@ s.from = (t, r, i, o, E, a) => {
 export {
   s as default
 };
+//# sourceMappingURL=cori.data.api29.js.map

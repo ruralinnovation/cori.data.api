@@ -37,3 +37,4 @@ const F = (s) => {
 export {
   F as default
 };
+//# sourceMappingURL=cori.data.api56.js.map

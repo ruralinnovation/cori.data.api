@@ -12,3 +12,4 @@ function u(n, r) {
 export {
   u as default
 };
+//# sourceMappingURL=cori.data.api19.js.map

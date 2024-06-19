@@ -13,3 +13,4 @@ const m = {
 export {
   m as default
 };
+//# sourceMappingURL=cori.data.api42.js.map

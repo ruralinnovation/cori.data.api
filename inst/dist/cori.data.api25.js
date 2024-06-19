@@ -76,3 +76,4 @@ class c {
 export {
   c as default
 };
+//# sourceMappingURL=cori.data.api25.js.map

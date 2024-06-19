@@ -75,3 +75,4 @@ const C = typeof XMLHttpRequest < "u", X = C && function(l) {
 export {
   X as default
 };
+//# sourceMappingURL=cori.data.api45.js.map

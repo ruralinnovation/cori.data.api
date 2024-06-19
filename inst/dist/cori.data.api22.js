@@ -93,3 +93,4 @@ t.forEach(["delete", "get", "head", "post", "put", "patch"], (i) => {
 export {
   a as default
 };
+//# sourceMappingURL=cori.data.api22.js.map

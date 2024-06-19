@@ -10,3 +10,4 @@ function t(n) {
 export {
   t as default
 };
+//# sourceMappingURL=cori.data.api26.js.map

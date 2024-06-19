@@ -27,7 +27,7 @@ export default defineConfig({
             format: "es",
             exports: 'named',
             preserveModules: true,
-            sourcemap: false,
+            sourcemap: true,
           }
       ]
     },

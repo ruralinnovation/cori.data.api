@@ -8,3 +8,4 @@ var e = { exports: {} };
 export {
   e as __module
 };
+//# sourceMappingURL=cori.data.api17.js.map

@@ -19,3 +19,4 @@ export {
   o as Input,
   e as Label
 };
+//# sourceMappingURL=cori.data.api2.js.map

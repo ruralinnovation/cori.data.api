@@ -76,3 +76,4 @@ function C(s, o) {
 export {
   C as default
 };
+//# sourceMappingURL=cori.data.api21.js.map

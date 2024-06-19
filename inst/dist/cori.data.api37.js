@@ -35,3 +35,4 @@ function q(e) {
 export {
   q as default
 };
+//# sourceMappingURL=cori.data.api37.js.map
