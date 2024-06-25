@@ -1,8 +1,8 @@
-import d from "./cori.data.api202.js";
-import o from "./cori.data.api203.js";
-import a from "./cori.data.api204.js";
-import { withPath as v } from "./cori.data.api205.js";
-import { x as b, y as w } from "./cori.data.api206.js";
+import d from "./cori.data.api163.js";
+import o from "./cori.data.api164.js";
+import a from "./cori.data.api165.js";
+import { withPath as v } from "./cori.data.api166.js";
+import { x as b, y as w } from "./cori.data.api167.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

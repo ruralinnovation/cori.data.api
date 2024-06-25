@@ -1,19 +1,17 @@
-import { Selection as y } from "./cori.data.api159.js";
+import { Timer as i } from "./cori.data.api168.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(t) {
-  for (var s = t.selection ? t.selection() : t, n = this._groups, f = s._groups, a = n.length, c = f.length, _ = Math.min(a, c), l = new Array(a), e = 0; e < _; ++e)
-    for (var i = n[e], v = f[e], o = i.length, w = l[e] = new Array(o), h, r = 0; r < o; ++r)
-      (h = i[r] || v[r]) && (w[r] = h);
-  for (; e < a; ++e)
-    l[e] = n[e];
-  return new y(l, this._parents);
+function e(o, t, n) {
+  var r = new i();
+  return t = t == null ? 0 : +t, r.restart((u) => {
+    r.stop(), o(u + t);
+  }, t, n), r;
 }
 export {
-  p as default
+  e as default
 };
 //# sourceMappingURL=cori.data.api169.js.map

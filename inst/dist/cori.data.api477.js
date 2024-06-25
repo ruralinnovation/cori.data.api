@@ -1,25 +1,33 @@
-import { decodeNamedCharacterReference as o } from "./cori.data.api479.js";
-import { decodeNumericCharacterReference as a } from "./cori.data.api476.js";
+import e from "./cori.data.api521.js";
+import t from "./cori.data.api526.js";
+import p from "./cori.data.api534.js";
+import n from "./cori.data.api356.js";
+import u from "./cori.data.api334.js";
+import f from "./cori.data.api380.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const n = /\\([!-/:-@[-`{-~])|&(#(?:\d{1,7}|x[\da-f]{1,6})|[\da-z]{1,31});/gi;
-function m(r) {
-  return r.replace(n, f);
+function N(o, r, m = {}) {
+  return p(
+    o,
+    c(o, r),
+    l(o, m.weight),
+    m
+  );
 }
-function f(r, c, e) {
-  if (c)
-    return c;
-  if (e.charCodeAt(0) === 35) {
-    const t = e.charCodeAt(1), d = t === 120 || t === 88;
-    return a(e.slice(d ? 2 : 1), d ? 16 : 10);
-  }
-  return o(e) || r;
+const i = (o) => (r) => o.get(r) || 0;
+function c(o, r) {
+  return u(r) ? () => r : i(t(o, n({ size: r }, { table: o, window: !1 })).column("size"));
+}
+function l(o, r) {
+  return r == null ? null : (r = u(r) ? o.columnName(r) : r, i(
+    f(r) ? o.column(r) : e(o, n({ w: r }, { table: o }), { drop: !0 }).column("w")
+  ));
 }
 export {
-  m as decodeString
+  N as default
 };
 //# sourceMappingURL=cori.data.api477.js.map

@@ -2,12 +2,12 @@ import React from 'react';
 import style from "./styles/CategoricalLegend.module.css";
 
 interface CategoricalLegendProps {
-    data_names: string[];
+    domain_names: string[];
     domain: string[], // Should be in the order of what appears top to bottom in the chart
     range: unknown[]
 }
 
-const CategoricalLegend: React.FC<CategoricalLegendProps> = ({ data_names, domain, range }) => {
+function CategoricalLegend ({ domain_names, domain, range }: CategoricalLegendProps) {
 
     const rows = [];
 
@@ -20,7 +20,7 @@ const CategoricalLegend: React.FC<CategoricalLegendProps> = ({ data_names, domai
             if (typeof range[i] === "string") {
 
                 const color: string = range[i] as string;
-                if (!!data_names) {
+                if (!!domain_names) {
                     rows.push(
                         <div className={style["entry"]} key={i}>
                             <div
@@ -29,7 +29,7 @@ const CategoricalLegend: React.FC<CategoricalLegendProps> = ({ data_names, domai
                                     backgroundColor: color
                                 }}>
                             </div>
-                            <p>{data_names[i]}</p>
+                            <p>{domain_names[i]}</p>
                         </div>
                     );
                 }

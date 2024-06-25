@@ -1,77 +1,63 @@
-import a from "./cori.data.api296.js";
-import c from "./cori.data.api344.js";
-import { DataType as o, Utf8 as t, Uint64 as i, Uint32 as s, Uint16 as u, Uint8 as l, TimeSecond as w, TimeNanosecond as m, TimeMillisecond as d, TimeMicrosecond as I, Null as T, IntervalYearMonth as D, IntervalDayTime as U, Int64 as f, Int32 as r, Int16 as y, Int8 as p, Float64 as M, Float32 as F, Float16 as v, Dictionary as B, DateMillisecond as N, DateDay as h, Bool as S, Binary as Y } from "./cori.data.api419.js";
-import { Type as e } from "./cori.data.api495.js";
+import { BIGINT as I, ERROR as g, SET as l, MAP as w, REGEXP as E, DATE as R, OBJECT as T, ARRAY as m, VOID as B, PRIMITIVE as b } from "./cori.data.api490.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function j(n) {
-  if (n instanceof o || n == null)
-    return n;
-  switch (n) {
-    case e.Binary:
-      return new Y();
-    case e.Bool:
-      return new S();
-    case e.DateDay:
-      return new h();
-    case e.DateMillisecond:
-    case e.Date:
-      return new N();
-    case e.Dictionary:
-      return new B(new t(), new r());
-    case e.Float16:
-      return new v();
-    case e.Float32:
-      return new F();
-    case e.Float64:
-    case e.Float:
-      return new M();
-    case e.Int8:
-      return new p();
-    case e.Int16:
-      return new y();
-    case e.Int32:
-    case e.Int:
-      return new r();
-    case e.Int64:
-      return new f();
-    case e.IntervalDayTime:
-      return new U();
-    case e.Interval:
-    case e.IntervalYearMonth:
-      return new D();
-    case e.Null:
-      return new T();
-    case e.TimeMicrosecond:
-      return new I();
-    case e.TimeMillisecond:
-    case e.Time:
-      return new d();
-    case e.TimeNanosecond:
-      return new m();
-    case e.TimeSecond:
-      return new w();
-    case e.Uint8:
-      return new l();
-    case e.Uint16:
-      return new u();
-    case e.Uint32:
-      return new s();
-    case e.Uint64:
-      return new i();
-    case e.Utf8:
-      return new t();
-    default:
-      a(
-        `Unsupported type code: ${c(n)}. Use a data type constructor instead?`
-      );
-  }
-}
+const f = typeof self == "object" ? self : globalThis, h = (o, p) => {
+  const s = (e, a) => (o.set(a, e), e), c = (e) => {
+    if (o.has(e))
+      return o.get(e);
+    const [a, r] = p[e];
+    switch (a) {
+      case b:
+      case B:
+        return s(r, e);
+      case m: {
+        const t = s([], e);
+        for (const n of r)
+          t.push(c(n));
+        return t;
+      }
+      case T: {
+        const t = s({}, e);
+        for (const [n, u] of r)
+          t[c(n)] = c(u);
+        return t;
+      }
+      case R:
+        return s(new Date(r), e);
+      case E: {
+        const { source: t, flags: n } = r;
+        return s(new RegExp(t, n), e);
+      }
+      case w: {
+        const t = s(/* @__PURE__ */ new Map(), e);
+        for (const [n, u] of r)
+          t.set(c(n), c(u));
+        return t;
+      }
+      case l: {
+        const t = s(/* @__PURE__ */ new Set(), e);
+        for (const n of r)
+          t.add(c(n));
+        return t;
+      }
+      case g: {
+        const { name: t, message: n } = r;
+        return s(new f[t](n), e);
+      }
+      case I:
+        return s(BigInt(r), e);
+      case "BigInt":
+        return s(Object(BigInt(r)), e);
+    }
+    return s(new f[a](r), e);
+  };
+  return c;
+}, A = (o) => h(/* @__PURE__ */ new Map(), o)(0);
 export {
-  j as default
+  A as deserialize
 };
 //# sourceMappingURL=cori.data.api417.js.map

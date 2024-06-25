@@ -1,50 +1,36 @@
-import { asciiAlpha as z, asciiAlphanumeric as a, asciiControl as E, asciiAtext as O } from "./cori.data.api486.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api665.js";
+import "./cori.data.api574.js";
+import "./cori.data.api575.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const b = {
-  name: "autolink",
-  tokenize: P
-};
-function P(r, l, t) {
-  let i = 0;
-  return p;
-  function p(n) {
-    return r.enter("autolink"), r.enter("autolinkMarker"), r.consume(n), r.exit("autolinkMarker"), r.enter("autolinkProtocol"), M;
+class s {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  function M(n) {
-    return z(n) ? (r.consume(n), h) : n === 64 ? t(n) : u(n);
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  function h(n) {
-    return n === 43 || n === 45 || n === 46 || a(n) ? (i = 1, m(n)) : u(n);
+  static getRootAsUtf8(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  function m(n) {
-    return n === 58 ? (r.consume(n), i = 0, k) : (n === 43 || n === 45 || n === 46 || a(n)) && i++ < 32 ? (r.consume(n), m) : (i = 0, u(n));
+  static getSizePrefixedRootAsUtf8(t, i) {
+    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  function k(n) {
-    return n === 62 ? (r.exit("autolinkProtocol"), r.enter("autolinkMarker"), r.consume(n), r.exit("autolinkMarker"), r.exit("autolink"), l) : n === null || n === 32 || n === 60 || E(n) ? t(n) : (r.consume(n), k);
+  static startUtf8(t) {
+    t.startObject(0);
   }
-  function u(n) {
-    return n === 64 ? (r.consume(n), o) : O(n) ? (r.consume(n), u) : t(n);
+  static endUtf8(t) {
+    return t.endObject();
   }
-  function o(n) {
-    return a(n) ? x(n) : t(n);
-  }
-  function x(n) {
-    return n === 46 ? (r.consume(n), i = 0, o) : n === 62 ? (r.exit("autolinkProtocol").type = "autolinkEmail", r.enter("autolinkMarker"), r.consume(n), r.exit("autolinkMarker"), r.exit("autolink"), l) : A(n);
-  }
-  function A(n) {
-    if ((n === 45 || a(n)) && i++ < 63) {
-      const e = n === 45 ? A : x;
-      return r.consume(n), e;
-    }
-    return t(n);
+  static createUtf8(t) {
+    return s.startUtf8(t), s.endUtf8(t);
   }
 }
 export {
-  b as autolink
+  s as Utf8
 };
 //# sourceMappingURL=cori.data.api672.js.map

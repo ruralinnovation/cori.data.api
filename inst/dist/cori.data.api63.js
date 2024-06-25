@@ -1,96 +1,79 @@
-import t from "./cori.data.api59.js";
-import p from "./cori.data.api70.js";
-import u from "./cori.data.api237.js";
-import S from "./cori.data.api69.js";
-import h from "./cori.data.api238.js";
-import l from "./cori.data.api239.js";
-import O from "./cori.data.api64.js";
+import i from "./cori.data.api60.js";
+import h from "./cori.data.api74.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function y(i, r, e) {
-  if (t.isString(i))
-    try {
-      return (r || JSON.parse)(i), t.trim(i);
-    } catch (n) {
-      if (n.name !== "SyntaxError")
-        throw n;
-    }
-  return (e || JSON.stringify)(i);
-}
-const a = {
-  transitional: u,
-  adapter: ["xhr", "http", "fetch"],
-  transformRequest: [function(r, e) {
-    const n = e.getContentType() || "", s = n.indexOf("application/json") > -1, f = t.isObject(r);
-    if (f && t.isHTMLForm(r) && (r = new FormData(r)), t.isFormData(r))
-      return s ? JSON.stringify(O(r)) : r;
-    if (t.isArrayBuffer(r) || t.isBuffer(r) || t.isStream(r) || t.isFile(r) || t.isBlob(r) || t.isReadableStream(r))
-      return r;
-    if (t.isArrayBufferView(r))
-      return r.buffer;
-    if (t.isURLSearchParams(r))
-      return e.setContentType("application/x-www-form-urlencoded;charset=utf-8", !1), r.toString();
-    let o;
-    if (f) {
-      if (n.indexOf("application/x-www-form-urlencoded") > -1)
-        return h(r, this.formSerializer).toString();
-      if ((o = t.isFileList(r)) || n.indexOf("multipart/form-data") > -1) {
-        const c = this.env && this.env.FormData;
-        return S(
-          o ? { "files[]": r } : r,
-          c && new c(),
-          this.formSerializer
-        );
-      }
-    }
-    return f || s ? (e.setContentType("application/json", !1), y(r)) : r;
-  }],
-  transformResponse: [function(r) {
-    const e = this.transitional || a.transitional, n = e && e.forcedJSONParsing, s = this.responseType === "json";
-    if (t.isResponse(r) || t.isReadableStream(r))
-      return r;
-    if (r && t.isString(r) && (n && !this.responseType || s)) {
-      const m = !(e && e.silentJSONParsing) && s;
-      try {
-        return JSON.parse(r);
-      } catch (o) {
-        if (m)
-          throw o.name === "SyntaxError" ? p.from(o, p.ERR_BAD_RESPONSE, this, null, this.response) : o;
-      }
-    }
-    return r;
-  }],
-  /**
-   * A timeout in milliseconds to abort a request. If set to 0 (default) a
-   * timeout is not created.
-   */
-  timeout: 0,
-  xsrfCookieName: "XSRF-TOKEN",
-  xsrfHeaderName: "X-XSRF-TOKEN",
-  maxContentLength: -1,
-  maxBodyLength: -1,
-  env: {
-    FormData: l.classes.FormData,
-    Blob: l.classes.Blob
-  },
-  validateStatus: function(r) {
-    return r >= 200 && r < 300;
-  },
-  headers: {
-    common: {
-      Accept: "application/json, text/plain, */*",
-      "Content-Type": void 0
-    }
+const c = (s) => s instanceof h ? { ...s } : s;
+function C(s, o) {
+  o = o || {};
+  const f = {};
+  function d(t, e, r) {
+    return i.isPlainObject(t) && i.isPlainObject(e) ? i.merge.call({ caseless: r }, t, e) : i.isPlainObject(e) ? i.merge({}, e) : i.isArray(e) ? e.slice() : e;
   }
-};
-t.forEach(["delete", "get", "head", "post", "put", "patch"], (i) => {
-  a.headers[i] = {};
-});
+  function u(t, e, r) {
+    if (i.isUndefined(e)) {
+      if (!i.isUndefined(t))
+        return d(void 0, t, r);
+    } else
+      return d(t, e, r);
+  }
+  function a(t, e) {
+    if (!i.isUndefined(e))
+      return d(void 0, e);
+  }
+  function n(t, e) {
+    if (i.isUndefined(e)) {
+      if (!i.isUndefined(t))
+        return d(void 0, t);
+    } else
+      return d(void 0, e);
+  }
+  function l(t, e, r) {
+    if (r in o)
+      return d(t, e);
+    if (r in s)
+      return d(void 0, t);
+  }
+  const g = {
+    url: a,
+    method: a,
+    data: a,
+    baseURL: n,
+    transformRequest: n,
+    transformResponse: n,
+    paramsSerializer: n,
+    timeout: n,
+    timeoutMessage: n,
+    withCredentials: n,
+    withXSRFToken: n,
+    adapter: n,
+    responseType: n,
+    xsrfCookieName: n,
+    xsrfHeaderName: n,
+    onUploadProgress: n,
+    onDownloadProgress: n,
+    decompress: n,
+    maxContentLength: n,
+    maxBodyLength: n,
+    beforeRedirect: n,
+    transport: n,
+    httpAgent: n,
+    httpsAgent: n,
+    cancelToken: n,
+    socketPath: n,
+    responseEncoding: n,
+    validateStatus: l,
+    headers: (t, e) => u(c(t), c(e), !0)
+  };
+  return i.forEach(Object.keys(Object.assign({}, s, o)), function(e) {
+    const r = g[e] || u, m = r(s[e], o[e], e);
+    i.isUndefined(m) && r !== l || (f[e] = m);
+  }), f;
+}
 export {
-  a as default
+  C as default
 };
 //# sourceMappingURL=cori.data.api63.js.map

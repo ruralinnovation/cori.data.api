@@ -1,9 +1,7 @@
-import { default as React } from 'react';
-
 interface CategoricalLegendProps {
-    data_names: string[];
+    domain_names: string[];
     domain: string[];
     range: unknown[];
 }
-declare const CategoricalLegend: React.FC<CategoricalLegendProps>;
+declare function CategoricalLegend({ domain_names, domain, range }: CategoricalLegendProps): import("react/jsx-runtime").JSX.Element;
 export default CategoricalLegend;

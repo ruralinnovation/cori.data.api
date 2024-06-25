@@ -1,21 +1,22 @@
+import f from "./cori.data.api521.js";
+import m from "./cori.data.api522.js";
+import n from "./cori.data.api356.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-let o = 0;
-const n = e(), t = e(), a = e(), c = e(), r = e(), s = e(), p = e();
-function e() {
-  return 2 ** ++o;
+function u(r, o) {
+  const t = n({ p: o }, { table: r });
+  let e = t.exprs[0];
+  if (t.ops.length) {
+    const { data: p } = f(r, t, { drop: !0 }).column("p");
+    e = (i) => p[i];
+  }
+  return m(r, e);
 }
 export {
-  n as boolean,
-  t as booleanish,
-  p as commaOrSpaceSeparated,
-  s as commaSeparated,
-  c as number,
-  a as overloadedBoolean,
-  r as spaceSeparated
+  u as default
 };
 //# sourceMappingURL=cori.data.api466.js.map

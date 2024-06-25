@@ -1,67 +1,41 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api638.js";
-import "./cori.data.api567.js";
-import "./cori.data.api568.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i {
+class n {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
   __init(t, s) {
     return this.bb_pos = t, this.bb = s, this;
   }
-  static getRootAsDecimal(t, s) {
-    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsDecimal(t, s) {
-    return t.setPosition(t.position() + n), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  /**
+   * The relative offset into the shared memory page where the bytes for this
+   * buffer starts
+   */
+  offset() {
+    return this.bb.readInt64(this.bb_pos);
   }
   /**
-   * Total number of decimal digits
+   * The absolute length (in bytes) of the memory buffer. The memory is found
+   * from offset (inclusive) to offset + length (non-inclusive). When building
+   * messages using the encapsulated IPC message, padding bytes may be written
+   * after a buffer, but such padding bytes do not need to be accounted for in
+   * the size here.
    */
-  precision() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
+  length() {
+    return this.bb.readInt64(this.bb_pos + 8);
   }
-  /**
-   * Number of digits after the decimal point "."
-   */
-  scale() {
-    const t = this.bb.__offset(this.bb_pos, 6);
-    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
+  static sizeOf() {
+    return 16;
   }
-  /**
-   * Number of bits per value. The only accepted widths are 128 and 256.
-   * We use bitWidth for consistency with Int::bitWidth.
-   */
-  bitWidth() {
-    const t = this.bb.__offset(this.bb_pos, 8);
-    return t ? this.bb.readInt32(this.bb_pos + t) : 128;
-  }
-  static startDecimal(t) {
-    t.startObject(3);
-  }
-  static addPrecision(t, s) {
-    t.addFieldInt32(0, s, 0);
-  }
-  static addScale(t, s) {
-    t.addFieldInt32(1, s, 0);
-  }
-  static addBitWidth(t, s) {
-    t.addFieldInt32(2, s, 128);
-  }
-  static endDecimal(t) {
-    return t.endObject();
-  }
-  static createDecimal(t, s, o, e) {
-    return i.startDecimal(t), i.addPrecision(t, s), i.addScale(t, o), i.addBitWidth(t, e), i.endDecimal(t);
+  static createBuffer(t, s, r) {
+    return t.prep(8, 16), t.writeInt64(BigInt(r ?? 0)), t.writeInt64(BigInt(s ?? 0)), t.offset();
   }
 }
 export {
-  i as Decimal
+  n as Buffer
 };
 //# sourceMappingURL=cori.data.api582.js.map

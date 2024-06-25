@@ -1,39 +1,19 @@
-import { tickStep as s } from "./cori.data.api123.js";
-import c from "./cori.data.api133.js";
-import e from "./cori.data.api138.js";
-import p from "./cori.data.api140.js";
-import l from "./cori.data.api139.js";
-import { formatPrefix as u, format as h } from "./cori.data.api46.js";
+import { Selection as o } from "./cori.data.api59.js";
+import m from "./cori.data.api230.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function d(r, t, i, a) {
-  var n = s(r, t, i), o;
-  switch (a = c(a ?? ",f"), a.type) {
-    case "s": {
-      var m = Math.max(Math.abs(r), Math.abs(t));
-      return a.precision == null && !isNaN(o = l(n, m)) && (a.precision = o), u(a, m);
-    }
-    case "":
-    case "e":
-    case "g":
-    case "p":
-    case "r": {
-      a.precision == null && !isNaN(o = p(n, Math.max(Math.abs(r), Math.abs(t)))) && (a.precision = o - (a.type === "e"));
-      break;
-    }
-    case "f":
-    case "%": {
-      a.precision == null && !isNaN(o = e(n)) && (a.precision = o - (a.type === "%") * 2);
-      break;
-    }
-  }
-  return h(a);
+function p(a) {
+  typeof a != "function" && (a = m(a));
+  for (var n = this._groups, e = n.length, l = new Array(e), r = 0; r < e; ++r)
+    for (var f = n[r], c = f.length, h = l[r] = new Array(c), _, i, t = 0; t < c; ++t)
+      (_ = f[t]) && (i = a.call(_, _.__data__, t, f)) && ("__data__" in _ && (i.__data__ = _.__data__), h[t] = i);
+  return new o(l, this._parents);
 }
 export {
-  d as default
+  p as default
 };
 //# sourceMappingURL=cori.data.api199.js.map

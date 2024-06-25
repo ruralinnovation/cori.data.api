@@ -1,64 +1,75 @@
-import { get as h, set as l } from "./cori.data.api231.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s(t, r) {
-  var u, n;
-  return function() {
-    var e = l(this, t), i = e.tween;
-    if (i !== u) {
-      n = u = i;
-      for (var a = 0, o = n.length; a < o; ++a)
-        if (n[a].name === r) {
-          n = n.slice(), n.splice(a, 1);
-          break;
-        }
-    }
-    e.tween = n;
+var h = {};
+if (typeof document < "u") {
+  var v = document.documentElement;
+  "onmouseenter" in v || (h = { mouseenter: "mouseover", mouseleave: "mouseout" });
+}
+function d(t, e, n) {
+  return t = c(t, e, n), function(r) {
+    var s = r.relatedTarget;
+    (!s || s !== this && !(s.compareDocumentPosition(this) & 8)) && t.call(this, r);
   };
 }
-function w(t, r, u) {
-  var n, e;
-  if (typeof u != "function")
-    throw new Error();
-  return function() {
-    var i = l(this, t), a = i.tween;
-    if (a !== n) {
-      e = (n = a).slice();
-      for (var o = { name: r, value: u }, f = 0, c = e.length; f < c; ++f)
-        if (e[f].name === r) {
-          e[f] = o;
-          break;
-        }
-      f === c && e.push(o);
+function c(t, e, n) {
+  return function(r) {
+    try {
+      t.call(this, this.__data__, e, n);
+    } finally {
     }
-    i.tween = e;
   };
 }
-function d(t, r) {
-  var u = this._id;
-  if (t += "", arguments.length < 2) {
-    for (var n = h(this.node(), u).tween, e = 0, i = n.length, a; e < i; ++e)
-      if ((a = n[e]).name === t)
-        return a.value;
-    return null;
+function p(t) {
+  return t.trim().split(/^|\s+/).map(function(e) {
+    var n = "", r = e.indexOf(".");
+    return r >= 0 && (n = e.slice(r + 1), e = e.slice(0, r)), { type: e, name: n };
+  });
+}
+function _(t) {
+  return function() {
+    var e = this.__on;
+    if (e) {
+      for (var n = 0, r = -1, s = e.length, o; n < s; ++n)
+        o = e[n], (!t.type || o.type === t.type) && o.name === t.name ? this.removeEventListener(o.type, o.listener, o.capture) : e[++r] = o;
+      ++r ? e.length = r : delete this.__on;
+    }
+  };
+}
+function y(t, e, n) {
+  var r = h.hasOwnProperty(t.type) ? d : c;
+  return function(s, o, l) {
+    var a = this.__on, i, u = r(e, o, l);
+    if (a) {
+      for (var f = 0, m = a.length; f < m; ++f)
+        if ((i = a[f]).type === t.type && i.name === t.name) {
+          this.removeEventListener(i.type, i.listener, i.capture), this.addEventListener(i.type, i.listener = u, i.capture = n), i.value = e;
+          return;
+        }
+    }
+    this.addEventListener(t.type, u, n), i = { type: t.type, name: t.name, value: e, listener: u, capture: n }, a ? a.push(i) : this.__on = [i];
+  };
+}
+function g(t, e, n) {
+  var r = p(t + ""), s, o = r.length, l;
+  if (arguments.length < 2) {
+    var a = this.node().__on;
+    if (a) {
+      for (var i = 0, u = a.length, f; i < u; ++i)
+        for (s = 0, f = a[i]; s < o; ++s)
+          if ((l = r[s]).type === f.type && l.name === f.name)
+            return f.value;
+    }
+    return;
   }
-  return this.each((r == null ? s : w)(u, t, r));
-}
-function g(t, r, u) {
-  var n = t._id;
-  return t.each(function() {
-    var e = l(this, n);
-    (e.value || (e.value = {}))[r] = u.apply(this, arguments);
-  }), function(e) {
-    return h(e, n).value[r];
-  };
+  for (a = e ? y : _, n == null && (n = !1), s = 0; s < o; ++s)
+    this.each(a(r[s], e, n));
+  return this;
 }
 export {
-  d as default,
-  g as tweenValue
+  g as default
 };
 //# sourceMappingURL=cori.data.api228.js.map

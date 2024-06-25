@@ -1,23 +1,15 @@
+import l from "./cori.data.api526.js";
+import p from "./cori.data.api356.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function n(r, _) {
-  const e = Number.parseInt(r, _);
-  return (
-    // C0 except for HT, LF, FF, CR, space.
-    e < 9 || e === 11 || e > 13 && e < 32 || // Control character (DEL) of C0, and C1 controls.
-    e > 126 && e < 160 || // Lone high surrogates and low surrogates.
-    e > 55295 && e < 57344 || // Noncharacters.
-    e > 64975 && e < 65008 || /* eslint-disable no-bitwise */
-    (e & 65535) === 65535 || (e & 65535) === 65534 || /* eslint-enable no-bitwise */
-    // Out of range
-    e > 1114111 ? "�" : String.fromCodePoint(e)
-  );
+function e(r, o) {
+  return l(r, p(o, { table: r, aggronly: !0, window: !1 }));
 }
 export {
-  n as decodeNumericCharacterReference
+  e as default
 };
 //# sourceMappingURL=cori.data.api476.js.map

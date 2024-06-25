@@ -4,29 +4,27 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const r = (
-  /**
-   * @type {new <Parameters extends Array<unknown>, Result>(property: string | symbol) => (...parameters: Parameters) => Result}
-   */
-  /** @type {unknown} */
-  /**
-   * @this {Function}
-   * @param {string | symbol} property
-   * @returns {(...parameters: Array<unknown>) => unknown}
-   */
-  function(n) {
-    const o = (
-      /** @type {Record<string | symbol, Function>} */
-      // Prototypes do exist.
-      // type-coverage:ignore-next-line
-      this.constructor.prototype
-    ), s = o[n], t = function() {
-      return s.apply(t, arguments);
-    };
-    return Object.setPrototypeOf(t, o), t;
-  }
-);
+var X = 180 / Math.PI, o = {
+  translateX: 0,
+  translateY: 0,
+  rotate: 0,
+  skewX: 0,
+  scaleX: 1,
+  scaleY: 1
+};
+function h(t, e, s, r, i, f) {
+  var l, n, a;
+  return (l = Math.sqrt(t * t + e * e)) && (t /= l, e /= l), (a = t * s + e * r) && (s -= t * a, r -= e * a), (n = Math.sqrt(s * s + r * r)) && (s /= n, r /= n, a /= n), t * r < e * s && (t = -t, e = -e, a = -a, l = -l), {
+    translateX: i,
+    translateY: f,
+    rotate: Math.atan2(e, t) * X,
+    skewX: Math.atan(a) * X,
+    scaleX: l,
+    scaleY: n
+  };
+}
 export {
-  r as CallableInstance
+  h as default,
+  o as identity
 };
 //# sourceMappingURL=cori.data.api274.js.map

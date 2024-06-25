@@ -1,43 +1,32 @@
-import { rowLookup as w } from "./cori.data.api623.js";
-import j from "./cori.data.api622.js";
-import l from "./cori.data.api336.js";
+import { groupOutput as p, aggregate as s } from "./cori.data.api540.js";
+import a from "./cori.data.api340.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function h(o, i, n, r = {}) {
-  const t = new j(o.totalRows());
-  return (l(n) ? R : k)(t, o, i, n), r.anti && t.not().and(o.mask()), o.create({ filter: t });
+function j(t, { names: l, exprs: u, ops: f }) {
+  const n = a(), e = t.groups();
+  return e && p(n, e), h(l, u, e, s(t, f), n), t.create(n.new());
 }
-function R(o, i, n, [r, t]) {
-  const f = w(n, t);
-  i.scan((e, a) => {
-    f.get(r(e, a)) >= 0 && o.set(e);
-  });
-}
-function k(o, i, n, r) {
-  const t = i.numRows(), f = n.numRows(), e = i.data(), a = n.data();
-  if (i.isFiltered() || n.isFiltered()) {
-    const s = i.indices(!1), c = n.indices(!1);
-    for (let m = 0; m < t; ++m) {
-      const u = s[m];
-      for (let d = 0; d < f; ++d)
-        if (r(u, e, c[d], a)) {
-          o.set(u);
-          break;
-        }
-    }
-  } else
-    for (let s = 0; s < t; ++s)
-      for (let c = 0; c < f; ++c)
-        if (r(s, e, c, a)) {
-          o.set(s);
-          break;
-        }
+function h(t, l, u, f = [], n) {
+  if (!l.length)
+    return;
+  const e = u ? u.size : 1, c = (o, r) => f[o][r], d = t.length;
+  for (let o = 0; o < d; ++o) {
+    const r = l[o];
+    if (r.field != null)
+      n.add(t[o], f[r.field]);
+    else if (e > 1) {
+      const g = n.add(t[o], Array(e));
+      for (let i = 0; i < e; ++i)
+        g[i] = r(i, null, c);
+    } else
+      n.add(t[o], [r(0, null, c)]);
+  }
 }
 export {
-  h as default
+  j as default
 };
 //# sourceMappingURL=cori.data.api526.js.map

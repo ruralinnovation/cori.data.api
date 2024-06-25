@@ -1,47 +1,68 @@
-import e from "./cori.data.api300.js";
+import { booleanish as a, number as r, spaceSeparated as i } from "./cori.data.api399.js";
+import { create as l } from "./cori.data.api397.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class n {
-  /**
-   * Create a new column instance.
-   * @param {Array} data The backing array (or array-like object)
-   *  containing the column data.
-   */
-  constructor(r) {
-    this.data = r;
+const u = l({
+  transform(n, e) {
+    return e === "role" ? e : "aria-" + e.slice(4).toLowerCase();
+  },
+  properties: {
+    ariaActiveDescendant: null,
+    ariaAtomic: a,
+    ariaAutoComplete: null,
+    ariaBusy: a,
+    ariaChecked: a,
+    ariaColCount: r,
+    ariaColIndex: r,
+    ariaColSpan: r,
+    ariaControls: i,
+    ariaCurrent: null,
+    ariaDescribedBy: i,
+    ariaDetails: null,
+    ariaDisabled: a,
+    ariaDropEffect: i,
+    ariaErrorMessage: null,
+    ariaExpanded: a,
+    ariaFlowTo: i,
+    ariaGrabbed: a,
+    ariaHasPopup: null,
+    ariaHidden: a,
+    ariaInvalid: null,
+    ariaKeyShortcuts: null,
+    ariaLabel: null,
+    ariaLabelledBy: i,
+    ariaLevel: r,
+    ariaLive: null,
+    ariaModal: a,
+    ariaMultiLine: a,
+    ariaMultiSelectable: a,
+    ariaOrientation: null,
+    ariaOwns: i,
+    ariaPlaceholder: null,
+    ariaPosInSet: r,
+    ariaPressed: a,
+    ariaReadOnly: a,
+    ariaRelevant: null,
+    ariaRequired: a,
+    ariaRoleDescription: i,
+    ariaRowCount: r,
+    ariaRowIndex: r,
+    ariaRowSpan: r,
+    ariaSelected: a,
+    ariaSetSize: r,
+    ariaSort: null,
+    ariaValueMax: r,
+    ariaValueMin: r,
+    ariaValueNow: r,
+    ariaValueText: null,
+    role: null
   }
-  /**
-   * Get the length (number of rows) of the column.
-   * @return {number} The length of the column array.
-   */
-  get length() {
-    return this.data.length;
-  }
-  /**
-   * Get the column value at the given row index.
-   * @param {number} row The row index of the value to retrieve.
-   * @return {import('./table').DataValue} The column value.
-   */
-  get(r) {
-    return this.data[r];
-  }
-  /**
-   * Returns an iterator over the column values.
-   * @return {Iterator<object>} An iterator over column values.
-   */
-  [Symbol.iterator]() {
-    return this.data[Symbol.iterator]();
-  }
-}
-let u = function(t) {
-  return t && e(t.get) ? t : new n(t);
-};
+});
 export {
-  n as default,
-  u as defaultColumnFactory
+  u as aria
 };
 //# sourceMappingURL=cori.data.api299.js.map

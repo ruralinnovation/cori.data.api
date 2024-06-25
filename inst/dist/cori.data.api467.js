@@ -1,13 +1,15 @@
+import t from "./cori.data.api523.js";
+import d from "./cori.data.api524.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function c(o, n) {
-  return n in o ? o[n] : n;
+function e(o, r, f) {
+  return t(o, d("fold", o, r), f);
 }
 export {
-  c as caseSensitiveTransform
+  e as default
 };
 //# sourceMappingURL=cori.data.api467.js.map

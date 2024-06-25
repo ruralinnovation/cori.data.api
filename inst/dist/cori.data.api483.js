@@ -1,36 +1,35 @@
+import d from "./cori.data.api538.js";
+import p from "./cori.data.api539.js";
+import f from "./cori.data.api376.js";
+import u from "./cori.data.api333.js";
+import s from "./cori.data.api337.js";
+import l from "./cori.data.api362.js";
+import x from "./cori.data.api334.js";
+import y from "./cori.data.api380.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const f = {};
-function l(t, o) {
-  const n = f, i = typeof n.includeImageAlt == "boolean" ? n.includeImageAlt : !0, r = typeof n.includeHtml == "boolean" ? n.includeHtml : !0;
-  return c(t, i, r);
+function E(e, i) {
+  return d(e, b(e, i));
 }
-function c(t, o, n) {
-  if (s(t)) {
-    if ("value" in t)
-      return t.type === "html" && !n ? "" : t.value;
-    if (o && "alt" in t && t.alt)
-      return t.alt;
-    if ("children" in t)
-      return e(t.children, o, n);
-  }
-  return Array.isArray(t) ? e(t, o, n) : "";
-}
-function e(t, o, n) {
-  const i = [];
-  let r = -1;
-  for (; ++r < t.length; )
-    i[r] = c(t[r], o, n);
-  return i.join("");
-}
-function s(t) {
-  return !!(t && typeof t == "object");
+function b(e, i) {
+  let m = -1;
+  const t = /* @__PURE__ */ new Map(), n = (r) => t.set(++m + "", r);
+  return i.forEach((r) => {
+    const o = r.expr != null ? r.expr : r;
+    if (l(o) && !s(o))
+      for (const c in o)
+        n(o[c]);
+    else
+      n(
+        x(o) ? f(r, e.columnName(o)) : y(o) ? f(r) : s(o) ? r : u(`Invalid orderby field: ${r + ""}`)
+      );
+  }), p(e, t);
 }
 export {
-  l as toString
+  E as default
 };
 //# sourceMappingURL=cori.data.api483.js.map

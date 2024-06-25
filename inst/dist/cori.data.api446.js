@@ -1,15 +1,26 @@
-import o from "./cori.data.api532.js";
-import a from "./cori.data.api521.js";
+import e from "./cori.data.api460.js";
+import l from "./cori.data.api438.js";
+import r from "./cori.data.api380.js";
+import c from "./cori.data.api436.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function d(r, p, e) {
-  return o(r, a("spread", r, p), e);
-}
+const n = (i) => l(i) || r(i), a = {
+  compact: (i) => l(i) ? i.filter((o) => c(o)) : i,
+  concat: (...i) => [].concat(...i),
+  includes: (i, o, t) => n(i) ? i.includes(o, t) : !1,
+  indexof: (i, o) => n(i) ? i.indexOf(o) : -1,
+  join: (i, o) => l(i) ? i.join(o) : e,
+  lastindexof: (i, o) => n(i) ? i.lastIndexOf(o) : -1,
+  length: (i) => n(i) ? i.length : 0,
+  pluck: (i, o) => l(i) ? i.map((t) => c(t) ? t[o] : e) : e,
+  reverse: (i) => l(i) ? i.slice().reverse() : r(i) ? i.split("").reverse().join("") : e,
+  slice: (i, o, t) => n(i) ? i.slice(o, t) : e
+};
 export {
-  d as default
+  a as default
 };
 //# sourceMappingURL=cori.data.api446.js.map

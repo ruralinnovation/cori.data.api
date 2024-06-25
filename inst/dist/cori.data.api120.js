@@ -1,44 +1,39 @@
+import { tickStep as s } from "./cori.data.api86.js";
+import c from "./cori.data.api95.js";
+import e from "./cori.data.api100.js";
+import p from "./cori.data.api102.js";
+import l from "./cori.data.api101.js";
+import { formatPrefix as u, format as h } from "./cori.data.api44.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i extends Map {
-  constructor(t, s = f) {
-    if (super(), Object.defineProperties(this, { _intern: { value: /* @__PURE__ */ new Map() }, _key: { value: s } }), t != null)
-      for (const [r, o] of t)
-        this.set(r, o);
+function d(r, t, i, a) {
+  var n = s(r, t, i), o;
+  switch (a = c(a ?? ",f"), a.type) {
+    case "s": {
+      var m = Math.max(Math.abs(r), Math.abs(t));
+      return a.precision == null && !isNaN(o = l(n, m)) && (a.precision = o), u(a, m);
+    }
+    case "":
+    case "e":
+    case "g":
+    case "p":
+    case "r": {
+      a.precision == null && !isNaN(o = p(n, Math.max(Math.abs(r), Math.abs(t)))) && (a.precision = o - (a.type === "e"));
+      break;
+    }
+    case "f":
+    case "%": {
+      a.precision == null && !isNaN(o = e(n)) && (a.precision = o - (a.type === "%") * 2);
+      break;
+    }
   }
-  get(t) {
-    return super.get(n(this, t));
-  }
-  has(t) {
-    return super.has(n(this, t));
-  }
-  set(t, s) {
-    return super.set(u(this, t), s);
-  }
-  delete(t) {
-    return super.delete(c(this, t));
-  }
-}
-function n({ _intern: e, _key: t }, s) {
-  const r = t(s);
-  return e.has(r) ? e.get(r) : s;
-}
-function u({ _intern: e, _key: t }, s) {
-  const r = t(s);
-  return e.has(r) ? e.get(r) : (e.set(r, s), s);
-}
-function c({ _intern: e, _key: t }, s) {
-  const r = t(s);
-  return e.has(r) && (s = e.get(r), e.delete(r)), s;
-}
-function f(e) {
-  return e !== null && typeof e == "object" ? e.valueOf() : e;
+  return h(a);
 }
 export {
-  i as InternMap
+  d as default
 };
 //# sourceMappingURL=cori.data.api120.js.map

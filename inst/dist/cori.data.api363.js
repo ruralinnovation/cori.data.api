@@ -1,22 +1,20 @@
+import a from "./cori.data.api361.js";
+import { rowObjectCode as p } from "./cori.data.api342.js";
+import n from "./cori.data.api333.js";
+import c from "./cori.data.api432.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function r(t, e) {
-  const p = e.value ? e.value + `
-` : "", l = {};
-  e.lang && (l.className = ["language-" + e.lang]);
-  let a = {
-    type: "element",
-    tagName: "code",
-    properties: l,
-    children: [{ type: "text", value: p }]
-  };
-  return e.meta && (a.data = { meta: e.meta }), t.patch(e, a), a = t.applyData(e, a), a = { type: "element", tagName: "pre", properties: {}, children: [a] }, t.patch(e, a), a;
+const s = "Escaped functions are not valid as rollup or pivot values.";
+function u(o, r, e) {
+  o.aggronly && n(s);
+  const t = "(row,data)=>fn(" + p(o.table.columnNames()) + ",$)";
+  return { escape: a.escape(t, c(r.expr), e) };
 }
 export {
-  r as code
+  u as default
 };
 //# sourceMappingURL=cori.data.api363.js.map

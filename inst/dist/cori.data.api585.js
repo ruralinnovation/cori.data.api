@@ -1,51 +1,14 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api638.js";
-import "./cori.data.api567.js";
-import "./cori.data.api568.js";
-import { TimeUnit as o } from "./cori.data.api561.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
-  }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
-  }
-  static getRootAsTimestamp(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsTimestamp(t, i) {
-    return t.setPosition(t.position() + n), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  unit() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : o.SECOND;
-  }
-  timezone(t) {
-    const i = this.bb.__offset(this.bb_pos, 6);
-    return i ? this.bb.__string(this.bb_pos + i, t) : null;
-  }
-  static startTimestamp(t) {
-    t.startObject(2);
-  }
-  static addUnit(t, i) {
-    t.addFieldInt16(0, i, o.SECOND);
-  }
-  static addTimezone(t, i) {
-    t.addFieldOffset(1, i, 0);
-  }
-  static endTimestamp(t) {
-    return t.endObject();
-  }
-  static createTimestamp(t, i, e) {
-    return s.startTimestamp(t), s.addUnit(t, i), s.addTimezone(t, e), s.endTimestamp(t);
-  }
-}
+var t;
+(function(i) {
+  i[i.NONE = 0] = "NONE", i[i.Null = 1] = "Null", i[i.Int = 2] = "Int", i[i.FloatingPoint = 3] = "FloatingPoint", i[i.Binary = 4] = "Binary", i[i.Utf8 = 5] = "Utf8", i[i.Bool = 6] = "Bool", i[i.Decimal = 7] = "Decimal", i[i.Date = 8] = "Date", i[i.Time = 9] = "Time", i[i.Timestamp = 10] = "Timestamp", i[i.Interval = 11] = "Interval", i[i.List = 12] = "List", i[i.Struct_ = 13] = "Struct_", i[i.Union = 14] = "Union", i[i.FixedSizeBinary = 15] = "FixedSizeBinary", i[i.FixedSizeList = 16] = "FixedSizeList", i[i.Map = 17] = "Map", i[i.Duration = 18] = "Duration", i[i.LargeBinary = 19] = "LargeBinary", i[i.LargeUtf8 = 20] = "LargeUtf8", i[i.LargeList = 21] = "LargeList", i[i.RunEndEncoded = 22] = "RunEndEncoded";
+})(t || (t = {}));
 export {
-  s as Timestamp
+  t as Type
 };
 //# sourceMappingURL=cori.data.api585.js.map

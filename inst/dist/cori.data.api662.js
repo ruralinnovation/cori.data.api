@@ -1,53 +1,52 @@
-import { factorySpace as H } from "./cori.data.api654.js";
-import { markdownLineEndingOrSpace as m, markdownLineEnding as o, markdownSpace as h } from "./cori.data.api486.js";
-import { splice as S } from "./cori.data.api653.js";
+import { markdownLineEnding as d } from "./cori.data.api419.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const T = {
-  name: "headingAtx",
-  tokenize: d,
-  resolve: y
+const m = {
+  name: "codeText",
+  tokenize: E,
+  resolve: y,
+  previous: g
 };
-function y(t, i) {
-  let e = t.length - 2, r = 3, a, u;
-  return t[r][1].type === "whitespace" && (r += 2), e - 2 > r && t[e][1].type === "whitespace" && (e -= 2), t[e][1].type === "atxHeadingSequence" && (r === e - 1 || e - 4 > r && t[e - 2][1].type === "whitespace") && (e -= r + 1 === e ? 2 : 4), e > r && (a = {
-    type: "atxHeadingText",
-    start: t[r][1].start,
-    end: t[e][1].end
-  }, u = {
-    type: "chunkText",
-    start: t[r][1].start,
-    end: t[e][1].end,
-    contentType: "text"
-  }, S(t, r, e - r + 1, [["enter", a, i], ["enter", u, i], ["exit", u, i], ["exit", a, i]])), t;
+function y(e) {
+  let r = e.length - 4, u = 3, t, i;
+  if ((e[u][1].type === "lineEnding" || e[u][1].type === "space") && (e[r][1].type === "lineEnding" || e[r][1].type === "space")) {
+    for (t = u; ++t < r; )
+      if (e[t][1].type === "codeTextData") {
+        e[u][1].type = "codeTextPadding", e[r][1].type = "codeTextPadding", u += 2, r -= 2;
+        break;
+      }
+  }
+  for (t = u - 1, r++; ++t <= r; )
+    i === void 0 ? t !== r && e[t][1].type !== "lineEnding" && (i = t) : (t === r || e[t][1].type === "lineEnding") && (e[i][1].type = "codeTextData", t !== i + 2 && (e[i][1].end = e[t - 1][1].end, e.splice(i + 2, t - i - 2), r -= t - i - 2, t = i + 2), i = void 0);
+  return e;
 }
-function d(t, i, e) {
-  let r = 0;
-  return a;
-  function a(n) {
-    return t.enter("atxHeading"), u(n);
+function g(e) {
+  return e !== 96 || this.events[this.events.length - 1][1].type === "characterEscape";
+}
+function E(e, r, u) {
+  let t = 0, i, l;
+  return T;
+  function T(n) {
+    return e.enter("codeText"), e.enter("codeTextSequence"), o(n);
   }
-  function u(n) {
-    return t.enter("atxHeadingSequence"), p(n);
-  }
-  function p(n) {
-    return n === 35 && r++ < 6 ? (t.consume(n), p) : n === null || m(n) ? (t.exit("atxHeadingSequence"), x(n)) : e(n);
+  function o(n) {
+    return n === 96 ? (e.consume(n), t++, o) : (e.exit("codeTextSequence"), x(n));
   }
   function x(n) {
-    return n === 35 ? (t.enter("atxHeadingSequence"), g(n)) : n === null || o(n) ? (t.exit("atxHeading"), i(n)) : h(n) ? H(t, x, "whitespace")(n) : (t.enter("atxHeadingText"), l(n));
+    return n === null ? u(n) : n === 32 ? (e.enter("space"), e.consume(n), e.exit("space"), x) : n === 96 ? (l = e.enter("codeTextSequence"), i = 0, p(n)) : d(n) ? (e.enter("lineEnding"), e.consume(n), e.exit("lineEnding"), x) : (e.enter("codeTextData"), a(n));
   }
-  function g(n) {
-    return n === 35 ? (t.consume(n), g) : (t.exit("atxHeadingSequence"), x(n));
+  function a(n) {
+    return n === null || n === 32 || n === 96 || d(n) ? (e.exit("codeTextData"), x(n)) : (e.consume(n), a);
   }
-  function l(n) {
-    return n === null || n === 35 || m(n) ? (t.exit("atxHeadingText"), x(n)) : (t.consume(n), l);
+  function p(n) {
+    return n === 96 ? (e.consume(n), i++, p) : i === t ? (e.exit("codeTextSequence"), e.exit("codeText"), r(n)) : (l.type = "codeTextData", a(n));
   }
 }
 export {
-  T as headingAtx
+  m as codeText
 };
 //# sourceMappingURL=cori.data.api662.js.map

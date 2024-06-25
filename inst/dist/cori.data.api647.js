@@ -1,36 +1,53 @@
-import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api638.js";
-import "./cori.data.api567.js";
-import "./cori.data.api568.js";
+import { factorySpace as H } from "./cori.data.api639.js";
+import { markdownLineEndingOrSpace as m, markdownLineEnding as o, markdownSpace as h } from "./cori.data.api419.js";
+import { splice as S } from "./cori.data.api638.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
+const T = {
+  name: "headingAtx",
+  tokenize: d,
+  resolve: y
+};
+function y(t, i) {
+  let e = t.length - 2, r = 3, a, u;
+  return t[r][1].type === "whitespace" && (r += 2), e - 2 > r && t[e][1].type === "whitespace" && (e -= 2), t[e][1].type === "atxHeadingSequence" && (r === e - 1 || e - 4 > r && t[e - 2][1].type === "whitespace") && (e -= r + 1 === e ? 2 : 4), e > r && (a = {
+    type: "atxHeadingText",
+    start: t[r][1].start,
+    end: t[e][1].end
+  }, u = {
+    type: "chunkText",
+    start: t[r][1].start,
+    end: t[e][1].end,
+    contentType: "text"
+  }, S(t, r, e - r + 1, [["enter", a, i], ["enter", u, i], ["exit", u, i], ["exit", a, i]])), t;
+}
+function d(t, i, e) {
+  let r = 0;
+  return a;
+  function a(n) {
+    return t.enter("atxHeading"), u(n);
   }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
+  function u(n) {
+    return t.enter("atxHeadingSequence"), p(n);
   }
-  static getRootAsList(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  function p(n) {
+    return n === 35 && r++ < 6 ? (t.consume(n), p) : n === null || m(n) ? (t.exit("atxHeadingSequence"), x(n)) : e(n);
   }
-  static getSizePrefixedRootAsList(t, i) {
-    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  function x(n) {
+    return n === 35 ? (t.enter("atxHeadingSequence"), g(n)) : n === null || o(n) ? (t.exit("atxHeading"), i(n)) : h(n) ? H(t, x, "whitespace")(n) : (t.enter("atxHeadingText"), l(n));
   }
-  static startList(t) {
-    t.startObject(0);
+  function g(n) {
+    return n === 35 ? (t.consume(n), g) : (t.exit("atxHeadingSequence"), x(n));
   }
-  static endList(t) {
-    return t.endObject();
-  }
-  static createList(t) {
-    return s.startList(t), s.endList(t);
+  function l(n) {
+    return n === null || n === 35 || m(n) ? (t.exit("atxHeadingText"), x(n)) : (t.consume(n), l);
   }
 }
 export {
-  s as List
+  T as headingAtx
 };
 //# sourceMappingURL=cori.data.api647.js.map

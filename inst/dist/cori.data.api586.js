@@ -1,44 +1,50 @@
-import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api638.js";
-import "./cori.data.api567.js";
-import "./cori.data.api568.js";
-import { IntervalUnit as n } from "./cori.data.api562.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api665.js";
+import "./cori.data.api574.js";
+import "./cori.data.api575.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
+class i {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
   }
-  static getRootAsInterval(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getRootAsKeyValue(t, s) {
+    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsInterval(t, i) {
-    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsKeyValue(t, s) {
+    return t.setPosition(t.position() + o), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  unit() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : n.YEAR_MONTH;
+  key(t) {
+    const s = this.bb.__offset(this.bb_pos, 4);
+    return s ? this.bb.__string(this.bb_pos + s, t) : null;
   }
-  static startInterval(t) {
-    t.startObject(1);
+  value(t) {
+    const s = this.bb.__offset(this.bb_pos, 6);
+    return s ? this.bb.__string(this.bb_pos + s, t) : null;
   }
-  static addUnit(t, i) {
-    t.addFieldInt16(0, i, n.YEAR_MONTH);
+  static startKeyValue(t) {
+    t.startObject(2);
   }
-  static endInterval(t) {
+  static addKey(t, s) {
+    t.addFieldOffset(0, s, 0);
+  }
+  static addValue(t, s) {
+    t.addFieldOffset(1, s, 0);
+  }
+  static endKeyValue(t) {
     return t.endObject();
   }
-  static createInterval(t, i) {
-    return s.startInterval(t), s.addUnit(t, i), s.endInterval(t);
+  static createKeyValue(t, s, e) {
+    return i.startKeyValue(t), i.addKey(t, s), i.addValue(t, e), i.endKeyValue(t);
   }
 }
 export {
-  s as Interval
+  i as KeyValue
 };
 //# sourceMappingURL=cori.data.api586.js.map

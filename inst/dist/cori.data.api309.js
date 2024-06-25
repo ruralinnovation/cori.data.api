@@ -1,30 +1,35 @@
-import d from "./cori.data.api395.js";
-import "./cori.data.api38.js";
-import { formatUTCDate as g } from "./cori.data.api401.js";
-import "./cori.data.api39.js";
-import { columns as h } from "./cori.data.api402.js";
-import p from "./cori.data.api404.js";
+import { normalizeUri as s } from "./cori.data.api330.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const J = (t) => d(t) ? g(t, !0) : t;
-function T(t, r = {}) {
-  const f = p(r.schema), e = r.format || {}, c = h(t, r.columns);
-  let m = "{";
-  return f && (m += '"schema":{"fields":' + JSON.stringify(c.map((o) => ({ name: o }))) + '},"data":{'), c.forEach((o, s) => {
-    m += (s ? "," : "") + JSON.stringify(o) + ":[";
-    const a = t.column(o), i = e[o] || J;
-    let n = -1;
-    t.scan((u) => {
-      const l = a.get(u);
-      m += (++n ? "," : "") + JSON.stringify(i(l));
-    }, !0, r.limit, r.offset), m += "]";
-  }), m + "}" + (f ? "}" : "");
+function d(e, r) {
+  const i = typeof e.options.clobberPrefix == "string" ? e.options.clobberPrefix : "user-content-", t = String(r.identifier).toUpperCase(), f = s(t.toLowerCase()), l = e.footnoteOrder.indexOf(t);
+  let n, o = e.footnoteCounts.get(t);
+  o === void 0 ? (o = 0, e.footnoteOrder.push(t), n = e.footnoteOrder.length) : n = l + 1, o += 1, e.footnoteCounts.set(t, o);
+  const p = {
+    type: "element",
+    tagName: "a",
+    properties: {
+      href: "#" + i + "fn-" + f,
+      id: i + "fnref-" + f + (o > 1 ? "-" + o : ""),
+      dataFootnoteRef: !0,
+      ariaDescribedBy: ["footnote-label"]
+    },
+    children: [{ type: "text", value: String(n) }]
+  };
+  e.patch(r, p);
+  const c = {
+    type: "element",
+    tagName: "sup",
+    properties: {},
+    children: [p]
+  };
+  return e.patch(r, c), e.applyData(r, c);
 }
 export {
-  T as default
+  d as footnoteReference
 };
 //# sourceMappingURL=cori.data.api309.js.map

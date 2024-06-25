@@ -1,40 +1,67 @@
-import { normalize as s } from "./cori.data.api468.js";
-import { DefinedInfo as p } from "./cori.data.api469.js";
-import { Info as f } from "./cori.data.api470.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const l = /^data[-\w.:]+$/i, c = /-[a-z]/g, d = /[A-Z]/g;
-function C(r, t) {
-  const o = s(t);
-  let i = t, a = f;
-  if (o in r.normal)
-    return r.property[r.normal[o]];
-  if (o.length > 4 && o.slice(0, 4) === "data" && l.test(t)) {
-    if (t.charAt(4) === "-") {
-      const e = t.slice(5).replace(c, h);
-      i = "data" + e.charAt(0).toUpperCase() + e.slice(1);
-    } else {
-      const e = t.slice(4);
-      if (!c.test(e)) {
-        let n = e.replace(d, m);
-        n.charAt(0) !== "-" && (n = "-" + n), t = "data" + n;
+function x() {
+  const i = [], u = { run: c, use: p };
+  return u;
+  function c(...n) {
+    let h = -1;
+    const t = n.pop();
+    if (typeof t != "function")
+      throw new TypeError("Expected function as last argument, not " + t);
+    f(null, ...n);
+    function f(e, ...o) {
+      const r = i[++h];
+      let l = -1;
+      if (e) {
+        t(e);
+        return;
       }
+      for (; ++l < n.length; )
+        (o[l] === null || o[l] === void 0) && (o[l] = n[l]);
+      n = o, r ? s(r, f)(...o) : t(null, ...o);
     }
-    a = p;
   }
-  return new a(i, t);
+  function p(n) {
+    if (typeof n != "function")
+      throw new TypeError(
+        "Expected `middelware` to be a function, not " + n
+      );
+    return i.push(n), u;
+  }
 }
-function m(r) {
-  return "-" + r.toLowerCase();
-}
-function h(r) {
-  return r.charAt(1).toUpperCase();
+function s(i, u) {
+  let c;
+  return p;
+  function p(...t) {
+    const f = i.length > t.length;
+    let e;
+    f && t.push(n);
+    try {
+      e = i.apply(this, t);
+    } catch (o) {
+      const r = (
+        /** @type {Error} */
+        o
+      );
+      if (f && c)
+        throw r;
+      return n(r);
+    }
+    f || (e && e.then && typeof e.then == "function" ? e.then(h, n) : e instanceof Error ? n(e) : h(e));
+  }
+  function n(t, ...f) {
+    c || (c = !0, u(t, ...f));
+  }
+  function h(t) {
+    n(null, t);
+  }
 }
 export {
-  C as find
+  x as trough,
+  s as wrap
 };
 //# sourceMappingURL=cori.data.api265.js.map

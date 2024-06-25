@@ -1,61 +1,43 @@
-import { Dictionary as c } from "./cori.data.api419.js";
-import { Builder as d } from "./cori.data.api500.js";
-import { makeBuilder as r } from "./cori.data.api564.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class a extends d {
-  constructor({ type: i, nullValues: e, dictionaryHashFunction: t }) {
-    super({ type: new c(i.dictionary, i.indices, i.id, i.isOrdered) }), this._nulls = null, this._dictionaryOffset = 0, this._keysToIndices = /* @__PURE__ */ Object.create(null), this.indices = r({ type: this.type.indices, nullValues: e }), this.dictionary = r({ type: this.type.dictionary, nullValues: null }), typeof t == "function" && (this.valueToKey = t);
+class b {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  get values() {
-    return this.indices.values;
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
   }
-  get nullCount() {
-    return this.indices.nullCount;
+  /**
+   * Index to the start of the RecordBlock (note this is past the Message header)
+   */
+  offset() {
+    return this.bb.readInt64(this.bb_pos);
   }
-  get nullBitmap() {
-    return this.indices.nullBitmap;
+  /**
+   * Length of the metadata
+   */
+  metaDataLength() {
+    return this.bb.readInt32(this.bb_pos + 8);
   }
-  get byteLength() {
-    return this.indices.byteLength + this.dictionary.byteLength;
+  /**
+   * Length of the data (this is aligned so there can be a gap between this and
+   * the metadata).
+   */
+  bodyLength() {
+    return this.bb.readInt64(this.bb_pos + 16);
   }
-  get reservedLength() {
-    return this.indices.reservedLength + this.dictionary.reservedLength;
+  static sizeOf() {
+    return 24;
   }
-  get reservedByteLength() {
-    return this.indices.reservedByteLength + this.dictionary.reservedByteLength;
-  }
-  isValid(i) {
-    return this.indices.isValid(i);
-  }
-  setValid(i, e) {
-    const t = this.indices;
-    return e = t.setValid(i, e), this.length = t.length, e;
-  }
-  setValue(i, e) {
-    const t = this._keysToIndices, s = this.valueToKey(e);
-    let n = t[s];
-    return n === void 0 && (t[s] = n = this._dictionaryOffset + this.dictionary.append(e).length - 1), this.indices.setValue(i, n);
-  }
-  flush() {
-    const i = this.type, e = this._dictionary, t = this.dictionary.toVector(), s = this.indices.flush().clone(i);
-    return s.dictionary = e ? e.concat(t) : t, this.finished || (this._dictionaryOffset += t.length), this._dictionary = s.dictionary, this.clear(), s;
-  }
-  finish() {
-    return this.indices.finish(), this.dictionary.finish(), this._dictionaryOffset = 0, this._keysToIndices = /* @__PURE__ */ Object.create(null), super.finish();
-  }
-  clear() {
-    return this.indices.clear(), this.dictionary.clear(), super.clear();
-  }
-  valueToKey(i) {
-    return typeof i == "string" ? i : `${i}`;
+  static createBlock(t, s, i, n) {
+    return t.prep(8, 24), t.writeInt64(BigInt(n ?? 0)), t.pad(4), t.writeInt32(i), t.writeInt64(BigInt(s ?? 0)), t.offset();
   }
 }
 export {
-  a as DictionaryBuilder
+  b as Block
 };
 //# sourceMappingURL=cori.data.api602.js.map

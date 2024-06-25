@@ -1,4 +1,3 @@
-import { default as React } from 'react';
 import { ERCData, MetricMetadata } from '../interfaces';
 
 interface GroupedBarChartProps {
@@ -8,5 +7,5 @@ interface GroupedBarChartProps {
     metadata: MetricMetadata;
     width: number;
 }
-declare const GroupedBarChart: React.FC<GroupedBarChartProps>;
+declare function GroupedBarChart({ primary_geoid, metric, data, metadata, width }: GroupedBarChartProps): import("react/jsx-runtime").JSX.Element;
 export default GroupedBarChart;

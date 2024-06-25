@@ -1,26 +1,50 @@
-import d from "./cori.data.api303.js";
-import i from "./cori.data.api460.js";
+import { random as t } from "./cori.data.api368.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function g(o, n) {
-  const t = o.numRows(), s = t + n.reduce((c, r) => c + r.numRows(), 0);
-  if (t === s)
-    return o;
-  const e = [o, ...n], u = d();
-  return o.columnNames().forEach((c) => {
-    const r = Array(s);
-    let f = 0;
-    e.forEach((m) => {
-      const a = m.column(c) || { get: () => i };
-      m.scan((w) => r[f++] = a.get(w));
-    }), u.add(c, r);
-  }), o.create(u.new());
-}
+const n = {
+  random: t,
+  is_nan: Number.isNaN,
+  is_finite: Number.isFinite,
+  abs: Math.abs,
+  cbrt: Math.cbrt,
+  ceil: Math.ceil,
+  clz32: Math.clz32,
+  exp: Math.exp,
+  expm1: Math.expm1,
+  floor: Math.floor,
+  fround: Math.fround,
+  greatest: Math.max,
+  least: Math.min,
+  log: Math.log,
+  log10: Math.log10,
+  log1p: Math.log1p,
+  log2: Math.log2,
+  pow: Math.pow,
+  round: Math.round,
+  sign: Math.sign,
+  sqrt: Math.sqrt,
+  trunc: Math.trunc,
+  degrees: (a) => 180 * a / Math.PI,
+  radians: (a) => Math.PI * a / 180,
+  acos: Math.acos,
+  acosh: Math.acosh,
+  asin: Math.asin,
+  asinh: Math.asinh,
+  atan: Math.atan,
+  atan2: Math.atan2,
+  atanh: Math.atanh,
+  cos: Math.cos,
+  cosh: Math.cosh,
+  sin: Math.sin,
+  sinh: Math.sinh,
+  tan: Math.tan,
+  tanh: Math.tanh
+};
 export {
-  g as default
+  n as default
 };
 //# sourceMappingURL=cori.data.api451.js.map

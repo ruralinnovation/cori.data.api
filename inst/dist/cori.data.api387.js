@@ -1,30 +1,59 @@
-import { asciiAlphanumeric as f } from "./cori.data.api486.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function h(t) {
-  const s = [];
-  let r = -1, n = 0, i = 0;
-  for (; ++r < t.length; ) {
-    const e = t.charCodeAt(r);
-    let o = "";
-    if (e === 37 && f(t.charCodeAt(r + 1)) && f(t.charCodeAt(r + 2)))
-      i = 2;
-    else if (e < 128)
-      /[!#$&-;=?-Z_a-z~]/.test(String.fromCharCode(e)) || (o = String.fromCharCode(e));
-    else if (e > 55295 && e < 57344) {
-      const c = t.charCodeAt(r + 1);
-      e < 56320 && c > 56319 && c < 57344 ? (o = String.fromCharCode(e, c), i = 1) : o = "�";
-    } else
-      o = String.fromCharCode(e);
-    o && (s.push(t.slice(n, r), encodeURIComponent(o)), n = r + i + 1, o = ""), i && (r += i, i = 0);
+function u(t) {
+  return t.split(/,/)[1];
+}
+function w(t) {
+  return t.search(/^(data:)/) !== -1;
+}
+function l(t, a) {
+  return `data:${a};base64,${t}`;
+}
+async function h(t, a, r) {
+  const e = await fetch(t, a);
+  if (e.status === 404)
+    throw new Error(`Resource "${e.url}" not found`);
+  const o = await e.blob();
+  return new Promise((n, c) => {
+    const s = new FileReader();
+    s.onerror = c, s.onloadend = () => {
+      try {
+        n(r({ res: e, result: s.result }));
+      } catch (f) {
+        c(f);
+      }
+    }, s.readAsDataURL(o);
+  });
+}
+const i = {};
+function d(t, a, r) {
+  let e = t.replace(/\?.*/, "");
+  return r && (e = t), /ttf|otf|eot|woff2?/i.test(e) && (e = e.replace(/.*\//, "")), a ? `[${a}]${e}` : e;
+}
+async function g(t, a, r) {
+  const e = d(t, a, r.includeQueryParams);
+  if (i[e] != null)
+    return i[e];
+  r.cacheBust && (t += (/\?/.test(t) ? "&" : "?") + (/* @__PURE__ */ new Date()).getTime());
+  let o;
+  try {
+    const n = await h(t, r.fetchRequestInit, ({ res: c, result: s }) => (a || (a = c.headers.get("Content-Type") || ""), u(s)));
+    o = l(n, a);
+  } catch (n) {
+    o = r.imagePlaceholder || "";
+    let c = `Failed to fetch resource: ${t}`;
+    n && (c = typeof n == "string" ? n : n.message), c && console.warn(c);
   }
-  return s.join("") + t.slice(n);
+  return i[e] = o, o;
 }
 export {
-  h as normalizeUri
+  h as fetchAsDataURL,
+  w as isDataUrl,
+  l as makeDataUrl,
+  g as resourceToDataURL
 };
 //# sourceMappingURL=cori.data.api387.js.map

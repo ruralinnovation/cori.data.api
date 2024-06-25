@@ -1,72 +1,14 @@
-import s from "./cori.data.api210.js";
-import m from "./cori.data.api211.js";
-import a from "./cori.data.api212.js";
-import l from "./cori.data.api213.js";
-import p from "./cori.data.api214.js";
-import f from "./cori.data.api215.js";
-import _ from "./cori.data.api216.js";
-import c from "./cori.data.api217.js";
-import d from "./cori.data.api218.js";
-import y from "./cori.data.api219.js";
-import h from "./cori.data.api220.js";
-import w from "./cori.data.api221.js";
-import u from "./cori.data.api222.js";
-import T from "./cori.data.api223.js";
-import g from "./cori.data.api224.js";
-import x from "./cori.data.api225.js";
-import v from "./cori.data.api226.js";
-import C from "./cori.data.api227.js";
-import b from "./cori.data.api228.js";
-import z from "./cori.data.api229.js";
-import A from "./cori.data.api159.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var S = 0;
-function r(o, i, e, n) {
-  this._groups = o, this._parents = i, this._name = e, this._id = n;
+function t() {
+  var a = arguments[0];
+  return arguments[0] = this, a.apply(null, arguments), this;
 }
-function W() {
-  return ++S;
-}
-var t = A.prototype;
-r.prototype = {
-  constructor: r,
-  select: h,
-  selectAll: w,
-  selectChild: t.selectChild,
-  selectChildren: t.selectChildren,
-  filter: _,
-  merge: c,
-  selection: u,
-  transition: C,
-  call: t.call,
-  nodes: t.nodes,
-  node: t.node,
-  size: t.size,
-  empty: t.empty,
-  each: t.each,
-  on: d,
-  attr: s,
-  attrTween: m,
-  style: T,
-  styleTween: g,
-  text: x,
-  textTween: v,
-  remove: y,
-  tween: b,
-  delay: a,
-  duration: l,
-  ease: p,
-  easeVarying: f,
-  end: z,
-  [Symbol.iterator]: t[Symbol.iterator]
-};
 export {
-  r as Transition,
-  W as newId
+  t as default
 };
 //# sourceMappingURL=cori.data.api209.js.map

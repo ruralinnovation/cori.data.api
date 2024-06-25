@@ -1,65 +1,71 @@
-import { blockquote as r } from "./cori.data.api361.js";
-import { hardBreak as m } from "./cori.data.api362.js";
-import { code as t } from "./cori.data.api363.js";
-import { strikethrough as e } from "./cori.data.api364.js";
-import { emphasis as i } from "./cori.data.api365.js";
-import { footnoteReference as f } from "./cori.data.api366.js";
-import { heading as p } from "./cori.data.api367.js";
-import { html as n } from "./cori.data.api368.js";
-import { imageReference as a } from "./cori.data.api369.js";
-import { image as l } from "./cori.data.api370.js";
-import { inlineCode as d } from "./cori.data.api371.js";
-import { linkReference as h } from "./cori.data.api372.js";
-import { link as c } from "./cori.data.api373.js";
-import { listItem as s } from "./cori.data.api374.js";
-import { list as g } from "./cori.data.api375.js";
-import { paragraph as k } from "./cori.data.api376.js";
-import { root as b } from "./cori.data.api377.js";
-import { strong as u } from "./cori.data.api378.js";
-import { table as R } from "./cori.data.api379.js";
-import { tableRow as x } from "./cori.data.api380.js";
-import { tableCell as B } from "./cori.data.api381.js";
-import { text as C } from "./cori.data.api382.js";
-import { thematicBreak as q } from "./cori.data.api383.js";
+import $ from "./cori.data.api333.js";
+import x from "./cori.data.api381.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const V = {
-  blockquote: r,
-  break: m,
-  code: t,
-  delete: e,
-  emphasis: i,
-  footnoteReference: f,
-  heading: p,
-  html: n,
-  imageReference: a,
-  image: l,
-  inlineCode: d,
-  linkReference: h,
-  link: c,
-  listItem: s,
-  list: g,
-  paragraph: k,
-  // @ts-expect-error: root is different, but hard to type.
-  root: b,
-  strong: u,
-  table: R,
-  tableCell: B,
-  tableRow: x,
-  text: C,
-  thematicBreak: q,
-  toml: o,
-  yaml: o,
-  definition: o,
-  footnoteDefinition: o
+const t = (r, e) => {
+  const n = f[r.type];
+  return n ? n(r, e) : $(`Unsupported expression construct: ${r.type}`);
+}, c = (r, e) => "(" + t(r.left, e) + " " + r.operator + " " + t(r.right, e) + ")", o = (r, e) => "(" + s(r.params, e) + ")=>" + t(r.body, e), m = (r, e) => t(r.callee, e) + "(" + s(r.arguments, e) + ")", s = (r, e, n = ",") => r.map((a) => t(a, e)).join(n), y = (r) => r.computed ? `[${x(r.name)}]` : `.${r.name}`, p = (r, e, n) => {
+  const a = r.table || "";
+  return `data${a}${y(r)}.${n}(${e.index}${a})`;
+}, f = {
+  Constant: (r) => r.raw,
+  Column: (r, e) => p(r, e, "get"),
+  Dictionary: (r, e) => p(r, e, "key"),
+  Function: (r) => `fn.${r.name}`,
+  Parameter: (r) => `$${y(r)}`,
+  Op: (r, e) => `op(${x(r.name)},${e.op || e.index})`,
+  Literal: (r) => r.raw,
+  Identifier: (r) => r.name,
+  TemplateLiteral: (r, e) => {
+    const { quasis: n, expressions: a } = r, i = a.length;
+    let l = n[0].value.raw;
+    for (let u = 0; u < i; )
+      l += "${" + t(a[u], e) + "}" + n[++u].value.raw;
+    return "`" + l + "`";
+  },
+  MemberExpression: (r, e) => {
+    const n = !r.computed, a = t(r.object, e), i = t(r.property, e);
+    return a + (n ? "." + i : "[" + i + "]");
+  },
+  CallExpression: m,
+  NewExpression: (r, e) => "new " + m(r, e),
+  ArrayExpression: (r, e) => "[" + s(r.elements, e) + "]",
+  AssignmentExpression: c,
+  BinaryExpression: c,
+  LogicalExpression: c,
+  UnaryExpression: (r, e) => "(" + r.operator + t(r.argument, e) + ")",
+  ConditionalExpression: (r, e) => "(" + t(r.test, e) + "?" + t(r.consequent, e) + ":" + t(r.alternate, e) + ")",
+  ObjectExpression: (r, e) => "({" + s(r.properties, e) + "})",
+  Property: (r, e) => {
+    const n = t(r.key, e);
+    return (r.computed ? `[${n}]` : n) + ":" + t(r.value, e);
+  },
+  ArrowFunctionExpression: o,
+  FunctionExpression: o,
+  FunctionDeclaration: o,
+  ArrayPattern: (r, e) => "[" + s(r.elements, e) + "]",
+  ObjectPattern: (r, e) => "{" + s(r.properties, e) + "}",
+  VariableDeclaration: (r, e) => r.kind + " " + s(r.declarations, e, ","),
+  VariableDeclarator: (r, e) => t(r.id, e) + "=" + t(r.init, e),
+  SpreadElement: (r, e) => "..." + t(r.argument, e),
+  BlockStatement: (r, e) => "{" + s(r.body, e, ";") + ";}",
+  BreakStatement: () => "break",
+  ExpressionStatement: (r, e) => t(r.expression, e),
+  IfStatement: (r, e) => "if (" + t(r.test, e) + ")" + t(r.consequent, e) + (r.alternate ? " else " + t(r.alternate, e) : ""),
+  SwitchStatement: (r, e) => "switch (" + t(r.discriminant, e) + ") {" + s(r.cases, e, "") + "}",
+  SwitchCase: (r, e) => (r.test ? "case " + t(r.test, e) : "default") + ": " + s(r.consequent, e, ";") + ";",
+  ReturnStatement: (r, e) => "return " + t(r.argument, e),
+  Program: (r, e) => t(r.body[0], e)
 };
-function o() {
+function g(r, e = { index: "row" }) {
+  return t(r, e);
 }
 export {
-  V as handlers
+  g as default
 };
 //# sourceMappingURL=cori.data.api360.js.map

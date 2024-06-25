@@ -1,22 +1,16 @@
-import y, { gamma as e } from "./cori.data.api154.js";
-import { rgb as c } from "./cori.data.api125.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const x = function a(b) {
-  var g = e(b);
-  function i(o, r) {
-    var n = g((o = c(o)).r, (r = c(r)).r), p = g(o.g, r.g), u = g(o.b, r.b), f = y(o.opacity, r.opacity);
-    return function(m) {
-      return o.r = n(m), o.g = p(m), o.b = u(m), o.opacity = f(m), o + "";
-    };
-  }
-  return i.gamma = a, i;
-}(1);
+function c(f) {
+  for (var _ = this._groups, a = 0, h = _.length; a < h; ++a)
+    for (var e = _[a], t = 0, r = e.length, l; t < r; ++t)
+      (l = e[t]) && f.call(l, l.__data__, t, e);
+  return this;
+}
 export {
-  x as default
+  c as default
 };
 //# sourceMappingURL=cori.data.api143.js.map

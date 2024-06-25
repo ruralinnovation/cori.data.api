@@ -1,25 +1,29 @@
-import { factorySpace as o } from "./cori.data.api654.js";
-import { markdownSpace as f, markdownLineEnding as u } from "./cori.data.api486.js";
+import { labelEnd as u } from "./cori.data.api661.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const p = {
-  tokenize: k,
-  partial: !0
+const g = {
+  name: "labelStartImage",
+  tokenize: m,
+  resolveAll: u.resolveAll
 };
-function k(t, i, e) {
-  return a;
-  function a(n) {
-    return f(n) ? o(t, r, "linePrefix")(n) : r(n);
+function m(r, a, t) {
+  const n = this;
+  return l;
+  function l(e) {
+    return r.enter("labelImage"), r.enter("labelImageMarker"), r.consume(e), r.exit("labelImageMarker"), o;
   }
-  function r(n) {
-    return n === null || u(n) ? i(n) : e(n);
+  function o(e) {
+    return e === 91 ? (r.enter("labelMarker"), r.consume(e), r.exit("labelMarker"), r.exit("labelImage"), i) : t(e);
+  }
+  function i(e) {
+    return e === 94 && "_hiddenFootnoteSupport" in n.parser.constructs ? t(e) : a(e);
   }
 }
 export {
-  p as blankLine
+  g as labelStartImage
 };
 //# sourceMappingURL=cori.data.api655.js.map

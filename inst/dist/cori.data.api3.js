@@ -17,13 +17,13 @@ import { axisBottom as v, axisLeft as M } from "./cori.data.api21.js";
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const Z = ({ primary_geoid: j, metric: p, data: n, metadata: s, width: o }) => {
-  const F = !n.filter((t) => t.geoid === j && t.metric === p).every((t) => t.value === null), g = h.useRef(null), b = h.useRef(null), m = n.length * 70;
+function Z({ primary_geoid: j, metric: p, data: n, metadata: s, width: o }) {
+  const F = !n.filter((t) => t.geoid === j && t.metric === p).every((t) => t.value === null), g = h.useRef(null), u = h.useRef(null), m = n.length * 70;
   h.useEffect(() => {
-    if (!b.current)
+    if (!u.current)
       return;
-    const t = { ...r.margin }, u = Math.floor(o / 225), l = B(b.current).attr("viewBox", `0 0 ${o} ${m}`).attr("preserveAspectRatio", "xMidYMid meet"), _ = o < 500 ? 1.3 : 1.1, i = L().domain([0, R(n, (e) => e.value === null ? void 0 : +e.value * _)]).nice().range([t.left, o - t.right]), c = T().domain(n.map((e) => s.yVar === "variable" ? d(e.variable) : e.name)).range([t.top, m - t.bottom]).padding(0.1);
-    let f = v(i).ticks(u, s.xFormat).tickSize(r.xTickSize);
+    const t = { ...r.margin }, b = Math.floor(o / 225), l = B(u.current).attr("viewBox", `0 0 ${o} ${m}`).attr("preserveAspectRatio", "xMidYMid meet"), _ = o < 500 ? 1.3 : 1.1, i = L().domain([0, R(n, (e) => e.value === null ? void 0 : +e.value * _)]).nice().range([t.left, o - t.right]), c = T().domain(n.map((e) => s.yVar === "variable" ? d(e.variable) : e.name)).range([t.top, m - t.bottom]).padding(0.1);
+    let f = v(i).ticks(b, s.xFormat).tickSize(r.xTickSize);
     const z = M(c).tickSize(r.yTickSize);
     l.select(".x-axis").attr("transform", `translate(0, ${m - t.bottom})`).call(f), l.select(".y-axis").attr("transform", `translate(${t.left},0)`).call(z).call((e) => e.select(".domain").remove()), l.selectAll(".y-axis text").style("font-family", r.tickFontFamily).style("font-size", r.tickFontSize).style("color", r.tickFontColor);
     const k = A(l);
@@ -33,9 +33,9 @@ const Z = ({ primary_geoid: j, metric: p, data: n, metadata: s, width: o }) => {
       l.selectAll(".y-axis text").call(x), l.selectAll("foreignObject").style(
         "transform",
         "translate(-" + (t.left - r.yTickSize - e) + "px, -" + c.bandwidth() / 2 + "px)"
-      ).select("div").style("margin", 0).style("display", "flex").style("align-items", "center").style("justify-content", "end").style("height", "inherit"), i.range([t.left, o - t.right]), f = v(i).tickSize(r.xTickSize).ticks(u, s.xFormat), l.select(".x-axis").attr("transform", `translate(0, ${m - t.bottom})`).call(f), l.select(".y-axis").attr("transform", `translate(${t.left},0)`);
+      ).select("div").style("margin", 0).style("display", "flex").style("align-items", "center").style("justify-content", "end").style("height", "inherit"), i.range([t.left, o - t.right]), f = v(i).tickSize(r.xTickSize).ticks(b, s.xFormat), l.select(".x-axis").attr("transform", `translate(0, ${m - t.bottom})`).call(f), l.select(".y-axis").attr("transform", `translate(${t.left},0)`);
     } else
-      t.left = k, i.range([t.left, o - t.right]), f = v(i).tickSize(r.xTickSize).ticks(u, s.xFormat), l.select(".x-axis").attr("transform", `translate(0, ${m - t.bottom})`).call(f), l.select(".y-axis").attr("transform", `translate(${t.left},0)`);
+      t.left = k, i.range([t.left, o - t.right]), f = v(i).tickSize(r.xTickSize).ticks(b, s.xFormat), l.select(".x-axis").attr("transform", `translate(0, ${m - t.bottom})`).call(f), l.select(".y-axis").attr("transform", `translate(${t.left},0)`);
     l.selectAll(".bar").data(n).join("rect").attr("class", "bar").attr("x", i.range()[0]).attr("height", c.bandwidth()).attr("y", (e) => {
       const x = s.yVar === "variable" ? d(e.variable) : e.name;
       return c(x) ?? 0;
@@ -53,7 +53,7 @@ const Z = ({ primary_geoid: j, metric: p, data: n, metadata: s, width: o }) => {
       /* @__PURE__ */ a.jsxs(a.Fragment, { children: [
         /* @__PURE__ */ a.jsx("h3", { children: s.title }),
         s.subtitle.length > 0 ? /* @__PURE__ */ a.jsx("p", { children: /* @__PURE__ */ a.jsx("em", { children: s.subtitle }) }) : /* @__PURE__ */ a.jsx(a.Fragment, {}),
-        /* @__PURE__ */ a.jsxs("svg", { ref: b, style: { width: "100%" }, children: [
+        /* @__PURE__ */ a.jsxs("svg", { ref: u, style: { width: "100%" }, children: [
           /* @__PURE__ */ a.jsx("g", { className: "x-axis" }),
           /* @__PURE__ */ a.jsx("g", { className: "y-axis" })
         ] }),
@@ -62,7 +62,7 @@ const Z = ({ primary_geoid: j, metric: p, data: n, metadata: s, width: o }) => {
     ] }),
     /* @__PURE__ */ a.jsx("button", { className: y["download-chart"], onClick: S, children: "Download image" })
   ] }) });
-};
+}
 export {
   Z as default
 };

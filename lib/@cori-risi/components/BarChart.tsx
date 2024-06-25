@@ -18,7 +18,7 @@ interface BarChartProps {
   width: number;
 }
 
-const BarChart: React.FC<BarChartProps> = ({ primary_geoid, metric, data, metadata, width}) => {
+function BarChart ({ primary_geoid, metric, data, metadata, width}: BarChartProps) {
 
   const primary_dta = data.filter(d => d.geoid === primary_geoid && d.metric === metric);
   const has_valid_data = !primary_dta.every(d => d.value === null);

@@ -1,15 +1,15 @@
-import n from "./cori.data.api460.js";
+import m from "./cori.data.api460.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(f, i = 0, m = f.length) {
-  let t = m ? f[i++] : n;
-  for (let r = i; r < m; ++r)
-    t < f[r] && (t = f[r]);
-  return t;
+function e(i, r = 0, t = i.length) {
+  let f = t ? i[r++] : m;
+  for (let n = r; n < t; ++n)
+    f > i[n] && (f = i[n]);
+  return f;
 }
 export {
   e as default

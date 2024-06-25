@@ -1,19 +1,22 @@
-import a from "./cori.data.api315.js";
-import { tableToIPC as f } from "./cori.data.api400.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s(r, t = {}) {
-  const { format: o, ...e } = t, m = o || "stream";
-  if (!["stream", "file"].includes(m))
-    throw Error("Unrecognised output format");
-  return f(a(r, e), o);
+function r(t, e) {
+  const p = e.value ? e.value + `
+` : "", l = {};
+  e.lang && (l.className = ["language-" + e.lang]);
+  let a = {
+    type: "element",
+    tagName: "code",
+    properties: l,
+    children: [{ type: "text", value: p }]
+  };
+  return e.meta && (a.data = { meta: e.meta }), t.patch(e, a), a = t.applyData(e, a), a = { type: "element", tagName: "pre", properties: {}, children: [a] }, t.patch(e, a), a;
 }
 export {
-  a as default,
-  s as toArrowIPC
+  r as code
 };
 //# sourceMappingURL=cori.data.api306.js.map

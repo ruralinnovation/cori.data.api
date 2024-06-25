@@ -1,127 +1,173 @@
-import { __asyncGenerator as d, __await as o, __asyncDelegator as c, __asyncValues as h } from "./cori.data.api498.js";
-import { encodeUtf8 as U } from "./cori.data.api563.js";
-import { isIteratorResult as p, isFlatbuffersByteBuffer as _, isIterable as I, isPromise as B, isAsyncIterable as x } from "./cori.data.api514.js";
+import { __asyncGenerator as v, __await as a, __awaiter as L } from "./cori.data.api500.js";
+import { toUint8ArrayIterator as _, joinUint8Arrays as c, toUint8ArrayAsyncIterator as z, toUint8Array as b } from "./cori.data.api501.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const m = typeof SharedArrayBuffer < "u" ? SharedArrayBuffer : ArrayBuffer;
-function O(n) {
-  const e = n[0] ? [n[0]] : [];
-  let t, r, l, f;
-  for (let i, y, a = 0, s = 0, b = n.length; ++a < b; ) {
-    if (i = e[s], y = n[a], !i || !y || i.buffer !== y.buffer || y.byteOffset < i.byteOffset) {
-      y && (e[++s] = y);
-      continue;
-    }
-    if ({ byteOffset: t, byteLength: l } = i, { byteOffset: r, byteLength: f } = y, t + l < r || r + f < t) {
-      y && (e[++s] = y);
-      continue;
-    }
-    e[s] = new Uint8Array(i.buffer, t, r - t + f);
+const P = {
+  fromIterable(r) {
+    return w(I(r));
+  },
+  fromAsyncIterable(r) {
+    return w(U(r));
+  },
+  fromDOMStream(r) {
+    return w(x(r));
+  },
+  fromNodeStream(r) {
+    return w(D(r));
+  },
+  // @ts-ignore
+  toDOMStream(r, f) {
+    throw new Error('"toDOMStream" not available in this environment');
+  },
+  // @ts-ignore
+  toNodeStream(r, f) {
+    throw new Error('"toNodeStream" not available in this environment');
   }
-  return e;
-}
-function A(n, e, t = 0, r = e.byteLength) {
-  const l = n.byteLength, f = new Uint8Array(n.buffer, n.byteOffset, l), i = new Uint8Array(e.buffer, e.byteOffset, Math.min(r, l));
-  return f.set(i, t), n;
-}
-function T(n, e) {
-  const t = O(n), r = t.reduce((b, L) => b + L.byteLength, 0);
-  let l, f, i, y = 0, a = -1;
-  const s = Math.min(e || Number.POSITIVE_INFINITY, r);
-  for (const b = t.length; ++a < b; ) {
-    if (l = t[a], f = l.subarray(0, Math.min(l.length, s - y)), s <= y + f.length) {
-      f.length < l.length ? t[a] = l.subarray(f.length) : f.length === l.length && a++, i ? A(i, f, y) : i = f;
-      break;
-    }
-    A(i || (i = new Uint8Array(s)), f, y), y += f.length;
+}, w = (r) => (r.next(), r);
+function* I(r) {
+  let f, t = !1, o = [], i, u, d, e = 0;
+  function l() {
+    return u === "peek" ? c(o, d)[0] : ([i, o, e] = c(o, d), i);
   }
-  return [i || new Uint8Array(0), t.slice(a), r - (i ? i.byteLength : 0)];
-}
-function u(n, e) {
-  let t = p(e) ? e.value : e;
-  return t instanceof n ? n === Uint8Array ? new n(t.buffer, t.byteOffset, t.byteLength) : t : t ? (typeof t == "string" && (t = U(t)), t instanceof ArrayBuffer ? new n(t) : t instanceof m ? new n(t) : _(t) ? u(n, t.bytes()) : ArrayBuffer.isView(t) ? t.byteLength <= 0 ? new n(0) : new n(t.buffer, t.byteOffset, t.byteLength / n.BYTES_PER_ELEMENT) : n.from(t)) : new n(0);
-}
-const P = (n) => u(Int32Array, n), R = (n) => u(BigInt64Array, n), j = (n) => u(Uint8Array, n), g = (n) => (n.next(), n);
-function* S(n, e) {
-  const t = function* (l) {
-    yield l;
-  }, r = typeof e == "string" || ArrayBuffer.isView(e) || e instanceof ArrayBuffer || e instanceof m ? t(e) : I(e) ? e : t(e);
-  return yield* g(function* (l) {
-    let f = null;
+  ({ cmd: u, size: d } = (yield null) || { cmd: "read", size: 0 });
+  const s = _(r)[Symbol.iterator]();
+  try {
     do
-      f = l.next(yield u(n, f));
-    while (!f.done);
-  }(r[Symbol.iterator]())), new n();
+      if ({ done: f, value: i } = Number.isNaN(d - e) ? s.next() : s.next(d - e), !f && i.byteLength > 0 && (o.push(i), e += i.byteLength), f || d <= e)
+        do
+          ({ cmd: u, size: d } = yield l());
+        while (d < e);
+    while (!f);
+  } catch (n) {
+    (t = !0) && typeof s.throw == "function" && s.throw(n);
+  } finally {
+    t === !1 && typeof s.return == "function" && s.return(null);
+  }
+  return null;
 }
-const F = (n) => S(Uint8Array, n);
-function w(n, e) {
-  return d(this, arguments, function* () {
-    if (B(e))
-      return yield o(yield o(yield* c(h(w(n, yield o(e))))));
-    const r = function(i) {
-      return d(this, arguments, function* () {
-        yield yield o(yield o(i));
-      });
-    }, l = function(i) {
-      return d(this, arguments, function* () {
-        yield o(yield* c(h(g(function* (y) {
-          let a = null;
+function U(r) {
+  return v(this, arguments, function* () {
+    let t, o = !1, i = [], u, d, e, l = 0;
+    function s() {
+      return d === "peek" ? c(i, e)[0] : ([u, i, l] = c(i, e), u);
+    }
+    ({ cmd: d, size: e } = (yield yield a(null)) || { cmd: "read", size: 0 });
+    const n = z(r)[Symbol.asyncIterator]();
+    try {
+      do
+        if ({ done: t, value: u } = Number.isNaN(e - l) ? yield a(n.next()) : yield a(n.next(e - l)), !t && u.byteLength > 0 && (i.push(u), l += u.byteLength), t || e <= l)
           do
-            a = y.next(yield a == null ? void 0 : a.value);
-          while (!a.done);
-        }(i[Symbol.iterator]())))));
-      });
-    }, f = typeof e == "string" || ArrayBuffer.isView(e) || e instanceof ArrayBuffer || e instanceof m ? r(e) : I(e) ? l(e) : x(e) ? e : r(e);
-    return yield o(
-      // otherwise if AsyncIterable, use it
-      yield* c(h(g(function(i) {
-        return d(this, arguments, function* () {
-          let y = null;
-          do
-            y = yield o(i.next(yield yield o(u(n, y))));
-          while (!y.done);
-        });
-      }(f[Symbol.asyncIterator]()))))
-    ), yield o(new n());
+            ({ cmd: d, size: e } = yield yield a(s()));
+          while (e < l);
+      while (!t);
+    } catch (m) {
+      (o = !0) && typeof n.throw == "function" && (yield a(n.throw(m)));
+    } finally {
+      o === !1 && typeof n.return == "function" && (yield a(n.return(new Uint8Array(0))));
+    }
+    return yield a(null);
   });
 }
-const Y = (n) => w(Uint8Array, n);
-function v(n, e, t) {
-  if (n !== 0) {
-    t = t.slice(0, e);
-    for (let r = -1, l = t.length; ++r < l; )
-      t[r] += n;
-  }
-  return t.subarray(0, e);
+function x(r) {
+  return v(this, arguments, function* () {
+    let t = !1, o = !1, i = [], u, d, e, l = 0;
+    function s() {
+      return d === "peek" ? c(i, e)[0] : ([u, i, l] = c(i, e), u);
+    }
+    ({ cmd: d, size: e } = (yield yield a(null)) || { cmd: "read", size: 0 });
+    const n = new R(r);
+    try {
+      do
+        if ({ done: t, value: u } = Number.isNaN(e - l) ? yield a(n.read()) : yield a(n.read(e - l)), !t && u.byteLength > 0 && (i.push(b(u)), l += u.byteLength), t || e <= l)
+          do
+            ({ cmd: d, size: e } = yield yield a(s()));
+          while (e < l);
+      while (!t);
+    } catch (m) {
+      (o = !0) && (yield a(n.cancel(m)));
+    } finally {
+      o === !1 ? yield a(n.cancel()) : r.locked && n.releaseLock();
+    }
+    return yield a(null);
+  });
 }
-function D(n, e) {
-  let t = 0;
-  const r = n.length;
-  if (r !== e.length)
-    return !1;
-  if (r > 0)
-    do
-      if (n[t] !== e[t])
-        return !1;
-    while (++t < r);
-  return !0;
+class R {
+  constructor(f) {
+    this.source = f, this.reader = null, this.reader = this.source.getReader(), this.reader.closed.catch(() => {
+    });
+  }
+  get closed() {
+    return this.reader ? this.reader.closed.catch(() => {
+    }) : Promise.resolve();
+  }
+  releaseLock() {
+    this.reader && this.reader.releaseLock(), this.reader = null;
+  }
+  cancel(f) {
+    return L(this, void 0, void 0, function* () {
+      const { reader: t, source: o } = this;
+      t && (yield t.cancel(f).catch(() => {
+      })), o && o.locked && this.releaseLock();
+    });
+  }
+  read(f) {
+    return L(this, void 0, void 0, function* () {
+      if (f === 0)
+        return { done: this.reader == null, value: new Uint8Array(0) };
+      const t = yield this.reader.read();
+      return !t.done && (t.value = b(t)), t;
+    });
+  }
+}
+const g = (r, f) => {
+  const t = (i) => o([f, i]);
+  let o;
+  return [f, t, new Promise((i) => (o = i) && r.once(f, t))];
+};
+function D(r) {
+  return v(this, arguments, function* () {
+    const t = [];
+    let o = "error", i = !1, u = null, d, e, l = 0, s = [], n;
+    function m() {
+      return d === "peek" ? c(s, e)[0] : ([n, s, l] = c(s, e), n);
+    }
+    if ({ cmd: d, size: e } = (yield yield a(null)) || { cmd: "read", size: 0 }, r.isTTY)
+      return yield yield a(new Uint8Array(0)), yield a(null);
+    try {
+      t[0] = g(r, "end"), t[1] = g(r, "error");
+      do {
+        if (t[2] = g(r, "readable"), [o, u] = yield a(Promise.race(t.map((p) => p[2]))), o === "error")
+          break;
+        if ((i = o === "end") || (Number.isFinite(e - l) ? (n = b(r.read(e - l)), n.byteLength < e - l && (n = b(r.read()))) : n = b(r.read()), n.byteLength > 0 && (s.push(n), l += n.byteLength)), i || e <= l)
+          do
+            ({ cmd: d, size: e } = yield yield a(m()));
+          while (e < l);
+      } while (!i);
+    } finally {
+      yield a(N(t, o === "error" ? u : null));
+    }
+    return yield a(null);
+    function N(p, y) {
+      return n = s = null, new Promise((A, S) => {
+        for (const [h, k] of p)
+          r.off(h, k);
+        try {
+          const h = r.destroy;
+          h && h.call(r, y), y = void 0;
+        } catch (h) {
+          y = h || y;
+        } finally {
+          y != null ? S(y) : A();
+        }
+      });
+    }
+  });
 }
 export {
-  D as compareArrayLike,
-  T as joinUint8Arrays,
-  A as memcpy,
-  v as rebaseValueOffsets,
-  u as toArrayBufferView,
-  w as toArrayBufferViewAsyncIterator,
-  S as toArrayBufferViewIterator,
-  R as toBigInt64Array,
-  P as toInt32Array,
-  j as toUint8Array,
-  Y as toUint8ArrayAsyncIterator,
-  F as toUint8ArrayIterator
+  P as default
 };
 //# sourceMappingURL=cori.data.api499.js.map

@@ -1,20 +1,16 @@
-import { formatDecimalParts as f } from "./cori.data.api251.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var m;
-function l(a, i) {
-  var e = f(a, i);
-  if (!e)
-    return a + "";
-  var t = e[0], o = e[1], r = o - (m = Math.max(-8, Math.min(8, Math.floor(o / 3))) * 3) + 1, n = t.length;
-  return r === n ? t : r > n ? t + new Array(r - n + 1).join("0") : r > 0 ? t.slice(0, r) + "." + t.slice(r) : "0." + new Array(1 - r).join("0") + f(a, Math.max(0, i + r - 1))[0];
+function s() {
+  for (var i = this._groups, o = -1, a = i.length; ++o < a; )
+    for (var e = i[o], f = e.length - 1, r = e[f], t; --f >= 0; )
+      (t = e[f]) && (r && t.compareDocumentPosition(r) ^ 4 && r.parentNode.insertBefore(t, r), r = t);
+  return this;
 }
 export {
-  l as default,
-  m as prefixExponent
+  s as default
 };
 //# sourceMappingURL=cori.data.api136.js.map

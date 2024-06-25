@@ -20,7 +20,7 @@ interface LineChartProps {
   height: number;
 }
 
-const LineChart: React.FC<LineChartProps> = ({ primary_geoid, metric, data, metadata, width, height }) => {
+function LineChart ({ primary_geoid, metric, data, metadata, width, height }: LineChartProps) {
 
   const primary_dta = data.filter(d => d.geoid === primary_geoid && d.metric === metric);
   const has_valid_data = !primary_dta.every(d => d.value === null);
@@ -223,7 +223,7 @@ const LineChart: React.FC<LineChartProps> = ({ primary_geoid, metric, data, meta
                 }
                 <h3>{metadata.title}</h3>
                 {metadata.subtitle.length > 0? <p><em>{metadata.subtitle}</em></p>: <></>}
-                <CategoricalLegend data_names={data.map(data => data.name)} domain={colorScaleDomain} range={colorScaleRange} />
+                <CategoricalLegend domain_names={colorScaleDomain.map(c => data.filter(d => d.geoid === c).map(d => d.name)[0])} domain={colorScaleDomain} range={colorScaleRange} />
                 <svg ref={svgRef} style={{width: "100%"}}>
                   <g className="x-axis" />
                   <g className="y-axis" />

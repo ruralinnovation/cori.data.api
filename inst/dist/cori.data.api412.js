@@ -1,13 +1,39 @@
+import { combineExtensions as i } from "./cori.data.api541.js";
+import { content as m } from "./cori.data.api542.js";
+import { document as f } from "./cori.data.api543.js";
+import { flow as u } from "./cori.data.api544.js";
+import { string as p, text as a } from "./cori.data.api545.js";
+import { createTokenizer as x } from "./cori.data.api546.js";
+import * as d from "./cori.data.api547.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function t(n) {
-  return n != null && n === n;
+function E(r) {
+  const n = (
+    /** @type {FullNormalizedExtension} */
+    i([d, ...(r || {}).extensions || []])
+  ), o = {
+    defined: [],
+    lazy: {},
+    constructs: n,
+    content: t(m),
+    document: t(f),
+    flow: t(u),
+    string: t(p),
+    text: t(a)
+  };
+  return o;
+  function t(e) {
+    return s;
+    function s(c) {
+      return x(o, e, c);
+    }
+  }
 }
 export {
-  t as default
+  E as parse
 };
 //# sourceMappingURL=cori.data.api412.js.map

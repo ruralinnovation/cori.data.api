@@ -1,33 +1,14 @@
+import { Selection as t, root as n } from "./cori.data.api59.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const t = {
-  action: ["form"],
-  cite: ["blockquote", "del", "ins", "q"],
-  data: ["object"],
-  formAction: ["button", "input"],
-  href: ["a", "area", "base", "link"],
-  icon: ["menuitem"],
-  itemId: null,
-  manifest: ["html"],
-  ping: ["a", "area"],
-  poster: ["video"],
-  src: [
-    "audio",
-    "embed",
-    "iframe",
-    "img",
-    "input",
-    "script",
-    "source",
-    "track",
-    "video"
-  ]
-};
+function r(e) {
+  return typeof e == "string" ? new t([[document.querySelector(e)]], [document.documentElement]) : new t([[e]], n);
+}
 export {
-  t as urlAttributes
+  r as default
 };
 //# sourceMappingURL=cori.data.api58.js.map

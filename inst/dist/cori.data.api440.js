@@ -1,26 +1,22 @@
-import p from "./cori.data.api529.js";
-import { any as n } from "./cori.data.api38.js";
-import t from "./cori.data.api521.js";
+import u from "./cori.data.api495.js";
+import { ceil64Bytes as i, arrowData as s } from "./cori.data.api37.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(o, r, f, i) {
-  return p(
-    o,
-    t("fold", o, r),
-    t("fold", o, f, { preparse: e, aggronly: !0 }),
-    i
-  );
+function m(t, r) {
+  const e = t.length, o = i(e, t.BYTES_PER_ELEMENT);
+  let n = t;
+  return e !== o && (n = new t.constructor(o), n.set(t)), s({ type: r, length: e, buffers: [null, n] });
 }
-function e(o) {
-  o.forEach(
-    (r, f) => r.field ? o.set(f, n(r + "")) : 0
-  );
+function a(t, r, e, o, n = !0) {
+  const c = u(o, t, n);
+  return r(e, c.set), s(c.data());
 }
 export {
-  u as default
+  m as dataFromArray,
+  a as dataFromScan
 };
 //# sourceMappingURL=cori.data.api440.js.map

@@ -1,31 +1,18 @@
-import { commonjsGlobal as u } from "./cori.data.api76.js";
-import { __exports as l } from "./cori.data.api471.js";
-import { i as p } from "./cori.data.api472.js";
+import { FunctionExpression as o, ArrowFunctionExpression as t } from "./cori.data.api357.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var s = u && u.__importDefault || function(e) {
-  return e && e.__esModule ? e : { default: e };
-};
-Object.defineProperty(l, "__esModule", { value: !0 });
-var _ = s(p);
-function v(e, f) {
-  var r = null;
-  if (!e || typeof e != "string")
-    return r;
-  var n = (0, _.default)(e), i = typeof f == "function";
-  return n.forEach(function(t) {
-    if (t.type === "declaration") {
-      var o = t.property, a = t.value;
-      i ? f(o, a, t) : a && (r = r || {}, r[o] = a);
-    }
-  }), r;
+function i(n, r) {
+  return r && r.type === n;
 }
-var j = l.default = v;
+function u(n) {
+  return i(o, n) || i(t, n);
+}
 export {
-  j as default
+  i as is,
+  u as isFunctionExpression
 };
 //# sourceMappingURL=cori.data.api359.js.map

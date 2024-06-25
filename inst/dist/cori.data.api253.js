@@ -4,27 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var X = 180 / Math.PI, o = {
-  translateX: 0,
-  translateY: 0,
-  rotate: 0,
-  skewX: 0,
-  scaleX: 1,
-  scaleY: 1
-};
-function h(t, e, s, r, i, f) {
-  var l, n, a;
-  return (l = Math.sqrt(t * t + e * e)) && (t /= l, e /= l), (a = t * s + e * r) && (s -= t * a, r -= e * a), (n = Math.sqrt(s * s + r * r)) && (s /= n, r /= n, a /= n), t * r < e * s && (t = -t, e = -e, a = -a, l = -l), {
-    translateX: i,
-    translateY: f,
-    rotate: Math.atan2(e, t) * X,
-    skewX: Math.atan(a) * X,
-    scaleX: l,
-    scaleY: n
-  };
+const n = /^[$_\p{ID_Start}][$_\u{200C}\u{200D}\p{ID_Continue}]*$/u, e = /^[$_\p{ID_Start}][-$_\u{200C}\u{200D}\p{ID_Continue}]*$/u, s = {};
+function _(t, o) {
+  return (s.jsx ? e : n).test(t);
 }
 export {
-  h as default,
-  o as identity
+  _ as name
 };
 //# sourceMappingURL=cori.data.api253.js.map

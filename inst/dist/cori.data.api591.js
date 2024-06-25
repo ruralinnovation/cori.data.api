@@ -1,46 +1,51 @@
-import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api638.js";
-import "./cori.data.api567.js";
-import "./cori.data.api568.js";
+import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api665.js";
+import "./cori.data.api574.js";
+import "./cori.data.api575.js";
+import { TimeUnit as o } from "./cori.data.api570.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i {
+class s {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
-  __init(t, s) {
-    return this.bb_pos = t, this.bb = s, this;
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsMap(t, s) {
-    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getRootAsTime(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsMap(t, s) {
-    return t.setPosition(t.position() + e), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsTime(t, i) {
+    return t.setPosition(t.position() + e), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  /**
-   * Set to true if the keys within each value are sorted
-   */
-  keysSorted() {
+  unit() {
     const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? !!this.bb.readInt8(this.bb_pos + t) : !1;
+    return t ? this.bb.readInt16(this.bb_pos + t) : o.MILLISECOND;
   }
-  static startMap(t) {
-    t.startObject(1);
+  bitWidth() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? this.bb.readInt32(this.bb_pos + t) : 32;
   }
-  static addKeysSorted(t, s) {
-    t.addFieldInt8(0, +s, 0);
+  static startTime(t) {
+    t.startObject(2);
   }
-  static endMap(t) {
+  static addUnit(t, i) {
+    t.addFieldInt16(0, i, o.MILLISECOND);
+  }
+  static addBitWidth(t, i) {
+    t.addFieldInt32(1, i, 32);
+  }
+  static endTime(t) {
     return t.endObject();
   }
-  static createMap(t, s) {
-    return i.startMap(t), i.addKeysSorted(t, s), i.endMap(t);
+  static createTime(t, i, n) {
+    return s.startTime(t), s.addUnit(t, i), s.addBitWidth(t, n), s.endTime(t);
   }
 }
 export {
-  i as Map
+  s as Time
 };
 //# sourceMappingURL=cori.data.api591.js.map

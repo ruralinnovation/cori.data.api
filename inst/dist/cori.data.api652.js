@@ -1,37 +1,37 @@
-import s from "./cori.data.api650.js";
-import i from "./cori.data.api682.js";
-import r from "./cori.data.api683.js";
-import e from "./cori.data.api684.js";
+import { decodeNamedCharacterReference as k } from "./cori.data.api410.js";
+import { asciiAlphanumeric as u, asciiHexDigit as M, asciiDigit as p } from "./cori.data.api419.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class u {
-  constructor(t) {
-    this._values = t || [], this._sorted = null, this._start = 0;
+const N = {
+  name: "characterReference",
+  tokenize: z
+};
+function z(e, h, t) {
+  const m = this;
+  let i = 0, n, a;
+  return R;
+  function R(r) {
+    return e.enter("characterReference"), e.enter("characterReferenceMarker"), e.consume(r), e.exit("characterReferenceMarker"), l;
   }
-  values(t) {
-    return this._start && (this._values = this._values.slice(this._start), this._start = 0), t ? this._values.slice() : this._values;
+  function l(r) {
+    return r === 35 ? (e.enter("characterReferenceMarkerNumeric"), e.consume(r), e.exit("characterReferenceMarkerNumeric"), o) : (e.enter("characterReferenceValue"), n = 31, a = u, c(r));
   }
-  add(t) {
-    this._values.push(t), this._sorted = null;
+  function o(r) {
+    return r === 88 || r === 120 ? (e.enter("characterReferenceMarkerHexadecimal"), e.consume(r), e.exit("characterReferenceMarkerHexadecimal"), e.enter("characterReferenceValue"), n = 6, a = M, c) : (e.enter("characterReferenceValue"), n = 7, a = p, c(r));
   }
-  rem() {
-    this._start += 1, this._sorted = null;
-  }
-  min() {
-    return this._sorted && this._sorted.length ? this._sorted[0] : i(this._values, this._start);
-  }
-  max() {
-    return this._sorted && this._sorted.length ? this._sorted[this._sorted.length - 1] : r(this._values, this._start);
-  }
-  quantile(t) {
-    return this._sorted || (this._sorted = this.values(!0), this._sorted.sort(s)), e(this._sorted, t);
+  function c(r) {
+    if (r === 59 && i) {
+      const x = e.exit("characterReferenceValue");
+      return a === u && !k(m.sliceSerialize(x)) ? t(r) : (e.enter("characterReferenceMarker"), e.consume(r), e.exit("characterReferenceMarker"), e.exit("characterReference"), h);
+    }
+    return a(r) && i++ < n ? (e.consume(r), c) : t(r);
   }
 }
 export {
-  u as default
+  N as characterReference
 };
 //# sourceMappingURL=cori.data.api652.js.map

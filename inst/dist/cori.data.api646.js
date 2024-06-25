@@ -1,36 +1,50 @@
-import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api638.js";
-import "./cori.data.api567.js";
-import "./cori.data.api568.js";
+import { factorySpace as h } from "./cori.data.api639.js";
+import { markdownLineEnding as o } from "./cori.data.api419.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
+const P = {
+  name: "codeIndented",
+  tokenize: p
+}, m = {
+  tokenize: d,
+  partial: !0
+};
+function p(e, f, l) {
+  const r = this;
+  return u;
+  function u(n) {
+    return e.enter("codeIndented"), h(e, s, "linePrefix", 5)(n);
   }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
+  function s(n) {
+    const a = r.events[r.events.length - 1];
+    return a && a[1].type === "linePrefix" && a[2].sliceSerialize(a[1], !0).length >= 4 ? t(n) : l(n);
   }
-  static getRootAsLargeUtf8(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  function t(n) {
+    return n === null ? x(n) : o(n) ? e.attempt(m, t, x)(n) : (e.enter("codeFlowValue"), i(n));
   }
-  static getSizePrefixedRootAsLargeUtf8(t, i) {
-    return t.setPosition(t.position() + e), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  function i(n) {
+    return n === null || o(n) ? (e.exit("codeFlowValue"), t(n)) : (e.consume(n), i);
   }
-  static startLargeUtf8(t) {
-    t.startObject(0);
+  function x(n) {
+    return e.exit("codeIndented"), f(n);
   }
-  static endLargeUtf8(t) {
-    return t.endObject();
+}
+function d(e, f, l) {
+  const r = this;
+  return u;
+  function u(t) {
+    return r.parser.lazy[r.now().line] ? l(t) : o(t) ? (e.enter("lineEnding"), e.consume(t), e.exit("lineEnding"), u) : h(e, s, "linePrefix", 5)(t);
   }
-  static createLargeUtf8(t) {
-    return s.startLargeUtf8(t), s.endLargeUtf8(t);
+  function s(t) {
+    const i = r.events[r.events.length - 1];
+    return i && i[1].type === "linePrefix" && i[2].sliceSerialize(i[1], !0).length >= 4 ? f(t) : o(t) ? u(t) : l(t);
   }
 }
 export {
-  s as LargeUtf8
+  P as codeIndented
 };
 //# sourceMappingURL=cori.data.api646.js.map

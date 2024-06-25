@@ -1,17 +1,14 @@
-import m from "./cori.data.api460.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(i, r = 0, t = i.length) {
-  let f = t ? i[r++] : m;
-  for (let n = r; n < t; ++n)
-    f > i[n] && (f = i[n]);
-  return f;
-}
+var e;
+(function(r) {
+  r[r.DenseArray = 0] = "DenseArray";
+})(e || (e = {}));
 export {
-  e as default
+  e as DictionaryKind
 };
 //# sourceMappingURL=cori.data.api682.js.map

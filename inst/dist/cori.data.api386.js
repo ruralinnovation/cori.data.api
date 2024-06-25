@@ -1,18 +1,31 @@
-import { deserialize as t } from "./cori.data.api484.js";
-import { serialize as u } from "./cori.data.api485.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const s = typeof structuredClone == "function" ? (
-  /* c8 ignore start */
-  (r, e) => e && ("json" in e || "lossy" in e) ? t(u(r, e)) : structuredClone(r)
-) : (r, e) => t(u(r, e));
+const n = "application/font-woff", o = "image/jpeg", i = {
+  woff: n,
+  woff2: n,
+  ttf: "application/font-truetype",
+  eot: "application/vnd.ms-fontobject",
+  png: "image/png",
+  jpg: o,
+  jpeg: o,
+  gif: "image/gif",
+  tiff: "image/tiff",
+  svg: "image/svg+xml",
+  webp: "image/webp"
+};
+function f(e) {
+  const t = /\.([^./]*?)$/g.exec(e);
+  return t ? t[1] : "";
+}
+function g(e) {
+  const t = f(e).toLowerCase();
+  return i[t] || "";
+}
 export {
-  s as default,
-  t as deserialize,
-  u as serialize
+  g as getMimeType
 };
 //# sourceMappingURL=cori.data.api386.js.map

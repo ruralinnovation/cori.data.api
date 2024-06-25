@@ -1,19 +1,34 @@
-import { Transition as o } from "./cori.data.api209.js";
-import h from "./cori.data.api158.js";
+import l from "./cori.data.api232.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function v(t) {
-  typeof t != "function" && (t = h(t));
-  for (var a = this._groups, e = a.length, _ = new Array(e), r = 0; r < e; ++r)
-    for (var f = a[r], s = f.length, l = _[r] = [], i, n = 0; n < s; ++n)
-      (i = f[n]) && t.call(i, i.__data__, n, f) && l.push(i);
-  return new o(_, this._parents, this._name, this._id);
+function s(t) {
+  return function() {
+    this.style.removeProperty(t);
+  };
+}
+function u(t, e, n) {
+  return function() {
+    this.style.setProperty(t, e, n);
+  };
+}
+function o(t, e, n) {
+  return function() {
+    var r = e.apply(this, arguments);
+    r == null ? this.style.removeProperty(t) : this.style.setProperty(t, r, n);
+  };
+}
+function f(t, e, n) {
+  return arguments.length > 1 ? this.each((e == null ? s : typeof e == "function" ? o : u)(t, e, n ?? "")) : i(this.node(), t);
+}
+function i(t, e) {
+  return t.style.getPropertyValue(e) || l(t).getComputedStyle(t, null).getPropertyValue(e);
 }
 export {
-  v as default
+  f as default,
+  i as styleValue
 };
 //# sourceMappingURL=cori.data.api216.js.map

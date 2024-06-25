@@ -18,7 +18,7 @@ interface GroupedBarChartProps {
     width: number;
 }
 
-const GroupedBarChart: React.FC<GroupedBarChartProps> = ({ primary_geoid, metric, data, metadata, width }) => {
+function GroupedBarChart ({ primary_geoid, metric, data, metadata, width }: GroupedBarChartProps) {
 
     const primary_dta = data.filter(d => d.geoid === primary_geoid && d.metric === metric);
     const has_valid_data = !primary_dta.every(d => d.value === null);
@@ -244,7 +244,7 @@ const GroupedBarChart: React.FC<GroupedBarChartProps> = ({ primary_geoid, metric
                             <>
                                 <h3>{metadata.title}</h3>
                                 {metadata.subtitle.length > 0? <p><em>{metadata.subtitle}</em></p>: <></>}
-                                <CategoricalLegend data_names={data.map(data => data.name)} domain={colorScaleDomain} range={colorScaleRange} />
+                                <CategoricalLegend domain_names={colorScaleDomain.map(c => data.filter(d => d.geoid === c).map(d => d.name)[0])} domain={colorScaleDomain} range={colorScaleRange} />
                                 <svg ref={svgRef} style={{width: "100%"}}>
                                     <g className="x-axis" />
                                     <g className="y-axis" />

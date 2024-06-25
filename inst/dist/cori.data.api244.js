@@ -1,97 +1,146 @@
-import { clonePseudoElements as y } from "./cori.data.api348.js";
-import { isInstanceOfElement as o, toArray as a, createImage as f } from "./cori.data.api248.js";
-import { getMimeType as g } from "./cori.data.api349.js";
-import { resourceToDataURL as p } from "./cori.data.api350.js";
+import D from "./cori.data.api240.js";
+import s from "./cori.data.api60.js";
+import p from "./cori.data.api71.js";
+import v from "./cori.data.api293.js";
+import { trackStream as F } from "./cori.data.api294.js";
+import k from "./cori.data.api74.js";
+import O from "./cori.data.api291.js";
+import H from "./cori.data.api292.js";
+import K from "./cori.data.api289.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-async function d(t) {
-  const e = t.toDataURL();
-  return e === "data:," ? t.cloneNode(!1) : f(e);
-}
-async function S(t, e) {
-  if (t.currentSrc) {
-    const n = document.createElement("canvas"), c = n.getContext("2d");
-    n.width = t.clientWidth, n.height = t.clientHeight, c == null || c.drawImage(t, 0, 0, n.width, n.height);
-    const i = n.toDataURL();
-    return f(i);
-  }
-  const l = t.poster, r = g(l), s = await p(l, r, e);
-  return f(s);
-}
-async function E(t) {
-  var e;
+const A = (e, r) => {
+  const o = e != null;
+  return (n) => setTimeout(() => r({
+    lengthComputable: o,
+    total: e,
+    loaded: n
+  }));
+}, l = typeof fetch == "function" && typeof Request == "function" && typeof Response == "function", N = l && typeof ReadableStream == "function", y = l && (typeof TextEncoder == "function" ? /* @__PURE__ */ ((e) => (r) => e.encode(r))(new TextEncoder()) : async (e) => new Uint8Array(await new Response(e).arrayBuffer())), z = N && (() => {
+  let e = !1;
+  const r = new Request(D.origin, {
+    body: new ReadableStream(),
+    method: "POST",
+    get duplex() {
+      return e = !0, "half";
+    }
+  }).headers.has("Content-Type");
+  return e && !r;
+})(), B = 64 * 1024, T = N && !!(() => {
   try {
-    if (!((e = t == null ? void 0 : t.contentDocument) === null || e === void 0) && e.body)
-      return await m(t.contentDocument.body, {}, !0);
+    return s.isReadableStream(new Response("").body);
   } catch {
   }
-  return t.cloneNode(!1);
-}
-async function b(t, e) {
-  return o(t, HTMLCanvasElement) ? d(t) : o(t, HTMLVideoElement) ? S(t, e) : o(t, HTMLIFrameElement) ? E(t) : t.cloneNode(!1);
-}
-const T = (t) => t.tagName != null && t.tagName.toUpperCase() === "SLOT";
-async function L(t, e, l) {
-  var r, s;
-  let n = [];
-  return T(t) && t.assignedNodes ? n = a(t.assignedNodes()) : o(t, HTMLIFrameElement) && (!((r = t.contentDocument) === null || r === void 0) && r.body) ? n = a(t.contentDocument.body.childNodes) : n = a(((s = t.shadowRoot) !== null && s !== void 0 ? s : t).childNodes), n.length === 0 || o(t, HTMLVideoElement) || await n.reduce((c, i) => c.then(() => m(i, l)).then((u) => {
-    u && e.appendChild(u);
-  }), Promise.resolve()), e;
-}
-function w(t, e) {
-  const l = e.style;
-  if (!l)
-    return;
-  const r = window.getComputedStyle(t);
-  r.cssText ? (l.cssText = r.cssText, l.transformOrigin = r.transformOrigin) : a(r).forEach((s) => {
-    let n = r.getPropertyValue(s);
-    s === "font-size" && n.endsWith("px") && (n = `${Math.floor(parseFloat(n.substring(0, n.length - 2))) - 0.1}px`), o(t, HTMLIFrameElement) && s === "display" && n === "inline" && (n = "block"), s === "d" && e.getAttribute("d") && (n = `path(${e.getAttribute("d")})`), l.setProperty(s, n, r.getPropertyPriority(s));
+})(), f = {
+  stream: T && ((e) => e.body)
+};
+l && ((e) => {
+  ["text", "arrayBuffer", "blob", "formData", "stream"].forEach((r) => {
+    !f[r] && (f[r] = s.isFunction(e[r]) ? (o) => o[r]() : (o, n) => {
+      throw new p(`Response type '${r}' is not supported`, p.ERR_NOT_SUPPORT, n);
+    });
   });
-}
-function x(t, e) {
-  o(t, HTMLTextAreaElement) && (e.innerHTML = t.value), o(t, HTMLInputElement) && e.setAttribute("value", t.value);
-}
-function A(t, e) {
-  if (o(t, HTMLSelectElement)) {
-    const l = e, r = Array.from(l.children).find((s) => t.value === s.getAttribute("value"));
-    r && r.setAttribute("selected", "");
-  }
-}
-function M(t, e) {
-  return o(e, Element) && (w(t, e), y(t, e), x(t, e), A(t, e)), e;
-}
-async function H(t, e) {
-  const l = t.querySelectorAll ? t.querySelectorAll("use") : [];
-  if (l.length === 0)
-    return t;
-  const r = {};
-  for (let n = 0; n < l.length; n++) {
-    const i = l[n].getAttribute("xlink:href");
-    if (i) {
-      const u = t.querySelector(i), h = document.querySelector(i);
-      !u && h && !r[i] && (r[i] = await m(h, e, !0));
+})(new Response());
+const j = async (e) => {
+  if (e == null)
+    return 0;
+  if (s.isBlob(e))
+    return e.size;
+  if (s.isSpecCompliantForm(e))
+    return (await new Request(e).arrayBuffer()).byteLength;
+  if (s.isArrayBufferView(e))
+    return e.byteLength;
+  if (s.isURLSearchParams(e) && (e = e + ""), s.isString(e))
+    return (await y(e)).byteLength;
+}, I = async (e, r) => {
+  const o = s.toFiniteNumber(e.getContentLength());
+  return o ?? j(r);
+}, Y = l && (async (e) => {
+  let {
+    url: r,
+    method: o,
+    data: n,
+    signal: S,
+    cancelToken: x,
+    timeout: b,
+    onDownloadProgress: h,
+    onUploadProgress: C,
+    responseType: a,
+    headers: d,
+    withCredentials: m = "same-origin",
+    fetchOptions: U
+  } = H(e);
+  a = a ? (a + "").toLowerCase() : "text";
+  let [w, E] = S || x || b ? v([S, x], b) : [], L, c;
+  const g = () => {
+    !L && setTimeout(() => {
+      w && w.unsubscribe();
+    }), L = !0;
+  };
+  let q;
+  try {
+    if (C && z && o !== "get" && o !== "head" && (q = await I(d, n)) !== 0) {
+      let i = new Request(r, {
+        method: "POST",
+        body: n,
+        duplex: "half"
+      }), u;
+      s.isFormData(n) && (u = i.headers.get("content-type")) && d.setContentType(u), i.body && (n = F(i.body, B, A(
+        q,
+        O(C)
+      ), null, y));
     }
+    s.isString(m) || (m = m ? "cors" : "omit"), c = new Request(r, {
+      ...U,
+      signal: w,
+      method: o.toUpperCase(),
+      headers: d.normalize().toJSON(),
+      body: n,
+      duplex: "half",
+      withCredentials: m
+    });
+    let t = await fetch(c);
+    const R = T && (a === "stream" || a === "response");
+    if (T && (h || R)) {
+      const i = {};
+      ["status", "statusText", "headers"].forEach((P) => {
+        i[P] = t[P];
+      });
+      const u = s.toFiniteNumber(t.headers.get("content-length"));
+      t = new Response(
+        F(t.body, B, h && A(
+          u,
+          O(h, !0)
+        ), R && g, y),
+        i
+      );
+    }
+    a = a || "text";
+    let _ = await f[s.findKey(f, a) || "text"](t, e);
+    return !R && g(), E && E(), await new Promise((i, u) => {
+      K(i, u, {
+        data: _,
+        headers: k.from(t.headers),
+        status: t.status,
+        statusText: t.statusText,
+        config: e,
+        request: c
+      });
+    });
+  } catch (t) {
+    throw g(), t && t.name === "TypeError" && /fetch/i.test(t.message) ? Object.assign(
+      new p("Network Error", p.ERR_NETWORK, e, c),
+      {
+        cause: t.cause || t
+      }
+    ) : p.from(t, t && t.code, e, c);
   }
-  const s = Object.values(r);
-  if (s.length) {
-    const n = "http://www.w3.org/1999/xhtml", c = document.createElementNS(n, "svg");
-    c.setAttribute("xmlns", n), c.style.position = "absolute", c.style.width = "0", c.style.height = "0", c.style.overflow = "hidden", c.style.display = "none";
-    const i = document.createElementNS(n, "defs");
-    c.appendChild(i);
-    for (let u = 0; u < s.length; u++)
-      i.appendChild(s[u]);
-    t.appendChild(c);
-  }
-  return t;
-}
-async function m(t, e, l) {
-  return !l && e.filter && !e.filter(t) ? null : Promise.resolve(t).then((r) => b(r, e)).then((r) => L(t, r, e)).then((r) => M(t, r)).then((r) => H(r, e));
-}
+});
 export {
-  m as cloneNode
+  Y as default
 };
 //# sourceMappingURL=cori.data.api244.js.map

@@ -6,13 +6,13 @@ import l from "./cori.data.api22.js";
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const d = ({ data_names: o, domain: r, range: t }) => {
+function f({ domain_names: r, domain: o, range: t }) {
   const i = [];
-  if (r.length <= t.length) {
-    for (let e = 0; e < r.length; ++e)
+  if (o.length <= t.length) {
+    for (let e = 0; e < o.length; ++e)
       if (typeof t[e] == "string") {
         const c = t[e];
-        o && i.push(
+        r && i.push(
           /* @__PURE__ */ s.jsxs("div", { className: l.entry, children: [
             /* @__PURE__ */ s.jsx(
               "div",
@@ -23,14 +23,14 @@ const d = ({ data_names: o, domain: r, range: t }) => {
                 }
               }
             ),
-            /* @__PURE__ */ s.jsx("p", { children: o[e] })
+            /* @__PURE__ */ s.jsx("p", { children: r[e] })
           ] }, e)
         );
       }
   }
   return /* @__PURE__ */ s.jsx("div", { className: l["categorical-legend"], children: i });
-};
+}
 export {
-  d as default
+  f as default
 };
 //# sourceMappingURL=cori.data.api4.js.map

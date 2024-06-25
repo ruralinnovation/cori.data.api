@@ -1,15 +1,25 @@
+import { toHast as e } from "./cori.data.api266.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function n() {
-}
-function o() {
+function f(r, t) {
+  return r && "run" in r ? async function(n, u) {
+    const a = (
+      /** @type {HastRoot} */
+      e(n, { file: u, ...t })
+    );
+    await r.run(a, u);
+  } : function(n, u) {
+    return (
+      /** @type {HastRoot} */
+      e(n, { file: u, ...t || r })
+    );
+  };
 }
 export {
-  n as ok,
-  o as unreachable
+  f as default
 };
 //# sourceMappingURL=cori.data.api51.js.map

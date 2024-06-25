@@ -1,6 +1,7 @@
-import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api638.js";
-import "./cori.data.api567.js";
-import "./cori.data.api568.js";
+import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api665.js";
+import "./cori.data.api574.js";
+import "./cori.data.api575.js";
+import { DateUnit as o } from "./cori.data.api569.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
@@ -14,33 +15,30 @@ class s {
   __init(t, i) {
     return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsFixedSizeList(t, i) {
+  static getRootAsDate(t, i) {
     return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsFixedSizeList(t, i) {
+  static getSizePrefixedRootAsDate(t, i) {
     return t.setPosition(t.position() + e), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  /**
-   * Number of list items per value
-   */
-  listSize() {
+  unit() {
     const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
+    return t ? this.bb.readInt16(this.bb_pos + t) : o.MILLISECOND;
   }
-  static startFixedSizeList(t) {
+  static startDate(t) {
     t.startObject(1);
   }
-  static addListSize(t, i) {
-    t.addFieldInt32(0, i, 0);
+  static addUnit(t, i) {
+    t.addFieldInt16(0, i, o.MILLISECOND);
   }
-  static endFixedSizeList(t) {
+  static endDate(t) {
     return t.endObject();
   }
-  static createFixedSizeList(t, i) {
-    return s.startFixedSizeList(t), s.addListSize(t, i), s.endFixedSizeList(t);
+  static createDate(t, i) {
+    return s.startDate(t), s.addUnit(t, i), s.endDate(t);
   }
 }
 export {
-  s as FixedSizeList
+  s as Date
 };
 //# sourceMappingURL=cori.data.api590.js.map

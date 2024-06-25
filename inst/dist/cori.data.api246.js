@@ -1,18 +1,19 @@
+import { merge as m } from "./cori.data.api295.js";
+import { xlink as o } from "./cori.data.api296.js";
+import { xml as r } from "./cori.data.api297.js";
+import { xmlns as t } from "./cori.data.api298.js";
+import { aria as i } from "./cori.data.api299.js";
+import { html as s } from "./cori.data.api300.js";
+import { svg as p } from "./cori.data.api301.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(t, h) {
-  const { style: l } = t;
-  h.backgroundColor && (l.backgroundColor = h.backgroundColor), h.width && (l.width = `${h.width}px`), h.height && (l.height = `${h.height}px`);
-  const r = h.style;
-  return r != null && Object.keys(r).forEach((c) => {
-    l[c] = r[c];
-  }), t;
-}
+const x = m([r, o, t, i, s], "html"), e = m([r, o, t, i, p], "svg");
 export {
-  e as applyStyle
+  x as html,
+  e as svg
 };
 //# sourceMappingURL=cori.data.api246.js.map

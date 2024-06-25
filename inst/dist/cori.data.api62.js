@@ -1,79 +1,140 @@
-import i from "./cori.data.api59.js";
-import h from "./cori.data.api73.js";
+import d from "./cori.data.api60.js";
+import R from "./cori.data.api233.js";
+import b from "./cori.data.api234.js";
+import S from "./cori.data.api235.js";
+import m from "./cori.data.api63.js";
+import C from "./cori.data.api236.js";
+import q from "./cori.data.api237.js";
+import I from "./cori.data.api74.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const c = (s) => s instanceof h ? { ...s } : s;
-function C(s, o) {
-  o = o || {};
-  const f = {};
-  function d(t, e, r) {
-    return i.isPlainObject(t) && i.isPlainObject(e) ? i.merge.call({ caseless: r }, t, e) : i.isPlainObject(e) ? i.merge({}, e) : i.isArray(e) ? e.slice() : e;
+const u = q.validators;
+class k {
+  constructor(t) {
+    this.defaults = t, this.interceptors = {
+      request: new b(),
+      response: new b()
+    };
   }
-  function u(t, e, r) {
-    if (i.isUndefined(e)) {
-      if (!i.isUndefined(t))
-        return d(void 0, t, r);
-    } else
-      return d(t, e, r);
+  /**
+   * Dispatch a request
+   *
+   * @param {String|Object} configOrUrl The config specific for this request (merged with this.defaults)
+   * @param {?Object} config
+   *
+   * @returns {Promise} The Promise to be fulfilled
+   */
+  async request(t, e) {
+    try {
+      return await this._request(t, e);
+    } catch (s) {
+      if (s instanceof Error) {
+        let n;
+        Error.captureStackTrace ? Error.captureStackTrace(n = {}) : n = new Error();
+        const a = n.stack ? n.stack.replace(/^.+\n/, "") : "";
+        try {
+          s.stack ? a && !String(s.stack).endsWith(a.replace(/^.+\n.+\n/, "")) && (s.stack += `
+` + a) : s.stack = a;
+        } catch {
+        }
+      }
+      throw s;
+    }
   }
-  function a(t, e) {
-    if (!i.isUndefined(e))
-      return d(void 0, e);
+  _request(t, e) {
+    typeof t == "string" ? (e = e || {}, e.url = t) : e = t || {}, e = m(this.defaults, e);
+    const { transitional: s, paramsSerializer: n, headers: a } = e;
+    s !== void 0 && q.assertOptions(s, {
+      silentJSONParsing: u.transitional(u.boolean),
+      forcedJSONParsing: u.transitional(u.boolean),
+      clarifyTimeoutError: u.transitional(u.boolean)
+    }, !1), n != null && (d.isFunction(n) ? e.paramsSerializer = {
+      serialize: n
+    } : q.assertOptions(n, {
+      encode: u.function,
+      serialize: u.function
+    }, !0)), e.method = (e.method || this.defaults.method || "get").toLowerCase();
+    let f = a && d.merge(
+      a.common,
+      a[e.method]
+    );
+    a && d.forEach(
+      ["delete", "get", "head", "post", "put", "patch", "common"],
+      (r) => {
+        delete a[r];
+      }
+    ), e.headers = I.concat(f, a);
+    const h = [];
+    let y = !0;
+    this.interceptors.request.forEach(function(i) {
+      typeof i.runWhen == "function" && i.runWhen(e) === !1 || (y = y && i.synchronous, h.unshift(i.fulfilled, i.rejected));
+    });
+    const p = [];
+    this.interceptors.response.forEach(function(i) {
+      p.push(i.fulfilled, i.rejected);
+    });
+    let l, o = 0, c;
+    if (!y) {
+      const r = [S.bind(this), void 0];
+      for (r.unshift.apply(r, h), r.push.apply(r, p), c = r.length, l = Promise.resolve(e); o < c; )
+        l = l.then(r[o++], r[o++]);
+      return l;
+    }
+    c = h.length;
+    let E = e;
+    for (o = 0; o < c; ) {
+      const r = h[o++], i = h[o++];
+      try {
+        E = r(E);
+      } catch (P) {
+        i.call(this, P);
+        break;
+      }
+    }
+    try {
+      l = S.call(this, E);
+    } catch (r) {
+      return Promise.reject(r);
+    }
+    for (o = 0, c = p.length; o < c; )
+      l = l.then(p[o++], p[o++]);
+    return l;
   }
-  function n(t, e) {
-    if (i.isUndefined(e)) {
-      if (!i.isUndefined(t))
-        return d(void 0, t);
-    } else
-      return d(void 0, e);
+  getUri(t) {
+    t = m(this.defaults, t);
+    const e = C(t.baseURL, t.url);
+    return R(e, t.params, t.paramsSerializer);
   }
-  function l(t, e, r) {
-    if (r in o)
-      return d(t, e);
-    if (r in s)
-      return d(void 0, t);
-  }
-  const g = {
-    url: a,
-    method: a,
-    data: a,
-    baseURL: n,
-    transformRequest: n,
-    transformResponse: n,
-    paramsSerializer: n,
-    timeout: n,
-    timeoutMessage: n,
-    withCredentials: n,
-    withXSRFToken: n,
-    adapter: n,
-    responseType: n,
-    xsrfCookieName: n,
-    xsrfHeaderName: n,
-    onUploadProgress: n,
-    onDownloadProgress: n,
-    decompress: n,
-    maxContentLength: n,
-    maxBodyLength: n,
-    beforeRedirect: n,
-    transport: n,
-    httpAgent: n,
-    httpsAgent: n,
-    cancelToken: n,
-    socketPath: n,
-    responseEncoding: n,
-    validateStatus: l,
-    headers: (t, e) => u(c(t), c(e), !0)
-  };
-  return i.forEach(Object.keys(Object.assign({}, s, o)), function(e) {
-    const r = g[e] || u, m = r(s[e], o[e], e);
-    i.isUndefined(m) && r !== l || (f[e] = m);
-  }), f;
 }
+d.forEach(["delete", "get", "head", "options"], function(t) {
+  k.prototype[t] = function(e, s) {
+    return this.request(m(s || {}, {
+      method: t,
+      url: e,
+      data: (s || {}).data
+    }));
+  };
+});
+d.forEach(["post", "put", "patch"], function(t) {
+  function e(s) {
+    return function(a, f, h) {
+      return this.request(m(h || {}, {
+        method: t,
+        headers: s ? {
+          "Content-Type": "multipart/form-data"
+        } : {},
+        url: a,
+        data: f
+      }));
+    };
+  }
+  k.prototype[t] = e(), k.prototype[t + "Form"] = e(!0);
+});
 export {
-  C as default
+  k as default
 };
 //# sourceMappingURL=cori.data.api62.js.map

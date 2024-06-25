@@ -1,22 +1,16 @@
-import { get as n, set as i } from "./cori.data.api231.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function r(e, t) {
-  if (typeof t != "function")
-    throw new Error();
-  return function() {
-    i(this, e).ease = t;
-  };
-}
-function s(e) {
-  var t = this._id;
-  return arguments.length ? this.each(r(t, e)) : n(this.node(), t).ease;
+function c(f) {
+  for (var _ = this._groups, a = 0, h = _.length; a < h; ++a)
+    for (var e = _[a], t = 0, r = e.length, l; t < r; ++t)
+      (l = e[t]) && f.call(l, l.__data__, t, e);
+  return this;
 }
 export {
-  s as default
+  c as default
 };
 //# sourceMappingURL=cori.data.api214.js.map

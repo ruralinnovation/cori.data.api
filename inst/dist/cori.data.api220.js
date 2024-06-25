@@ -1,21 +1,27 @@
-import { Transition as v } from "./cori.data.api209.js";
-import w, { get as y } from "./cori.data.api231.js";
-import s from "./cori.data.api194.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function x(_) {
-  var m = this._name, i = this._id;
-  typeof _ != "function" && (_ = s(_));
-  for (var e = this._groups, l = e.length, c = new Array(l), r = 0; r < l; ++r)
-    for (var f = e[r], o = f.length, n = c[r] = new Array(o), a, h, t = 0; t < o; ++t)
-      (a = f[t]) && (h = _.call(a, a.__data__, t, f)) && ("__data__" in a && (h.__data__ = a.__data__), n[t] = h, w(n[t], m, i, t, n, y(a, i)));
-  return new v(c, this._parents, m, i);
+function i() {
+  this.innerHTML = "";
+}
+function e(n) {
+  return function() {
+    this.innerHTML = n;
+  };
+}
+function o(n) {
+  return function() {
+    var t = n.apply(this, arguments);
+    this.innerHTML = t ?? "";
+  };
+}
+function r(n) {
+  return arguments.length ? this.each(n == null ? i : (typeof n == "function" ? o : e)(n)) : this.node().innerHTML;
 }
 export {
-  x as default
+  r as default
 };
 //# sourceMappingURL=cori.data.api220.js.map

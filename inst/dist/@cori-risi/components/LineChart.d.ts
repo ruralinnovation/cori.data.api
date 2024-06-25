@@ -1,4 +1,3 @@
-import { default as React } from 'react';
 import { ERCData, MetricMetadata } from '../interfaces';
 
 interface LineChartProps {
@@ -9,5 +8,5 @@ interface LineChartProps {
     width: number;
     height: number;
 }
-declare const LineChart: React.FC<LineChartProps>;
+declare function LineChart({ primary_geoid, metric, data, metadata, width, height }: LineChartProps): import("react/jsx-runtime").JSX.Element;
 export default LineChart;

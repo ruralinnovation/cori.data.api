@@ -1,36 +1,57 @@
-import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api638.js";
-import "./cori.data.api567.js";
-import "./cori.data.api568.js";
+import { factorySpace as a } from "./cori.data.api639.js";
+import { markdownLineEnding as l } from "./cori.data.api419.js";
+import { subtokenize as p } from "./cori.data.api548.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
+const d = {
+  tokenize: h,
+  resolve: s
+}, k = {
+  tokenize: x,
+  partial: !0
+};
+function s(n) {
+  return p(n), n;
+}
+function h(n, u) {
+  let r;
+  return i;
+  function i(t) {
+    return n.enter("content"), r = n.enter("chunkContent", {
+      contentType: "content"
+    }), o(t);
   }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
+  function o(t) {
+    return t === null ? c(t) : l(t) ? n.check(k, e, c)(t) : (n.consume(t), o);
   }
-  static getRootAsNull(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  function c(t) {
+    return n.exit("chunkContent"), n.exit("content"), u(t);
   }
-  static getSizePrefixedRootAsNull(t, i) {
-    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  function e(t) {
+    return n.consume(t), n.exit("chunkContent"), r.next = n.enter("chunkContent", {
+      contentType: "content",
+      previous: r
+    }), r = r.next, o;
   }
-  static startNull(t) {
-    t.startObject(0);
+}
+function x(n, u, r) {
+  const i = this;
+  return o;
+  function o(e) {
+    return n.exit("chunkContent"), n.enter("lineEnding"), n.consume(e), n.exit("lineEnding"), a(n, c, "linePrefix");
   }
-  static endNull(t) {
-    return t.endObject();
-  }
-  static createNull(t) {
-    return s.startNull(t), s.endNull(t);
+  function c(e) {
+    if (e === null || l(e))
+      return r(e);
+    const t = i.events[i.events.length - 1];
+    return !i.parser.constructs.disable.null.includes("codeIndented") && t && t[1].type === "linePrefix" && t[2].sliceSerialize(t[1], !0).length >= 4 ? u(e) : n.interrupt(i.parser.constructs.flow, r, u)(e);
   }
 }
 export {
-  s as Null
+  d as content
 };
 //# sourceMappingURL=cori.data.api641.js.map

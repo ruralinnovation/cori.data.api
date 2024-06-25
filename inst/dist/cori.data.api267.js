@@ -1,98 +1,63 @@
-import { stringifyPosition as c } from "./cori.data.api473.js";
+import { color as A } from "./cori.data.api488.js";
+import { convert as I } from "./cori.data.api489.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class t extends Error {
-  /**
-   * Create a message for `reason`.
-   *
-   * > 🪦 **Note**: also has obsolete signatures.
-   *
-   * @overload
-   * @param {string} reason
-   * @param {Options | null | undefined} [options]
-   * @returns
-   *
-   * @overload
-   * @param {string} reason
-   * @param {Node | NodeLike | null | undefined} parent
-   * @param {string | null | undefined} [origin]
-   * @returns
-   *
-   * @overload
-   * @param {string} reason
-   * @param {Point | Position | null | undefined} place
-   * @param {string | null | undefined} [origin]
-   * @returns
-   *
-   * @overload
-   * @param {string} reason
-   * @param {string | null | undefined} [origin]
-   * @returns
-   *
-   * @overload
-   * @param {Error | VFileMessage} cause
-   * @param {Node | NodeLike | null | undefined} parent
-   * @param {string | null | undefined} [origin]
-   * @returns
-   *
-   * @overload
-   * @param {Error | VFileMessage} cause
-   * @param {Point | Position | null | undefined} place
-   * @param {string | null | undefined} [origin]
-   * @returns
-   *
-   * @overload
-   * @param {Error | VFileMessage} cause
-   * @param {string | null | undefined} [origin]
-   * @returns
-   *
-   * @param {Error | VFileMessage | string} causeOrReason
-   *   Reason for message, should use markdown.
-   * @param {Node | NodeLike | Options | Point | Position | string | null | undefined} [optionsOrParentOrPlace]
-   *   Configuration (optional).
-   * @param {string | null | undefined} [origin]
-   *   Place in code where the message originates (example:
-   *   `'my-package:my-rule'` or `'my-rule'`).
-   * @returns
-   *   Instance of `VFileMessage`.
-   */
-  // eslint-disable-next-line complexity
-  constructor(d, s, i) {
-    super(), typeof s == "string" && (i = s, s = void 0);
-    let f = "", e = {}, p = !1;
-    if (s && ("line" in s && "column" in s ? e = { place: s } : "start" in s && "end" in s ? e = { place: s } : "type" in s ? e = {
-      ancestors: [s],
-      place: s.position
-    } : e = { ...s }), typeof d == "string" ? f = d : !e.cause && d && (p = !0, f = d.message, e.cause = d), !e.ruleId && !e.source && typeof i == "string") {
-      const n = i.indexOf(":");
-      n === -1 ? e.ruleId = i : (e.source = i.slice(0, n), e.ruleId = i.slice(n + 1));
+const g = [], j = !0, a = !1, k = "skip";
+function w(t, o, u, s) {
+  let p;
+  typeof o == "function" && typeof u != "function" ? (s = u, u = o) : p = o;
+  const b = I(p), y = s ? -1 : 1;
+  m(t, void 0, [])();
+  function m(n, N, l) {
+    const i = (
+      /** @type {Record<string, unknown>} */
+      n && typeof n == "object" ? n : {}
+    );
+    if (typeof i.type == "string") {
+      const e = (
+        // `hast`
+        typeof i.tagName == "string" ? i.tagName : (
+          // `xast`
+          typeof i.name == "string" ? i.name : void 0
+        )
+      );
+      Object.defineProperty(h, "name", {
+        value: "node (" + A(n.type + (e ? "<" + e + ">" : "")) + ")"
+      });
     }
-    if (!e.place && e.ancestors && e.ancestors) {
-      const n = e.ancestors[e.ancestors.length - 1];
-      n && (e.place = n.position);
+    return h;
+    function h() {
+      let e = g, f, r, d;
+      if ((!o || b(n, N, l[l.length - 1] || void 0)) && (e = E(u(n, l)), e[0] === a))
+        return e;
+      if ("children" in n && n.children) {
+        const c = (
+          /** @type {UnistParent} */
+          n
+        );
+        if (c.children && e[0] !== k)
+          for (r = (s ? c.children.length : -1) + y, d = l.concat(c); r > -1 && r < c.children.length; ) {
+            const P = c.children[r];
+            if (f = m(P, r, d)(), f[0] === a)
+              return f;
+            r = typeof f[1] == "number" ? f[1] : r + y;
+          }
+      }
+      return e;
     }
-    const u = e.place && "start" in e.place ? e.place.start : e.place;
-    this.ancestors = e.ancestors || void 0, this.cause = e.cause || void 0, this.column = u ? u.column : void 0, this.fatal = void 0, this.file, this.message = f, this.line = u ? u.line : void 0, this.name = c(e.place) || "1:1", this.place = e.place || void 0, this.reason = this.message, this.ruleId = e.ruleId || void 0, this.source = e.source || void 0, this.stack = p && e.cause && typeof e.cause.stack == "string" ? e.cause.stack : "", this.actual, this.expected, this.note, this.url;
   }
 }
-t.prototype.file = "";
-t.prototype.name = "";
-t.prototype.reason = "";
-t.prototype.message = "";
-t.prototype.stack = "";
-t.prototype.column = void 0;
-t.prototype.line = void 0;
-t.prototype.ancestors = void 0;
-t.prototype.cause = void 0;
-t.prototype.fatal = void 0;
-t.prototype.place = void 0;
-t.prototype.ruleId = void 0;
-t.prototype.source = void 0;
+function E(t) {
+  return Array.isArray(t) ? t : typeof t == "number" ? [j, t] : t == null ? g : [t];
+}
 export {
-  t as VFileMessage
+  j as CONTINUE,
+  a as EXIT,
+  k as SKIP,
+  w as visitParents
 };
 //# sourceMappingURL=cori.data.api267.js.map

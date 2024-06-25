@@ -1,24 +1,36 @@
-import { asciiPunctuation as i } from "./cori.data.api486.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api665.js";
+import "./cori.data.api574.js";
+import "./cori.data.api575.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const o = {
-  name: "characterEscape",
-  tokenize: u
-};
-function u(r, e, n) {
-  return t;
-  function t(a) {
-    return r.enter("characterEscape"), r.enter("escapeMarker"), r.consume(a), r.exit("escapeMarker"), c;
+class s {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  function c(a) {
-    return i(a) ? (r.enter("characterEscapeValue"), r.consume(a), r.exit("characterEscapeValue"), r.exit("characterEscape"), e) : n(a);
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
+  }
+  static getRootAsNull(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static getSizePrefixedRootAsNull(t, i) {
+    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static startNull(t) {
+    t.startObject(0);
+  }
+  static endNull(t) {
+    return t.endObject();
+  }
+  static createNull(t) {
+    return s.startNull(t), s.endNull(t);
   }
 }
 export {
-  o as characterEscape
+  s as Null
 };
 //# sourceMappingURL=cori.data.api668.js.map

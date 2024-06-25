@@ -1,4 +1,3 @@
-import { default as React } from 'react';
 import { ERCData, MetricMetadata } from '../interfaces';
 
 interface BarChartProps {
@@ -8,5 +7,5 @@ interface BarChartProps {
     metadata: MetricMetadata;
     width: number;
 }
-declare const BarChart: React.FC<BarChartProps>;
+declare function BarChart({ primary_geoid, metric, data, metadata, width }: BarChartProps): import("react/jsx-runtime").JSX.Element;
 export default BarChart;

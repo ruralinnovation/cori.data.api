@@ -1,59 +1,22 @@
-import { SIZE_PREFIX_LENGTH as r } from "./cori.data.api638.js";
-import "./cori.data.api567.js";
-import "./cori.data.api568.js";
-import { BodyCompressionMethod as i } from "./cori.data.api679.js";
-import { CompressionType as e } from "./cori.data.api680.js";
+import { markdownSpace as m } from "./cori.data.api419.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
+function p(n, t, i, u) {
+  const o = u ? u - 1 : Number.POSITIVE_INFINITY;
+  let I = 0;
+  return a;
+  function a(r) {
+    return m(r) ? (n.enter(i), e(r)) : t(r);
   }
-  __init(t, o) {
-    return this.bb_pos = t, this.bb = o, this;
-  }
-  static getRootAsBodyCompression(t, o) {
-    return (o || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsBodyCompression(t, o) {
-    return t.setPosition(t.position() + r), (o || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  /**
-   * Compressor library.
-   * For LZ4_FRAME, each compressed buffer must consist of a single frame.
-   */
-  codec() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt8(this.bb_pos + t) : e.LZ4_FRAME;
-  }
-  /**
-   * Indicates the way the record batch body was compressed
-   */
-  method() {
-    const t = this.bb.__offset(this.bb_pos, 6);
-    return t ? this.bb.readInt8(this.bb_pos + t) : i.BUFFER;
-  }
-  static startBodyCompression(t) {
-    t.startObject(2);
-  }
-  static addCodec(t, o) {
-    t.addFieldInt8(0, o, e.LZ4_FRAME);
-  }
-  static addMethod(t, o) {
-    t.addFieldInt8(1, o, i.BUFFER);
-  }
-  static endBodyCompression(t) {
-    return t.endObject();
-  }
-  static createBodyCompression(t, o, n) {
-    return s.startBodyCompression(t), s.addCodec(t, o), s.addMethod(t, n), s.endBodyCompression(t);
+  function e(r) {
+    return m(r) && I++ < o ? (n.consume(r), e) : (n.exit(i), t(r));
   }
 }
 export {
-  s as BodyCompression
+  p as factorySpace
 };
 //# sourceMappingURL=cori.data.api639.js.map

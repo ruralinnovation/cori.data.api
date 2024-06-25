@@ -4,20 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const t = {
-  undefined: "void(0)",
-  Infinity: "Number.POSITIVE_INFINITY",
-  NaN: "Number.NaN",
-  E: "Math.E",
-  LN2: "Math.LN2",
-  LN10: "Math.LN10",
-  LOG2E: "Math.LOG2E",
-  LOG10E: "Math.LOG10E",
-  PI: "Math.PI",
-  SQRT1_2: "Math.SQRT1_2",
-  SQRT2: "Math.SQRT2"
-};
+function r(e) {
+  return e.replace(/[\t\n\r ]+/g, " ").replace(/^ | $/g, "").toLowerCase().toUpperCase();
+}
 export {
-  t as default
+  r as normalizeIdentifier
 };
 //# sourceMappingURL=cori.data.api409.js.map

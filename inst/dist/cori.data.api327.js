@@ -1,93 +1,97 @@
+import x from "./cori.data.api329.js";
+import { normalizeUri as N } from "./cori.data.api330.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(a, r, t, i) {
-  const l = t[a.type] || t.Default;
-  if (l && l(a, r, i) === !1)
-    return;
-  const y = n[a.type];
-  y && y(a, r, t);
+function L(e, o) {
+  const r = [{ type: "text", value: "↩" }];
+  return o > 1 && r.push({
+    type: "element",
+    tagName: "sup",
+    properties: {},
+    children: [{ type: "text", value: String(o) }]
+  }), r;
 }
-const p = (a, r, t) => {
-  e(a.argument, r, t, a);
-}, m = (a, r, t) => {
-  e(a.left, r, t, a), e(a.right, r, t, a);
-}, E = (a, r, t) => {
-  e(a.test, r, t, a), e(a.consequent, r, t, a), a.alternate && e(a.alternate, r, t, a);
-}, u = (a, r, t) => {
-  s(a.params, r, t, a), e(a.body, r, t, a);
-}, c = (a, r, t) => {
-  e(a.callee, r, t, a), s(a.arguments, r, t, a);
-}, s = (a, r, t, i) => {
-  a.forEach((l) => e(l, r, t, i));
-}, n = {
-  TemplateLiteral: (a, r, t) => {
-    s(a.expressions, r, t, a), s(a.quasis, r, t, a);
-  },
-  MemberExpression: (a, r, t) => {
-    e(a.object, r, t, a), e(a.property, r, t, a);
-  },
-  CallExpression: c,
-  NewExpression: c,
-  ArrayExpression: (a, r, t) => {
-    s(a.elements, r, t, a);
-  },
-  AssignmentExpression: m,
-  AwaitExpression: p,
-  BinaryExpression: m,
-  LogicalExpression: m,
-  UnaryExpression: p,
-  UpdateExpression: p,
-  ConditionalExpression: E,
-  ObjectExpression: (a, r, t) => {
-    s(a.properties, r, t, a);
-  },
-  Property: (a, r, t) => {
-    e(a.key, r, t, a), e(a.value, r, t, a);
-  },
-  ArrowFunctionExpression: u,
-  FunctionExpression: u,
-  FunctionDeclaration: u,
-  VariableDeclaration: (a, r, t) => {
-    s(a.declarations, r, t, a);
-  },
-  VariableDeclarator: (a, r, t) => {
-    e(a.id, r, t, a), e(a.init, r, t, a);
-  },
-  SpreadElement: (a, r, t) => {
-    e(a.argument, r, t, a);
-  },
-  BlockStatement: (a, r, t) => {
-    s(a.body, r, t, a);
-  },
-  ExpressionStatement: (a, r, t) => {
-    e(a.expression, r, t, a);
-  },
-  IfStatement: E,
-  ForStatement: (a, r, t) => {
-    e(a.init, r, t, a), e(a.test, r, t, a), e(a.update, r, t, a), e(a.body, r, t, a);
-  },
-  WhileStatement: (a, r, t) => {
-    e(a.test, r, t, a), e(a.body, r, t, a);
-  },
-  DoWhileStatement: (a, r, t) => {
-    e(a.body, r, t, a), e(a.test, r, t, a);
-  },
-  SwitchStatement: (a, r, t) => {
-    e(a.discriminant, r, t, a), s(a.cases, r, t, a);
-  },
-  SwitchCase: (a, r, t) => {
-    a.test && e(a.test, r, t, a), s(a.consequent, r, t, a);
-  },
-  ReturnStatement: p,
-  Program: (a, r, t) => {
-    e(a.body[0], r, t, a);
+function k(e, o) {
+  return "Back to reference " + (e + 1) + (o > 1 ? "-" + o : "");
+}
+function C(e) {
+  const o = typeof e.options.clobberPrefix == "string" ? e.options.clobberPrefix : "user-content-", r = e.options.footnoteBackContent || L, s = e.options.footnoteBackLabel || k, y = e.options.footnoteLabel || "Footnotes", g = e.options.footnoteLabelTagName || "h2", b = e.options.footnoteLabelProperties || {
+    className: ["sr-only"]
+  }, f = [];
+  let a = -1;
+  for (; ++a < e.footnoteOrder.length; ) {
+    const p = e.footnoteById.get(
+      e.footnoteOrder[a]
+    );
+    if (!p)
+      continue;
+    const c = e.all(p), u = String(p.identifier).toUpperCase(), d = N(u.toLowerCase());
+    let l = 0;
+    const i = [], h = e.footnoteCounts.get(u);
+    for (; h !== void 0 && ++l <= h; ) {
+      i.length > 0 && i.push({ type: "text", value: " " });
+      let t = typeof r == "string" ? r : r(a, l);
+      typeof t == "string" && (t = { type: "text", value: t }), i.push({
+        type: "element",
+        tagName: "a",
+        properties: {
+          href: "#" + o + "fnref-" + d + (l > 1 ? "-" + l : ""),
+          dataFootnoteBackref: "",
+          ariaLabel: typeof s == "string" ? s : s(a, l),
+          className: ["data-footnote-backref"]
+        },
+        children: Array.isArray(t) ? t : [t]
+      });
+    }
+    const n = c[c.length - 1];
+    if (n && n.type === "element" && n.tagName === "p") {
+      const t = n.children[n.children.length - 1];
+      t && t.type === "text" ? t.value += " " : n.children.push({ type: "text", value: " " }), n.children.push(...i);
+    } else
+      c.push(...i);
+    const m = {
+      type: "element",
+      tagName: "li",
+      properties: { id: o + "fn-" + d },
+      children: e.wrap(c, !0)
+    };
+    e.patch(p, m), f.push(m);
   }
-};
+  if (f.length !== 0)
+    return {
+      type: "element",
+      tagName: "section",
+      properties: { dataFootnotes: !0, className: ["footnotes"] },
+      children: [
+        {
+          type: "element",
+          tagName: g,
+          properties: {
+            ...x(b),
+            id: "footnote-label"
+          },
+          children: [{ type: "text", value: y }]
+        },
+        { type: "text", value: `
+` },
+        {
+          type: "element",
+          tagName: "ol",
+          properties: {},
+          children: e.wrap(f, !0)
+        },
+        { type: "text", value: `
+` }
+      ]
+    };
+}
 export {
-  e as default
+  L as defaultFootnoteBackContent,
+  k as defaultFootnoteBackLabel,
+  C as footer
 };
 //# sourceMappingURL=cori.data.api327.js.map

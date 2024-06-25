@@ -1,156 +1,130 @@
-import { factorySpace as I } from "./cori.data.api654.js";
-import { markdownLineEnding as N } from "./cori.data.api486.js";
-import { splice as F } from "./cori.data.api653.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const A = {
-  tokenize: T
-}, y = {
-  tokenize: E
-};
-function T(i) {
-  const e = this, l = [];
-  let s = 0, t, a, d;
-  return w;
-  function w(n) {
-    if (s < l.length) {
-      const o = l[s];
-      return e.containerState = o[1], i.attempt(
-        o[0].continuation,
-        b,
-        p
-      )(n);
+class h {
+  /**
+   * Instantiate a new BitSet instance.
+   * @param {number} size The number of bits.
+   */
+  constructor(t) {
+    this._size = t, this._bits = new Uint32Array(Math.ceil(t / 32));
+  }
+  /**
+   * The number of bits.
+   * @return {number}
+   */
+  get length() {
+    return this._size;
+  }
+  /**
+   * The number of bits set to one.
+   * https://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
+   * @return {number}
+   */
+  count() {
+    const t = this._bits.length;
+    let s = 0;
+    for (let e = 0; e < t; ++e)
+      for (let n = this._bits[e]; n; ++s)
+        n &= n - 1;
+    return s;
+  }
+  /**
+   * Get the bit at a given index.
+   * @param {number} i The bit index.
+   */
+  get(t) {
+    return this._bits[t >> 5] & 2147483648 >>> t;
+  }
+  /**
+   * Set the bit at a given index to one.
+   * @param {number} i The bit index.
+   */
+  set(t) {
+    this._bits[t >> 5] |= 2147483648 >>> t;
+  }
+  /**
+   * Clear the bit at a given index to zero.
+   * @param {number} i The bit index.
+   */
+  clear(t) {
+    this._bits[t >> 5] &= ~(2147483648 >>> t);
+  }
+  /**
+   * Scan the bits, invoking a callback function with the index of
+   * each non-zero bit.
+   * @param {(i: number) => void} fn A callback function.
+   */
+  scan(t) {
+    for (let s = this.next(0); s >= 0; s = this.next(s + 1))
+      t(s);
+  }
+  /**
+   * Get the next non-zero bit starting from a given index.
+   * @param {number} i The bit index.
+   */
+  next(t) {
+    const s = this._bits, e = s.length;
+    let n = t >> 5, i = s[n] & 4294967295 >>> t;
+    for (; n < e; i = s[++n])
+      if (i !== 0)
+        return (n << 5) + Math.clz32(i);
+    return -1;
+  }
+  /**
+   * Return the index of the nth non-zero bit.
+   * @param {number} n The number of non-zero bits to advance.
+   * @return {number} The index of the nth non-zero bit.
+   */
+  nth(t) {
+    let s = this.next(0);
+    for (; t-- && s >= 0; )
+      s = this.next(s + 1);
+    return s;
+  }
+  /**
+   * Negate all bits in this bitset.
+   * Modifies this BitSet in place.
+   * @return {this}
+   */
+  not() {
+    const t = this._bits, s = t.length;
+    for (let n = 0; n < s; ++n)
+      t[n] = ~t[n];
+    const e = this._size % 32;
+    return e && (t[s - 1] &= 2147483648 >> e - 1), this;
+  }
+  /**
+   * Compute the logical AND of this BitSet and another.
+   * @param {BitSet} bitset The BitSet to combine with.
+   * @return {BitSet} This BitSet updated with the logical AND.
+   */
+  and(t) {
+    if (t) {
+      const s = this._bits, e = t._bits, n = s.length;
+      for (let i = 0; i < n; ++i)
+        s[i] &= e[i];
     }
-    return p(n);
+    return this;
   }
-  function b(n) {
-    if (s++, e.containerState._closeFlow) {
-      e.containerState._closeFlow = void 0, t && x();
-      const o = e.events.length;
-      let u = o, r;
-      for (; u--; )
-        if (e.events[u][0] === "exit" && e.events[u][1].type === "chunkFlow") {
-          r = e.events[u][1].end;
-          break;
-        }
-      f(s);
-      let c = o;
-      for (; c < e.events.length; )
-        e.events[c][1].end = Object.assign({}, r), c++;
-      return F(
-        e.events,
-        u + 1,
-        0,
-        e.events.slice(o)
-      ), e.events.length = c, p(n);
+  /**
+   * Compute the logical OR of this BitSet and another.
+   * @param {BitSet} bitset The BitSet to combine with.
+   * @return {BitSet} This BitSet updated with the logical OR.
+   */
+  or(t) {
+    if (t) {
+      const s = this._bits, e = t._bits, n = s.length;
+      for (let i = 0; i < n; ++i)
+        s[i] |= e[i];
     }
-    return w(n);
+    return this;
   }
-  function p(n) {
-    if (s === l.length) {
-      if (!t)
-        return m(n);
-      if (t.currentConstruct && t.currentConstruct.concrete)
-        return v(n);
-      e.interrupt = !!(t.currentConstruct && !t._gfmTableDynamicInterruptHack);
-    }
-    return e.containerState = {}, i.check(
-      y,
-      z,
-      B
-    )(n);
-  }
-  function z(n) {
-    return t && x(), f(s), m(n);
-  }
-  function B(n) {
-    return e.parser.lazy[e.now().line] = s !== l.length, d = e.now().offset, v(n);
-  }
-  function m(n) {
-    return e.containerState = {}, i.attempt(
-      y,
-      _,
-      v
-    )(n);
-  }
-  function _(n) {
-    return s++, l.push([e.currentConstruct, e.containerState]), m(n);
-  }
-  function v(n) {
-    if (n === null) {
-      t && x(), f(0), i.consume(n);
-      return;
-    }
-    return t = t || e.parser.flow(e.now()), i.enter("chunkFlow", {
-      contentType: "flow",
-      previous: a,
-      _tokenizer: t
-    }), g(n);
-  }
-  function g(n) {
-    if (n === null) {
-      C(i.exit("chunkFlow"), !0), f(0), i.consume(n);
-      return;
-    }
-    return N(n) ? (i.consume(n), C(i.exit("chunkFlow")), s = 0, e.interrupt = void 0, w) : (i.consume(n), g);
-  }
-  function C(n, o) {
-    const u = e.sliceStream(n);
-    if (o && u.push(null), n.previous = a, a && (a.next = n), a = n, t.defineSkip(n.start), t.write(u), e.parser.lazy[n.start.line]) {
-      let r = t.events.length;
-      for (; r--; )
-        if (
-          // The token starts before the line ending…
-          t.events[r][1].start.offset < d && // …and either is not ended yet…
-          (!t.events[r][1].end || // …or ends after it.
-          t.events[r][1].end.offset > d)
-        )
-          return;
-      const c = e.events.length;
-      let h = c, k, S;
-      for (; h--; )
-        if (e.events[h][0] === "exit" && e.events[h][1].type === "chunkFlow") {
-          if (k) {
-            S = e.events[h][1].end;
-            break;
-          }
-          k = !0;
-        }
-      for (f(s), r = c; r < e.events.length; )
-        e.events[r][1].end = Object.assign({}, S), r++;
-      F(
-        e.events,
-        h + 1,
-        0,
-        e.events.slice(c)
-      ), e.events.length = r;
-    }
-  }
-  function f(n) {
-    let o = l.length;
-    for (; o-- > n; ) {
-      const u = l[o];
-      e.containerState = u[1], u[0].exit.call(e, i);
-    }
-    l.length = n;
-  }
-  function x() {
-    t.write([null]), a = void 0, t = void 0, e.containerState._closeFlow = void 0;
-  }
-}
-function E(i, e, l) {
-  return I(
-    i,
-    i.attempt(this.parser.constructs.document, e, l),
-    "linePrefix",
-    this.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 4
-  );
 }
 export {
-  A as document
+  h as default
 };
 //# sourceMappingURL=cori.data.api631.js.map

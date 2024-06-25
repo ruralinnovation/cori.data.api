@@ -1,23 +1,106 @@
-import { FixedWidthBuilder as s } from "./cori.data.api500.js";
-import { setDate as a, setDateDay as l, setDateMillisecond as o } from "./cori.data.api551.js";
+import { Visitor as T } from "./cori.data.api564.js";
+import { Null as v } from "./cori.data.api668.js";
+import { Int as a } from "./cori.data.api579.js";
+import { FloatingPoint as m } from "./cori.data.api588.js";
+import { Binary as B } from "./cori.data.api669.js";
+import { LargeBinary as S } from "./cori.data.api670.js";
+import { Bool as g } from "./cori.data.api671.js";
+import { Utf8 as I } from "./cori.data.api672.js";
+import { LargeUtf8 as L } from "./cori.data.api673.js";
+import { Decimal as n } from "./cori.data.api589.js";
+import { Date as u } from "./cori.data.api590.js";
+import { Time as o } from "./cori.data.api591.js";
+import { Timestamp as s } from "./cori.data.api592.js";
+import { Interval as p } from "./cori.data.api593.js";
+import { Duration as f } from "./cori.data.api594.js";
+import { List as U } from "./cori.data.api674.js";
+import { Struct_ as D } from "./cori.data.api675.js";
+import { Union as e } from "./cori.data.api595.js";
+import { DictionaryEncoding as d } from "./cori.data.api667.js";
+import { FixedSizeBinary as l } from "./cori.data.api596.js";
+import { FixedSizeList as c } from "./cori.data.api597.js";
+import { Map as y } from "./cori.data.api598.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class e extends s {
+class z extends T {
+  visit(i, t) {
+    return i == null || t == null ? void 0 : super.visit(i, t);
+  }
+  visitNull(i, t) {
+    return v.startNull(t), v.endNull(t);
+  }
+  visitInt(i, t) {
+    return a.startInt(t), a.addBitWidth(t, i.bitWidth), a.addIsSigned(t, i.isSigned), a.endInt(t);
+  }
+  visitFloat(i, t) {
+    return m.startFloatingPoint(t), m.addPrecision(t, i.precision), m.endFloatingPoint(t);
+  }
+  visitBinary(i, t) {
+    return B.startBinary(t), B.endBinary(t);
+  }
+  visitLargeBinary(i, t) {
+    return S.startLargeBinary(t), S.endLargeBinary(t);
+  }
+  visitBool(i, t) {
+    return g.startBool(t), g.endBool(t);
+  }
+  visitUtf8(i, t) {
+    return I.startUtf8(t), I.endUtf8(t);
+  }
+  visitLargeUtf8(i, t) {
+    return L.startLargeUtf8(t), L.endLargeUtf8(t);
+  }
+  visitDecimal(i, t) {
+    return n.startDecimal(t), n.addScale(t, i.scale), n.addPrecision(t, i.precision), n.addBitWidth(t, i.bitWidth), n.endDecimal(t);
+  }
+  visitDate(i, t) {
+    return u.startDate(t), u.addUnit(t, i.unit), u.endDate(t);
+  }
+  visitTime(i, t) {
+    return o.startTime(t), o.addUnit(t, i.unit), o.addBitWidth(t, i.bitWidth), o.endTime(t);
+  }
+  visitTimestamp(i, t) {
+    const r = i.timezone && t.createString(i.timezone) || void 0;
+    return s.startTimestamp(t), s.addUnit(t, i.unit), r !== void 0 && s.addTimezone(t, r), s.endTimestamp(t);
+  }
+  visitInterval(i, t) {
+    return p.startInterval(t), p.addUnit(t, i.unit), p.endInterval(t);
+  }
+  visitDuration(i, t) {
+    return f.startDuration(t), f.addUnit(t, i.unit), f.endDuration(t);
+  }
+  visitList(i, t) {
+    return U.startList(t), U.endList(t);
+  }
+  visitStruct(i, t) {
+    return D.startStruct_(t), D.endStruct_(t);
+  }
+  visitUnion(i, t) {
+    e.startTypeIdsVector(t, i.typeIds.length);
+    const r = e.createTypeIdsVector(t, i.typeIds);
+    return e.startUnion(t), e.addMode(t, i.mode), e.addTypeIds(t, r), e.endUnion(t);
+  }
+  visitDictionary(i, t) {
+    const r = this.visit(i.indices, t);
+    return d.startDictionaryEncoding(t), d.addId(t, BigInt(i.id)), d.addIsOrdered(t, i.isOrdered), r !== void 0 && d.addIndexType(t, r), d.endDictionaryEncoding(t);
+  }
+  visitFixedSizeBinary(i, t) {
+    return l.startFixedSizeBinary(t), l.addByteWidth(t, i.byteWidth), l.endFixedSizeBinary(t);
+  }
+  visitFixedSizeList(i, t) {
+    return c.startFixedSizeList(t), c.addListSize(t, i.listSize), c.endFixedSizeList(t);
+  }
+  visitMap(i, t) {
+    return y.startMap(t), y.addKeysSorted(t, i.keysSorted), y.endMap(t);
+  }
 }
-e.prototype._setValue = a;
-class i extends e {
-}
-i.prototype._setValue = l;
-class r extends e {
-}
-r.prototype._setValue = o;
+const X = new z();
 export {
-  e as DateBuilder,
-  i as DateDayBuilder,
-  r as DateMillisecondBuilder
+  z as TypeAssembler,
+  X as instance
 };
 //# sourceMappingURL=cori.data.api600.js.map

@@ -1,40 +1,26 @@
-import { aggregateGet as h } from "./cori.data.api537.js";
-import k from "./cori.data.api538.js";
+import i from "./cori.data.api635.js";
+import g from "./cori.data.api636.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function x(n, e) {
-  return n.create({
-    groups: m(n, e)
+function b(f, s, m, u = {}) {
+  const { replace: r, shuffle: h } = u, a = f.partitions(!1);
+  let o = 0;
+  s = a.map((e, n) => {
+    let t = s(n);
+    return o += t = r ? t : Math.min(e.length, t), t;
   });
-}
-function m(n, { names: e = [], exprs: u = [], ops: a = [] }) {
-  const p = e.length;
-  if (p === 0)
-    return null;
-  if (p === 1 && !n.isFiltered() && u[0].field) {
-    const t = n.column(u[0].field);
-    if (t.groups)
-      return t.groups(e);
-  }
-  let s = h(n, a, u);
-  const d = k(s), y = n.totalRows(), l = new Uint32Array(y), c = {}, i = [], f = n.data(), g = n.mask();
-  if (g)
-    for (let t = g.next(0); t >= 0; t = g.next(t + 1)) {
-      const o = d(t, f) + "", r = c[o];
-      l[t] = r ?? (c[o] = i.push(t) - 1);
-    }
-  else
-    for (let t = 0; t < y; ++t) {
-      const o = d(t, f) + "", r = c[o];
-      l[t] = r ?? (c[o] = i.push(t) - 1);
-    }
-  return a.length || (s = s.map((t) => (o) => t(o, f))), { keys: l, get: s, names: e, rows: i, size: i.length };
+  const l = new Uint32Array(o);
+  let p = 0;
+  return a.forEach((e, n) => {
+    const t = s[n], c = l.subarray(p, p += t);
+    !r && t === e.length ? c.set(e) : i(c, r, e, m);
+  }), h !== !1 && (a.length > 1 || !r) && g(l), f.reify(l);
 }
 export {
-  x as default
+  b as default
 };
 //# sourceMappingURL=cori.data.api534.js.map

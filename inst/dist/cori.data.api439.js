@@ -1,22 +1,14 @@
-import f from "./cori.data.api527.js";
-import { inferKeys as i } from "./cori.data.api525.js";
-import m from "./cori.data.api528.js";
-import k from "./cori.data.api521.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function y(p, o, r, u) {
-  return r = i(p, o, r), f(
-    p,
-    o,
-    [m("lookup", p, r[0]), m("lookup", o, r[1])],
-    k("lookup", o, u)
-  );
+const t = /^([-+]\d{2})?\d{4}(-\d{2}(-\d{2})?)?(T\d{2}:\d{2}(:\d{2}(\.\d{3})?)?(Z|[-+]\d{2}:\d{2})?)?$/;
+function a(d) {
+  return d.match(t) && !isNaN(Date.parse(d));
 }
 export {
-  y as default
+  a as default
 };
 //# sourceMappingURL=cori.data.api439.js.map

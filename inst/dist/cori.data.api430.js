@@ -4,8 +4,9 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(r, u = []) {
-  return r.groupby(u.length ? u : r.columnNames()).filter("row_number() === 1").ungroup().reify();
+const r = Object.getPrototypeOf(Int8Array);
+function e(t) {
+  return t instanceof r;
 }
 export {
   e as default
