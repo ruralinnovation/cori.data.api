@@ -1,0 +1,1 @@
+{"version":3,"file":"cori.data.api153.js","sources":["../../node_modules/arquero/src/util/is-array.js"],"sourcesContent":["export default Array.isArray;\n"],"names":["isArray"],"mappings":";;;;;;AAAA,MAAeA,IAAA,MAAM;","x_google_ignoreList":[0]}

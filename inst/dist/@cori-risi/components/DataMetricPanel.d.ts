@@ -1,4 +1,4 @@
-export declare function DataMetricPanel(props: {
+export default function DataMetricPanel(props: {
     data: any;
     chart_type: string;
     chart_width: number;

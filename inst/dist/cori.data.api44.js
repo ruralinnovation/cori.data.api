@@ -1,37 +1,26 @@
-import n from "./cori.data.api19.js";
+import { Selection as h } from "./cori.data.api34.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const a = n.toObjectSet([
-  "age",
-  "authorization",
-  "content-length",
-  "content-type",
-  "etag",
-  "expires",
-  "from",
-  "host",
-  "if-modified-since",
-  "if-unmodified-since",
-  "last-modified",
-  "location",
-  "max-forwards",
-  "proxy-authorization",
-  "referer",
-  "retry-after",
-  "user-agent"
-]), u = (s) => {
-  const t = {};
-  let e, r, i;
-  return s && s.split(`
-`).forEach(function(o) {
-    i = o.indexOf(":"), e = o.substring(0, i).trim().toLowerCase(), r = o.substring(i + 1).trim(), !(!e || t[e] && a[e]) && (e === "set-cookie" ? t[e] ? t[e].push(r) : t[e] = [r] : t[e] = t[e] ? t[e] + ", " + r : r);
-  }), t;
-};
+function N(t) {
+  t || (t = u);
+  function n(_, f) {
+    return _ && f ? t(_.__data__, f.__data__) : !_ - !f;
+  }
+  for (var a = this._groups, i = a.length, o = new Array(i), e = 0; e < i; ++e) {
+    for (var c = a[e], d = c.length, l = o[e] = new Array(d), s, r = 0; r < d; ++r)
+      (s = c[r]) && (l[r] = s);
+    l.sort(n);
+  }
+  return new h(o, this._parents).order();
+}
+function u(t, n) {
+  return t < n ? -1 : t > n ? 1 : t >= n ? 0 : NaN;
+}
 export {
-  u as default
+  N as default
 };
 //# sourceMappingURL=cori.data.api44.js.map

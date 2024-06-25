@@ -1,0 +1,1 @@
+{"version":3,"file":"cori.data.api302.js","sources":["../../node_modules/arquero/src/util/is-set.js"],"sourcesContent":["export default function(value) {\n  return value instanceof Set;\n}"],"names":["isSet","value"],"mappings":";;;;;;AAAe,SAAQA,EAACC,GAAO;AAC7B,SAAOA,aAAiB;AAC1B;","x_google_ignoreList":[0]}

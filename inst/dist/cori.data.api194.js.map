@@ -1,0 +1,1 @@
+{"version":3,"file":"cori.data.api194.js","sources":["../../node_modules/arquero/src/util/is-valid.js"],"sourcesContent":["export default function(value) {\n  return value != null && value === value;\n}\n"],"names":["isValid","value"],"mappings":";;;;;;AAAe,SAAQA,EAACC,GAAO;AAC7B,SAAOA,KAAS,QAAQA,MAAUA;AACpC;","x_google_ignoreList":[0]}

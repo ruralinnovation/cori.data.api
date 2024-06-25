@@ -1,0 +1,1 @@
+{"version":3,"file":"cori.data.api117.js","sources":["../../node_modules/arquero/src/util/is-function.js"],"sourcesContent":["export default function(value) {\n  return typeof value === 'function';\n}"],"names":["isFunction","value"],"mappings":";;;;;;AAAe,SAAQA,EAACC,GAAO;AAC7B,SAAO,OAAOA,KAAU;AAC1B;","x_google_ignoreList":[0]}

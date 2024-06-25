@@ -1,0 +1,1 @@
+{"version":3,"file":"cori.data.api142.js","sources":["../../node_modules/arquero/src/util/is-object.js"],"sourcesContent":["export default function(value) {\n  return value === Object(value);\n}"],"names":["isObject","value"],"mappings":";;;;;;AAAe,SAAQA,EAACC,GAAO;AAC7B,SAAOA,MAAU,OAAOA,CAAK;AAC/B;","x_google_ignoreList":[0]}
