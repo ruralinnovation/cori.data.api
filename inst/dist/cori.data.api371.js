@@ -1,23 +1,18 @@
-import { FixedWidthBuilder as r } from "./cori.data.api263.js";
-import { setIntervalValue as a, setIntervalDayTime as l, setIntervalYearMonth as s } from "./cori.data.api314.js";
+import { create as e } from "./cori.data.api472.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class e extends r {
-}
-e.prototype._setValue = a;
-class o extends e {
-}
-o.prototype._setValue = l;
-class n extends e {
-}
-n.prototype._setValue = s;
+const o = e({
+  space: "xml",
+  transform(r, l) {
+    return "xml:" + l.slice(3).toLowerCase();
+  },
+  properties: { xmlLang: null, xmlBase: null, xmlSpace: null }
+});
 export {
-  e as IntervalBuilder,
-  o as IntervalDayTimeBuilder,
-  n as IntervalYearMonthBuilder
+  o as xml
 };
 //# sourceMappingURL=cori.data.api371.js.map

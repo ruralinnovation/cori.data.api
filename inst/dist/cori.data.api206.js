@@ -1,22 +1,19 @@
-import f from "./cori.data.api280.js";
-import m from "./cori.data.api281.js";
-import n from "./cori.data.api136.js";
+import { Selection as s } from "./cori.data.api59.js";
+import c from "./cori.data.api203.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(r, o) {
-  const t = n({ p: o }, { table: r });
-  let e = t.exprs[0];
-  if (t.ops.length) {
-    const { data: p } = f(r, t, { drop: !0 }).column("p");
-    e = (i) => p[i];
-  }
-  return m(r, e);
+function v(t) {
+  typeof t != "function" && (t = c(t));
+  for (var i = this._groups, l = i.length, a = new Array(l), r = 0; r < l; ++r)
+    for (var n = i[r], _ = n.length, o = a[r] = [], e, f = 0; f < _; ++f)
+      (e = n[f]) && t.call(e, e.__data__, f, n) && o.push(e);
+  return new s(a, this._parents);
 }
 export {
-  u as default
+  v as default
 };
 //# sourceMappingURL=cori.data.api206.js.map

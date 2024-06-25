@@ -1,109 +1,97 @@
-import { Type as v } from "./cori.data.api258.js";
-import { Visitor as u } from "./cori.data.api318.js";
-import { instance as l } from "./cori.data.api313.js";
-import { BitIterator as f, getBool as m } from "./cori.data.api317.js";
-import { createElementComparator as c } from "./cori.data.api311.js";
+import s from "./cori.data.api281.js";
+import x from "./cori.data.api321.js";
+import w from "./cori.data.api285.js";
+import u from "./cori.data.api282.js";
+import d from "./cori.data.api310.js";
+import p from "./cori.data.api328.js";
+import y from "./cori.data.api301.js";
+import A from "./cori.data.api304.js";
+import { toObject as I, isSelection as S } from "./cori.data.api314.js";
+import { Column as f } from "./cori.data.api305.js";
+import { TableRef as L, TableRefList as h, Options as J, Expr as C, ExprList as K, ExprNumber as N, ExprObject as R, JoinKeys as b, JoinValues as k, OrderbyKeys as V, SelectionList as D, Descending as F, Window as M, Selection as P } from "./cori.data.api313.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class t extends u {
+const W = {
+  [C]: T,
+  [K]: i,
+  [N]: H,
+  [R]: e,
+  [b]: Q,
+  [k]: U,
+  [V]: i,
+  [D]: B
+};
+function et(t, r, n) {
+  return r === L ? a(t) : r === h ? t.map(a) : O(I(t), r, n);
 }
-function d(o, e) {
-  return e === null && o.length > 0 ? 0 : -1;
+function O(t, r, n) {
+  return r === J ? t && q(t, n) : W[r](t);
 }
-function D(o, e) {
-  const { nullBitmap: p } = o;
-  if (!p || o.nullCount <= 0)
-    return -1;
-  let n = 0;
-  for (const s of new f(p, o.offset + (e || 0), o.length, p, m)) {
-    if (!s)
-      return n;
-    ++n;
+function q(t, r = {}) {
+  const n = {};
+  for (const o in t) {
+    const c = t[o];
+    n[o] = r[o] ? O(c, r[o]) : c;
   }
-  return -1;
+  return n;
 }
-function i(o, e, p) {
-  if (e === void 0)
-    return -1;
-  if (e === null)
-    switch (o.typeId) {
-      case v.Union:
-        break;
-      case v.Dictionary:
-        break;
-      default:
-        return D(o, p);
-    }
-  const n = l.getVisitFn(o), s = c(e);
-  for (let r = (p || 0) - 1, y = o.length; ++r < y; )
-    if (s(n(o, r)))
-      return r;
-  return -1;
+function z(t, r) {
+  return A({ expr: t }, { ...r, ast: !0 }).exprs[0];
 }
-function a(o, e, p) {
-  const n = l.getVisitFn(o), s = c(e);
-  for (let r = (p || 0) - 1, y = o.length; ++r < y; )
-    if (s(n(o, r)))
-      return r;
-  return -1;
+function m(t) {
+  return { type: f, name: t };
 }
-t.prototype.visitNull = d;
-t.prototype.visitBool = i;
-t.prototype.visitInt = i;
-t.prototype.visitInt8 = i;
-t.prototype.visitInt16 = i;
-t.prototype.visitInt32 = i;
-t.prototype.visitInt64 = i;
-t.prototype.visitUint8 = i;
-t.prototype.visitUint16 = i;
-t.prototype.visitUint32 = i;
-t.prototype.visitUint64 = i;
-t.prototype.visitFloat = i;
-t.prototype.visitFloat16 = i;
-t.prototype.visitFloat32 = i;
-t.prototype.visitFloat64 = i;
-t.prototype.visitUtf8 = i;
-t.prototype.visitLargeUtf8 = i;
-t.prototype.visitBinary = i;
-t.prototype.visitLargeBinary = i;
-t.prototype.visitFixedSizeBinary = i;
-t.prototype.visitDate = i;
-t.prototype.visitDateDay = i;
-t.prototype.visitDateMillisecond = i;
-t.prototype.visitTimestamp = i;
-t.prototype.visitTimestampSecond = i;
-t.prototype.visitTimestampMillisecond = i;
-t.prototype.visitTimestampMicrosecond = i;
-t.prototype.visitTimestampNanosecond = i;
-t.prototype.visitTime = i;
-t.prototype.visitTimeSecond = i;
-t.prototype.visitTimeMillisecond = i;
-t.prototype.visitTimeMicrosecond = i;
-t.prototype.visitTimeNanosecond = i;
-t.prototype.visitDecimal = i;
-t.prototype.visitList = i;
-t.prototype.visitStruct = i;
-t.prototype.visitUnion = i;
-t.prototype.visitDenseUnion = a;
-t.prototype.visitSparseUnion = a;
-t.prototype.visitDictionary = i;
-t.prototype.visitInterval = i;
-t.prototype.visitIntervalDayTime = i;
-t.prototype.visitIntervalYearMonth = i;
-t.prototype.visitDuration = i;
-t.prototype.visitDurationSecond = i;
-t.prototype.visitDurationMillisecond = i;
-t.prototype.visitDurationMicrosecond = i;
-t.prototype.visitDurationNanosecond = i;
-t.prototype.visitFixedSizeList = i;
-t.prototype.visitMap = i;
-const x = new t();
+function g(t) {
+  return { type: f, index: t };
+}
+function e(t, r) {
+  if (p(t))
+    return z(t, r);
+  if (t.expr) {
+    let n;
+    if (t.field === !0 ? n = m(t.expr) : t.func === !0 && (n = e(t.expr, r)), n)
+      return t.desc && (n = { type: F, expr: n }), t.window && (n = { type: M, expr: n, ...t.window }), n;
+  }
+  return Object.keys(t).map((n) => ({
+    ...e(t[n], r),
+    as: n
+  }));
+}
+function E(t) {
+  const r = P;
+  return t.all ? { type: r, operator: "all" } : t.not ? { type: r, operator: "not", arguments: i(t.not) } : t.range ? { type: r, operator: "range", arguments: i(t.range) } : t.matches ? { type: r, operator: "matches", arguments: t.matches } : s("Invalid input");
+}
+function B(t) {
+  return y(t).map(G).flat();
+}
+function G(t) {
+  return S(t) ? E(t) : u(t) ? g(t) : p(t) ? m(t) : d(t) ? Object.keys(t).map((r) => ({ type: f, name: r, as: t[r] })) : s("Invalid input");
+}
+function T(t) {
+  return S(t) ? E(t) : u(t) ? g(t) : p(t) ? m(t) : d(t) ? e(t) : s("Invalid input");
+}
+function i(t) {
+  return y(t).map(T).flat();
+}
+function H(t) {
+  return u(t) ? t : e(t);
+}
+function Q(t) {
+  return x(t) ? t.map(i) : e(t, { join: !0 });
+}
+function U(t) {
+  return x(t) ? t.map(
+    (r, n) => n < 2 ? i(r) : e(r, { join: !0 })
+  ) : e(t, { join: !0 });
+}
+function a(t) {
+  return t && w(t.toAST) ? t.toAST() : t;
+}
 export {
-  t as IndexOfVisitor,
-  x as instance
+  et as default
 };
 //# sourceMappingURL=cori.data.api315.js.map

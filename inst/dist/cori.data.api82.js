@@ -1,96 +1,44 @@
-import t from "./cori.data.api78.js";
-import p from "./cori.data.api89.js";
-import u from "./cori.data.api104.js";
-import S from "./cori.data.api88.js";
-import h from "./cori.data.api105.js";
-import l from "./cori.data.api106.js";
-import O from "./cori.data.api83.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function y(i, r, e) {
-  if (t.isString(i))
-    try {
-      return (r || JSON.parse)(i), t.trim(i);
-    } catch (n) {
-      if (n.name !== "SyntaxError")
-        throw n;
-    }
-  return (e || JSON.stringify)(i);
-}
-const a = {
-  transitional: u,
-  adapter: ["xhr", "http", "fetch"],
-  transformRequest: [function(r, e) {
-    const n = e.getContentType() || "", s = n.indexOf("application/json") > -1, f = t.isObject(r);
-    if (f && t.isHTMLForm(r) && (r = new FormData(r)), t.isFormData(r))
-      return s ? JSON.stringify(O(r)) : r;
-    if (t.isArrayBuffer(r) || t.isBuffer(r) || t.isStream(r) || t.isFile(r) || t.isBlob(r) || t.isReadableStream(r))
-      return r;
-    if (t.isArrayBufferView(r))
-      return r.buffer;
-    if (t.isURLSearchParams(r))
-      return e.setContentType("application/x-www-form-urlencoded;charset=utf-8", !1), r.toString();
-    let o;
-    if (f) {
-      if (n.indexOf("application/x-www-form-urlencoded") > -1)
-        return h(r, this.formSerializer).toString();
-      if ((o = t.isFileList(r)) || n.indexOf("multipart/form-data") > -1) {
-        const c = this.env && this.env.FormData;
-        return S(
-          o ? { "files[]": r } : r,
-          c && new c(),
-          this.formSerializer
-        );
-      }
-    }
-    return f || s ? (e.setContentType("application/json", !1), y(r)) : r;
-  }],
-  transformResponse: [function(r) {
-    const e = this.transitional || a.transitional, n = e && e.forcedJSONParsing, s = this.responseType === "json";
-    if (t.isResponse(r) || t.isReadableStream(r))
-      return r;
-    if (r && t.isString(r) && (n && !this.responseType || s)) {
-      const m = !(e && e.silentJSONParsing) && s;
-      try {
-        return JSON.parse(r);
-      } catch (o) {
-        if (m)
-          throw o.name === "SyntaxError" ? p.from(o, p.ERR_BAD_RESPONSE, this, null, this.response) : o;
-      }
-    }
-    return r;
-  }],
-  /**
-   * A timeout in milliseconds to abort a request. If set to 0 (default) a
-   * timeout is not created.
-   */
-  timeout: 0,
-  xsrfCookieName: "XSRF-TOKEN",
-  xsrfHeaderName: "X-XSRF-TOKEN",
-  maxContentLength: -1,
-  maxBodyLength: -1,
-  env: {
-    FormData: l.classes.FormData,
-    Blob: l.classes.Blob
-  },
-  validateStatus: function(r) {
-    return r >= 200 && r < 300;
-  },
-  headers: {
-    common: {
-      Accept: "application/json, text/plain, */*",
-      "Content-Type": void 0
-    }
+class i extends Map {
+  constructor(t, s = f) {
+    if (super(), Object.defineProperties(this, { _intern: { value: /* @__PURE__ */ new Map() }, _key: { value: s } }), t != null)
+      for (const [r, o] of t)
+        this.set(r, o);
   }
-};
-t.forEach(["delete", "get", "head", "post", "put", "patch"], (i) => {
-  a.headers[i] = {};
-});
+  get(t) {
+    return super.get(n(this, t));
+  }
+  has(t) {
+    return super.has(n(this, t));
+  }
+  set(t, s) {
+    return super.set(u(this, t), s);
+  }
+  delete(t) {
+    return super.delete(c(this, t));
+  }
+}
+function n({ _intern: e, _key: t }, s) {
+  const r = t(s);
+  return e.has(r) ? e.get(r) : s;
+}
+function u({ _intern: e, _key: t }, s) {
+  const r = t(s);
+  return e.has(r) ? e.get(r) : (e.set(r, s), s);
+}
+function c({ _intern: e, _key: t }, s) {
+  const r = t(s);
+  return e.has(r) && (s = e.get(r), e.delete(r)), s;
+}
+function f(e) {
+  return e !== null && typeof e == "object" ? e.valueOf() : e;
+}
 export {
-  a as default
+  i as InternMap
 };
 //# sourceMappingURL=cori.data.api82.js.map

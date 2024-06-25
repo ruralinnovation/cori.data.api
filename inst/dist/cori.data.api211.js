@@ -1,20 +1,19 @@
-import f from "./cori.data.api288.js";
-import { inferKeys as e, keyPredicate as t } from "./cori.data.api287.js";
-import s from "./cori.data.api136.js";
-import c from "./cori.data.api153.js";
-import n from "./cori.data.api133.js";
+import { Selection as v } from "./cori.data.api59.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(i, o, r, m) {
-  r = e(i, o, r);
-  const p = c(r) ? t(i, o, ...r.map(n)) : s({ on: r }, { join: [i, o] }).exprs[0];
-  return f(i, o, p, m);
+function A(i) {
+  for (var e = this._groups, f = i._groups, n = e.length, _ = f.length, c = Math.min(n, _), a = new Array(n), t = 0; t < c; ++t)
+    for (var h = e[t], w = f[t], l = h.length, s = a[t] = new Array(l), o, r = 0; r < l; ++r)
+      (o = h[r] || w[r]) && (s[r] = o);
+  for (; t < n; ++t)
+    a[t] = e[t];
+  return new v(a, this._parents);
 }
 export {
-  a as default
+  A as default
 };
 //# sourceMappingURL=cori.data.api211.js.map

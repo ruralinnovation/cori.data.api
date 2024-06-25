@@ -4,10 +4,12 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function t(n) {
-  return typeof n == "function";
+var o = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
+function l(e) {
+  return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
 }
 export {
-  t as default
+  o as commonjsGlobal,
+  l as getDefaultExportFromCjs
 };
 //# sourceMappingURL=cori.data.api117.js.map

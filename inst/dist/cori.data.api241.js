@@ -1,11 +1,11 @@
+import t from "./cori.data.api376.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o() {
-}
+const o = t.default || t;
 export {
   o as default
 };

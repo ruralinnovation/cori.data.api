@@ -1,0 +1,1 @@
+{"version":3,"file":"cori.data.api428.js","sources":["../../node_modules/arquero/src/util/no-op.js"],"sourcesContent":["export default function() {}"],"names":["noop"],"mappings":";;;;;;AAAe,SAAAA,IAAW;AAAA;","x_google_ignoreList":[0]}

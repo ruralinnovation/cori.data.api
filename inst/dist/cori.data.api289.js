@@ -1,30 +1,53 @@
-import { rowLookup as g } from "./cori.data.api385.js";
-import { aggregateGet as _ } from "./cori.data.api299.js";
-import $ from "./cori.data.api120.js";
-import k from "./cori.data.api242.js";
-import w from "./cori.data.api386.js";
-import h from "./cori.data.api255.js";
+import { map_agg as _, entries_agg as w, object_agg as p, array_agg as k } from "./cori.data.api33.js";
+import z from "./cori.data.api281.js";
+import A from "./cori.data.api392.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function S(r, a, [n, p], { names: c, exprs: s, ops: d }) {
-  const m = $(r), i = r.totalRows();
-  c.forEach((o) => m.add(o, Array(i).fill(k)));
-  const u = g(a, p), l = h(
-    ["lr", "rr", "data"],
-    "{" + w(c, (o, t) => `_[${t}][lr] = $[${t}](rr, data);`) + "}",
-    c.map((o) => m.data[o]),
-    _(a, d, s)
-  ), e = a.data();
-  return r.scan((o, t) => {
-    const f = u.get(n(o, t));
-    f >= 0 && l(o, f, e);
-  }), r.create(m);
+function x(t, u) {
+  if (!t || !u)
+    return t;
+  const { keys: l, rows: m, size: i } = t, n = new Int32Array(i);
+  u.scan((r) => n[l[r]] = 1);
+  const e = n.reduce((r, g) => r + g, 0);
+  if (e === i)
+    return t;
+  const s = Array(e);
+  let o = 0;
+  for (let r = 0; r < i; ++r)
+    n[r] && (s[n[r] = o++] = m[r]);
+  const c = new Uint32Array(l.length);
+  return u.scan((r) => c[r] = n[l[r]]), { ...t, keys: c, rows: s, size: o };
+}
+function I(t, u, l, m) {
+  const { keys: i, rows: n, size: e } = t;
+  let s = n, o = e, c = null;
+  if (l) {
+    c = new Int32Array(e), u((a) => c[i[a]] = 1);
+    const f = c.reduce((a, y) => a + y, 0);
+    if (f !== e) {
+      s = Array(f), o = 0;
+      for (let a = 0; a < e; ++a)
+        c[a] && (s[c[a] = o++] = n[a]);
+    }
+  }
+  let r = -1;
+  const g = new Uint32Array(m);
+  return u(o !== e ? (f) => g[++r] = c[i[f]] : (f) => g[++r] = i[f]), { ...t, keys: g, rows: s, size: o };
+}
+function N(t, u, l, m) {
+  const i = m === "map" || m === !0 ? _ : m === "entries" ? w : m === "object" ? p : z('groups option must be "map", "entries", or "object".'), { names: n } = t.groups(), e = A(t.columnNames(), "_");
+  let s = t.select().reify(u).create({ data: { [e]: l } }).rollup({ [e]: k(e) });
+  for (let o = n.length; --o >= 0; )
+    s = s.groupby(n.slice(0, o)).rollup({ [e]: i(n[o], e) });
+  return s.get(e);
 }
 export {
-  S as default
+  N as nest,
+  x as regroup,
+  I as reindex
 };
 //# sourceMappingURL=cori.data.api289.js.map

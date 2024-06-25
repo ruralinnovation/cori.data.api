@@ -1,23 +1,18 @@
-import { makeBuilder as n } from "./cori.data.api357.js";
+import { FunctionExpression as o, ArrowFunctionExpression as t } from "./cori.data.api305.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function d(u) {
-  const e = n({
-    type: u,
-    nullValues: [null, void 0]
-  });
-  return {
-    set(l, t) {
-      e.set(t, l);
-    },
-    data: () => e.finish().flush()
-  };
+function i(n, r) {
+  return r && r.type === n;
+}
+function u(n) {
+  return i(o, n) || i(t, n);
 }
 export {
-  d as default
+  i as is,
+  u as isFunctionExpression
 };
 //# sourceMappingURL=cori.data.api307.js.map

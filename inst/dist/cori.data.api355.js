@@ -4,40 +4,46 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class b {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
+function f(l, e, s) {
+  const n = l.all(e), a = s ? m(s) : o(e), r = {}, p = [];
+  if (typeof e.checked == "boolean") {
+    const t = n[0];
+    let i;
+    t && t.type === "element" && t.tagName === "p" ? i = t : (i = { type: "element", tagName: "p", properties: {}, children: [] }, n.unshift(i)), i.children.length > 0 && i.children.unshift({ type: "text", value: " " }), i.children.unshift({
+      type: "element",
+      tagName: "input",
+      properties: { type: "checkbox", checked: e.checked, disabled: !0 },
+      children: []
+    }), r.className = ["task-list-item"];
   }
-  __init(t, s) {
-    return this.bb_pos = t, this.bb = s, this;
+  let c = -1;
+  for (; ++c < n.length; ) {
+    const t = n[c];
+    (a || c !== 0 || t.type !== "element" || t.tagName !== "p") && p.push({ type: "text", value: `
+` }), t.type === "element" && t.tagName === "p" && !a ? p.push(...t.children) : p.push(t);
   }
-  /**
-   * Index to the start of the RecordBlock (note this is past the Message header)
-   */
-  offset() {
-    return this.bb.readInt64(this.bb_pos);
+  const h = n[n.length - 1];
+  h && (a || h.type !== "element" || h.tagName !== "p") && p.push({ type: "text", value: `
+` });
+  const u = { type: "element", tagName: "li", properties: r, children: p };
+  return l.patch(e, u), l.applyData(e, u);
+}
+function m(l) {
+  let e = !1;
+  if (l.type === "list") {
+    e = l.spread || !1;
+    const s = l.children;
+    let n = -1;
+    for (; !e && ++n < s.length; )
+      e = o(s[n]);
   }
-  /**
-   * Length of the metadata
-   */
-  metaDataLength() {
-    return this.bb.readInt32(this.bb_pos + 8);
-  }
-  /**
-   * Length of the data (this is aligned so there can be a gap between this and
-   * the metadata).
-   */
-  bodyLength() {
-    return this.bb.readInt64(this.bb_pos + 16);
-  }
-  static sizeOf() {
-    return 24;
-  }
-  static createBlock(t, s, i, n) {
-    return t.prep(8, 24), t.writeInt64(BigInt(n ?? 0)), t.pad(4), t.writeInt32(i), t.writeInt64(BigInt(s ?? 0)), t.offset();
-  }
+  return e;
+}
+function o(l) {
+  const e = l.spread;
+  return e ?? l.children.length > 1;
 }
 export {
-  b as Block
+  f as listItem
 };
 //# sourceMappingURL=cori.data.api355.js.map

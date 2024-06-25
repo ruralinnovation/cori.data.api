@@ -1,18 +1,23 @@
-import { FunctionExpression as o, ArrowFunctionExpression as t } from "./cori.data.api137.js";
+import { childMatcher as e } from "./cori.data.api134.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function i(n, r) {
-  return r && r.type === n;
+var t = Array.prototype.filter;
+function n() {
+  return Array.from(this.children);
 }
-function u(n) {
-  return i(o, n) || i(t, n);
+function i(r) {
+  return function() {
+    return t.call(this.children, r);
+  };
+}
+function o(r) {
+  return this.selectAll(r == null ? n : i(typeof r == "function" ? r : e(r)));
 }
 export {
-  i as is,
-  u as isFunctionExpression
+  o as default
 };
 //# sourceMappingURL=cori.data.api139.js.map

@@ -1,36 +1,35 @@
-import { SIZE_PREFIX_LENGTH as s } from "./cori.data.api392.js";
-import "./cori.data.api327.js";
-import "./cori.data.api328.js";
+import { formatUTCDate as f, formatDate as n } from "./cori.data.api395.js";
+import m from "./cori.data.api389.js";
+import s from "./cori.data.api285.js";
+import u from "./cori.data.api399.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class r {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
-  }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
-  }
-  static getRootAsLargeBinary(t, i) {
-    return (i || new r()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsLargeBinary(t, i) {
-    return t.setPosition(t.position() + s), (i || new r()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static startLargeBinary(t) {
-    t.startObject(0);
-  }
-  static endLargeBinary(t) {
-    return t.endObject();
-  }
-  static createLargeBinary(t) {
-    return r.startLargeBinary(t), r.endLargeBinary(t);
-  }
+function x(t, r = {}) {
+  if (s(r))
+    return r(t) + "";
+  const o = typeof t;
+  if (o === "object") {
+    if (m(t))
+      return r.utc ? f(t) : n(t);
+    {
+      const e = JSON.stringify(
+        t,
+        (l, i) => u(i) ? Array.from(i) : i
+      ), a = r.maxlen || 30;
+      return e.length > a ? e.slice(0, 28) + "…" + (e[0] === "[" ? "]" : "}") : e;
+    }
+  } else if (o === "number") {
+    const e = r.digits || 0;
+    let a;
+    return t !== 0 && ((a = Math.abs(t)) >= 1e18 || a < Math.pow(10, -e)) ? t.toExponential(e) : t.toFixed(e);
+  } else
+    return t + "";
 }
 export {
-  r as LargeBinary
+  x as default
 };
 //# sourceMappingURL=cori.data.api397.js.map

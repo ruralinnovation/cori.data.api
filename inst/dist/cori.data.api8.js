@@ -1,6 +1,6 @@
-import { j as o } from "./cori.data.api3.js";
-import { r as a } from "./cori.data.api4.js";
-import i from "./cori.data.api9.js";
+import { j as o } from "./cori.data.api9.js";
+import { r as a } from "./cori.data.api10.js";
+import i from "./cori.data.api28.js";
 /* empty css                */
 /*
  * CORI Data API component library

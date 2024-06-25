@@ -1,38 +1,19 @@
-import l from "./cori.data.api117.js";
-import m from "./cori.data.api253.js";
+import { Transition as o } from "./cori.data.api177.js";
+import h from "./cori.data.api134.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function d(o, t) {
-  return l(t) ? t(o) : t || o.columnNames();
-}
-function h(o, t, r) {
-  const f = r.format || {}, u = r.align || {}, i = {}, a = {};
-  return t.forEach((n) => {
-    const c = m(g(o, n), r);
-    a[n] = u[n] || c.align, i[n] = f[n] || c.format;
-  }), { align: a, format: i };
-}
-function g(o, t) {
-  const r = o.column(t);
-  return (f) => o.scan((u) => f(r.get(u)));
-}
-function F(o, t, r = 100, f, u) {
-  const i = o.data(), a = t.length;
-  o.scan((n) => {
-    u.row(n);
-    for (let c = 0; c < a; ++c) {
-      const s = t[c];
-      u.cell(i[t[c]].get(n), s, c);
-    }
-  }, !0, r, f);
+function v(t) {
+  typeof t != "function" && (t = h(t));
+  for (var a = this._groups, e = a.length, _ = new Array(e), r = 0; r < e; ++r)
+    for (var f = a[r], s = f.length, l = _[r] = [], i, n = 0; n < s; ++n)
+      (i = f[n]) && t.call(i, i.__data__, n, f) && l.push(i);
+  return new o(_, this._parents, this._name, this._id);
 }
 export {
-  d as columns,
-  h as formats,
-  F as scan
+  v as default
 };
 //# sourceMappingURL=cori.data.api184.js.map

@@ -4,11 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-let r = Math.random;
-function n() {
-  return r();
+function t() {
+  var a = arguments[0];
+  return arguments[0] = this, a.apply(null, arguments), this;
 }
 export {
-  n as random
+  t as default
 };
 //# sourceMappingURL=cori.data.api148.js.map

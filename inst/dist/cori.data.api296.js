@@ -1,40 +1,66 @@
-import { aggregateGet as h } from "./cori.data.api299.js";
-import k from "./cori.data.api301.js";
+import p from "./cori.data.api326.js";
+import j from "./cori.data.api281.js";
+import N from "./cori.data.api327.js";
+import u from "./cori.data.api321.js";
+import x from "./cori.data.api285.js";
+import c from "./cori.data.api282.js";
+import O from "./cori.data.api310.js";
+import e from "./cori.data.api328.js";
+import h from "./cori.data.api329.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function x(n, e) {
-  return n.create({
-    groups: m(n, e)
-  });
+function f(o, r, n = /* @__PURE__ */ new Map()) {
+  return r = c(r) ? o.columnName(r) : r, e(r) ? n.set(r, r) : u(r) ? r.forEach((i) => f(o, i, n)) : x(r) ? f(o, r(o), n) : O(r) ? p(n, r) : j(`Invalid column selection: ${h(r)}`), n;
 }
-function m(n, { names: e = [], exprs: u = [], ops: a = [] }) {
-  const p = e.length;
-  if (p === 0)
-    return null;
-  if (p === 1 && !n.isFiltered() && u[0].field) {
-    const t = n.column(u[0].field);
-    if (t.groups)
-      return t.groups(e);
-  }
-  let s = h(n, a, u);
-  const d = k(s), y = n.totalRows(), l = new Uint32Array(y), c = {}, i = [], f = n.data(), g = n.mask();
-  if (g)
-    for (let t = g.next(0); t >= 0; t = g.next(t + 1)) {
-      const o = d(t, f) + "", r = c[o];
-      l[t] = r ?? (c[o] = i.push(t) - 1);
-    }
-  else
-    for (let t = 0; t < y; ++t) {
-      const o = d(t, f) + "", r = c[o];
-      l[t] = r ?? (c[o] = i.push(t) - 1);
-    }
-  return a.length || (s = s.map((t) => (o) => t(o, f))), { keys: l, get: s, names: e, rows: i, size: i.length };
+function t(o, r) {
+  return o.toObject = r, o;
+}
+function s(o) {
+  return u(o) ? o.map(s) : o && o.toObject ? o.toObject() : o;
+}
+function M() {
+  return t(
+    (o) => o.columnNames(),
+    () => ({ all: [] })
+  );
+}
+function $(...o) {
+  return o = o.flat(), t(
+    (r) => {
+      const n = f(r, o);
+      return r.columnNames((i) => !n.has(i));
+    },
+    () => ({ not: s(o) })
+  );
+}
+function a(o, r) {
+  return t(
+    (n) => {
+      let i = c(o) ? o : n.columnIndex(o), m = c(r) ? r : n.columnIndex(r);
+      if (m < i) {
+        const g = m;
+        m = i, i = g;
+      }
+      return n.columnNames().slice(i, m + 1);
+    },
+    () => ({ range: [o, r] })
+  );
+}
+function b(o) {
+  return e(o) && (o = RegExp(N(o))), t(
+    (r) => r.columnNames((n) => o.test(n)),
+    () => ({ matches: [o.source, o.flags] })
+  );
 }
 export {
-  x as default
+  M as all,
+  f as default,
+  b as matches,
+  $ as not,
+  a as range
 };
 //# sourceMappingURL=cori.data.api296.js.map

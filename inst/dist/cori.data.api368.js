@@ -1,40 +1,30 @@
-import { FixedWidthBuilder as l } from "./cori.data.api263.js";
+import { asciiAlphanumeric as f } from "./cori.data.api470.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s extends l {
-  setValue(t, d) {
-    this._values.set(t, d);
+function h(t) {
+  const s = [];
+  let r = -1, n = 0, i = 0;
+  for (; ++r < t.length; ) {
+    const e = t.charCodeAt(r);
+    let o = "";
+    if (e === 37 && f(t.charCodeAt(r + 1)) && f(t.charCodeAt(r + 2)))
+      i = 2;
+    else if (e < 128)
+      /[!#$&-;=?-Z_a-z~]/.test(String.fromCharCode(e)) || (o = String.fromCharCode(e));
+    else if (e > 55295 && e < 57344) {
+      const c = t.charCodeAt(r + 1);
+      e < 56320 && c > 56319 && c < 57344 ? (o = String.fromCharCode(e, c), i = 1) : o = "�";
+    } else
+      o = String.fromCharCode(e);
+    o && (s.push(t.slice(n, r), encodeURIComponent(o)), n = r + i + 1, o = ""), i && (r += i, i = 0);
   }
-}
-class n extends s {
-}
-class r extends s {
-}
-class u extends s {
-}
-class a extends s {
-}
-class x extends s {
-}
-class B extends s {
-}
-class c extends s {
-}
-class I extends s {
+  return s.join("") + t.slice(n);
 }
 export {
-  r as Int16Builder,
-  u as Int32Builder,
-  a as Int64Builder,
-  n as Int8Builder,
-  s as IntBuilder,
-  B as Uint16Builder,
-  c as Uint32Builder,
-  I as Uint64Builder,
-  x as Uint8Builder
+  h as normalizeUri
 };
 //# sourceMappingURL=cori.data.api368.js.map

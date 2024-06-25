@@ -1,17 +1,15 @@
-import r from "./cori.data.api89.js";
-import i from "./cori.data.api78.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function l(o, t, e) {
-  r.call(this, o ?? "canceled", r.ERR_CANCELED, t, e), this.name = "CanceledError";
+function l(n, e, a) {
+  n = +n, e = +e, a = (g = arguments.length) < 2 ? (e = n, n = 0, 1) : g < 3 ? 1 : +a;
+  for (var h = -1, g = Math.max(0, Math.ceil((e - n) / a)) | 0, i = new Array(g); ++h < g; )
+    i[h] = n + h * a;
+  return i;
 }
-i.inherits(l, r, {
-  __CANCEL__: !0
-});
 export {
   l as default
 };

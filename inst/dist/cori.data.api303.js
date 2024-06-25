@@ -1,20 +1,30 @@
-import { array as f } from "./cori.data.api18.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function d(r, a) {
-  const t = f(r.ArrayType, a);
-  return {
-    set(u, e) {
-      t[e] = u;
-    },
-    data: () => ({ type: r, length: a, buffers: [null, t] })
-  };
+class r {
+  constructor(t) {
+    this._outputs = t;
+  }
+  size() {
+    return this._outputs.length;
+  }
+  outputs() {
+    return this._outputs;
+  }
+  init() {
+    return {};
+  }
+  add() {
+  }
+  rem() {
+  }
+  write() {
+  }
 }
 export {
-  d as default
+  r as default
 };
 //# sourceMappingURL=cori.data.api303.js.map

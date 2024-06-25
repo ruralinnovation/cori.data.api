@@ -1,36 +1,19 @@
+import { merge as m } from "./cori.data.api369.js";
+import { xlink as o } from "./cori.data.api370.js";
+import { xml as r } from "./cori.data.api371.js";
+import { xmlns as t } from "./cori.data.api372.js";
+import { aria as i } from "./cori.data.api373.js";
+import { html as s } from "./cori.data.api374.js";
+import { svg as p } from "./cori.data.api375.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function v(l, t, M = 15, b = !0, u = 0, o) {
-  const n = Math.LN10;
-  if (o == null) {
-    const a = Math.ceil(Math.log(M) / n), h = t - l || Math.abs(l) || 1, c = [5, 2];
-    for (o = Math.max(
-      u,
-      Math.pow(10, Math.round(Math.log(h) / n) - a)
-    ); Math.ceil(h / o) > M; )
-      o *= 10;
-    const e = c.length;
-    for (let r = 0; r < e; ++r) {
-      const f = o / c[r];
-      f >= u && h / f <= M && (o = f);
-    }
-  }
-  if (b) {
-    let a = Math.log(o);
-    const h = a >= 0 ? 0 : ~~(-a / n) + 1, c = Math.pow(10, -h - 1);
-    a = Math.floor(l / o + c) * o, l = l < a ? a - o : a, t = Math.ceil(t / o) * o;
-  }
-  return [
-    l,
-    t === l ? l + o : t,
-    o
-  ];
-}
+const x = m([r, o, t, i, s], "html"), e = m([r, o, t, i, p], "svg");
 export {
-  v as default
+  x as html,
+  e as svg
 };
 //# sourceMappingURL=cori.data.api239.js.map

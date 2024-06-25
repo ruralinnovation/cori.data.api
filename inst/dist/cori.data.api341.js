@@ -1,44 +1,65 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api392.js";
-import "./cori.data.api327.js";
-import "./cori.data.api328.js";
-import { Precision as s } from "./cori.data.api322.js";
+import { blockquote as r } from "./cori.data.api342.js";
+import { hardBreak as m } from "./cori.data.api343.js";
+import { code as t } from "./cori.data.api344.js";
+import { strikethrough as e } from "./cori.data.api345.js";
+import { emphasis as i } from "./cori.data.api346.js";
+import { footnoteReference as f } from "./cori.data.api347.js";
+import { heading as p } from "./cori.data.api348.js";
+import { html as n } from "./cori.data.api349.js";
+import { imageReference as a } from "./cori.data.api350.js";
+import { image as l } from "./cori.data.api351.js";
+import { inlineCode as d } from "./cori.data.api352.js";
+import { linkReference as h } from "./cori.data.api353.js";
+import { link as c } from "./cori.data.api354.js";
+import { listItem as s } from "./cori.data.api355.js";
+import { list as g } from "./cori.data.api356.js";
+import { paragraph as k } from "./cori.data.api357.js";
+import { root as b } from "./cori.data.api358.js";
+import { strong as u } from "./cori.data.api359.js";
+import { table as R } from "./cori.data.api360.js";
+import { tableRow as x } from "./cori.data.api361.js";
+import { tableCell as B } from "./cori.data.api362.js";
+import { text as C } from "./cori.data.api363.js";
+import { thematicBreak as q } from "./cori.data.api364.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class o {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
-  }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
-  }
-  static getRootAsFloatingPoint(t, i) {
-    return (i || new o()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsFloatingPoint(t, i) {
-    return t.setPosition(t.position() + n), (i || new o()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  precision() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : s.HALF;
-  }
-  static startFloatingPoint(t) {
-    t.startObject(1);
-  }
-  static addPrecision(t, i) {
-    t.addFieldInt16(0, i, s.HALF);
-  }
-  static endFloatingPoint(t) {
-    return t.endObject();
-  }
-  static createFloatingPoint(t, i) {
-    return o.startFloatingPoint(t), o.addPrecision(t, i), o.endFloatingPoint(t);
-  }
+const V = {
+  blockquote: r,
+  break: m,
+  code: t,
+  delete: e,
+  emphasis: i,
+  footnoteReference: f,
+  heading: p,
+  html: n,
+  imageReference: a,
+  image: l,
+  inlineCode: d,
+  linkReference: h,
+  link: c,
+  listItem: s,
+  list: g,
+  paragraph: k,
+  // @ts-expect-error: root is different, but hard to type.
+  root: b,
+  strong: u,
+  table: R,
+  tableCell: B,
+  tableRow: x,
+  text: C,
+  thematicBreak: q,
+  toml: o,
+  yaml: o,
+  definition: o,
+  footnoteDefinition: o
+};
+function o() {
 }
 export {
-  o as FloatingPoint
+  V as handlers
 };
 //# sourceMappingURL=cori.data.api341.js.map

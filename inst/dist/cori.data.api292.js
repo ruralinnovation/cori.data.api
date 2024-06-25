@@ -1,23 +1,29 @@
-import i from "./cori.data.api120.js";
-import f from "./cori.data.api113.js";
-import s from "./cori.data.api160.js";
+import p from "./cori.data.api389.js";
+import "./cori.data.api33.js";
+import { formatUTCDate as d } from "./cori.data.api395.js";
+import "./cori.data.api34.js";
+import { columns as x, scan as g } from "./cori.data.api396.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(t, e) {
-  const n = i();
-  return e.forEach((r, o) => {
-    const c = s(r) ? r : o;
-    if (c) {
-      const m = t.column(o) || f(`Unrecognized column: ${o}`);
-      n.add(c, m);
+function V(n, r = {}) {
+  const e = x(n, r.columns), c = r.format || {}, o = r.delimiter || ",", a = new RegExp(`["${o}
+\r]`), f = (t) => t == null ? "" : p(t) ? d(t, !0) : a.test(t += "") ? '"' + t.replace(/"/g, '""') + '"' : t, m = e.map(f);
+  let i = "";
+  return g(n, e, r.limit || 1 / 0, r.offset, {
+    row() {
+      i += m.join(o) + `
+`;
+    },
+    cell(t, s, l) {
+      m[l] = f(c[s] ? c[s](t) : t);
     }
-  }), t.create(n);
+  }), i + m.join(o);
 }
 export {
-  a as default
+  V as default
 };
 //# sourceMappingURL=cori.data.api292.js.map

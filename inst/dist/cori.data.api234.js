@@ -1,24 +1,28 @@
-import a from "./cori.data.api242.js";
-import l from "./cori.data.api179.js";
-import n from "./cori.data.api188.js";
-import r from "./cori.data.api252.js";
+import o from "./cori.data.api237.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function t(e) {
-  return Array.from(e);
+function u(n, t, i) {
+  var c = o(n), e = c.CustomEvent;
+  typeof e == "function" ? e = new e(t, i) : (e = c.document.createEvent("Event"), i ? (e.initEvent(t, i.bubbles, i.cancelable), e.detail = i.detail) : e.initEvent(t, !1, !1)), n.dispatchEvent(e);
 }
-const c = {
-  has: (e, s) => r(e) ? e.has(s) : e != null ? l(e, s) : !1,
-  keys: (e) => n(e) ? t(e.keys()) : e != null ? Object.keys(e) : [],
-  values: (e) => r(e) ? t(e.values()) : e != null ? Object.values(e) : [],
-  entries: (e) => r(e) ? t(e.entries()) : e != null ? Object.entries(e) : [],
-  object: (e) => e ? Object.fromEntries(e) : a
-};
+function f(n, t) {
+  return function() {
+    return u(this, n, t);
+  };
+}
+function s(n, t) {
+  return function() {
+    return u(this, n, t.apply(this, arguments));
+  };
+}
+function r(n, t) {
+  return this.each((typeof t == "function" ? s : f)(n, t));
+}
 export {
-  c as default
+  r as default
 };
 //# sourceMappingURL=cori.data.api234.js.map

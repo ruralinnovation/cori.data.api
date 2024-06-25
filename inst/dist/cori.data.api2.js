@@ -1,4 +1,4 @@
-import { j as n } from "./cori.data.api3.js";
+import { j as n } from "./cori.data.api9.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

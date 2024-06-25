@@ -1,44 +1,35 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api392.js";
-import "./cori.data.api327.js";
-import "./cori.data.api328.js";
-import { TimeUnit as o } from "./cori.data.api324.js";
+import { normalizeUri as s } from "./cori.data.api368.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
-  }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
-  }
-  static getRootAsDuration(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsDuration(t, i) {
-    return t.setPosition(t.position() + n), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  unit() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : o.MILLISECOND;
-  }
-  static startDuration(t) {
-    t.startObject(1);
-  }
-  static addUnit(t, i) {
-    t.addFieldInt16(0, i, o.MILLISECOND);
-  }
-  static endDuration(t) {
-    return t.endObject();
-  }
-  static createDuration(t, i) {
-    return s.startDuration(t), s.addUnit(t, i), s.endDuration(t);
-  }
+function d(e, r) {
+  const i = typeof e.options.clobberPrefix == "string" ? e.options.clobberPrefix : "user-content-", t = String(r.identifier).toUpperCase(), f = s(t.toLowerCase()), l = e.footnoteOrder.indexOf(t);
+  let n, o = e.footnoteCounts.get(t);
+  o === void 0 ? (o = 0, e.footnoteOrder.push(t), n = e.footnoteOrder.length) : n = l + 1, o += 1, e.footnoteCounts.set(t, o);
+  const p = {
+    type: "element",
+    tagName: "a",
+    properties: {
+      href: "#" + i + "fn-" + f,
+      id: i + "fnref-" + f + (o > 1 ? "-" + o : ""),
+      dataFootnoteRef: !0,
+      ariaDescribedBy: ["footnote-label"]
+    },
+    children: [{ type: "text", value: String(n) }]
+  };
+  e.patch(r, p);
+  const c = {
+    type: "element",
+    tagName: "sup",
+    properties: {},
+    children: [p]
+  };
+  return e.patch(r, c), e.applyData(r, c);
 }
 export {
-  s as Duration
+  d as footnoteReference
 };
 //# sourceMappingURL=cori.data.api347.js.map

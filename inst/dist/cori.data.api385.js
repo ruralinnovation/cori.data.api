@@ -1,26 +1,31 @@
+import c from "./cori.data.api486.js";
+import m from "./cori.data.api487.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function r(e, u) {
-  const s = /* @__PURE__ */ new Map();
-  return e.scan((t, c) => {
-    const n = u(t, c);
-    n != null && n === n && s.set(n, t);
-  }), s;
-}
-function p(e, u, s) {
-  const t = /* @__PURE__ */ new Map(), c = e.length;
-  for (let n = 0; n < c; ++n) {
-    const l = e[n], o = s(l, u);
-    o != null && o === o && (t.has(o) ? t.get(o).push(n) : t.set(o, [n]));
-  }
-  return t;
-}
+const b = (a, l, u = 3) => {
+  let d = 0;
+  const p = c(50, 250);
+  return m((o) => {
+    const t = o.loaded, e = o.lengthComputable ? o.total : void 0, s = t - d, n = p(s), i = t <= e;
+    d = t;
+    const r = {
+      loaded: t,
+      total: e,
+      progress: e ? t / e : void 0,
+      bytes: s,
+      rate: n || void 0,
+      estimated: n && e && i ? (e - t) / n : void 0,
+      event: o,
+      lengthComputable: e != null
+    };
+    r[l ? "download" : "upload"] = !0, a(r);
+  }, u);
+};
 export {
-  p as indexLookup,
-  r as rowLookup
+  b as default
 };
 //# sourceMappingURL=cori.data.api385.js.map

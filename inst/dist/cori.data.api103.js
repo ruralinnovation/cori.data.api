@@ -1,58 +1,23 @@
-import { VERSION as b } from "./cori.data.api87.js";
-import o from "./cori.data.api89.js";
+import e from "./cori.data.api104.js";
+import { genericArray as a } from "./cori.data.api105.js";
+import f from "./cori.data.api106.js";
+import i from "./cori.data.api107.js";
+import p from "./cori.data.api108.js";
+import u from "./cori.data.api109.js";
+import c from "./cori.data.api110.js";
+import l, { isNumberArray as s } from "./cori.data.api111.js";
+import n from "./cori.data.api87.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const u = {};
-["object", "boolean", "number", "function", "string", "symbol"].forEach((t, r) => {
-  u[t] = function(a) {
-    return typeof a === t || "a" + (r < 1 ? "n " : " ") + t;
-  };
-});
-const l = {};
-u.transitional = function(r, i, a) {
-  function s(e, n) {
-    return "[Axios v" + b + "] Transitional option '" + e + "'" + n + (a ? ". " + a : "");
-  }
-  return (e, n, c) => {
-    if (r === !1)
-      throw new o(
-        s(n, " has been removed" + (i ? " in " + i : "")),
-        o.ERR_DEPRECATED
-      );
-    return i && !l[n] && (l[n] = !0, console.warn(
-      s(
-        n,
-        " has been deprecated since v" + i + " and will be removed in the near future"
-      )
-    )), r ? r(e, n, c) : !0;
-  };
-};
-function d(t, r, i) {
-  if (typeof t != "object")
-    throw new o("options must be an object", o.ERR_BAD_OPTION_VALUE);
-  const a = Object.keys(t);
-  let s = a.length;
-  for (; s-- > 0; ) {
-    const e = a[s], n = r[e];
-    if (n) {
-      const c = t[e], f = c === void 0 || n(c, e, t);
-      if (f !== !0)
-        throw new o("option " + e + " must be " + f, o.ERR_BAD_OPTION_VALUE);
-      continue;
-    }
-    if (i !== !0)
-      throw new o("Unknown option " + e, o.ERR_BAD_OPTION);
-  }
+function D(m, r) {
+  var o = typeof r, t;
+  return r == null || o === "boolean" ? c(r) : (o === "number" ? i : o === "string" ? (t = n(r)) ? (r = t, e) : u : r instanceof n ? e : r instanceof Date ? f : s(r) ? l : Array.isArray(r) ? a : typeof r.valueOf != "function" && typeof r.toString != "function" || isNaN(r) ? p : i)(m, r);
 }
-const h = {
-  assertOptions: d,
-  validators: u
-};
 export {
-  h as default
+  D as default
 };
 //# sourceMappingURL=cori.data.api103.js.map

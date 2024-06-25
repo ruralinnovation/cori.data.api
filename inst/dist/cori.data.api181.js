@@ -1,28 +1,25 @@
-import { Column as u, Literal as l, Dictionary as s } from "./cori.data.api137.js";
-import m from "./cori.data.api117.js";
+import { get as o, set as i } from "./cori.data.api199.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const c = {
-  "==": 1,
-  "!=": 1,
-  "===": 1,
-  "!==": 1
-};
-function w(t, n, r = 0, a, e) {
-  if (t.type = u, t.name = n, t.table = r, e && a && m(a.keyFor)) {
-    const i = c[e.operator] ? e.left === t ? e.right : e.left : e.callee && e.callee.name === "equal" ? e.arguments[e.arguments[0] === t ? 1 : 0] : null;
-    i && i.type === l && f(e, t, i, a.keyFor(i.value));
-  }
-  return t;
+function r(n, t) {
+  return function() {
+    i(this, n).duration = +t.apply(this, arguments);
+  };
 }
-function f(t, n, r, a) {
-  return a < 0 ? (t.type = l, t.value = !1, t.raw = "false") : (n.type = s, r.value = a, r.raw = a + ""), !0;
+function u(n, t) {
+  return t = +t, function() {
+    i(this, n).duration = t;
+  };
+}
+function s(n) {
+  var t = this._id;
+  return arguments.length ? this.each((typeof n == "function" ? r : u)(t, n)) : o(this.node(), t).duration;
 }
 export {
-  w as default
+  s as default
 };
 //# sourceMappingURL=cori.data.api181.js.map

@@ -1,21 +1,40 @@
-import o from "./cori.data.api69.js";
+import { initRange as c } from "./cori.data.api128.js";
+import { InternMap as a } from "./cori.data.api82.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var r, t;
-e({
-  thousands: ",",
-  grouping: [3],
-  currency: ["$", ""]
-});
-function e(a) {
-  return r = o(a), t = r.format, r.formatPrefix, r;
+const f = Symbol("implicit");
+function l() {
+  var r = new a(), i = [], u = [], o = f;
+  function n(t) {
+    let e = r.get(t);
+    if (e === void 0) {
+      if (o !== f)
+        return o;
+      r.set(t, e = i.push(t) - 1);
+    }
+    return u[e % u.length];
+  }
+  return n.domain = function(t) {
+    if (!arguments.length)
+      return i.slice();
+    i = [], r = new a();
+    for (const e of t)
+      r.has(e) || r.set(e, i.push(e) - 1);
+    return n;
+  }, n.range = function(t) {
+    return arguments.length ? (u = Array.from(t), n) : u.slice();
+  }, n.unknown = function(t) {
+    return arguments.length ? (o = t, n) : o;
+  }, n.copy = function() {
+    return l(i, u).unknown(o);
+  }, c.apply(n, arguments), n;
 }
 export {
-  e as default,
-  t as format
+  l as default,
+  f as implicit
 };
 //# sourceMappingURL=cori.data.api24.js.map

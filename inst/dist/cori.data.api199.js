@@ -1,77 +1,100 @@
-import a from "./cori.data.api113.js";
-import c from "./cori.data.api161.js";
-import { DataType as o, Utf8 as t, Uint64 as i, Uint32 as s, Uint16 as u, Uint8 as l, TimeSecond as w, TimeNanosecond as m, TimeMillisecond as d, TimeMicrosecond as I, Null as T, IntervalYearMonth as D, IntervalDayTime as U, Int64 as f, Int32 as r, Int16 as y, Int8 as p, Float64 as M, Float32 as F, Float16 as v, Dictionary as B, DateMillisecond as N, DateDay as h, Bool as S, Binary as Y } from "./cori.data.api201.js";
-import { Type as e } from "./cori.data.api258.js";
+import N from "./cori.data.api89.js";
+import { timer as T } from "./cori.data.api173.js";
+import w from "./cori.data.api174.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function j(n) {
-  if (n instanceof o || n == null)
-    return n;
-  switch (n) {
-    case e.Binary:
-      return new Y();
-    case e.Bool:
-      return new S();
-    case e.DateDay:
-      return new h();
-    case e.DateMillisecond:
-    case e.Date:
-      return new N();
-    case e.Dictionary:
-      return new B(new t(), new r());
-    case e.Float16:
-      return new v();
-    case e.Float32:
-      return new F();
-    case e.Float64:
-    case e.Float:
-      return new M();
-    case e.Int8:
-      return new p();
-    case e.Int16:
-      return new y();
-    case e.Int32:
-    case e.Int:
-      return new r();
-    case e.Int64:
-      return new f();
-    case e.IntervalDayTime:
-      return new U();
-    case e.Interval:
-    case e.IntervalYearMonth:
-      return new D();
-    case e.Null:
-      return new T();
-    case e.TimeMicrosecond:
-      return new I();
-    case e.TimeMillisecond:
-    case e.Time:
-      return new d();
-    case e.TimeNanosecond:
-      return new m();
-    case e.TimeSecond:
-      return new w();
-    case e.Uint8:
-      return new l();
-    case e.Uint16:
-      return new u();
-    case e.Uint32:
-      return new s();
-    case e.Uint64:
-      return new i();
-    case e.Utf8:
-      return new t();
-    default:
-      a(
-        `Unsupported type code: ${c(n)}. Use a data type constructor instead?`
-      );
+var A = N("start", "end", "cancel", "interrupt"), R = [], x = 0, l = 1, y = 2, v = 3, E = 4, g = 5, h = 6;
+function U(r, e, t, i, u, c) {
+  var _ = r.__transition;
+  if (!_)
+    r.__transition = {};
+  else if (t in _)
+    return;
+  G(r, t, {
+    name: e,
+    index: i,
+    // For context during callback.
+    group: u,
+    // For context during callback.
+    on: A,
+    tween: R,
+    time: c.time,
+    delay: c.delay,
+    duration: c.duration,
+    ease: c.ease,
+    timer: null,
+    state: x
+  });
+}
+function j(r, e) {
+  var t = D(r, e);
+  if (t.state > x)
+    throw new Error("too late; already scheduled");
+  return t;
+}
+function k(r, e) {
+  var t = D(r, e);
+  if (t.state > v)
+    throw new Error("too late; already running");
+  return t;
+}
+function D(r, e) {
+  var t = r.__transition;
+  if (!t || !(t = t[e]))
+    throw new Error("transition not found");
+  return t;
+}
+function G(r, e, t) {
+  var i = r.__transition, u;
+  i[e] = t, t.timer = T(c, 0, t.time);
+  function c(o) {
+    t.state = l, t.timer.restart(_, t.delay, t.time), t.delay <= o && _(o - t.delay);
+  }
+  function _(o) {
+    var n, m, d, a;
+    if (t.state !== l)
+      return p();
+    for (n in i)
+      if (a = i[n], a.name === t.name) {
+        if (a.state === v)
+          return w(_);
+        a.state === E ? (a.state = h, a.timer.stop(), a.on.call("interrupt", r, r.__data__, a.index, a.group), delete i[n]) : +n < e && (a.state = h, a.timer.stop(), a.on.call("cancel", r, r.__data__, a.index, a.group), delete i[n]);
+      }
+    if (w(function() {
+      t.state === v && (t.state = E, t.timer.restart(s, t.delay, t.time), s(o));
+    }), t.state = y, t.on.call("start", r, r.__data__, t.index, t.group), t.state === y) {
+      for (t.state = v, u = new Array(d = t.tween.length), n = 0, m = -1; n < d; ++n)
+        (a = t.tween[n].value.call(r, r.__data__, t.index, t.group)) && (u[++m] = a);
+      u.length = m + 1;
+    }
+  }
+  function s(o) {
+    for (var n = o < t.duration ? t.ease.call(null, o / t.duration) : (t.timer.restart(p), t.state = g, 1), m = -1, d = u.length; ++m < d; )
+      u[m].call(r, n);
+    t.state === g && (t.on.call("end", r, r.__data__, t.index, t.group), p());
+  }
+  function p() {
+    t.state = h, t.timer.stop(), delete i[e];
+    for (var o in i)
+      return;
+    delete r.__transition;
   }
 }
 export {
-  j as default
+  x as CREATED,
+  h as ENDED,
+  g as ENDING,
+  E as RUNNING,
+  l as SCHEDULED,
+  v as STARTED,
+  y as STARTING,
+  U as default,
+  D as get,
+  j as init,
+  k as set
 };
 //# sourceMappingURL=cori.data.api199.js.map

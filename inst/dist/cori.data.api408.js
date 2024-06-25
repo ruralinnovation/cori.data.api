@@ -4,11 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var t;
-(function(Z) {
-  Z[Z.LZ4_FRAME = 0] = "LZ4_FRAME", Z[Z.ZSTD = 1] = "ZSTD";
-})(t || (t = {}));
+const t = /^([-+]\d{2})?\d{4}(-\d{2}(-\d{2})?)?(T\d{2}:\d{2}(:\d{2}(\.\d{3})?)?(Z|[-+]\d{2}:\d{2})?)?$/;
+function a(d) {
+  return d.match(t) && !isNaN(Date.parse(d));
+}
 export {
-  t as CompressionType
+  a as default
 };
 //# sourceMappingURL=cori.data.api408.js.map

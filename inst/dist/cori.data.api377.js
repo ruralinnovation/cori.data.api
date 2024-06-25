@@ -1,35 +1,40 @@
-import { Field as h } from "./cori.data.api259.js";
-import { List as l } from "./cori.data.api201.js";
-import { OffsetsBufferBuilder as u } from "./cori.data.api267.js";
-import { VariableWidthBuilder as c } from "./cori.data.api263.js";
+import p from "./cori.data.api70.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class B extends c {
-  constructor(e) {
-    super(e), this._offsets = new u(e.type);
-  }
-  addChild(e, t = "0") {
-    if (this.numChildren > 0)
-      throw new Error("ListBuilder can only have one child.");
-    return this.children[this.numChildren] = e, this.type = new l(new h(t, e.type, !0)), this.numChildren - 1;
-  }
-  _flushPending(e) {
-    const t = this._offsets, [f] = this.children;
-    for (const [i, r] of e)
-      if (typeof r > "u")
-        t.set(i, 0);
-      else {
-        const n = r, o = n.length, d = t.set(i, o).buffer[i];
-        for (let s = -1; ++s < o; )
-          f.set(d + s, n[s]);
-      }
-  }
+function i(n) {
+  const t = {
+    "!": "%21",
+    "'": "%27",
+    "(": "%28",
+    ")": "%29",
+    "~": "%7E",
+    "%20": "+",
+    "%00": "\0"
+  };
+  return encodeURIComponent(n).replace(/[!'()~]|%20|%00/g, function(r) {
+    return t[r];
+  });
 }
+function a(n, t) {
+  this._pairs = [], n && p(n, this, t);
+}
+const c = a.prototype;
+c.append = function(t, o) {
+  this._pairs.push([t, o]);
+};
+c.toString = function(t) {
+  const o = t ? function(r) {
+    return t.call(this, r, i);
+  } : i;
+  return this._pairs.map(function(e) {
+    return o(e[0]) + "=" + o(e[1]);
+  }, "").join("&");
+};
 export {
-  B as ListBuilder
+  a as default
 };
 //# sourceMappingURL=cori.data.api377.js.map

@@ -4,11 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const o = {
-  parse_json: (s) => JSON.parse(s),
-  to_json: (s) => JSON.stringify(s)
-};
+function e(t) {
+  return arguments.length ? this.property("__data__", t) : this.node().__data__;
+}
 export {
-  o as default
+  e as default
 };
 //# sourceMappingURL=cori.data.api232.js.map

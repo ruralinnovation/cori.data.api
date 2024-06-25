@@ -1,21 +1,17 @@
+import { footer as i } from "./cori.data.api365.js";
+import { createState as s } from "./cori.data.api366.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function i(n, u) {
-  let e = 0;
-  const r = 1e3 / u;
-  let t = null;
-  return function() {
-    const o = this === !0, l = Date.now();
-    if (o || l - e > r)
-      return t && (clearTimeout(t), t = null), e = l, n.apply(null, arguments);
-    t || (t = setTimeout(() => (t = null, e = Date.now(), n.apply(null, arguments)), r - (l - e)));
-  };
+function p(o, c) {
+  const e = s(o, c), t = e.one(o, void 0), r = i(e), n = Array.isArray(t) ? { type: "root", children: t } : t || { type: "root", children: [] };
+  return r && n.children.push({ type: "text", value: `
+` }, r), n;
 }
 export {
-  i as default
+  p as toHast
 };
 //# sourceMappingURL=cori.data.api249.js.map

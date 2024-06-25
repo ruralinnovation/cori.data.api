@@ -1,15 +1,15 @@
-import { FixedWidthBuilder as e } from "./cori.data.api263.js";
-import { setDecimal as t } from "./cori.data.api314.js";
+import { trimLines as p } from "./cori.data.api458.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i extends e {
+function i(r, t) {
+  const e = { type: "text", value: p(String(t.value)) };
+  return r.patch(t, e), r.applyData(t, e);
 }
-i.prototype._setValue = t;
 export {
-  i as DecimalBuilder
+  i as text
 };
 //# sourceMappingURL=cori.data.api363.js.map

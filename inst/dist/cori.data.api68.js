@@ -4,8 +4,8 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function t(e) {
-  return e.ownerDocument && e.ownerDocument.defaultView || e.document && e || e.defaultView;
+function t(n) {
+  return !!(n && n.__CANCEL__);
 }
 export {
   t as default

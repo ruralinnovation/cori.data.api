@@ -1,16 +1,17 @@
+import { __module as e } from "./cori.data.api45.js";
+import { __require as o } from "./cori.data.api46.js";
+import { __require as t } from "./cori.data.api47.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
+var r;
 function s() {
-  for (var i = this._groups, o = -1, a = i.length; ++o < a; )
-    for (var e = i[o], f = e.length - 1, r = e[f], t; --f >= 0; )
-      (t = e[f]) && (r && t.compareDocumentPosition(r) ^ 4 && r.parentNode.insertBefore(t, r), r = t);
-  return this;
+  return r ? e.exports : (r = 1, process.env.NODE_ENV === "production" ? e.exports = o() : e.exports = t(), e.exports);
 }
 export {
-  s as default
+  s as __require
 };
 //# sourceMappingURL=cori.data.api43.js.map

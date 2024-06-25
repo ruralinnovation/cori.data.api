@@ -1,30 +1,68 @@
-import { encodeUtf8 as s } from "./cori.data.api310.js";
-import { BinaryBuilder as n } from "./cori.data.api374.js";
-import { BufferBuilder as i } from "./cori.data.api267.js";
-import { VariableWidthBuilder as r } from "./cori.data.api263.js";
+import { booleanish as a, number as r, spaceSeparated as i } from "./cori.data.api474.js";
+import { create as l } from "./cori.data.api472.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class h extends r {
-  constructor(e) {
-    super(e), this._values = new i(Uint8Array);
+const u = l({
+  transform(n, e) {
+    return e === "role" ? e : "aria-" + e.slice(4).toLowerCase();
+  },
+  properties: {
+    ariaActiveDescendant: null,
+    ariaAtomic: a,
+    ariaAutoComplete: null,
+    ariaBusy: a,
+    ariaChecked: a,
+    ariaColCount: r,
+    ariaColIndex: r,
+    ariaColSpan: r,
+    ariaControls: i,
+    ariaCurrent: null,
+    ariaDescribedBy: i,
+    ariaDetails: null,
+    ariaDisabled: a,
+    ariaDropEffect: i,
+    ariaErrorMessage: null,
+    ariaExpanded: a,
+    ariaFlowTo: i,
+    ariaGrabbed: a,
+    ariaHasPopup: null,
+    ariaHidden: a,
+    ariaInvalid: null,
+    ariaKeyShortcuts: null,
+    ariaLabel: null,
+    ariaLabelledBy: i,
+    ariaLevel: r,
+    ariaLive: null,
+    ariaModal: a,
+    ariaMultiLine: a,
+    ariaMultiSelectable: a,
+    ariaOrientation: null,
+    ariaOwns: i,
+    ariaPlaceholder: null,
+    ariaPosInSet: r,
+    ariaPressed: a,
+    ariaReadOnly: a,
+    ariaRelevant: null,
+    ariaRequired: a,
+    ariaRoleDescription: i,
+    ariaRowCount: r,
+    ariaRowIndex: r,
+    ariaRowSpan: r,
+    ariaSelected: a,
+    ariaSetSize: r,
+    ariaSort: null,
+    ariaValueMax: r,
+    ariaValueMin: r,
+    ariaValueNow: r,
+    ariaValueText: null,
+    role: null
   }
-  get byteLength() {
-    let e = this._pendingLength + this.length * 4;
-    return this._offsets && (e += this._offsets.byteLength), this._values && (e += this._values.byteLength), this._nulls && (e += this._nulls.byteLength), e;
-  }
-  setValue(e, t) {
-    return super.setValue(e, s(t));
-  }
-  // @ts-ignore
-  _flushPending(e, t) {
-  }
-}
-h.prototype._flushPending = n.prototype._flushPending;
+});
 export {
-  h as Utf8Builder
+  u as aria
 };
 //# sourceMappingURL=cori.data.api373.js.map

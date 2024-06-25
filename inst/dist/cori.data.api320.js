@@ -1,25 +1,22 @@
+import r from "./cori.data.api281.js";
+import { Table as t } from "./cori.data.api406.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function t(r) {
-  if (r === null)
-    return "null";
-  if (r === void 0)
-    return "undefined";
-  switch (typeof r) {
-    case "number":
-      return `${r}`;
-    case "bigint":
-      return `${r}`;
-    case "string":
-      return `"${r}"`;
+const o = () => r(
+  "Apache Arrow not imported, see https://github.com/uwdata/arquero#usage"
+);
+function i() {
+  try {
+    return t;
+  } catch {
+    o();
   }
-  return typeof r[Symbol.toPrimitive] == "function" ? r[Symbol.toPrimitive]("string") : ArrayBuffer.isView(r) ? r instanceof BigInt64Array || r instanceof BigUint64Array ? `[${[...r].map((n) => t(n))}]` : `[${r}]` : ArrayBuffer.isView(r) ? `[${r}]` : JSON.stringify(r, (n, i) => typeof i == "bigint" ? `${i}` : i);
 }
 export {
-  t as valueToString
+  i as table
 };
 //# sourceMappingURL=cori.data.api320.js.map

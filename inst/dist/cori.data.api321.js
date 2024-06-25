@@ -4,12 +4,8 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(t) {
-  if (typeof t == "bigint" && (t < Number.MIN_SAFE_INTEGER || t > Number.MAX_SAFE_INTEGER))
-    throw new TypeError(`${t} is not safe to convert to a number.`);
-  return Number(t);
-}
+const r = Array.isArray;
 export {
-  o as bigIntToNumber
+  r as default
 };
 //# sourceMappingURL=cori.data.api321.js.map

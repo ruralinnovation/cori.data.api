@@ -1,36 +1,33 @@
-import o from "./cori.data.api238.js";
-import r from "./cori.data.api244.js";
-import i from "./cori.data.api162.js";
-import n from "./cori.data.api179.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(t) {
-  return n(o, t);
+function s(n, e, r) {
+  return function(t) {
+    this.style.setProperty(n, e.call(this, t), r);
+  };
 }
-function e(t) {
-  return n(r, t);
+function f(n, e, r) {
+  var t, u;
+  function l() {
+    var i = e.apply(this, arguments);
+    return i !== u && (t = (u = i) && s(n, i, r)), t;
+  }
+  return l._value = e, l;
 }
-function a(t) {
-  return n(i, t) || t === "row_object";
-}
-function m(t) {
-  return u(t) && o[t];
-}
-function p(t) {
-  return e(t) && r[t];
+function o(n, e, r) {
+  var t = "style." + (n += "");
+  if (arguments.length < 2)
+    return (t = this.tween(t)) && t._value;
+  if (e == null)
+    return this.tween(t, null);
+  if (typeof e != "function")
+    throw new Error();
+  return this.tween(t, f(n, e, r ?? ""));
 }
 export {
-  o as aggregateFunctions,
-  i as functions,
-  m as getAggregate,
-  p as getWindow,
-  u as hasAggregate,
-  a as hasFunction,
-  e as hasWindow,
-  r as windowFunctions
+  o as default
 };
 //# sourceMappingURL=cori.data.api192.js.map

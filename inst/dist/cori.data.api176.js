@@ -1,45 +1,35 @@
+import { Transition as s, newId as h } from "./cori.data.api177.js";
+import c from "./cori.data.api199.js";
+import { now as _ } from "./cori.data.api173.js";
+import { cubicInOut as m } from "./cori.data.api90.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const u = function* (t, n) {
-  let r = t.byteLength;
-  if (!n || r < n) {
-    yield t;
-    return;
-  }
-  let e = 0, a;
-  for (; e < r; )
-    a = e + n, yield t.slice(e, a), e = a;
-}, f = async function* (t, n, r) {
-  for await (const e of t)
-    yield* u(ArrayBuffer.isView(e) ? e : await r(String(e)), n);
-}, d = (t, n, r, e, a) => {
-  const i = f(t, n, a);
-  let y = 0;
-  return new ReadableStream({
-    type: "bytes",
-    async pull(l) {
-      const { done: c, value: s } = await i.next();
-      if (c) {
-        l.close(), e();
-        return;
-      }
-      let o = s.byteLength;
-      r && r(y += o), l.enqueue(new Uint8Array(s));
-    },
-    cancel(l) {
-      return e(l), i.return();
-    }
-  }, {
-    highWaterMark: 2
-  });
+var w = {
+  time: null,
+  // Set on use.
+  delay: 0,
+  duration: 250,
+  ease: m
 };
+function d(t, i) {
+  for (var r; !(r = t.__transition) || !(r = r[i]); )
+    if (!(t = t.parentNode))
+      throw new Error(`transition ${i} not found`);
+  return r;
+}
+function T(t) {
+  var i, r;
+  t instanceof s ? (i = t._id, t = t._name) : (i = h(), (r = w).time = _(), t = t == null ? null : t + "");
+  for (var o = this._groups, a = o.length, e = 0; e < a; ++e)
+    for (var f = o[e], u = f.length, l, n = 0; n < u; ++n)
+      (l = f[n]) && c(l, t, i, n, f, r || d(l, i));
+  return new s(o, this._parents, t, i);
+}
 export {
-  f as readBytes,
-  u as streamChunk,
-  d as trackStream
+  T as default
 };
 //# sourceMappingURL=cori.data.api176.js.map

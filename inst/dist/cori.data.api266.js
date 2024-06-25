@@ -1,29 +1,20 @@
-import { valueToString as i } from "./cori.data.api320.js";
+import e from "./cori.data.api60.js";
+import n from "./cori.data.api70.js";
+import r from "./cori.data.api267.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(n) {
-  if (!n || n.length <= 0)
-    return function(f) {
-      return !0;
-    };
-  let e = "";
-  const r = n.filter((t) => t === t);
-  return r.length > 0 && (e = `
-    switch (x) {${r.map((t) => `
-        case ${o(t)}:`).join("")}
-            return false;
-    }`), n.length !== r.length && (e = `if (x !== x) return false;
-${e}`), new Function("x", `${e}
-return true;`);
-}
-function o(n) {
-  return typeof n != "bigint" ? i(n) : `${i(n)}n`;
+function c(o, i) {
+  return n(o, new r.classes.URLSearchParams(), Object.assign({
+    visitor: function(t, s, f, a) {
+      return r.isNode && e.isBuffer(t) ? (this.append(s, t.toString("base64")), !1) : a.defaultVisitor.apply(this, arguments);
+    }
+  }, i));
 }
 export {
-  a as createIsValidFunction
+  c as default
 };
 //# sourceMappingURL=cori.data.api266.js.map

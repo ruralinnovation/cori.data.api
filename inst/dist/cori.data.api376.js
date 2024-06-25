@@ -1,36 +1,31 @@
-import { toUint8Array as h } from "./cori.data.api262.js";
-import { BufferBuilder as o } from "./cori.data.api267.js";
-import { VariableWidthBuilder as u } from "./cori.data.api263.js";
+import { commonjsGlobal as u } from "./cori.data.api117.js";
+import { __exports as l } from "./cori.data.api479.js";
+import { i as p } from "./cori.data.api480.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class c extends u {
-  constructor(e) {
-    super(e), this._values = new o(Uint8Array);
-  }
-  get byteLength() {
-    let e = this._pendingLength + this.length * 4;
-    return this._offsets && (e += this._offsets.byteLength), this._values && (e += this._values.byteLength), this._nulls && (e += this._nulls.byteLength), e;
-  }
-  setValue(e, t) {
-    return super.setValue(e, h(t));
-  }
-  _flushPending(e, t) {
-    const n = this._offsets, f = this._values.reserve(t).buffer;
-    let i = 0;
-    for (const [r, s] of e)
-      if (s === void 0)
-        n.set(r, BigInt(0));
-      else {
-        const l = s.length;
-        f.set(s, i), n.set(r, BigInt(l)), i += l;
-      }
-  }
+var s = u && u.__importDefault || function(e) {
+  return e && e.__esModule ? e : { default: e };
+};
+Object.defineProperty(l, "__esModule", { value: !0 });
+var _ = s(p);
+function v(e, f) {
+  var r = null;
+  if (!e || typeof e != "string")
+    return r;
+  var n = (0, _.default)(e), i = typeof f == "function";
+  return n.forEach(function(t) {
+    if (t.type === "declaration") {
+      var o = t.property, a = t.value;
+      i ? f(o, a, t) : a && (r = r || {}, r[o] = a);
+    }
+  }), r;
 }
+var j = l.default = v;
 export {
-  c as LargeBinaryBuilder
+  j as default
 };
 //# sourceMappingURL=cori.data.api376.js.map

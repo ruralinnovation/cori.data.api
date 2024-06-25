@@ -1,50 +1,57 @@
+import { j as e } from "./cori.data.api9.js";
+import i from "./cori.data.api3.js";
+import m from "./cori.data.api6.js";
+import r from "./cori.data.api7.js";
+import { toSnakeCase as d } from "./cori.data.api15.js";
+import { Markdown as a } from "./cori.data.api23.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function i(t, n, s) {
-  this.k = t, this.x = n, this.y = s;
+function j(t) {
+  return /* @__PURE__ */ e.jsxs("div", { className: "metric-section", id: d(t.metric), children: [
+    /* @__PURE__ */ e.jsx("h2", { children: t.title }),
+    /* @__PURE__ */ e.jsx("p", { children: /* @__PURE__ */ e.jsx("b", { children: t.subtitle }) }),
+    /* @__PURE__ */ e.jsx(a, { children: t.primary_text }),
+    t.chart_type === "bar" ? /* @__PURE__ */ e.jsx(
+      i,
+      {
+        primary_geoid: t.primary_geoid,
+        metric: t.metric,
+        data: t.data,
+        metadata: t.metadata,
+        width: t.chart_width,
+        element_name: t.primary_element_name
+      }
+    ) : t.chart_type === "line" ? /* @__PURE__ */ e.jsx(
+      r,
+      {
+        primary_geoid: t.primary_geoid,
+        metric: t.metric,
+        data: t.data,
+        metadata: t.metadata,
+        width: t.chart_width,
+        height: 250,
+        element_name: t.primary_element_name
+      }
+    ) : t.chart_type === "grouped bar" ? /* @__PURE__ */ e.jsx(
+      m,
+      {
+        primary_geoid: t.primary_geoid,
+        metric: t.metric,
+        data: t.data,
+        metadata: t.metadata,
+        width: t.chart_width,
+        element_name: t.primary_element_name
+      }
+    ) : /* @__PURE__ */ e.jsx(e.Fragment, {}),
+    /* @__PURE__ */ e.jsx("p", { children: /* @__PURE__ */ e.jsx("b", { children: "How to interpret this chart" }) }),
+    /* @__PURE__ */ e.jsx(a, { children: t.secondary_text })
+  ] }, t.metric);
 }
-i.prototype = {
-  constructor: i,
-  scale: function(t) {
-    return t === 1 ? this : new i(this.k * t, this.x, this.y);
-  },
-  translate: function(t, n) {
-    return t === 0 & n === 0 ? this : new i(this.k, this.x + this.k * t, this.y + this.k * n);
-  },
-  apply: function(t) {
-    return [t[0] * this.k + this.x, t[1] * this.k + this.y];
-  },
-  applyX: function(t) {
-    return t * this.k + this.x;
-  },
-  applyY: function(t) {
-    return t * this.k + this.y;
-  },
-  invert: function(t) {
-    return [(t[0] - this.x) / this.k, (t[1] - this.y) / this.k];
-  },
-  invertX: function(t) {
-    return (t - this.x) / this.k;
-  },
-  invertY: function(t) {
-    return (t - this.y) / this.k;
-  },
-  rescaleX: function(t) {
-    return t.copy().domain(t.range().map(this.invertX, this).map(t.invert, t));
-  },
-  rescaleY: function(t) {
-    return t.copy().domain(t.range().map(this.invertY, this).map(t.invert, t));
-  },
-  toString: function() {
-    return "translate(" + this.x + "," + this.y + ") scale(" + this.k + ")";
-  }
-};
-i.prototype;
 export {
-  i as Transform
+  j as default
 };
 //# sourceMappingURL=cori.data.api5.js.map

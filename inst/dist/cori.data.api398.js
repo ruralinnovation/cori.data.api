@@ -1,36 +1,13 @@
-import { SIZE_PREFIX_LENGTH as s } from "./cori.data.api392.js";
-import "./cori.data.api327.js";
-import "./cori.data.api328.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
-  }
-  __init(t, o) {
-    return this.bb_pos = t, this.bb = o, this;
-  }
-  static getRootAsBool(t, o) {
-    return (o || new i()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsBool(t, o) {
-    return t.setPosition(t.position() + s), (o || new i()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static startBool(t) {
-    t.startObject(0);
-  }
-  static endBool(t) {
-    return t.endObject();
-  }
-  static createBool(t) {
-    return i.startBool(t), i.endBool(t);
-  }
+function f(e, t = !0, u = !1) {
+  return e === void 0 || e ? t : u;
 }
 export {
-  i as Bool
+  f as default
 };
 //# sourceMappingURL=cori.data.api398.js.map

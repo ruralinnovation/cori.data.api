@@ -1,107 +1,146 @@
-import { Block as m } from "./cori.data.api355.js";
-import { Footer as o } from "./cori.data.api356.js";
-import "./cori.data.api327.js";
-import "./cori.data.api328.js";
-import { Builder as u } from "./cori.data.api329.js";
-import { ByteBuffer as B } from "./cori.data.api330.js";
-import { Schema as a } from "./cori.data.api259.js";
-import { toUint8Array as g } from "./cori.data.api262.js";
-import { bigIntToNumber as h } from "./cori.data.api321.js";
-import { MetadataVersion as d } from "./cori.data.api278.js";
+import D from "./cori.data.api267.js";
+import s from "./cori.data.api60.js";
+import p from "./cori.data.api71.js";
+import v from "./cori.data.api387.js";
+import { trackStream as F } from "./cori.data.api388.js";
+import k from "./cori.data.api74.js";
+import O from "./cori.data.api385.js";
+import H from "./cori.data.api386.js";
+import K from "./cori.data.api383.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var l = u, y = B;
-class p {
-  /** @nocollapse */
-  static decode(t) {
-    t = new y(g(t));
-    const e = o.getRootAsFooter(t), r = a.decode(e.schema(), /* @__PURE__ */ new Map(), e.version());
-    return new D(r, e);
-  }
-  /** @nocollapse */
-  static encode(t) {
-    const e = new l(), r = a.encode(e, t.schema);
-    o.startRecordBatchesVector(e, t.numRecordBatches);
-    for (const n of [...t.recordBatches()].slice().reverse())
-      s.encode(e, n);
-    const c = e.endVector();
-    o.startDictionariesVector(e, t.numDictionaries);
-    for (const n of [...t.dictionaryBatches()].slice().reverse())
-      s.encode(e, n);
-    const i = e.endVector();
-    return o.startFooter(e), o.addSchema(e, r), o.addVersion(e, d.V5), o.addRecordBatches(e, c), o.addDictionaries(e, i), o.finishFooterBuffer(e, o.endFooter(e)), e.asUint8Array();
-  }
-  get numRecordBatches() {
-    return this._recordBatches.length;
-  }
-  get numDictionaries() {
-    return this._dictionaryBatches.length;
-  }
-  constructor(t, e = d.V5, r, c) {
-    this.schema = t, this.version = e, r && (this._recordBatches = r), c && (this._dictionaryBatches = c);
-  }
-  *recordBatches() {
-    for (let t, e = -1, r = this.numRecordBatches; ++e < r; )
-      (t = this.getRecordBatch(e)) && (yield t);
-  }
-  *dictionaryBatches() {
-    for (let t, e = -1, r = this.numDictionaries; ++e < r; )
-      (t = this.getDictionaryBatch(e)) && (yield t);
-  }
-  getRecordBatch(t) {
-    return t >= 0 && t < this.numRecordBatches && this._recordBatches[t] || null;
-  }
-  getDictionaryBatch(t) {
-    return t >= 0 && t < this.numDictionaries && this._dictionaryBatches[t] || null;
-  }
-}
-class D extends p {
-  get numRecordBatches() {
-    return this._footer.recordBatchesLength();
-  }
-  get numDictionaries() {
-    return this._footer.dictionariesLength();
-  }
-  constructor(t, e) {
-    super(t, e.version()), this._footer = e;
-  }
-  getRecordBatch(t) {
-    if (t >= 0 && t < this.numRecordBatches) {
-      const e = this._footer.recordBatches(t);
-      if (e)
-        return s.decode(e);
+const A = (e, r) => {
+  const o = e != null;
+  return (n) => setTimeout(() => r({
+    lengthComputable: o,
+    total: e,
+    loaded: n
+  }));
+}, l = typeof fetch == "function" && typeof Request == "function" && typeof Response == "function", N = l && typeof ReadableStream == "function", y = l && (typeof TextEncoder == "function" ? /* @__PURE__ */ ((e) => (r) => e.encode(r))(new TextEncoder()) : async (e) => new Uint8Array(await new Response(e).arrayBuffer())), z = N && (() => {
+  let e = !1;
+  const r = new Request(D.origin, {
+    body: new ReadableStream(),
+    method: "POST",
+    get duplex() {
+      return e = !0, "half";
     }
-    return null;
+  }).headers.has("Content-Type");
+  return e && !r;
+})(), B = 64 * 1024, T = N && !!(() => {
+  try {
+    return s.isReadableStream(new Response("").body);
+  } catch {
   }
-  getDictionaryBatch(t) {
-    if (t >= 0 && t < this.numDictionaries) {
-      const e = this._footer.dictionaries(t);
-      if (e)
-        return s.decode(e);
+})(), f = {
+  stream: T && ((e) => e.body)
+};
+l && ((e) => {
+  ["text", "arrayBuffer", "blob", "formData", "stream"].forEach((r) => {
+    !f[r] && (f[r] = s.isFunction(e[r]) ? (o) => o[r]() : (o, n) => {
+      throw new p(`Response type '${r}' is not supported`, p.ERR_NOT_SUPPORT, n);
+    });
+  });
+})(new Response());
+const j = async (e) => {
+  if (e == null)
+    return 0;
+  if (s.isBlob(e))
+    return e.size;
+  if (s.isSpecCompliantForm(e))
+    return (await new Request(e).arrayBuffer()).byteLength;
+  if (s.isArrayBufferView(e))
+    return e.byteLength;
+  if (s.isURLSearchParams(e) && (e = e + ""), s.isString(e))
+    return (await y(e)).byteLength;
+}, I = async (e, r) => {
+  const o = s.toFiniteNumber(e.getContentLength());
+  return o ?? j(r);
+}, Y = l && (async (e) => {
+  let {
+    url: r,
+    method: o,
+    data: n,
+    signal: S,
+    cancelToken: x,
+    timeout: b,
+    onDownloadProgress: h,
+    onUploadProgress: C,
+    responseType: a,
+    headers: d,
+    withCredentials: m = "same-origin",
+    fetchOptions: U
+  } = H(e);
+  a = a ? (a + "").toLowerCase() : "text";
+  let [w, E] = S || x || b ? v([S, x], b) : [], L, c;
+  const g = () => {
+    !L && setTimeout(() => {
+      w && w.unsubscribe();
+    }), L = !0;
+  };
+  let q;
+  try {
+    if (C && z && o !== "get" && o !== "head" && (q = await I(d, n)) !== 0) {
+      let i = new Request(r, {
+        method: "POST",
+        body: n,
+        duplex: "half"
+      }), u;
+      s.isFormData(n) && (u = i.headers.get("content-type")) && d.setContentType(u), i.body && (n = F(i.body, B, A(
+        q,
+        O(C)
+      ), null, y));
     }
-    return null;
+    s.isString(m) || (m = m ? "cors" : "omit"), c = new Request(r, {
+      ...U,
+      signal: w,
+      method: o.toUpperCase(),
+      headers: d.normalize().toJSON(),
+      body: n,
+      duplex: "half",
+      withCredentials: m
+    });
+    let t = await fetch(c);
+    const R = T && (a === "stream" || a === "response");
+    if (T && (h || R)) {
+      const i = {};
+      ["status", "statusText", "headers"].forEach((P) => {
+        i[P] = t[P];
+      });
+      const u = s.toFiniteNumber(t.headers.get("content-length"));
+      t = new Response(
+        F(t.body, B, h && A(
+          u,
+          O(h, !0)
+        ), R && g, y),
+        i
+      );
+    }
+    a = a || "text";
+    let _ = await f[s.findKey(f, a) || "text"](t, e);
+    return !R && g(), E && E(), await new Promise((i, u) => {
+      K(i, u, {
+        data: _,
+        headers: k.from(t.headers),
+        status: t.status,
+        statusText: t.statusText,
+        config: e,
+        request: c
+      });
+    });
+  } catch (t) {
+    throw g(), t && t.name === "TypeError" && /fetch/i.test(t.message) ? Object.assign(
+      new p("Network Error", p.ERR_NETWORK, e, c),
+      {
+        cause: t.cause || t
+      }
+    ) : p.from(t, t && t.code, e, c);
   }
-}
-class s {
-  /** @nocollapse */
-  static decode(t) {
-    return new s(t.metaDataLength(), t.bodyLength(), t.offset());
-  }
-  /** @nocollapse */
-  static encode(t, e) {
-    const { metaDataLength: r } = e, c = BigInt(e.offset), i = BigInt(e.bodyLength);
-    return m.createBlock(t, c, r, i);
-  }
-  constructor(t, e, r) {
-    this.metaDataLength = t, this.offset = h(r), this.bodyLength = h(e);
-  }
-}
+});
 export {
-  s as FileBlock,
-  p as Footer
+  Y as default
 };
 //# sourceMappingURL=cori.data.api271.js.map
