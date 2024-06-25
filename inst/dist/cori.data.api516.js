@@ -4,11 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var c;
-(function(V) {
-  V[V.V1 = 0] = "V1", V[V.V2 = 1] = "V2", V[V.V3 = 2] = "V3", V[V.V4 = 3] = "V4", V[V.V5 = 4] = "V5";
-})(c || (c = {}));
+var o;
+(function(c) {
+  c[c.NONE = 0] = "NONE", c[c.Schema = 1] = "Schema", c[c.DictionaryBatch = 2] = "DictionaryBatch", c[c.RecordBatch = 3] = "RecordBatch", c[c.Tensor = 4] = "Tensor", c[c.SparseTensor = 5] = "SparseTensor";
+})(o || (o = {}));
 export {
-  c as MetadataVersion
+  o as MessageHeader
 };
 //# sourceMappingURL=cori.data.api516.js.map

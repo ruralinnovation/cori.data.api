@@ -1,82 +1,75 @@
-import w from "./cori.data.api334.js";
-import y from "./cori.data.api333.js";
-import N from "./cori.data.api107.js";
-import A from "./cori.data.api103.js";
-import k from "./cori.data.api112.js";
-import { bisectRight as M } from "./cori.data.api77.js";
+import D from "./cori.data.api130.js";
+import H from "./cori.data.api131.js";
+import J from "./cori.data.api132.js";
+import z from "./cori.data.api133.js";
+import K from "./cori.data.api134.js";
+import A from "./cori.data.api135.js";
+import { prefixExponent as O } from "./cori.data.api136.js";
+import N from "./cori.data.api137.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var h = [0, 1];
-function p(n) {
-  return n;
-}
-function g(n, r) {
-  return (r -= n = +n) ? function(i) {
-    return (i - n) / r;
-  } : w(isNaN(r) ? NaN : 0.5);
-}
-function d(n, r) {
-  var i;
-  return n > r && (i = n, n = r, r = i), function(e) {
-    return Math.max(n, Math.min(r, e));
-  };
-}
-function R(n, r, i) {
-  var e = n[0], a = n[1], o = r[0], u = r[1];
-  return a < e ? (e = g(a, e), o = i(u, o)) : (e = g(e, a), o = i(o, u)), function(l) {
-    return o(e(l));
-  };
-}
-function j(n, r, i) {
-  var e = Math.min(n.length, r.length) - 1, a = new Array(e), o = new Array(e), u = -1;
-  for (n[e] < n[0] && (n = n.slice().reverse(), r = r.slice().reverse()); ++u < e; )
-    a[u] = g(n[u], n[u + 1]), o[u] = i(r[u], r[u + 1]);
-  return function(l) {
-    var m = M(n, l, 1, e) - 1;
-    return o[m](a[m](l));
-  };
-}
-function F(n, r) {
-  return r.domain(n.domain()).range(n.range()).interpolate(n.interpolate()).clamp(n.clamp()).unknown(n.unknown());
-}
-function z() {
-  var n = h, r = h, i = A, e, a, o, u = p, l, m, s;
-  function c() {
-    var t = Math.min(n.length, r.length);
-    return u !== p && (u = d(n[0], n[t - 1])), l = t > 2 ? j : R, m = s = null, f;
+var C = Array.prototype.map, E = ["y", "z", "a", "f", "p", "n", "µ", "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"];
+function nn(r) {
+  var M = r.grouping === void 0 || r.thousands === void 0 ? N : H(C.call(r.grouping, Number), r.thousands + ""), G = r.currency === void 0 ? "" : r.currency[0] + "", I = r.currency === void 0 ? "" : r.currency[1] + "", L = r.decimal === void 0 ? "." : r.decimal + "", $ = r.numerals === void 0 ? N : J(C.call(r.numerals, String)), j = r.percent === void 0 ? "%" : r.percent + "", F = r.minus === void 0 ? "−" : r.minus + "", X = r.nan === void 0 ? "NaN" : r.nan + "";
+  function w(t) {
+    t = z(t);
+    var a = t.fill, h = t.align, m = t.sign, g = t.symbol, s = t.zero, y = t.width, b = t.comma, d = t.precision, k = t.trim, i = t.type;
+    i === "n" ? (b = !0, i = "g") : A[i] || (d === void 0 && (d = 12), k = !0, i = "g"), (s || a === "0" && h === "=") && (s = !0, a = "0", h = "=");
+    var Z = g === "$" ? G : g === "#" && /[boxX]/.test(i) ? "0" + i.toLowerCase() : "", q = g === "$" ? I : /[%p]/.test(i) ? j : "", S = A[i], B = /[defgprs%]/.test(i);
+    d = d === void 0 ? 6 : /[gprs]/.test(i) ? Math.max(1, Math.min(21, d)) : Math.max(0, Math.min(20, d));
+    function P(n) {
+      var e = Z, f = q, p, T, u;
+      if (i === "c")
+        f = S(n) + f, n = "";
+      else {
+        n = +n;
+        var x = n < 0 || 1 / n < 0;
+        if (n = isNaN(n) ? X : S(Math.abs(n), d), k && (n = K(n)), x && +n == 0 && m !== "+" && (x = !1), e = (x ? m === "(" ? m : F : m === "-" || m === "(" ? "" : m) + e, f = (i === "s" ? E[8 + O / 3] : "") + f + (x && m === "(" ? ")" : ""), B) {
+          for (p = -1, T = n.length; ++p < T; )
+            if (u = n.charCodeAt(p), 48 > u || u > 57) {
+              f = (u === 46 ? L + n.slice(p + 1) : n.slice(p)) + f, n = n.slice(0, p);
+              break;
+            }
+        }
+      }
+      b && !s && (n = M(n, 1 / 0));
+      var c = e.length + n.length + f.length, o = c < y ? new Array(y - c + 1).join(a) : "";
+      switch (b && s && (n = M(o + n, o.length ? y - f.length : 1 / 0), o = ""), h) {
+        case "<":
+          n = e + n + f + o;
+          break;
+        case "=":
+          n = e + o + n + f;
+          break;
+        case "^":
+          n = o.slice(0, c = o.length >> 1) + e + n + f + o.slice(c);
+          break;
+        default:
+          n = o + e + n + f;
+          break;
+      }
+      return $(n);
+    }
+    return P.toString = function() {
+      return t + "";
+    }, P;
   }
-  function f(t) {
-    return t == null || isNaN(t = +t) ? o : (m || (m = l(n.map(e), r, i)))(e(u(t)));
+  function Y(t, a) {
+    var h = w((t = z(t), t.type = "f", t)), m = Math.max(-8, Math.min(8, Math.floor(D(a) / 3))) * 3, g = Math.pow(10, -m), s = E[8 + m / 3];
+    return function(y) {
+      return h(g * y) + s;
+    };
   }
-  return f.invert = function(t) {
-    return u(a((s || (s = l(r, n.map(e), N)))(t)));
-  }, f.domain = function(t) {
-    return arguments.length ? (n = Array.from(t, y), c()) : n.slice();
-  }, f.range = function(t) {
-    return arguments.length ? (r = Array.from(t), c()) : r.slice();
-  }, f.rangeRound = function(t) {
-    return r = Array.from(t), i = k, c();
-  }, f.clamp = function(t) {
-    return arguments.length ? (u = t ? !0 : p, c()) : u !== p;
-  }, f.interpolate = function(t) {
-    return arguments.length ? (i = t, c()) : i;
-  }, f.unknown = function(t) {
-    return arguments.length ? (o = t, f) : o;
-  }, function(t, v) {
-    return e = t, a = v, c();
+  return {
+    format: w,
+    formatPrefix: Y
   };
-}
-function G() {
-  return z()(p, p);
 }
 export {
-  F as copy,
-  G as default,
-  p as identity,
-  z as transformer
+  nn as default
 };
 //# sourceMappingURL=cori.data.api129.js.map

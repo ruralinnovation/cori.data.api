@@ -4,13 +4,12 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o() {
-  let e = 0;
-  for (const t of this)
-    ++e;
-  return e;
+function u(n, t) {
+  return n = +n, t = +t, function(r) {
+    return Math.round(n * (1 - r) + t * r);
+  };
 }
 export {
-  o as default
+  u as default
 };
 //# sourceMappingURL=cori.data.api151.js.map

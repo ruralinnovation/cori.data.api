@@ -6,29 +6,29 @@ import l from "./cori.data.api22.js";
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const d = ({ domain: o, range: t, element_name: c }) => {
-  const r = [];
-  if (o.length <= t.length) {
-    for (let e = 0; e < o.length; ++e)
+const d = ({ data_names: o, domain: r, range: t }) => {
+  const i = [];
+  if (r.length <= t.length) {
+    for (let e = 0; e < r.length; ++e)
       if (typeof t[e] == "string") {
-        const i = t[e];
-        r.push(
+        const c = t[e];
+        o && i.push(
           /* @__PURE__ */ s.jsxs("div", { className: l.entry, children: [
             /* @__PURE__ */ s.jsx(
               "div",
               {
                 className: l.key,
                 style: {
-                  backgroundColor: i
+                  backgroundColor: c
                 }
               }
             ),
-            /* @__PURE__ */ s.jsx("p", { children: c })
+            /* @__PURE__ */ s.jsx("p", { children: o[e] })
           ] }, e)
         );
       }
   }
-  return /* @__PURE__ */ s.jsx("div", { className: l["categorical-legend"], children: r });
+  return /* @__PURE__ */ s.jsx("div", { className: l["categorical-legend"], children: i });
 };
 export {
   d as default

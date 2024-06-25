@@ -1,31 +1,17 @@
+import { footer as i } from "./cori.data.api384.js";
+import { createState as s } from "./cori.data.api385.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const n = "application/font-woff", o = "image/jpeg", i = {
-  woff: n,
-  woff2: n,
-  ttf: "application/font-truetype",
-  eot: "application/vnd.ms-fontobject",
-  png: "image/png",
-  jpg: o,
-  jpeg: o,
-  gif: "image/gif",
-  tiff: "image/tiff",
-  svg: "image/svg+xml",
-  webp: "image/webp"
-};
-function f(e) {
-  const t = /\.([^./]*?)$/g.exec(e);
-  return t ? t[1] : "";
-}
-function g(e) {
-  const t = f(e).toLowerCase();
-  return i[t] || "";
+function p(o, c) {
+  const e = s(o, c), t = e.one(o, void 0), r = i(e), n = Array.isArray(t) ? { type: "root", children: t } : t || { type: "root", children: [] };
+  return r && n.children.push({ type: "text", value: `
+` }, r), n;
 }
 export {
-  g as getMimeType
+  p as toHast
 };
 //# sourceMappingURL=cori.data.api276.js.map

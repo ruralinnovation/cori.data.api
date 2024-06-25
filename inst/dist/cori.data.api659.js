@@ -1,97 +1,49 @@
-import { factorySpace as c } from "./cori.data.api655.js";
-import { asciiDigit as h, markdownSpace as k } from "./cori.data.api470.js";
-import { blankLine as f } from "./cori.data.api656.js";
-import { thematicBreak as d } from "./cori.data.api664.js";
+import { factorySpace as l } from "./cori.data.api654.js";
+import { markdownSpace as a } from "./cori.data.api486.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const z = {
-  name: "list",
-  tokenize: B,
+const k = {
+  name: "blockQuote",
+  tokenize: x,
   continuation: {
-    tokenize: y
+    tokenize: Q
   },
-  exit: v
-}, P = {
-  tokenize: W,
-  partial: !0
-}, L = {
-  tokenize: g,
-  partial: !0
+  exit: b
 };
-function B(n, u, r) {
-  const t = this, l = t.events[t.events.length - 1];
-  let a = l && l[1].type === "linePrefix" ? l[2].sliceSerialize(l[1], !0).length : 0, i = 0;
-  return s;
-  function s(e) {
-    const o = t.containerState.type || (e === 42 || e === 43 || e === 45 ? "listUnordered" : "listOrdered");
-    if (o === "listUnordered" ? !t.containerState.marker || e === t.containerState.marker : h(e)) {
-      if (t.containerState.type || (t.containerState.type = o, n.enter(o, {
+function x(t, e, r) {
+  const i = this;
+  return u;
+  function u(n) {
+    if (n === 62) {
+      const c = i.containerState;
+      return c.open || (t.enter("blockQuote", {
         _container: !0
-      })), o === "listUnordered")
-        return n.enter("listItemPrefix"), e === 42 || e === 45 ? n.check(d, r, m)(e) : m(e);
-      if (!t.interrupt || e === 49)
-        return n.enter("listItemPrefix"), n.enter("listItemValue"), p(e);
+      }), c.open = !0), t.enter("blockQuotePrefix"), t.enter("blockQuoteMarker"), t.consume(n), t.exit("blockQuoteMarker"), o;
     }
-    return r(e);
+    return r(n);
   }
-  function p(e) {
-    return h(e) && ++i < 10 ? (n.consume(e), p) : (!t.interrupt || i < 2) && (t.containerState.marker ? e === t.containerState.marker : e === 41 || e === 46) ? (n.exit("listItemValue"), m(e)) : r(e);
-  }
-  function m(e) {
-    return n.enter("listItemMarker"), n.consume(e), n.exit("listItemMarker"), t.containerState.marker = t.containerState.marker || e, n.check(
-      f,
-      // Can’t be empty when interrupting.
-      t.interrupt ? r : I,
-      n.attempt(P, S, x)
-    );
-  }
-  function I(e) {
-    return t.containerState.initialBlankLine = !0, a++, S(e);
-  }
-  function x(e) {
-    return k(e) ? (n.enter("listItemPrefixWhitespace"), n.consume(e), n.exit("listItemPrefixWhitespace"), S) : r(e);
-  }
-  function S(e) {
-    return t.containerState.size = a + t.sliceSerialize(n.exit("listItemPrefix"), !0).length, u(e);
+  function o(n) {
+    return a(n) ? (t.enter("blockQuotePrefixWhitespace"), t.consume(n), t.exit("blockQuotePrefixWhitespace"), t.exit("blockQuotePrefix"), e) : (t.exit("blockQuotePrefix"), e(n));
   }
 }
-function y(n, u, r) {
-  const t = this;
-  return t.containerState._closeFlow = void 0, n.check(f, l, a);
-  function l(s) {
-    return t.containerState.furtherBlankLines = t.containerState.furtherBlankLines || t.containerState.initialBlankLine, c(n, u, "listItemIndent", t.containerState.size + 1)(s);
+function Q(t, e, r) {
+  const i = this;
+  return u;
+  function u(n) {
+    return a(n) ? l(t, o, "linePrefix", i.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 4)(n) : o(n);
   }
-  function a(s) {
-    return t.containerState.furtherBlankLines || !k(s) ? (t.containerState.furtherBlankLines = void 0, t.containerState.initialBlankLine = void 0, i(s)) : (t.containerState.furtherBlankLines = void 0, t.containerState.initialBlankLine = void 0, n.attempt(L, u, i)(s));
-  }
-  function i(s) {
-    return t.containerState._closeFlow = !0, t.interrupt = void 0, c(n, n.attempt(z, u, r), "linePrefix", t.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 4)(s);
+  function o(n) {
+    return t.attempt(k, e, r)(n);
   }
 }
-function g(n, u, r) {
-  const t = this;
-  return c(n, l, "listItemIndent", t.containerState.size + 1);
-  function l(a) {
-    const i = t.events[t.events.length - 1];
-    return i && i[1].type === "listItemIndent" && i[2].sliceSerialize(i[1], !0).length === t.containerState.size ? u(a) : r(a);
-  }
-}
-function v(n) {
-  n.exit(this.containerState.type);
-}
-function W(n, u, r) {
-  const t = this;
-  return c(n, l, "listItemPrefixWhitespace", t.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 5);
-  function l(a) {
-    const i = t.events[t.events.length - 1];
-    return !k(a) && i && i[1].type === "listItemPrefixWhitespace" ? u(a) : r(a);
-  }
+function b(t) {
+  t.exit("blockQuote");
 }
 export {
-  z as list
+  k as blockQuote
 };
 //# sourceMappingURL=cori.data.api659.js.map

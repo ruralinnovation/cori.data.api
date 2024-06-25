@@ -1,4 +1,4 @@
-import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api639.js";
+import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api638.js";
 import "./cori.data.api567.js";
 import "./cori.data.api568.js";
 /*
@@ -14,23 +14,23 @@ class s {
   __init(t, i) {
     return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsNull(t, i) {
+  static getRootAsBinary(t, i) {
     return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsNull(t, i) {
-    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsBinary(t, i) {
+    return t.setPosition(t.position() + n), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static startNull(t) {
+  static startBinary(t) {
     t.startObject(0);
   }
-  static endNull(t) {
+  static endBinary(t) {
     return t.endObject();
   }
-  static createNull(t) {
-    return s.startNull(t), s.endNull(t);
+  static createBinary(t) {
+    return s.startBinary(t), s.endBinary(t);
   }
 }
 export {
-  s as Null
+  s as Binary
 };
 //# sourceMappingURL=cori.data.api642.js.map

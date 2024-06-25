@@ -1,33 +1,24 @@
-import { key as o } from "./cori.data.api519.js";
+import a from "./cori.data.api460.js";
+import l from "./cori.data.api397.js";
+import n from "./cori.data.api406.js";
+import r from "./cori.data.api489.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s() {
-  const t = /* @__PURE__ */ new Map();
-  return {
-    count() {
-      return t.size;
-    },
-    values() {
-      return Array.from(t.values(), (e) => e.v);
-    },
-    increment(e) {
-      const n = o(e), r = t.get(n);
-      r ? ++r.n : t.set(n, { v: e, n: 1 });
-    },
-    decrement(e) {
-      const n = o(e), r = t.get(n);
-      r.n === 1 ? t.delete(n) : --r.n;
-    },
-    forEach(e) {
-      t.forEach(({ v: n, n: r }) => e(n, r));
-    }
-  };
+function t(e) {
+  return Array.from(e);
 }
+const c = {
+  has: (e, s) => r(e) ? e.has(s) : e != null ? l(e, s) : !1,
+  keys: (e) => n(e) ? t(e.keys()) : e != null ? Object.keys(e) : [],
+  values: (e) => r(e) ? t(e.values()) : e != null ? Object.values(e) : [],
+  entries: (e) => r(e) ? t(e.entries()) : e != null ? Object.entries(e) : [],
+  object: (e) => e ? Object.fromEntries(e) : a
+};
 export {
-  s as default
+  c as default
 };
 //# sourceMappingURL=cori.data.api426.js.map

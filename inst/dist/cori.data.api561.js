@@ -4,11 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var E;
-(function(L) {
-  L[L.HALF = 0] = "HALF", L[L.SINGLE = 1] = "SINGLE", L[L.DOUBLE = 2] = "DOUBLE";
-})(E || (E = {}));
+var O;
+(function(N) {
+  N[N.SECOND = 0] = "SECOND", N[N.MILLISECOND = 1] = "MILLISECOND", N[N.MICROSECOND = 2] = "MICROSECOND", N[N.NANOSECOND = 3] = "NANOSECOND";
+})(O || (O = {}));
 export {
-  E as Precision
+  O as TimeUnit
 };
 //# sourceMappingURL=cori.data.api561.js.map

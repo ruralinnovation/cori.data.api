@@ -1,39 +1,29 @@
-import { combineExtensions as i } from "./cori.data.api630.js";
-import { content as m } from "./cori.data.api631.js";
-import { document as f } from "./cori.data.api632.js";
-import { flow as u } from "./cori.data.api633.js";
-import { string as p, text as a } from "./cori.data.api634.js";
-import { createTokenizer as x } from "./cori.data.api635.js";
-import * as d from "./cori.data.api636.js";
+import { normalize as s } from "./cori.data.api468.js";
+import { Schema as a } from "./cori.data.api463.js";
+import { DefinedInfo as c } from "./cori.data.api469.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function E(r) {
-  const n = (
-    /** @type {FullNormalizedExtension} */
-    i([d, ...(r || {}).extensions || []])
-  ), o = {
-    defined: [],
-    lazy: {},
-    constructs: n,
-    content: t(m),
-    document: t(f),
-    flow: t(u),
-    string: t(p),
-    text: t(a)
-  };
-  return o;
-  function t(e) {
-    return s;
-    function s(c) {
-      return x(o, e, c);
+const u = {}.hasOwnProperty;
+function w(e) {
+  const p = {}, t = {};
+  let r;
+  for (r in e.properties)
+    if (u.call(e.properties, r)) {
+      const m = e.properties[r], o = new c(
+        r,
+        e.transform(e.attributes || {}, r),
+        m,
+        e.space
+      );
+      e.mustUseProperty && e.mustUseProperty.includes(r) && (o.mustUseProperty = !0), p[r] = o, t[s(r)] = r, t[s(o.attribute)] = r;
     }
-  }
+  return new a(p, t, e.space);
 }
 export {
-  E as parse
+  w as create
 };
 //# sourceMappingURL=cori.data.api464.js.map

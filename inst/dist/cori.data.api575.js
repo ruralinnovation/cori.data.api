@@ -1,50 +1,41 @@
-import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api639.js";
-import "./cori.data.api567.js";
-import "./cori.data.api568.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i {
+class n {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
   __init(t, s) {
     return this.bb_pos = t, this.bb = s, this;
   }
-  static getRootAsInt(t, s) {
-    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  /**
+   * The relative offset into the shared memory page where the bytes for this
+   * buffer starts
+   */
+  offset() {
+    return this.bb.readInt64(this.bb_pos);
   }
-  static getSizePrefixedRootAsInt(t, s) {
-    return t.setPosition(t.position() + e), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  /**
+   * The absolute length (in bytes) of the memory buffer. The memory is found
+   * from offset (inclusive) to offset + length (non-inclusive). When building
+   * messages using the encapsulated IPC message, padding bytes may be written
+   * after a buffer, but such padding bytes do not need to be accounted for in
+   * the size here.
+   */
+  length() {
+    return this.bb.readInt64(this.bb_pos + 8);
   }
-  bitWidth() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
+  static sizeOf() {
+    return 16;
   }
-  isSigned() {
-    const t = this.bb.__offset(this.bb_pos, 6);
-    return t ? !!this.bb.readInt8(this.bb_pos + t) : !1;
-  }
-  static startInt(t) {
-    t.startObject(2);
-  }
-  static addBitWidth(t, s) {
-    t.addFieldInt32(0, s, 0);
-  }
-  static addIsSigned(t, s) {
-    t.addFieldInt8(1, +s, 0);
-  }
-  static endInt(t) {
-    return t.endObject();
-  }
-  static createInt(t, s, o) {
-    return i.startInt(t), i.addBitWidth(t, s), i.addIsSigned(t, o), i.endInt(t);
+  static createBuffer(t, s, r) {
+    return t.prep(8, 16), t.writeInt64(BigInt(r ?? 0)), t.writeInt64(BigInt(s ?? 0)), t.offset();
   }
 }
 export {
-  i as Int
+  n as Buffer
 };
 //# sourceMappingURL=cori.data.api575.js.map

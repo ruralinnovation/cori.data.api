@@ -1,226 +1,92 @@
-import { markdownLineEnding as V } from "./cori.data.api470.js";
-import { push as W, splice as X } from "./cori.data.api654.js";
-import { resolveAll as Y } from "./cori.data.api658.js";
+import { resolver as f } from "./cori.data.api633.js";
+import { list as o } from "./cori.data.api658.js";
+import { blockQuote as p } from "./cori.data.api659.js";
+import { definition as c } from "./cori.data.api660.js";
+import { codeIndented as t } from "./cori.data.api661.js";
+import { headingAtx as s } from "./cori.data.api662.js";
+import { thematicBreak as r } from "./cori.data.api663.js";
+import { setextUnderline as i } from "./cori.data.api664.js";
+import { htmlFlow as d } from "./cori.data.api665.js";
+import { codeFenced as n } from "./cori.data.api666.js";
+import { characterReference as l } from "./cori.data.api667.js";
+import { characterEscape as a } from "./cori.data.api668.js";
+import { lineEnding as m } from "./cori.data.api669.js";
+import { labelStartImage as h } from "./cori.data.api670.js";
+import { attention as e } from "./cori.data.api671.js";
+import { autolink as k } from "./cori.data.api672.js";
+import { htmlText as u } from "./cori.data.api673.js";
+import { labelStartLink as x } from "./cori.data.api674.js";
+import { hardBreakEscape as b } from "./cori.data.api675.js";
+import { labelEnd as g } from "./cori.data.api676.js";
+import { codeText as E } from "./cori.data.api677.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function re(d, u, a) {
-  let n = Object.assign(
-    a ? Object.assign({}, a) : {
-      line: 1,
-      column: 1,
-      offset: 0
-    },
-    {
-      _index: 0,
-      _bufferIndex: -1
-    }
-  );
-  const f = {}, o = [];
-  let s = [], h = [];
-  const O = {
-    consume: D,
-    enter: G,
-    exit: H,
-    attempt: I(J),
-    check: I(P),
-    interrupt: I(P, {
-      interrupt: !0
-    })
-  }, t = {
-    previous: null,
-    code: null,
-    containerState: {},
-    events: [],
-    parser: d,
-    sliceStream: j,
-    sliceSerialize: M,
-    now: v,
-    defineSkip: R,
-    write: L
-  };
-  let S = u.tokenize.call(t, O);
-  return u.resolveAll && o.push(u), t;
-  function L(e) {
-    return s = W(s, e), q(), s[s.length - 1] !== null ? [] : (T(u, 0), t.events = Y(o, t.events, t), t.events);
-  }
-  function M(e, r) {
-    return $(j(e), r);
-  }
-  function j(e) {
-    return Z(s, e);
-  }
-  function v() {
-    const { line: e, column: r, offset: l, _index: c, _bufferIndex: p } = n;
-    return {
-      line: e,
-      column: r,
-      offset: l,
-      _index: c,
-      _bufferIndex: p
-    };
-  }
-  function R(e) {
-    f[e.line] = e.column, g();
-  }
-  function q() {
-    let e;
-    for (; n._index < s.length; ) {
-      const r = s[n._index];
-      if (typeof r == "string")
-        for (e = n._index, n._bufferIndex < 0 && (n._bufferIndex = 0); n._index === e && n._bufferIndex < r.length; )
-          z(r.charCodeAt(n._bufferIndex));
-      else
-        z(r);
-    }
-  }
-  function z(e) {
-    S = S(e);
-  }
-  function D(e) {
-    V(e) ? (n.line++, n.column = 1, n.offset += e === -3 ? 2 : 1, g()) : e !== -1 && (n.column++, n.offset++), n._bufferIndex < 0 ? n._index++ : (n._bufferIndex++, n._bufferIndex === s[n._index].length && (n._bufferIndex = -1, n._index++)), t.previous = e;
-  }
-  function G(e, r) {
-    const l = r || {};
-    return l.type = e, l.start = v(), t.events.push(["enter", l, t]), h.push(l), l;
-  }
-  function H(e) {
-    const r = h.pop();
-    return r.end = v(), t.events.push(["exit", r, t]), r;
-  }
-  function J(e, r) {
-    T(e, r.from);
-  }
-  function P(e, r) {
-    r.restore();
-  }
-  function I(e, r) {
-    return l;
-    function l(c, p, _) {
-      let C, b, B, y;
-      return Array.isArray(c) ? A(c) : "tokenize" in c ? (
-        // @ts-expect-error Looks like a construct.
-        A([c])
-      ) : N(c);
-      function N(i) {
-        return w;
-        function w(x) {
-          const k = x !== null && i[x], m = x !== null && i.null, U = [
-            // To do: add more extension tests.
-            /* c8 ignore next 2 */
-            ...Array.isArray(k) ? k : k ? [k] : [],
-            ...Array.isArray(m) ? m : m ? [m] : []
-          ];
-          return A(U)(x);
-        }
-      }
-      function A(i) {
-        return C = i, b = 0, i.length === 0 ? _ : E(i[b]);
-      }
-      function E(i) {
-        return w;
-        function w(x) {
-          return y = K(), B = i, i.partial || (t.currentConstruct = i), i.name && t.parser.constructs.disable.null.includes(i.name) ? F() : i.tokenize.call(
-            // If we do have fields, create an object w/ `context` as its
-            // prototype.
-            // This allows a “live binding”, which is needed for `interrupt`.
-            r ? Object.assign(Object.create(t), r) : t,
-            O,
-            Q,
-            F
-          )(x);
-        }
-      }
-      function Q(i) {
-        return e(B, y), p;
-      }
-      function F(i) {
-        return y.restore(), ++b < C.length ? E(C[b]) : _;
-      }
-    }
-  }
-  function T(e, r) {
-    e.resolveAll && !o.includes(e) && o.push(e), e.resolve && X(
-      t.events,
-      r,
-      t.events.length - r,
-      e.resolve(t.events.slice(r), t)
-    ), e.resolveTo && (t.events = e.resolveTo(t.events, t));
-  }
-  function K() {
-    const e = v(), r = t.previous, l = t.currentConstruct, c = t.events.length, p = Array.from(h);
-    return {
-      restore: _,
-      from: c
-    };
-    function _() {
-      n = e, t.previous = r, t.currentConstruct = l, t.events.length = c, h = p, g();
-    }
-  }
-  function g() {
-    n.line in f && n.column < 2 && (n.column = f[n.line], n.offset += f[n.line] - 1);
-  }
-}
-function Z(d, u) {
-  const a = u.start._index, n = u.start._bufferIndex, f = u.end._index, o = u.end._bufferIndex;
-  let s;
-  if (a === f)
-    s = [d[a].slice(n, o)];
-  else {
-    if (s = d.slice(a, f), n > -1) {
-      const h = s[0];
-      typeof h == "string" ? s[0] = h.slice(n) : s.shift();
-    }
-    o > 0 && s.push(d[f].slice(0, o));
-  }
-  return s;
-}
-function $(d, u) {
-  let a = -1;
-  const n = [];
-  let f;
-  for (; ++a < d.length; ) {
-    const o = d[a];
-    let s;
-    if (typeof o == "string")
-      s = o;
-    else
-      switch (o) {
-        case -5: {
-          s = "\r";
-          break;
-        }
-        case -4: {
-          s = `
-`;
-          break;
-        }
-        case -3: {
-          s = `\r
-`;
-          break;
-        }
-        case -2: {
-          s = u ? " " : "	";
-          break;
-        }
-        case -1: {
-          if (!u && f)
-            continue;
-          s = " ";
-          break;
-        }
-        default:
-          s = String.fromCharCode(o);
-      }
-    f = o === -2, n.push(s);
-  }
-  return n.join("");
-}
+const J = {
+  42: o,
+  43: o,
+  45: o,
+  48: o,
+  49: o,
+  50: o,
+  51: o,
+  52: o,
+  53: o,
+  54: o,
+  55: o,
+  56: o,
+  57: o,
+  62: p
+}, K = {
+  91: c
+}, N = {
+  [-2]: t,
+  [-1]: t,
+  32: t
+}, O = {
+  35: s,
+  42: r,
+  45: [i, r],
+  60: d,
+  61: i,
+  95: r,
+  96: n,
+  126: n
+}, P = {
+  38: l,
+  92: a
+}, V = {
+  [-5]: m,
+  [-4]: m,
+  [-3]: m,
+  33: h,
+  38: l,
+  42: e,
+  60: [k, u],
+  91: x,
+  92: [b, a],
+  93: g,
+  95: e,
+  96: E
+}, W = {
+  null: [e, f]
+}, X = {
+  null: [42, 95]
+}, Y = {
+  null: []
+};
 export {
-  re as createTokenizer
+  X as attentionMarkers,
+  K as contentInitial,
+  Y as disable,
+  J as document,
+  O as flow,
+  N as flowInitial,
+  W as insideSpan,
+  P as string,
+  V as text
 };
 //# sourceMappingURL=cori.data.api635.js.map

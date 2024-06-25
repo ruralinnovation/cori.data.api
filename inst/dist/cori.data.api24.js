@@ -1,5 +1,5 @@
-import { initRange as c } from "./cori.data.api128.js";
-import { InternMap as a } from "./cori.data.api82.js";
+import { initRange as c } from "./cori.data.api197.js";
+import { InternMap as a } from "./cori.data.api120.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

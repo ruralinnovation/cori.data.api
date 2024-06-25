@@ -1,106 +1,108 @@
-import { Visitor as T } from "./cori.data.api557.js";
-import { Null as v } from "./cori.data.api642.js";
-import { Int as a } from "./cori.data.api575.js";
-import { FloatingPoint as m } from "./cori.data.api584.js";
-import { Binary as B } from "./cori.data.api643.js";
-import { LargeBinary as S } from "./cori.data.api644.js";
-import { Bool as g } from "./cori.data.api645.js";
-import { Utf8 as I } from "./cori.data.api646.js";
-import { LargeUtf8 as L } from "./cori.data.api647.js";
-import { Decimal as n } from "./cori.data.api585.js";
-import { Date as u } from "./cori.data.api586.js";
-import { Time as o } from "./cori.data.api587.js";
-import { Timestamp as s } from "./cori.data.api588.js";
-import { Interval as p } from "./cori.data.api589.js";
-import { Duration as f } from "./cori.data.api590.js";
-import { List as U } from "./cori.data.api648.js";
-import { Struct_ as D } from "./cori.data.api649.js";
-import { Union as e } from "./cori.data.api591.js";
-import { DictionaryEncoding as d } from "./cori.data.api641.js";
-import { FixedSizeBinary as l } from "./cori.data.api592.js";
-import { FixedSizeList as c } from "./cori.data.api593.js";
-import { Map as y } from "./cori.data.api594.js";
+import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api638.js";
+import "./cori.data.api567.js";
+import "./cori.data.api568.js";
+import { Block as o } from "./cori.data.api595.js";
+import { KeyValue as _ } from "./cori.data.api579.js";
+import { MetadataVersion as r } from "./cori.data.api515.js";
+import { Schema as a } from "./cori.data.api571.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class z extends T {
-  visit(i, t) {
-    return i == null || t == null ? void 0 : super.visit(i, t);
+class i {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  visitNull(i, t) {
-    return v.startNull(t), v.endNull(t);
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
   }
-  visitInt(i, t) {
-    return a.startInt(t), a.addBitWidth(t, i.bitWidth), a.addIsSigned(t, i.isSigned), a.endInt(t);
+  static getRootAsFooter(t, s) {
+    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  visitFloat(i, t) {
-    return m.startFloatingPoint(t), m.addPrecision(t, i.precision), m.endFloatingPoint(t);
+  static getSizePrefixedRootAsFooter(t, s) {
+    return t.setPosition(t.position() + n), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  visitBinary(i, t) {
-    return B.startBinary(t), B.endBinary(t);
+  version() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt16(this.bb_pos + t) : r.V1;
   }
-  visitLargeBinary(i, t) {
-    return S.startLargeBinary(t), S.endLargeBinary(t);
+  schema(t) {
+    const s = this.bb.__offset(this.bb_pos, 6);
+    return s ? (t || new a()).__init(this.bb.__indirect(this.bb_pos + s), this.bb) : null;
   }
-  visitBool(i, t) {
-    return g.startBool(t), g.endBool(t);
+  dictionaries(t, s) {
+    const e = this.bb.__offset(this.bb_pos, 8);
+    return e ? (s || new o()).__init(this.bb.__vector(this.bb_pos + e) + t * 24, this.bb) : null;
   }
-  visitUtf8(i, t) {
-    return I.startUtf8(t), I.endUtf8(t);
+  dictionariesLength() {
+    const t = this.bb.__offset(this.bb_pos, 8);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
-  visitLargeUtf8(i, t) {
-    return L.startLargeUtf8(t), L.endLargeUtf8(t);
+  recordBatches(t, s) {
+    const e = this.bb.__offset(this.bb_pos, 10);
+    return e ? (s || new o()).__init(this.bb.__vector(this.bb_pos + e) + t * 24, this.bb) : null;
   }
-  visitDecimal(i, t) {
-    return n.startDecimal(t), n.addScale(t, i.scale), n.addPrecision(t, i.precision), n.addBitWidth(t, i.bitWidth), n.endDecimal(t);
+  recordBatchesLength() {
+    const t = this.bb.__offset(this.bb_pos, 10);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
-  visitDate(i, t) {
-    return u.startDate(t), u.addUnit(t, i.unit), u.endDate(t);
+  /**
+   * User-defined metadata
+   */
+  customMetadata(t, s) {
+    const e = this.bb.__offset(this.bb_pos, 12);
+    return e ? (s || new _()).__init(this.bb.__indirect(this.bb.__vector(this.bb_pos + e) + t * 4), this.bb) : null;
   }
-  visitTime(i, t) {
-    return o.startTime(t), o.addUnit(t, i.unit), o.addBitWidth(t, i.bitWidth), o.endTime(t);
+  customMetadataLength() {
+    const t = this.bb.__offset(this.bb_pos, 12);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
-  visitTimestamp(i, t) {
-    const r = i.timezone && t.createString(i.timezone) || void 0;
-    return s.startTimestamp(t), s.addUnit(t, i.unit), r !== void 0 && s.addTimezone(t, r), s.endTimestamp(t);
+  static startFooter(t) {
+    t.startObject(5);
   }
-  visitInterval(i, t) {
-    return p.startInterval(t), p.addUnit(t, i.unit), p.endInterval(t);
+  static addVersion(t, s) {
+    t.addFieldInt16(0, s, r.V1);
   }
-  visitDuration(i, t) {
-    return f.startDuration(t), f.addUnit(t, i.unit), f.endDuration(t);
+  static addSchema(t, s) {
+    t.addFieldOffset(1, s, 0);
   }
-  visitList(i, t) {
-    return U.startList(t), U.endList(t);
+  static addDictionaries(t, s) {
+    t.addFieldOffset(2, s, 0);
   }
-  visitStruct(i, t) {
-    return D.startStruct_(t), D.endStruct_(t);
+  static startDictionariesVector(t, s) {
+    t.startVector(24, s, 8);
   }
-  visitUnion(i, t) {
-    e.startTypeIdsVector(t, i.typeIds.length);
-    const r = e.createTypeIdsVector(t, i.typeIds);
-    return e.startUnion(t), e.addMode(t, i.mode), e.addTypeIds(t, r), e.endUnion(t);
+  static addRecordBatches(t, s) {
+    t.addFieldOffset(3, s, 0);
   }
-  visitDictionary(i, t) {
-    const r = this.visit(i.indices, t);
-    return d.startDictionaryEncoding(t), d.addId(t, BigInt(i.id)), d.addIsOrdered(t, i.isOrdered), r !== void 0 && d.addIndexType(t, r), d.endDictionaryEncoding(t);
+  static startRecordBatchesVector(t, s) {
+    t.startVector(24, s, 8);
   }
-  visitFixedSizeBinary(i, t) {
-    return l.startFixedSizeBinary(t), l.addByteWidth(t, i.byteWidth), l.endFixedSizeBinary(t);
+  static addCustomMetadata(t, s) {
+    t.addFieldOffset(4, s, 0);
   }
-  visitFixedSizeList(i, t) {
-    return c.startFixedSizeList(t), c.addListSize(t, i.listSize), c.endFixedSizeList(t);
+  static createCustomMetadataVector(t, s) {
+    t.startVector(4, s.length, 4);
+    for (let e = s.length - 1; e >= 0; e--)
+      t.addOffset(s[e]);
+    return t.endVector();
   }
-  visitMap(i, t) {
-    return y.startMap(t), y.addKeysSorted(t, i.keysSorted), y.endMap(t);
+  static startCustomMetadataVector(t, s) {
+    t.startVector(4, s, 4);
+  }
+  static endFooter(t) {
+    return t.endObject();
+  }
+  static finishFooterBuffer(t, s) {
+    t.finish(s);
+  }
+  static finishSizePrefixedFooterBuffer(t, s) {
+    t.finish(s, void 0, !0);
   }
 }
-const X = new z();
 export {
-  z as TypeAssembler,
-  X as instance
+  i as Footer
 };
 //# sourceMappingURL=cori.data.api596.js.map

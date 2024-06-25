@@ -7,7 +7,6 @@ interface BarChartProps {
     data: ERCData[];
     metadata: MetricMetadata;
     width: number;
-    element_name: string;
 }
 declare const BarChart: React.FC<BarChartProps>;
 export default BarChart;

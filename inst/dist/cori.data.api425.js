@@ -1,36 +1,50 @@
+import { random as t } from "./cori.data.api331.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function v(l, t, M = 15, b = !0, u = 0, o) {
-  const n = Math.LN10;
-  if (o == null) {
-    const a = Math.ceil(Math.log(M) / n), h = t - l || Math.abs(l) || 1, c = [5, 2];
-    for (o = Math.max(
-      u,
-      Math.pow(10, Math.round(Math.log(h) / n) - a)
-    ); Math.ceil(h / o) > M; )
-      o *= 10;
-    const e = c.length;
-    for (let r = 0; r < e; ++r) {
-      const f = o / c[r];
-      f >= u && h / f <= M && (o = f);
-    }
-  }
-  if (b) {
-    let a = Math.log(o);
-    const h = a >= 0 ? 0 : ~~(-a / n) + 1, c = Math.pow(10, -h - 1);
-    a = Math.floor(l / o + c) * o, l = l < a ? a - o : a, t = Math.ceil(t / o) * o;
-  }
-  return [
-    l,
-    t === l ? l + o : t,
-    o
-  ];
-}
+const n = {
+  random: t,
+  is_nan: Number.isNaN,
+  is_finite: Number.isFinite,
+  abs: Math.abs,
+  cbrt: Math.cbrt,
+  ceil: Math.ceil,
+  clz32: Math.clz32,
+  exp: Math.exp,
+  expm1: Math.expm1,
+  floor: Math.floor,
+  fround: Math.fround,
+  greatest: Math.max,
+  least: Math.min,
+  log: Math.log,
+  log10: Math.log10,
+  log1p: Math.log1p,
+  log2: Math.log2,
+  pow: Math.pow,
+  round: Math.round,
+  sign: Math.sign,
+  sqrt: Math.sqrt,
+  trunc: Math.trunc,
+  degrees: (a) => 180 * a / Math.PI,
+  radians: (a) => Math.PI * a / 180,
+  acos: Math.acos,
+  acosh: Math.acosh,
+  asin: Math.asin,
+  asinh: Math.asinh,
+  atan: Math.atan,
+  atan2: Math.atan2,
+  atanh: Math.atanh,
+  cos: Math.cos,
+  cosh: Math.cosh,
+  sin: Math.sin,
+  sinh: Math.sinh,
+  tan: Math.tan,
+  tanh: Math.tanh
+};
 export {
-  v as default
+  n as default
 };
 //# sourceMappingURL=cori.data.api425.js.map

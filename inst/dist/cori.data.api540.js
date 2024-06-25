@@ -4,17 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const o = -1, t = 0, c = 1, n = 2, s = 3, E = 4, R = 5, I = 6, T = 7, A = 8;
+function e(t) {
+  return t instanceof Set;
+}
 export {
-  c as ARRAY,
-  A as BIGINT,
-  s as DATE,
-  T as ERROR,
-  R as MAP,
-  n as OBJECT,
-  t as PRIMITIVE,
-  E as REGEXP,
-  I as SET,
-  o as VOID
+  e as default
 };
 //# sourceMappingURL=cori.data.api540.js.map

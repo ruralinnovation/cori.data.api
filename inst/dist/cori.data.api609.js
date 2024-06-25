@@ -1,31 +1,23 @@
-import { FixedWidthBuilder as t } from "./cori.data.api501.js";
-import { setTimestamp as o, setTimestampSecond as i, setTimestampMillisecond as m, setTimestampMicrosecond as p, setTimestampNanosecond as a } from "./cori.data.api553.js";
+import { FixedWidthBuilder as r } from "./cori.data.api500.js";
+import { setIntervalValue as a, setIntervalDayTime as l, setIntervalYearMonth as s } from "./cori.data.api551.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class e extends t {
+class e extends r {
 }
-e.prototype._setValue = o;
-class d extends e {
+e.prototype._setValue = a;
+class o extends e {
 }
-d.prototype._setValue = i;
-class l extends e {
+o.prototype._setValue = l;
+class n extends e {
 }
-l.prototype._setValue = m;
-class r extends e {
-}
-r.prototype._setValue = p;
-class c extends e {
-}
-c.prototype._setValue = a;
+n.prototype._setValue = s;
 export {
-  e as TimestampBuilder,
-  r as TimestampMicrosecondBuilder,
-  l as TimestampMillisecondBuilder,
-  c as TimestampNanosecondBuilder,
-  d as TimestampSecondBuilder
+  e as IntervalBuilder,
+  o as IntervalDayTimeBuilder,
+  n as IntervalYearMonthBuilder
 };
 //# sourceMappingURL=cori.data.api609.js.map

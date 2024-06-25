@@ -1,27 +1,20 @@
-import { Path as e } from "./cori.data.api116.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function l(i) {
-  let t = 3;
-  return i.digits = function(n) {
-    if (!arguments.length)
-      return t;
-    if (n == null)
-      t = null;
-    else {
-      const r = Math.floor(n);
-      if (!(r >= 0))
-        throw new RangeError(`invalid digits: ${n}`);
-      t = r;
-    }
-    return i;
-  }, () => new e(t);
+function p(e, r, t) {
+  e.prototype = r.prototype = t, t.constructor = e;
+}
+function n(e, r) {
+  var t = Object.create(e.prototype);
+  for (var o in r)
+    t[o] = r[o];
+  return t;
 }
 export {
-  l as withPath
+  p as default,
+  n as extend
 };
 //# sourceMappingURL=cori.data.api126.js.map

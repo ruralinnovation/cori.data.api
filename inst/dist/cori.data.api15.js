@@ -1,15 +1,15 @@
-import "./cori.data.api33.js";
-import "./cori.data.api34.js";
-import "./cori.data.api35.js";
-import "./cori.data.api36.js";
-import "./cori.data.api37.js";
 import "./cori.data.api38.js";
 import "./cori.data.api39.js";
+import "./cori.data.api40.js";
+import "./cori.data.api41.js";
+import "./cori.data.api42.js";
+import "./cori.data.api43.js";
+import "./cori.data.api44.js";
 import "./cori.data.api11.js";
 import "./cori.data.api12.js";
-import { toPng as i } from "./cori.data.api40.js";
+import { toPng as i } from "./cori.data.api45.js";
 import { chartStyle as l } from "./cori.data.api16.js";
-import { format as n } from "./cori.data.api41.js";
+import { format as n } from "./cori.data.api46.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

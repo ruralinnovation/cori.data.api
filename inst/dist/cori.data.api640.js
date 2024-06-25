@@ -1,8 +1,8 @@
-import { SIZE_PREFIX_LENGTH as r } from "./cori.data.api639.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api638.js";
 import "./cori.data.api567.js";
 import "./cori.data.api568.js";
-import { BodyCompressionMethod as i } from "./cori.data.api680.js";
-import { CompressionType as e } from "./cori.data.api681.js";
+import { DictionaryKind as n } from "./cori.data.api681.js";
+import { Int as e } from "./cori.data.api572.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
@@ -13,47 +13,69 @@ class s {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
-  __init(t, o) {
-    return this.bb_pos = t, this.bb = o, this;
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsBodyCompression(t, o) {
-    return (o || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getRootAsDictionaryEncoding(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsBodyCompression(t, o) {
-    return t.setPosition(t.position() + r), (o || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsDictionaryEncoding(t, i) {
+    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
   /**
-   * Compressor library.
-   * For LZ4_FRAME, each compressed buffer must consist of a single frame.
+   * The known dictionary id in the application where this data is used. In
+   * the file or streaming formats, the dictionary ids are found in the
+   * DictionaryBatch messages
    */
-  codec() {
+  id() {
     const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt8(this.bb_pos + t) : e.LZ4_FRAME;
+    return t ? this.bb.readInt64(this.bb_pos + t) : BigInt("0");
   }
   /**
-   * Indicates the way the record batch body was compressed
+   * The dictionary indices are constrained to be non-negative integers. If
+   * this field is null, the indices must be signed int32. To maximize
+   * cross-language compatibility and performance, implementations are
+   * recommended to prefer signed integer types over unsigned integer types
+   * and to avoid uint64 indices unless they are required by an application.
    */
-  method() {
-    const t = this.bb.__offset(this.bb_pos, 6);
-    return t ? this.bb.readInt8(this.bb_pos + t) : i.BUFFER;
+  indexType(t) {
+    const i = this.bb.__offset(this.bb_pos, 6);
+    return i ? (t || new e()).__init(this.bb.__indirect(this.bb_pos + i), this.bb) : null;
   }
-  static startBodyCompression(t) {
-    t.startObject(2);
+  /**
+   * By default, dictionaries are not ordered, or the order does not have
+   * semantic meaning. In some statistical, applications, dictionary-encoding
+   * is used to represent ordered categorical data, and we provide a way to
+   * preserve that metadata here
+   */
+  isOrdered() {
+    const t = this.bb.__offset(this.bb_pos, 8);
+    return t ? !!this.bb.readInt8(this.bb_pos + t) : !1;
   }
-  static addCodec(t, o) {
-    t.addFieldInt8(0, o, e.LZ4_FRAME);
+  dictionaryKind() {
+    const t = this.bb.__offset(this.bb_pos, 10);
+    return t ? this.bb.readInt16(this.bb_pos + t) : n.DenseArray;
   }
-  static addMethod(t, o) {
-    t.addFieldInt8(1, o, i.BUFFER);
+  static startDictionaryEncoding(t) {
+    t.startObject(4);
   }
-  static endBodyCompression(t) {
+  static addId(t, i) {
+    t.addFieldInt64(0, i, BigInt("0"));
+  }
+  static addIndexType(t, i) {
+    t.addFieldOffset(1, i, 0);
+  }
+  static addIsOrdered(t, i) {
+    t.addFieldInt8(2, +i, 0);
+  }
+  static addDictionaryKind(t, i) {
+    t.addFieldInt16(3, i, n.DenseArray);
+  }
+  static endDictionaryEncoding(t) {
     return t.endObject();
-  }
-  static createBodyCompression(t, o, n) {
-    return s.startBodyCompression(t), s.addCodec(t, o), s.addMethod(t, n), s.endBodyCompression(t);
   }
 }
 export {
-  s as BodyCompression
+  s as DictionaryEncoding
 };
 //# sourceMappingURL=cori.data.api640.js.map

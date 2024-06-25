@@ -1,65 +1,52 @@
+import { set as p } from "./cori.data.api231.js";
+import { tweenValue as v } from "./cori.data.api228.js";
+import g from "./cori.data.api259.js";
+import { styleValue as f } from "./cori.data.api179.js";
+import { interpolateTransformCss as d } from "./cori.data.api152.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(t) {
-  return t.trim().split(/^|\s+/);
-}
-function r(t) {
-  return t.classList || new c(t);
+function a(t, n) {
+  var i, r, o;
+  return function() {
+    var s = f(this, t), e = (this.style.removeProperty(t), f(this, t));
+    return s === e ? null : s === i && e === r ? o : o = n(i = s, r = e);
+  };
 }
 function c(t) {
-  this._node = t, this._names = a(t.getAttribute("class") || "");
-}
-c.prototype = {
-  add: function(t) {
-    var n = this._names.indexOf(t);
-    n < 0 && (this._names.push(t), this._node.setAttribute("class", this._names.join(" ")));
-  },
-  remove: function(t) {
-    var n = this._names.indexOf(t);
-    n >= 0 && (this._names.splice(n, 1), this._node.setAttribute("class", this._names.join(" ")));
-  },
-  contains: function(t) {
-    return this._names.indexOf(t) >= 0;
-  }
-};
-function u(t, n) {
-  for (var s = r(t), i = -1, e = n.length; ++i < e; )
-    s.add(n[i]);
-}
-function o(t, n) {
-  for (var s = r(t), i = -1, e = n.length; ++i < e; )
-    s.remove(n[i]);
-}
-function f(t) {
   return function() {
-    u(this, t);
+    this.style.removeProperty(t);
   };
 }
-function h(t) {
+function w(t, n, i) {
+  var r, o = i + "", s;
   return function() {
-    o(this, t);
+    var e = f(this, t);
+    return e === o ? null : e === r ? s : s = n(r = e, i);
   };
 }
-function d(t, n) {
+function T(t, n, i) {
+  var r, o, s;
   return function() {
-    (n.apply(this, arguments) ? u : o)(this, t);
+    var e = f(this, t), u = i(this), l = u + "";
+    return u == null && (l = u = (this.style.removeProperty(t), f(this, t))), e === l ? null : e === r && l === o ? s : (o = l, s = n(r = e, u));
   };
 }
-function m(t, n) {
-  var s = a(t + "");
-  if (arguments.length < 2) {
-    for (var i = r(this.node()), e = -1, l = s.length; ++e < l; )
-      if (!i.contains(s[e]))
-        return !1;
-    return !0;
-  }
-  return this.each((typeof n == "function" ? d : n ? f : h)(s, n));
+function P(t, n) {
+  var i, r, o, s = "style." + n, e = "end." + s, u;
+  return function() {
+    var l = p(this, t), y = l.on, h = l.value[s] == null ? u || (u = c(n)) : void 0;
+    (y !== i || o !== h) && (r = (i = y).copy()).on(e, o = h), l.on = r;
+  };
+}
+function b(t, n, i) {
+  var r = (t += "") == "transform" ? d : g;
+  return n == null ? this.styleTween(t, a(t, r)).on("end.style." + t, c(t)) : typeof n == "function" ? this.styleTween(t, T(t, r, v(this, "style." + t, n))).each(P(this._id, t)) : this.styleTween(t, w(t, r, n), i).on("end.style." + t, null);
 }
 export {
-  m as default
+  b as default
 };
 //# sourceMappingURL=cori.data.api223.js.map

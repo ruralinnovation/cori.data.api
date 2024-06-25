@@ -4,15 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const o = (t) => typeof t == "boolean", e = (t) => typeof t == "function", r = (t) => t != null && Object(t) === t, i = (t) => r(t) && e(t.then), s = (t) => r(t) && e(t[Symbol.iterator]), a = (t) => r(t) && e(t[Symbol.asyncIterator]), c = (t) => r(t) && "done" in t && "value" in t, n = (t) => "_getDOMStream" in t && "_getNodeStream" in t, l = (t) => r(t) && e(t.abort) && e(t.getWriter) && !n(t), u = (t) => r(t) && e(t.end) && e(t.write) && o(t.writable) && !n(t), b = (t) => r(t) && e(t.clear) && e(t.bytes) && e(t.position) && e(t.setPosition) && e(t.capacity) && e(t.getBufferIdentifier) && e(t.createLong);
+var c;
+(function(V) {
+  V[V.V1 = 0] = "V1", V[V.V2 = 1] = "V2", V[V.V3 = 2] = "V3", V[V.V4 = 3] = "V4", V[V.V5 = 4] = "V5";
+})(c || (c = {}));
 export {
-  a as isAsyncIterable,
-  b as isFlatbuffersByteBuffer,
-  s as isIterable,
-  c as isIteratorResult,
-  r as isObject,
-  i as isPromise,
-  l as isWritableDOMStream,
-  u as isWritableNodeStream
+  c as MetadataVersion
 };
 //# sourceMappingURL=cori.data.api515.js.map

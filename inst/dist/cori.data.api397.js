@@ -1,35 +1,14 @@
-import { formatUTCDate as f, formatDate as n } from "./cori.data.api395.js";
-import m from "./cori.data.api389.js";
-import s from "./cori.data.api285.js";
-import u from "./cori.data.api399.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function x(t, r = {}) {
-  if (s(r))
-    return r(t) + "";
-  const o = typeof t;
-  if (o === "object") {
-    if (m(t))
-      return r.utc ? f(t) : n(t);
-    {
-      const e = JSON.stringify(
-        t,
-        (l, i) => u(i) ? Array.from(i) : i
-      ), a = r.maxlen || 30;
-      return e.length > a ? e.slice(0, 28) + "…" + (e[0] === "[" ? "]" : "}") : e;
-    }
-  } else if (o === "number") {
-    const e = r.digits || 0;
-    let a;
-    return t !== 0 && ((a = Math.abs(t)) >= 1e18 || a < Math.pow(10, -e)) ? t.toExponential(e) : t.toFixed(e);
-  } else
-    return t + "";
+const { hasOwnProperty: o } = Object.prototype;
+function r(t, e) {
+  return o.call(t, e);
 }
 export {
-  x as default
+  r as default
 };
 //# sourceMappingURL=cori.data.api397.js.map

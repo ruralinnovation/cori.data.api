@@ -1,34 +1,25 @@
-import l from "./cori.data.api237.js";
+import { Transition as g } from "./cori.data.api209.js";
+import w, { get as x } from "./cori.data.api231.js";
+import y from "./cori.data.api195.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s(t) {
-  return function() {
-    this.style.removeProperty(t);
-  };
-}
-function u(t, e, n) {
-  return function() {
-    this.style.setProperty(t, e, n);
-  };
-}
-function o(t, e, n) {
-  return function() {
-    var r = e.apply(this, arguments);
-    r == null ? this.style.removeProperty(t) : this.style.setProperty(t, r, n);
-  };
-}
-function f(t, e, n) {
-  return arguments.length > 1 ? this.each((e == null ? s : typeof e == "function" ? o : u)(t, e, n ?? "")) : i(this.node(), t);
-}
-function i(t, e) {
-  return t.style.getPropertyValue(e) || l(t).getComputedStyle(t, null).getPropertyValue(e);
+function B(f) {
+  var n = this._name, o = this._id;
+  typeof f != "function" && (f = y(f));
+  for (var l = this._groups, e = l.length, h = [], s = [], m = 0; m < e; ++m)
+    for (var _ = l[m], p = _.length, t, a = 0; a < p; ++a)
+      if (t = _[a]) {
+        for (var r = f.call(t, t.__data__, a, _), v, u = x(t, o), i = 0, A = r.length; i < A; ++i)
+          (v = r[i]) && w(v, n, o, i, r, u);
+        h.push(r), s.push(t);
+      }
+  return new g(h, s, n, o);
 }
 export {
-  f as default,
-  i as styleValue
+  B as default
 };
 //# sourceMappingURL=cori.data.api221.js.map

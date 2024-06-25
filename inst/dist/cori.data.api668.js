@@ -1,37 +1,24 @@
-import { decodeNamedCharacterReference as k } from "./cori.data.api462.js";
-import { asciiAlphanumeric as u, asciiHexDigit as M, asciiDigit as p } from "./cori.data.api470.js";
+import { asciiPunctuation as i } from "./cori.data.api486.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const N = {
-  name: "characterReference",
-  tokenize: z
+const o = {
+  name: "characterEscape",
+  tokenize: u
 };
-function z(e, h, t) {
-  const m = this;
-  let i = 0, n, a;
-  return R;
-  function R(r) {
-    return e.enter("characterReference"), e.enter("characterReferenceMarker"), e.consume(r), e.exit("characterReferenceMarker"), l;
+function u(r, e, n) {
+  return t;
+  function t(a) {
+    return r.enter("characterEscape"), r.enter("escapeMarker"), r.consume(a), r.exit("escapeMarker"), c;
   }
-  function l(r) {
-    return r === 35 ? (e.enter("characterReferenceMarkerNumeric"), e.consume(r), e.exit("characterReferenceMarkerNumeric"), o) : (e.enter("characterReferenceValue"), n = 31, a = u, c(r));
-  }
-  function o(r) {
-    return r === 88 || r === 120 ? (e.enter("characterReferenceMarkerHexadecimal"), e.consume(r), e.exit("characterReferenceMarkerHexadecimal"), e.enter("characterReferenceValue"), n = 6, a = M, c) : (e.enter("characterReferenceValue"), n = 7, a = p, c(r));
-  }
-  function c(r) {
-    if (r === 59 && i) {
-      const x = e.exit("characterReferenceValue");
-      return a === u && !k(m.sliceSerialize(x)) ? t(r) : (e.enter("characterReferenceMarker"), e.consume(r), e.exit("characterReferenceMarker"), e.exit("characterReference"), h);
-    }
-    return a(r) && i++ < n ? (e.consume(r), c) : t(r);
+  function c(a) {
+    return i(a) ? (r.enter("characterEscapeValue"), r.consume(a), r.exit("characterEscapeValue"), r.exit("characterEscape"), e) : n(a);
   }
 }
 export {
-  N as characterReference
+  o as characterEscape
 };
 //# sourceMappingURL=cori.data.api668.js.map

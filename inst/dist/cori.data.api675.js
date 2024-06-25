@@ -1,26 +1,24 @@
-import { labelEnd as o } from "./cori.data.api677.js";
+import { markdownLineEnding as o } from "./cori.data.api486.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const b = {
-  name: "labelStartLink",
-  tokenize: k,
-  resolveAll: o.resolveAll
+const p = {
+  name: "hardBreakEscape",
+  tokenize: k
 };
-function k(n, r, e) {
-  const l = this;
-  return a;
-  function a(t) {
-    return n.enter("labelLink"), n.enter("labelMarker"), n.consume(t), n.exit("labelMarker"), n.exit("labelLink"), i;
+function k(e, n, a) {
+  return t;
+  function t(r) {
+    return e.enter("hardBreakEscape"), e.consume(r), i;
   }
-  function i(t) {
-    return t === 94 && "_hiddenFootnoteSupport" in l.parser.constructs ? e(t) : r(t);
+  function i(r) {
+    return o(r) ? (e.exit("hardBreakEscape"), n(r)) : a(r);
   }
 }
 export {
-  b as labelStartLink
+  p as hardBreakEscape
 };
 //# sourceMappingURL=cori.data.api675.js.map

@@ -7,7 +7,6 @@ interface GroupedBarChartProps {
     data: ERCData[];
     metadata: MetricMetadata;
     width: number;
-    element_name: string;
 }
 declare const GroupedBarChart: React.FC<GroupedBarChartProps>;
 export default GroupedBarChart;

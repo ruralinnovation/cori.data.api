@@ -26,7 +26,6 @@ export default function DataMetricPanel (props: {
                         }
                         metadata={props.metadata}
                         width={props.chart_width}
-                        element_name={props.primary_element_name}
                     /> :
 
                     (props.chart_type === 'line') ?
@@ -39,7 +38,6 @@ export default function DataMetricPanel (props: {
                             metadata={props.metadata}
                             width={props.chart_width}
                             height={250}
-                            element_name={props.primary_element_name}
                         /> :
 
                         (props.chart_type === 'grouped bar') ?
@@ -51,7 +49,6 @@ export default function DataMetricPanel (props: {
                                 }
                                 metadata={props.metadata}
                                 width={props.chart_width}
-                                element_name={props.primary_element_name}
                             /> :
 
                             <></>

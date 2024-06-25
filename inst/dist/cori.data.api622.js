@@ -1,66 +1,130 @@
-import { reducers as w } from "./cori.data.api539.js";
-import { hasAggregate as h, getWindow as O } from "./cori.data.api404.js";
-import $ from "./cori.data.api625.js";
-import x from "./cori.data.api493.js";
-import A from "./cori.data.api650.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const E = (n) => (n.frame || [null, null]).map((e) => Number.isFinite(e) ? Math.abs(e) : null), S = (n) => !!n.peers;
-function V(n) {
-  const { id: e, name: a, fields: t = [], params: i = [] } = n, r = O(a).create(...i);
-  return t.length && (r.get = t[0]), r.id = e, r;
-}
-function U(n, e, a, t = {}, i) {
-  const r = n.data(), o = j(i, r), c = o.length, f = x(
-    ["r", "d", "op"],
-    "{" + $(e, (p, m) => `_${m}[r] = $${m}(r, d, op);`) + "}",
-    e,
-    a
-  );
-  n.partitions().forEach((p, m) => {
-    const u = p.length, l = y(n, p);
-    for (let s = 0; s < c; ++s)
-      o[s].init(p, l, t, m);
-    const g = (s) => t[s][m];
-    for (let s = 0; s < u; ++s) {
-      for (let d = 0; d < c; ++d)
-        o[d].step(s);
-      f(p[s], r, g);
+class h {
+  /**
+   * Instantiate a new BitSet instance.
+   * @param {number} size The number of bits.
+   */
+  constructor(t) {
+    this._size = t, this._bits = new Uint32Array(Math.ceil(t / 32));
+  }
+  /**
+   * The number of bits.
+   * @return {number}
+   */
+  get length() {
+    return this._size;
+  }
+  /**
+   * The number of bits set to one.
+   * https://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
+   * @return {number}
+   */
+  count() {
+    const t = this._bits.length;
+    let s = 0;
+    for (let e = 0; e < t; ++e)
+      for (let n = this._bits[e]; n; ++s)
+        n &= n - 1;
+    return s;
+  }
+  /**
+   * Get the bit at a given index.
+   * @param {number} i The bit index.
+   */
+  get(t) {
+    return this._bits[t >> 5] & 2147483648 >>> t;
+  }
+  /**
+   * Set the bit at a given index to one.
+   * @param {number} i The bit index.
+   */
+  set(t) {
+    this._bits[t >> 5] |= 2147483648 >>> t;
+  }
+  /**
+   * Clear the bit at a given index to zero.
+   * @param {number} i The bit index.
+   */
+  clear(t) {
+    this._bits[t >> 5] &= ~(2147483648 >>> t);
+  }
+  /**
+   * Scan the bits, invoking a callback function with the index of
+   * each non-zero bit.
+   * @param {(i: number) => void} fn A callback function.
+   */
+  scan(t) {
+    for (let s = this.next(0); s >= 0; s = this.next(s + 1))
+      t(s);
+  }
+  /**
+   * Get the next non-zero bit starting from a given index.
+   * @param {number} i The bit index.
+   */
+  next(t) {
+    const s = this._bits, e = s.length;
+    let n = t >> 5, i = s[n] & 4294967295 >>> t;
+    for (; n < e; i = s[++n])
+      if (i !== 0)
+        return (n << 5) + Math.clz32(i);
+    return -1;
+  }
+  /**
+   * Return the index of the nth non-zero bit.
+   * @param {number} n The number of non-zero bits to advance.
+   * @return {number} The index of the nth non-zero bit.
+   */
+  nth(t) {
+    let s = this.next(0);
+    for (; t-- && s >= 0; )
+      s = this.next(s + 1);
+    return s;
+  }
+  /**
+   * Negate all bits in this bitset.
+   * Modifies this BitSet in place.
+   * @return {this}
+   */
+  not() {
+    const t = this._bits, s = t.length;
+    for (let n = 0; n < s; ++n)
+      t[n] = ~t[n];
+    const e = this._size % 32;
+    return e && (t[s - 1] &= 2147483648 >> e - 1), this;
+  }
+  /**
+   * Compute the logical AND of this BitSet and another.
+   * @param {BitSet} bitset The BitSet to combine with.
+   * @return {BitSet} This BitSet updated with the logical AND.
+   */
+  and(t) {
+    if (t) {
+      const s = this._bits, e = t._bits, n = s.length;
+      for (let i = 0; i < n; ++i)
+        s[i] &= e[i];
     }
-  });
-}
-function j(n, e) {
-  const a = {};
-  return n.forEach((t) => {
-    const i = E(t), r = S(t), o = `${i},${r}`, { aggOps: c, winOps: f } = a[o] || (a[o] = {
-      frame: i,
-      peers: r,
-      aggOps: [],
-      winOps: []
-    });
-    h(t.name) ? c.push(t) : f.push(V(t));
-  }), Object.values(a).map((t) => A(
-    e,
-    t.frame,
-    t.peers,
-    t.winOps,
-    w(t.aggOps, t.frame[0] != null ? -1 : 1)
-  ));
-}
-function y(n, e) {
-  if (n.isOrdered()) {
-    const a = n.comparator(), t = n.data(), i = e.length, r = new Uint32Array(i);
-    for (let o = 1, c = 0; o < i; ++o)
-      r[o] = a(e[o - 1], e[o], t) ? ++c : c;
-    return r;
-  } else
-    return e;
+    return this;
+  }
+  /**
+   * Compute the logical OR of this BitSet and another.
+   * @param {BitSet} bitset The BitSet to combine with.
+   * @return {BitSet} This BitSet updated with the logical OR.
+   */
+  or(t) {
+    if (t) {
+      const s = this._bits, e = t._bits, n = s.length;
+      for (let i = 0; i < n; ++i)
+        s[i] |= e[i];
+    }
+    return this;
+  }
 }
 export {
-  U as window
+  h as default
 };
 //# sourceMappingURL=cori.data.api622.js.map

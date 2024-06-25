@@ -1,106 +1,226 @@
+import { markdownLineEnding as V } from "./cori.data.api486.js";
+import { push as W, splice as X } from "./cori.data.api653.js";
+import { resolveAll as Y } from "./cori.data.api657.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const b = {
-  resolveAll: g()
-}, k = x("string"), m = x("text");
-function x(r) {
-  return {
-    tokenize: f,
-    resolveAll: g(
-      r === "text" ? p : void 0
-    )
+function re(d, u, a) {
+  let n = Object.assign(
+    a ? Object.assign({}, a) : {
+      line: 1,
+      column: 1,
+      offset: 0
+    },
+    {
+      _index: 0,
+      _bufferIndex: -1
+    }
+  );
+  const f = {}, o = [];
+  let s = [], h = [];
+  const O = {
+    consume: D,
+    enter: G,
+    exit: H,
+    attempt: I(J),
+    check: I(P),
+    interrupt: I(P, {
+      interrupt: !0
+    })
+  }, t = {
+    previous: null,
+    code: null,
+    containerState: {},
+    events: [],
+    parser: d,
+    sliceStream: j,
+    sliceSerialize: M,
+    now: v,
+    defineSkip: R,
+    write: L
   };
-  function f(t) {
-    const i = this, e = this.parser.constructs[r], n = t.attempt(e, s, a);
-    return s;
-    function s(l) {
-      return u(l) ? n(l) : a(l);
+  let S = u.tokenize.call(t, O);
+  return u.resolveAll && o.push(u), t;
+  function L(e) {
+    return s = W(s, e), q(), s[s.length - 1] !== null ? [] : (T(u, 0), t.events = Y(o, t.events, t), t.events);
+  }
+  function M(e, r) {
+    return $(j(e), r);
+  }
+  function j(e) {
+    return Z(s, e);
+  }
+  function v() {
+    const { line: e, column: r, offset: l, _index: c, _bufferIndex: p } = n;
+    return {
+      line: e,
+      column: r,
+      offset: l,
+      _index: c,
+      _bufferIndex: p
+    };
+  }
+  function R(e) {
+    f[e.line] = e.column, g();
+  }
+  function q() {
+    let e;
+    for (; n._index < s.length; ) {
+      const r = s[n._index];
+      if (typeof r == "string")
+        for (e = n._index, n._bufferIndex < 0 && (n._bufferIndex = 0); n._index === e && n._bufferIndex < r.length; )
+          z(r.charCodeAt(n._bufferIndex));
+      else
+        z(r);
     }
-    function a(l) {
-      if (l === null) {
-        t.consume(l);
-        return;
-      }
-      return t.enter("data"), t.consume(l), o;
-    }
-    function o(l) {
-      return u(l) ? (t.exit("data"), n(l)) : (t.consume(l), o);
-    }
-    function u(l) {
-      if (l === null)
-        return !0;
-      const c = e[l];
-      let d = -1;
-      if (c)
-        for (; ++d < c.length; ) {
-          const h = c[d];
-          if (!h.previous || h.previous.call(i, i.previous))
-            return !0;
+  }
+  function z(e) {
+    S = S(e);
+  }
+  function D(e) {
+    V(e) ? (n.line++, n.column = 1, n.offset += e === -3 ? 2 : 1, g()) : e !== -1 && (n.column++, n.offset++), n._bufferIndex < 0 ? n._index++ : (n._bufferIndex++, n._bufferIndex === s[n._index].length && (n._bufferIndex = -1, n._index++)), t.previous = e;
+  }
+  function G(e, r) {
+    const l = r || {};
+    return l.type = e, l.start = v(), t.events.push(["enter", l, t]), h.push(l), l;
+  }
+  function H(e) {
+    const r = h.pop();
+    return r.end = v(), t.events.push(["exit", r, t]), r;
+  }
+  function J(e, r) {
+    T(e, r.from);
+  }
+  function P(e, r) {
+    r.restore();
+  }
+  function I(e, r) {
+    return l;
+    function l(c, p, _) {
+      let C, b, B, y;
+      return Array.isArray(c) ? A(c) : "tokenize" in c ? (
+        // @ts-expect-error Looks like a construct.
+        A([c])
+      ) : N(c);
+      function N(i) {
+        return w;
+        function w(x) {
+          const k = x !== null && i[x], m = x !== null && i.null, U = [
+            // To do: add more extension tests.
+            /* c8 ignore next 2 */
+            ...Array.isArray(k) ? k : k ? [k] : [],
+            ...Array.isArray(m) ? m : m ? [m] : []
+          ];
+          return A(U)(x);
         }
-      return !1;
+      }
+      function A(i) {
+        return C = i, b = 0, i.length === 0 ? _ : E(i[b]);
+      }
+      function E(i) {
+        return w;
+        function w(x) {
+          return y = K(), B = i, i.partial || (t.currentConstruct = i), i.name && t.parser.constructs.disable.null.includes(i.name) ? F() : i.tokenize.call(
+            // If we do have fields, create an object w/ `context` as its
+            // prototype.
+            // This allows a “live binding”, which is needed for `interrupt`.
+            r ? Object.assign(Object.create(t), r) : t,
+            O,
+            Q,
+            F
+          )(x);
+        }
+      }
+      function Q(i) {
+        return e(B, y), p;
+      }
+      function F(i) {
+        return y.restore(), ++b < C.length ? E(C[b]) : _;
+      }
     }
   }
-}
-function g(r) {
-  return f;
-  function f(t, i) {
-    let e = -1, n;
-    for (; ++e <= t.length; )
-      n === void 0 ? t[e] && t[e][1].type === "data" && (n = e, e++) : (!t[e] || t[e][1].type !== "data") && (e !== n + 2 && (t[n][1].end = t[e - 1][1].end, t.splice(n + 2, e - n - 2), e = n + 2), n = void 0);
-    return r ? r(t, i) : t;
+  function T(e, r) {
+    e.resolveAll && !o.includes(e) && o.push(e), e.resolve && X(
+      t.events,
+      r,
+      t.events.length - r,
+      e.resolve(t.events.slice(r), t)
+    ), e.resolveTo && (t.events = e.resolveTo(t.events, t));
+  }
+  function K() {
+    const e = v(), r = t.previous, l = t.currentConstruct, c = t.events.length, p = Array.from(h);
+    return {
+      restore: _,
+      from: c
+    };
+    function _() {
+      n = e, t.previous = r, t.currentConstruct = l, t.events.length = c, h = p, g();
+    }
+  }
+  function g() {
+    n.line in f && n.column < 2 && (n.column = f[n.line], n.offset += f[n.line] - 1);
   }
 }
-function p(r, f) {
-  let t = 0;
-  for (; ++t <= r.length; )
-    if ((t === r.length || r[t][1].type === "lineEnding") && r[t - 1][1].type === "data") {
-      const i = r[t - 1][1], e = f.sliceStream(i);
-      let n = e.length, s = -1, a = 0, o;
-      for (; n--; ) {
-        const u = e[n];
-        if (typeof u == "string") {
-          for (s = u.length; u.charCodeAt(s - 1) === 32; )
-            a++, s--;
-          if (s)
-            break;
-          s = -1;
-        } else if (u === -2)
-          o = !0, a++;
-        else if (u !== -1) {
-          n++;
+function Z(d, u) {
+  const a = u.start._index, n = u.start._bufferIndex, f = u.end._index, o = u.end._bufferIndex;
+  let s;
+  if (a === f)
+    s = [d[a].slice(n, o)];
+  else {
+    if (s = d.slice(a, f), n > -1) {
+      const h = s[0];
+      typeof h == "string" ? s[0] = h.slice(n) : s.shift();
+    }
+    o > 0 && s.push(d[f].slice(0, o));
+  }
+  return s;
+}
+function $(d, u) {
+  let a = -1;
+  const n = [];
+  let f;
+  for (; ++a < d.length; ) {
+    const o = d[a];
+    let s;
+    if (typeof o == "string")
+      s = o;
+    else
+      switch (o) {
+        case -5: {
+          s = "\r";
           break;
         }
+        case -4: {
+          s = `
+`;
+          break;
+        }
+        case -3: {
+          s = `\r
+`;
+          break;
+        }
+        case -2: {
+          s = u ? " " : "	";
+          break;
+        }
+        case -1: {
+          if (!u && f)
+            continue;
+          s = " ";
+          break;
+        }
+        default:
+          s = String.fromCharCode(o);
       }
-      if (a) {
-        const u = {
-          type: t === r.length || o || a < 2 ? "lineSuffix" : "hardBreakTrailing",
-          start: {
-            line: i.end.line,
-            column: i.end.column - a,
-            offset: i.end.offset - a,
-            _index: i.start._index + n,
-            _bufferIndex: n ? s : i.start._bufferIndex + s
-          },
-          end: Object.assign({}, i.end)
-        };
-        i.end = Object.assign({}, u.start), i.start.offset === i.end.offset ? Object.assign(i, u) : (r.splice(
-          t,
-          0,
-          ["enter", u, f],
-          ["exit", u, f]
-        ), t += 2);
-      }
-      t++;
-    }
-  return r;
+    f = o === -2, n.push(s);
+  }
+  return n.join("");
 }
 export {
-  b as resolver,
-  k as string,
-  m as text
+  re as createTokenizer
 };
 //# sourceMappingURL=cori.data.api634.js.map

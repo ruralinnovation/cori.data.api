@@ -1,14 +1,23 @@
+import { get as e, init as i } from "./cori.data.api231.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s() {
-  for (var i = this._groups, o = -1, a = i.length; ++o < a; )
-    for (var e = i[o], f = e.length - 1, r = e[f], t; --f >= 0; )
-      (t = e[f]) && (r && t.compareDocumentPosition(r) ^ 4 && r.parentNode.insertBefore(t, r), r = t);
-  return this;
+function o(n, t) {
+  return function() {
+    i(this, n).delay = +t.apply(this, arguments);
+  };
+}
+function r(n, t) {
+  return t = +t, function() {
+    i(this, n).delay = t;
+  };
+}
+function s(n) {
+  var t = this._id;
+  return arguments.length ? this.each((typeof n == "function" ? o : r)(t, n)) : e(this.node(), t).delay;
 }
 export {
   s as default

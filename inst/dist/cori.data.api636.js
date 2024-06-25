@@ -1,92 +1,55 @@
-import { resolver as f } from "./cori.data.api634.js";
-import { list as o } from "./cori.data.api659.js";
-import { blockQuote as p } from "./cori.data.api660.js";
-import { definition as c } from "./cori.data.api661.js";
-import { codeIndented as t } from "./cori.data.api662.js";
-import { headingAtx as s } from "./cori.data.api663.js";
-import { thematicBreak as r } from "./cori.data.api664.js";
-import { setextUnderline as i } from "./cori.data.api665.js";
-import { htmlFlow as d } from "./cori.data.api666.js";
-import { codeFenced as n } from "./cori.data.api667.js";
-import { characterReference as l } from "./cori.data.api668.js";
-import { characterEscape as a } from "./cori.data.api669.js";
-import { lineEnding as m } from "./cori.data.api670.js";
-import { labelStartImage as h } from "./cori.data.api671.js";
-import { attention as e } from "./cori.data.api672.js";
-import { autolink as k } from "./cori.data.api673.js";
-import { htmlText as u } from "./cori.data.api674.js";
-import { labelStartLink as x } from "./cori.data.api675.js";
-import { hardBreakEscape as b } from "./cori.data.api676.js";
-import { labelEnd as g } from "./cori.data.api677.js";
-import { codeText as E } from "./cori.data.api678.js";
+import { splice as y } from "./cori.data.api653.js";
+import { SpliceBuffer as w } from "./cori.data.api678.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const J = {
-  42: o,
-  43: o,
-  45: o,
-  48: o,
-  49: o,
-  50: o,
-  51: o,
-  52: o,
-  53: o,
-  54: o,
-  55: o,
-  56: o,
-  57: o,
-  62: p
-}, K = {
-  91: c
-}, N = {
-  [-2]: t,
-  [-1]: t,
-  32: t
-}, O = {
-  35: s,
-  42: r,
-  45: [i, r],
-  60: d,
-  61: i,
-  95: r,
-  96: n,
-  126: n
-}, P = {
-  38: l,
-  92: a
-}, V = {
-  [-5]: m,
-  [-4]: m,
-  [-3]: m,
-  33: h,
-  38: l,
-  42: e,
-  60: [k, u],
-  91: x,
-  92: [b, a],
-  93: g,
-  95: e,
-  96: E
-}, W = {
-  null: [e, f]
-}, X = {
-  null: [42, 95]
-}, Y = {
-  null: []
-};
+function E(u) {
+  const c = {};
+  let e = -1, p, r, n, o, f, s, h;
+  const l = new w(u);
+  for (; ++e < l.length; ) {
+    for (; e in c; )
+      e = c[e];
+    if (p = l.get(e), e && p[1].type === "chunkFlow" && l.get(e - 1)[1].type === "listItemPrefix" && (s = p[1]._tokenizer.events, n = 0, n < s.length && s[n][1].type === "lineEndingBlank" && (n += 2), n < s.length && s[n][1].type === "content"))
+      for (; ++n < s.length && s[n][1].type !== "content"; )
+        s[n][1].type === "chunkText" && (s[n][1]._isInFirstContentOfListItem = !0, n++);
+    if (p[0] === "enter")
+      p[1].contentType && (Object.assign(c, _(l, e)), e = c[e], h = !0);
+    else if (p[1]._container) {
+      for (n = e, r = void 0; n-- && (o = l.get(n), o[1].type === "lineEnding" || o[1].type === "lineEndingBlank"); )
+        o[0] === "enter" && (r && (l.get(r)[1].type = "lineEndingBlank"), o[1].type = "lineEnding", r = n);
+      r && (p[1].end = Object.assign({}, l.get(r)[1].start), f = l.slice(r, e), f.unshift(p), l.splice(r, e - r + 1, f));
+    }
+  }
+  return y(u, 0, Number.POSITIVE_INFINITY, l.slice(0)), !h;
+}
+function _(u, c) {
+  const e = u.get(c)[1], p = u.get(c)[2];
+  let r = c - 1;
+  const n = [], o = e._tokenizer || p.parser[e.contentType](e.start), f = o.events, s = [], h = {};
+  let l, m, i = -1, t = e, a = 0, d = 0;
+  const g = [d];
+  for (; t; ) {
+    for (; u.get(++r)[1] !== t; )
+      ;
+    n.push(r), t._tokenizer || (l = p.sliceStream(t), t.next || l.push(null), m && o.defineSkip(t.start), t._isInFirstContentOfListItem && (o._gfmTasklistFirstContentOfListItem = !0), o.write(l), t._isInFirstContentOfListItem && (o._gfmTasklistFirstContentOfListItem = void 0)), m = t, t = t.next;
+  }
+  for (t = e; ++i < f.length; )
+    // Find a void token that includes a break.
+    f[i][0] === "exit" && f[i - 1][0] === "enter" && f[i][1].type === f[i - 1][1].type && f[i][1].start.line !== f[i][1].end.line && (d = i + 1, g.push(d), t._tokenizer = void 0, t.previous = void 0, t = t.next);
+  for (o.events = [], t ? (t._tokenizer = void 0, t.previous = void 0) : g.pop(), i = g.length; i--; ) {
+    const I = f.slice(g[i], g[i + 1]), k = n.pop();
+    s.push([k, k + I.length - 1]), u.splice(k, 2, I);
+  }
+  for (s.reverse(), i = -1; ++i < s.length; )
+    h[a + s[i][0]] = a + s[i][1], a += s[i][1] - s[i][0] - 1;
+  return h;
+}
 export {
-  X as attentionMarkers,
-  K as contentInitial,
-  Y as disable,
-  J as document,
-  O as flow,
-  N as flowInitial,
-  W as insideSpan,
-  P as string,
-  V as text
+  w as SpliceBuffer,
+  E as subtokenize
 };
 //# sourceMappingURL=cori.data.api636.js.map

@@ -1,39 +1,21 @@
-import m from "./cori.data.api321.js";
-import e from "./cori.data.api389.js";
-import y from "./cori.data.api390.js";
-import $ from "./cori.data.api399.js";
+import r from "./cori.data.api622.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s(t) {
-  const r = typeof t;
-  return r === "string" ? `"${t}"` : r !== "object" || !t ? t : e(t) ? +t : m(t) || $(t) ? `[${t.map(s)}]` : y(t) ? t + "" : k(t);
-}
-function k(t) {
-  let r = "{", o = -1;
-  for (const n in t)
-    ++o > 0 && (r += ","), r += `"${n}":${s(t[n])}`;
-  return r += "}", r;
-}
-function A(t, r) {
-  const o = t.length;
-  return o === 1 ? (n, c) => s(t[0](n, c)) : (n, c) => {
-    let p = "";
-    for (let i = 0; i < o; ++i) {
-      i > 0 && (p += "|");
-      const f = t[i](n, c);
-      if (r && (f == null || f !== f))
-        return null;
-      p += s(f);
-    }
-    return p;
-  };
+function c(e, s) {
+  const f = e.totalRows(), o = e.mask(), i = e.data(), n = new r(f);
+  if (o)
+    for (let t = o.next(0); t >= 0; t = o.next(t + 1))
+      s(t, i) && n.set(t);
+  else
+    for (let t = 0; t < f; ++t)
+      s(t, i) && n.set(t);
+  return e.create({ filter: n });
 }
 export {
-  A as default,
-  s as key
+  c as default
 };
 //# sourceMappingURL=cori.data.api519.js.map

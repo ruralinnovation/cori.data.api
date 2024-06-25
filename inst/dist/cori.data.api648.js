@@ -1,4 +1,4 @@
-import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api639.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api638.js";
 import "./cori.data.api567.js";
 import "./cori.data.api568.js";
 /*
@@ -14,23 +14,23 @@ class s {
   __init(t, i) {
     return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsList(t, i) {
+  static getRootAsStruct_(t, i) {
     return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsList(t, i) {
+  static getSizePrefixedRootAsStruct_(t, i) {
     return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static startList(t) {
+  static startStruct_(t) {
     t.startObject(0);
   }
-  static endList(t) {
+  static endStruct_(t) {
     return t.endObject();
   }
-  static createList(t) {
-    return s.startList(t), s.endList(t);
+  static createStruct_(t) {
+    return s.startStruct_(t), s.endStruct_(t);
   }
 }
 export {
-  s as List
+  s as Struct_
 };
 //# sourceMappingURL=cori.data.api648.js.map

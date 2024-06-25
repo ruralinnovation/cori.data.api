@@ -1,40 +1,31 @@
-import { FixedWidthBuilder as l } from "./cori.data.api501.js";
+import { FixedWidthBuilder as t } from "./cori.data.api500.js";
+import { setTime as o, setTimeSecond as i, setTimeMillisecond as d, setTimeMicrosecond as l, setTimeNanosecond as r } from "./cori.data.api551.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s extends l {
-  setValue(t, d) {
-    this._values.set(t, d);
-  }
+class e extends t {
 }
-class n extends s {
+e.prototype._setValue = o;
+class c extends e {
 }
-class r extends s {
+c.prototype._setValue = i;
+class n extends e {
 }
-class u extends s {
+n.prototype._setValue = d;
+class m extends e {
 }
-class a extends s {
+m.prototype._setValue = l;
+class p extends e {
 }
-class x extends s {
-}
-class B extends s {
-}
-class c extends s {
-}
-class I extends s {
-}
+p.prototype._setValue = r;
 export {
-  r as Int16Builder,
-  u as Int32Builder,
-  a as Int64Builder,
-  n as Int8Builder,
-  s as IntBuilder,
-  B as Uint16Builder,
-  c as Uint32Builder,
-  I as Uint64Builder,
-  x as Uint8Builder
+  e as TimeBuilder,
+  m as TimeMicrosecondBuilder,
+  n as TimeMillisecondBuilder,
+  p as TimeNanosecondBuilder,
+  c as TimeSecondBuilder
 };
 //# sourceMappingURL=cori.data.api607.js.map

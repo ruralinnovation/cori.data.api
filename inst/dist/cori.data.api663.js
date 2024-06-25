@@ -1,53 +1,32 @@
-import { factorySpace as H } from "./cori.data.api655.js";
-import { markdownLineEndingOrSpace as m, markdownLineEnding as o, markdownSpace as h } from "./cori.data.api470.js";
-import { splice as S } from "./cori.data.api654.js";
+import { factorySpace as o } from "./cori.data.api654.js";
+import { markdownSpace as B, markdownLineEnding as c } from "./cori.data.api486.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const T = {
-  name: "headingAtx",
-  tokenize: d,
-  resolve: y
+const q = {
+  name: "thematicBreak",
+  tokenize: p
 };
-function y(t, i) {
-  let e = t.length - 2, r = 3, a, u;
-  return t[r][1].type === "whitespace" && (r += 2), e - 2 > r && t[e][1].type === "whitespace" && (e -= 2), t[e][1].type === "atxHeadingSequence" && (r === e - 1 || e - 4 > r && t[e - 2][1].type === "whitespace") && (e -= r + 1 === e ? 2 : 4), e > r && (a = {
-    type: "atxHeadingText",
-    start: t[r][1].start,
-    end: t[e][1].end
-  }, u = {
-    type: "chunkText",
-    start: t[r][1].start,
-    end: t[e][1].end,
-    contentType: "text"
-  }, S(t, r, e - r + 1, [["enter", a, i], ["enter", u, i], ["exit", u, i], ["exit", a, i]])), t;
-}
-function d(t, i, e) {
-  let r = 0;
-  return a;
-  function a(n) {
-    return t.enter("atxHeading"), u(n);
+function p(t, u, m) {
+  let a = 0, e;
+  return k;
+  function k(r) {
+    return t.enter("thematicBreak"), h(r);
   }
-  function u(n) {
-    return t.enter("atxHeadingSequence"), p(n);
+  function h(r) {
+    return e = r, n(r);
   }
-  function p(n) {
-    return n === 35 && r++ < 6 ? (t.consume(n), p) : n === null || m(n) ? (t.exit("atxHeadingSequence"), x(n)) : e(n);
+  function n(r) {
+    return r === e ? (t.enter("thematicBreakSequence"), i(r)) : a >= 3 && (r === null || c(r)) ? (t.exit("thematicBreak"), u(r)) : m(r);
   }
-  function x(n) {
-    return n === 35 ? (t.enter("atxHeadingSequence"), g(n)) : n === null || o(n) ? (t.exit("atxHeading"), i(n)) : h(n) ? H(t, x, "whitespace")(n) : (t.enter("atxHeadingText"), l(n));
-  }
-  function g(n) {
-    return n === 35 ? (t.consume(n), g) : (t.exit("atxHeadingSequence"), x(n));
-  }
-  function l(n) {
-    return n === null || n === 35 || m(n) ? (t.exit("atxHeadingText"), x(n)) : (t.consume(n), l);
+  function i(r) {
+    return r === e ? (t.consume(r), a++, i) : (t.exit("thematicBreakSequence"), B(r) ? o(t, n, "whitespace")(r) : n(r));
   }
 }
 export {
-  T as headingAtx
+  q as thematicBreak
 };
 //# sourceMappingURL=cori.data.api663.js.map

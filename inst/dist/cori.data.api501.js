@@ -1,224 +1,210 @@
-import { Vector as _ } from "./cori.data.api412.js";
-import { makeData as c } from "./cori.data.api502.js";
-import { MapRow as v, kKeys as y } from "./cori.data.api503.js";
-import { strideForType as m } from "./cori.data.api413.js";
-import { createIsValidFunction as V } from "./cori.data.api504.js";
-import { BitmapBufferBuilder as L, DataBufferBuilder as B, OffsetsBufferBuilder as b } from "./cori.data.api505.js";
+import { Vector as A } from "./cori.data.api418.js";
+import { Type as I, BufferType as d } from "./cori.data.api495.js";
+import { DataType as y, strideForType as c } from "./cori.data.api419.js";
+import { popcnt_bit_range as b, truncateBitmap as v } from "./cori.data.api554.js";
+import { Visitor as p } from "./cori.data.api555.js";
+import { toUint8Array as h, toArrayBufferView as f, toInt32Array as m, toBigInt64Array as T } from "./cori.data.api499.js";
+import { UnionMode as w } from "./cori.data.api556.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class r {
-  /** @nocollapse */
-  // @ts-ignore
-  static throughNode(e) {
-    throw new Error('"throughNode" not available in this environment');
-  }
-  /** @nocollapse */
-  // @ts-ignore
-  static throughDOM(e) {
-    throw new Error('"throughDOM" not available in this environment');
-  }
-  /**
-   * Construct a builder with the given Arrow DataType with optional null values,
-   * which will be interpreted as "null" when set or appended to the `Builder`.
-   * @param {{ type: T, nullValues?: any[] }} options A `BuilderOptions` object used to create this `Builder`.
-   */
-  constructor({ type: e, nullValues: t }) {
-    this.length = 0, this.finished = !1, this.type = e, this.children = [], this.nullValues = t, this.stride = m(e), this._nulls = new L(), t && t.length > 0 && (this._isValid = V(t));
-  }
-  /**
-   * Flush the `Builder` and return a `Vector<T>`.
-   * @returns {Vector<T>} A `Vector<T>` of the flushed values.
-   */
-  toVector() {
-    return new _([this.flush()]);
+const U = -1;
+class o {
+  get typeId() {
+    return this.type.typeId;
   }
   get ArrayType() {
     return this.type.ArrayType;
   }
-  get nullCount() {
-    return this._nulls.numInvalid;
+  get buffers() {
+    return [this.valueOffsets, this.values, this.nullBitmap, this.typeIds];
   }
-  get numChildren() {
-    return this.children.length;
+  get nullable() {
+    if (this._nullCount !== 0) {
+      const { type: t } = this;
+      return y.isSparseUnion(t) ? this.children.some((n) => n.nullable) : y.isDenseUnion(t) ? this.children.some((n) => n.nullable) : this.nullBitmap && this.nullBitmap.byteLength > 0;
+    }
+    return !0;
   }
-  /**
-   * @returns The aggregate length (in bytes) of the values that have been written.
-   */
   get byteLength() {
-    let e = 0;
-    const { _offsets: t, _values: s, _nulls: i, _typeIds: h, children: n } = this;
-    return t && (e += t.byteLength), s && (e += s.byteLength), i && (e += i.byteLength), h && (e += h.byteLength), n.reduce((o, d) => o + d.byteLength, e);
+    let t = 0;
+    const { valueOffsets: n, values: l, nullBitmap: i, typeIds: e } = this;
+    return n && (t += n.byteLength), l && (t += l.byteLength), i && (t += i.byteLength), e && (t += e.byteLength), this.children.reduce((u, s) => u + s.byteLength, t);
   }
-  /**
-   * @returns The aggregate number of rows that have been reserved to write new values.
-   */
-  get reservedLength() {
-    return this._nulls.reservedLength;
+  get nullCount() {
+    if (y.isUnion(this.type))
+      return this.children.reduce((l, i) => l + i.nullCount, 0);
+    let t = this._nullCount, n;
+    return t <= U && (n = this.nullBitmap) && (this._nullCount = t = this.length - b(n, this.offset, this.offset + this.length)), t;
   }
-  /**
-   * @returns The aggregate length (in bytes) that has been reserved to write new values.
-   */
-  get reservedByteLength() {
-    let e = 0;
-    return this._offsets && (e += this._offsets.reservedByteLength), this._values && (e += this._values.reservedByteLength), this._nulls && (e += this._nulls.reservedByteLength), this._typeIds && (e += this._typeIds.reservedByteLength), this.children.reduce((t, s) => t + s.reservedByteLength, e);
+  constructor(t, n, l, i, e, u = [], s) {
+    this.type = t, this.children = u, this.dictionary = s, this.offset = Math.floor(Math.max(n || 0, 0)), this.length = Math.floor(Math.max(l || 0, 0)), this._nullCount = Math.floor(Math.max(i || 0, -1));
+    let a;
+    e instanceof o ? (this.stride = e.stride, this.values = e.values, this.typeIds = e.typeIds, this.nullBitmap = e.nullBitmap, this.valueOffsets = e.valueOffsets) : (this.stride = c(t), e && ((a = e[0]) && (this.valueOffsets = a), (a = e[1]) && (this.values = a), (a = e[2]) && (this.nullBitmap = a), (a = e[3]) && (this.typeIds = a)));
   }
-  get valueOffsets() {
-    return this._offsets ? this._offsets.buffer : null;
+  getValid(t) {
+    const { type: n } = this;
+    if (y.isUnion(n)) {
+      const l = n, i = this.children[l.typeIdToChildIndex[this.typeIds[t]]], e = l.mode === w.Dense ? this.valueOffsets[t] : t;
+      return i.getValid(e);
+    }
+    if (this.nullable && this.nullCount > 0) {
+      const l = this.offset + t;
+      return (this.nullBitmap[l >> 3] & 1 << l % 8) !== 0;
+    }
+    return !0;
   }
-  get values() {
-    return this._values ? this._values.buffer : null;
+  setValid(t, n) {
+    let l;
+    const { type: i } = this;
+    if (y.isUnion(i)) {
+      const e = i, u = this.children[e.typeIdToChildIndex[this.typeIds[t]]], s = e.mode === w.Dense ? this.valueOffsets[t] : t;
+      l = u.getValid(s), u.setValid(s, n);
+    } else {
+      let { nullBitmap: e } = this;
+      const { offset: u, length: s } = this, a = u + t, r = 1 << a % 8, B = a >> 3;
+      (!e || e.byteLength <= B) && (e = new Uint8Array((u + s + 63 & -64) >> 3).fill(255), this.nullCount > 0 && e.set(v(u, s, this.nullBitmap), 0), Object.assign(this, { nullBitmap: e, _nullCount: -1 }));
+      const C = e[B];
+      l = (C & r) !== 0, n ? e[B] = C | r : e[B] = C & ~r;
+    }
+    return l !== !!n && (this._nullCount = this.nullCount + (n ? -1 : 1)), n;
   }
-  get nullBitmap() {
-    return this._nulls ? this._nulls.buffer : null;
+  clone(t = this.type, n = this.offset, l = this.length, i = this._nullCount, e = this, u = this.children) {
+    return new o(t, n, l, i, e, u, this.dictionary);
   }
-  get typeIds() {
-    return this._typeIds ? this._typeIds.buffer : null;
+  slice(t, n) {
+    const { stride: l, typeId: i, children: e } = this, u = +(this._nullCount === 0) - 1, s = i === 16 ? l : 1, a = this._sliceBuffers(t, n, l, i);
+    return this.clone(
+      this.type,
+      this.offset + t,
+      n,
+      u,
+      a,
+      // Don't slice children if we have value offsets (the variable-width types)
+      e.length === 0 || this.valueOffsets ? e : this._sliceChildren(e, s * t, s * n)
+    );
   }
-  /**
-   * Appends a value (or null) to this `Builder`.
-   * This is equivalent to `builder.set(builder.length, value)`.
-   * @param {T['TValue'] | TNull } value The value to append.
-   */
-  append(e) {
-    return this.set(this.length, e);
+  _changeLengthAndBackfillNullBitmap(t) {
+    if (this.typeId === I.Null)
+      return this.clone(this.type, 0, t, 0);
+    const { length: n, nullCount: l } = this, i = new Uint8Array((t + 63 & -64) >> 3).fill(255, 0, n >> 3);
+    i[n >> 3] = (1 << n - (n & -8)) - 1, l > 0 && i.set(v(this.offset, n, this.nullBitmap), 0);
+    const e = this.buffers;
+    return e[d.VALIDITY] = i, this.clone(this.type, 0, t, l + (t - n), e);
   }
-  /**
-   * Validates whether a value is valid (true), or null (false)
-   * @param {T['TValue'] | TNull } value The value to compare against null the value representations
-   */
-  isValid(e) {
-    return this._isValid(e);
+  _sliceBuffers(t, n, l, i) {
+    let e;
+    const { buffers: u } = this;
+    return (e = u[d.TYPE]) && (u[d.TYPE] = e.subarray(t, t + n)), (e = u[d.OFFSET]) && (u[d.OFFSET] = e.subarray(t, t + n + 1)) || // Otherwise if no offsets, slice the data buffer. Don't slice the data vector for Booleans, since the offset goes by bits not bytes
+    (e = u[d.DATA]) && (u[d.DATA] = i === 6 ? e : e.subarray(l * t, l * (t + n))), u;
   }
-  /**
-   * Write a value (or null-value sentinel) at the supplied index.
-   * If the value matches one of the null-value representations, a 1-bit is
-   * written to the null `BitmapBufferBuilder`. Otherwise, a 0 is written to
-   * the null `BitmapBufferBuilder`, and the value is passed to
-   * `Builder.prototype.setValue()`.
-   * @param {number} index The index of the value to write.
-   * @param {T['TValue'] | TNull } value The value to write at the supplied index.
-   * @returns {this} The updated `Builder` instance.
-   */
-  set(e, t) {
-    return this.setValid(e, this.isValid(t)) && this.setValue(e, t), this;
-  }
-  /**
-   * Write a value to the underlying buffers at the supplied index, bypassing
-   * the null-value check. This is a low-level method that
-   * @param {number} index
-   * @param {T['TValue'] | TNull } value
-   */
-  setValue(e, t) {
-    this._setValue(this, e, t);
-  }
-  setValid(e, t) {
-    return this.length = this._nulls.set(e, +t).length, t;
-  }
-  // @ts-ignore
-  addChild(e, t = `${this.numChildren}`) {
-    throw new Error(`Cannot append children to non-nested type "${this.type}"`);
-  }
-  /**
-   * Retrieve the child `Builder` at the supplied `index`, or null if no child
-   * exists at that index.
-   * @param {number} index The index of the child `Builder` to retrieve.
-   * @returns {Builder | null} The child Builder at the supplied index or null.
-   */
-  getChildAt(e) {
-    return this.children[e] || null;
-  }
-  /**
-   * Commit all the values that have been written to their underlying
-   * ArrayBuffers, including any child Builders if applicable, and reset
-   * the internal `Builder` state.
-   * @returns A `Data<T>` of the buffers and children representing the values written.
-   */
-  flush() {
-    let e, t, s, i;
-    const { type: h, length: n, nullCount: o, _typeIds: d, _offsets: l, _values: u, _nulls: f } = this;
-    (t = d == null ? void 0 : d.flush(n)) ? i = l == null ? void 0 : l.flush(n) : (i = l == null ? void 0 : l.flush(n)) ? e = u == null ? void 0 : u.flush(l.last()) : e = u == null ? void 0 : u.flush(n), o > 0 && (s = f == null ? void 0 : f.flush(n));
-    const p = this.children.map((g) => g.flush());
-    return this.clear(), c({
-      type: h,
-      length: n,
-      nullCount: o,
-      children: p,
-      child: p[0],
-      data: e,
-      typeIds: t,
-      nullBitmap: s,
-      valueOffsets: i
-    });
-  }
-  /**
-   * Finalize this `Builder`, and child builders if applicable.
-   * @returns {this} The finalized `Builder` instance.
-   */
-  finish() {
-    this.finished = !0;
-    for (const e of this.children)
-      e.finish();
-    return this;
-  }
-  /**
-   * Clear this Builder's internal state, including child Builders if applicable, and reset the length to 0.
-   * @returns {this} The cleared `Builder` instance.
-   */
-  clear() {
-    var e, t, s, i;
-    this.length = 0, (e = this._nulls) === null || e === void 0 || e.clear(), (t = this._values) === null || t === void 0 || t.clear(), (s = this._offsets) === null || s === void 0 || s.clear(), (i = this._typeIds) === null || i === void 0 || i.clear();
-    for (const h of this.children)
-      h.clear();
-    return this;
+  _sliceChildren(t, n, l) {
+    return t.map((i) => i.slice(n, l));
   }
 }
-r.prototype.length = 1;
-r.prototype.stride = 1;
-r.prototype.children = null;
-r.prototype.finished = !1;
-r.prototype.nullValues = null;
-r.prototype._isValid = () => !0;
-class D extends r {
-  constructor(e) {
-    super(e), this._values = new B(this.ArrayType, 0, this.stride);
+o.prototype.children = Object.freeze([]);
+class g extends p {
+  visit(t) {
+    return this.getVisitFn(t.type).call(this, t);
   }
-  setValue(e, t) {
-    const s = this._values;
-    return s.reserve(e - s.length + 1), super.setValue(e, t);
+  visitNull(t) {
+    const { ["type"]: n, ["offset"]: l = 0, ["length"]: i = 0 } = t;
+    return new o(n, l, i, i);
+  }
+  visitBool(t) {
+    const { ["type"]: n, ["offset"]: l = 0 } = t, i = h(t.nullBitmap), e = f(n.ArrayType, t.data), { ["length"]: u = e.length >> 3, ["nullCount"]: s = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, u, s, [void 0, e, i]);
+  }
+  visitInt(t) {
+    const { ["type"]: n, ["offset"]: l = 0 } = t, i = h(t.nullBitmap), e = f(n.ArrayType, t.data), { ["length"]: u = e.length, ["nullCount"]: s = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, u, s, [void 0, e, i]);
+  }
+  visitFloat(t) {
+    const { ["type"]: n, ["offset"]: l = 0 } = t, i = h(t.nullBitmap), e = f(n.ArrayType, t.data), { ["length"]: u = e.length, ["nullCount"]: s = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, u, s, [void 0, e, i]);
+  }
+  visitUtf8(t) {
+    const { ["type"]: n, ["offset"]: l = 0 } = t, i = h(t.data), e = h(t.nullBitmap), u = m(t.valueOffsets), { ["length"]: s = u.length - 1, ["nullCount"]: a = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, s, a, [u, i, e]);
+  }
+  visitLargeUtf8(t) {
+    const { ["type"]: n, ["offset"]: l = 0 } = t, i = h(t.data), e = h(t.nullBitmap), u = T(t.valueOffsets), { ["length"]: s = u.length - 1, ["nullCount"]: a = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, s, a, [u, i, e]);
+  }
+  visitBinary(t) {
+    const { ["type"]: n, ["offset"]: l = 0 } = t, i = h(t.data), e = h(t.nullBitmap), u = m(t.valueOffsets), { ["length"]: s = u.length - 1, ["nullCount"]: a = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, s, a, [u, i, e]);
+  }
+  visitLargeBinary(t) {
+    const { ["type"]: n, ["offset"]: l = 0 } = t, i = h(t.data), e = h(t.nullBitmap), u = T(t.valueOffsets), { ["length"]: s = u.length - 1, ["nullCount"]: a = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, s, a, [u, i, e]);
+  }
+  visitFixedSizeBinary(t) {
+    const { ["type"]: n, ["offset"]: l = 0 } = t, i = h(t.nullBitmap), e = f(n.ArrayType, t.data), { ["length"]: u = e.length / c(n), ["nullCount"]: s = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, u, s, [void 0, e, i]);
+  }
+  visitDate(t) {
+    const { ["type"]: n, ["offset"]: l = 0 } = t, i = h(t.nullBitmap), e = f(n.ArrayType, t.data), { ["length"]: u = e.length / c(n), ["nullCount"]: s = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, u, s, [void 0, e, i]);
+  }
+  visitTimestamp(t) {
+    const { ["type"]: n, ["offset"]: l = 0 } = t, i = h(t.nullBitmap), e = f(n.ArrayType, t.data), { ["length"]: u = e.length / c(n), ["nullCount"]: s = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, u, s, [void 0, e, i]);
+  }
+  visitTime(t) {
+    const { ["type"]: n, ["offset"]: l = 0 } = t, i = h(t.nullBitmap), e = f(n.ArrayType, t.data), { ["length"]: u = e.length / c(n), ["nullCount"]: s = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, u, s, [void 0, e, i]);
+  }
+  visitDecimal(t) {
+    const { ["type"]: n, ["offset"]: l = 0 } = t, i = h(t.nullBitmap), e = f(n.ArrayType, t.data), { ["length"]: u = e.length / c(n), ["nullCount"]: s = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, u, s, [void 0, e, i]);
+  }
+  visitList(t) {
+    const { ["type"]: n, ["offset"]: l = 0, ["child"]: i } = t, e = h(t.nullBitmap), u = m(t.valueOffsets), { ["length"]: s = u.length - 1, ["nullCount"]: a = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, s, a, [u, void 0, e], [i]);
+  }
+  visitStruct(t) {
+    const { ["type"]: n, ["offset"]: l = 0, ["children"]: i = [] } = t, e = h(t.nullBitmap), { length: u = i.reduce((a, { length: r }) => Math.max(a, r), 0), nullCount: s = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, u, s, [void 0, void 0, e], i);
+  }
+  visitUnion(t) {
+    const { ["type"]: n, ["offset"]: l = 0, ["children"]: i = [] } = t, e = f(n.ArrayType, t.typeIds), { ["length"]: u = e.length, ["nullCount"]: s = -1 } = t;
+    if (y.isSparseUnion(n))
+      return new o(n, l, u, s, [void 0, void 0, void 0, e], i);
+    const a = m(t.valueOffsets);
+    return new o(n, l, u, s, [a, void 0, void 0, e], i);
+  }
+  visitDictionary(t) {
+    const { ["type"]: n, ["offset"]: l = 0 } = t, i = h(t.nullBitmap), e = f(n.indices.ArrayType, t.data), { ["dictionary"]: u = new A([new g().visit({ type: n.dictionary })]) } = t, { ["length"]: s = e.length, ["nullCount"]: a = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, s, a, [void 0, e, i], [], u);
+  }
+  visitInterval(t) {
+    const { ["type"]: n, ["offset"]: l = 0 } = t, i = h(t.nullBitmap), e = f(n.ArrayType, t.data), { ["length"]: u = e.length / c(n), ["nullCount"]: s = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, u, s, [void 0, e, i]);
+  }
+  visitDuration(t) {
+    const { ["type"]: n, ["offset"]: l = 0 } = t, i = h(t.nullBitmap), e = f(n.ArrayType, t.data), { ["length"]: u = e.length, ["nullCount"]: s = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, u, s, [void 0, e, i]);
+  }
+  visitFixedSizeList(t) {
+    const { ["type"]: n, ["offset"]: l = 0, ["child"]: i = new g().visit({ type: n.valueType }) } = t, e = h(t.nullBitmap), { ["length"]: u = i.length / c(n), ["nullCount"]: s = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, u, s, [void 0, void 0, e], [i]);
+  }
+  visitMap(t) {
+    const { ["type"]: n, ["offset"]: l = 0, ["child"]: i = new g().visit({ type: n.childType }) } = t, e = h(t.nullBitmap), u = m(t.valueOffsets), { ["length"]: s = u.length - 1, ["nullCount"]: a = t.nullBitmap ? -1 : 0 } = t;
+    return new o(n, l, s, a, [u, void 0, e], [i]);
   }
 }
-class T extends r {
-  constructor(e) {
-    super(e), this._pendingLength = 0, this._offsets = new b(e.type);
-  }
-  setValue(e, t) {
-    const s = this._pending || (this._pending = /* @__PURE__ */ new Map()), i = s.get(e);
-    i && (this._pendingLength -= i.length), this._pendingLength += t instanceof v ? t[y].length : t.length, s.set(e, t);
-  }
-  setValid(e, t) {
-    return super.setValid(e, t) ? !0 : ((this._pending || (this._pending = /* @__PURE__ */ new Map())).set(e, void 0), !1);
-  }
-  clear() {
-    return this._pendingLength = 0, this._pending = void 0, super.clear();
-  }
-  flush() {
-    return this._flush(), super.flush();
-  }
-  finish() {
-    return this._flush(), super.finish();
-  }
-  _flush() {
-    const e = this._pending, t = this._pendingLength;
-    return this._pendingLength = 0, this._pending = void 0, e && e.size > 0 && this._flushPending(e, t), this;
-  }
+const L = new g();
+function k(O) {
+  return L.visit(O);
 }
 export {
-  r as Builder,
-  D as FixedWidthBuilder,
-  T as VariableWidthBuilder
+  o as Data,
+  U as kUnknownNullCount,
+  k as makeData
 };
 //# sourceMappingURL=cori.data.api501.js.map

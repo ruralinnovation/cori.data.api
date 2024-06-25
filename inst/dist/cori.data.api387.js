@@ -1,35 +1,30 @@
-import f from "./cori.data.api66.js";
-import s from "./cori.data.api71.js";
+import { asciiAlphanumeric as f } from "./cori.data.api486.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const l = (t, c) => {
-  let u = new AbortController(), i;
-  const n = function(e) {
-    if (!i) {
-      i = !0, a();
-      const o = e instanceof Error ? e : this.reason;
-      u.abort(o instanceof s ? o : new f(o instanceof Error ? o.message : o));
-    }
-  };
-  let r = c && setTimeout(() => {
-    n(new s(`timeout ${c} of ms exceeded`, s.ETIMEDOUT));
-  }, c);
-  const a = () => {
-    t && (r && clearTimeout(r), r = null, t.forEach((e) => {
-      e && (e.removeEventListener ? e.removeEventListener("abort", n) : e.unsubscribe(n));
-    }), t = null);
-  };
-  t.forEach((e) => e && e.addEventListener && e.addEventListener("abort", n));
-  const { signal: b } = u;
-  return b.unsubscribe = a, [b, () => {
-    r && clearTimeout(r), r = null;
-  }];
-};
+function h(t) {
+  const s = [];
+  let r = -1, n = 0, i = 0;
+  for (; ++r < t.length; ) {
+    const e = t.charCodeAt(r);
+    let o = "";
+    if (e === 37 && f(t.charCodeAt(r + 1)) && f(t.charCodeAt(r + 2)))
+      i = 2;
+    else if (e < 128)
+      /[!#$&-;=?-Z_a-z~]/.test(String.fromCharCode(e)) || (o = String.fromCharCode(e));
+    else if (e > 55295 && e < 57344) {
+      const c = t.charCodeAt(r + 1);
+      e < 56320 && c > 56319 && c < 57344 ? (o = String.fromCharCode(e, c), i = 1) : o = "�";
+    } else
+      o = String.fromCharCode(e);
+    o && (s.push(t.slice(n, r), encodeURIComponent(o)), n = r + i + 1, o = ""), i && (r += i, i = 0);
+  }
+  return s.join("") + t.slice(n);
+}
 export {
-  l as default
+  h as normalizeUri
 };
 //# sourceMappingURL=cori.data.api387.js.map

@@ -1,29 +1,35 @@
-import p from "./cori.data.api389.js";
-import "./cori.data.api33.js";
-import { formatUTCDate as d } from "./cori.data.api395.js";
-import "./cori.data.api34.js";
-import { columns as x, scan as g } from "./cori.data.api396.js";
+import f from "./cori.data.api65.js";
+import s from "./cori.data.api70.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function V(n, r = {}) {
-  const e = x(n, r.columns), c = r.format || {}, o = r.delimiter || ",", a = new RegExp(`["${o}
-\r]`), f = (t) => t == null ? "" : p(t) ? d(t, !0) : a.test(t += "") ? '"' + t.replace(/"/g, '""') + '"' : t, m = e.map(f);
-  let i = "";
-  return g(n, e, r.limit || 1 / 0, r.offset, {
-    row() {
-      i += m.join(o) + `
-`;
-    },
-    cell(t, s, l) {
-      m[l] = f(c[s] ? c[s](t) : t);
+const l = (t, c) => {
+  let u = new AbortController(), i;
+  const n = function(e) {
+    if (!i) {
+      i = !0, a();
+      const o = e instanceof Error ? e : this.reason;
+      u.abort(o instanceof s ? o : new f(o instanceof Error ? o.message : o));
     }
-  }), i + m.join(o);
-}
+  };
+  let r = c && setTimeout(() => {
+    n(new s(`timeout ${c} of ms exceeded`, s.ETIMEDOUT));
+  }, c);
+  const a = () => {
+    t && (r && clearTimeout(r), r = null, t.forEach((e) => {
+      e && (e.removeEventListener ? e.removeEventListener("abort", n) : e.unsubscribe(n));
+    }), t = null);
+  };
+  t.forEach((e) => e && e.addEventListener && e.addEventListener("abort", n));
+  const { signal: b } = u;
+  return b.unsubscribe = a, [b, () => {
+    r && clearTimeout(r), r = null;
+  }];
+};
 export {
-  V as default
+  l as default
 };
 //# sourceMappingURL=cori.data.api292.js.map

@@ -1,15 +1,15 @@
+import { trimLines as p } from "./cori.data.api475.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const e = typeof window < "u" && typeof document < "u", n = ((o) => e && ["ReactNative", "NativeScript", "NS"].indexOf(o) < 0)(typeof navigator < "u" && navigator.product), t = typeof WorkerGlobalScope < "u" && // eslint-disable-next-line no-undef
-self instanceof WorkerGlobalScope && typeof self.importScripts == "function", r = e && window.location.href || "http://localhost";
+function i(r, t) {
+  const e = { type: "text", value: p(String(t.value)) };
+  return r.patch(t, e), r.applyData(t, e);
+}
 export {
-  e as hasBrowserEnv,
-  n as hasStandardBrowserEnv,
-  t as hasStandardBrowserWebWorkerEnv,
-  r as origin
+  i as text
 };
 //# sourceMappingURL=cori.data.api382.js.map

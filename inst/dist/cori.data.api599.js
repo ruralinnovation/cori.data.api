@@ -1,20 +1,19 @@
-import { BitmapBufferBuilder as s } from "./cori.data.api505.js";
-import { Builder as t } from "./cori.data.api501.js";
+import { Builder as l } from "./cori.data.api500.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class l extends t {
-  constructor(e) {
-    super(e), this._values = new s();
+class s extends l {
+  // @ts-ignore
+  setValue(e, t) {
   }
-  setValue(e, r) {
-    this._values.set(e, +r);
+  setValid(e, t) {
+    return this.length = Math.max(e + 1, this.length), t;
   }
 }
 export {
-  l as BoolBuilder
+  s as NullBuilder
 };
 //# sourceMappingURL=cori.data.api599.js.map

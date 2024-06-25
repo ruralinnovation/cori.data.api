@@ -4,10 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function t(n) {
-  return n != null && n === n;
+const r = Object.getPrototypeOf(Int8Array);
+function e(t) {
+  return t instanceof r;
 }
 export {
-  t as default
+  e as default
 };
 //# sourceMappingURL=cori.data.api405.js.map

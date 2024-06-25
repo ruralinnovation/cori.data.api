@@ -1,18 +1,29 @@
-import n from "./cori.data.api107.js";
-import o from "./cori.data.api87.js";
-import e from "./cori.data.api104.js";
-import m from "./cori.data.api109.js";
+import s from "./cori.data.api300.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(i, r) {
-  var t;
-  return (typeof r == "number" ? n : r instanceof o ? e : (t = o(r)) ? (r = t, e) : m)(i, r);
+function o(t, r) {
+  return t && t.expr ? new n({ ...t, ...r }) : new n(r, t);
+}
+class n {
+  constructor(r, i) {
+    this.expr = i, Object.assign(this, r);
+  }
+  toString() {
+    return String(this.expr);
+  }
+  toObject() {
+    return {
+      ...this,
+      expr: this.toString(),
+      ...s(this.expr) ? { func: !0 } : {}
+    };
+  }
 }
 export {
-  u as default
+  o as default
 };
 //# sourceMappingURL=cori.data.api338.js.map

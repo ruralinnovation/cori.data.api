@@ -1,20 +1,16 @@
-import { dataFromScan as i } from "./cori.data.api409.js";
-import { profile as d } from "./cori.data.api410.js";
-import e from "./cori.data.api411.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function n(p, o, a, t, r, f = !0) {
-  if (r = e(r), !r) {
-    const m = d(t, o);
-    f = m.nulls > 0, r = m.type();
-  }
-  return i(a, t, o, r, f);
+function u(r = 0, t = 1 / 0) {
+  return `${n(r)} < row_number() && row_number() <= ${n(t)}`;
+}
+function n(r) {
+  return r < 0 ? `count() + ${r}` : r;
 }
 export {
-  n as default
+  u as default
 };
 //# sourceMappingURL=cori.data.api317.js.map

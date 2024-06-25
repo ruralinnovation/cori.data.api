@@ -1,31 +1,30 @@
-import { FixedWidthBuilder as o } from "./cori.data.api501.js";
-import { setDuration as s, setDurationSecond as r, setDurationMillisecond as i, setDurationMicrosecond as n, setDurationNanosecond as a } from "./cori.data.api553.js";
+import { encodeUtf8 as s } from "./cori.data.api563.js";
+import { BinaryBuilder as n } from "./cori.data.api612.js";
+import { BufferBuilder as i } from "./cori.data.api504.js";
+import { VariableWidthBuilder as r } from "./cori.data.api500.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class e extends o {
+class h extends r {
+  constructor(e) {
+    super(e), this._values = new i(Uint8Array);
+  }
+  get byteLength() {
+    let e = this._pendingLength + this.length * 4;
+    return this._offsets && (e += this._offsets.byteLength), this._values && (e += this._values.byteLength), this._nulls && (e += this._nulls.byteLength), e;
+  }
+  setValue(e, t) {
+    return super.setValue(e, s(t));
+  }
+  // @ts-ignore
+  _flushPending(e, t) {
+  }
 }
-e.prototype._setValue = s;
-class d extends e {
-}
-d.prototype._setValue = r;
-class u extends e {
-}
-u.prototype._setValue = i;
-class l extends e {
-}
-l.prototype._setValue = n;
-class c extends e {
-}
-c.prototype._setValue = a;
+h.prototype._flushPending = n.prototype._flushPending;
 export {
-  e as DurationBuilder,
-  l as DurationMicrosecondBuilder,
-  u as DurationMillisecondBuilder,
-  c as DurationNanosecondBuilder,
-  d as DurationSecondBuilder
+  h as Utf8Builder
 };
 //# sourceMappingURL=cori.data.api611.js.map

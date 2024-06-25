@@ -1,51 +1,76 @@
-import { Selection as k } from "./cori.data.api135.js";
-import { EnterNode as v } from "./cori.data.api142.js";
-import x from "./cori.data.api336.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function B(r, l, y, s, h, t) {
-  for (var e = 0, n, f = l.length, o = t.length; e < o; ++e)
-    (n = l[e]) ? (n.__data__ = t[e], s[e] = n) : y[e] = new v(r, t[e]);
-  for (; e < f; ++e)
-    (n = l[e]) && (h[e] = n);
+const x = Math.PI, c = 2 * x, d = 1e-6, m = c - d;
+function E(l) {
+  this._ += l[0];
+  for (let t = 1, h = l.length; t < h; ++t)
+    this._ += arguments[t] + l[t];
 }
-function E(r, l, y, s, h, t, e) {
-  var n, f, o = /* @__PURE__ */ new Map(), i = l.length, w = t.length, g = new Array(i), _;
-  for (n = 0; n < i; ++n)
-    (f = l[n]) && (g[n] = _ = e.call(f, f.__data__, n, l) + "", o.has(_) ? h[n] = f : o.set(_, f));
-  for (n = 0; n < w; ++n)
-    _ = e.call(r, t[n], n, t) + "", (f = o.get(_)) ? (s[n] = f, f.__data__ = t[n], o.delete(_)) : y[n] = new v(r, t[n]);
-  for (n = 0; n < i; ++n)
-    (f = l[n]) && o.get(g[n]) === f && (h[n] = f);
+function q(l) {
+  let t = Math.floor(l);
+  if (!(t >= 0))
+    throw new Error(`invalid digits: ${l}`);
+  if (t > 15)
+    return E;
+  const h = 10 ** t;
+  return function(i) {
+    this._ += i[0];
+    for (let s = 1, _ = i.length; s < _; ++s)
+      this._ += Math.round(arguments[s] * h) / h + i[s];
+  };
 }
-function I(r) {
-  return r.__data__;
-}
-function d(r, l) {
-  if (!arguments.length)
-    return Array.from(this, I);
-  var y = l ? E : B, s = this._parents, h = this._groups;
-  typeof r != "function" && (r = x(r));
-  for (var t = h.length, e = new Array(t), n = new Array(t), f = new Array(t), o = 0; o < t; ++o) {
-    var i = s[o], w = h[o], g = w.length, _ = L(r.call(i, i && i.__data__, o, s)), a = _.length, m = n[o] = new Array(a), b = e[o] = new Array(a), K = f[o] = new Array(g);
-    y(i, w, m, b, K, _, l);
-    for (var c = 0, A = 0, u, V; c < a; ++c)
-      if (u = m[c]) {
-        for (c >= A && (A = c + 1); !(V = b[A]) && ++A < a; )
-          ;
-        u._next = V || null;
+class C {
+  constructor(t) {
+    this._x0 = this._y0 = // start of current subpath
+    this._x1 = this._y1 = null, this._ = "", this._append = t == null ? E : q(t);
+  }
+  moveTo(t, h) {
+    this._append`M${this._x0 = this._x1 = +t},${this._y0 = this._y1 = +h}`;
+  }
+  closePath() {
+    this._x1 !== null && (this._x1 = this._x0, this._y1 = this._y0, this._append`Z`);
+  }
+  lineTo(t, h) {
+    this._append`L${this._x1 = +t},${this._y1 = +h}`;
+  }
+  quadraticCurveTo(t, h, i, s) {
+    this._append`Q${+t},${+h},${this._x1 = +i},${this._y1 = +s}`;
+  }
+  bezierCurveTo(t, h, i, s, _, n) {
+    this._append`C${+t},${+h},${+i},${+s},${this._x1 = +_},${this._y1 = +n}`;
+  }
+  arcTo(t, h, i, s, _) {
+    if (t = +t, h = +h, i = +i, s = +s, _ = +_, _ < 0)
+      throw new Error(`negative radius: ${_}`);
+    let n = this._x1, u = this._y1, o = i - t, a = s - h, e = n - t, p = u - h, $ = e * e + p * p;
+    if (this._x1 === null)
+      this._append`M${this._x1 = t},${this._y1 = h}`;
+    else if ($ > d)
+      if (!(Math.abs(p * o - a * e) > d) || !_)
+        this._append`L${this._x1 = t},${this._y1 = h}`;
+      else {
+        let f = i - n, M = s - u, y = o * o + a * a, L = f * f + M * M, v = Math.sqrt(y), b = Math.sqrt($), T = _ * Math.tan((x - Math.acos((y + $ - L) / (2 * v * b))) / 2), r = T / b, A = T / v;
+        Math.abs(r - 1) > d && this._append`L${t + r * e},${h + r * p}`, this._append`A${_},${_},0,0,${+(p * f > e * M)},${this._x1 = t + A * o},${this._y1 = h + A * a}`;
       }
   }
-  return e = new k(e, s), e._enter = n, e._exit = f, e;
-}
-function L(r) {
-  return typeof r == "object" && "length" in r ? r : Array.from(r);
+  arc(t, h, i, s, _, n) {
+    if (t = +t, h = +h, i = +i, n = !!n, i < 0)
+      throw new Error(`negative radius: ${i}`);
+    let u = i * Math.cos(s), o = i * Math.sin(s), a = t + u, e = h + o, p = 1 ^ n, $ = n ? s - _ : _ - s;
+    this._x1 === null ? this._append`M${a},${e}` : (Math.abs(this._x1 - a) > d || Math.abs(this._y1 - e) > d) && this._append`L${a},${e}`, i && ($ < 0 && ($ = $ % c + c), $ > m ? this._append`A${i},${i},0,1,${p},${t - u},${h - o}A${i},${i},0,1,${p},${this._x1 = a},${this._y1 = e}` : $ > d && this._append`A${i},${i},0,${+($ >= x)},${p},${this._x1 = t + i * Math.cos(_)},${this._y1 = h + i * Math.sin(_)}`);
+  }
+  rect(t, h, i, s) {
+    this._append`M${this._x0 = this._x1 = +t},${this._y0 = this._y1 = +h}h${i = +i}v${+s}h${-i}Z`;
+  }
+  toString() {
+    return this._;
+  }
 }
 export {
-  d as default
+  C as Path
 };
 //# sourceMappingURL=cori.data.api141.js.map

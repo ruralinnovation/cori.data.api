@@ -1,20 +1,29 @@
-import e from "./cori.data.api60.js";
-import n from "./cori.data.api70.js";
-import r from "./cori.data.api267.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function c(o, i) {
-  return n(o, new r.classes.URLSearchParams(), Object.assign({
-    visitor: function(t, s, f, a) {
-      return r.isNode && e.isBuffer(t) ? (this.append(s, t.toString("base64")), !1) : a.defaultVisitor.apply(this, arguments);
-    }
-  }, i));
-}
+const e = {
+  classId: "classID",
+  dataType: "datatype",
+  itemId: "itemID",
+  strokeDashArray: "strokeDasharray",
+  strokeDashOffset: "strokeDashoffset",
+  strokeLineCap: "strokeLinecap",
+  strokeLineJoin: "strokeLinejoin",
+  strokeMiterLimit: "strokeMiterlimit",
+  typeOf: "typeof",
+  xLinkActuate: "xlinkActuate",
+  xLinkArcRole: "xlinkArcrole",
+  xLinkHref: "xlinkHref",
+  xLinkRole: "xlinkRole",
+  xLinkShow: "xlinkShow",
+  xLinkTitle: "xlinkTitle",
+  xLinkType: "xlinkType",
+  xmlnsXLink: "xmlnsXlink"
+};
 export {
-  c as default
+  e as hastToReact
 };
 //# sourceMappingURL=cori.data.api266.js.map

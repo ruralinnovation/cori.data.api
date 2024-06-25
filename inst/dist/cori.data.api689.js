@@ -1,35 +1,33 @@
-import { markdownLineEnding as g, markdownSpace as p } from "./cori.data.api470.js";
+import { factorySpace as k } from "./cori.data.api654.js";
+import { markdownLineEnding as E } from "./cori.data.api486.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function w(r, h, E, x, i, m) {
-  const S = this;
-  let t = 0, l;
-  return b;
-  function b(n) {
-    return r.enter(x), r.enter(i), r.consume(n), r.exit(i), r.enter(m), a;
+function B(r, S, m, x, u, a) {
+  let i;
+  return h;
+  function h(n) {
+    return n === 34 || n === 39 || n === 40 ? (r.enter(x), r.enter(u), r.consume(n), r.exit(u), i = n === 40 ? 41 : n, g) : m(n);
   }
-  function a(n) {
-    return t > 999 || n === null || n === 91 || n === 93 && !l || // To do: remove in the future once we’ve switched from
-    // `micromark-extension-footnote` to `micromark-extension-gfm-footnote`,
-    // which doesn’t need this.
-    // Hidden footnotes hook.
-    /* c8 ignore next 3 */
-    n === 94 && !t && "_hiddenFootnoteSupport" in S.parser.constructs ? E(n) : n === 93 ? (r.exit(m), r.enter(i), r.consume(n), r.exit(i), r.exit(x), h) : g(n) ? (r.enter("lineEnding"), r.consume(n), r.exit("lineEnding"), a) : (r.enter("chunkString", {
+  function g(n) {
+    return n === i ? (r.enter(u), r.consume(n), r.exit(u), r.exit(x), S) : (r.enter(a), l(n));
+  }
+  function l(n) {
+    return n === i ? (r.exit(a), g(i)) : n === null ? m(n) : E(n) ? (r.enter("lineEnding"), r.consume(n), r.exit("lineEnding"), k(r, l, "linePrefix")) : (r.enter("chunkString", {
       contentType: "string"
-    }), u(n));
+    }), t(n));
   }
-  function u(n) {
-    return n === null || n === 91 || n === 93 || g(n) || t++ > 999 ? (r.exit("chunkString"), a(n)) : (r.consume(n), l || (l = !p(n)), n === 92 ? o : u);
+  function t(n) {
+    return n === i || n === null || E(n) ? (r.exit("chunkString"), l(n)) : (r.consume(n), n === 92 ? b : t);
   }
-  function o(n) {
-    return n === 91 || n === 92 || n === 93 ? (r.consume(n), t++, u) : u(n);
+  function b(n) {
+    return n === i || n === 92 ? (r.consume(n), t) : t(n);
   }
 }
 export {
-  w as factoryLabel
+  B as factoryTitle
 };
 //# sourceMappingURL=cori.data.api689.js.map

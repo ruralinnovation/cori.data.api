@@ -1,25 +1,23 @@
+import { tweenValue as e } from "./cori.data.api228.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function i() {
-  this.innerHTML = "";
-}
-function e(n) {
+function i(t) {
   return function() {
-    this.innerHTML = n;
+    this.textContent = t;
   };
 }
-function o(n) {
+function o(t) {
   return function() {
-    var t = n.apply(this, arguments);
-    this.innerHTML = t ?? "";
+    var n = t(this);
+    this.textContent = n ?? "";
   };
 }
-function r(n) {
-  return arguments.length ? this.each(n == null ? i : (typeof n == "function" ? o : e)(n)) : this.node().innerHTML;
+function r(t) {
+  return this.tween("text", typeof t == "function" ? o(e(this, "text", t)) : i(t == null ? "" : t + ""));
 }
 export {
   r as default

@@ -1,4 +1,4 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api639.js";
+import { SIZE_PREFIX_LENGTH as s } from "./cori.data.api638.js";
 import "./cori.data.api567.js";
 import "./cori.data.api568.js";
 /*
@@ -7,30 +7,30 @@ import "./cori.data.api568.js";
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
+class r {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
   __init(t, i) {
     return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsBinary(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getRootAsLargeBinary(t, i) {
+    return (i || new r()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsBinary(t, i) {
-    return t.setPosition(t.position() + n), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsLargeBinary(t, i) {
+    return t.setPosition(t.position() + s), (i || new r()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static startBinary(t) {
+  static startLargeBinary(t) {
     t.startObject(0);
   }
-  static endBinary(t) {
+  static endLargeBinary(t) {
     return t.endObject();
   }
-  static createBinary(t) {
-    return s.startBinary(t), s.endBinary(t);
+  static createLargeBinary(t) {
+    return r.startLargeBinary(t), r.endLargeBinary(t);
   }
 }
 export {
-  s as Binary
+  r as LargeBinary
 };
 //# sourceMappingURL=cori.data.api643.js.map

@@ -1,4 +1,4 @@
-import { SIZE_PREFIX_LENGTH as s } from "./cori.data.api639.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api638.js";
 import "./cori.data.api567.js";
 import "./cori.data.api568.js";
 /*
@@ -7,30 +7,30 @@ import "./cori.data.api568.js";
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i {
+class s {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
-  __init(t, o) {
-    return this.bb_pos = t, this.bb = o, this;
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsBool(t, o) {
-    return (o || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getRootAsUtf8(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsBool(t, o) {
-    return t.setPosition(t.position() + s), (o || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsUtf8(t, i) {
+    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static startBool(t) {
+  static startUtf8(t) {
     t.startObject(0);
   }
-  static endBool(t) {
+  static endUtf8(t) {
     return t.endObject();
   }
-  static createBool(t) {
-    return i.startBool(t), i.endBool(t);
+  static createUtf8(t) {
+    return s.startUtf8(t), s.endUtf8(t);
   }
 }
 export {
-  i as Bool
+  s as Utf8
 };
 //# sourceMappingURL=cori.data.api645.js.map

@@ -4,38 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class n {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
-  }
-  __init(t, s) {
-    return this.bb_pos = t, this.bb = s, this;
-  }
-  /**
-   * The relative offset into the shared memory page where the bytes for this
-   * buffer starts
-   */
-  offset() {
-    return this.bb.readInt64(this.bb_pos);
-  }
-  /**
-   * The absolute length (in bytes) of the memory buffer. The memory is found
-   * from offset (inclusive) to offset + length (non-inclusive). When building
-   * messages using the encapsulated IPC message, padding bytes may be written
-   * after a buffer, but such padding bytes do not need to be accounted for in
-   * the size here.
-   */
-  length() {
-    return this.bb.readInt64(this.bb_pos + 8);
-  }
-  static sizeOf() {
-    return 16;
-  }
-  static createBuffer(t, s, r) {
-    return t.prep(8, 16), t.writeInt64(BigInt(r ?? 0)), t.writeInt64(BigInt(s ?? 0)), t.offset();
-  }
-}
+var t;
+(function(i) {
+  i[i.NONE = 0] = "NONE", i[i.Null = 1] = "Null", i[i.Int = 2] = "Int", i[i.FloatingPoint = 3] = "FloatingPoint", i[i.Binary = 4] = "Binary", i[i.Utf8 = 5] = "Utf8", i[i.Bool = 6] = "Bool", i[i.Decimal = 7] = "Decimal", i[i.Date = 8] = "Date", i[i.Time = 9] = "Time", i[i.Timestamp = 10] = "Timestamp", i[i.Interval = 11] = "Interval", i[i.List = 12] = "List", i[i.Struct_ = 13] = "Struct_", i[i.Union = 14] = "Union", i[i.FixedSizeBinary = 15] = "FixedSizeBinary", i[i.FixedSizeList = 16] = "FixedSizeList", i[i.Map = 17] = "Map", i[i.Duration = 18] = "Duration", i[i.LargeBinary = 19] = "LargeBinary", i[i.LargeUtf8 = 20] = "LargeUtf8", i[i.LargeList = 21] = "LargeList", i[i.RunEndEncoded = 22] = "RunEndEncoded";
+})(t || (t = {}));
 export {
-  n as Buffer
+  t as Type
 };
 //# sourceMappingURL=cori.data.api578.js.map

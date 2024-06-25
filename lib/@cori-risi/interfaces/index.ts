@@ -1,5 +1,6 @@
 export interface ERCData {
     geoid: string;
+    name: string;
     year: number;
     variable: string;
     value: number | null;

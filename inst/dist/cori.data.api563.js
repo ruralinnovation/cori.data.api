@@ -4,11 +4,9 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var O;
-(function(N) {
-  N[N.SECOND = 0] = "SECOND", N[N.MILLISECOND = 1] = "MILLISECOND", N[N.MICROSECOND = 2] = "MICROSECOND", N[N.NANOSECOND = 3] = "NANOSECOND";
-})(O || (O = {}));
+const o = new TextDecoder("utf-8"), d = (e) => o.decode(e), c = new TextEncoder(), n = (e) => c.encode(e);
 export {
-  O as TimeUnit
+  d as decodeUtf8,
+  n as encodeUtf8
 };
 //# sourceMappingURL=cori.data.api563.js.map

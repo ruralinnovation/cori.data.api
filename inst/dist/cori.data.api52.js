@@ -1,413 +1,538 @@
-import { path as n } from "./cori.data.api255.js";
-import { proc as d } from "./cori.data.api256.js";
-import { urlToPath as u } from "./cori.data.api257.js";
-import { isUrl as f } from "./cori.data.api258.js";
-import { VFileMessage as c } from "./cori.data.api245.js";
+import { bail as P } from "./cori.data.api271.js";
+import y from "./cori.data.api272.js";
+import z from "./cori.data.api273.js";
+import { CallableInstance as C } from "./cori.data.api274.js";
+import { trough as A } from "./cori.data.api275.js";
+import { VFile as S } from "./cori.data.api55.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const o = (
-  /** @type {const} */
-  [
-    "history",
-    "path",
-    "basename",
-    "stem",
-    "extname",
-    "dirname"
-  ]
-);
-class E {
+const F = {}.hasOwnProperty;
+class x extends C {
   /**
-   * Create a new virtual file.
-   *
-   * `options` is treated as:
-   *
-   * *   `string` or `Uint8Array` — `{value: options}`
-   * *   `URL` — `{path: options}`
-   * *   `VFile` — shallow copies its data over to the new file
-   * *   `object` — all fields are shallow copied over to the new file
-   *
-   * Path related fields are set in the following order (least specific to
-   * most specific): `history`, `path`, `basename`, `stem`, `extname`,
-   * `dirname`.
-   *
-   * You cannot set `dirname` or `extname` without setting either `history`,
-   * `path`, `basename`, or `stem` too.
-   *
-   * @param {Compatible | null | undefined} [value]
-   *   File value.
-   * @returns
-   *   New instance.
+   * Create a processor.
    */
-  constructor(t) {
-    let e;
-    t ? f(t) ? e = { path: t } : typeof t == "string" || g(t) ? e = { value: t } : e = t : e = {}, this.cwd = d.cwd(), this.data = {}, this.history = [], this.messages = [], this.value, this.map, this.result, this.stored;
-    let r = -1;
-    for (; ++r < o.length; ) {
-      const h = o[r];
-      h in e && e[h] !== void 0 && e[h] !== null && (this[h] = h === "history" ? [...e[h]] : e[h]);
-    }
-    let s;
-    for (s in e)
-      o.includes(s) || (this[s] = e[s]);
+  constructor() {
+    super("copy"), this.Compiler = void 0, this.Parser = void 0, this.attachers = [], this.compiler = void 0, this.freezeIndex = -1, this.frozen = void 0, this.namespace = {}, this.parser = void 0, this.transformers = A();
   }
   /**
-   * Get the basename (including extname) (example: `'index.min.js'`).
+   * Copy a processor.
    *
-   * @returns {string | undefined}
-   *   Basename.
+   * @deprecated
+   *   This is a private internal method and should not be used.
+   * @returns {Processor<ParseTree, HeadTree, TailTree, CompileTree, CompileResult>}
+   *   New *unfrozen* processor ({@linkcode Processor}) that is
+   *   configured to work the same as its ancestor.
+   *   When the descendant processor is configured in the future it does not
+   *   affect the ancestral processor.
    */
-  get basename() {
-    return typeof this.path == "string" ? n.basename(this.path) : void 0;
-  }
-  /**
-   * Set basename (including extname) (`'index.min.js'`).
-   *
-   * Cannot contain path separators (`'/'` on unix, macOS, and browsers, `'\'`
-   * on windows).
-   * Cannot be nullified (use `file.path = file.dirname` instead).
-   *
-   * @param {string} basename
-   *   Basename.
-   * @returns {undefined}
-   *   Nothing.
-   */
-  set basename(t) {
-    m(t, "basename"), a(t, "basename"), this.path = n.join(this.dirname || "", t);
-  }
-  /**
-   * Get the parent path (example: `'~'`).
-   *
-   * @returns {string | undefined}
-   *   Dirname.
-   */
-  get dirname() {
-    return typeof this.path == "string" ? n.dirname(this.path) : void 0;
-  }
-  /**
-   * Set the parent path (example: `'~'`).
-   *
-   * Cannot be set if there’s no `path` yet.
-   *
-   * @param {string | undefined} dirname
-   *   Dirname.
-   * @returns {undefined}
-   *   Nothing.
-   */
-  set dirname(t) {
-    p(this.basename, "dirname"), this.path = n.join(t || "", this.basename);
-  }
-  /**
-   * Get the extname (including dot) (example: `'.js'`).
-   *
-   * @returns {string | undefined}
-   *   Extname.
-   */
-  get extname() {
-    return typeof this.path == "string" ? n.extname(this.path) : void 0;
-  }
-  /**
-   * Set the extname (including dot) (example: `'.js'`).
-   *
-   * Cannot contain path separators (`'/'` on unix, macOS, and browsers, `'\'`
-   * on windows).
-   * Cannot be set if there’s no `path` yet.
-   *
-   * @param {string | undefined} extname
-   *   Extname.
-   * @returns {undefined}
-   *   Nothing.
-   */
-  set extname(t) {
-    if (a(t, "extname"), p(this.dirname, "extname"), t) {
-      if (t.codePointAt(0) !== 46)
-        throw new Error("`extname` must start with `.`");
-      if (t.includes(".", 1))
-        throw new Error("`extname` cannot contain multiple dots");
-    }
-    this.path = n.join(this.dirname, this.stem + (t || ""));
-  }
-  /**
-   * Get the full path (example: `'~/index.min.js'`).
-   *
-   * @returns {string}
-   *   Path.
-   */
-  get path() {
-    return this.history[this.history.length - 1];
-  }
-  /**
-   * Set the full path (example: `'~/index.min.js'`).
-   *
-   * Cannot be nullified.
-   * You can set a file URL (a `URL` object with a `file:` protocol) which will
-   * be turned into a path with `url.fileURLToPath`.
-   *
-   * @param {URL | string} path
-   *   Path.
-   * @returns {undefined}
-   *   Nothing.
-   */
-  set path(t) {
-    f(t) && (t = u(t)), m(t, "path"), this.path !== t && this.history.push(t);
-  }
-  /**
-   * Get the stem (basename w/o extname) (example: `'index.min'`).
-   *
-   * @returns {string | undefined}
-   *   Stem.
-   */
-  get stem() {
-    return typeof this.path == "string" ? n.basename(this.path, this.extname) : void 0;
-  }
-  /**
-   * Set the stem (basename w/o extname) (example: `'index.min'`).
-   *
-   * Cannot contain path separators (`'/'` on unix, macOS, and browsers, `'\'`
-   * on windows).
-   * Cannot be nullified (use `file.path = file.dirname` instead).
-   *
-   * @param {string} stem
-   *   Stem.
-   * @returns {undefined}
-   *   Nothing.
-   */
-  set stem(t) {
-    m(t, "stem"), a(t, "stem"), this.path = n.join(this.dirname || "", t + (this.extname || ""));
-  }
-  // Normal prototypal methods.
-  /**
-   * Create a fatal message for `reason` associated with the file.
-   *
-   * The `fatal` field of the message is set to `true` (error; file not usable)
-   * and the `file` field is set to the current file path.
-   * The message is added to the `messages` field on `file`.
-   *
-   * > 🪦 **Note**: also has obsolete signatures.
-   *
-   * @overload
-   * @param {string} reason
-   * @param {MessageOptions | null | undefined} [options]
-   * @returns {never}
-   *
-   * @overload
-   * @param {string} reason
-   * @param {Node | NodeLike | null | undefined} parent
-   * @param {string | null | undefined} [origin]
-   * @returns {never}
-   *
-   * @overload
-   * @param {string} reason
-   * @param {Point | Position | null | undefined} place
-   * @param {string | null | undefined} [origin]
-   * @returns {never}
-   *
-   * @overload
-   * @param {string} reason
-   * @param {string | null | undefined} [origin]
-   * @returns {never}
-   *
-   * @overload
-   * @param {Error | VFileMessage} cause
-   * @param {Node | NodeLike | null | undefined} parent
-   * @param {string | null | undefined} [origin]
-   * @returns {never}
-   *
-   * @overload
-   * @param {Error | VFileMessage} cause
-   * @param {Point | Position | null | undefined} place
-   * @param {string | null | undefined} [origin]
-   * @returns {never}
-   *
-   * @overload
-   * @param {Error | VFileMessage} cause
-   * @param {string | null | undefined} [origin]
-   * @returns {never}
-   *
-   * @param {Error | VFileMessage | string} causeOrReason
-   *   Reason for message, should use markdown.
-   * @param {Node | NodeLike | MessageOptions | Point | Position | string | null | undefined} [optionsOrParentOrPlace]
-   *   Configuration (optional).
-   * @param {string | null | undefined} [origin]
-   *   Place in code where the message originates (example:
-   *   `'my-package:my-rule'` or `'my-rule'`).
-   * @returns {never}
-   *   Never.
-   * @throws {VFileMessage}
-   *   Message.
-   */
-  fail(t, e, r) {
-    const s = this.message(t, e, r);
-    throw s.fatal = !0, s;
-  }
-  /**
-   * Create an info message for `reason` associated with the file.
-   *
-   * The `fatal` field of the message is set to `undefined` (info; change
-   * likely not needed) and the `file` field is set to the current file path.
-   * The message is added to the `messages` field on `file`.
-   *
-   * > 🪦 **Note**: also has obsolete signatures.
-   *
-   * @overload
-   * @param {string} reason
-   * @param {MessageOptions | null | undefined} [options]
-   * @returns {VFileMessage}
-   *
-   * @overload
-   * @param {string} reason
-   * @param {Node | NodeLike | null | undefined} parent
-   * @param {string | null | undefined} [origin]
-   * @returns {VFileMessage}
-   *
-   * @overload
-   * @param {string} reason
-   * @param {Point | Position | null | undefined} place
-   * @param {string | null | undefined} [origin]
-   * @returns {VFileMessage}
-   *
-   * @overload
-   * @param {string} reason
-   * @param {string | null | undefined} [origin]
-   * @returns {VFileMessage}
-   *
-   * @overload
-   * @param {Error | VFileMessage} cause
-   * @param {Node | NodeLike | null | undefined} parent
-   * @param {string | null | undefined} [origin]
-   * @returns {VFileMessage}
-   *
-   * @overload
-   * @param {Error | VFileMessage} cause
-   * @param {Point | Position | null | undefined} place
-   * @param {string | null | undefined} [origin]
-   * @returns {VFileMessage}
-   *
-   * @overload
-   * @param {Error | VFileMessage} cause
-   * @param {string | null | undefined} [origin]
-   * @returns {VFileMessage}
-   *
-   * @param {Error | VFileMessage | string} causeOrReason
-   *   Reason for message, should use markdown.
-   * @param {Node | NodeLike | MessageOptions | Point | Position | string | null | undefined} [optionsOrParentOrPlace]
-   *   Configuration (optional).
-   * @param {string | null | undefined} [origin]
-   *   Place in code where the message originates (example:
-   *   `'my-package:my-rule'` or `'my-rule'`).
-   * @returns {VFileMessage}
-   *   Message.
-   */
-  info(t, e, r) {
-    const s = this.message(t, e, r);
-    return s.fatal = void 0, s;
-  }
-  /**
-   * Create a message for `reason` associated with the file.
-   *
-   * The `fatal` field of the message is set to `false` (warning; change may be
-   * needed) and the `file` field is set to the current file path.
-   * The message is added to the `messages` field on `file`.
-   *
-   * > 🪦 **Note**: also has obsolete signatures.
-   *
-   * @overload
-   * @param {string} reason
-   * @param {MessageOptions | null | undefined} [options]
-   * @returns {VFileMessage}
-   *
-   * @overload
-   * @param {string} reason
-   * @param {Node | NodeLike | null | undefined} parent
-   * @param {string | null | undefined} [origin]
-   * @returns {VFileMessage}
-   *
-   * @overload
-   * @param {string} reason
-   * @param {Point | Position | null | undefined} place
-   * @param {string | null | undefined} [origin]
-   * @returns {VFileMessage}
-   *
-   * @overload
-   * @param {string} reason
-   * @param {string | null | undefined} [origin]
-   * @returns {VFileMessage}
-   *
-   * @overload
-   * @param {Error | VFileMessage} cause
-   * @param {Node | NodeLike | null | undefined} parent
-   * @param {string | null | undefined} [origin]
-   * @returns {VFileMessage}
-   *
-   * @overload
-   * @param {Error | VFileMessage} cause
-   * @param {Point | Position | null | undefined} place
-   * @param {string | null | undefined} [origin]
-   * @returns {VFileMessage}
-   *
-   * @overload
-   * @param {Error | VFileMessage} cause
-   * @param {string | null | undefined} [origin]
-   * @returns {VFileMessage}
-   *
-   * @param {Error | VFileMessage | string} causeOrReason
-   *   Reason for message, should use markdown.
-   * @param {Node | NodeLike | MessageOptions | Point | Position | string | null | undefined} [optionsOrParentOrPlace]
-   *   Configuration (optional).
-   * @param {string | null | undefined} [origin]
-   *   Place in code where the message originates (example:
-   *   `'my-package:my-rule'` or `'my-rule'`).
-   * @returns {VFileMessage}
-   *   Message.
-   */
-  message(t, e, r) {
-    const s = new c(
-      // @ts-expect-error: the overloads are fine.
-      t,
-      e,
-      r
+  copy() {
+    const e = (
+      /** @type {Processor<ParseTree, HeadTree, TailTree, CompileTree, CompileResult>} */
+      new x()
     );
-    return this.path && (s.name = this.path + ":" + s.name, s.file = this.path), s.fatal = !1, this.messages.push(s), s;
+    let n = -1;
+    for (; ++n < this.attachers.length; ) {
+      const t = this.attachers[n];
+      e.use(...t);
+    }
+    return e.data(y(!0, {}, this.namespace)), e;
   }
   /**
-   * Serialize the file.
+   * Configure the processor with info available to all plugins.
+   * Information is stored in an object.
    *
-   * > **Note**: which encodings are supported depends on the engine.
-   * > For info on Node.js, see:
-   * > <https://nodejs.org/api/util.html#whatwg-supported-encodings>.
+   * Typically, options can be given to a specific plugin, but sometimes it
+   * makes sense to have information shared with several plugins.
+   * For example, a list of HTML elements that are self-closing, which is
+   * needed during all phases.
    *
-   * @param {string | null | undefined} [encoding='utf8']
-   *   Character encoding to understand `value` as when it’s a `Uint8Array`
-   *   (default: `'utf-8'`).
-   * @returns {string}
-   *   Serialized file.
+   * > **Note**: setting information cannot occur on *frozen* processors.
+   * > Call the processor first to create a new unfrozen processor.
+   *
+   * > **Note**: to register custom data in TypeScript, augment the
+   * > {@linkcode Data} interface.
+   *
+   * @example
+   *   This example show how to get and set info:
+   *
+   *   ```js
+   *   import {unified} from 'unified'
+   *
+   *   const processor = unified().data('alpha', 'bravo')
+   *
+   *   processor.data('alpha') // => 'bravo'
+   *
+   *   processor.data() // => {alpha: 'bravo'}
+   *
+   *   processor.data({charlie: 'delta'})
+   *
+   *   processor.data() // => {charlie: 'delta'}
+   *   ```
+   *
+   * @template {keyof Data} Key
+   *
+   * @overload
+   * @returns {Data}
+   *
+   * @overload
+   * @param {Data} dataset
+   * @returns {Processor<ParseTree, HeadTree, TailTree, CompileTree, CompileResult>}
+   *
+   * @overload
+   * @param {Key} key
+   * @returns {Data[Key]}
+   *
+   * @overload
+   * @param {Key} key
+   * @param {Data[Key]} value
+   * @returns {Processor<ParseTree, HeadTree, TailTree, CompileTree, CompileResult>}
+   *
+   * @param {Data | Key} [key]
+   *   Key to get or set, or entire dataset to set, or nothing to get the
+   *   entire dataset (optional).
+   * @param {Data[Key]} [value]
+   *   Value to set (optional).
+   * @returns {unknown}
+   *   The current processor when setting, the value at `key` when getting, or
+   *   the entire dataset when getting without key.
    */
-  toString(t) {
-    return this.value === void 0 ? "" : typeof this.value == "string" ? this.value : new TextDecoder(t || void 0).decode(this.value);
+  data(e, n) {
+    return typeof e == "string" ? arguments.length === 2 ? (b("data", this.frozen), this.namespace[e] = n, this) : F.call(this.namespace, e) && this.namespace[e] || void 0 : e ? (b("data", this.frozen), this.namespace = e, this) : this.namespace;
+  }
+  /**
+   * Freeze a processor.
+   *
+   * Frozen processors are meant to be extended and not to be configured
+   * directly.
+   *
+   * When a processor is frozen it cannot be unfrozen.
+   * New processors working the same way can be created by calling the
+   * processor.
+   *
+   * It’s possible to freeze processors explicitly by calling `.freeze()`.
+   * Processors freeze automatically when `.parse()`, `.run()`, `.runSync()`,
+   * `.stringify()`, `.process()`, or `.processSync()` are called.
+   *
+   * @returns {Processor<ParseTree, HeadTree, TailTree, CompileTree, CompileResult>}
+   *   The current processor.
+   */
+  freeze() {
+    if (this.frozen)
+      return this;
+    const e = (
+      /** @type {Processor} */
+      /** @type {unknown} */
+      this
+    );
+    for (; ++this.freezeIndex < this.attachers.length; ) {
+      const [n, ...t] = this.attachers[this.freezeIndex];
+      if (t[0] === !1)
+        continue;
+      t[0] === !0 && (t[0] = void 0);
+      const i = n.call(e, ...t);
+      typeof i == "function" && this.transformers.use(i);
+    }
+    return this.frozen = !0, this.freezeIndex = Number.POSITIVE_INFINITY, this;
+  }
+  /**
+   * Parse text to a syntax tree.
+   *
+   * > **Note**: `parse` freezes the processor if not already *frozen*.
+   *
+   * > **Note**: `parse` performs the parse phase, not the run phase or other
+   * > phases.
+   *
+   * @param {Compatible | undefined} [file]
+   *   file to parse (optional); typically `string` or `VFile`; any value
+   *   accepted as `x` in `new VFile(x)`.
+   * @returns {ParseTree extends undefined ? Node : ParseTree}
+   *   Syntax tree representing `file`.
+   */
+  parse(e) {
+    this.freeze();
+    const n = m(e), t = this.parser || this.Parser;
+    return w("parse", t), t(String(n), n);
+  }
+  /**
+   * Process the given file as configured on the processor.
+   *
+   * > **Note**: `process` freezes the processor if not already *frozen*.
+   *
+   * > **Note**: `process` performs the parse, run, and stringify phases.
+   *
+   * @overload
+   * @param {Compatible | undefined} file
+   * @param {ProcessCallback<VFileWithOutput<CompileResult>>} done
+   * @returns {undefined}
+   *
+   * @overload
+   * @param {Compatible | undefined} [file]
+   * @returns {Promise<VFileWithOutput<CompileResult>>}
+   *
+   * @param {Compatible | undefined} [file]
+   *   File (optional); typically `string` or `VFile`]; any value accepted as
+   *   `x` in `new VFile(x)`.
+   * @param {ProcessCallback<VFileWithOutput<CompileResult>> | undefined} [done]
+   *   Callback (optional).
+   * @returns {Promise<VFile> | undefined}
+   *   Nothing if `done` is given.
+   *   Otherwise a promise, rejected with a fatal error or resolved with the
+   *   processed file.
+   *
+   *   The parsed, transformed, and compiled value is available at
+   *   `file.value` (see note).
+   *
+   *   > **Note**: unified typically compiles by serializing: most
+   *   > compilers return `string` (or `Uint8Array`).
+   *   > Some compilers, such as the one configured with
+   *   > [`rehype-react`][rehype-react], return other values (in this case, a
+   *   > React tree).
+   *   > If you’re using a compiler that doesn’t serialize, expect different
+   *   > result values.
+   *   >
+   *   > To register custom results in TypeScript, add them to
+   *   > {@linkcode CompileResultMap}.
+   *
+   *   [rehype-react]: https://github.com/rehypejs/rehype-react
+   */
+  process(e, n) {
+    const t = this;
+    return this.freeze(), w("process", this.parser || this.Parser), g("process", this.compiler || this.Compiler), n ? i(void 0, n) : new Promise(i);
+    function i(a, h) {
+      const p = m(e), l = (
+        /** @type {HeadTree extends undefined ? Node : HeadTree} */
+        /** @type {unknown} */
+        t.parse(p)
+      );
+      t.run(l, p, function(o, c, f) {
+        if (o || !c || !f)
+          return s(o);
+        const u = (
+          /** @type {CompileTree extends undefined ? Node : CompileTree} */
+          /** @type {unknown} */
+          c
+        ), d = t.stringify(u, f);
+        D(d) ? f.value = d : f.result = d, s(
+          o,
+          /** @type {VFileWithOutput<CompileResult>} */
+          f
+        );
+      });
+      function s(o, c) {
+        o || !c ? h(o) : a ? a(c) : n(void 0, c);
+      }
+    }
+  }
+  /**
+   * Process the given file as configured on the processor.
+   *
+   * An error is thrown if asynchronous transforms are configured.
+   *
+   * > **Note**: `processSync` freezes the processor if not already *frozen*.
+   *
+   * > **Note**: `processSync` performs the parse, run, and stringify phases.
+   *
+   * @param {Compatible | undefined} [file]
+   *   File (optional); typically `string` or `VFile`; any value accepted as
+   *   `x` in `new VFile(x)`.
+   * @returns {VFileWithOutput<CompileResult>}
+   *   The processed file.
+   *
+   *   The parsed, transformed, and compiled value is available at
+   *   `file.value` (see note).
+   *
+   *   > **Note**: unified typically compiles by serializing: most
+   *   > compilers return `string` (or `Uint8Array`).
+   *   > Some compilers, such as the one configured with
+   *   > [`rehype-react`][rehype-react], return other values (in this case, a
+   *   > React tree).
+   *   > If you’re using a compiler that doesn’t serialize, expect different
+   *   > result values.
+   *   >
+   *   > To register custom results in TypeScript, add them to
+   *   > {@linkcode CompileResultMap}.
+   *
+   *   [rehype-react]: https://github.com/rehypejs/rehype-react
+   */
+  processSync(e) {
+    let n = !1, t;
+    return this.freeze(), w("processSync", this.parser || this.Parser), g("processSync", this.compiler || this.Compiler), this.process(e, i), T("processSync", "process", n), t;
+    function i(a, h) {
+      n = !0, P(a), t = h;
+    }
+  }
+  /**
+   * Run *transformers* on a syntax tree.
+   *
+   * > **Note**: `run` freezes the processor if not already *frozen*.
+   *
+   * > **Note**: `run` performs the run phase, not other phases.
+   *
+   * @overload
+   * @param {HeadTree extends undefined ? Node : HeadTree} tree
+   * @param {RunCallback<TailTree extends undefined ? Node : TailTree>} done
+   * @returns {undefined}
+   *
+   * @overload
+   * @param {HeadTree extends undefined ? Node : HeadTree} tree
+   * @param {Compatible | undefined} file
+   * @param {RunCallback<TailTree extends undefined ? Node : TailTree>} done
+   * @returns {undefined}
+   *
+   * @overload
+   * @param {HeadTree extends undefined ? Node : HeadTree} tree
+   * @param {Compatible | undefined} [file]
+   * @returns {Promise<TailTree extends undefined ? Node : TailTree>}
+   *
+   * @param {HeadTree extends undefined ? Node : HeadTree} tree
+   *   Tree to transform and inspect.
+   * @param {(
+   *   RunCallback<TailTree extends undefined ? Node : TailTree> |
+   *   Compatible
+   * )} [file]
+   *   File associated with `node` (optional); any value accepted as `x` in
+   *   `new VFile(x)`.
+   * @param {RunCallback<TailTree extends undefined ? Node : TailTree>} [done]
+   *   Callback (optional).
+   * @returns {Promise<TailTree extends undefined ? Node : TailTree> | undefined}
+   *   Nothing if `done` is given.
+   *   Otherwise, a promise rejected with a fatal error or resolved with the
+   *   transformed tree.
+   */
+  run(e, n, t) {
+    I(e), this.freeze();
+    const i = this.transformers;
+    return !t && typeof n == "function" && (t = n, n = void 0), t ? a(void 0, t) : new Promise(a);
+    function a(h, p) {
+      const l = m(n);
+      i.run(e, l, s);
+      function s(o, c, f) {
+        const u = (
+          /** @type {TailTree extends undefined ? Node : TailTree} */
+          c || e
+        );
+        o ? p(o) : h ? h(u) : t(void 0, u, f);
+      }
+    }
+  }
+  /**
+   * Run *transformers* on a syntax tree.
+   *
+   * An error is thrown if asynchronous transforms are configured.
+   *
+   * > **Note**: `runSync` freezes the processor if not already *frozen*.
+   *
+   * > **Note**: `runSync` performs the run phase, not other phases.
+   *
+   * @param {HeadTree extends undefined ? Node : HeadTree} tree
+   *   Tree to transform and inspect.
+   * @param {Compatible | undefined} [file]
+   *   File associated with `node` (optional); any value accepted as `x` in
+   *   `new VFile(x)`.
+   * @returns {TailTree extends undefined ? Node : TailTree}
+   *   Transformed tree.
+   */
+  runSync(e, n) {
+    let t = !1, i;
+    return this.run(e, n, a), T("runSync", "run", t), i;
+    function a(h, p) {
+      P(h), i = p, t = !0;
+    }
+  }
+  /**
+   * Compile a syntax tree.
+   *
+   * > **Note**: `stringify` freezes the processor if not already *frozen*.
+   *
+   * > **Note**: `stringify` performs the stringify phase, not the run phase
+   * > or other phases.
+   *
+   * @param {CompileTree extends undefined ? Node : CompileTree} tree
+   *   Tree to compile.
+   * @param {Compatible | undefined} [file]
+   *   File associated with `node` (optional); any value accepted as `x` in
+   *   `new VFile(x)`.
+   * @returns {CompileResult extends undefined ? Value : CompileResult}
+   *   Textual representation of the tree (see note).
+   *
+   *   > **Note**: unified typically compiles by serializing: most compilers
+   *   > return `string` (or `Uint8Array`).
+   *   > Some compilers, such as the one configured with
+   *   > [`rehype-react`][rehype-react], return other values (in this case, a
+   *   > React tree).
+   *   > If you’re using a compiler that doesn’t serialize, expect different
+   *   > result values.
+   *   >
+   *   > To register custom results in TypeScript, add them to
+   *   > {@linkcode CompileResultMap}.
+   *
+   *   [rehype-react]: https://github.com/rehypejs/rehype-react
+   */
+  stringify(e, n) {
+    this.freeze();
+    const t = m(n), i = this.compiler || this.Compiler;
+    return g("stringify", i), I(e), i(e, t);
+  }
+  /**
+   * Configure the processor to use a plugin, a list of usable values, or a
+   * preset.
+   *
+   * If the processor is already using a plugin, the previous plugin
+   * configuration is changed based on the options that are passed in.
+   * In other words, the plugin is not added a second time.
+   *
+   * > **Note**: `use` cannot be called on *frozen* processors.
+   * > Call the processor first to create a new unfrozen processor.
+   *
+   * @example
+   *   There are many ways to pass plugins to `.use()`.
+   *   This example gives an overview:
+   *
+   *   ```js
+   *   import {unified} from 'unified'
+   *
+   *   unified()
+   *     // Plugin with options:
+   *     .use(pluginA, {x: true, y: true})
+   *     // Passing the same plugin again merges configuration (to `{x: true, y: false, z: true}`):
+   *     .use(pluginA, {y: false, z: true})
+   *     // Plugins:
+   *     .use([pluginB, pluginC])
+   *     // Two plugins, the second with options:
+   *     .use([pluginD, [pluginE, {}]])
+   *     // Preset with plugins and settings:
+   *     .use({plugins: [pluginF, [pluginG, {}]], settings: {position: false}})
+   *     // Settings only:
+   *     .use({settings: {position: false}})
+   *   ```
+   *
+   * @template {Array<unknown>} [Parameters=[]]
+   * @template {Node | string | undefined} [Input=undefined]
+   * @template [Output=Input]
+   *
+   * @overload
+   * @param {Preset | null | undefined} [preset]
+   * @returns {Processor<ParseTree, HeadTree, TailTree, CompileTree, CompileResult>}
+   *
+   * @overload
+   * @param {PluggableList} list
+   * @returns {Processor<ParseTree, HeadTree, TailTree, CompileTree, CompileResult>}
+   *
+   * @overload
+   * @param {Plugin<Parameters, Input, Output>} plugin
+   * @param {...(Parameters | [boolean])} parameters
+   * @returns {UsePlugin<ParseTree, HeadTree, TailTree, CompileTree, CompileResult, Input, Output>}
+   *
+   * @param {PluggableList | Plugin | Preset | null | undefined} value
+   *   Usable value.
+   * @param {...unknown} parameters
+   *   Parameters, when a plugin is given as a usable value.
+   * @returns {Processor<ParseTree, HeadTree, TailTree, CompileTree, CompileResult>}
+   *   Current processor.
+   */
+  use(e, ...n) {
+    const t = this.attachers, i = this.namespace;
+    if (b("use", this.frozen), e != null)
+      if (typeof e == "function")
+        l(e, n);
+      else if (typeof e == "object")
+        Array.isArray(e) ? p(e) : h(e);
+      else
+        throw new TypeError("Expected usable value, not `" + e + "`");
+    return this;
+    function a(s) {
+      if (typeof s == "function")
+        l(s, []);
+      else if (typeof s == "object")
+        if (Array.isArray(s)) {
+          const [o, ...c] = (
+            /** @type {PluginTuple<Array<unknown>>} */
+            s
+          );
+          l(o, c);
+        } else
+          h(s);
+      else
+        throw new TypeError("Expected usable value, not `" + s + "`");
+    }
+    function h(s) {
+      if (!("plugins" in s) && !("settings" in s))
+        throw new Error(
+          "Expected usable value but received an empty preset, which is probably a mistake: presets typically come with `plugins` and sometimes with `settings`, but this has neither"
+        );
+      p(s.plugins), s.settings && (i.settings = y(!0, i.settings, s.settings));
+    }
+    function p(s) {
+      let o = -1;
+      if (s != null)
+        if (Array.isArray(s))
+          for (; ++o < s.length; ) {
+            const c = s[o];
+            a(c);
+          }
+        else
+          throw new TypeError("Expected a list of plugins, not `" + s + "`");
+    }
+    function l(s, o) {
+      let c = -1, f = -1;
+      for (; ++c < t.length; )
+        if (t[c][0] === s) {
+          f = c;
+          break;
+        }
+      if (f === -1)
+        t.push([s, ...o]);
+      else if (o.length > 0) {
+        let [u, ...d] = o;
+        const E = t[f][1];
+        z(E) && z(u) && (u = y(!0, E, u)), t[f] = [s, u, ...d];
+      }
+    }
   }
 }
-function a(i, t) {
-  if (i && i.includes(n.sep))
+const R = new x().freeze();
+function w(r, e) {
+  if (typeof e != "function")
+    throw new TypeError("Cannot `" + r + "` without `parser`");
+}
+function g(r, e) {
+  if (typeof e != "function")
+    throw new TypeError("Cannot `" + r + "` without `compiler`");
+}
+function b(r, e) {
+  if (e)
     throw new Error(
-      "`" + t + "` cannot be a path: did not expect `" + n.sep + "`"
+      "Cannot call `" + r + "` on a frozen processor.\nCreate a new processor first, by calling it: use `processor()` instead of `processor`."
     );
 }
-function m(i, t) {
-  if (!i)
-    throw new Error("`" + t + "` cannot be empty");
+function I(r) {
+  if (!z(r) || typeof r.type != "string")
+    throw new TypeError("Expected node, got `" + r + "`");
 }
-function p(i, t) {
-  if (!i)
-    throw new Error("Setting `" + t + "` requires `path` to be set too");
+function T(r, e, n) {
+  if (!n)
+    throw new Error(
+      "`" + r + "` finished async. Use `" + e + "` instead"
+    );
 }
-function g(i) {
-  return !!(i && typeof i == "object" && "byteLength" in i && "byteOffset" in i);
+function m(r) {
+  return j(r) ? r : new S(r);
+}
+function j(r) {
+  return !!(r && typeof r == "object" && "message" in r && "messages" in r);
+}
+function D(r) {
+  return typeof r == "string" || L(r);
+}
+function L(r) {
+  return !!(r && typeof r == "object" && "byteLength" in r && "byteOffset" in r);
 }
 export {
-  E as VFile
+  x as Processor,
+  R as unified
 };
 //# sourceMappingURL=cori.data.api52.js.map

@@ -1,41 +1,77 @@
-import s from "./cori.data.api389.js";
-import u from "./cori.data.api390.js";
-import i from "./cori.data.api310.js";
+import a from "./cori.data.api296.js";
+import c from "./cori.data.api344.js";
+import { DataType as o, Utf8 as t, Uint64 as i, Uint32 as s, Uint16 as u, Uint8 as l, TimeSecond as w, TimeNanosecond as m, TimeMillisecond as d, TimeMicrosecond as I, Null as T, IntervalYearMonth as D, IntervalDayTime as U, Int64 as f, Int32 as r, Int16 as y, Int8 as p, Float64 as M, Float32 as F, Float16 as v, Dictionary as B, DateMillisecond as N, DateDay as h, Bool as S, Binary as Y } from "./cori.data.api419.js";
+import { Type as e } from "./cori.data.api495.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function g(e, t) {
-  return e == null || t == null || e !== e || t !== t ? !1 : e === t ? !0 : s(e) || s(t) ? +e == +t : u(e) && u(t) ? e + "" == t + "" : i(e) && i(t) ? p(e, t) : !1;
-}
-function p(e, t) {
-  if (Object.getPrototypeOf(e) !== Object.getPrototypeOf(t))
-    return !1;
-  if (e.length || t.length)
-    return c(e, t);
-  const r = Object.keys(e), n = Object.keys(t);
-  if (r.length !== n.length || (r.sort(), n.sort(), !c(r, n, (l, o) => l === o)))
-    return !1;
-  const f = r.length;
-  for (let l = 0; l < f; ++l) {
-    const o = r[l];
-    if (!g(e[o], t[o]))
-      return !1;
+function j(n) {
+  if (n instanceof o || n == null)
+    return n;
+  switch (n) {
+    case e.Binary:
+      return new Y();
+    case e.Bool:
+      return new S();
+    case e.DateDay:
+      return new h();
+    case e.DateMillisecond:
+    case e.Date:
+      return new N();
+    case e.Dictionary:
+      return new B(new t(), new r());
+    case e.Float16:
+      return new v();
+    case e.Float32:
+      return new F();
+    case e.Float64:
+    case e.Float:
+      return new M();
+    case e.Int8:
+      return new p();
+    case e.Int16:
+      return new y();
+    case e.Int32:
+    case e.Int:
+      return new r();
+    case e.Int64:
+      return new f();
+    case e.IntervalDayTime:
+      return new U();
+    case e.Interval:
+    case e.IntervalYearMonth:
+      return new D();
+    case e.Null:
+      return new T();
+    case e.TimeMicrosecond:
+      return new I();
+    case e.TimeMillisecond:
+    case e.Time:
+      return new d();
+    case e.TimeNanosecond:
+      return new m();
+    case e.TimeSecond:
+      return new w();
+    case e.Uint8:
+      return new l();
+    case e.Uint16:
+      return new u();
+    case e.Uint32:
+      return new s();
+    case e.Uint64:
+      return new i();
+    case e.Utf8:
+      return new t();
+    default:
+      a(
+        `Unsupported type code: ${c(n)}. Use a data type constructor instead?`
+      );
   }
-  return !0;
-}
-function c(e, t, r = g) {
-  const n = e.length;
-  if (n !== t.length)
-    return !1;
-  for (let f = 0; f < n; ++f)
-    if (!r(e[f], t[f]))
-      return !1;
-  return !0;
 }
 export {
-  g as default
+  j as default
 };
 //# sourceMappingURL=cori.data.api417.js.map

@@ -1,52 +1,60 @@
-import { set as p } from "./cori.data.api199.js";
-import { tweenValue as v } from "./cori.data.api196.js";
-import g from "./cori.data.api338.js";
-import { styleValue as f } from "./cori.data.api155.js";
-import { interpolateTransformCss as d } from "./cori.data.api113.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(t, n) {
-  var i, r, o;
-  return function() {
-    var s = f(this, t), e = (this.style.removeProperty(t), f(this, t));
-    return s === e ? null : s === i && e === r ? o : o = n(i = s, r = e);
+function h(i) {
+  return function(t) {
+    i.call(this, t, this.__data__);
   };
 }
-function c(t) {
+function p(i) {
+  return i.trim().split(/^|\s+/).map(function(t) {
+    var s = "", n = t.indexOf(".");
+    return n >= 0 && (s = t.slice(n + 1), t = t.slice(0, n)), { type: t, name: s };
+  });
+}
+function c(i) {
   return function() {
-    this.style.removeProperty(t);
+    var t = this.__on;
+    if (t) {
+      for (var s = 0, n = -1, e = t.length, r; s < e; ++s)
+        r = t[s], (!i.type || r.type === i.type) && r.name === i.name ? this.removeEventListener(r.type, r.listener, r.options) : t[++n] = r;
+      ++n ? t.length = n : delete this.__on;
+    }
   };
 }
-function w(t, n, i) {
-  var r, o = i + "", s;
+function v(i, t, s) {
   return function() {
-    var e = f(this, t);
-    return e === o ? null : e === r ? s : s = n(r = e, i);
+    var n = this.__on, e, r = h(t);
+    if (n) {
+      for (var a = 0, f = n.length; a < f; ++a)
+        if ((e = n[a]).type === i.type && e.name === i.name) {
+          this.removeEventListener(e.type, e.listener, e.options), this.addEventListener(e.type, e.listener = r, e.options = s), e.value = t;
+          return;
+        }
+    }
+    this.addEventListener(i.type, r, s), e = { type: i.type, name: i.name, value: t, listener: r, options: s }, n ? n.push(e) : this.__on = [e];
   };
 }
-function T(t, n, i) {
-  var r, o, s;
-  return function() {
-    var e = f(this, t), u = i(this), l = u + "";
-    return u == null && (l = u = (this.style.removeProperty(t), f(this, t))), e === l ? null : e === r && l === o ? s : (o = l, s = n(r = e, u));
-  };
-}
-function P(t, n) {
-  var i, r, o, s = "style." + n, e = "end." + s, u;
-  return function() {
-    var l = p(this, t), y = l.on, h = l.value[s] == null ? u || (u = c(n)) : void 0;
-    (y !== i || o !== h) && (r = (i = y).copy()).on(e, o = h), l.on = r;
-  };
-}
-function b(t, n, i) {
-  var r = (t += "") == "transform" ? d : g;
-  return n == null ? this.styleTween(t, a(t, r)).on("end.style." + t, c(t)) : typeof n == "function" ? this.styleTween(t, T(t, r, v(this, "style." + t, n))).each(P(this._id, t)) : this.styleTween(t, w(t, r, n), i).on("end.style." + t, null);
+function _(i, t, s) {
+  var n = p(i + ""), e, r = n.length, a;
+  if (arguments.length < 2) {
+    var f = this.node().__on;
+    if (f) {
+      for (var l = 0, u = f.length, o; l < u; ++l)
+        for (e = 0, o = f[l]; e < r; ++e)
+          if ((a = n[e]).type === o.type && a.name === o.name)
+            return o.value;
+    }
+    return;
+  }
+  for (f = t ? v : c, e = 0; e < r; ++e)
+    this.each(f(n[e], t, s));
+  return this;
 }
 export {
-  b as default
+  _ as default
 };
 //# sourceMappingURL=cori.data.api191.js.map

@@ -1,26 +1,25 @@
-import { Selection as h } from "./cori.data.api59.js";
+import { get as o, set as i } from "./cori.data.api231.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function N(t) {
-  t || (t = u);
-  function n(_, f) {
-    return _ && f ? t(_.__data__, f.__data__) : !_ - !f;
-  }
-  for (var a = this._groups, i = a.length, o = new Array(i), e = 0; e < i; ++e) {
-    for (var c = a[e], d = c.length, l = o[e] = new Array(d), s, r = 0; r < d; ++r)
-      (s = c[r]) && (l[r] = s);
-    l.sort(n);
-  }
-  return new h(o, this._parents).order();
+function r(n, t) {
+  return function() {
+    i(this, n).duration = +t.apply(this, arguments);
+  };
 }
-function u(t, n) {
-  return t < n ? -1 : t > n ? 1 : t >= n ? 0 : NaN;
+function u(n, t) {
+  return t = +t, function() {
+    i(this, n).duration = t;
+  };
+}
+function s(n) {
+  var t = this._id;
+  return arguments.length ? this.each((typeof n == "function" ? r : u)(t, n)) : o(this.node(), t).duration;
 }
 export {
-  N as default
+  s as default
 };
 //# sourceMappingURL=cori.data.api213.js.map

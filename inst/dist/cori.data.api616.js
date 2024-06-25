@@ -1,35 +1,26 @@
-import { Field as h } from "./cori.data.api497.js";
-import { List as l } from "./cori.data.api413.js";
-import { OffsetsBufferBuilder as u } from "./cori.data.api505.js";
-import { VariableWidthBuilder as c } from "./cori.data.api501.js";
+import { Field as n } from "./cori.data.api496.js";
+import { Builder as h } from "./cori.data.api500.js";
+import { FixedSizeList as l } from "./cori.data.api419.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class B extends c {
-  constructor(e) {
-    super(e), this._offsets = new u(e.type);
+class u extends h {
+  setValue(e, i) {
+    const [t] = this.children, s = e * this.stride;
+    for (let r = -1, d = i.length; ++r < d; )
+      t.set(s + r, i[r]);
   }
-  addChild(e, t = "0") {
+  addChild(e, i = "0") {
     if (this.numChildren > 0)
-      throw new Error("ListBuilder can only have one child.");
-    return this.children[this.numChildren] = e, this.type = new l(new h(t, e.type, !0)), this.numChildren - 1;
-  }
-  _flushPending(e) {
-    const t = this._offsets, [f] = this.children;
-    for (const [i, r] of e)
-      if (typeof r > "u")
-        t.set(i, 0);
-      else {
-        const n = r, o = n.length, d = t.set(i, o).buffer[i];
-        for (let s = -1; ++s < o; )
-          f.set(d + s, n[s]);
-      }
+      throw new Error("FixedSizeListBuilder can only have one child.");
+    const t = this.children.push(e);
+    return this.type = new l(this.type.listSize, new n(i, e.type, !0)), t;
   }
 }
 export {
-  B as ListBuilder
+  u as FixedSizeListBuilder
 };
 //# sourceMappingURL=cori.data.api616.js.map

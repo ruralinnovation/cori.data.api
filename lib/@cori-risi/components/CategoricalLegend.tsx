@@ -2,44 +2,48 @@ import React from 'react';
 import style from "./styles/CategoricalLegend.module.css";
 
 interface CategoricalLegendProps {
-  domain: string[]; // Should be in the order of what appears top to bottom in the chart
-  range: unknown[];
-  element_name: string;
+    data_names: string[];
+    domain: string[], // Should be in the order of what appears top to bottom in the chart
+    range: unknown[]
 }
 
-const CategoricalLegend: React.FC<CategoricalLegendProps> = ({ domain, range, element_name }) => {
+const CategoricalLegend: React.FC<CategoricalLegendProps> = ({ data_names, domain, range }) => {
 
-	const rows = [];
+    const rows = [];
 
-  if (domain.length <= range.length) {
+    // alert(data_names);
 
-    for (let i = 0; i < domain.length; ++i) {
+    if (domain.length <= range.length) {
 
-      if (typeof range[i] === "string") {
+        for (let i = 0; i < domain.length; ++i) {
 
-        const color: string = range[i] as string;
-        rows.push(
-          <div className={style["entry"]} key={i}>
-            <div
-              className={style["key"]}
-              style={{
-                backgroundColor: color
-              }}>
-            </div>
-            <p>{element_name /*renderGEOID(domain[i])*/ }</p>
-          </div>
-        );
+            if (typeof range[i] === "string") {
 
-      }
+                const color: string = range[i] as string;
+                if (!!data_names) {
+                    rows.push(
+                        <div className={style["entry"]} key={i}>
+                            <div
+                                className={style["key"]}
+                                style={{
+                                    backgroundColor: color
+                                }}>
+                            </div>
+                            <p>{data_names[i]}</p>
+                        </div>
+                    );
+                }
+
+            }
+        }
+
     }
 
-  }
-  
-	return (
-		<div className={style["categorical-legend"]}>
-      {rows}
-    </div>
-  )  
+    return (
+        <div className={style["categorical-legend"]}>
+            {rows}
+        </div>
+    )
 
 }
 

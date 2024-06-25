@@ -1,24 +1,19 @@
-import r from "./cori.data.api312.js";
+import a from "./cori.data.api315.js";
+import { tableToIPC as f } from "./cori.data.api400.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function l(e) {
-  delete e.start, delete e.end, delete e.optional;
-}
-function t(e) {
-  l(e), delete e.object, delete e.property, delete e.computed, e.table || delete e.table;
-}
-function u(e) {
-  return r(e, null, {
-    Column: t,
-    Constant: t,
-    Default: l
-  }), e;
+function s(r, t = {}) {
+  const { format: o, ...e } = t, m = o || "stream";
+  if (!["stream", "file"].includes(m))
+    throw Error("Unrecognised output format");
+  return f(a(r, e), o);
 }
 export {
-  u as default
+  a as default,
+  s as toArrowIPC
 };
 //# sourceMappingURL=cori.data.api306.js.map

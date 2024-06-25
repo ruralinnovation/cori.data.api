@@ -1,14 +1,56 @@
+import { tweenValue as c } from "./cori.data.api228.js";
+import l from "./cori.data.api259.js";
+import f from "./cori.data.api156.js";
+import { interpolateTransformSvg as g } from "./cori.data.api152.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function n(i, r, l) {
-  var e = this.enter(), t = this, f = this.exit();
-  return e = typeof i == "function" ? i(e) : e.append(i + ""), r != null && (t = r(t)), l == null ? f.remove() : l(f), e && t ? e.merge(t).order() : t;
+function p(t) {
+  return function() {
+    this.removeAttribute(t);
+  };
+}
+function v(t) {
+  return function() {
+    this.removeAttributeNS(t.space, t.local);
+  };
+}
+function h(t, e, r) {
+  var i, u = r + "", o;
+  return function() {
+    var n = this.getAttribute(t);
+    return n === u ? null : n === i ? o : o = e(i = n, r);
+  };
+}
+function m(t, e, r) {
+  var i, u = r + "", o;
+  return function() {
+    var n = this.getAttributeNS(t.space, t.local);
+    return n === u ? null : n === i ? o : o = e(i = n, r);
+  };
+}
+function b(t, e, r) {
+  var i, u, o;
+  return function() {
+    var n, a = r(this), s;
+    return a == null ? void this.removeAttribute(t) : (n = this.getAttribute(t), s = a + "", n === s ? null : n === i && s === u ? o : (u = s, o = e(i = n, a)));
+  };
+}
+function A(t, e, r) {
+  var i, u, o;
+  return function() {
+    var n, a = r(this), s;
+    return a == null ? void this.removeAttributeNS(t.space, t.local) : (n = this.getAttributeNS(t.space, t.local), s = a + "", n === s ? null : n === i && s === u ? o : (u = s, o = e(i = n, a)));
+  };
+}
+function C(t, e) {
+  var r = f(t), i = r === "transform" ? g : l;
+  return this.attrTween(t, typeof e == "function" ? (r.local ? A : b)(r, i, c(this, "attr." + t, e)) : e == null ? (r.local ? v : p)(r) : (r.local ? m : h)(r, i, e));
 }
 export {
-  n as default
+  C as default
 };
 //# sourceMappingURL=cori.data.api210.js.map

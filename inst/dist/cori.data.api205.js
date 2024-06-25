@@ -1,19 +1,27 @@
-import { Selection as h } from "./cori.data.api59.js";
-import c from "./cori.data.api236.js";
+import { Path as e } from "./cori.data.api141.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(t) {
-  typeof t != "function" && (t = c(t));
-  for (var a = this._groups, _ = a.length, i = [], n = [], r = 0; r < _; ++r)
-    for (var o = a[r], e = o.length, f, l = 0; l < e; ++l)
-      (f = o[l]) && (i.push(t.call(f, f.__data__, l, o)), n.push(f));
-  return new h(i, n);
+function l(i) {
+  let t = 3;
+  return i.digits = function(n) {
+    if (!arguments.length)
+      return t;
+    if (n == null)
+      t = null;
+    else {
+      const r = Math.floor(n);
+      if (!(r >= 0))
+        throw new RangeError(`invalid digits: ${n}`);
+      t = r;
+    }
+    return i;
+  }, () => new e(t);
 }
 export {
-  u as default
+  l as withPath
 };
 //# sourceMappingURL=cori.data.api205.js.map

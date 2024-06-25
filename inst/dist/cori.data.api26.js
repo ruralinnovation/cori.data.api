@@ -1,5 +1,5 @@
-import { InternMap as a } from "./cori.data.api82.js";
-import p from "./cori.data.api83.js";
+import { InternMap as a } from "./cori.data.api120.js";
+import p from "./cori.data.api121.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

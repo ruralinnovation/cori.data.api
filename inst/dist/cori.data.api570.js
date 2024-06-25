@@ -1,4 +1,4 @@
-import { SIZEOF_INT as h, FILE_IDENTIFIER_LENGTH as _ } from "./cori.data.api639.js";
+import { SIZEOF_INT as h, FILE_IDENTIFIER_LENGTH as _ } from "./cori.data.api638.js";
 import { int32 as e, float32 as I, isLittleEndian as a, float64 as d } from "./cori.data.api567.js";
 import { Encoding as o } from "./cori.data.api568.js";
 /*

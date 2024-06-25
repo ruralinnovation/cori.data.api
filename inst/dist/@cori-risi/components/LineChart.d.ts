@@ -8,7 +8,6 @@ interface LineChartProps {
     metadata: MetricMetadata;
     width: number;
     height: number;
-    element_name: string;
 }
 declare const LineChart: React.FC<LineChartProps>;
 export default LineChart;

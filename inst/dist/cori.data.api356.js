@@ -1,28 +1,68 @@
+import { booleanish as a, number as r, spaceSeparated as i } from "./cori.data.api466.js";
+import { create as l } from "./cori.data.api464.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(r, t) {
-  const s = {}, a = r.all(t);
-  let l = -1;
-  for (typeof t.start == "number" && t.start !== 1 && (s.start = t.start); ++l < a.length; ) {
-    const e = a[l];
-    if (e.type === "element" && e.tagName === "li" && e.properties && Array.isArray(e.properties.className) && e.properties.className.includes("task-list-item")) {
-      s.className = ["contains-task-list"];
-      break;
-    }
+const u = l({
+  transform(n, e) {
+    return e === "role" ? e : "aria-" + e.slice(4).toLowerCase();
+  },
+  properties: {
+    ariaActiveDescendant: null,
+    ariaAtomic: a,
+    ariaAutoComplete: null,
+    ariaBusy: a,
+    ariaChecked: a,
+    ariaColCount: r,
+    ariaColIndex: r,
+    ariaColSpan: r,
+    ariaControls: i,
+    ariaCurrent: null,
+    ariaDescribedBy: i,
+    ariaDetails: null,
+    ariaDisabled: a,
+    ariaDropEffect: i,
+    ariaErrorMessage: null,
+    ariaExpanded: a,
+    ariaFlowTo: i,
+    ariaGrabbed: a,
+    ariaHasPopup: null,
+    ariaHidden: a,
+    ariaInvalid: null,
+    ariaKeyShortcuts: null,
+    ariaLabel: null,
+    ariaLabelledBy: i,
+    ariaLevel: r,
+    ariaLive: null,
+    ariaModal: a,
+    ariaMultiLine: a,
+    ariaMultiSelectable: a,
+    ariaOrientation: null,
+    ariaOwns: i,
+    ariaPlaceholder: null,
+    ariaPosInSet: r,
+    ariaPressed: a,
+    ariaReadOnly: a,
+    ariaRelevant: null,
+    ariaRequired: a,
+    ariaRoleDescription: i,
+    ariaRowCount: r,
+    ariaRowIndex: r,
+    ariaRowSpan: r,
+    ariaSelected: a,
+    ariaSetSize: r,
+    ariaSort: null,
+    ariaValueMax: r,
+    ariaValueMin: r,
+    ariaValueNow: r,
+    ariaValueText: null,
+    role: null
   }
-  const i = {
-    type: "element",
-    tagName: t.ordered ? "ol" : "ul",
-    properties: s,
-    children: r.wrap(a, !0)
-  };
-  return r.patch(t, i), r.applyData(t, i);
-}
+});
 export {
-  p as list
+  u as aria
 };
 //# sourceMappingURL=cori.data.api356.js.map

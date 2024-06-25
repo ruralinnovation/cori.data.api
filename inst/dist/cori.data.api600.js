@@ -1,19 +1,23 @@
-import { Builder as l } from "./cori.data.api501.js";
+import { FixedWidthBuilder as s } from "./cori.data.api500.js";
+import { setDate as a, setDateDay as l, setDateMillisecond as o } from "./cori.data.api551.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s extends l {
-  // @ts-ignore
-  setValue(e, t) {
-  }
-  setValid(e, t) {
-    return this.length = Math.max(e + 1, this.length), t;
-  }
+class e extends s {
 }
+e.prototype._setValue = a;
+class i extends e {
+}
+i.prototype._setValue = l;
+class r extends e {
+}
+r.prototype._setValue = o;
 export {
-  s as NullBuilder
+  e as DateBuilder,
+  i as DateDayBuilder,
+  r as DateMillisecondBuilder
 };
 //# sourceMappingURL=cori.data.api600.js.map

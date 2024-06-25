@@ -1,78 +1,53 @@
-import { Column as O, Op as h, Literal as v } from "./cori.data.api305.js";
-import k from "./cori.data.api306.js";
-import { is as N } from "./cori.data.api307.js";
-import T from "./cori.data.api308.js";
-import A from "./cori.data.api309.js";
-import F from "./cori.data.api298.js";
-import I from "./cori.data.api281.js";
-import P from "./cori.data.api285.js";
-import C from "./cori.data.api310.js";
-import K from "./cori.data.api311.js";
-import L from "./cori.data.api35.js";
+import { map_agg as _, entries_agg as w, object_agg as p, array_agg as k } from "./cori.data.api38.js";
+import z from "./cori.data.api296.js";
+import A from "./cori.data.api398.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const M = { [O]: 1, [h]: 1 };
-function W(s, t = {}) {
-  const a = t.generate || T, n = t.compiler || A, o = q(t), m = {}, f = {}, p = [], l = [];
-  let d = 0, g = -1;
-  const $ = t.join ? n.join : t.index == 1 ? n.expr2 : n.expr, c = {
-    op(r) {
-      const e = S(r);
-      return f[e] || (r.id = ++g, f[e] = r);
-    },
-    field(r) {
-      const e = a(r);
-      return m[e] || (m[e] = ++d);
-    },
-    param(r) {
-      return N(v, r) ? r.value : n.param(a(r), o);
-    },
-    value(r, e) {
-      p.push(r);
-      const i = e.escape || (t.ast ? k(e) : $(a(e), o));
-      l.push(i), M[e.type] && i !== e && C(i) && (i.field = e.name);
-    },
-    error(r, e, i = "") {
-      const b = r.start - 6, y = r.end - 6, E = String(c.spec).slice(b, y);
-      I(`${e}: "${E}"${i}`);
+function x(t, u) {
+  if (!t || !u)
+    return t;
+  const { keys: l, rows: m, size: i } = t, n = new Int32Array(i);
+  u.scan((r) => n[l[r]] = 1);
+  const e = n.reduce((r, g) => r + g, 0);
+  if (e === i)
+    return t;
+  const s = Array(e);
+  let o = 0;
+  for (let r = 0; r < i; ++r)
+    n[r] && (s[n[r] = o++] = m[r]);
+  const c = new Uint32Array(l.length);
+  return u.scan((r) => c[r] = n[l[r]]), { ...t, keys: c, rows: s, size: o };
+}
+function I(t, u, l, m) {
+  const { keys: i, rows: n, size: e } = t;
+  let s = n, o = e, c = null;
+  if (l) {
+    c = new Int32Array(e), u((a) => c[i[a]] = 1);
+    const f = c.reduce((a, y) => a + y, 0);
+    if (f !== e) {
+      s = Array(f), o = 0;
+      for (let a = 0; a < e; ++a)
+        c[a] && (s[c[a] = o++] = n[a]);
     }
-  };
-  Object.assign(c, t, { params: o });
-  for (const [r, e] of F(s))
-    c.value(
-      r + "",
-      e.escape ? K(c, e, o) : L(c, e)
-    );
-  if (t.ast)
-    return { names: p, exprs: l };
-  const j = [];
-  for (const r in m)
-    j[m[r]] = n.expr(r, o);
-  const x = Object.values(f);
-  return x.forEach((r) => r.fields = r.fields.map((e) => j[e])), { names: p, exprs: l, ops: x };
-}
-function S(s) {
-  let t = `${s.name}(${s.fields.concat(s.params).join(",")})`;
-  if (s.frame) {
-    const a = s.frame.map((n) => Number.isFinite(n) ? Math.abs(n) : -1);
-    t += `[${a},${!!s.peers}]`;
   }
-  return t;
+  let r = -1;
+  const g = new Uint32Array(m);
+  return u(o !== e ? (f) => g[++r] = c[i[f]] : (f) => g[++r] = i[f]), { ...t, keys: g, rows: s, size: o };
 }
-function q(s) {
-  return (s.table ? u(s.table) : s.join ? {
-    ...u(s.join[1]),
-    ...u(s.join[0])
-  } : {}) || {};
-}
-function u(s) {
-  return s && P(s.params) ? s.params() : {};
+function N(t, u, l, m) {
+  const i = m === "map" || m === !0 ? _ : m === "entries" ? w : m === "object" ? p : z('groups option must be "map", "entries", or "object".'), { names: n } = t.groups(), e = A(t.columnNames(), "_");
+  let s = t.select().reify(u).create({ data: { [e]: l } }).rollup({ [e]: k(e) });
+  for (let o = n.length; --o >= 0; )
+    s = s.groupby(n.slice(0, o)).rollup({ [e]: i(n[o], e) });
+  return s.get(e);
 }
 export {
-  W as default
+  N as nest,
+  x as regroup,
+  I as reindex
 };
 //# sourceMappingURL=cori.data.api304.js.map

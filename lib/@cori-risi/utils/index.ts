@@ -189,7 +189,8 @@ export const getChartData = (
     primary_geoid: string | null,
     comparison_geoids: string[],
     show_multiple_geos: boolean,
-    metric_metadata: MetricMetadata
+    metric_metadata: MetricMetadata,
+    geoid_to_name_lookup: GEOIDToNameLookup
 ): ERCData[] => {
 
   if (primary_geoid === null || metric === null) {
@@ -280,7 +281,11 @@ export const getChartData = (
     return [];
   }
 
-  return filtered_dta;
+  return filtered_dta
+      .map(d => {
+        d.name = renderGEOID(d.geoid, geoid_to_name_lookup)
+        return d;
+      });
 
 }
 

@@ -1,39 +1,34 @@
-import { Field as o } from "./cori.data.api497.js";
-import { Map_ as f } from "./cori.data.api413.js";
-import { VariableWidthBuilder as l } from "./cori.data.api501.js";
+import { Field as i } from "./cori.data.api496.js";
+import { Builder as n } from "./cori.data.api500.js";
+import { Struct as d } from "./cori.data.api419.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class m extends l {
-  set(t, e) {
-    return super.set(t, e);
+class p extends n {
+  setValue(t, r) {
+    const { children: e, type: h } = this;
+    switch (Array.isArray(r) || r.constructor) {
+      case !0:
+        return h.children.forEach((c, s) => e[s].set(t, r[s]));
+      case Map:
+        return h.children.forEach((c, s) => e[s].set(t, r.get(c.name)));
+      default:
+        return h.children.forEach((c, s) => e[s].set(t, r[c.name]));
+    }
   }
-  setValue(t, e) {
-    const s = e instanceof Map ? e : new Map(Object.entries(e)), n = this._pending || (this._pending = /* @__PURE__ */ new Map()), i = n.get(t);
-    i && (this._pendingLength -= i.size), this._pendingLength += s.size, n.set(t, s);
+  /** @inheritdoc */
+  setValid(t, r) {
+    return super.setValid(t, r) || this.children.forEach((e) => e.setValid(t, r)), r;
   }
-  addChild(t, e = `${this.numChildren}`) {
-    if (this.numChildren > 0)
-      throw new Error("ListBuilder can only have one child.");
-    return this.children[this.numChildren] = t, this.type = new f(new o(e, t.type, !0), this.type.keysSorted), this.numChildren - 1;
-  }
-  _flushPending(t) {
-    const e = this._offsets, [s] = this.children;
-    for (const [n, i] of t)
-      if (i === void 0)
-        e.set(n, 0);
-      else {
-        let { [n]: r, [n + 1]: d } = e.set(n, i.size).buffer;
-        for (const h of i.entries())
-          if (s.set(r, h), ++r >= d)
-            break;
-      }
+  addChild(t, r = `${this.numChildren}`) {
+    const e = this.children.push(t);
+    return this.type = new d([...this.type.children, new i(r, t.type, !0)]), e;
   }
 }
 export {
-  m as MapBuilder
+  p as StructBuilder
 };
 //# sourceMappingURL=cori.data.api618.js.map

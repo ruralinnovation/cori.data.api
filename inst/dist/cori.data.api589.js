@@ -1,7 +1,6 @@
-import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api639.js";
+import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api638.js";
 import "./cori.data.api567.js";
 import "./cori.data.api568.js";
-import { IntervalUnit as n } from "./cori.data.api564.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
@@ -15,30 +14,33 @@ class s {
   __init(t, i) {
     return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsInterval(t, i) {
+  static getRootAsFixedSizeBinary(t, i) {
     return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsInterval(t, i) {
-    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsFixedSizeBinary(t, i) {
+    return t.setPosition(t.position() + e), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  unit() {
+  /**
+   * Number of bytes per value
+   */
+  byteWidth() {
     const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : n.YEAR_MONTH;
+    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
   }
-  static startInterval(t) {
+  static startFixedSizeBinary(t) {
     t.startObject(1);
   }
-  static addUnit(t, i) {
-    t.addFieldInt16(0, i, n.YEAR_MONTH);
+  static addByteWidth(t, i) {
+    t.addFieldInt32(0, i, 0);
   }
-  static endInterval(t) {
+  static endFixedSizeBinary(t) {
     return t.endObject();
   }
-  static createInterval(t, i) {
-    return s.startInterval(t), s.addUnit(t, i), s.endInterval(t);
+  static createFixedSizeBinary(t, i) {
+    return s.startFixedSizeBinary(t), s.addByteWidth(t, i), s.endFixedSizeBinary(t);
   }
 }
 export {
-  s as Interval
+  s as FixedSizeBinary
 };
 //# sourceMappingURL=cori.data.api589.js.map

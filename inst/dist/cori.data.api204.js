@@ -1,19 +1,42 @@
-import { Selection as o } from "./cori.data.api59.js";
-import m from "./cori.data.api235.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(a) {
-  typeof a != "function" && (a = m(a));
-  for (var n = this._groups, e = n.length, l = new Array(e), r = 0; r < e; ++r)
-    for (var f = n[r], c = f.length, h = l[r] = new Array(c), _, i, t = 0; t < c; ++t)
-      (_ = f[t]) && (i = a.call(_, _.__data__, t, f)) && ("__data__" in _ && (i.__data__ = _.__data__), h[t] = i);
-  return new o(l, this._parents);
+function n(t) {
+  this._context = t;
+}
+n.prototype = {
+  areaStart: function() {
+    this._line = 0;
+  },
+  areaEnd: function() {
+    this._line = NaN;
+  },
+  lineStart: function() {
+    this._point = 0;
+  },
+  lineEnd: function() {
+    (this._line || this._line !== 0 && this._point === 1) && this._context.closePath(), this._line = 1 - this._line;
+  },
+  point: function(t, i) {
+    switch (t = +t, i = +i, this._point) {
+      case 0:
+        this._point = 1, this._line ? this._context.lineTo(t, i) : this._context.moveTo(t, i);
+        break;
+      case 1:
+        this._point = 2;
+      default:
+        this._context.lineTo(t, i);
+        break;
+    }
+  }
+};
+function e(t) {
+  return new n(t);
 }
 export {
-  p as default
+  e as default
 };
 //# sourceMappingURL=cori.data.api204.js.map

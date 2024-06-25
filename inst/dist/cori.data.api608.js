@@ -1,5 +1,5 @@
-import { FixedWidthBuilder as t } from "./cori.data.api501.js";
-import { setTime as o, setTimeSecond as i, setTimeMillisecond as d, setTimeMicrosecond as l, setTimeNanosecond as r } from "./cori.data.api553.js";
+import { FixedWidthBuilder as t } from "./cori.data.api500.js";
+import { setTimestamp as o, setTimestampSecond as i, setTimestampMillisecond as m, setTimestampMicrosecond as p, setTimestampNanosecond as a } from "./cori.data.api551.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
@@ -9,23 +9,23 @@ import { setTime as o, setTimeSecond as i, setTimeMillisecond as d, setTimeMicro
 class e extends t {
 }
 e.prototype._setValue = o;
+class d extends e {
+}
+d.prototype._setValue = i;
+class l extends e {
+}
+l.prototype._setValue = m;
+class r extends e {
+}
+r.prototype._setValue = p;
 class c extends e {
 }
-c.prototype._setValue = i;
-class n extends e {
-}
-n.prototype._setValue = d;
-class m extends e {
-}
-m.prototype._setValue = l;
-class p extends e {
-}
-p.prototype._setValue = r;
+c.prototype._setValue = a;
 export {
-  e as TimeBuilder,
-  m as TimeMicrosecondBuilder,
-  n as TimeMillisecondBuilder,
-  p as TimeNanosecondBuilder,
-  c as TimeSecondBuilder
+  e as TimestampBuilder,
+  r as TimestampMicrosecondBuilder,
+  l as TimestampMillisecondBuilder,
+  c as TimestampNanosecondBuilder,
+  d as TimestampSecondBuilder
 };
 //# sourceMappingURL=cori.data.api608.js.map

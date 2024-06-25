@@ -4,10 +4,8 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e() {
-  return Array.from(this);
-}
+const a = (t) => () => t;
 export {
-  e as default
+  a as default
 };
 //# sourceMappingURL=cori.data.api149.js.map

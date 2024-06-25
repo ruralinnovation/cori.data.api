@@ -1,23 +1,75 @@
-import { factorySpace as u } from "./cori.data.api655.js";
-import { markdownLineEnding as a, markdownSpace as o } from "./cori.data.api470.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function f(r, e) {
-  let t;
-  return i;
-  function i(n) {
-    return a(n) ? (r.enter("lineEnding"), r.consume(n), r.exit("lineEnding"), t = !0, i) : o(n) ? u(
-      r,
-      i,
-      t ? "linePrefix" : "lineSuffix"
-    )(n) : e(n);
-  }
-}
+const e = [
+  "address",
+  "article",
+  "aside",
+  "base",
+  "basefont",
+  "blockquote",
+  "body",
+  "caption",
+  "center",
+  "col",
+  "colgroup",
+  "dd",
+  "details",
+  "dialog",
+  "dir",
+  "div",
+  "dl",
+  "dt",
+  "fieldset",
+  "figcaption",
+  "figure",
+  "footer",
+  "form",
+  "frame",
+  "frameset",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "head",
+  "header",
+  "hr",
+  "html",
+  "iframe",
+  "legend",
+  "li",
+  "link",
+  "main",
+  "menu",
+  "menuitem",
+  "nav",
+  "noframes",
+  "ol",
+  "optgroup",
+  "option",
+  "p",
+  "param",
+  "search",
+  "section",
+  "summary",
+  "table",
+  "tbody",
+  "td",
+  "tfoot",
+  "th",
+  "thead",
+  "title",
+  "tr",
+  "track",
+  "ul"
+], t = ["pre", "script", "style", "textarea"];
 export {
-  f as factoryWhitespace
+  e as htmlBlockNames,
+  t as htmlRawNames
 };
 //# sourceMappingURL=cori.data.api691.js.map

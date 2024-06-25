@@ -1,44 +1,93 @@
-import h from "./cori.data.api60.js";
-import c from "./cori.data.api267.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const f = c.hasStandardBrowserEnv ? (
-  // Standard browser envs have full support of the APIs needed to test
-  // whether the request URL is of the same origin as current location.
-  function() {
-    const o = /(msie|trident)/i.test(navigator.userAgent), t = document.createElement("a");
-    let e;
-    function n(a) {
-      let r = a;
-      return o && (t.setAttribute("href", r), r = t.href), t.setAttribute("href", r), {
-        href: t.href,
-        protocol: t.protocol ? t.protocol.replace(/:$/, "") : "",
-        host: t.host,
-        search: t.search ? t.search.replace(/^\?/, "") : "",
-        hash: t.hash ? t.hash.replace(/^#/, "") : "",
-        hostname: t.hostname,
-        port: t.port,
-        pathname: t.pathname.charAt(0) === "/" ? t.pathname : "/" + t.pathname
-      };
-    }
-    return e = n(window.location.href), function(r) {
-      const s = h.isString(r) ? n(r) : r;
-      return s.protocol === e.protocol && s.host === e.host;
-    };
-  }()
-) : (
-  // Non standard browser envs (web workers, react-native) lack needed support.
-  /* @__PURE__ */ function() {
-    return function() {
-      return !0;
-    };
-  }()
+const i = (
+  // Note: overloads in JSDoc can’t yet use different `@template`s.
+  /**
+   * @type {(
+   *   (<Condition extends string>(test: Condition) => (node: unknown, index?: number | null | undefined, parent?: Parent | null | undefined, context?: unknown) => node is Node & {type: Condition}) &
+   *   (<Condition extends Props>(test: Condition) => (node: unknown, index?: number | null | undefined, parent?: Parent | null | undefined, context?: unknown) => node is Node & Condition) &
+   *   (<Condition extends TestFunction>(test: Condition) => (node: unknown, index?: number | null | undefined, parent?: Parent | null | undefined, context?: unknown) => node is Node & Predicate<Condition, Node>) &
+   *   ((test?: null | undefined) => (node?: unknown, index?: number | null | undefined, parent?: Parent | null | undefined, context?: unknown) => node is Node) &
+   *   ((test?: Test) => Check)
+   * )}
+   */
+  /**
+   * @param {Test} [test]
+   * @returns {Check}
+   */
+  function(n) {
+    if (n == null)
+      return p;
+    if (typeof n == "function")
+      return c(n);
+    if (typeof n == "object")
+      return Array.isArray(n) ? f(n) : y(n);
+    if (typeof n == "string")
+      return l(n);
+    throw new Error("Expected function, string, or object as test");
+  }
 );
+function f(n) {
+  const e = [];
+  let r = -1;
+  for (; ++r < n.length; )
+    e[r] = i(n[r]);
+  return c(t);
+  function t(...u) {
+    let o = -1;
+    for (; ++o < e.length; )
+      if (e[o].apply(this, u))
+        return !0;
+    return !1;
+  }
+}
+function y(n) {
+  const e = (
+    /** @type {Record<string, unknown>} */
+    n
+  );
+  return c(r);
+  function r(t) {
+    const u = (
+      /** @type {Record<string, unknown>} */
+      /** @type {unknown} */
+      t
+    );
+    let o;
+    for (o in n)
+      if (u[o] !== e[o])
+        return !1;
+    return !0;
+  }
+}
+function l(n) {
+  return c(e);
+  function e(r) {
+    return r && r.type === n;
+  }
+}
+function c(n) {
+  return e;
+  function e(r, t, u) {
+    return !!(a(r) && n.call(
+      this,
+      r,
+      typeof t == "number" ? t : void 0,
+      u || void 0
+    ));
+  }
+}
+function p() {
+  return !0;
+}
+function a(n) {
+  return n !== null && typeof n == "object" && "type" in n;
+}
 export {
-  f as default
+  i as convert
 };
 //# sourceMappingURL=cori.data.api488.js.map

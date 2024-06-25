@@ -1,44 +1,51 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api639.js";
+import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api638.js";
 import "./cori.data.api567.js";
 import "./cori.data.api568.js";
-import { Precision as s } from "./cori.data.api561.js";
+import { TimeUnit as o } from "./cori.data.api561.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class o {
+class s {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
   __init(t, i) {
     return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsFloatingPoint(t, i) {
-    return (i || new o()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getRootAsTime(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsFloatingPoint(t, i) {
-    return t.setPosition(t.position() + n), (i || new o()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsTime(t, i) {
+    return t.setPosition(t.position() + e), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  precision() {
+  unit() {
     const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : s.HALF;
+    return t ? this.bb.readInt16(this.bb_pos + t) : o.MILLISECOND;
   }
-  static startFloatingPoint(t) {
-    t.startObject(1);
+  bitWidth() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? this.bb.readInt32(this.bb_pos + t) : 32;
   }
-  static addPrecision(t, i) {
-    t.addFieldInt16(0, i, s.HALF);
+  static startTime(t) {
+    t.startObject(2);
   }
-  static endFloatingPoint(t) {
+  static addUnit(t, i) {
+    t.addFieldInt16(0, i, o.MILLISECOND);
+  }
+  static addBitWidth(t, i) {
+    t.addFieldInt32(1, i, 32);
+  }
+  static endTime(t) {
     return t.endObject();
   }
-  static createFloatingPoint(t, i) {
-    return o.startFloatingPoint(t), o.addPrecision(t, i), o.endFloatingPoint(t);
+  static createTime(t, i, n) {
+    return s.startTime(t), s.addUnit(t, i), s.addBitWidth(t, n), s.endTime(t);
   }
 }
 export {
-  o as FloatingPoint
+  s as Time
 };
 //# sourceMappingURL=cori.data.api584.js.map

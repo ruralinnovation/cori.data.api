@@ -1,55 +1,96 @@
-import { makeData as f } from "./cori.data.api502.js";
-import { Struct as p } from "./cori.data.api413.js";
-import { RecordBatch as B } from "./cori.data.api513.js";
+import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api638.js";
+import "./cori.data.api567.js";
+import "./cori.data.api568.js";
+import { BodyCompression as r } from "./cori.data.api639.js";
+import { Buffer as n } from "./cori.data.api575.js";
+import { FieldNode as b } from "./cori.data.api577.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function N(u, t) {
-  return h(u, t.map((i) => i.data.concat()));
-}
-function h(u, t) {
-  const i = [...u.fields], s = [], a = { numBatches: t.reduce((r, d) => Math.max(r, d.length), 0) };
-  let c = 0, l = 0, n = -1;
-  const m = t.length;
-  let e, o = [];
-  for (; a.numBatches-- > 0; ) {
-    for (l = Number.POSITIVE_INFINITY, n = -1; ++n < m; )
-      o[n] = e = t[n].shift(), l = Math.min(l, e ? e.length : l);
-    Number.isFinite(l) && (o = v(i, l, o, t, a), l > 0 && (s[c++] = f({
-      type: new p(i),
-      length: l,
-      nullCount: 0,
-      children: o.slice()
-    })));
+class i {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  return [
-    u = u.assign(i),
-    s.map((r) => new B(u, r))
-  ];
-}
-function v(u, t, i, s, a) {
-  var c;
-  const l = (t + 63 & -64) >> 3;
-  for (let n = -1, m = s.length; ++n < m; ) {
-    const e = i[n], o = e == null ? void 0 : e.length;
-    if (o >= t)
-      o === t ? i[n] = e : (i[n] = e.slice(0, t), a.numBatches = Math.max(a.numBatches, s[n].unshift(e.slice(t, o - t))));
-    else {
-      const r = u[n];
-      u[n] = r.clone({ nullable: !0 }), i[n] = (c = e == null ? void 0 : e._changeLengthAndBackfillNullBitmap(t)) !== null && c !== void 0 ? c : f({
-        type: r.type,
-        length: t,
-        nullCount: t,
-        nullBitmap: new Uint8Array(l)
-      });
-    }
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
   }
-  return i;
+  static getRootAsRecordBatch(t, s) {
+    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static getSizePrefixedRootAsRecordBatch(t, s) {
+    return t.setPosition(t.position() + e), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  /**
+   * number of records / rows. The arrays in the batch should all have this
+   * length
+   */
+  length() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt64(this.bb_pos + t) : BigInt("0");
+  }
+  /**
+   * Nodes correspond to the pre-ordered flattened logical schema
+   */
+  nodes(t, s) {
+    const o = this.bb.__offset(this.bb_pos, 6);
+    return o ? (s || new b()).__init(this.bb.__vector(this.bb_pos + o) + t * 16, this.bb) : null;
+  }
+  nodesLength() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
+  }
+  /**
+   * Buffers correspond to the pre-ordered flattened buffer tree
+   *
+   * The number of buffers appended to this list depends on the schema. For
+   * example, most primitive arrays will have 2 buffers, 1 for the validity
+   * bitmap and 1 for the values. For struct arrays, there will only be a
+   * single buffer for the validity (nulls) bitmap
+   */
+  buffers(t, s) {
+    const o = this.bb.__offset(this.bb_pos, 8);
+    return o ? (s || new n()).__init(this.bb.__vector(this.bb_pos + o) + t * 16, this.bb) : null;
+  }
+  buffersLength() {
+    const t = this.bb.__offset(this.bb_pos, 8);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
+  }
+  /**
+   * Optional compression of the message body
+   */
+  compression(t) {
+    const s = this.bb.__offset(this.bb_pos, 10);
+    return s ? (t || new r()).__init(this.bb.__indirect(this.bb_pos + s), this.bb) : null;
+  }
+  static startRecordBatch(t) {
+    t.startObject(4);
+  }
+  static addLength(t, s) {
+    t.addFieldInt64(0, s, BigInt("0"));
+  }
+  static addNodes(t, s) {
+    t.addFieldOffset(1, s, 0);
+  }
+  static startNodesVector(t, s) {
+    t.startVector(16, s, 8);
+  }
+  static addBuffers(t, s) {
+    t.addFieldOffset(2, s, 0);
+  }
+  static startBuffersVector(t, s) {
+    t.startVector(16, s, 8);
+  }
+  static addCompression(t, s) {
+    t.addFieldOffset(3, s, 0);
+  }
+  static endRecordBatch(t) {
+    return t.endObject();
+  }
 }
 export {
-  N as distributeVectorsIntoRecordBatches
+  i as RecordBatch
 };
 //# sourceMappingURL=cori.data.api573.js.map

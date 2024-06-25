@@ -1,43 +1,48 @@
-import { splice as a } from "./cori.data.api654.js";
+import { factorySpace as l } from "./cori.data.api654.js";
+import { markdownLineEnding as m } from "./cori.data.api486.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const s = {}.hasOwnProperty;
-function d(t) {
-  const e = {};
-  let n = -1;
-  for (; ++n < t.length; )
-    l(e, t[n]);
-  return e;
-}
-function l(t, e) {
-  let n;
-  for (n in e) {
-    const i = (s.call(t, n) ? t[n] : void 0) || (t[n] = {}), f = e[n];
-    let o;
-    if (f)
-      for (o in f) {
-        s.call(i, o) || (i[o] = []);
-        const r = f[o];
-        h(
-          // @ts-expect-error Looks like a list.
-          i[o],
-          Array.isArray(r) ? r : r ? [r] : []
-        );
-      }
+const g = {
+  tokenize: x
+};
+function x(n) {
+  const i = n.attempt(
+    this.parser.constructs.contentInitial,
+    e,
+    p
+  );
+  let r;
+  return i;
+  function e(t) {
+    if (t === null) {
+      n.consume(t);
+      return;
+    }
+    return n.enter("lineEnding"), n.consume(t), n.exit("lineEnding"), l(n, i, "linePrefix");
+  }
+  function p(t) {
+    return n.enter("paragraph"), u(t);
+  }
+  function u(t) {
+    const a = n.enter("chunkText", {
+      contentType: "text",
+      previous: r
+    });
+    return r && (r.next = a), r = a, o(t);
+  }
+  function o(t) {
+    if (t === null) {
+      n.exit("chunkText"), n.exit("paragraph"), n.consume(t);
+      return;
+    }
+    return m(t) ? (n.consume(t), n.exit("chunkText"), u) : (n.consume(t), o);
   }
 }
-function h(t, e) {
-  let n = -1;
-  const c = [];
-  for (; ++n < e.length; )
-    (e[n].add === "after" ? t : c).push(e[n]);
-  a(t, 0, 0, c);
-}
 export {
-  d as combineExtensions
+  g as content
 };
 //# sourceMappingURL=cori.data.api630.js.map

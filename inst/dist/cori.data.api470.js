@@ -4,43 +4,27 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const c = i(/[A-Za-z]/), r = i(/[\dA-Za-z]/), a = i(/[#-'*+\--9=?A-Z^-~]/);
-function s(n) {
-  return (
-    // Special whitespace codes (which have negative values), C0 and Control
-    // character DEL
-    n !== null && (n < 32 || n === 127)
-  );
-}
-const o = i(/\d/), e = i(/[\dA-Fa-f]/), l = i(/[!-/:-@[-`{-~]/);
-function f(n) {
-  return n !== null && n < -2;
-}
-function p(n) {
-  return n !== null && (n < 0 || n === 32);
-}
-function A(n) {
-  return n === -2 || n === -1 || n === 32;
-}
-const g = i(new RegExp("\\p{P}|\\p{S}", "u")), h = i(/\s/);
-function i(n) {
-  return u;
-  function u(t) {
-    return t !== null && t > -1 && n.test(String.fromCharCode(t));
+class e {
+  /**
+   * @constructor
+   * @param {string} property
+   * @param {string} attribute
+   */
+  constructor(o, t) {
+    this.property = o, this.attribute = t;
   }
 }
+e.prototype.space = null;
+e.prototype.boolean = !1;
+e.prototype.booleanish = !1;
+e.prototype.overloadedBoolean = !1;
+e.prototype.number = !1;
+e.prototype.commaSeparated = !1;
+e.prototype.spaceSeparated = !1;
+e.prototype.commaOrSpaceSeparated = !1;
+e.prototype.mustUseProperty = !1;
+e.prototype.defined = !1;
 export {
-  c as asciiAlpha,
-  r as asciiAlphanumeric,
-  a as asciiAtext,
-  s as asciiControl,
-  o as asciiDigit,
-  e as asciiHexDigit,
-  l as asciiPunctuation,
-  f as markdownLineEnding,
-  p as markdownLineEndingOrSpace,
-  A as markdownSpace,
-  g as unicodePunctuation,
-  h as unicodeWhitespace
+  e as Info
 };
 //# sourceMappingURL=cori.data.api470.js.map

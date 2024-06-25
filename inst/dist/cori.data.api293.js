@@ -1,39 +1,45 @@
-import F from "./cori.data.api285.js";
-import "./cori.data.api33.js";
-import "./cori.data.api34.js";
-import { columns as V, formats as j, scan as w } from "./cori.data.api396.js";
-import H from "./cori.data.api397.js";
-import L from "./cori.data.api299.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function C(c, r = {}) {
-  const s = V(c, r.columns), { align: g, format: h } = j(c, s, r), m = M(r), a = r.null, y = (t) => t === "c" ? "center" : t === "r" ? "right" : "left", $ = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"), f = (t, o) => $(H(t, o)), x = a ? (t, o) => t == null ? a(t) : f(t, o) : f;
-  let l = -1, i = -1;
-  const e = (t, o, b) => {
-    const u = b ? y(g[o]) : "", p = m[t] && m[t](o, i, l) || "", d = (u ? `text-align: ${u};` + (p ? " " : "") : "") + p;
-    return `<${t}${d ? ` style="${d}"` : ""}>`;
-  };
-  let n = e("table") + e("thead") + e("tr", l) + s.map((t) => `${e("th", t, 1)}${t}</th>`).join("") + "</tr></thead>" + e("tbody");
-  return w(c, s, r.limit, r.offset, {
-    row(t) {
-      l = t, n += (++i ? "</tr>" : "") + e("tr");
+const u = function* (t, n) {
+  let r = t.byteLength;
+  if (!n || r < n) {
+    yield t;
+    return;
+  }
+  let e = 0, a;
+  for (; e < r; )
+    a = e + n, yield t.slice(e, a), e = a;
+}, f = async function* (t, n, r) {
+  for await (const e of t)
+    yield* u(ArrayBuffer.isView(e) ? e : await r(String(e)), n);
+}, d = (t, n, r, e, a) => {
+  const i = f(t, n, a);
+  let y = 0;
+  return new ReadableStream({
+    type: "bytes",
+    async pull(l) {
+      const { done: c, value: s } = await i.next();
+      if (c) {
+        l.close(), e();
+        return;
+      }
+      let o = s.byteLength;
+      r && r(y += o), l.enqueue(new Uint8Array(s));
     },
-    cell(t, o) {
-      n += e("td", o, 1) + x(t, h[o]) + "</td>";
+    cancel(l) {
+      return e(l), i.return();
     }
-  }), n + "</tr></tbody></table>";
-}
-function M(c) {
-  return L(
-    c.style,
-    (r) => F(r) ? r : () => r
-  );
-}
+  }, {
+    highWaterMark: 2
+  });
+};
 export {
-  C as default
+  f as readBytes,
+  u as streamChunk,
+  d as trackStream
 };
 //# sourceMappingURL=cori.data.api293.js.map

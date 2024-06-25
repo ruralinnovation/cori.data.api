@@ -1,37 +1,23 @@
-import s from "./cori.data.api651.js";
-import i from "./cori.data.api683.js";
-import r from "./cori.data.api684.js";
-import e from "./cori.data.api685.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class u {
-  constructor(t) {
-    this._values = t || [], this._sorted = null, this._start = 0;
-  }
-  values(t) {
-    return this._start && (this._values = this._values.slice(this._start), this._start = 0), t ? this._values.slice() : this._values;
-  }
-  add(t) {
-    this._values.push(t), this._sorted = null;
-  }
-  rem() {
-    this._start += 1, this._sorted = null;
-  }
-  min() {
-    return this._sorted && this._sorted.length ? this._sorted[0] : i(this._values, this._start);
-  }
-  max() {
-    return this._sorted && this._sorted.length ? this._sorted[this._sorted.length - 1] : r(this._values, this._start);
-  }
-  quantile(t) {
-    return this._sorted || (this._sorted = this.values(!0), this._sorted.sort(s)), e(this._sorted, t);
-  }
+function p(h, n, c, f) {
+  const l = h.length;
+  let u = 0, e;
+  if (n < 0 ? n = -n > l ? 0 : l + n : n = n > l ? l : n, c = c > 0 ? c : 0, f.length < 1e4)
+    e = Array.from(f), e.unshift(n, c), h.splice(...e);
+  else
+    for (c && h.splice(n, c); u < f.length; )
+      e = f.slice(u, u + 1e4), e.unshift(n, 0), h.splice(...e), u += 1e4, n += 1e4;
+}
+function g(h, n) {
+  return h.length > 0 ? (p(h, h.length, 0, n), h) : n;
 }
 export {
-  u as default
+  g as push,
+  p as splice
 };
 //# sourceMappingURL=cori.data.api653.js.map

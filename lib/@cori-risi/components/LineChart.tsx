@@ -18,10 +18,9 @@ interface LineChartProps {
   metadata: MetricMetadata,
   width: number;
   height: number;
-  element_name: string;
 }
 
-const LineChart: React.FC<LineChartProps> = ({ primary_geoid, metric, data, metadata, width, height, element_name }) => {
+const LineChart: React.FC<LineChartProps> = ({ primary_geoid, metric, data, metadata, width, height }) => {
 
   const primary_dta = data.filter(d => d.geoid === primary_geoid && d.metric === metric);
   const has_valid_data = !primary_dta.every(d => d.value === null);
@@ -33,7 +32,7 @@ const LineChart: React.FC<LineChartProps> = ({ primary_geoid, metric, data, meta
   const [colorScaleRange, setColorScaleRange] = useState<unknown[]>([]);
 
   useEffect(() => {
-    
+
     if (!svgRef.current) return;
 
     const margin = {...chartStyle.margin};
@@ -41,62 +40,62 @@ const LineChart: React.FC<LineChartProps> = ({ primary_geoid, metric, data, meta
     const y_axis_tick_size = 8;
 
     const svg = d3.select(svgRef.current)
-      .attr("viewBox", `0 0 ${width} ${height}`)
-      .attr("preserveAspectRatio", "xMidYMid meet");
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("preserveAspectRatio", "xMidYMid meet");
 
     const xScale = d3
-      .scaleLinear()
-      .domain([d3.min(data, (d: any) => (+d.year))!, d3.max(data, (d) => (+d.year))! ])
-      .nice()
-      .range([margin.left, width - margin.right]);
+        .scaleLinear()
+        .domain([d3.min(data, (d) => (+d.year))!, d3.max(data, (d) => (+d.year))! ])
+        .nice()
+        .range([margin.left, width - margin.right]);
 
     const yScale = d3
-      .scaleLinear()
-      .domain([
-        d3.max(data, (d) => d.value === null? undefined: (+d.value))!, 
-        d3.min(data, (d) => d.value === null? undefined: (+d.value))! 
-      ])
-      .nice()
-      .range([margin.top, height - margin.bottom]);
+        .scaleLinear()
+        .domain([
+          d3.max(data, (d) => d.value === null? undefined: (+d.value))!,
+          d3.min(data, (d) => d.value === null? undefined: (+d.value))!
+        ])
+        .nice()
+        .range([margin.top, height - margin.bottom]);
 
     const max_year: number = d3.max(data, (d) => +d.year) as number;
     const sortedGEOIDs = [...data]
-      .filter(d => +d.year === max_year)
-      .sort((a, b) => { // b.value - a.value
-        if (a.value === null && b.value === null) return 0;
-        if (a.value === null) return 1; // Treat null values as greater (will move to end)
-        if (b.value === null) return -1; // Treat null values as greater (will move to end)
-        return +b.value - +a.value;
-      });
-    
+        .filter(d => +d.year === max_year)
+        .sort((a, b) => { // b.value - a.value
+          if (a.value === null && b.value === null) return 0;
+          if (a.value === null) return 1; // Treat null values as greater (will move to end)
+          if (b.value === null) return -1; // Treat null values as greater (will move to end)
+          return +b.value - +a.value;
+        });
+
     const geoid_domain = [...new Set(sortedGEOIDs.map(d => d.geoid.toString()))];
     const colorScale = d3.scaleOrdinal()
-      .domain(geoid_domain)
-      .range(geoid_domain.map(getGEOIDColorRange));
+        .domain(geoid_domain)
+        .range(geoid_domain.map(getGEOIDColorRange));
 
     setColorScaleDomain(colorScale.domain());
     setColorScaleRange(colorScale.range());
 
     let xAxis = d3.axisBottom<number>(xScale); // later is reassigned
     const yAxis = d3.axisLeft<number>(yScale)
-      .ticks(tick_number, metadata.yFormat)
-      .tickSize(y_axis_tick_size);
+        .ticks(tick_number, metadata.yFormat)
+        .tickSize(y_axis_tick_size);
 
     svg
-      .select<SVGGElement>('.x-axis')
-      .attr('transform', `translate(0, ${height - margin.bottom})`)
-      .call(xAxis);
+        .select<SVGGElement>('.x-axis')
+        .attr('transform', `translate(0, ${height - margin.bottom})`)
+        .call(xAxis);
 
     svg.select<SVGGElement>('.y-axis')
-      .attr("transform", `translate(${margin.left},0)`)
-      .call(yAxis)
-      .call(g => g.select(".domain").remove());
+        .attr("transform", `translate(${margin.left},0)`)
+        .call(yAxis)
+        .call(g => g.select(".domain").remove());
 
     // style y-axis text before calculating widths
     svg.selectAll(".y-axis text")
-      .style("font-family", chartStyle.tickFontFamily)
-      .style("font-size", chartStyle.tickFontSize)
-      .style("color", chartStyle.tickFontColor)      
+        .style("font-family", chartStyle.tickFontFamily)
+        .style("font-size", chartStyle.tickFontSize)
+        .style("color", chartStyle.tickFontColor)
 
     const maxw = getMaxYLabelWidth(svg);
 
@@ -107,24 +106,24 @@ const LineChart: React.FC<LineChartProps> = ({ primary_geoid, metric, data, meta
       const textwrap_dimensions = {height: 20, width: 200};
       const y_wrap = d3textwrap.textwrap().bounds(textwrap_dimensions);
       svg.selectAll(".y-axis text")
-        .call(y_wrap)
-        .call(g => g.selectAll('foreignObject')
-          .style("transform", 'translate(-' + textwrap_dimensions.width + 'px, -' + .5 + 'rem)')
-        );
+          .call(y_wrap)
+          .call(g => g.selectAll('foreignObject')
+              .style("transform", 'translate(-' + textwrap_dimensions.width + 'px, -' + .5 + 'rem)')
+          );
 
       xScale.range([margin.left, width - margin.right]);
       xAxis = d3
-        .axisBottom<number>(xScale)
-        .tickSize(chartStyle.xTickSize)
-        .ticks(tick_number, metadata.xFormat);
+          .axisBottom<number>(xScale)
+          .tickSize(chartStyle.xTickSize)
+          .ticks(tick_number, metadata.xFormat);
 
       svg
-        .select<SVGGElement>('.x-axis')
-        .attr('transform', `translate(0, ${height - margin.bottom})`)
-        .call(xAxis);
+          .select<SVGGElement>('.x-axis')
+          .attr('transform', `translate(0, ${height - margin.bottom})`)
+          .call(xAxis);
 
       svg.select<SVGGElement>('.y-axis')
-        .attr("transform", `translate(${margin.left},0)`);
+          .attr("transform", `translate(${margin.left},0)`);
 
     }
     else {
@@ -133,17 +132,17 @@ const LineChart: React.FC<LineChartProps> = ({ primary_geoid, metric, data, meta
 
       xScale.range([margin.left, width - margin.right]);
       xAxis = d3
-        .axisBottom<number>(xScale)
-        .tickSize(12)
-        .ticks(tick_number, metadata.xFormat);
+          .axisBottom<number>(xScale)
+          .tickSize(12)
+          .ticks(tick_number, metadata.xFormat);
 
       svg
-        .select<SVGGElement>('.x-axis')
-        .attr('transform', `translate(0, ${height - margin.bottom})`)
-        .call(xAxis);
+          .select<SVGGElement>('.x-axis')
+          .attr('transform', `translate(0, ${height - margin.bottom})`)
+          .call(xAxis);
 
       svg.select<SVGGElement>('.y-axis')
-        .attr("transform", `translate(${margin.left},0)`);
+          .attr("transform", `translate(${margin.left},0)`);
 
     }
 
@@ -153,40 +152,40 @@ const LineChart: React.FC<LineChartProps> = ({ primary_geoid, metric, data, meta
 
     // Define line generator
     const line = d3.line<ERCData>()
-      .defined(d => d.value !== null) 
-      .x(d => xScale(+d.year))
-      .y(d => yScale(+d.value!));
+        .defined(d => d.value !== null)
+        .x(d => xScale(+d.year))
+        .y(d => yScale(+d.value!));
 
     // Add gridlines
     const GridLine = () => d3.axisLeft(yScale);
     svg.selectAll(".grid").remove();
     svg
-      .append("g")
+        .append("g")
         .attr("class", "grid")
-      .call(GridLine().ticks(tick_number))
-      .call(g => g.select(".domain").remove())
-      .call(g => g.selectAll(".tick line")
-          .attr("x1", margin.left)
-          .attr("x2", width - margin.right)
-      );
+        .call(GridLine().ticks(tick_number))
+        .call(g => g.select(".domain").remove())
+        .call(g => g.selectAll(".tick line")
+            .attr("x1", margin.left)
+            .attr("x2", width - margin.right)
+        );
 
     svg.selectAll(".data-lines").remove();
     nestedData.forEach((d) => {
       svg
-        .append("path")
-        .attr("class", "data-lines")
-        .datum(d)
-        .attr("fill", "none")
-        .attr("stroke", function(d) {
-          const line_color: string | unknown = colorScale(d[0].geoid);
-          if (typeof line_color === "string")
-            return line_color;
+          .append("path")
+          .attr("class", "data-lines")
+          .datum(d)
+          .attr("fill", "none")
+          .attr("stroke", function(d) {
+            const line_color: string | unknown = colorScale(d[0].geoid);
+            if (typeof line_color === "string")
+              return line_color;
 
-          return "black";
-        })
-        .attr("stroke-width", chartStyle.strokeWidth)
-        .attr("stroke-opacity", chartStyle.strokeOpacity)
-        .attr("d", line);
+            return "black";
+          })
+          .attr("stroke-width", chartStyle.strokeWidth)
+          .attr("stroke-opacity", chartStyle.strokeOpacity)
+          .attr("d", line);
     });
 
     // nestedData.forEach((d) => {
@@ -211,31 +210,31 @@ const LineChart: React.FC<LineChartProps> = ({ primary_geoid, metric, data, meta
   }, [ref, metric])
 
   return (
-    <div className={styles["chart-wrapper"]}>
-      {data.length > 0 && (
-        <>
-          <div ref={ref} className={styles["chart"]} style={{maxWidth: "900px", margin: "0 auto", padding: "5px 20px"}}>
-            {
-              has_valid_data === false && (
-                <div className={styles["no-data"]}>
-                  <p>Note: Chart data is not available for the selected primary county</p>
-                </div>
-              )
-            }
-            <h3>{metadata.title}</h3>
-            {metadata.subtitle.length > 0? <p><em>{metadata.subtitle}</em></p>: <></>}
-            <CategoricalLegend domain={colorScaleDomain} range={colorScaleRange} element_name={element_name} />
-            <svg ref={svgRef} style={{width: "100%"}}>
-              <g className="x-axis" />
-              <g className="y-axis" />
-            </svg>
-            <p className={styles['caption']}>{metadata["caption"]}</p>
-          </div>
-          <button className={styles["download-chart"]} onClick={onButtonClick}>Download image</button>
-      </>
-      )
-    }
-    </div>
+      <div className={styles["chart-wrapper"]}>
+        {data.length > 0 && (
+            <>
+              <div ref={ref} className={styles["chart"]} style={{maxWidth: "900px", margin: "0 auto", padding: "5px 20px"}}>
+                {
+                    has_valid_data === false && (
+                        <div className={styles["no-data"]}>
+                          <p>Note: Chart data is not available for the selected primary county</p>
+                        </div>
+                    )
+                }
+                <h3>{metadata.title}</h3>
+                {metadata.subtitle.length > 0? <p><em>{metadata.subtitle}</em></p>: <></>}
+                <CategoricalLegend data_names={data.map(data => data.name)} domain={colorScaleDomain} range={colorScaleRange} />
+                <svg ref={svgRef} style={{width: "100%"}}>
+                  <g className="x-axis" />
+                  <g className="y-axis" />
+                </svg>
+                <p className={styles['caption']}>{metadata["caption"]}</p>
+              </div>
+              <button className={styles["download-chart"]} onClick={onButtonClick}>Download image</button>
+            </>
+        )
+        }
+      </div>
   );
 };
 

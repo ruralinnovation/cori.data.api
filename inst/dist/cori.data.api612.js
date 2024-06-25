@@ -1,30 +1,36 @@
-import { encodeUtf8 as s } from "./cori.data.api549.js";
-import { BinaryBuilder as n } from "./cori.data.api613.js";
-import { BufferBuilder as i } from "./cori.data.api505.js";
-import { VariableWidthBuilder as r } from "./cori.data.api501.js";
+import { BufferBuilder as h } from "./cori.data.api504.js";
+import { VariableWidthBuilder as o } from "./cori.data.api500.js";
+import { toUint8Array as u } from "./cori.data.api499.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class h extends r {
+class c extends o {
   constructor(e) {
-    super(e), this._values = new i(Uint8Array);
+    super(e), this._values = new h(Uint8Array);
   }
   get byteLength() {
     let e = this._pendingLength + this.length * 4;
     return this._offsets && (e += this._offsets.byteLength), this._values && (e += this._values.byteLength), this._nulls && (e += this._nulls.byteLength), e;
   }
   setValue(e, t) {
-    return super.setValue(e, s(t));
+    return super.setValue(e, u(t));
   }
-  // @ts-ignore
   _flushPending(e, t) {
+    const n = this._offsets, f = this._values.reserve(t).buffer;
+    let r = 0;
+    for (const [i, s] of e)
+      if (s === void 0)
+        n.set(i, 0);
+      else {
+        const l = s.length;
+        f.set(s, r), n.set(i, l), r += l;
+      }
   }
 }
-h.prototype._flushPending = n.prototype._flushPending;
 export {
-  h as Utf8Builder
+  c as BinaryBuilder
 };
 //# sourceMappingURL=cori.data.api612.js.map

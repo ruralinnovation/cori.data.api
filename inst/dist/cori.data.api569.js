@@ -1,5 +1,5 @@
 import { ByteBuffer as c } from "./cori.data.api570.js";
-import { SIZEOF_INT as a, SIZEOF_SHORT as o, FILE_IDENTIFIER_LENGTH as f, SIZE_PREFIX_LENGTH as p } from "./cori.data.api639.js";
+import { SIZEOF_INT as a, SIZEOF_SHORT as o, FILE_IDENTIFIER_LENGTH as f, SIZE_PREFIX_LENGTH as p } from "./cori.data.api638.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

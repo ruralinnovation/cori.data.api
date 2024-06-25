@@ -1,21 +1,18 @@
+import { Schema as c } from "./cori.data.api463.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(t, e) {
-  const p = { type: "text", value: e.value.replace(/\r?\n|\r/g, " ") };
-  t.patch(e, p);
-  const r = {
-    type: "element",
-    tagName: "code",
-    properties: {},
-    children: [p]
-  };
-  return t.patch(e, r), t.applyData(e, r);
+function p(e, o) {
+  const t = {}, n = {};
+  let r = -1;
+  for (; ++r < e.length; )
+    Object.assign(t, e[r].property), Object.assign(n, e[r].normal);
+  return new c(t, n, o);
 }
 export {
-  a as inlineCode
+  p as merge
 };
 //# sourceMappingURL=cori.data.api352.js.map

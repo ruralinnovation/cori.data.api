@@ -1,85 +1,112 @@
-import { formatDate as f, formatUTCDate as D } from "./cori.data.api395.js";
-import l from "./cori.data.api518.js";
+import a from "./cori.data.api417.js";
+import o from "./cori.data.api296.js";
+import c from "./cori.data.api413.js";
+import l from "./cori.data.api395.js";
+import y from "./cori.data.api494.js";
+import { Type as r } from "./cori.data.api495.js";
+import { Field as m } from "./cori.data.api496.js";
+import { FixedSizeList as u, List as d, Struct as x } from "./cori.data.api419.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const m = 6e4, T = 864e5, g = 6048e5, e = /* @__PURE__ */ new Date(), o = /* @__PURE__ */ new Date(), s = (t) => (e.setTime(typeof t == "string" ? l(t) : t), e);
-function C(t, n, a, r, u, c, i) {
-  return arguments.length ? new Date(
-    t,
-    n || 0,
-    a ?? 1,
-    r || 0,
-    u || 0,
-    c || 0,
-    i || 0
-  ) : new Date(Date.now());
+function U(t, n) {
+  const i = f();
+  return t(n, i.add), i;
 }
-function U(t, n, a, r, u, c, i) {
-  return arguments.length ? new Date(Date.UTC(
-    t,
-    n || 0,
-    a ?? 1,
-    r || 0,
-    u || 0,
-    c || 0,
-    i || 0
-  )) : new Date(Date.now());
+function f() {
+  const t = {
+    count: 0,
+    nulls: 0,
+    bools: 0,
+    nums: 0,
+    ints: 0,
+    bigints: 0,
+    min: 1 / 0,
+    max: -1 / 0,
+    digits: 0,
+    dates: 0,
+    utcdays: 0,
+    strings: 0,
+    strlen: 0,
+    arrays: 0,
+    minlen: 1 / 0,
+    maxlen: 0,
+    structs: 0,
+    add(n) {
+      if (++t.count, n == null) {
+        ++t.nulls;
+        return;
+      }
+      const i = typeof n;
+      if (i === "string")
+        ++t.strings;
+      else if (i === "number")
+        ++t.nums, n < t.min && (t.min = n), n > t.max && (t.max = n), Number.isInteger(n) && ++t.ints;
+      else if (i === "boolean")
+        ++t.bools;
+      else if (i === "object")
+        if (l(n))
+          ++t.dates, y(n) && ++t.utcdays;
+        else if (c(n)) {
+          ++t.arrays, n.length < t.minlen && (t.minlen = n.length), n.length > t.maxlen && (t.maxlen = n.length);
+          const e = t.array_prof || (t.array_prof = f());
+          n.forEach(e.add);
+        } else {
+          ++t.structs;
+          const e = t.struct_prof || (t.struct_prof = {});
+          for (const s in n)
+            (e[s] || (e[s] = f())).add(n[s]);
+        }
+      else
+        i === "bigint" && (++t.bigints, n < t.min && (t.min = n), n > t.max && (t.max = n));
+    },
+    type() {
+      return a(g(t));
+    }
+  };
+  return t;
 }
-function h(t) {
-  o.setTime(+t), o.setHours(0, 0, 0, 0), e.setTime(+o), e.setMonth(0), e.setDate(1);
-  const n = (o.getTimezoneOffset() - e.getTimezoneOffset()) * m;
-  return Math.floor(1 + (o - e - n) / T);
+function g(t) {
+  const n = t.count - t.nulls;
+  if (n === 0)
+    return r.Null;
+  if (t.ints === n) {
+    const i = Math.max(Math.abs(t.min) - 1, t.max);
+    return t.min < 0 ? i >= 2 ** 31 ? r.Float64 : i < 128 ? r.Int8 : i < 32768 ? r.Int16 : r.Int32 : i >= 2 ** 32 ? r.Float64 : i < 256 ? r.Uint8 : i < 65536 ? r.Uint16 : r.Uint32;
+  } else {
+    if (t.nums === n)
+      return r.Float64;
+    if (t.bigints === n) {
+      const i = -t.min > t.max ? -t.min - 1n : t.max;
+      return t.min < 0 ? i < 2 ** 63 ? r.Int64 : o(`BigInt exceeds 64 bits: ${i}`) : t.max < 2 ** 64 ? r.Uint64 : o(`BigInt exceeds 64 bits: ${t.max}`);
+    } else {
+      if (t.bools === n)
+        return r.Bool;
+      if (t.utcdays === n)
+        return r.DateDay;
+      if (t.dates === n)
+        return r.DateMillisecond;
+      if (t.arrays === n) {
+        const i = m.new("value", t.array_prof.type(), !0);
+        return t.minlen === t.maxlen ? new u(t.minlen, i) : new d(i);
+      } else if (t.structs === n) {
+        const i = t.struct_prof;
+        return new x(
+          Object.keys(i).map((e) => m.new(e, i[e].type(), !0))
+        );
+      } else {
+        if (t.strings > 0)
+          return r.Dictionary;
+        o("Type inference failure");
+      }
+    }
+  }
 }
-function M(t) {
-  o.setTime(+t), o.setUTCHours(0, 0, 0, 0);
-  const n = Date.UTC(o.getUTCFullYear(), 0, 1);
-  return Math.floor(1 + (o - n) / T);
-}
-function y(t, n) {
-  const a = n || 0;
-  o.setTime(+t), o.setDate(o.getDate() - (o.getDay() + 7 - a) % 7), o.setHours(0, 0, 0, 0), e.setTime(+t), e.setMonth(0), e.setDate(1), e.setDate(1 - (e.getDay() + 7 - a) % 7), e.setHours(0, 0, 0, 0);
-  const r = (o.getTimezoneOffset() - e.getTimezoneOffset()) * m;
-  return Math.floor((1 + (o - e) - r) / g);
-}
-function d(t, n) {
-  const a = n || 0;
-  return o.setTime(+t), o.setUTCDate(o.getUTCDate() - (o.getUTCDay() + 7 - a) % 7), o.setUTCHours(0, 0, 0, 0), e.setTime(+t), e.setUTCMonth(0), e.setUTCDate(1), e.setUTCDate(1 - (e.getUTCDay() + 7 - a) % 7), e.setUTCHours(0, 0, 0, 0), Math.floor((1 + (o - e)) / g);
-}
-const p = {
-  format_date: (t, n) => f(s(t), !n),
-  format_utcdate: (t, n) => D(s(t), !n),
-  timestamp: (t) => +s(t),
-  year: (t) => s(t).getFullYear(),
-  quarter: (t) => Math.floor(s(t).getMonth() / 3),
-  month: (t) => s(t).getMonth(),
-  date: (t) => s(t).getDate(),
-  dayofweek: (t) => s(t).getDay(),
-  hours: (t) => s(t).getHours(),
-  minutes: (t) => s(t).getMinutes(),
-  seconds: (t) => s(t).getSeconds(),
-  milliseconds: (t) => s(t).getMilliseconds(),
-  utcyear: (t) => s(t).getUTCFullYear(),
-  utcquarter: (t) => Math.floor(s(t).getUTCMonth() / 3),
-  utcmonth: (t) => s(t).getUTCMonth(),
-  utcdate: (t) => s(t).getUTCDate(),
-  utcdayofweek: (t) => s(t).getUTCDay(),
-  utchours: (t) => s(t).getUTCHours(),
-  utcminutes: (t) => s(t).getUTCMinutes(),
-  utcseconds: (t) => s(t).getUTCSeconds(),
-  utcmilliseconds: (t) => s(t).getUTCMilliseconds(),
-  datetime: C,
-  dayofyear: h,
-  week: y,
-  utcdatetime: U,
-  utcdayofyear: M,
-  utcweek: d,
-  now: Date.now
-};
 export {
-  p as default
+  U as profile,
+  f as profiler
 };
 //# sourceMappingURL=cori.data.api416.js.map

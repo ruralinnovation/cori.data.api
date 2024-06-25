@@ -13,7 +13,7 @@ export declare const getMaxYLabelWidth: (svg: d3.Selection<SVGSVGElement, unknow
 export declare const applyCORIStyles: (svg: d3.Selection<SVGSVGElement, unknown, null, undefined>) => void;
 export declare const getGEOIDColorRange: (geoid: string, i: number) => string;
 export declare const aggregateCountyData: (data: ERCData[], counties: string[], metric: string) => ERCData[];
-export declare const getChartData: (data: ERCData[], metric: string | null, primary_geoid: string | null, comparison_geoids: string[], show_multiple_geos: boolean, metric_metadata: MetricMetadata) => ERCData[];
+export declare const getChartData: (data: ERCData[], metric: string | null, primary_geoid: string | null, comparison_geoids: string[], show_multiple_geos: boolean, metric_metadata: MetricMetadata, geoid_to_name_lookup: GEOIDToNameLookup) => ERCData[];
 export declare const saveChartAsPNG: (ref: React.RefObject<HTMLDivElement>, filename: string) => void;
 export declare const getLatestTopVariable: (data: ERCData[], geoid: string, metric: string) => string;
 export declare const getLatestValue: (data: ERCData[], geoid: string, variable: string, metric?: string) => number | null;

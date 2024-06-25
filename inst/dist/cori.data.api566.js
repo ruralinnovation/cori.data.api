@@ -1,108 +1,55 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api639.js";
-import "./cori.data.api567.js";
-import "./cori.data.api568.js";
-import { Block as o } from "./cori.data.api565.js";
-import { KeyValue as _ } from "./cori.data.api582.js";
-import { MetadataVersion as r } from "./cori.data.api516.js";
-import { Schema as a } from "./cori.data.api574.js";
+import { makeData as f } from "./cori.data.api501.js";
+import { Struct as p } from "./cori.data.api419.js";
+import { RecordBatch as B } from "./cori.data.api512.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
+function N(u, t) {
+  return h(u, t.map((i) => i.data.concat()));
+}
+function h(u, t) {
+  const i = [...u.fields], s = [], a = { numBatches: t.reduce((r, d) => Math.max(r, d.length), 0) };
+  let c = 0, l = 0, n = -1;
+  const m = t.length;
+  let e, o = [];
+  for (; a.numBatches-- > 0; ) {
+    for (l = Number.POSITIVE_INFINITY, n = -1; ++n < m; )
+      o[n] = e = t[n].shift(), l = Math.min(l, e ? e.length : l);
+    Number.isFinite(l) && (o = v(i, l, o, t, a), l > 0 && (s[c++] = f({
+      type: new p(i),
+      length: l,
+      nullCount: 0,
+      children: o.slice()
+    })));
   }
-  __init(t, s) {
-    return this.bb_pos = t, this.bb = s, this;
+  return [
+    u = u.assign(i),
+    s.map((r) => new B(u, r))
+  ];
+}
+function v(u, t, i, s, a) {
+  var c;
+  const l = (t + 63 & -64) >> 3;
+  for (let n = -1, m = s.length; ++n < m; ) {
+    const e = i[n], o = e == null ? void 0 : e.length;
+    if (o >= t)
+      o === t ? i[n] = e : (i[n] = e.slice(0, t), a.numBatches = Math.max(a.numBatches, s[n].unshift(e.slice(t, o - t))));
+    else {
+      const r = u[n];
+      u[n] = r.clone({ nullable: !0 }), i[n] = (c = e == null ? void 0 : e._changeLengthAndBackfillNullBitmap(t)) !== null && c !== void 0 ? c : f({
+        type: r.type,
+        length: t,
+        nullCount: t,
+        nullBitmap: new Uint8Array(l)
+      });
+    }
   }
-  static getRootAsFooter(t, s) {
-    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsFooter(t, s) {
-    return t.setPosition(t.position() + n), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  version() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : r.V1;
-  }
-  schema(t) {
-    const s = this.bb.__offset(this.bb_pos, 6);
-    return s ? (t || new a()).__init(this.bb.__indirect(this.bb_pos + s), this.bb) : null;
-  }
-  dictionaries(t, s) {
-    const e = this.bb.__offset(this.bb_pos, 8);
-    return e ? (s || new o()).__init(this.bb.__vector(this.bb_pos + e) + t * 24, this.bb) : null;
-  }
-  dictionariesLength() {
-    const t = this.bb.__offset(this.bb_pos, 8);
-    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
-  }
-  recordBatches(t, s) {
-    const e = this.bb.__offset(this.bb_pos, 10);
-    return e ? (s || new o()).__init(this.bb.__vector(this.bb_pos + e) + t * 24, this.bb) : null;
-  }
-  recordBatchesLength() {
-    const t = this.bb.__offset(this.bb_pos, 10);
-    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
-  }
-  /**
-   * User-defined metadata
-   */
-  customMetadata(t, s) {
-    const e = this.bb.__offset(this.bb_pos, 12);
-    return e ? (s || new _()).__init(this.bb.__indirect(this.bb.__vector(this.bb_pos + e) + t * 4), this.bb) : null;
-  }
-  customMetadataLength() {
-    const t = this.bb.__offset(this.bb_pos, 12);
-    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
-  }
-  static startFooter(t) {
-    t.startObject(5);
-  }
-  static addVersion(t, s) {
-    t.addFieldInt16(0, s, r.V1);
-  }
-  static addSchema(t, s) {
-    t.addFieldOffset(1, s, 0);
-  }
-  static addDictionaries(t, s) {
-    t.addFieldOffset(2, s, 0);
-  }
-  static startDictionariesVector(t, s) {
-    t.startVector(24, s, 8);
-  }
-  static addRecordBatches(t, s) {
-    t.addFieldOffset(3, s, 0);
-  }
-  static startRecordBatchesVector(t, s) {
-    t.startVector(24, s, 8);
-  }
-  static addCustomMetadata(t, s) {
-    t.addFieldOffset(4, s, 0);
-  }
-  static createCustomMetadataVector(t, s) {
-    t.startVector(4, s.length, 4);
-    for (let e = s.length - 1; e >= 0; e--)
-      t.addOffset(s[e]);
-    return t.endVector();
-  }
-  static startCustomMetadataVector(t, s) {
-    t.startVector(4, s, 4);
-  }
-  static endFooter(t) {
-    return t.endObject();
-  }
-  static finishFooterBuffer(t, s) {
-    t.finish(s);
-  }
-  static finishSizePrefixedFooterBuffer(t, s) {
-    t.finish(s, void 0, !0);
-  }
+  return i;
 }
 export {
-  i as Footer
+  N as distributeVectorsIntoRecordBatches
 };
 //# sourceMappingURL=cori.data.api566.js.map

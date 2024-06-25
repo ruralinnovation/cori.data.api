@@ -1,4 +1,4 @@
-import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api639.js";
+import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api638.js";
 import "./cori.data.api567.js";
 import "./cori.data.api568.js";
 /*
@@ -14,23 +14,23 @@ class s {
   __init(t, i) {
     return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsUtf8(t, i) {
+  static getRootAsLargeUtf8(t, i) {
     return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsUtf8(t, i) {
-    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsLargeUtf8(t, i) {
+    return t.setPosition(t.position() + e), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static startUtf8(t) {
+  static startLargeUtf8(t) {
     t.startObject(0);
   }
-  static endUtf8(t) {
+  static endLargeUtf8(t) {
     return t.endObject();
   }
-  static createUtf8(t) {
-    return s.startUtf8(t), s.endUtf8(t);
+  static createLargeUtf8(t) {
+    return s.startLargeUtf8(t), s.endLargeUtf8(t);
   }
 }
 export {
-  s as Utf8
+  s as LargeUtf8
 };
 //# sourceMappingURL=cori.data.api646.js.map

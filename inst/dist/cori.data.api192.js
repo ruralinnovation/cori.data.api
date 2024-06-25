@@ -1,33 +1,28 @@
+import o from "./cori.data.api196.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s(n, e, r) {
-  return function(t) {
-    this.style.setProperty(n, e.call(this, t), r);
+function u(n, t, i) {
+  var c = o(n), e = c.CustomEvent;
+  typeof e == "function" ? e = new e(t, i) : (e = c.document.createEvent("Event"), i ? (e.initEvent(t, i.bubbles, i.cancelable), e.detail = i.detail) : e.initEvent(t, !1, !1)), n.dispatchEvent(e);
+}
+function f(n, t) {
+  return function() {
+    return u(this, n, t);
   };
 }
-function f(n, e, r) {
-  var t, u;
-  function l() {
-    var i = e.apply(this, arguments);
-    return i !== u && (t = (u = i) && s(n, i, r)), t;
-  }
-  return l._value = e, l;
+function s(n, t) {
+  return function() {
+    return u(this, n, t.apply(this, arguments));
+  };
 }
-function o(n, e, r) {
-  var t = "style." + (n += "");
-  if (arguments.length < 2)
-    return (t = this.tween(t)) && t._value;
-  if (e == null)
-    return this.tween(t, null);
-  if (typeof e != "function")
-    throw new Error();
-  return this.tween(t, f(n, e, r ?? ""));
+function r(n, t) {
+  return this.each((typeof t == "function" ? s : f)(n, t));
 }
 export {
-  o as default
+  r as default
 };
 //# sourceMappingURL=cori.data.api192.js.map

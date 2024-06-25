@@ -1,34 +1,27 @@
-import l from "./cori.data.api172.js";
+import c from "./cori.data.api156.js";
+import { xhtml as n } from "./cori.data.api157.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s(t) {
+function o(e) {
   return function() {
-    this.style.removeProperty(t);
+    var t = this.ownerDocument, r = this.namespaceURI;
+    return r === n && t.documentElement.namespaceURI === n ? t.createElement(e) : t.createElementNS(r, e);
   };
 }
-function u(t, e, n) {
+function a(e) {
   return function() {
-    this.style.setProperty(t, e, n);
+    return this.ownerDocument.createElementNS(e.space, e.local);
   };
 }
-function o(t, e, n) {
-  return function() {
-    var r = e.apply(this, arguments);
-    r == null ? this.style.removeProperty(t) : this.style.setProperty(t, r, n);
-  };
-}
-function f(t, e, n) {
-  return arguments.length > 1 ? this.each((e == null ? s : typeof e == "function" ? o : u)(t, e, n ?? "")) : i(this.node(), t);
-}
-function i(t, e) {
-  return t.style.getPropertyValue(e) || l(t).getComputedStyle(t, null).getPropertyValue(e);
+function i(e) {
+  var t = c(e);
+  return (t.local ? a : o)(t);
 }
 export {
-  f as default,
-  i as styleValue
+  i as default
 };
 //# sourceMappingURL=cori.data.api155.js.map

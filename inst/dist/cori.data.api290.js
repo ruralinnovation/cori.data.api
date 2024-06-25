@@ -1,40 +1,31 @@
-import { ObjectExpression as m, Property as n, Literal as c } from "./cori.data.api305.js";
-import f from "./cori.data.api308.js";
-import s from "./cori.data.api309.js";
-import u from "./cori.data.api393.js";
-import y from "./cori.data.api298.js";
-import w from "./cori.data.api321.js";
-import O from "./cori.data.api329.js";
+import c from "./cori.data.api391.js";
+import m from "./cori.data.api392.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const B = "row_object";
-function a(r, t) {
-  r.type = m;
-  const e = r.properties = [];
-  for (const o of y(t)) {
-    const [p, i] = w(o) ? o : [o, o];
-    e.push({
-      type: n,
-      key: { type: c, raw: O(i) },
-      value: u({ computed: !0 }, p)
-    });
-  }
-  return r;
-}
-function b(r) {
-  return f(a({}, r));
-}
-function C(r) {
-  return s.expr(b(r));
-}
+const b = (a, l, u = 3) => {
+  let d = 0;
+  const p = c(50, 250);
+  return m((o) => {
+    const t = o.loaded, e = o.lengthComputable ? o.total : void 0, s = t - d, n = p(s), i = t <= e;
+    d = t;
+    const r = {
+      loaded: t,
+      total: e,
+      progress: e ? t / e : void 0,
+      bytes: s,
+      rate: n || void 0,
+      estimated: n && e && i ? (e - t) / n : void 0,
+      event: o,
+      lengthComputable: e != null
+    };
+    r[l ? "download" : "upload"] = !0, a(r);
+  }, u);
+};
 export {
-  B as ROW_OBJECT,
-  C as rowObjectBuilder,
-  b as rowObjectCode,
-  a as rowObjectExpression
+  b as default
 };
 //# sourceMappingURL=cori.data.api290.js.map

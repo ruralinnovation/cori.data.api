@@ -1,151 +1,101 @@
-import { asciiAlpha as g, markdownLineEndingOrSpace as V, asciiAlphanumeric as R, markdownSpace as h, markdownLineEnding as p } from "./cori.data.api470.js";
-import { htmlRawNames as H, htmlBlockNames as _ } from "./cori.data.api692.js";
-import { blankLine as $ } from "./cori.data.api656.js";
+import { factorySpace as p } from "./cori.data.api654.js";
+import { markdownSpace as x, markdownLineEnding as u } from "./cori.data.api486.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const an = {
-  name: "htmlFlow",
-  tokenize: d,
-  resolveTo: c,
+const d = {
+  tokenize: A,
+  partial: !0
+}, G = {
+  name: "codeFenced",
+  tokenize: V,
   concrete: !0
-}, k = {
-  tokenize: rn,
-  partial: !0
-}, v = {
-  tokenize: nn,
-  partial: !0
 };
-function c(r) {
-  let t = r.length;
-  for (; t-- && !(r[t][0] === "enter" && r[t][1].type === "htmlFlow"); )
-    ;
-  return t > 1 && r[t - 2][1].type === "linePrefix" && (r[t][1].start = r[t - 2][1].start, r[t + 1][1].start = r[t - 2][1].start, r.splice(t - 2, 2)), r;
-}
-function d(r, t, i) {
-  const a = this;
-  let u, s, l, A, b;
-  return Q;
-  function Q(n) {
-    return q(n);
-  }
-  function q(n) {
-    return r.enter("htmlFlow"), r.enter("htmlFlowData"), r.consume(n), P;
-  }
-  function P(n) {
-    return n === 33 ? (r.consume(n), U) : n === 47 ? (r.consume(n), s = !0, j) : n === 63 ? (r.consume(n), u = 3, a.interrupt ? t : e) : g(n) ? (r.consume(n), l = String.fromCharCode(n), F) : i(n);
-  }
-  function U(n) {
-    return n === 45 ? (r.consume(n), u = 2, f) : n === 91 ? (r.consume(n), u = 5, A = 0, E) : g(n) ? (r.consume(n), u = 4, a.interrupt ? t : e) : i(n);
-  }
-  function f(n) {
-    return n === 45 ? (r.consume(n), a.interrupt ? t : e) : i(n);
-  }
-  function E(n) {
-    const o = "CDATA[";
-    return n === o.charCodeAt(A++) ? (r.consume(n), A === o.length ? a.interrupt ? t : m : E) : i(n);
-  }
-  function j(n) {
-    return g(n) ? (r.consume(n), l = String.fromCharCode(n), F) : i(n);
-  }
-  function F(n) {
-    if (n === null || n === 47 || n === 62 || V(n)) {
-      const o = n === 47, Z = l.toLowerCase();
-      return !o && !s && H.includes(Z) ? (u = 1, a.interrupt ? t(n) : m(n)) : _.includes(l.toLowerCase()) ? (u = 6, o ? (r.consume(n), G) : a.interrupt ? t(n) : m(n)) : (u = 7, a.interrupt && !a.parser.lazy[a.now().line] ? i(n) : s ? B(n) : w(n));
-    }
-    return n === 45 || R(n) ? (r.consume(n), l += String.fromCharCode(n), F) : i(n);
-  }
-  function G(n) {
-    return n === 62 ? (r.consume(n), a.interrupt ? t : m) : i(n);
-  }
-  function B(n) {
-    return h(n) ? (r.consume(n), B) : x(n);
-  }
-  function w(n) {
-    return n === 47 ? (r.consume(n), x) : n === 58 || n === 95 || g(n) ? (r.consume(n), N) : h(n) ? (r.consume(n), w) : x(n);
-  }
-  function N(n) {
-    return n === 45 || n === 46 || n === 58 || n === 95 || R(n) ? (r.consume(n), N) : S(n);
-  }
-  function S(n) {
-    return n === 61 ? (r.consume(n), y) : h(n) ? (r.consume(n), S) : w(n);
-  }
-  function y(n) {
-    return n === null || n === 60 || n === 61 || n === 62 || n === 96 ? i(n) : n === 34 || n === 39 ? (r.consume(n), b = n, D) : h(n) ? (r.consume(n), y) : T(n);
-  }
-  function D(n) {
-    return n === b ? (r.consume(n), b = null, J) : n === null || p(n) ? i(n) : (r.consume(n), D);
-  }
-  function T(n) {
-    return n === null || n === 34 || n === 39 || n === 47 || n === 60 || n === 61 || n === 62 || n === 96 || V(n) ? S(n) : (r.consume(n), T);
-  }
-  function J(n) {
-    return n === 47 || n === 62 || h(n) ? w(n) : i(n);
-  }
-  function x(n) {
-    return n === 62 ? (r.consume(n), I) : i(n);
-  }
+function V(e, m, l) {
+  const i = this, S = {
+    tokenize: M,
+    partial: !0
+  };
+  let c = 0, t = 0, o;
+  return I;
   function I(n) {
-    return n === null || p(n) ? m(n) : h(n) ? (r.consume(n), I) : i(n);
-  }
-  function m(n) {
-    return n === 45 && u === 2 ? (r.consume(n), W) : n === 60 && u === 1 ? (r.consume(n), X) : n === 62 && u === 4 ? (r.consume(n), C) : n === 63 && u === 3 ? (r.consume(n), e) : n === 93 && u === 5 ? (r.consume(n), Y) : p(n) && (u === 6 || u === 7) ? (r.exit("htmlFlowData"), r.check(k, L, z)(n)) : n === null || p(n) ? (r.exit("htmlFlowData"), z(n)) : (r.consume(n), m);
-  }
-  function z(n) {
-    return r.check(v, K, L)(n);
-  }
-  function K(n) {
-    return r.enter("lineEnding"), r.consume(n), r.exit("lineEnding"), M;
-  }
-  function M(n) {
-    return n === null || p(n) ? z(n) : (r.enter("htmlFlowData"), m(n));
-  }
-  function W(n) {
-    return n === 45 ? (r.consume(n), e) : m(n);
-  }
-  function X(n) {
-    return n === 47 ? (r.consume(n), l = "", O) : m(n);
-  }
-  function O(n) {
-    if (n === 62) {
-      const o = l.toLowerCase();
-      return H.includes(o) ? (r.consume(n), C) : m(n);
-    }
-    return g(n) && l.length < 8 ? (r.consume(n), l += String.fromCharCode(n), O) : m(n);
-  }
-  function Y(n) {
-    return n === 93 ? (r.consume(n), e) : m(n);
-  }
-  function e(n) {
-    return n === 62 ? (r.consume(n), C) : n === 45 && u === 2 ? (r.consume(n), e) : m(n);
-  }
-  function C(n) {
-    return n === null || p(n) ? (r.exit("htmlFlowData"), L(n)) : (r.consume(n), C);
+    return L(n);
   }
   function L(n) {
-    return r.exit("htmlFlow"), t(n);
+    const a = i.events[i.events.length - 1];
+    return c = a && a[1].type === "linePrefix" ? a[2].sliceSerialize(a[1], !0).length : 0, o = n, e.enter("codeFenced"), e.enter("codeFencedFence"), e.enter("codeFencedFenceSequence"), z(n);
+  }
+  function z(n) {
+    return n === o ? (t++, e.consume(n), z) : t < 3 ? l(n) : (e.exit("codeFencedFenceSequence"), x(n) ? p(e, F, "whitespace")(n) : F(n));
+  }
+  function F(n) {
+    return n === null || u(n) ? (e.exit("codeFencedFence"), i.interrupt ? m(n) : e.check(d, w, h)(n)) : (e.enter("codeFencedFenceInfo"), e.enter("chunkString", {
+      contentType: "string"
+    }), C(n));
+  }
+  function C(n) {
+    return n === null || u(n) ? (e.exit("chunkString"), e.exit("codeFencedFenceInfo"), F(n)) : x(n) ? (e.exit("chunkString"), e.exit("codeFencedFenceInfo"), p(e, P, "whitespace")(n)) : n === 96 && n === o ? l(n) : (e.consume(n), C);
+  }
+  function P(n) {
+    return n === null || u(n) ? F(n) : (e.enter("codeFencedFenceMeta"), e.enter("chunkString", {
+      contentType: "string"
+    }), q(n));
+  }
+  function q(n) {
+    return n === null || u(n) ? (e.exit("chunkString"), e.exit("codeFencedFenceMeta"), F(n)) : n === 96 && n === o ? l(n) : (e.consume(n), q);
+  }
+  function w(n) {
+    return e.attempt(S, h, O)(n);
+  }
+  function O(n) {
+    return e.enter("lineEnding"), e.consume(n), e.exit("lineEnding"), v;
+  }
+  function v(n) {
+    return c > 0 && x(n) ? p(e, g, "linePrefix", c + 1)(n) : g(n);
+  }
+  function g(n) {
+    return n === null || u(n) ? e.check(d, w, h)(n) : (e.enter("codeFlowValue"), y(n));
+  }
+  function y(n) {
+    return n === null || u(n) ? (e.exit("codeFlowValue"), g(n)) : (e.consume(n), y);
+  }
+  function h(n) {
+    return e.exit("codeFenced"), m(n);
+  }
+  function M(n, a, k) {
+    let E = 0;
+    return N;
+    function N(r) {
+      return n.enter("lineEnding"), n.consume(r), n.exit("lineEnding"), T;
+    }
+    function T(r) {
+      return n.enter("codeFencedFence"), x(r) ? p(n, s, "linePrefix", i.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 4)(r) : s(r);
+    }
+    function s(r) {
+      return r === o ? (n.enter("codeFencedFenceSequence"), B(r)) : k(r);
+    }
+    function B(r) {
+      return r === o ? (E++, n.consume(r), B) : E >= t ? (n.exit("codeFencedFenceSequence"), x(r) ? p(n, b, "whitespace")(r) : b(r)) : k(r);
+    }
+    function b(r) {
+      return r === null || u(r) ? (n.exit("codeFencedFence"), a(r)) : k(r);
+    }
   }
 }
-function nn(r, t, i) {
-  const a = this;
-  return u;
-  function u(l) {
-    return p(l) ? (r.enter("lineEnding"), r.consume(l), r.exit("lineEnding"), s) : i(l);
+function A(e, m, l) {
+  const i = this;
+  return S;
+  function S(t) {
+    return t === null ? l(t) : (e.enter("lineEnding"), e.consume(t), e.exit("lineEnding"), c);
   }
-  function s(l) {
-    return a.parser.lazy[a.now().line] ? i(l) : t(l);
-  }
-}
-function rn(r, t, i) {
-  return a;
-  function a(u) {
-    return r.enter("lineEnding"), r.consume(u), r.exit("lineEnding"), r.attempt($, t, i);
+  function c(t) {
+    return i.parser.lazy[i.now().line] ? l(t) : m(t);
   }
 }
 export {
-  an as htmlFlow
+  G as codeFenced
 };
 //# sourceMappingURL=cori.data.api666.js.map

@@ -1,67 +1,51 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api639.js";
+import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api638.js";
 import "./cori.data.api567.js";
 import "./cori.data.api568.js";
+import { TimeUnit as o } from "./cori.data.api561.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i {
+class s {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
-  __init(t, s) {
-    return this.bb_pos = t, this.bb = s, this;
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsDecimal(t, s) {
-    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getRootAsTimestamp(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsDecimal(t, s) {
-    return t.setPosition(t.position() + n), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsTimestamp(t, i) {
+    return t.setPosition(t.position() + n), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  /**
-   * Total number of decimal digits
-   */
-  precision() {
+  unit() {
     const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
+    return t ? this.bb.readInt16(this.bb_pos + t) : o.SECOND;
   }
-  /**
-   * Number of digits after the decimal point "."
-   */
-  scale() {
-    const t = this.bb.__offset(this.bb_pos, 6);
-    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
+  timezone(t) {
+    const i = this.bb.__offset(this.bb_pos, 6);
+    return i ? this.bb.__string(this.bb_pos + i, t) : null;
   }
-  /**
-   * Number of bits per value. The only accepted widths are 128 and 256.
-   * We use bitWidth for consistency with Int::bitWidth.
-   */
-  bitWidth() {
-    const t = this.bb.__offset(this.bb_pos, 8);
-    return t ? this.bb.readInt32(this.bb_pos + t) : 128;
+  static startTimestamp(t) {
+    t.startObject(2);
   }
-  static startDecimal(t) {
-    t.startObject(3);
+  static addUnit(t, i) {
+    t.addFieldInt16(0, i, o.SECOND);
   }
-  static addPrecision(t, s) {
-    t.addFieldInt32(0, s, 0);
+  static addTimezone(t, i) {
+    t.addFieldOffset(1, i, 0);
   }
-  static addScale(t, s) {
-    t.addFieldInt32(1, s, 0);
-  }
-  static addBitWidth(t, s) {
-    t.addFieldInt32(2, s, 128);
-  }
-  static endDecimal(t) {
+  static endTimestamp(t) {
     return t.endObject();
   }
-  static createDecimal(t, s, o, e) {
-    return i.startDecimal(t), i.addPrecision(t, s), i.addScale(t, o), i.addBitWidth(t, e), i.endDecimal(t);
+  static createTimestamp(t, i, e) {
+    return s.startTimestamp(t), s.addUnit(t, i), s.addTimezone(t, e), s.endTimestamp(t);
   }
 }
 export {
-  i as Decimal
+  s as Timestamp
 };
 //# sourceMappingURL=cori.data.api585.js.map
