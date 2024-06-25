@@ -1,4 +1,4 @@
-import { FixedWidthBuilder as s } from "./cori.data.api502.js";
+import { FixedWidthBuilder as s } from "./cori.data.api504.js";
 import { setDate as a, setDateDay as l, setDateMillisecond as o } from "./cori.data.api556.js";
 /*
  * CORI Data API component library

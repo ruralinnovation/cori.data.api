@@ -1,46 +1,39 @@
-import d from "./cori.data.api116.js";
-import p from "./cori.data.api119.js";
+import { tickStep as s } from "./cori.data.api83.js";
+import c from "./cori.data.api93.js";
+import e from "./cori.data.api98.js";
+import p from "./cori.data.api100.js";
+import l from "./cori.data.api99.js";
+import { formatPrefix as u, format as h } from "./cori.data.api43.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function b(c) {
-  let u, o, s;
-  c.length !== 2 ? (u = d, o = (n, e) => d(c(n), e), s = (n, e) => c(n) - e) : (u = c === d || c === p ? c : l, o = c, s = c);
-  function f(n, e, t = 0, r = n.length) {
-    if (t < r) {
-      if (u(e, e) !== 0)
-        return r;
-      do {
-        const i = t + r >>> 1;
-        o(n[i], e) < 0 ? t = i + 1 : r = i;
-      } while (t < r);
+function d(r, t, i, a) {
+  var n = s(r, t, i), o;
+  switch (a = c(a ?? ",f"), a.type) {
+    case "s": {
+      var m = Math.max(Math.abs(r), Math.abs(t));
+      return a.precision == null && !isNaN(o = l(n, m)) && (a.precision = o), u(a, m);
     }
-    return t;
-  }
-  function m(n, e, t = 0, r = n.length) {
-    if (t < r) {
-      if (u(e, e) !== 0)
-        return r;
-      do {
-        const i = t + r >>> 1;
-        o(n[i], e) <= 0 ? t = i + 1 : r = i;
-      } while (t < r);
+    case "":
+    case "e":
+    case "g":
+    case "p":
+    case "r": {
+      a.precision == null && !isNaN(o = p(n, Math.max(Math.abs(r), Math.abs(t)))) && (a.precision = o - (a.type === "e"));
+      break;
     }
-    return t;
+    case "f":
+    case "%": {
+      a.precision == null && !isNaN(o = e(n)) && (a.precision = o - (a.type === "%") * 2);
+      break;
+    }
   }
-  function g(n, e, t = 0, r = n.length) {
-    const i = f(n, e, t, r - 1);
-    return i > t && s(n[i - 1], e) > -s(n[i], e) ? i - 1 : i;
-  }
-  return { left: f, center: g, right: m };
-}
-function l() {
-  return 0;
+  return h(a);
 }
 export {
-  b as default
+  d as default
 };
 //# sourceMappingURL=cori.data.api117.js.map

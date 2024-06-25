@@ -1,60 +1,14 @@
-import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api642.js";
-import "./cori.data.api570.js";
-import "./cori.data.api571.js";
-import { RecordBatch as e } from "./cori.data.api579.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
-  }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
-  }
-  static getRootAsDictionaryBatch(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsDictionaryBatch(t, i) {
-    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  id() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt64(this.bb_pos + t) : BigInt("0");
-  }
-  data(t) {
-    const i = this.bb.__offset(this.bb_pos, 6);
-    return i ? (t || new e()).__init(this.bb.__indirect(this.bb_pos + i), this.bb) : null;
-  }
-  /**
-   * If isDelta is true the values in the dictionary are to be appended to a
-   * dictionary with the indicated id. If isDelta is false this dictionary
-   * should replace the existing dictionary.
-   */
-  isDelta() {
-    const t = this.bb.__offset(this.bb_pos, 8);
-    return t ? !!this.bb.readInt8(this.bb_pos + t) : !1;
-  }
-  static startDictionaryBatch(t) {
-    t.startObject(3);
-  }
-  static addId(t, i) {
-    t.addFieldInt64(0, i, BigInt("0"));
-  }
-  static addData(t, i) {
-    t.addFieldOffset(1, i, 0);
-  }
-  static addIsDelta(t, i) {
-    t.addFieldInt8(2, +i, 0);
-  }
-  static endDictionaryBatch(t) {
-    return t.endObject();
-  }
-}
+var t;
+(function(i) {
+  i[i.NONE = 0] = "NONE", i[i.Null = 1] = "Null", i[i.Int = 2] = "Int", i[i.FloatingPoint = 3] = "FloatingPoint", i[i.Binary = 4] = "Binary", i[i.Utf8 = 5] = "Utf8", i[i.Bool = 6] = "Bool", i[i.Decimal = 7] = "Decimal", i[i.Date = 8] = "Date", i[i.Time = 9] = "Time", i[i.Timestamp = 10] = "Timestamp", i[i.Interval = 11] = "Interval", i[i.List = 12] = "List", i[i.Struct_ = 13] = "Struct_", i[i.Union = 14] = "Union", i[i.FixedSizeBinary = 15] = "FixedSizeBinary", i[i.FixedSizeList = 16] = "FixedSizeList", i[i.Map = 17] = "Map", i[i.Duration = 18] = "Duration", i[i.LargeBinary = 19] = "LargeBinary", i[i.LargeUtf8 = 20] = "LargeUtf8", i[i.LargeList = 21] = "LargeList", i[i.RunEndEncoded = 22] = "RunEndEncoded";
+})(t || (t = {}));
 export {
-  s as DictionaryBatch
+  t as Type
 };
 //# sourceMappingURL=cori.data.api580.js.map

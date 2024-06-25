@@ -4,8 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function t(e) {
-  return e.ownerDocument && e.ownerDocument.defaultView || e.document && e || e.defaultView;
+function t() {
+  var e = new Array(this.size()), n = -1;
+  return this.each(function() {
+    e[++n] = this;
+  }), e;
 }
 export {
   t as default

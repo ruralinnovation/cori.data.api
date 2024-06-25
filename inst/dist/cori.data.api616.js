@@ -1,6 +1,6 @@
-import { BufferBuilder as h } from "./cori.data.api506.js";
-import { VariableWidthBuilder as o } from "./cori.data.api502.js";
-import { toUint8Array as u } from "./cori.data.api501.js";
+import { BufferBuilder as h } from "./cori.data.api508.js";
+import { VariableWidthBuilder as o } from "./cori.data.api504.js";
+import { toUint8Array as u } from "./cori.data.api503.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

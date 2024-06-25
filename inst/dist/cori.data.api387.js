@@ -1,12 +1,11 @@
+import a from "./cori.data.api278.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(t) {
-  return t instanceof Date;
-}
+const e = typeof URLSearchParams < "u" ? URLSearchParams : a;
 export {
   e as default
 };

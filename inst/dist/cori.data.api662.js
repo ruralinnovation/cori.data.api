@@ -1,5 +1,5 @@
 import { factorySpace as c } from "./cori.data.api658.js";
-import { asciiDigit as h, markdownSpace as k } from "./cori.data.api481.js";
+import { asciiDigit as h, markdownSpace as k } from "./cori.data.api480.js";
 import { blankLine as f } from "./cori.data.api659.js";
 import { thematicBreak as d } from "./cori.data.api667.js";
 /*

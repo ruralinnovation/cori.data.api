@@ -1,7 +1,7 @@
-import { getDefaultExportFromCjs as e } from "./cori.data.api40.js";
-import { __module as r } from "./cori.data.api41.js";
-import { __require as o } from "./cori.data.api42.js";
-import { __require as t } from "./cori.data.api43.js";
+import { getDefaultExportFromCjs as e } from "./cori.data.api31.js";
+import { __module as r } from "./cori.data.api32.js";
+import { __require as o } from "./cori.data.api33.js";
+import { __require as t } from "./cori.data.api34.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

@@ -1,100 +1,224 @@
-import { Vector as c } from "./cori.data.api410.js";
-import { valueToString as a } from "./cori.data.api562.js";
-import { instance as l } from "./cori.data.api555.js";
-import { instance as f } from "./cori.data.api556.js";
+import { Vector as _ } from "./cori.data.api417.js";
+import { makeData as c } from "./cori.data.api505.js";
+import { MapRow as v, kKeys as y } from "./cori.data.api506.js";
+import { strideForType as m } from "./cori.data.api418.js";
+import { createIsValidFunction as V } from "./cori.data.api507.js";
+import { BitmapBufferBuilder as L, DataBufferBuilder as B, OffsetsBufferBuilder as b } from "./cori.data.api508.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const n = Symbol.for("keys"), i = Symbol.for("vals");
-class h {
-  constructor(e) {
-    return this[n] = new c([e.children[0]]).memoize(), this[i] = e.children[1], new Proxy(this, new b());
+class r {
+  /** @nocollapse */
+  // @ts-ignore
+  static throughNode(e) {
+    throw new Error('"throughNode" not available in this environment');
   }
-  [Symbol.iterator]() {
-    return new m(this[n], this[i]);
+  /** @nocollapse */
+  // @ts-ignore
+  static throughDOM(e) {
+    throw new Error('"throughDOM" not available in this environment');
   }
-  get size() {
-    return this[n].length;
+  /**
+   * Construct a builder with the given Arrow DataType with optional null values,
+   * which will be interpreted as "null" when set or appended to the `Builder`.
+   * @param {{ type: T, nullValues?: any[] }} options A `BuilderOptions` object used to create this `Builder`.
+   */
+  constructor({ type: e, nullValues: t }) {
+    this.length = 0, this.finished = !1, this.type = e, this.children = [], this.nullValues = t, this.stride = m(e), this._nulls = new L(), t && t.length > 0 && (this._isValid = V(t));
   }
-  toArray() {
-    return Object.values(this.toJSON());
+  /**
+   * Flush the `Builder` and return a `Vector<T>`.
+   * @returns {Vector<T>} A `Vector<T>` of the flushed values.
+   */
+  toVector() {
+    return new _([this.flush()]);
   }
-  toJSON() {
-    const e = this[n], t = this[i], r = {};
-    for (let s = -1, u = e.length; ++s < u; )
-      r[e.get(s)] = l.visit(t, s);
-    return r;
+  get ArrayType() {
+    return this.type.ArrayType;
   }
-  toString() {
-    return `{${[...this].map(([e, t]) => `${a(e)}: ${a(t)}`).join(", ")}}`;
+  get nullCount() {
+    return this._nulls.numInvalid;
   }
-  [Symbol.for("nodejs.util.inspect.custom")]() {
-    return this.toString();
+  get numChildren() {
+    return this.children.length;
   }
-}
-class m {
-  constructor(e, t) {
-    this.keys = e, this.vals = t, this.keyIndex = 0, this.numKeys = e.length;
+  /**
+   * @returns The aggregate length (in bytes) of the values that have been written.
+   */
+  get byteLength() {
+    let e = 0;
+    const { _offsets: t, _values: s, _nulls: i, _typeIds: h, children: n } = this;
+    return t && (e += t.byteLength), s && (e += s.byteLength), i && (e += i.byteLength), h && (e += h.byteLength), n.reduce((o, d) => o + d.byteLength, e);
   }
-  [Symbol.iterator]() {
-    return this;
+  /**
+   * @returns The aggregate number of rows that have been reserved to write new values.
+   */
+  get reservedLength() {
+    return this._nulls.reservedLength;
   }
-  next() {
-    const e = this.keyIndex;
-    return e === this.numKeys ? { done: !0, value: null } : (this.keyIndex++, {
-      done: !1,
-      value: [
-        this.keys.get(e),
-        l.visit(this.vals, e)
-      ]
+  /**
+   * @returns The aggregate length (in bytes) that has been reserved to write new values.
+   */
+  get reservedByteLength() {
+    let e = 0;
+    return this._offsets && (e += this._offsets.reservedByteLength), this._values && (e += this._values.reservedByteLength), this._nulls && (e += this._nulls.reservedByteLength), this._typeIds && (e += this._typeIds.reservedByteLength), this.children.reduce((t, s) => t + s.reservedByteLength, e);
+  }
+  get valueOffsets() {
+    return this._offsets ? this._offsets.buffer : null;
+  }
+  get values() {
+    return this._values ? this._values.buffer : null;
+  }
+  get nullBitmap() {
+    return this._nulls ? this._nulls.buffer : null;
+  }
+  get typeIds() {
+    return this._typeIds ? this._typeIds.buffer : null;
+  }
+  /**
+   * Appends a value (or null) to this `Builder`.
+   * This is equivalent to `builder.set(builder.length, value)`.
+   * @param {T['TValue'] | TNull } value The value to append.
+   */
+  append(e) {
+    return this.set(this.length, e);
+  }
+  /**
+   * Validates whether a value is valid (true), or null (false)
+   * @param {T['TValue'] | TNull } value The value to compare against null the value representations
+   */
+  isValid(e) {
+    return this._isValid(e);
+  }
+  /**
+   * Write a value (or null-value sentinel) at the supplied index.
+   * If the value matches one of the null-value representations, a 1-bit is
+   * written to the null `BitmapBufferBuilder`. Otherwise, a 0 is written to
+   * the null `BitmapBufferBuilder`, and the value is passed to
+   * `Builder.prototype.setValue()`.
+   * @param {number} index The index of the value to write.
+   * @param {T['TValue'] | TNull } value The value to write at the supplied index.
+   * @returns {this} The updated `Builder` instance.
+   */
+  set(e, t) {
+    return this.setValid(e, this.isValid(t)) && this.setValue(e, t), this;
+  }
+  /**
+   * Write a value to the underlying buffers at the supplied index, bypassing
+   * the null-value check. This is a low-level method that
+   * @param {number} index
+   * @param {T['TValue'] | TNull } value
+   */
+  setValue(e, t) {
+    this._setValue(this, e, t);
+  }
+  setValid(e, t) {
+    return this.length = this._nulls.set(e, +t).length, t;
+  }
+  // @ts-ignore
+  addChild(e, t = `${this.numChildren}`) {
+    throw new Error(`Cannot append children to non-nested type "${this.type}"`);
+  }
+  /**
+   * Retrieve the child `Builder` at the supplied `index`, or null if no child
+   * exists at that index.
+   * @param {number} index The index of the child `Builder` to retrieve.
+   * @returns {Builder | null} The child Builder at the supplied index or null.
+   */
+  getChildAt(e) {
+    return this.children[e] || null;
+  }
+  /**
+   * Commit all the values that have been written to their underlying
+   * ArrayBuffers, including any child Builders if applicable, and reset
+   * the internal `Builder` state.
+   * @returns A `Data<T>` of the buffers and children representing the values written.
+   */
+  flush() {
+    let e, t, s, i;
+    const { type: h, length: n, nullCount: o, _typeIds: d, _offsets: l, _values: u, _nulls: f } = this;
+    (t = d == null ? void 0 : d.flush(n)) ? i = l == null ? void 0 : l.flush(n) : (i = l == null ? void 0 : l.flush(n)) ? e = u == null ? void 0 : u.flush(l.last()) : e = u == null ? void 0 : u.flush(n), o > 0 && (s = f == null ? void 0 : f.flush(n));
+    const p = this.children.map((g) => g.flush());
+    return this.clear(), c({
+      type: h,
+      length: n,
+      nullCount: o,
+      children: p,
+      child: p[0],
+      data: e,
+      typeIds: t,
+      nullBitmap: s,
+      valueOffsets: i
     });
   }
-}
-class b {
-  isExtensible() {
-    return !1;
+  /**
+   * Finalize this `Builder`, and child builders if applicable.
+   * @returns {this} The finalized `Builder` instance.
+   */
+  finish() {
+    this.finished = !0;
+    for (const e of this.children)
+      e.finish();
+    return this;
   }
-  deleteProperty() {
-    return !1;
-  }
-  preventExtensions() {
-    return !0;
-  }
-  ownKeys(e) {
-    return e[n].toArray().map(String);
-  }
-  has(e, t) {
-    return e[n].includes(t);
-  }
-  getOwnPropertyDescriptor(e, t) {
-    if (e[n].indexOf(t) !== -1)
-      return { writable: !0, enumerable: !0, configurable: !0 };
-  }
-  get(e, t) {
-    if (Reflect.has(e, t))
-      return e[t];
-    const r = e[n].indexOf(t);
-    if (r !== -1) {
-      const s = l.visit(Reflect.get(e, i), r);
-      return Reflect.set(e, t, s), s;
-    }
-  }
-  set(e, t, r) {
-    const s = e[n].indexOf(t);
-    return s !== -1 ? (f.visit(Reflect.get(e, i), s, r), Reflect.set(e, t, r)) : Reflect.has(e, t) ? Reflect.set(e, t, r) : !1;
+  /**
+   * Clear this Builder's internal state, including child Builders if applicable, and reset the length to 0.
+   * @returns {this} The cleared `Builder` instance.
+   */
+  clear() {
+    var e, t, s, i;
+    this.length = 0, (e = this._nulls) === null || e === void 0 || e.clear(), (t = this._values) === null || t === void 0 || t.clear(), (s = this._offsets) === null || s === void 0 || s.clear(), (i = this._typeIds) === null || i === void 0 || i.clear();
+    for (const h of this.children)
+      h.clear();
+    return this;
   }
 }
-Object.defineProperties(h.prototype, {
-  [Symbol.toStringTag]: { enumerable: !1, configurable: !1, value: "Row" },
-  [n]: { writable: !0, enumerable: !1, configurable: !1, value: null },
-  [i]: { writable: !0, enumerable: !1, configurable: !1, value: null }
-});
+r.prototype.length = 1;
+r.prototype.stride = 1;
+r.prototype.children = null;
+r.prototype.finished = !1;
+r.prototype.nullValues = null;
+r.prototype._isValid = () => !0;
+class D extends r {
+  constructor(e) {
+    super(e), this._values = new B(this.ArrayType, 0, this.stride);
+  }
+  setValue(e, t) {
+    const s = this._values;
+    return s.reserve(e - s.length + 1), super.setValue(e, t);
+  }
+}
+class T extends r {
+  constructor(e) {
+    super(e), this._pendingLength = 0, this._offsets = new b(e.type);
+  }
+  setValue(e, t) {
+    const s = this._pending || (this._pending = /* @__PURE__ */ new Map()), i = s.get(e);
+    i && (this._pendingLength -= i.length), this._pendingLength += t instanceof v ? t[y].length : t.length, s.set(e, t);
+  }
+  setValid(e, t) {
+    return super.setValid(e, t) ? !0 : ((this._pending || (this._pending = /* @__PURE__ */ new Map())).set(e, void 0), !1);
+  }
+  clear() {
+    return this._pendingLength = 0, this._pending = void 0, super.clear();
+  }
+  flush() {
+    return this._flush(), super.flush();
+  }
+  finish() {
+    return this._flush(), super.finish();
+  }
+  _flush() {
+    const e = this._pending, t = this._pendingLength;
+    return this._pendingLength = 0, this._pending = void 0, e && e.size > 0 && this._flushPending(e, t), this;
+  }
+}
 export {
-  h as MapRow,
-  n as kKeys,
-  i as kVals
+  r as Builder,
+  D as FixedWidthBuilder,
+  T as VariableWidthBuilder
 };
 //# sourceMappingURL=cori.data.api504.js.map

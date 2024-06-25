@@ -1,4 +1,4 @@
-import { FixedWidthBuilder as e } from "./cori.data.api502.js";
+import { FixedWidthBuilder as e } from "./cori.data.api504.js";
 import { setDecimal as t } from "./cori.data.api556.js";
 /*
  * CORI Data API component library

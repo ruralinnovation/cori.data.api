@@ -4,29 +4,20 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const r = (
-  /**
-   * @type {new <Parameters extends Array<unknown>, Result>(property: string | symbol) => (...parameters: Parameters) => Result}
-   */
-  /** @type {unknown} */
-  /**
-   * @this {Function}
-   * @param {string | symbol} property
-   * @returns {(...parameters: Array<unknown>) => unknown}
-   */
-  function(n) {
-    const o = (
-      /** @type {Record<string | symbol, Function>} */
-      // Prototypes do exist.
-      // type-coverage:ignore-next-line
-      this.constructor.prototype
-    ), s = o[n], t = function() {
-      return s.apply(t, arguments);
-    };
-    return Object.setPrototypeOf(t, o), t;
-  }
-);
+function a(e) {
+  return Math.abs(e = Math.round(e)) >= 1e21 ? e.toLocaleString("en").replace(/,/g, "") : e.toString(10);
+}
+function r(e, i) {
+  if ((n = (e = i ? e.toExponential(i - 1) : e.toExponential()).indexOf("e")) < 0)
+    return null;
+  var n, t = e.slice(0, n);
+  return [
+    t.length > 1 ? t[0] + t.slice(2) : t,
+    +e.slice(n + 1)
+  ];
+}
 export {
-  r as CallableInstance
+  a as default,
+  r as formatDecimalParts
 };
 //# sourceMappingURL=cori.data.api245.js.map

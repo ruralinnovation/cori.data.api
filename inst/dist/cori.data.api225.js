@@ -1,26 +1,26 @@
-import { Transition as l, newId as _ } from "./cori.data.api207.js";
-import u, { get as v } from "./cori.data.api229.js";
+import f from "./cori.data.api59.js";
+import d from "./cori.data.api278.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function w() {
-  for (var s = this._name, o = this._id, d = _(), e = this._groups, m = e.length, n = 0; n < m; ++n)
-    for (var r = e[n], f = r.length, i, a = 0; a < f; ++a)
-      if (i = r[a]) {
-        var t = v(i, o);
-        u(i, s, d, a, r, {
-          time: t.time + t.delay + t.duration,
-          delay: 0,
-          duration: t.duration,
-          ease: t.ease
-        });
-      }
-  return new l(e, this._parents, s, d);
+function l(e) {
+  return encodeURIComponent(e).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
+}
+function s(e, c, i) {
+  if (!c)
+    return e;
+  const a = i && i.encode || l, r = i && i.serialize;
+  let n;
+  if (r ? n = r(c, i) : n = f.isURLSearchParams(c) ? c.toString() : new d(c, i).toString(a), n) {
+    const t = e.indexOf("#");
+    t !== -1 && (e = e.slice(0, t)), e += (e.indexOf("?") === -1 ? "?" : "&") + n;
+  }
+  return e;
 }
 export {
-  w as default
+  s as default
 };
 //# sourceMappingURL=cori.data.api225.js.map

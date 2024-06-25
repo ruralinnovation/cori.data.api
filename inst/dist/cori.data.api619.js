@@ -1,7 +1,7 @@
-import { Field as h } from "./cori.data.api498.js";
-import { List as l } from "./cori.data.api411.js";
-import { OffsetsBufferBuilder as u } from "./cori.data.api506.js";
-import { VariableWidthBuilder as c } from "./cori.data.api502.js";
+import { Field as h } from "./cori.data.api500.js";
+import { List as l } from "./cori.data.api418.js";
+import { OffsetsBufferBuilder as u } from "./cori.data.api508.js";
+import { VariableWidthBuilder as c } from "./cori.data.api504.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

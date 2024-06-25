@@ -4,10 +4,8 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function n(e) {
-  return e instanceof RegExp;
-}
+const a = typeof FormData < "u" ? FormData : null;
 export {
-  n as default
+  a as default
 };
 //# sourceMappingURL=cori.data.api388.js.map

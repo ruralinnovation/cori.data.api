@@ -4,12 +4,17 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const e = typeof window < "u" && typeof document < "u", n = ((o) => e && ["ReactNative", "NativeScript", "NS"].indexOf(o) < 0)(typeof navigator < "u" && navigator.product), t = typeof WorkerGlobalScope < "u" && // eslint-disable-next-line no-undef
-self instanceof WorkerGlobalScope && typeof self.importScripts == "function", r = e && window.location.href || "http://localhost";
+function p(e, l) {
+  const t = {
+    type: "element",
+    tagName: "td",
+    // Assume body cell.
+    properties: {},
+    children: e.all(l)
+  };
+  return e.patch(l, t), e.applyData(l, t);
+}
 export {
-  e as hasBrowserEnv,
-  n as hasStandardBrowserEnv,
-  t as hasStandardBrowserWebWorkerEnv,
-  r as origin
+  p as tableCell
 };
 //# sourceMappingURL=cori.data.api380.js.map

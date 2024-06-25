@@ -1,34 +1,25 @@
-import l from "./cori.data.api202.js";
+import { STARTING as u, ENDING as s, ENDED as c } from "./cori.data.api186.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s(t) {
-  return function() {
-    this.style.removeProperty(t);
-  };
-}
-function u(t, e, n) {
-  return function() {
-    this.style.setProperty(t, e, n);
-  };
-}
-function o(t, e, n) {
-  return function() {
-    var r = e.apply(this, arguments);
-    r == null ? this.style.removeProperty(t) : this.style.setProperty(t, r, n);
-  };
-}
-function f(t, e, n) {
-  return arguments.length > 1 ? this.each((e == null ? s : typeof e == "function" ? o : u)(t, e, n ?? "")) : i(this.node(), t);
-}
-function i(t, e) {
-  return t.style.getPropertyValue(e) || l(t).getComputedStyle(t, null).getPropertyValue(e);
+function o(e, i) {
+  var r = e.__transition, t, a, n = !0, l;
+  if (r) {
+    i = i == null ? null : i + "";
+    for (l in r) {
+      if ((t = r[l]).name !== i) {
+        n = !1;
+        continue;
+      }
+      a = t.state > u && t.state < s, t.state = c, t.timer.stop(), t.on.call(a ? "interrupt" : "cancel", e, e.__data__, t.index, t.group), delete r[l];
+    }
+    n && delete e.__transition;
+  }
 }
 export {
-  f as default,
-  i as styleValue
+  o as default
 };
 //# sourceMappingURL=cori.data.api185.js.map

@@ -1,52 +1,28 @@
-import { set as p } from "./cori.data.api229.js";
-import { tweenValue as v } from "./cori.data.api226.js";
-import g from "./cori.data.api335.js";
-import { styleValue as f } from "./cori.data.api185.js";
-import { interpolateTransformCss as d } from "./cori.data.api155.js";
+import o from "./cori.data.api224.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(t, n) {
-  var i, r, o;
+function u(n, t, i) {
+  var c = o(n), e = c.CustomEvent;
+  typeof e == "function" ? e = new e(t, i) : (e = c.document.createEvent("Event"), i ? (e.initEvent(t, i.bubbles, i.cancelable), e.detail = i.detail) : e.initEvent(t, !1, !1)), n.dispatchEvent(e);
+}
+function f(n, t) {
   return function() {
-    var s = f(this, t), e = (this.style.removeProperty(t), f(this, t));
-    return s === e ? null : s === i && e === r ? o : o = n(i = s, r = e);
+    return u(this, n, t);
   };
 }
-function c(t) {
+function s(n, t) {
   return function() {
-    this.style.removeProperty(t);
+    return u(this, n, t.apply(this, arguments));
   };
 }
-function w(t, n, i) {
-  var r, o = i + "", s;
-  return function() {
-    var e = f(this, t);
-    return e === o ? null : e === r ? s : s = n(r = e, i);
-  };
-}
-function T(t, n, i) {
-  var r, o, s;
-  return function() {
-    var e = f(this, t), u = i(this), l = u + "";
-    return u == null && (l = u = (this.style.removeProperty(t), f(this, t))), e === l ? null : e === r && l === o ? s : (o = l, s = n(r = e, u));
-  };
-}
-function P(t, n) {
-  var i, r, o, s = "style." + n, e = "end." + s, u;
-  return function() {
-    var l = p(this, t), y = l.on, h = l.value[s] == null ? u || (u = c(n)) : void 0;
-    (y !== i || o !== h) && (r = (i = y).copy()).on(e, o = h), l.on = r;
-  };
-}
-function b(t, n, i) {
-  var r = (t += "") == "transform" ? d : g;
-  return n == null ? this.styleTween(t, a(t, r)).on("end.style." + t, c(t)) : typeof n == "function" ? this.styleTween(t, T(t, r, v(this, "style." + t, n))).each(P(this._id, t)) : this.styleTween(t, w(t, r, n), i).on("end.style." + t, null);
+function r(n, t) {
+  return this.each((typeof t == "function" ? s : f)(n, t));
 }
 export {
-  b as default
+  r as default
 };
 //# sourceMappingURL=cori.data.api221.js.map

@@ -1,24 +1,27 @@
-import d from "./cori.data.api280.js";
-import i from "./cori.data.api427.js";
+import _ from "./cori.data.api535.js";
+import a from "./cori.data.api311.js";
+import l from "./cori.data.api296.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function g(o, n) {
-  const t = o.numRows(), s = t + n.reduce((c, r) => c + r.numRows(), 0);
-  if (t === s)
-    return o;
-  const e = [o, ...n], u = d();
-  return o.columnNames().forEach((c) => {
-    const r = Array(s);
-    let f = 0;
-    e.forEach((m) => {
-      const a = m.column(c) || { get: () => i };
-      m.scan((w) => r[f++] = a.get(w));
-    }), u.add(c, r);
-  }), o.create(u.new());
+function g(r, e, { before: c, after: i } = {}) {
+  const t = c != null, s = i != null;
+  t || s || l("relocate requires a before or after option."), t && s && l("relocate accepts only one of the before or after options."), e = a(r, e);
+  const n = [...a(r, t ? c : i).keys()], u = t ? n[0] : n.pop(), f = /* @__PURE__ */ new Map();
+  return r.columnNames().forEach((o) => {
+    const p = !e.has(o);
+    if (o === u) {
+      s && p && f.set(o, o);
+      for (const [h, y] of e)
+        f.set(h, y);
+      if (s)
+        return;
+    }
+    p && f.set(o, o);
+  }), _(r, f);
 }
 export {
   g as default

@@ -1,4 +1,4 @@
-import { __exports as t } from "./cori.data.api45.js";
+import { __exports as t } from "./cori.data.api44.js";
 import { r as y } from "./cori.data.api10.js";
 /*
  * CORI Data API component library

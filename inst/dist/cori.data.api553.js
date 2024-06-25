@@ -1,7 +1,7 @@
-import { Vector as b } from "./cori.data.api410.js";
-import { MapRow as O } from "./cori.data.api504.js";
+import { Vector as b } from "./cori.data.api417.js";
+import { MapRow as O } from "./cori.data.api506.js";
 import { StructRow as k } from "./cori.data.api601.js";
-import { compareArrayLike as S } from "./cori.data.api501.js";
+import { compareArrayLike as S } from "./cori.data.api503.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

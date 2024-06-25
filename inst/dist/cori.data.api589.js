@@ -1,7 +1,7 @@
-import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api642.js";
+import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api642.js";
+import "./cori.data.api569.js";
 import "./cori.data.api570.js";
-import "./cori.data.api571.js";
-import { DateUnit as o } from "./cori.data.api565.js";
+import { TimeUnit as o } from "./cori.data.api566.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
@@ -15,30 +15,30 @@ class s {
   __init(t, i) {
     return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsDate(t, i) {
+  static getRootAsDuration(t, i) {
     return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsDate(t, i) {
-    return t.setPosition(t.position() + e), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsDuration(t, i) {
+    return t.setPosition(t.position() + n), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
   unit() {
     const t = this.bb.__offset(this.bb_pos, 4);
     return t ? this.bb.readInt16(this.bb_pos + t) : o.MILLISECOND;
   }
-  static startDate(t) {
+  static startDuration(t) {
     t.startObject(1);
   }
   static addUnit(t, i) {
     t.addFieldInt16(0, i, o.MILLISECOND);
   }
-  static endDate(t) {
+  static endDuration(t) {
     return t.endObject();
   }
-  static createDate(t, i) {
-    return s.startDate(t), s.addUnit(t, i), s.endDate(t);
+  static createDuration(t, i) {
+    return s.startDuration(t), s.addUnit(t, i), s.endDuration(t);
   }
 }
 export {
-  s as Date
+  s as Duration
 };
 //# sourceMappingURL=cori.data.api589.js.map

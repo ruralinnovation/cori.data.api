@@ -4,13 +4,16 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function l(n, e, a) {
-  n = +n, e = +e, a = (g = arguments.length) < 2 ? (e = n, n = 0, 1) : g < 3 ? 1 : +a;
-  for (var h = -1, g = Math.max(0, Math.ceil((e - n) / a)) | 0, i = new Array(g); ++h < g; )
-    i[h] = n + h * a;
-  return i;
-}
+var w = "http://www.w3.org/1999/xhtml";
+const t = {
+  svg: "http://www.w3.org/2000/svg",
+  xhtml: w,
+  xlink: "http://www.w3.org/1999/xlink",
+  xml: "http://www.w3.org/XML/1998/namespace",
+  xmlns: "http://www.w3.org/2000/xmlns/"
+};
 export {
-  l as default
+  t as default,
+  w as xhtml
 };
 //# sourceMappingURL=cori.data.api120.js.map

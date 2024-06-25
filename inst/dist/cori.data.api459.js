@@ -1,16 +1,15 @@
-import { subtokenize as r } from "./cori.data.api640.js";
+import p from "./cori.data.api539.js";
+import u from "./cori.data.api526.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(o) {
-  for (; !r(o); )
-    ;
-  return o;
+function m(r, o) {
+  return p(r, u("groupby", r, o));
 }
 export {
-  e as postprocess
+  m as default
 };
 //# sourceMappingURL=cori.data.api459.js.map

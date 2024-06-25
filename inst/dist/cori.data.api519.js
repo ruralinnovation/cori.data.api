@@ -1,14 +1,14 @@
-import e from "./cori.data.api406.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(t, r = Date.parse) {
-  return e(t) ? r(t) : t;
-}
+var c;
+(function(V) {
+  V[V.V1 = 0] = "V1", V[V.V2 = 1] = "V2", V[V.V3 = 2] = "V3", V[V.V4 = 3] = "V4", V[V.V5 = 4] = "V5";
+})(c || (c = {}));
 export {
-  o as default
+  c as MetadataVersion
 };
 //# sourceMappingURL=cori.data.api519.js.map

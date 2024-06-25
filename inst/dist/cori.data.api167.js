@@ -1,23 +1,23 @@
-import { Selection as e } from "./cori.data.api165.js";
-import h from "./cori.data.api332.js";
-import _ from "./cori.data.api201.js";
+import { get as e, init as i } from "./cori.data.api186.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(r) {
+function o(n, t) {
   return function() {
-    return h(r.apply(this, arguments));
+    i(this, n).delay = +t.apply(this, arguments);
   };
 }
-function s(r) {
-  typeof r == "function" ? r = p(r) : r = _(r);
-  for (var l = this._groups, m = l.length, o = [], i = [], n = 0; n < m; ++n)
-    for (var a = l[n], u = a.length, t, f = 0; f < u; ++f)
-      (t = a[f]) && (o.push(r.call(t, t.__data__, f, a)), i.push(t));
-  return new e(o, i);
+function r(n, t) {
+  return t = +t, function() {
+    i(this, n).delay = t;
+  };
+}
+function s(n) {
+  var t = this._id;
+  return arguments.length ? this.each((typeof n == "function" ? o : r)(t, n)) : e(this.node(), t).delay;
 }
 export {
   s as default

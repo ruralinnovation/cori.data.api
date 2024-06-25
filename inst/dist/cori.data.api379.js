@@ -1,22 +1,28 @@
-import o from "./cori.data.api484.js";
-import r from "./cori.data.api485.js";
-import t from "./cori.data.api486.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const l = {
-  isBrowser: !0,
-  classes: {
-    URLSearchParams: o,
-    FormData: r,
-    Blob: t
-  },
-  protocols: ["http", "https", "file", "blob", "url", "data"]
-};
+function f(e, l, n) {
+  const h = n ? n.children : void 0, p = (h ? h.indexOf(l) : 1) === 0 ? "th" : "td", c = n && n.type === "table" ? n.align : void 0, g = c ? c.length : l.children.length;
+  let r = -1;
+  const d = [];
+  for (; ++r < g; ) {
+    const i = l.children[r], s = {}, a = c ? c[r] : void 0;
+    a && (s.align = a);
+    let t = { type: "element", tagName: p, properties: s, children: [] };
+    i && (t.children = e.all(i), e.patch(i, t), t = e.applyData(i, t)), d.push(t);
+  }
+  const o = {
+    type: "element",
+    tagName: "tr",
+    properties: {},
+    children: e.wrap(d, !0)
+  };
+  return e.patch(l, o), e.applyData(l, o);
+}
 export {
-  l as default
+  f as tableRow
 };
 //# sourceMappingURL=cori.data.api379.js.map

@@ -3,8 +3,8 @@ import { factoryLabel as S } from "./cori.data.api692.js";
 import { factorySpace as s } from "./cori.data.api658.js";
 import { factoryTitle as g } from "./cori.data.api693.js";
 import { factoryWhitespace as d } from "./cori.data.api694.js";
-import { markdownLineEndingOrSpace as k, markdownSpace as h, markdownLineEnding as L } from "./cori.data.api481.js";
-import { normalizeIdentifier as w } from "./cori.data.api457.js";
+import { markdownLineEndingOrSpace as k, markdownSpace as h, markdownLineEnding as L } from "./cori.data.api480.js";
+import { normalizeIdentifier as w } from "./cori.data.api483.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

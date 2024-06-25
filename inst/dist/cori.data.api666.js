@@ -1,5 +1,5 @@
 import { factorySpace as H } from "./cori.data.api658.js";
-import { markdownLineEndingOrSpace as m, markdownLineEnding as o, markdownSpace as h } from "./cori.data.api481.js";
+import { markdownLineEndingOrSpace as m, markdownLineEnding as o, markdownSpace as h } from "./cori.data.api480.js";
 import { splice as S } from "./cori.data.api657.js";
 /*
  * CORI Data API component library

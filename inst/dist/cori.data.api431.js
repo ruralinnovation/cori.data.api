@@ -1,21 +1,13 @@
-import c from "./cori.data.api441.js";
-import d from "./cori.data.api521.js";
-import l from "./cori.data.api296.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function i(e, f, r = {}) {
-  const m = d(e, l(f, { table: e }), r);
-  return r.drop || r.before == null && r.after == null ? m : c(
-    m,
-    Object.keys(f).filter((t) => !e.column(t)),
-    r
-  );
+function r(n, t, f, i, o) {
+  return n == null ? null : n < t ? -1 / 0 : n > f ? 1 / 0 : (n = Math.max(t, Math.min(n, f)), t + i * Math.floor(1e-14 + (n - t) / i + (o || 0)));
 }
 export {
-  i as default
+  r as default
 };
 //# sourceMappingURL=cori.data.api431.js.map

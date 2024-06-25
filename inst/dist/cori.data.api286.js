@@ -1,30 +1,31 @@
-import d from "./cori.data.api387.js";
-import "./cori.data.api31.js";
-import { formatUTCDate as g } from "./cori.data.api393.js";
-import "./cori.data.api32.js";
-import { columns as h } from "./cori.data.api394.js";
-import p from "./cori.data.api396.js";
+import c from "./cori.data.api390.js";
+import m from "./cori.data.api391.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const J = (t) => d(t) ? g(t, !0) : t;
-function T(t, r = {}) {
-  const f = p(r.schema), e = r.format || {}, c = h(t, r.columns);
-  let m = "{";
-  return f && (m += '"schema":{"fields":' + JSON.stringify(c.map((o) => ({ name: o }))) + '},"data":{'), c.forEach((o, s) => {
-    m += (s ? "," : "") + JSON.stringify(o) + ":[";
-    const a = t.column(o), i = e[o] || J;
-    let n = -1;
-    t.scan((u) => {
-      const l = a.get(u);
-      m += (++n ? "," : "") + JSON.stringify(i(l));
-    }, !0, r.limit, r.offset), m += "]";
-  }), m + "}" + (f ? "}" : "");
-}
+const b = (a, l, u = 3) => {
+  let d = 0;
+  const p = c(50, 250);
+  return m((o) => {
+    const t = o.loaded, e = o.lengthComputable ? o.total : void 0, s = t - d, n = p(s), i = t <= e;
+    d = t;
+    const r = {
+      loaded: t,
+      total: e,
+      progress: e ? t / e : void 0,
+      bytes: s,
+      rate: n || void 0,
+      estimated: n && e && i ? (e - t) / n : void 0,
+      event: o,
+      lengthComputable: e != null
+    };
+    r[l ? "download" : "upload"] = !0, a(r);
+  }, u);
+};
 export {
-  T as default
+  b as default
 };
 //# sourceMappingURL=cori.data.api286.js.map

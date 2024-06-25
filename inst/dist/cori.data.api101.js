@@ -1,3 +1,6 @@
+import { __module as r } from "./cori.data.api242.js";
+import { __require as _ } from "./cori.data.api243.js";
+import { __require as t } from "./cori.data.api244.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
@@ -5,23 +8,19 @@
  * @license ISC
  */
 function e() {
-  this.textContent = "";
+  if (!(typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ > "u" || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE != "function")) {
+    if (process.env.NODE_ENV !== "production")
+      throw new Error("^_^");
+    try {
+      __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(e);
+    } catch (o) {
+      console.error(o);
+    }
+  }
 }
-function o(t) {
-  return function() {
-    this.textContent = t;
-  };
-}
-function i(t) {
-  return function() {
-    var n = t.apply(this, arguments);
-    this.textContent = n ?? "";
-  };
-}
-function u(t) {
-  return arguments.length ? this.each(t == null ? e : (typeof t == "function" ? i : o)(t)) : this.node().textContent;
-}
+process.env.NODE_ENV === "production" ? (e(), r.exports = _()) : r.exports = t();
+var n = r.exports;
 export {
-  u as default
+  n as r
 };
 //# sourceMappingURL=cori.data.api101.js.map

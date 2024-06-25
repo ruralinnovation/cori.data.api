@@ -28,6 +28,10 @@ function LineChart ({ primary_geoid, metric, data, metadata, width, height }: Li
   const [colorScaleDomain, setColorScaleDomain] = useState<string[]>([]);
   const [colorScaleRange, setColorScaleRange] = useState<unknown[]>([]);
 
+  console.log("Is React.useRef instantiated?", {
+    "React": React,
+    "useRef": React.useRef
+  });
   const ref = React.useRef<HTMLDivElement | null>(null);
   const svgRef = React.useRef<SVGSVGElement | null>(null);
 

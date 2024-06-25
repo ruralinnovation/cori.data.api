@@ -1,35 +1,16 @@
-import { Transition as s, newId as h } from "./cori.data.api207.js";
-import c from "./cori.data.api229.js";
-import { now as _ } from "./cori.data.api203.js";
-import { cubicInOut as m } from "./cori.data.api139.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var w = {
-  time: null,
-  // Set on use.
-  delay: 0,
-  duration: 250,
-  ease: m
-};
-function d(t, i) {
-  for (var r; !(r = t.__transition) || !(r = r[i]); )
-    if (!(t = t.parentNode))
-      throw new Error(`transition ${i} not found`);
-  return r;
-}
-function T(t) {
-  var i, r;
-  t instanceof s ? (i = t._id, t = t._name) : (i = h(), (r = w).time = _(), t = t == null ? null : t + "");
-  for (var o = this._groups, a = o.length, e = 0; e < a; ++e)
-    for (var f = o[e], u = f.length, l, n = 0; n < u; ++n)
-      (l = f[n]) && c(l, t, i, n, f, r || d(l, i));
-  return new s(o, this._parents, t, i);
+function c(f) {
+  for (var _ = this._groups, a = 0, h = _.length; a < h; ++a)
+    for (var e = _[a], t = 0, r = e.length, l; t < r; ++t)
+      (l = e[t]) && f.call(l, l.__data__, t, e);
+  return this;
 }
 export {
-  T as default
+  c as default
 };
 //# sourceMappingURL=cori.data.api206.js.map

@@ -1,5 +1,5 @@
 import { float64ToUint16 as a } from "./cori.data.api609.js";
-import { FixedWidthBuilder as d } from "./cori.data.api502.js";
+import { FixedWidthBuilder as d } from "./cori.data.api504.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

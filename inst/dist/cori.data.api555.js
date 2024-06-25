@@ -1,7 +1,7 @@
 import { BN as G } from "./cori.data.api624.js";
-import { Vector as u } from "./cori.data.api410.js";
+import { Vector as u } from "./cori.data.api417.js";
 import { Visitor as H } from "./cori.data.api560.js";
-import { MapRow as P } from "./cori.data.api504.js";
+import { MapRow as P } from "./cori.data.api506.js";
 import { StructRow as W } from "./cori.data.api601.js";
 import { bigIntToNumber as v } from "./cori.data.api563.js";
 import { decodeUtf8 as j } from "./cori.data.api552.js";

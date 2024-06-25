@@ -1,7 +1,6 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api642.js";
+import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api642.js";
+import "./cori.data.api569.js";
 import "./cori.data.api570.js";
-import "./cori.data.api571.js";
-import { TimeUnit as o } from "./cori.data.api566.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
@@ -15,37 +14,33 @@ class s {
   __init(t, i) {
     return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsTimestamp(t, i) {
+  static getRootAsFixedSizeBinary(t, i) {
     return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsTimestamp(t, i) {
-    return t.setPosition(t.position() + n), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsFixedSizeBinary(t, i) {
+    return t.setPosition(t.position() + e), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  unit() {
+  /**
+   * Number of bytes per value
+   */
+  byteWidth() {
     const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : o.SECOND;
+    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
   }
-  timezone(t) {
-    const i = this.bb.__offset(this.bb_pos, 6);
-    return i ? this.bb.__string(this.bb_pos + i, t) : null;
+  static startFixedSizeBinary(t) {
+    t.startObject(1);
   }
-  static startTimestamp(t) {
-    t.startObject(2);
+  static addByteWidth(t, i) {
+    t.addFieldInt32(0, i, 0);
   }
-  static addUnit(t, i) {
-    t.addFieldInt16(0, i, o.SECOND);
-  }
-  static addTimezone(t, i) {
-    t.addFieldOffset(1, i, 0);
-  }
-  static endTimestamp(t) {
+  static endFixedSizeBinary(t) {
     return t.endObject();
   }
-  static createTimestamp(t, i, e) {
-    return s.startTimestamp(t), s.addUnit(t, i), s.addTimezone(t, e), s.endTimestamp(t);
+  static createFixedSizeBinary(t, i) {
+    return s.startFixedSizeBinary(t), s.addByteWidth(t, i), s.endFixedSizeBinary(t);
   }
 }
 export {
-  s as Timestamp
+  s as FixedSizeBinary
 };
 //# sourceMappingURL=cori.data.api591.js.map

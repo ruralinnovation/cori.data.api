@@ -1,40 +1,78 @@
-import { normalize as s } from "./cori.data.api469.js";
-import { DefinedInfo as p } from "./cori.data.api470.js";
-import { Info as f } from "./cori.data.api471.js";
+import R from "./cori.data.api59.js";
+import x from "./cori.data.api284.js";
+import b from "./cori.data.api230.js";
+import n from "./cori.data.api70.js";
+import y from "./cori.data.api65.js";
+import H from "./cori.data.api285.js";
+import q from "./cori.data.api232.js";
+import T from "./cori.data.api73.js";
+import g from "./cori.data.api286.js";
+import A from "./cori.data.api287.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const l = /^data[-\w.:]+$/i, c = /-[a-z]/g, d = /[A-Z]/g;
-function C(r, t) {
-  const o = s(t);
-  let i = t, a = f;
-  if (o in r.normal)
-    return r.property[r.normal[o]];
-  if (o.length > 4 && o.slice(0, 4) === "data" && l.test(t)) {
-    if (t.charAt(4) === "-") {
-      const e = t.slice(5).replace(c, h);
-      i = "data" + e.charAt(0).toUpperCase() + e.slice(1);
-    } else {
-      const e = t.slice(4);
-      if (!c.test(e)) {
-        let n = e.replace(d, m);
-        n.charAt(0) !== "-" && (n = "-" + n), t = "data" + n;
-      }
+const C = typeof XMLHttpRequest < "u", X = C && function(l) {
+  return new Promise(function(h, r) {
+    const t = A(l);
+    let p = t.data;
+    const m = T.from(t.headers).normalize();
+    let { responseType: i } = t, s;
+    function c() {
+      t.cancelToken && t.cancelToken.unsubscribe(s), t.signal && t.signal.removeEventListener("abort", s);
     }
-    a = p;
-  }
-  return new a(i, t);
-}
-function m(r) {
-  return "-" + r.toLowerCase();
-}
-function h(r) {
-  return r.charAt(1).toUpperCase();
-}
+    let e = new XMLHttpRequest();
+    e.open(t.method.toUpperCase(), t.url, !0), e.timeout = t.timeout;
+    function E() {
+      if (!e)
+        return;
+      const o = T.from(
+        "getAllResponseHeaders" in e && e.getAllResponseHeaders()
+      ), u = {
+        data: !i || i === "text" || i === "json" ? e.responseText : e.response,
+        status: e.status,
+        statusText: e.statusText,
+        headers: o,
+        config: l,
+        request: e
+      };
+      x(function(f) {
+        h(f), c();
+      }, function(f) {
+        r(f), c();
+      }, u), e = null;
+    }
+    "onloadend" in e ? e.onloadend = E : e.onreadystatechange = function() {
+      !e || e.readyState !== 4 || e.status === 0 && !(e.responseURL && e.responseURL.indexOf("file:") === 0) || setTimeout(E);
+    }, e.onabort = function() {
+      e && (r(new n("Request aborted", n.ECONNABORTED, t, e)), e = null);
+    }, e.onerror = function() {
+      r(new n("Network Error", n.ERR_NETWORK, t, e)), e = null;
+    }, e.ontimeout = function() {
+      let a = t.timeout ? "timeout of " + t.timeout + "ms exceeded" : "timeout exceeded";
+      const u = t.transitional || b;
+      t.timeoutErrorMessage && (a = t.timeoutErrorMessage), r(new n(
+        a,
+        u.clarifyTimeoutError ? n.ETIMEDOUT : n.ECONNABORTED,
+        t,
+        e
+      )), e = null;
+    }, p === void 0 && m.setContentType(null), "setRequestHeader" in e && R.forEach(m.toJSON(), function(a, u) {
+      e.setRequestHeader(u, a);
+    }), R.isUndefined(t.withCredentials) || (e.withCredentials = !!t.withCredentials), i && i !== "json" && (e.responseType = t.responseType), typeof t.onDownloadProgress == "function" && e.addEventListener("progress", g(t.onDownloadProgress, !0)), typeof t.onUploadProgress == "function" && e.upload && e.upload.addEventListener("progress", g(t.onUploadProgress)), (t.cancelToken || t.signal) && (s = (o) => {
+      e && (r(!o || o.type ? new y(null, l, e) : o), e.abort(), e = null);
+    }, t.cancelToken && t.cancelToken.subscribe(s), t.signal && (t.signal.aborted ? s() : t.signal.addEventListener("abort", s)));
+    const d = H(t.url);
+    if (d && q.protocols.indexOf(d) === -1) {
+      r(new n("Unsupported protocol " + d + ":", n.ERR_BAD_REQUEST, l));
+      return;
+    }
+    e.send(p || null);
+  });
+};
 export {
-  C as find
+  X as default
 };
 //# sourceMappingURL=cori.data.api235.js.map

@@ -1,6 +1,6 @@
-import { Field as i } from "./cori.data.api498.js";
-import { Builder as n } from "./cori.data.api502.js";
-import { Struct as d } from "./cori.data.api411.js";
+import { Field as i } from "./cori.data.api500.js";
+import { Builder as n } from "./cori.data.api504.js";
+import { Struct as d } from "./cori.data.api418.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

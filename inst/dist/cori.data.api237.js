@@ -1,98 +1,97 @@
-import { stringifyPosition as c } from "./cori.data.api462.js";
+import { clonePseudoElements as y } from "./cori.data.api290.js";
+import { isInstanceOfElement as o, toArray as a, createImage as f } from "./cori.data.api241.js";
+import { getMimeType as g } from "./cori.data.api291.js";
+import { resourceToDataURL as p } from "./cori.data.api292.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class t extends Error {
-  /**
-   * Create a message for `reason`.
-   *
-   * > 🪦 **Note**: also has obsolete signatures.
-   *
-   * @overload
-   * @param {string} reason
-   * @param {Options | null | undefined} [options]
-   * @returns
-   *
-   * @overload
-   * @param {string} reason
-   * @param {Node | NodeLike | null | undefined} parent
-   * @param {string | null | undefined} [origin]
-   * @returns
-   *
-   * @overload
-   * @param {string} reason
-   * @param {Point | Position | null | undefined} place
-   * @param {string | null | undefined} [origin]
-   * @returns
-   *
-   * @overload
-   * @param {string} reason
-   * @param {string | null | undefined} [origin]
-   * @returns
-   *
-   * @overload
-   * @param {Error | VFileMessage} cause
-   * @param {Node | NodeLike | null | undefined} parent
-   * @param {string | null | undefined} [origin]
-   * @returns
-   *
-   * @overload
-   * @param {Error | VFileMessage} cause
-   * @param {Point | Position | null | undefined} place
-   * @param {string | null | undefined} [origin]
-   * @returns
-   *
-   * @overload
-   * @param {Error | VFileMessage} cause
-   * @param {string | null | undefined} [origin]
-   * @returns
-   *
-   * @param {Error | VFileMessage | string} causeOrReason
-   *   Reason for message, should use markdown.
-   * @param {Node | NodeLike | Options | Point | Position | string | null | undefined} [optionsOrParentOrPlace]
-   *   Configuration (optional).
-   * @param {string | null | undefined} [origin]
-   *   Place in code where the message originates (example:
-   *   `'my-package:my-rule'` or `'my-rule'`).
-   * @returns
-   *   Instance of `VFileMessage`.
-   */
-  // eslint-disable-next-line complexity
-  constructor(d, s, i) {
-    super(), typeof s == "string" && (i = s, s = void 0);
-    let f = "", e = {}, p = !1;
-    if (s && ("line" in s && "column" in s ? e = { place: s } : "start" in s && "end" in s ? e = { place: s } : "type" in s ? e = {
-      ancestors: [s],
-      place: s.position
-    } : e = { ...s }), typeof d == "string" ? f = d : !e.cause && d && (p = !0, f = d.message, e.cause = d), !e.ruleId && !e.source && typeof i == "string") {
-      const n = i.indexOf(":");
-      n === -1 ? e.ruleId = i : (e.source = i.slice(0, n), e.ruleId = i.slice(n + 1));
-    }
-    if (!e.place && e.ancestors && e.ancestors) {
-      const n = e.ancestors[e.ancestors.length - 1];
-      n && (e.place = n.position);
-    }
-    const u = e.place && "start" in e.place ? e.place.start : e.place;
-    this.ancestors = e.ancestors || void 0, this.cause = e.cause || void 0, this.column = u ? u.column : void 0, this.fatal = void 0, this.file, this.message = f, this.line = u ? u.line : void 0, this.name = c(e.place) || "1:1", this.place = e.place || void 0, this.reason = this.message, this.ruleId = e.ruleId || void 0, this.source = e.source || void 0, this.stack = p && e.cause && typeof e.cause.stack == "string" ? e.cause.stack : "", this.actual, this.expected, this.note, this.url;
+async function d(t) {
+  const e = t.toDataURL();
+  return e === "data:," ? t.cloneNode(!1) : f(e);
+}
+async function S(t, e) {
+  if (t.currentSrc) {
+    const n = document.createElement("canvas"), c = n.getContext("2d");
+    n.width = t.clientWidth, n.height = t.clientHeight, c == null || c.drawImage(t, 0, 0, n.width, n.height);
+    const i = n.toDataURL();
+    return f(i);
+  }
+  const l = t.poster, r = g(l), s = await p(l, r, e);
+  return f(s);
+}
+async function E(t) {
+  var e;
+  try {
+    if (!((e = t == null ? void 0 : t.contentDocument) === null || e === void 0) && e.body)
+      return await m(t.contentDocument.body, {}, !0);
+  } catch {
+  }
+  return t.cloneNode(!1);
+}
+async function b(t, e) {
+  return o(t, HTMLCanvasElement) ? d(t) : o(t, HTMLVideoElement) ? S(t, e) : o(t, HTMLIFrameElement) ? E(t) : t.cloneNode(!1);
+}
+const T = (t) => t.tagName != null && t.tagName.toUpperCase() === "SLOT";
+async function L(t, e, l) {
+  var r, s;
+  let n = [];
+  return T(t) && t.assignedNodes ? n = a(t.assignedNodes()) : o(t, HTMLIFrameElement) && (!((r = t.contentDocument) === null || r === void 0) && r.body) ? n = a(t.contentDocument.body.childNodes) : n = a(((s = t.shadowRoot) !== null && s !== void 0 ? s : t).childNodes), n.length === 0 || o(t, HTMLVideoElement) || await n.reduce((c, i) => c.then(() => m(i, l)).then((u) => {
+    u && e.appendChild(u);
+  }), Promise.resolve()), e;
+}
+function w(t, e) {
+  const l = e.style;
+  if (!l)
+    return;
+  const r = window.getComputedStyle(t);
+  r.cssText ? (l.cssText = r.cssText, l.transformOrigin = r.transformOrigin) : a(r).forEach((s) => {
+    let n = r.getPropertyValue(s);
+    s === "font-size" && n.endsWith("px") && (n = `${Math.floor(parseFloat(n.substring(0, n.length - 2))) - 0.1}px`), o(t, HTMLIFrameElement) && s === "display" && n === "inline" && (n = "block"), s === "d" && e.getAttribute("d") && (n = `path(${e.getAttribute("d")})`), l.setProperty(s, n, r.getPropertyPriority(s));
+  });
+}
+function x(t, e) {
+  o(t, HTMLTextAreaElement) && (e.innerHTML = t.value), o(t, HTMLInputElement) && e.setAttribute("value", t.value);
+}
+function A(t, e) {
+  if (o(t, HTMLSelectElement)) {
+    const l = e, r = Array.from(l.children).find((s) => t.value === s.getAttribute("value"));
+    r && r.setAttribute("selected", "");
   }
 }
-t.prototype.file = "";
-t.prototype.name = "";
-t.prototype.reason = "";
-t.prototype.message = "";
-t.prototype.stack = "";
-t.prototype.column = void 0;
-t.prototype.line = void 0;
-t.prototype.ancestors = void 0;
-t.prototype.cause = void 0;
-t.prototype.fatal = void 0;
-t.prototype.place = void 0;
-t.prototype.ruleId = void 0;
-t.prototype.source = void 0;
+function M(t, e) {
+  return o(e, Element) && (w(t, e), y(t, e), x(t, e), A(t, e)), e;
+}
+async function H(t, e) {
+  const l = t.querySelectorAll ? t.querySelectorAll("use") : [];
+  if (l.length === 0)
+    return t;
+  const r = {};
+  for (let n = 0; n < l.length; n++) {
+    const i = l[n].getAttribute("xlink:href");
+    if (i) {
+      const u = t.querySelector(i), h = document.querySelector(i);
+      !u && h && !r[i] && (r[i] = await m(h, e, !0));
+    }
+  }
+  const s = Object.values(r);
+  if (s.length) {
+    const n = "http://www.w3.org/1999/xhtml", c = document.createElementNS(n, "svg");
+    c.setAttribute("xmlns", n), c.style.position = "absolute", c.style.width = "0", c.style.height = "0", c.style.overflow = "hidden", c.style.display = "none";
+    const i = document.createElementNS(n, "defs");
+    c.appendChild(i);
+    for (let u = 0; u < s.length; u++)
+      i.appendChild(s[u]);
+    t.appendChild(c);
+  }
+  return t;
+}
+async function m(t, e, l) {
+  return !l && e.filter && !e.filter(t) ? null : Promise.resolve(t).then((r) => b(r, e)).then((r) => L(t, r, e)).then((r) => M(t, r)).then((r) => H(r, e));
+}
 export {
-  t as VFileMessage
+  m as cloneNode
 };
 //# sourceMappingURL=cori.data.api237.js.map

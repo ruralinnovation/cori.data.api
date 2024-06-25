@@ -2,9 +2,9 @@ import { factoryDestination as y } from "./cori.data.api691.js";
 import { factoryLabel as d } from "./cori.data.api692.js";
 import { factoryTitle as M } from "./cori.data.api693.js";
 import { factoryWhitespace as f } from "./cori.data.api694.js";
-import { markdownLineEndingOrSpace as m } from "./cori.data.api481.js";
+import { markdownLineEndingOrSpace as m } from "./cori.data.api480.js";
 import { push as k, splice as L } from "./cori.data.api657.js";
-import { normalizeIdentifier as g } from "./cori.data.api457.js";
+import { normalizeIdentifier as g } from "./cori.data.api483.js";
 import { resolveAll as h } from "./cori.data.api661.js";
 /*
  * CORI Data API component library

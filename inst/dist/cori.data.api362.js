@@ -4,16 +4,19 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(r, t) {
-  const e = {
+function r(t, e) {
+  const p = e.value ? e.value + `
+` : "", l = {};
+  e.lang && (l.className = ["language-" + e.lang]);
+  let a = {
     type: "element",
-    tagName: "strong",
-    properties: {},
-    children: r.all(t)
+    tagName: "code",
+    properties: l,
+    children: [{ type: "text", value: p }]
   };
-  return r.patch(t, e), r.applyData(t, e);
+  return e.meta && (a.data = { meta: e.meta }), t.patch(e, a), a = t.applyData(e, a), a = { type: "element", tagName: "pre", properties: {}, children: [a] }, t.patch(e, a), a;
 }
 export {
-  p as strong
+  r as code
 };
 //# sourceMappingURL=cori.data.api362.js.map

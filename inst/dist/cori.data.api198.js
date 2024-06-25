@@ -1,28 +1,19 @@
-import o from "./cori.data.api202.js";
+import { Selection as v } from "./cori.data.api50.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(n, t, i) {
-  var c = o(n), e = c.CustomEvent;
-  typeof e == "function" ? e = new e(t, i) : (e = c.document.createEvent("Event"), i ? (e.initEvent(t, i.bubbles, i.cancelable), e.detail = i.detail) : e.initEvent(t, !1, !1)), n.dispatchEvent(e);
-}
-function f(n, t) {
-  return function() {
-    return u(this, n, t);
-  };
-}
-function s(n, t) {
-  return function() {
-    return u(this, n, t.apply(this, arguments));
-  };
-}
-function r(n, t) {
-  return this.each((typeof t == "function" ? s : f)(n, t));
+function A(i) {
+  for (var e = this._groups, f = i._groups, n = e.length, _ = f.length, c = Math.min(n, _), a = new Array(n), t = 0; t < c; ++t)
+    for (var h = e[t], w = f[t], l = h.length, s = a[t] = new Array(l), o, r = 0; r < l; ++r)
+      (o = h[r] || w[r]) && (s[r] = o);
+  for (; t < n; ++t)
+    a[t] = e[t];
+  return new v(a, this._parents);
 }
 export {
-  r as default
+  A as default
 };
 //# sourceMappingURL=cori.data.api198.js.map

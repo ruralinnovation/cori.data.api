@@ -1,33 +1,25 @@
+import { toHast as e } from "./cori.data.api266.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const t = {
-  action: ["form"],
-  cite: ["blockquote", "del", "ins", "q"],
-  data: ["object"],
-  formAction: ["button", "input"],
-  href: ["a", "area", "base", "link"],
-  icon: ["menuitem"],
-  itemId: null,
-  manifest: ["html"],
-  ping: ["a", "area"],
-  poster: ["video"],
-  src: [
-    "audio",
-    "embed",
-    "iframe",
-    "img",
-    "input",
-    "script",
-    "source",
-    "track",
-    "video"
-  ]
-};
+function f(r, t) {
+  return r && "run" in r ? async function(n, u) {
+    const a = (
+      /** @type {HastRoot} */
+      e(n, { file: u, ...t })
+    );
+    await r.run(a, u);
+  } : function(n, u) {
+    return (
+      /** @type {HastRoot} */
+      e(n, { file: u, ...t || r })
+    );
+  };
+}
 export {
-  t as urlAttributes
+  f as default
 };
 //# sourceMappingURL=cori.data.api54.js.map

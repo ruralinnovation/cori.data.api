@@ -1,7 +1,7 @@
 import { encodeUtf8 as s } from "./cori.data.api552.js";
 import { BinaryBuilder as n } from "./cori.data.api616.js";
-import { BufferBuilder as i } from "./cori.data.api506.js";
-import { VariableWidthBuilder as r } from "./cori.data.api502.js";
+import { BufferBuilder as i } from "./cori.data.api508.js";
+import { VariableWidthBuilder as r } from "./cori.data.api504.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

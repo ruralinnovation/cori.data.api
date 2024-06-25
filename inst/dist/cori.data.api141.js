@@ -1,44 +1,51 @@
-import { embedResources as c } from "./cori.data.api328.js";
-import { isInstanceOfElement as n, toArray as y } from "./cori.data.api144.js";
-import { isDataUrl as u, resourceToDataURL as l } from "./cori.data.api327.js";
-import { getMimeType as w } from "./cori.data.api326.js";
+import i from "./cori.data.api119.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-async function f(a, r, e) {
-  var t;
-  const i = (t = r.style) === null || t === void 0 ? void 0 : t.getPropertyValue(a);
-  if (i) {
-    const s = await c(i, null, e);
-    return r.style.setProperty(a, s, r.style.getPropertyPriority(a)), !0;
+function o(t) {
+  return function() {
+    this.removeAttribute(t);
+  };
+}
+function u(t) {
+  return function() {
+    this.removeAttributeNS(t.space, t.local);
+  };
+}
+function c(t, n) {
+  return function() {
+    this.setAttribute(t, n);
+  };
+}
+function s(t, n) {
+  return function() {
+    this.setAttributeNS(t.space, t.local, n);
+  };
+}
+function a(t, n) {
+  return function() {
+    var e = n.apply(this, arguments);
+    e == null ? this.removeAttribute(t) : this.setAttribute(t, e);
+  };
+}
+function l(t, n) {
+  return function() {
+    var e = n.apply(this, arguments);
+    e == null ? this.removeAttributeNS(t.space, t.local) : this.setAttributeNS(t.space, t.local, e);
+  };
+}
+function h(t, n) {
+  var e = i(t);
+  if (arguments.length < 2) {
+    var r = this.node();
+    return e.local ? r.getAttributeNS(e.space, e.local) : r.getAttribute(e);
   }
-  return !1;
-}
-async function b(a, r) {
-  await f("background", a, r) || await f("background-image", a, r), await f("mask", a, r) || await f("mask-image", a, r);
-}
-async function h(a, r) {
-  const e = n(a, HTMLImageElement);
-  if (!(e && !u(a.src)) && !(n(a, SVGImageElement) && !u(a.href.baseVal)))
-    return;
-  const t = e ? a.src : a.href.baseVal, i = await l(t, w(t), r);
-  await new Promise((s, g) => {
-    a.onload = s, a.onerror = g;
-    const m = a;
-    m.decode && (m.decode = s), m.loading === "lazy" && (m.loading = "eager"), e ? (a.srcset = "", a.src = i) : a.href.baseVal = i;
-  });
-}
-async function P(a, r) {
-  const t = y(a.childNodes).map((i) => I(i, r));
-  await Promise.all(t).then(() => a);
-}
-async function I(a, r) {
-  n(a, Element) && (await b(a, r), await h(a, r), await P(a, r));
+  return this.each((n == null ? e.local ? u : o : typeof n == "function" ? e.local ? l : a : e.local ? s : c)(e, n));
 }
 export {
-  I as embedImages
+  h as default
 };
 //# sourceMappingURL=cori.data.api141.js.map

@@ -1,8 +1,8 @@
 import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api642.js";
+import "./cori.data.api569.js";
 import "./cori.data.api570.js";
-import "./cori.data.api571.js";
 import { DictionaryKind as n } from "./cori.data.api685.js";
-import { Int as e } from "./cori.data.api578.js";
+import { Int as e } from "./cori.data.api574.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

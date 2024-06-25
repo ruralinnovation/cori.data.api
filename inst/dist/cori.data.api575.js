@@ -1,186 +1,96 @@
-import { Visitor as i } from "./cori.data.api560.js";
-import { BinaryBuilder as r } from "./cori.data.api616.js";
-import { LargeBinaryBuilder as t } from "./cori.data.api618.js";
-import { BoolBuilder as e } from "./cori.data.api602.js";
-import { DateBuilder as n, DateDayBuilder as o, DateMillisecondBuilder as u } from "./cori.data.api604.js";
-import { DecimalBuilder as s } from "./cori.data.api605.js";
-import { DictionaryBuilder as l } from "./cori.data.api606.js";
-import { FixedSizeBinaryBuilder as d } from "./cori.data.api607.js";
-import { FixedSizeListBuilder as m } from "./cori.data.api620.js";
-import { FloatBuilder as a, Float16Builder as B, Float32Builder as v, Float64Builder as c } from "./cori.data.api608.js";
-import { IntervalBuilder as p, IntervalDayTimeBuilder as f, IntervalYearMonthBuilder as D } from "./cori.data.api613.js";
-import { DurationBuilder as T, DurationSecondBuilder as M, DurationMillisecondBuilder as U, DurationMicrosecondBuilder as I, DurationNanosecondBuilder as S } from "./cori.data.api614.js";
-import { IntBuilder as y, Int8Builder as F, Int16Builder as L, Int32Builder as N, Int64Builder as x, Uint8Builder as g, Uint16Builder as z, Uint32Builder as h, Uint64Builder as Y } from "./cori.data.api610.js";
-import { ListBuilder as w } from "./cori.data.api619.js";
-import { MapBuilder as C } from "./cori.data.api621.js";
-import { NullBuilder as G } from "./cori.data.api603.js";
-import { StructBuilder as V } from "./cori.data.api622.js";
-import { TimestampBuilder as b, TimestampSecondBuilder as j, TimestampMillisecondBuilder as k, TimestampMicrosecondBuilder as q, TimestampNanosecondBuilder as A } from "./cori.data.api612.js";
-import { TimeBuilder as E, TimeSecondBuilder as H, TimeMillisecondBuilder as J, TimeMicrosecondBuilder as K, TimeNanosecondBuilder as O } from "./cori.data.api611.js";
-import { UnionBuilder as P, DenseUnionBuilder as Q, SparseUnionBuilder as R } from "./cori.data.api623.js";
-import { Utf8Builder as W } from "./cori.data.api615.js";
-import { LargeUtf8Builder as X } from "./cori.data.api617.js";
+import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api642.js";
+import "./cori.data.api569.js";
+import "./cori.data.api570.js";
+import { BodyCompression as r } from "./cori.data.api643.js";
+import { Buffer as n } from "./cori.data.api577.js";
+import { FieldNode as b } from "./cori.data.api579.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class Z extends i {
-  visitNull() {
-    return G;
+class i {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  visitBool() {
-    return e;
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
   }
-  visitInt() {
-    return y;
+  static getRootAsRecordBatch(t, s) {
+    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  visitInt8() {
-    return F;
+  static getSizePrefixedRootAsRecordBatch(t, s) {
+    return t.setPosition(t.position() + e), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  visitInt16() {
-    return L;
+  /**
+   * number of records / rows. The arrays in the batch should all have this
+   * length
+   */
+  length() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt64(this.bb_pos + t) : BigInt("0");
   }
-  visitInt32() {
-    return N;
+  /**
+   * Nodes correspond to the pre-ordered flattened logical schema
+   */
+  nodes(t, s) {
+    const o = this.bb.__offset(this.bb_pos, 6);
+    return o ? (s || new b()).__init(this.bb.__vector(this.bb_pos + o) + t * 16, this.bb) : null;
   }
-  visitInt64() {
-    return x;
+  nodesLength() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
-  visitUint8() {
-    return g;
+  /**
+   * Buffers correspond to the pre-ordered flattened buffer tree
+   *
+   * The number of buffers appended to this list depends on the schema. For
+   * example, most primitive arrays will have 2 buffers, 1 for the validity
+   * bitmap and 1 for the values. For struct arrays, there will only be a
+   * single buffer for the validity (nulls) bitmap
+   */
+  buffers(t, s) {
+    const o = this.bb.__offset(this.bb_pos, 8);
+    return o ? (s || new n()).__init(this.bb.__vector(this.bb_pos + o) + t * 16, this.bb) : null;
   }
-  visitUint16() {
-    return z;
+  buffersLength() {
+    const t = this.bb.__offset(this.bb_pos, 8);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
-  visitUint32() {
-    return h;
+  /**
+   * Optional compression of the message body
+   */
+  compression(t) {
+    const s = this.bb.__offset(this.bb_pos, 10);
+    return s ? (t || new r()).__init(this.bb.__indirect(this.bb_pos + s), this.bb) : null;
   }
-  visitUint64() {
-    return Y;
+  static startRecordBatch(t) {
+    t.startObject(4);
   }
-  visitFloat() {
-    return a;
+  static addLength(t, s) {
+    t.addFieldInt64(0, s, BigInt("0"));
   }
-  visitFloat16() {
-    return B;
+  static addNodes(t, s) {
+    t.addFieldOffset(1, s, 0);
   }
-  visitFloat32() {
-    return v;
+  static startNodesVector(t, s) {
+    t.startVector(16, s, 8);
   }
-  visitFloat64() {
-    return c;
+  static addBuffers(t, s) {
+    t.addFieldOffset(2, s, 0);
   }
-  visitUtf8() {
-    return W;
+  static startBuffersVector(t, s) {
+    t.startVector(16, s, 8);
   }
-  visitLargeUtf8() {
-    return X;
+  static addCompression(t, s) {
+    t.addFieldOffset(3, s, 0);
   }
-  visitBinary() {
-    return r;
-  }
-  visitLargeBinary() {
-    return t;
-  }
-  visitFixedSizeBinary() {
-    return d;
-  }
-  visitDate() {
-    return n;
-  }
-  visitDateDay() {
-    return o;
-  }
-  visitDateMillisecond() {
-    return u;
-  }
-  visitTimestamp() {
-    return b;
-  }
-  visitTimestampSecond() {
-    return j;
-  }
-  visitTimestampMillisecond() {
-    return k;
-  }
-  visitTimestampMicrosecond() {
-    return q;
-  }
-  visitTimestampNanosecond() {
-    return A;
-  }
-  visitTime() {
-    return E;
-  }
-  visitTimeSecond() {
-    return H;
-  }
-  visitTimeMillisecond() {
-    return J;
-  }
-  visitTimeMicrosecond() {
-    return K;
-  }
-  visitTimeNanosecond() {
-    return O;
-  }
-  visitDecimal() {
-    return s;
-  }
-  visitList() {
-    return w;
-  }
-  visitStruct() {
-    return V;
-  }
-  visitUnion() {
-    return P;
-  }
-  visitDenseUnion() {
-    return Q;
-  }
-  visitSparseUnion() {
-    return R;
-  }
-  visitDictionary() {
-    return l;
-  }
-  visitInterval() {
-    return p;
-  }
-  visitIntervalDayTime() {
-    return f;
-  }
-  visitIntervalYearMonth() {
-    return D;
-  }
-  visitDuration() {
-    return T;
-  }
-  visitDurationSecond() {
-    return M;
-  }
-  visitDurationMillisecond() {
-    return U;
-  }
-  visitDurationMicrosecond() {
-    return I;
-  }
-  visitDurationNanosecond() {
-    return S;
-  }
-  visitFixedSizeList() {
-    return m;
-  }
-  visitMap() {
-    return C;
+  static endRecordBatch(t) {
+    return t.endObject();
   }
 }
-const Ii = new Z();
 export {
-  Z as GetBuilderCtor,
-  Ii as instance
+  i as RecordBatch
 };
 //# sourceMappingURL=cori.data.api575.js.map

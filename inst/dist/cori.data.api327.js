@@ -4,56 +4,90 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(t) {
-  return t.split(/,/)[1];
+function e(a, r, t, i) {
+  const l = t[a.type] || t.Default;
+  if (l && l(a, r, i) === !1)
+    return;
+  const y = n[a.type];
+  y && y(a, r, t);
 }
-function w(t) {
-  return t.search(/^(data:)/) !== -1;
-}
-function l(t, a) {
-  return `data:${a};base64,${t}`;
-}
-async function h(t, a, r) {
-  const e = await fetch(t, a);
-  if (e.status === 404)
-    throw new Error(`Resource "${e.url}" not found`);
-  const o = await e.blob();
-  return new Promise((n, c) => {
-    const s = new FileReader();
-    s.onerror = c, s.onloadend = () => {
-      try {
-        n(r({ res: e, result: s.result }));
-      } catch (f) {
-        c(f);
-      }
-    }, s.readAsDataURL(o);
-  });
-}
-const i = {};
-function d(t, a, r) {
-  let e = t.replace(/\?.*/, "");
-  return r && (e = t), /ttf|otf|eot|woff2?/i.test(e) && (e = e.replace(/.*\//, "")), a ? `[${a}]${e}` : e;
-}
-async function g(t, a, r) {
-  const e = d(t, a, r.includeQueryParams);
-  if (i[e] != null)
-    return i[e];
-  r.cacheBust && (t += (/\?/.test(t) ? "&" : "?") + (/* @__PURE__ */ new Date()).getTime());
-  let o;
-  try {
-    const n = await h(t, r.fetchRequestInit, ({ res: c, result: s }) => (a || (a = c.headers.get("Content-Type") || ""), u(s)));
-    o = l(n, a);
-  } catch (n) {
-    o = r.imagePlaceholder || "";
-    let c = `Failed to fetch resource: ${t}`;
-    n && (c = typeof n == "string" ? n : n.message), c && console.warn(c);
+const p = (a, r, t) => {
+  e(a.argument, r, t, a);
+}, m = (a, r, t) => {
+  e(a.left, r, t, a), e(a.right, r, t, a);
+}, E = (a, r, t) => {
+  e(a.test, r, t, a), e(a.consequent, r, t, a), a.alternate && e(a.alternate, r, t, a);
+}, u = (a, r, t) => {
+  s(a.params, r, t, a), e(a.body, r, t, a);
+}, c = (a, r, t) => {
+  e(a.callee, r, t, a), s(a.arguments, r, t, a);
+}, s = (a, r, t, i) => {
+  a.forEach((l) => e(l, r, t, i));
+}, n = {
+  TemplateLiteral: (a, r, t) => {
+    s(a.expressions, r, t, a), s(a.quasis, r, t, a);
+  },
+  MemberExpression: (a, r, t) => {
+    e(a.object, r, t, a), e(a.property, r, t, a);
+  },
+  CallExpression: c,
+  NewExpression: c,
+  ArrayExpression: (a, r, t) => {
+    s(a.elements, r, t, a);
+  },
+  AssignmentExpression: m,
+  AwaitExpression: p,
+  BinaryExpression: m,
+  LogicalExpression: m,
+  UnaryExpression: p,
+  UpdateExpression: p,
+  ConditionalExpression: E,
+  ObjectExpression: (a, r, t) => {
+    s(a.properties, r, t, a);
+  },
+  Property: (a, r, t) => {
+    e(a.key, r, t, a), e(a.value, r, t, a);
+  },
+  ArrowFunctionExpression: u,
+  FunctionExpression: u,
+  FunctionDeclaration: u,
+  VariableDeclaration: (a, r, t) => {
+    s(a.declarations, r, t, a);
+  },
+  VariableDeclarator: (a, r, t) => {
+    e(a.id, r, t, a), e(a.init, r, t, a);
+  },
+  SpreadElement: (a, r, t) => {
+    e(a.argument, r, t, a);
+  },
+  BlockStatement: (a, r, t) => {
+    s(a.body, r, t, a);
+  },
+  ExpressionStatement: (a, r, t) => {
+    e(a.expression, r, t, a);
+  },
+  IfStatement: E,
+  ForStatement: (a, r, t) => {
+    e(a.init, r, t, a), e(a.test, r, t, a), e(a.update, r, t, a), e(a.body, r, t, a);
+  },
+  WhileStatement: (a, r, t) => {
+    e(a.test, r, t, a), e(a.body, r, t, a);
+  },
+  DoWhileStatement: (a, r, t) => {
+    e(a.body, r, t, a), e(a.test, r, t, a);
+  },
+  SwitchStatement: (a, r, t) => {
+    e(a.discriminant, r, t, a), s(a.cases, r, t, a);
+  },
+  SwitchCase: (a, r, t) => {
+    a.test && e(a.test, r, t, a), s(a.consequent, r, t, a);
+  },
+  ReturnStatement: p,
+  Program: (a, r, t) => {
+    e(a.body[0], r, t, a);
   }
-  return i[e] = o, o;
-}
+};
 export {
-  h as fetchAsDataURL,
-  w as isDataUrl,
-  l as makeDataUrl,
-  g as resourceToDataURL
+  e as default
 };
 //# sourceMappingURL=cori.data.api327.js.map

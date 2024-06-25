@@ -1,67 +1,44 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api642.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api642.js";
+import "./cori.data.api569.js";
 import "./cori.data.api570.js";
-import "./cori.data.api571.js";
+import { IntervalUnit as n } from "./cori.data.api567.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i {
+class s {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
-  __init(t, s) {
-    return this.bb_pos = t, this.bb = s, this;
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsDecimal(t, s) {
-    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getRootAsInterval(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsDecimal(t, s) {
-    return t.setPosition(t.position() + n), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsInterval(t, i) {
+    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  /**
-   * Total number of decimal digits
-   */
-  precision() {
+  unit() {
     const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
+    return t ? this.bb.readInt16(this.bb_pos + t) : n.YEAR_MONTH;
   }
-  /**
-   * Number of digits after the decimal point "."
-   */
-  scale() {
-    const t = this.bb.__offset(this.bb_pos, 6);
-    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
+  static startInterval(t) {
+    t.startObject(1);
   }
-  /**
-   * Number of bits per value. The only accepted widths are 128 and 256.
-   * We use bitWidth for consistency with Int::bitWidth.
-   */
-  bitWidth() {
-    const t = this.bb.__offset(this.bb_pos, 8);
-    return t ? this.bb.readInt32(this.bb_pos + t) : 128;
+  static addUnit(t, i) {
+    t.addFieldInt16(0, i, n.YEAR_MONTH);
   }
-  static startDecimal(t) {
-    t.startObject(3);
-  }
-  static addPrecision(t, s) {
-    t.addFieldInt32(0, s, 0);
-  }
-  static addScale(t, s) {
-    t.addFieldInt32(1, s, 0);
-  }
-  static addBitWidth(t, s) {
-    t.addFieldInt32(2, s, 128);
-  }
-  static endDecimal(t) {
+  static endInterval(t) {
     return t.endObject();
   }
-  static createDecimal(t, s, o, e) {
-    return i.startDecimal(t), i.addPrecision(t, s), i.addScale(t, o), i.addBitWidth(t, e), i.endDecimal(t);
+  static createInterval(t, i) {
+    return s.startInterval(t), s.addUnit(t, i), s.endInterval(t);
   }
 }
 export {
-  i as Decimal
+  s as Interval
 };
 //# sourceMappingURL=cori.data.api588.js.map

@@ -1,12 +1,12 @@
-import { unreachable as N } from "./cori.data.api47.js";
+import { unreachable as N } from "./cori.data.api51.js";
 import { j as d } from "./cori.data.api9.js";
-import { unified as R } from "./cori.data.api48.js";
-import H from "./cori.data.api49.js";
-import S from "./cori.data.api50.js";
-import { VFile as D } from "./cori.data.api51.js";
-import { visit as I } from "./cori.data.api52.js";
-import { toJsxRuntime as U } from "./cori.data.api53.js";
-import { urlAttributes as f } from "./cori.data.api54.js";
+import { unified as R } from "./cori.data.api52.js";
+import H from "./cori.data.api53.js";
+import S from "./cori.data.api54.js";
+import { VFile as D } from "./cori.data.api55.js";
+import { visit as I } from "./cori.data.api56.js";
+import { toJsxRuntime as U } from "./cori.data.api57.js";
+import { urlAttributes as f } from "./cori.data.api58.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

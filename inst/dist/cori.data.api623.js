@@ -1,7 +1,7 @@
-import { Field as u } from "./cori.data.api498.js";
-import { DataBufferBuilder as r } from "./cori.data.api506.js";
-import { Builder as p } from "./cori.data.api502.js";
-import { Union as a } from "./cori.data.api411.js";
+import { Field as u } from "./cori.data.api500.js";
+import { DataBufferBuilder as r } from "./cori.data.api508.js";
+import { Builder as p } from "./cori.data.api504.js";
+import { Union as a } from "./cori.data.api418.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

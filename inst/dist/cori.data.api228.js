@@ -1,25 +1,15 @@
-import { STARTING as u, ENDING as s, ENDED as c } from "./cori.data.api229.js";
+import r from "./cori.data.api280.js";
+import t from "./cori.data.api281.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(e, i) {
-  var r = e.__transition, t, a, n = !0, l;
-  if (r) {
-    i = i == null ? null : i + "";
-    for (l in r) {
-      if ((t = r[l]).name !== i) {
-        n = !1;
-        continue;
-      }
-      a = t.state > u && t.state < s, t.state = c, t.timer.stop(), t.on.call(a ? "interrupt" : "cancel", e, e.__data__, t.index, t.group), delete r[l];
-    }
-    n && delete e.__transition;
-  }
+function m(i, o) {
+  return i && !r(o) ? t(i, o) : o;
 }
 export {
-  o as default
+  m as default
 };
 //# sourceMappingURL=cori.data.api228.js.map

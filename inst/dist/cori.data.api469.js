@@ -4,10 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(e) {
-  return e.toLowerCase();
+function c(o, n) {
+  return n in o ? o[n] : n;
 }
 export {
-  o as normalize
+  c as caseSensitiveTransform
 };
 //# sourceMappingURL=cori.data.api469.js.map

@@ -1,56 +1,34 @@
-import { tweenValue as c } from "./cori.data.api226.js";
-import l from "./cori.data.api335.js";
-import f from "./cori.data.api162.js";
-import { interpolateTransformSvg as g } from "./cori.data.api155.js";
+import l from "./cori.data.api224.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(t) {
+function s(t) {
   return function() {
-    this.removeAttribute(t);
+    this.style.removeProperty(t);
   };
 }
-function v(t) {
+function u(t, e, n) {
   return function() {
-    this.removeAttributeNS(t.space, t.local);
+    this.style.setProperty(t, e, n);
   };
 }
-function h(t, e, r) {
-  var i, u = r + "", o;
+function o(t, e, n) {
   return function() {
-    var n = this.getAttribute(t);
-    return n === u ? null : n === i ? o : o = e(i = n, r);
+    var r = e.apply(this, arguments);
+    r == null ? this.style.removeProperty(t) : this.style.setProperty(t, r, n);
   };
 }
-function m(t, e, r) {
-  var i, u = r + "", o;
-  return function() {
-    var n = this.getAttributeNS(t.space, t.local);
-    return n === u ? null : n === i ? o : o = e(i = n, r);
-  };
+function f(t, e, n) {
+  return arguments.length > 1 ? this.each((e == null ? s : typeof e == "function" ? o : u)(t, e, n ?? "")) : i(this.node(), t);
 }
-function b(t, e, r) {
-  var i, u, o;
-  return function() {
-    var n, a = r(this), s;
-    return a == null ? void this.removeAttribute(t) : (n = this.getAttribute(t), s = a + "", n === s ? null : n === i && s === u ? o : (u = s, o = e(i = n, a)));
-  };
-}
-function A(t, e, r) {
-  var i, u, o;
-  return function() {
-    var n, a = r(this), s;
-    return a == null ? void this.removeAttributeNS(t.space, t.local) : (n = this.getAttributeNS(t.space, t.local), s = a + "", n === s ? null : n === i && s === u ? o : (u = s, o = e(i = n, a)));
-  };
-}
-function C(t, e) {
-  var r = f(t), i = r === "transform" ? g : l;
-  return this.attrTween(t, typeof e == "function" ? (r.local ? A : b)(r, i, c(this, "attr." + t, e)) : e == null ? (r.local ? v : p)(r) : (r.local ? m : h)(r, i, e));
+function i(t, e) {
+  return t.style.getPropertyValue(e) || l(t).getComputedStyle(t, null).getPropertyValue(e);
 }
 export {
-  C as default
+  f as default,
+  i as styleValue
 };
 //# sourceMappingURL=cori.data.api208.js.map

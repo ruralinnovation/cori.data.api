@@ -1,47 +1,59 @@
-import h from "./cori.data.api309.js";
-import y from "./cori.data.api310.js";
-import { scanArray as b, scanTable as w } from "./cori.data.api311.js";
-import { table as F } from "./cori.data.api312.js";
-import l from "./cori.data.api273.js";
-import f from "./cori.data.api313.js";
-import u from "./cori.data.api277.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function E(n, m = {}) {
-  const { types: o = {} } = m, { dataFrom: r, names: t, nrows: s, scan: a } = T(n, m), i = {};
-  t.forEach((e) => {
-    const c = r(n, e, s, a, o[e]);
-    c.length !== s && l("Column length mismatch"), i[e] = c;
+function u(t) {
+  return t.split(/,/)[1];
+}
+function w(t) {
+  return t.search(/^(data:)/) !== -1;
+}
+function l(t, a) {
+  return `data:${a};base64,${t}`;
+}
+async function h(t, a, r) {
+  const e = await fetch(t, a);
+  if (e.status === 404)
+    throw new Error(`Resource "${e.url}" not found`);
+  const o = await e.blob();
+  return new Promise((n, c) => {
+    const s = new FileReader();
+    s.onerror = c, s.onloadend = () => {
+      try {
+        n(r({ res: e, result: s.result }));
+      } catch (f) {
+        c(f);
+      }
+    }, s.readAsDataURL(o);
   });
-  const p = F();
-  return new p(i);
 }
-function T(n, m) {
-  const { columns: o, limit: r = 1 / 0, offset: t = 0 } = m, s = u(o) ? o(n) : f(o) ? o : null;
-  if (f(n))
-    return {
-      dataFrom: h,
-      names: s || Object.keys(n[0]),
-      nrows: Math.min(r, n.length - t),
-      scan: b(n, r, t)
-    };
-  if (g(n))
-    return {
-      dataFrom: y,
-      names: s || n.columnNames(),
-      nrows: Math.min(r, n.numRows() - t),
-      scan: w(n, r, t)
-    };
-  l("Unsupported input data type");
+const i = {};
+function d(t, a, r) {
+  let e = t.replace(/\?.*/, "");
+  return r && (e = t), /ttf|otf|eot|woff2?/i.test(e) && (e = e.replace(/.*\//, "")), a ? `[${a}]${e}` : e;
 }
-function g(n) {
-  return n && u(n.reify);
+async function g(t, a, r) {
+  const e = d(t, a, r.includeQueryParams);
+  if (i[e] != null)
+    return i[e];
+  r.cacheBust && (t += (/\?/.test(t) ? "&" : "?") + (/* @__PURE__ */ new Date()).getTime());
+  let o;
+  try {
+    const n = await h(t, r.fetchRequestInit, ({ res: c, result: s }) => (a || (a = c.headers.get("Content-Type") || ""), u(s)));
+    o = l(n, a);
+  } catch (n) {
+    o = r.imagePlaceholder || "";
+    let c = `Failed to fetch resource: ${t}`;
+    n && (c = typeof n == "string" ? n : n.message), c && console.warn(c);
+  }
+  return i[e] = o, o;
 }
 export {
-  E as default
+  h as fetchAsDataURL,
+  w as isDataUrl,
+  l as makeDataUrl,
+  g as resourceToDataURL
 };
 //# sourceMappingURL=cori.data.api292.js.map

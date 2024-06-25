@@ -1,46 +1,43 @@
-import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api642.js";
-import "./cori.data.api570.js";
-import "./cori.data.api571.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i {
+class b {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
   __init(t, s) {
     return this.bb_pos = t, this.bb = s, this;
   }
-  static getRootAsMap(t, s) {
-    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsMap(t, s) {
-    return t.setPosition(t.position() + e), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  /**
+   * Index to the start of the RecordBlock (note this is past the Message header)
+   */
+  offset() {
+    return this.bb.readInt64(this.bb_pos);
   }
   /**
-   * Set to true if the keys within each value are sorted
+   * Length of the metadata
    */
-  keysSorted() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? !!this.bb.readInt8(this.bb_pos + t) : !1;
+  metaDataLength() {
+    return this.bb.readInt32(this.bb_pos + 8);
   }
-  static startMap(t) {
-    t.startObject(1);
+  /**
+   * Length of the data (this is aligned so there can be a gap between this and
+   * the metadata).
+   */
+  bodyLength() {
+    return this.bb.readInt64(this.bb_pos + 16);
   }
-  static addKeysSorted(t, s) {
-    t.addFieldInt8(0, +s, 0);
+  static sizeOf() {
+    return 24;
   }
-  static endMap(t) {
-    return t.endObject();
-  }
-  static createMap(t, s) {
-    return i.startMap(t), i.addKeysSorted(t, s), i.endMap(t);
+  static createBlock(t, s, i, n) {
+    return t.prep(8, 24), t.writeInt64(BigInt(n ?? 0)), t.pad(4), t.writeInt32(i), t.writeInt64(BigInt(s ?? 0)), t.offset();
   }
 }
 export {
-  i as Map
+  b as Block
 };
 //# sourceMappingURL=cori.data.api597.js.map

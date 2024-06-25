@@ -1,173 +1,19 @@
-import { __asyncGenerator as v, __await as a, __awaiter as L } from "./cori.data.api500.js";
-import { toUint8ArrayIterator as _, joinUint8Arrays as c, toUint8ArrayAsyncIterator as z, toUint8Array as b } from "./cori.data.api501.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const P = {
-  fromIterable(r) {
-    return w(I(r));
-  },
-  fromAsyncIterable(r) {
-    return w(U(r));
-  },
-  fromDOMStream(r) {
-    return w(x(r));
-  },
-  fromNodeStream(r) {
-    return w(D(r));
-  },
-  // @ts-ignore
-  toDOMStream(r, f) {
-    throw new Error('"toDOMStream" not available in this environment');
-  },
-  // @ts-ignore
-  toNodeStream(r, f) {
-    throw new Error('"toNodeStream" not available in this environment');
-  }
-}, w = (r) => (r.next(), r);
-function* I(r) {
-  let f, t = !1, o = [], i, u, d, e = 0;
-  function l() {
-    return u === "peek" ? c(o, d)[0] : ([i, o, e] = c(o, d), i);
-  }
-  ({ cmd: u, size: d } = (yield null) || { cmd: "read", size: 0 });
-  const s = _(r)[Symbol.iterator]();
-  try {
-    do
-      if ({ done: f, value: i } = Number.isNaN(d - e) ? s.next() : s.next(d - e), !f && i.byteLength > 0 && (o.push(i), e += i.byteLength), f || d <= e)
-        do
-          ({ cmd: u, size: d } = yield l());
-        while (d < e);
-    while (!f);
-  } catch (n) {
-    (t = !0) && typeof s.throw == "function" && s.throw(n);
-  } finally {
-    t === !1 && typeof s.return == "function" && s.return(null);
-  }
-  return null;
-}
-function U(r) {
-  return v(this, arguments, function* () {
-    let t, o = !1, i = [], u, d, e, l = 0;
-    function s() {
-      return d === "peek" ? c(i, e)[0] : ([u, i, l] = c(i, e), u);
-    }
-    ({ cmd: d, size: e } = (yield yield a(null)) || { cmd: "read", size: 0 });
-    const n = z(r)[Symbol.asyncIterator]();
-    try {
-      do
-        if ({ done: t, value: u } = Number.isNaN(e - l) ? yield a(n.next()) : yield a(n.next(e - l)), !t && u.byteLength > 0 && (i.push(u), l += u.byteLength), t || e <= l)
-          do
-            ({ cmd: d, size: e } = yield yield a(s()));
-          while (e < l);
-      while (!t);
-    } catch (m) {
-      (o = !0) && typeof n.throw == "function" && (yield a(n.throw(m)));
-    } finally {
-      o === !1 && typeof n.return == "function" && (yield a(n.return(new Uint8Array(0))));
-    }
-    return yield a(null);
-  });
-}
-function x(r) {
-  return v(this, arguments, function* () {
-    let t = !1, o = !1, i = [], u, d, e, l = 0;
-    function s() {
-      return d === "peek" ? c(i, e)[0] : ([u, i, l] = c(i, e), u);
-    }
-    ({ cmd: d, size: e } = (yield yield a(null)) || { cmd: "read", size: 0 });
-    const n = new R(r);
-    try {
-      do
-        if ({ done: t, value: u } = Number.isNaN(e - l) ? yield a(n.read()) : yield a(n.read(e - l)), !t && u.byteLength > 0 && (i.push(b(u)), l += u.byteLength), t || e <= l)
-          do
-            ({ cmd: d, size: e } = yield yield a(s()));
-          while (e < l);
-      while (!t);
-    } catch (m) {
-      (o = !0) && (yield a(n.cancel(m)));
-    } finally {
-      o === !1 ? yield a(n.cancel()) : r.locked && n.releaseLock();
-    }
-    return yield a(null);
-  });
-}
-class R {
-  constructor(f) {
-    this.source = f, this.reader = null, this.reader = this.source.getReader(), this.reader.closed.catch(() => {
-    });
-  }
-  get closed() {
-    return this.reader ? this.reader.closed.catch(() => {
-    }) : Promise.resolve();
-  }
-  releaseLock() {
-    this.reader && this.reader.releaseLock(), this.reader = null;
-  }
-  cancel(f) {
-    return L(this, void 0, void 0, function* () {
-      const { reader: t, source: o } = this;
-      t && (yield t.cancel(f).catch(() => {
-      })), o && o.locked && this.releaseLock();
-    });
-  }
-  read(f) {
-    return L(this, void 0, void 0, function* () {
-      if (f === 0)
-        return { done: this.reader == null, value: new Uint8Array(0) };
-      const t = yield this.reader.read();
-      return !t.done && (t.value = b(t)), t;
-    });
-  }
-}
-const g = (r, f) => {
-  const t = (i) => o([f, i]);
-  let o;
-  return [f, t, new Promise((i) => (o = i) && r.once(f, t))];
-};
-function D(r) {
-  return v(this, arguments, function* () {
-    const t = [];
-    let o = "error", i = !1, u = null, d, e, l = 0, s = [], n;
-    function m() {
-      return d === "peek" ? c(s, e)[0] : ([n, s, l] = c(s, e), n);
-    }
-    if ({ cmd: d, size: e } = (yield yield a(null)) || { cmd: "read", size: 0 }, r.isTTY)
-      return yield yield a(new Uint8Array(0)), yield a(null);
-    try {
-      t[0] = g(r, "end"), t[1] = g(r, "error");
-      do {
-        if (t[2] = g(r, "readable"), [o, u] = yield a(Promise.race(t.map((p) => p[2]))), o === "error")
-          break;
-        if ((i = o === "end") || (Number.isFinite(e - l) ? (n = b(r.read(e - l)), n.byteLength < e - l && (n = b(r.read()))) : n = b(r.read()), n.byteLength > 0 && (s.push(n), l += n.byteLength)), i || e <= l)
-          do
-            ({ cmd: d, size: e } = yield yield a(m()));
-          while (e < l);
-      } while (!i);
-    } finally {
-      yield a(N(t, o === "error" ? u : null));
-    }
-    return yield a(null);
-    function N(p, y) {
-      return n = s = null, new Promise((A, S) => {
-        for (const [h, k] of p)
-          r.off(h, k);
-        try {
-          const h = r.destroy;
-          h && h.call(r, y), y = void 0;
-        } catch (h) {
-          y = h || y;
-        } finally {
-          y != null ? S(y) : A();
-        }
-      });
-    }
-  });
-}
+var n;
+(function(i) {
+  i[i.NONE = 0] = "NONE", i[i.Null = 1] = "Null", i[i.Int = 2] = "Int", i[i.Float = 3] = "Float", i[i.Binary = 4] = "Binary", i[i.Utf8 = 5] = "Utf8", i[i.Bool = 6] = "Bool", i[i.Decimal = 7] = "Decimal", i[i.Date = 8] = "Date", i[i.Time = 9] = "Time", i[i.Timestamp = 10] = "Timestamp", i[i.Interval = 11] = "Interval", i[i.List = 12] = "List", i[i.Struct = 13] = "Struct", i[i.Union = 14] = "Union", i[i.FixedSizeBinary = 15] = "FixedSizeBinary", i[i.FixedSizeList = 16] = "FixedSizeList", i[i.Map = 17] = "Map", i[i.Duration = 18] = "Duration", i[i.LargeBinary = 19] = "LargeBinary", i[i.LargeUtf8 = 20] = "LargeUtf8", i[i.Dictionary = -1] = "Dictionary", i[i.Int8 = -2] = "Int8", i[i.Int16 = -3] = "Int16", i[i.Int32 = -4] = "Int32", i[i.Int64 = -5] = "Int64", i[i.Uint8 = -6] = "Uint8", i[i.Uint16 = -7] = "Uint16", i[i.Uint32 = -8] = "Uint32", i[i.Uint64 = -9] = "Uint64", i[i.Float16 = -10] = "Float16", i[i.Float32 = -11] = "Float32", i[i.Float64 = -12] = "Float64", i[i.DateDay = -13] = "DateDay", i[i.DateMillisecond = -14] = "DateMillisecond", i[i.TimestampSecond = -15] = "TimestampSecond", i[i.TimestampMillisecond = -16] = "TimestampMillisecond", i[i.TimestampMicrosecond = -17] = "TimestampMicrosecond", i[i.TimestampNanosecond = -18] = "TimestampNanosecond", i[i.TimeSecond = -19] = "TimeSecond", i[i.TimeMillisecond = -20] = "TimeMillisecond", i[i.TimeMicrosecond = -21] = "TimeMicrosecond", i[i.TimeNanosecond = -22] = "TimeNanosecond", i[i.DenseUnion = -23] = "DenseUnion", i[i.SparseUnion = -24] = "SparseUnion", i[i.IntervalDayTime = -25] = "IntervalDayTime", i[i.IntervalYearMonth = -26] = "IntervalYearMonth", i[i.DurationSecond = -27] = "DurationSecond", i[i.DurationMillisecond = -28] = "DurationMillisecond", i[i.DurationMicrosecond = -29] = "DurationMicrosecond", i[i.DurationNanosecond = -30] = "DurationNanosecond";
+})(n || (n = {}));
+var t;
+(function(i) {
+  i[i.OFFSET = 0] = "OFFSET", i[i.DATA = 1] = "DATA", i[i.VALIDITY = 2] = "VALIDITY", i[i.TYPE = 3] = "TYPE";
+})(t || (t = {}));
 export {
-  P as default
+  t as BufferType,
+  n as Type
 };
 //# sourceMappingURL=cori.data.api499.js.map

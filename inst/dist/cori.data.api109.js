@@ -4,10 +4,8 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(t) {
-  return arguments.length ? this.property("__data__", t) : this.node().__data__;
-}
+const a = (t) => () => t;
 export {
-  e as default
+  a as default
 };
 //# sourceMappingURL=cori.data.api109.js.map

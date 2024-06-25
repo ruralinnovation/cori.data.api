@@ -4,12 +4,13 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function* n() {
-  for (var r = this._groups, t = 0, l = r.length; t < l; ++t)
-    for (var a = r[t], e = 0, i = a.length, f; e < i; ++e)
-      (f = a[e]) && (yield f);
+function s() {
+  for (var i = this._groups, o = -1, a = i.length; ++o < a; )
+    for (var e = i[o], f = e.length - 1, r = e[f], t; --f >= 0; )
+      (t = e[f]) && (r && t.compareDocumentPosition(r) ^ 4 && r.parentNode.insertBefore(t, r), r = t);
+  return this;
 }
 export {
-  n as default
+  s as default
 };
 //# sourceMappingURL=cori.data.api199.js.map

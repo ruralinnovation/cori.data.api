@@ -1,50 +1,44 @@
-import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api642.js";
+import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api642.js";
+import "./cori.data.api569.js";
 import "./cori.data.api570.js";
-import "./cori.data.api571.js";
+import { DateUnit as o } from "./cori.data.api565.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i {
+class s {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
-  __init(t, s) {
-    return this.bb_pos = t, this.bb = s, this;
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsKeyValue(t, s) {
-    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getRootAsDate(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsKeyValue(t, s) {
-    return t.setPosition(t.position() + o), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsDate(t, i) {
+    return t.setPosition(t.position() + e), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  key(t) {
-    const s = this.bb.__offset(this.bb_pos, 4);
-    return s ? this.bb.__string(this.bb_pos + s, t) : null;
+  unit() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt16(this.bb_pos + t) : o.MILLISECOND;
   }
-  value(t) {
-    const s = this.bb.__offset(this.bb_pos, 6);
-    return s ? this.bb.__string(this.bb_pos + s, t) : null;
+  static startDate(t) {
+    t.startObject(1);
   }
-  static startKeyValue(t) {
-    t.startObject(2);
+  static addUnit(t, i) {
+    t.addFieldInt16(0, i, o.MILLISECOND);
   }
-  static addKey(t, s) {
-    t.addFieldOffset(0, s, 0);
-  }
-  static addValue(t, s) {
-    t.addFieldOffset(1, s, 0);
-  }
-  static endKeyValue(t) {
+  static endDate(t) {
     return t.endObject();
   }
-  static createKeyValue(t, s, e) {
-    return i.startKeyValue(t), i.addKey(t, s), i.addValue(t, e), i.endKeyValue(t);
+  static createDate(t, i) {
+    return s.startDate(t), s.addUnit(t, i), s.endDate(t);
   }
 }
 export {
-  i as KeyValue
+  s as Date
 };
 //# sourceMappingURL=cori.data.api585.js.map

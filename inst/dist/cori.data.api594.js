@@ -1,68 +1,93 @@
-import { SIZE_PREFIX_LENGTH as r } from "./cori.data.api642.js";
+import { SIZE_PREFIX_LENGTH as f } from "./cori.data.api642.js";
+import "./cori.data.api569.js";
 import "./cori.data.api570.js";
-import "./cori.data.api571.js";
-import { UnionMode as i } from "./cori.data.api561.js";
+import { KeyValue as h } from "./cori.data.api581.js";
+import { MessageHeader as o } from "./cori.data.api520.js";
+import { MetadataVersion as a } from "./cori.data.api519.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class e {
+let M = class e {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
   __init(t, s) {
     return this.bb_pos = t, this.bb = s, this;
   }
-  static getRootAsUnion(t, s) {
+  static getRootAsMessage(t, s) {
     return (s || new e()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsUnion(t, s) {
-    return t.setPosition(t.position() + r), (s || new e()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsMessage(t, s) {
+    return t.setPosition(t.position() + f), (s || new e()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  mode() {
+  version() {
     const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : i.Sparse;
+    return t ? this.bb.readInt16(this.bb_pos + t) : a.V1;
   }
-  typeIds(t) {
-    const s = this.bb.__offset(this.bb_pos, 6);
-    return s ? this.bb.readInt32(this.bb.__vector(this.bb_pos + s) + t * 4) : 0;
-  }
-  typeIdsLength() {
+  headerType() {
     const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? this.bb.readUint8(this.bb_pos + t) : o.NONE;
+  }
+  header(t) {
+    const s = this.bb.__offset(this.bb_pos, 8);
+    return s ? this.bb.__union(t, this.bb_pos + s) : null;
+  }
+  bodyLength() {
+    const t = this.bb.__offset(this.bb_pos, 10);
+    return t ? this.bb.readInt64(this.bb_pos + t) : BigInt("0");
+  }
+  customMetadata(t, s) {
+    const i = this.bb.__offset(this.bb_pos, 12);
+    return i ? (s || new h()).__init(this.bb.__indirect(this.bb.__vector(this.bb_pos + i) + t * 4), this.bb) : null;
+  }
+  customMetadataLength() {
+    const t = this.bb.__offset(this.bb_pos, 12);
     return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
-  typeIdsArray() {
-    const t = this.bb.__offset(this.bb_pos, 6);
-    return t ? new Int32Array(this.bb.bytes().buffer, this.bb.bytes().byteOffset + this.bb.__vector(this.bb_pos + t), this.bb.__vector_len(this.bb_pos + t)) : null;
+  static startMessage(t) {
+    t.startObject(5);
   }
-  static startUnion(t) {
-    t.startObject(2);
+  static addVersion(t, s) {
+    t.addFieldInt16(0, s, a.V1);
   }
-  static addMode(t, s) {
-    t.addFieldInt16(0, s, i.Sparse);
+  static addHeaderType(t, s) {
+    t.addFieldInt8(1, s, o.NONE);
   }
-  static addTypeIds(t, s) {
-    t.addFieldOffset(1, s, 0);
+  static addHeader(t, s) {
+    t.addFieldOffset(2, s, 0);
   }
-  static createTypeIdsVector(t, s) {
+  static addBodyLength(t, s) {
+    t.addFieldInt64(3, s, BigInt("0"));
+  }
+  static addCustomMetadata(t, s) {
+    t.addFieldOffset(4, s, 0);
+  }
+  static createCustomMetadataVector(t, s) {
     t.startVector(4, s.length, 4);
-    for (let o = s.length - 1; o >= 0; o--)
-      t.addInt32(s[o]);
+    for (let i = s.length - 1; i >= 0; i--)
+      t.addOffset(s[i]);
     return t.endVector();
   }
-  static startTypeIdsVector(t, s) {
+  static startCustomMetadataVector(t, s) {
     t.startVector(4, s, 4);
   }
-  static endUnion(t) {
+  static endMessage(t) {
     return t.endObject();
   }
-  static createUnion(t, s, o) {
-    return e.startUnion(t), e.addMode(t, s), e.addTypeIds(t, o), e.endUnion(t);
+  static finishMessageBuffer(t, s) {
+    t.finish(s);
   }
-}
+  static finishSizePrefixedMessageBuffer(t, s) {
+    t.finish(s, void 0, !0);
+  }
+  static createMessage(t, s, i, n, r, d) {
+    return e.startMessage(t), e.addVersion(t, s), e.addHeaderType(t, i), e.addHeader(t, n), e.addBodyLength(t, r), e.addCustomMetadata(t, d), e.endMessage(t);
+  }
+};
 export {
-  e as Union
+  M as Message
 };
 //# sourceMappingURL=cori.data.api594.js.map

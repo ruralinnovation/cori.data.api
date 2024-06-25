@@ -1,4 +1,4 @@
-import { array as s, writeUtf8 as i, ceil64Bytes as c } from "./cori.data.api32.js";
+import { array as s, writeUtf8 as i, ceil64Bytes as c } from "./cori.data.api36.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

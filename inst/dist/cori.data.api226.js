@@ -1,64 +1,65 @@
-import { get as h, set as l } from "./cori.data.api229.js";
+import n from "./cori.data.api59.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s(t, r) {
-  var u, n;
-  return function() {
-    var e = l(this, t), i = e.tween;
-    if (i !== u) {
-      n = u = i;
-      for (var a = 0, o = n.length; a < o; ++a)
-        if (n[a].name === r) {
-          n = n.slice(), n.splice(a, 1);
-          break;
-        }
-    }
-    e.tween = n;
-  };
-}
-function w(t, r, u) {
-  var n, e;
-  if (typeof u != "function")
-    throw new Error();
-  return function() {
-    var i = l(this, t), a = i.tween;
-    if (a !== n) {
-      e = (n = a).slice();
-      for (var o = { name: r, value: u }, f = 0, c = e.length; f < c; ++f)
-        if (e[f].name === r) {
-          e[f] = o;
-          break;
-        }
-      f === c && e.push(o);
-    }
-    i.tween = e;
-  };
-}
-function d(t, r) {
-  var u = this._id;
-  if (t += "", arguments.length < 2) {
-    for (var n = h(this.node(), u).tween, e = 0, i = n.length, a; e < i; ++e)
-      if ((a = n[e]).name === t)
-        return a.value;
-    return null;
+class a {
+  constructor() {
+    this.handlers = [];
   }
-  return this.each((r == null ? s : w)(u, t, r));
-}
-function g(t, r, u) {
-  var n = t._id;
-  return t.each(function() {
-    var e = l(this, n);
-    (e.value || (e.value = {}))[r] = u.apply(this, arguments);
-  }), function(e) {
-    return h(e, n).value[r];
-  };
+  /**
+   * Add a new interceptor to the stack
+   *
+   * @param {Function} fulfilled The function to handle `then` for a `Promise`
+   * @param {Function} rejected The function to handle `reject` for a `Promise`
+   *
+   * @return {Number} An ID used to remove interceptor later
+   */
+  use(s, h, r) {
+    return this.handlers.push({
+      fulfilled: s,
+      rejected: h,
+      synchronous: r ? r.synchronous : !1,
+      runWhen: r ? r.runWhen : null
+    }), this.handlers.length - 1;
+  }
+  /**
+   * Remove an interceptor from the stack
+   *
+   * @param {Number} id The ID that was returned by `use`
+   *
+   * @returns {Boolean} `true` if the interceptor was removed, `false` otherwise
+   */
+  eject(s) {
+    this.handlers[s] && (this.handlers[s] = null);
+  }
+  /**
+   * Clear all interceptors from the stack
+   *
+   * @returns {void}
+   */
+  clear() {
+    this.handlers && (this.handlers = []);
+  }
+  /**
+   * Iterate over all the registered interceptors
+   *
+   * This method is particularly useful for skipping over any
+   * interceptors that may have become `null` calling `eject`.
+   *
+   * @param {Function} fn The function to call for each interceptor
+   *
+   * @returns {void}
+   */
+  forEach(s) {
+    n.forEach(this.handlers, function(r) {
+      r !== null && s(r);
+    });
+  }
 }
 export {
-  d as default,
-  g as tweenValue
+  a as default
 };
 //# sourceMappingURL=cori.data.api226.js.map

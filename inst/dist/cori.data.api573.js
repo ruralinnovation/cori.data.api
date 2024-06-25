@@ -1,220 +1,120 @@
-import { SIZEOF_INT as h, FILE_IDENTIFIER_LENGTH as _ } from "./cori.data.api642.js";
-import { int32 as e, float32 as I, isLittleEndian as a, float64 as d } from "./cori.data.api570.js";
-import { Encoding as o } from "./cori.data.api571.js";
+import { SIZE_PREFIX_LENGTH as a } from "./cori.data.api642.js";
+import "./cori.data.api569.js";
+import "./cori.data.api570.js";
+import { Endianness as o } from "./cori.data.api582.js";
+import { Field as f } from "./cori.data.api578.js";
+import { KeyValue as c } from "./cori.data.api581.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class u {
-  /**
-   * Create a new ByteBuffer with a given array of bytes (`Uint8Array`)
-   */
-  constructor(t) {
-    this.bytes_ = t, this.position_ = 0, this.text_decoder_ = new TextDecoder();
+class i {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
+  }
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
+  }
+  static getRootAsSchema(t, s) {
+    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static getSizePrefixedRootAsSchema(t, s) {
+    return t.setPosition(t.position() + a), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
   /**
-   * Create and allocate a new ByteBuffer with a given size.
+   * endianness of the buffer
+   * it is Little Endian by default
+   * if endianness doesn't match the underlying system then the vectors need to be converted
    */
-  static allocate(t) {
-    return new u(new Uint8Array(t));
+  endianness() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt16(this.bb_pos + t) : o.Little;
   }
-  clear() {
-    this.position_ = 0;
+  fields(t, s) {
+    const e = this.bb.__offset(this.bb_pos, 6);
+    return e ? (s || new f()).__init(this.bb.__indirect(this.bb.__vector(this.bb_pos + e) + t * 4), this.bb) : null;
+  }
+  fieldsLength() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
+  }
+  customMetadata(t, s) {
+    const e = this.bb.__offset(this.bb_pos, 8);
+    return e ? (s || new c()).__init(this.bb.__indirect(this.bb.__vector(this.bb_pos + e) + t * 4), this.bb) : null;
+  }
+  customMetadataLength() {
+    const t = this.bb.__offset(this.bb_pos, 8);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
   /**
-   * Get the underlying `Uint8Array`.
+   * Features used in the stream/file.
    */
-  bytes() {
-    return this.bytes_;
+  features(t) {
+    const s = this.bb.__offset(this.bb_pos, 10);
+    return s ? this.bb.readInt64(this.bb.__vector(this.bb_pos + s) + t * 8) : BigInt(0);
   }
-  /**
-   * Get the buffer's position.
-   */
-  position() {
-    return this.position_;
+  featuresLength() {
+    const t = this.bb.__offset(this.bb_pos, 10);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
-  /**
-   * Set the buffer's position.
-   */
-  setPosition(t) {
-    this.position_ = t;
+  static startSchema(t) {
+    t.startObject(4);
   }
-  /**
-   * Get the buffer's capacity.
-   */
-  capacity() {
-    return this.bytes_.length;
+  static addEndianness(t, s) {
+    t.addFieldInt16(0, s, o.Little);
   }
-  readInt8(t) {
-    return this.readUint8(t) << 24 >> 24;
+  static addFields(t, s) {
+    t.addFieldOffset(1, s, 0);
   }
-  readUint8(t) {
-    return this.bytes_[t];
+  static createFieldsVector(t, s) {
+    t.startVector(4, s.length, 4);
+    for (let e = s.length - 1; e >= 0; e--)
+      t.addOffset(s[e]);
+    return t.endVector();
   }
-  readInt16(t) {
-    return this.readUint16(t) << 16 >> 16;
+  static startFieldsVector(t, s) {
+    t.startVector(4, s, 4);
   }
-  readUint16(t) {
-    return this.bytes_[t] | this.bytes_[t + 1] << 8;
+  static addCustomMetadata(t, s) {
+    t.addFieldOffset(2, s, 0);
   }
-  readInt32(t) {
-    return this.bytes_[t] | this.bytes_[t + 1] << 8 | this.bytes_[t + 2] << 16 | this.bytes_[t + 3] << 24;
+  static createCustomMetadataVector(t, s) {
+    t.startVector(4, s.length, 4);
+    for (let e = s.length - 1; e >= 0; e--)
+      t.addOffset(s[e]);
+    return t.endVector();
   }
-  readUint32(t) {
-    return this.readInt32(t) >>> 0;
+  static startCustomMetadataVector(t, s) {
+    t.startVector(4, s, 4);
   }
-  readInt64(t) {
-    return BigInt.asIntN(64, BigInt(this.readUint32(t)) + (BigInt(this.readUint32(t + 4)) << BigInt(32)));
+  static addFeatures(t, s) {
+    t.addFieldOffset(3, s, 0);
   }
-  readUint64(t) {
-    return BigInt.asUintN(64, BigInt(this.readUint32(t)) + (BigInt(this.readUint32(t + 4)) << BigInt(32)));
+  static createFeaturesVector(t, s) {
+    t.startVector(8, s.length, 8);
+    for (let e = s.length - 1; e >= 0; e--)
+      t.addInt64(s[e]);
+    return t.endVector();
   }
-  readFloat32(t) {
-    return e[0] = this.readInt32(t), I[0];
+  static startFeaturesVector(t, s) {
+    t.startVector(8, s, 8);
   }
-  readFloat64(t) {
-    return e[a ? 0 : 1] = this.readInt32(t), e[a ? 1 : 0] = this.readInt32(t + 4), d[0];
+  static endSchema(t) {
+    return t.endObject();
   }
-  writeInt8(t, i) {
-    this.bytes_[t] = i;
+  static finishSchemaBuffer(t, s) {
+    t.finish(s);
   }
-  writeUint8(t, i) {
-    this.bytes_[t] = i;
+  static finishSizePrefixedSchemaBuffer(t, s) {
+    t.finish(s, void 0, !0);
   }
-  writeInt16(t, i) {
-    this.bytes_[t] = i, this.bytes_[t + 1] = i >> 8;
-  }
-  writeUint16(t, i) {
-    this.bytes_[t] = i, this.bytes_[t + 1] = i >> 8;
-  }
-  writeInt32(t, i) {
-    this.bytes_[t] = i, this.bytes_[t + 1] = i >> 8, this.bytes_[t + 2] = i >> 16, this.bytes_[t + 3] = i >> 24;
-  }
-  writeUint32(t, i) {
-    this.bytes_[t] = i, this.bytes_[t + 1] = i >> 8, this.bytes_[t + 2] = i >> 16, this.bytes_[t + 3] = i >> 24;
-  }
-  writeInt64(t, i) {
-    this.writeInt32(t, Number(BigInt.asIntN(32, i))), this.writeInt32(t + 4, Number(BigInt.asIntN(32, i >> BigInt(32))));
-  }
-  writeUint64(t, i) {
-    this.writeUint32(t, Number(BigInt.asUintN(32, i))), this.writeUint32(t + 4, Number(BigInt.asUintN(32, i >> BigInt(32))));
-  }
-  writeFloat32(t, i) {
-    I[0] = i, this.writeInt32(t, e[0]);
-  }
-  writeFloat64(t, i) {
-    d[0] = i, this.writeInt32(t, e[a ? 0 : 1]), this.writeInt32(t + 4, e[a ? 1 : 0]);
-  }
-  /**
-   * Return the file identifier.   Behavior is undefined for FlatBuffers whose
-   * schema does not include a file_identifier (likely points at padding or the
-   * start of a the root vtable).
-   */
-  getBufferIdentifier() {
-    if (this.bytes_.length < this.position_ + h + _)
-      throw new Error("FlatBuffers: ByteBuffer is too short to contain an identifier.");
-    let t = "";
-    for (let i = 0; i < _; i++)
-      t += String.fromCharCode(this.readInt8(this.position_ + h + i));
-    return t;
-  }
-  /**
-   * Look up a field in the vtable, return an offset into the object, or 0 if the
-   * field is not present.
-   */
-  __offset(t, i) {
-    const r = t - this.readInt32(t);
-    return i < this.readInt16(r) ? this.readInt16(r + i) : 0;
-  }
-  /**
-   * Initialize any Table-derived type to point to the union at the given offset.
-   */
-  __union(t, i) {
-    return t.bb_pos = i + this.readInt32(i), t.bb = this, t;
-  }
-  /**
-   * Create a JavaScript string from UTF-8 data stored inside the FlatBuffer.
-   * This allocates a new string and converts to wide chars upon each access.
-   *
-   * To avoid the conversion to string, pass Encoding.UTF8_BYTES as the
-   * "optionalEncoding" argument. This is useful for avoiding conversion when
-   * the data will just be packaged back up in another FlatBuffer later on.
-   *
-   * @param offset
-   * @param opt_encoding Defaults to UTF16_STRING
-   */
-  __string(t, i) {
-    t += this.readInt32(t);
-    const r = this.readInt32(t);
-    t += h;
-    const n = this.bytes_.subarray(t, t + r);
-    return i === o.UTF8_BYTES ? n : this.text_decoder_.decode(n);
-  }
-  /**
-   * Handle unions that can contain string as its member, if a Table-derived type then initialize it,
-   * if a string then return a new one
-   *
-   * WARNING: strings are immutable in JS so we can't change the string that the user gave us, this
-   * makes the behaviour of __union_with_string different compared to __union
-   */
-  __union_with_string(t, i) {
-    return typeof t == "string" ? this.__string(i) : this.__union(t, i);
-  }
-  /**
-   * Retrieve the relative offset stored at "offset"
-   */
-  __indirect(t) {
-    return t + this.readInt32(t);
-  }
-  /**
-   * Get the start of data of a vector whose offset is stored at "offset" in this object.
-   */
-  __vector(t) {
-    return t + this.readInt32(t) + h;
-  }
-  /**
-   * Get the length of a vector whose offset is stored at "offset" in this object.
-   */
-  __vector_len(t) {
-    return this.readInt32(t + this.readInt32(t));
-  }
-  __has_identifier(t) {
-    if (t.length != _)
-      throw new Error("FlatBuffers: file identifier must be length " + _);
-    for (let i = 0; i < _; i++)
-      if (t.charCodeAt(i) != this.readInt8(this.position() + h + i))
-        return !1;
-    return !0;
-  }
-  /**
-   * A helper function for generating list for obj api
-   */
-  createScalarList(t, i) {
-    const r = [];
-    for (let n = 0; n < i; ++n) {
-      const s = t(n);
-      s !== null && r.push(s);
-    }
-    return r;
-  }
-  /**
-   * A helper function for generating list for obj api
-   * @param listAccessor function that accepts an index and return data at that index
-   * @param listLength listLength
-   * @param res result list
-   */
-  createObjList(t, i) {
-    const r = [];
-    for (let n = 0; n < i; ++n) {
-      const s = t(n);
-      s !== null && r.push(s.unpack());
-    }
-    return r;
+  static createSchema(t, s, e, r, n) {
+    return i.startSchema(t), i.addEndianness(t, s), i.addFields(t, e), i.addCustomMetadata(t, r), i.addFeatures(t, n), i.endSchema(t);
   }
 }
 export {
-  u as ByteBuffer
+  i as Schema
 };
 //# sourceMappingURL=cori.data.api573.js.map

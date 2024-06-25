@@ -1,4 +1,4 @@
-import { markdownLineEnding as o } from "./cori.data.api481.js";
+import { markdownLineEnding as o } from "./cori.data.api480.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

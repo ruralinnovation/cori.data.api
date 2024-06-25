@@ -1,6 +1,6 @@
 import p from "./cori.data.api654.js";
 import i from "./cori.data.api655.js";
-import { random as e } from "./cori.data.api308.js";
+import { random as e } from "./cori.data.api331.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

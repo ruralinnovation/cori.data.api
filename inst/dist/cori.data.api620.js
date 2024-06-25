@@ -1,6 +1,6 @@
-import { Field as n } from "./cori.data.api498.js";
-import { Builder as h } from "./cori.data.api502.js";
-import { FixedSizeList as l } from "./cori.data.api411.js";
+import { Field as n } from "./cori.data.api500.js";
+import { Builder as h } from "./cori.data.api504.js";
+import { FixedSizeList as l } from "./cori.data.api418.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

@@ -1,5 +1,5 @@
-import { Type as e } from "./cori.data.api497.js";
-import { DataType as u } from "./cori.data.api411.js";
+import { Type as e } from "./cori.data.api499.js";
+import { DataType as u } from "./cori.data.api418.js";
 import { UnionMode as o } from "./cori.data.api561.js";
 import { TimeUnit as s } from "./cori.data.api566.js";
 import { IntervalUnit as p } from "./cori.data.api567.js";

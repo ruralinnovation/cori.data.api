@@ -1,41 +1,50 @@
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api642.js";
+import "./cori.data.api569.js";
+import "./cori.data.api570.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class n {
+class i {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
   __init(t, s) {
     return this.bb_pos = t, this.bb = s, this;
   }
-  /**
-   * The relative offset into the shared memory page where the bytes for this
-   * buffer starts
-   */
-  offset() {
-    return this.bb.readInt64(this.bb_pos);
+  static getRootAsKeyValue(t, s) {
+    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  /**
-   * The absolute length (in bytes) of the memory buffer. The memory is found
-   * from offset (inclusive) to offset + length (non-inclusive). When building
-   * messages using the encapsulated IPC message, padding bytes may be written
-   * after a buffer, but such padding bytes do not need to be accounted for in
-   * the size here.
-   */
-  length() {
-    return this.bb.readInt64(this.bb_pos + 8);
+  static getSizePrefixedRootAsKeyValue(t, s) {
+    return t.setPosition(t.position() + o), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static sizeOf() {
-    return 16;
+  key(t) {
+    const s = this.bb.__offset(this.bb_pos, 4);
+    return s ? this.bb.__string(this.bb_pos + s, t) : null;
   }
-  static createBuffer(t, s, r) {
-    return t.prep(8, 16), t.writeInt64(BigInt(r ?? 0)), t.writeInt64(BigInt(s ?? 0)), t.offset();
+  value(t) {
+    const s = this.bb.__offset(this.bb_pos, 6);
+    return s ? this.bb.__string(this.bb_pos + s, t) : null;
+  }
+  static startKeyValue(t) {
+    t.startObject(2);
+  }
+  static addKey(t, s) {
+    t.addFieldOffset(0, s, 0);
+  }
+  static addValue(t, s) {
+    t.addFieldOffset(1, s, 0);
+  }
+  static endKeyValue(t) {
+    return t.endObject();
+  }
+  static createKeyValue(t, s, e) {
+    return i.startKeyValue(t), i.addKey(t, s), i.addValue(t, e), i.endKeyValue(t);
   }
 }
 export {
-  n as Buffer
+  i as KeyValue
 };
 //# sourceMappingURL=cori.data.api581.js.map

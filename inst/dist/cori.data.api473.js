@@ -4,93 +4,19 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var p = /\/\*[^*]*\*+([^/*][^*]*\*+)*\//g, N = /\n/g, O = /^\s*/, G = /^(\*?[-#/*\\\w]+(\[[0-9a-z_-]+\])?)\s*/, I = /^:\s*/, P = /^((?:'(?:\\'|.)*?'|"(?:\\"|.)*?"|\([^)]*?\)|[^};])+)/, d = /^[;\s]*/, S = /^\s+|\s+$/g, X = `
-`, R = "/", A = "*", i = "", L = "comment", M = "declaration", C = function(e, c) {
-  if (typeof e != "string")
-    throw new TypeError("First argument must be a string");
-  if (!e)
-    return [];
-  c = c || {};
-  var o = 1, t = 1;
-  function v(n) {
-    var r = n.match(N);
-    r && (o += r.length);
-    var a = n.lastIndexOf(X);
-    t = ~a ? n.length - a : t + n.length;
-  }
-  function E() {
-    var n = { line: o, column: t };
-    return function(r) {
-      return r.position = new f(n), m(), r;
-    };
-  }
-  function f(n) {
-    this.start = n, this.end = { line: o, column: t }, this.source = c.source;
-  }
-  f.prototype.content = e;
-  function h(n) {
-    var r = new Error(
-      c.source + ":" + o + ":" + t + ": " + n
-    );
-    if (r.reason = n, r.filename = c.source, r.line = o, r.column = t, r.source = e, !c.silent)
-      throw r;
-  }
-  function u(n) {
-    var r = n.exec(e);
-    if (r) {
-      var a = r[0];
-      return v(a), e = e.slice(a.length), r;
-    }
-  }
-  function m() {
-    u(O);
-  }
-  function s(n) {
-    var r;
-    for (n = n || []; r = l(); )
-      r !== !1 && n.push(r);
-    return n;
-  }
-  function l() {
-    var n = E();
-    if (!(R != e.charAt(0) || A != e.charAt(1))) {
-      for (var r = 2; i != e.charAt(r) && (A != e.charAt(r) || R != e.charAt(r + 1)); )
-        ++r;
-      if (r += 2, i === e.charAt(r - 1))
-        return h("End of comment missing");
-      var a = e.slice(2, r - 2);
-      return t += 2, v(a), e = e.slice(r), t += 2, n({
-        type: L,
-        comment: a
-      });
-    }
-  }
-  function T() {
-    var n = E(), r = u(G);
-    if (r) {
-      if (l(), !u(I))
-        return h("property missing ':'");
-      var a = u(P), w = n({
-        type: M,
-        property: _(r[0].replace(p, i)),
-        value: a ? _(a[0].replace(p, i)) : i
-      });
-      return u(d), w;
-    }
-  }
-  function g() {
-    var n = [];
-    s(n);
-    for (var r; r = T(); )
-      r !== !1 && (n.push(r), s(n));
-    return n;
-  }
-  return m(), g();
-};
-function _(e) {
-  return e ? e.replace(S, i) : i;
+function o(n) {
+  return !n || typeof n != "object" ? "" : "position" in n || "type" in n ? t(n.position) : "start" in n || "end" in n ? t(n) : "line" in n || "column" in n ? i(n) : "";
+}
+function i(n) {
+  return r(n && n.line) + ":" + r(n && n.column);
+}
+function t(n) {
+  return i(n && n.start) + "-" + i(n && n.end);
+}
+function r(n) {
+  return n && typeof n == "number" ? n : 1;
 }
 export {
-  C as i
+  o as stringifyPosition
 };
 //# sourceMappingURL=cori.data.api473.js.map

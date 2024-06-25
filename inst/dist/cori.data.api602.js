@@ -1,5 +1,5 @@
-import { BitmapBufferBuilder as s } from "./cori.data.api506.js";
-import { Builder as t } from "./cori.data.api502.js";
+import { BitmapBufferBuilder as s } from "./cori.data.api508.js";
+import { Builder as t } from "./cori.data.api504.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

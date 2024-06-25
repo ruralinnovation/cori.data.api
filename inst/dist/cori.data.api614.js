@@ -1,4 +1,4 @@
-import { FixedWidthBuilder as o } from "./cori.data.api502.js";
+import { FixedWidthBuilder as o } from "./cori.data.api504.js";
 import { setDuration as s, setDurationSecond as r, setDurationMillisecond as i, setDurationMicrosecond as n, setDurationNanosecond as a } from "./cori.data.api556.js";
 /*
  * CORI Data API component library

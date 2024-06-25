@@ -1,93 +1,108 @@
-import { SIZE_PREFIX_LENGTH as f } from "./cori.data.api642.js";
+import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api642.js";
+import "./cori.data.api569.js";
 import "./cori.data.api570.js";
-import "./cori.data.api571.js";
-import { KeyValue as h } from "./cori.data.api585.js";
-import { MessageHeader as o } from "./cori.data.api518.js";
-import { MetadataVersion as a } from "./cori.data.api517.js";
+import { Block as o } from "./cori.data.api597.js";
+import { KeyValue as _ } from "./cori.data.api581.js";
+import { MetadataVersion as r } from "./cori.data.api519.js";
+import { Schema as a } from "./cori.data.api573.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-let M = class e {
+class i {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
   __init(t, s) {
     return this.bb_pos = t, this.bb = s, this;
   }
-  static getRootAsMessage(t, s) {
-    return (s || new e()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getRootAsFooter(t, s) {
+    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsMessage(t, s) {
-    return t.setPosition(t.position() + f), (s || new e()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsFooter(t, s) {
+    return t.setPosition(t.position() + n), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
   version() {
     const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : a.V1;
+    return t ? this.bb.readInt16(this.bb_pos + t) : r.V1;
   }
-  headerType() {
-    const t = this.bb.__offset(this.bb_pos, 6);
-    return t ? this.bb.readUint8(this.bb_pos + t) : o.NONE;
+  schema(t) {
+    const s = this.bb.__offset(this.bb_pos, 6);
+    return s ? (t || new a()).__init(this.bb.__indirect(this.bb_pos + s), this.bb) : null;
   }
-  header(t) {
-    const s = this.bb.__offset(this.bb_pos, 8);
-    return s ? this.bb.__union(t, this.bb_pos + s) : null;
+  dictionaries(t, s) {
+    const e = this.bb.__offset(this.bb_pos, 8);
+    return e ? (s || new o()).__init(this.bb.__vector(this.bb_pos + e) + t * 24, this.bb) : null;
   }
-  bodyLength() {
+  dictionariesLength() {
+    const t = this.bb.__offset(this.bb_pos, 8);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
+  }
+  recordBatches(t, s) {
+    const e = this.bb.__offset(this.bb_pos, 10);
+    return e ? (s || new o()).__init(this.bb.__vector(this.bb_pos + e) + t * 24, this.bb) : null;
+  }
+  recordBatchesLength() {
     const t = this.bb.__offset(this.bb_pos, 10);
-    return t ? this.bb.readInt64(this.bb_pos + t) : BigInt("0");
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
+  /**
+   * User-defined metadata
+   */
   customMetadata(t, s) {
-    const i = this.bb.__offset(this.bb_pos, 12);
-    return i ? (s || new h()).__init(this.bb.__indirect(this.bb.__vector(this.bb_pos + i) + t * 4), this.bb) : null;
+    const e = this.bb.__offset(this.bb_pos, 12);
+    return e ? (s || new _()).__init(this.bb.__indirect(this.bb.__vector(this.bb_pos + e) + t * 4), this.bb) : null;
   }
   customMetadataLength() {
     const t = this.bb.__offset(this.bb_pos, 12);
     return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
-  static startMessage(t) {
+  static startFooter(t) {
     t.startObject(5);
   }
   static addVersion(t, s) {
-    t.addFieldInt16(0, s, a.V1);
+    t.addFieldInt16(0, s, r.V1);
   }
-  static addHeaderType(t, s) {
-    t.addFieldInt8(1, s, o.NONE);
+  static addSchema(t, s) {
+    t.addFieldOffset(1, s, 0);
   }
-  static addHeader(t, s) {
+  static addDictionaries(t, s) {
     t.addFieldOffset(2, s, 0);
   }
-  static addBodyLength(t, s) {
-    t.addFieldInt64(3, s, BigInt("0"));
+  static startDictionariesVector(t, s) {
+    t.startVector(24, s, 8);
+  }
+  static addRecordBatches(t, s) {
+    t.addFieldOffset(3, s, 0);
+  }
+  static startRecordBatchesVector(t, s) {
+    t.startVector(24, s, 8);
   }
   static addCustomMetadata(t, s) {
     t.addFieldOffset(4, s, 0);
   }
   static createCustomMetadataVector(t, s) {
     t.startVector(4, s.length, 4);
-    for (let i = s.length - 1; i >= 0; i--)
-      t.addOffset(s[i]);
+    for (let e = s.length - 1; e >= 0; e--)
+      t.addOffset(s[e]);
     return t.endVector();
   }
   static startCustomMetadataVector(t, s) {
     t.startVector(4, s, 4);
   }
-  static endMessage(t) {
+  static endFooter(t) {
     return t.endObject();
   }
-  static finishMessageBuffer(t, s) {
+  static finishFooterBuffer(t, s) {
     t.finish(s);
   }
-  static finishSizePrefixedMessageBuffer(t, s) {
+  static finishSizePrefixedFooterBuffer(t, s) {
     t.finish(s, void 0, !0);
   }
-  static createMessage(t, s, i, n, r, d) {
-    return e.startMessage(t), e.addVersion(t, s), e.addHeaderType(t, i), e.addHeader(t, n), e.addBodyLength(t, r), e.addCustomMetadata(t, d), e.endMessage(t);
-  }
-};
+}
 export {
-  M as Message
+  i as Footer
 };
 //# sourceMappingURL=cori.data.api598.js.map

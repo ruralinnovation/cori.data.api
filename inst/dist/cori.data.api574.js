@@ -1,22 +1,50 @@
-import { instance as u } from "./cori.data.api575.js";
+import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api642.js";
+import "./cori.data.api569.js";
+import "./cori.data.api570.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(e) {
-  const n = e.type, s = new (u.getVisitFn(n)())(e);
-  if (n.children && n.children.length > 0) {
-    const r = e.children || [], c = { nullValues: e.nullValues }, l = Array.isArray(r) ? (t, i) => r[i] || c : ({ name: t }) => r[t] || c;
-    for (const [t, i] of n.children.entries()) {
-      const { type: d } = i, o = l(i, t);
-      s.children.push(a(Object.assign(Object.assign({}, o), { type: d })));
-    }
+class i {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  return s;
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
+  }
+  static getRootAsInt(t, s) {
+    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static getSizePrefixedRootAsInt(t, s) {
+    return t.setPosition(t.position() + e), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  bitWidth() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
+  }
+  isSigned() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? !!this.bb.readInt8(this.bb_pos + t) : !1;
+  }
+  static startInt(t) {
+    t.startObject(2);
+  }
+  static addBitWidth(t, s) {
+    t.addFieldInt32(0, s, 0);
+  }
+  static addIsSigned(t, s) {
+    t.addFieldInt8(1, +s, 0);
+  }
+  static endInt(t) {
+    return t.endObject();
+  }
+  static createInt(t, s, o) {
+    return i.startInt(t), i.addBitWidth(t, s), i.addIsSigned(t, o), i.endInt(t);
+  }
 }
 export {
-  a as makeBuilder
+  i as Int
 };
 //# sourceMappingURL=cori.data.api574.js.map

@@ -1,36 +1,50 @@
-import n from "./cori.data.api525.js";
-import f from "./cori.data.api526.js";
-import u from "./cori.data.api296.js";
-import c from "./cori.data.api524.js";
-import { array_agg_distinct as s } from "./cori.data.api31.js";
-import a from "./cori.data.api273.js";
-import g from "./cori.data.api321.js";
+import { random as t } from "./cori.data.api331.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function S(r, o, m = {}) {
-  if (o = u(o, { table: r }), o.names.forEach(
-    (t) => r.column(t) ? 0 : a(`Invalid impute column ${g(t)}`)
-  ), m.expand) {
-    const t = { preparse: d, aggronly: !0 }, p = c("impute", r, m.expand, t), i = f(r.ungroup(), p);
-    return n(
-      r,
-      o,
-      p.names,
-      p.names.map((e) => i.get(e, 0))
-    );
-  } else
-    return n(r, o);
-}
-function d(r) {
-  r.forEach(
-    (o, m) => o.field ? r.set(m, s(o + "")) : 0
-  );
-}
+const n = {
+  random: t,
+  is_nan: Number.isNaN,
+  is_finite: Number.isFinite,
+  abs: Math.abs,
+  cbrt: Math.cbrt,
+  ceil: Math.ceil,
+  clz32: Math.clz32,
+  exp: Math.exp,
+  expm1: Math.expm1,
+  floor: Math.floor,
+  fround: Math.fround,
+  greatest: Math.max,
+  least: Math.min,
+  log: Math.log,
+  log10: Math.log10,
+  log1p: Math.log1p,
+  log2: Math.log2,
+  pow: Math.pow,
+  round: Math.round,
+  sign: Math.sign,
+  sqrt: Math.sqrt,
+  trunc: Math.trunc,
+  degrees: (a) => 180 * a / Math.PI,
+  radians: (a) => Math.PI * a / 180,
+  acos: Math.acos,
+  acosh: Math.acosh,
+  asin: Math.asin,
+  asinh: Math.asinh,
+  atan: Math.atan,
+  atan2: Math.atan2,
+  atanh: Math.atanh,
+  cos: Math.cos,
+  cosh: Math.cosh,
+  sin: Math.sin,
+  sinh: Math.sinh,
+  tan: Math.tan,
+  tanh: Math.tanh
+};
 export {
-  S as default
+  n as default
 };
 //# sourceMappingURL=cori.data.api435.js.map

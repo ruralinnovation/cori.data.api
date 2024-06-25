@@ -4,11 +4,8 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const { hasOwnProperty: o } = Object.prototype;
-function r(t, e) {
-  return o.call(t, e);
-}
+const l = typeof Blob < "u" ? Blob : null;
 export {
-  r as default
+  l as default
 };
 //# sourceMappingURL=cori.data.api389.js.map

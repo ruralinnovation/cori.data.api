@@ -1,39 +1,44 @@
+import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api642.js";
+import "./cori.data.api569.js";
+import "./cori.data.api570.js";
+import { Precision as s } from "./cori.data.api564.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class e {
+class o {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
-  __init(t, s) {
-    return this.bb_pos = t, this.bb = s, this;
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  /**
-   * The number of value slots in the Arrow array at this level of a nested
-   * tree
-   */
-  length() {
-    return this.bb.readInt64(this.bb_pos);
+  static getRootAsFloatingPoint(t, i) {
+    return (i || new o()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  /**
-   * The number of observed nulls. Fields with null_count == 0 may choose not
-   * to write their physical validity bitmap out as a materialized buffer,
-   * instead setting the length of the bitmap buffer to 0.
-   */
-  nullCount() {
-    return this.bb.readInt64(this.bb_pos + 8);
+  static getSizePrefixedRootAsFloatingPoint(t, i) {
+    return t.setPosition(t.position() + n), (i || new o()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static sizeOf() {
-    return 16;
+  precision() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt16(this.bb_pos + t) : s.HALF;
   }
-  static createFieldNode(t, s, i) {
-    return t.prep(8, 16), t.writeInt64(BigInt(i ?? 0)), t.writeInt64(BigInt(s ?? 0)), t.offset();
+  static startFloatingPoint(t) {
+    t.startObject(1);
+  }
+  static addPrecision(t, i) {
+    t.addFieldInt16(0, i, s.HALF);
+  }
+  static endFloatingPoint(t) {
+    return t.endObject();
+  }
+  static createFloatingPoint(t, i) {
+    return o.startFloatingPoint(t), o.addPrecision(t, i), o.endFloatingPoint(t);
   }
 }
 export {
-  e as FieldNode
+  o as FloatingPoint
 };
 //# sourceMappingURL=cori.data.api583.js.map

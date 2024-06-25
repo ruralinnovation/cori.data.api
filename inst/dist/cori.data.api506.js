@@ -1,105 +1,100 @@
-import { memcpy as E } from "./cori.data.api501.js";
+import { Vector as c } from "./cori.data.api417.js";
+import { valueToString as a } from "./cori.data.api562.js";
+import { instance as l } from "./cori.data.api555.js";
+import { instance as f } from "./cori.data.api556.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function n(i, t) {
-  const s = Math.ceil(i) * t - 1;
-  return (s - s % 64 + 64 || 64) / t;
+const n = Symbol.for("keys"), i = Symbol.for("vals");
+class h {
+  constructor(e) {
+    return this[n] = new c([e.children[0]]).memoize(), this[i] = e.children[1], new Proxy(this, new b());
+  }
+  [Symbol.iterator]() {
+    return new m(this[n], this[i]);
+  }
+  get size() {
+    return this[n].length;
+  }
+  toArray() {
+    return Object.values(this.toJSON());
+  }
+  toJSON() {
+    const e = this[n], t = this[i], r = {};
+    for (let s = -1, u = e.length; ++s < u; )
+      r[e.get(s)] = l.visit(t, s);
+    return r;
+  }
+  toString() {
+    return `{${[...this].map(([e, t]) => `${a(e)}: ${a(t)}`).join(", ")}}`;
+  }
+  [Symbol.for("nodejs.util.inspect.custom")]() {
+    return this.toString();
+  }
 }
-function f(i, t = 0) {
-  return i.length >= t ? i.subarray(0, t) : E(new i.constructor(t), i, 0);
-}
-class c {
-  constructor(t, s = 0, e = 1) {
-    this.length = Math.ceil(s / e), this.buffer = new t(this.length), this.stride = e, this.BYTES_PER_ELEMENT = t.BYTES_PER_ELEMENT, this.ArrayType = t;
+class m {
+  constructor(e, t) {
+    this.keys = e, this.vals = t, this.keyIndex = 0, this.numKeys = e.length;
   }
-  get byteLength() {
-    return Math.ceil(this.length * this.stride) * this.BYTES_PER_ELEMENT;
-  }
-  get reservedLength() {
-    return this.buffer.length / this.stride;
-  }
-  get reservedByteLength() {
-    return this.buffer.byteLength;
-  }
-  // @ts-ignore
-  set(t, s) {
+  [Symbol.iterator]() {
     return this;
   }
-  append(t) {
-    return this.set(this.length, t);
+  next() {
+    const e = this.keyIndex;
+    return e === this.numKeys ? { done: !0, value: null } : (this.keyIndex++, {
+      done: !1,
+      value: [
+        this.keys.get(e),
+        l.visit(this.vals, e)
+      ]
+    });
   }
-  reserve(t) {
-    if (t > 0) {
-      this.length += t;
-      const s = this.stride, e = this.length * s, r = this.buffer.length;
-      e >= r && this._resize(r === 0 ? n(e * 1, this.BYTES_PER_ELEMENT) : n(e * 2, this.BYTES_PER_ELEMENT));
+}
+class b {
+  isExtensible() {
+    return !1;
+  }
+  deleteProperty() {
+    return !1;
+  }
+  preventExtensions() {
+    return !0;
+  }
+  ownKeys(e) {
+    return e[n].toArray().map(String);
+  }
+  has(e, t) {
+    return e[n].includes(t);
+  }
+  getOwnPropertyDescriptor(e, t) {
+    if (e[n].indexOf(t) !== -1)
+      return { writable: !0, enumerable: !0, configurable: !0 };
+  }
+  get(e, t) {
+    if (Reflect.has(e, t))
+      return e[t];
+    const r = e[n].indexOf(t);
+    if (r !== -1) {
+      const s = l.visit(Reflect.get(e, i), r);
+      return Reflect.set(e, t, s), s;
     }
-    return this;
   }
-  flush(t = this.length) {
-    t = n(t * this.stride, this.BYTES_PER_ELEMENT);
-    const s = f(this.buffer, t);
-    return this.clear(), s;
-  }
-  clear() {
-    return this.length = 0, this.buffer = new this.ArrayType(), this;
-  }
-  _resize(t) {
-    return this.buffer = f(this.buffer, t);
+  set(e, t, r) {
+    const s = e[n].indexOf(t);
+    return s !== -1 ? (f.visit(Reflect.get(e, i), s, r), Reflect.set(e, t, r)) : Reflect.has(e, t) ? Reflect.set(e, t, r) : !1;
   }
 }
-class l extends c {
-  last() {
-    return this.get(this.length - 1);
-  }
-  get(t) {
-    return this.buffer[t];
-  }
-  set(t, s) {
-    return this.reserve(t - this.length + 1), this.buffer[t * this.stride] = s, this;
-  }
-}
-class g extends l {
-  constructor() {
-    super(Uint8Array, 0, 1 / 8), this.numValid = 0;
-  }
-  get numInvalid() {
-    return this.length - this.numValid;
-  }
-  get(t) {
-    return this.buffer[t >> 3] >> t % 8 & 1;
-  }
-  set(t, s) {
-    const { buffer: e } = this.reserve(t - this.length + 1), r = t >> 3, h = t % 8, u = e[r] >> h & 1;
-    return s ? u === 0 && (e[r] |= 1 << h, ++this.numValid) : u === 1 && (e[r] &= ~(1 << h), --this.numValid), this;
-  }
-  clear() {
-    return this.numValid = 0, super.clear();
-  }
-}
-class o extends l {
-  constructor(t) {
-    super(t.OffsetArrayType, 1, 1);
-  }
-  append(t) {
-    return this.set(this.length - 1, t);
-  }
-  set(t, s) {
-    const e = this.length - 1, r = this.reserve(t - e + 1).buffer;
-    return e < t++ && e >= 0 && r.fill(r[e], e, t), r[t] = r[t - 1] + s, this;
-  }
-  flush(t = this.length - 1) {
-    return t > this.length && this.set(t - 1, this.BYTES_PER_ELEMENT > 4 ? BigInt(0) : 0), super.flush(t + 1);
-  }
-}
+Object.defineProperties(h.prototype, {
+  [Symbol.toStringTag]: { enumerable: !1, configurable: !1, value: "Row" },
+  [n]: { writable: !0, enumerable: !1, configurable: !1, value: null },
+  [i]: { writable: !0, enumerable: !1, configurable: !1, value: null }
+});
 export {
-  g as BitmapBufferBuilder,
-  c as BufferBuilder,
-  l as DataBufferBuilder,
-  o as OffsetsBufferBuilder
+  h as MapRow,
+  n as kKeys,
+  i as kVals
 };
 //# sourceMappingURL=cori.data.api506.js.map
