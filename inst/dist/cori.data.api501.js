@@ -1,107 +1,129 @@
-import { Block as m } from "./cori.data.api592.js";
-import { Footer as o } from "./cori.data.api593.js";
-import "./cori.data.api564.js";
-import "./cori.data.api565.js";
-import { Builder as u } from "./cori.data.api566.js";
-import { ByteBuffer as B } from "./cori.data.api567.js";
-import { Schema as a } from "./cori.data.api488.js";
-import { toUint8Array as g } from "./cori.data.api492.js";
-import { bigIntToNumber as h } from "./cori.data.api558.js";
-import { MetadataVersion as d } from "./cori.data.api508.js";
+import { Vector as U } from "./cori.data.api401.js";
+import { Visitor as I } from "./cori.data.api546.js";
+import { RecordBatch as V } from "./cori.data.api502.js";
+import { rebaseValueOffsets as _ } from "./cori.data.api489.js";
+import { truncateBitmap as w, packBools as D } from "./cori.data.api545.js";
+import { FieldNode as d, BufferRegion as R } from "./cori.data.api497.js";
+import { DataType as m } from "./cori.data.api402.js";
+import { bigIntToNumber as L } from "./cori.data.api549.js";
+import { UnionMode as B } from "./cori.data.api547.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var l = u, y = B;
-class p {
+class i extends I {
   /** @nocollapse */
-  static decode(t) {
-    t = new y(g(t));
-    const e = o.getRootAsFooter(t), r = a.decode(e.schema(), /* @__PURE__ */ new Map(), e.version());
-    return new D(r, e);
+  static assemble(...t) {
+    const s = (r) => r.flatMap((o) => Array.isArray(o) ? s(o) : o instanceof V ? o.data.children : o.data), n = new i();
+    return n.visitMany(s(t)), n;
   }
-  /** @nocollapse */
-  static encode(t) {
-    const e = new l(), r = a.encode(e, t.schema);
-    o.startRecordBatchesVector(e, t.numRecordBatches);
-    for (const n of [...t.recordBatches()].slice().reverse())
-      s.encode(e, n);
-    const c = e.endVector();
-    o.startDictionariesVector(e, t.numDictionaries);
-    for (const n of [...t.dictionaryBatches()].slice().reverse())
-      s.encode(e, n);
-    const i = e.endVector();
-    return o.startFooter(e), o.addSchema(e, r), o.addVersion(e, d.V5), o.addRecordBatches(e, c), o.addDictionaries(e, i), o.finishFooterBuffer(e, o.endFooter(e)), e.asUint8Array();
+  constructor() {
+    super(), this._byteLength = 0, this._nodes = [], this._buffers = [], this._bufferRegions = [];
   }
-  get numRecordBatches() {
-    return this._recordBatches.length;
-  }
-  get numDictionaries() {
-    return this._dictionaryBatches.length;
-  }
-  constructor(t, e = d.V5, r, c) {
-    this.schema = t, this.version = e, r && (this._recordBatches = r), c && (this._dictionaryBatches = c);
-  }
-  *recordBatches() {
-    for (let t, e = -1, r = this.numRecordBatches; ++e < r; )
-      (t = this.getRecordBatch(e)) && (yield t);
-  }
-  *dictionaryBatches() {
-    for (let t, e = -1, r = this.numDictionaries; ++e < r; )
-      (t = this.getDictionaryBatch(e)) && (yield t);
-  }
-  getRecordBatch(t) {
-    return t >= 0 && t < this.numRecordBatches && this._recordBatches[t] || null;
-  }
-  getDictionaryBatch(t) {
-    return t >= 0 && t < this.numDictionaries && this._dictionaryBatches[t] || null;
-  }
-}
-class D extends p {
-  get numRecordBatches() {
-    return this._footer.recordBatchesLength();
-  }
-  get numDictionaries() {
-    return this._footer.dictionariesLength();
-  }
-  constructor(t, e) {
-    super(t, e.version()), this._footer = e;
-  }
-  getRecordBatch(t) {
-    if (t >= 0 && t < this.numRecordBatches) {
-      const e = this._footer.recordBatches(t);
-      if (e)
-        return s.decode(e);
+  visit(t) {
+    if (t instanceof U)
+      return this.visitMany(t.data), this;
+    const { type: s } = t;
+    if (!m.isDictionary(s)) {
+      const { length: n } = t;
+      if (n > 2147483647)
+        throw new RangeError("Cannot write arrays larger than 2^31 - 1 in length");
+      if (m.isUnion(s))
+        this.nodes.push(new d(n, 0));
+      else {
+        const { nullCount: r } = t;
+        m.isNull(s) || l.call(this, r <= 0 ? new Uint8Array(0) : w(t.offset, n, t.nullBitmap)), this.nodes.push(new d(n, r));
+      }
     }
-    return null;
+    return super.visit(t);
   }
-  getDictionaryBatch(t) {
-    if (t >= 0 && t < this.numDictionaries) {
-      const e = this._footer.dictionaries(t);
-      if (e)
-        return s.decode(e);
+  visitNull(t) {
+    return this;
+  }
+  visitDictionary(t) {
+    return this.visit(t.clone(t.type.indices));
+  }
+  get nodes() {
+    return this._nodes;
+  }
+  get buffers() {
+    return this._buffers;
+  }
+  get byteLength() {
+    return this._byteLength;
+  }
+  get bufferRegions() {
+    return this._bufferRegions;
+  }
+}
+function l(e) {
+  const t = e.byteLength + 7 & -8;
+  return this.buffers.push(e), this.bufferRegions.push(new R(this._byteLength, t)), this._byteLength += t, this;
+}
+function A(e) {
+  var t;
+  const { type: s, length: n, typeIds: r, valueOffsets: o } = e;
+  if (l.call(this, r), s.mode === B.Sparse)
+    return g.call(this, e);
+  if (s.mode === B.Dense) {
+    if (e.offset <= 0)
+      return l.call(this, o), g.call(this, e);
+    {
+      const p = new Int32Array(n), a = /* @__PURE__ */ Object.create(null), v = /* @__PURE__ */ Object.create(null);
+      for (let h, u, c = -1; ++c < n; )
+        (h = r[c]) !== void 0 && ((u = a[h]) === void 0 && (u = a[h] = o[c]), p[c] = o[c] - u, v[h] = ((t = v[h]) !== null && t !== void 0 ? t : 0) + 1);
+      l.call(this, p), this.visitMany(e.children.map((h, u) => {
+        const c = s.typeIds[u], M = a[c], O = v[c];
+        return h.slice(M, Math.min(n, O));
+      }));
     }
-    return null;
   }
+  return this;
 }
-class s {
-  /** @nocollapse */
-  static decode(t) {
-    return new s(t.metaDataLength(), t.bodyLength(), t.offset());
-  }
-  /** @nocollapse */
-  static encode(t, e) {
-    const { metaDataLength: r } = e, c = BigInt(e.offset), i = BigInt(e.bodyLength);
-    return m.createBlock(t, c, r, i);
-  }
-  constructor(t, e, r) {
-    this.metaDataLength = t, this.offset = h(r), this.bodyLength = h(e);
-  }
+function F(e) {
+  let t;
+  return e.nullCount >= e.length ? l.call(this, new Uint8Array(0)) : (t = e.values) instanceof Uint8Array ? l.call(this, w(e.offset, e.length, t)) : l.call(this, D(e.values));
 }
+function f(e) {
+  return l.call(this, e.values.subarray(0, e.length * e.stride));
+}
+function y(e) {
+  const { length: t, values: s, valueOffsets: n } = e, r = L(n[0]), o = L(n[t]), p = Math.min(o - r, s.byteLength - r);
+  return l.call(this, _(-r, t + 1, n)), l.call(this, s.subarray(r, r + p)), this;
+}
+function b(e) {
+  const { length: t, valueOffsets: s } = e;
+  if (s) {
+    const { [0]: n, [t]: r } = s;
+    return l.call(this, _(-n, t + 1, s)), this.visit(e.children[0].slice(n, r - n));
+  }
+  return this.visit(e.children[0]);
+}
+function g(e) {
+  return this.visitMany(e.type.children.map((t, s) => e.children[s]).filter(Boolean))[0];
+}
+i.prototype.visitBool = F;
+i.prototype.visitInt = f;
+i.prototype.visitFloat = f;
+i.prototype.visitUtf8 = y;
+i.prototype.visitLargeUtf8 = y;
+i.prototype.visitBinary = y;
+i.prototype.visitLargeBinary = y;
+i.prototype.visitFixedSizeBinary = f;
+i.prototype.visitDate = f;
+i.prototype.visitTimestamp = f;
+i.prototype.visitTime = f;
+i.prototype.visitDecimal = f;
+i.prototype.visitList = b;
+i.prototype.visitStruct = g;
+i.prototype.visitUnion = A;
+i.prototype.visitInterval = f;
+i.prototype.visitDuration = f;
+i.prototype.visitFixedSizeList = b;
+i.prototype.visitMap = b;
 export {
-  s as FileBlock,
-  p as Footer
+  i as VectorAssembler
 };
 //# sourceMappingURL=cori.data.api501.js.map

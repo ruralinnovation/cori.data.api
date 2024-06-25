@@ -1,26 +1,25 @@
-import { create as n } from "./cori.data.api379.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const r = n({
-  space: "xlink",
-  transform(e, l) {
-    return "xlink:" + l.slice(5).toLowerCase();
-  },
-  properties: {
-    xLinkActuate: null,
-    xLinkArcRole: null,
-    xLinkHref: null,
-    xLinkRole: null,
-    xLinkShow: null,
-    xLinkTitle: null,
-    xLinkType: null
-  }
-});
+const n = "ArrayPattern", t = "ArrowFunctionExpression", o = "FunctionExpression", r = "Identifier", e = "Literal", s = "MemberExpression", c = "ObjectExpression", i = "ObjectPattern", a = "Property", p = "Column", x = "Constant", u = "Dictionary", E = "Function", P = "Parameter", b = "Op";
 export {
-  r as xlink
+  n as ArrayPattern,
+  t as ArrowFunctionExpression,
+  p as Column,
+  x as Constant,
+  u as Dictionary,
+  E as Function,
+  o as FunctionExpression,
+  r as Identifier,
+  e as Literal,
+  s as MemberExpression,
+  c as ObjectExpression,
+  i as ObjectPattern,
+  b as Op,
+  P as Parameter,
+  a as Property
 };
 //# sourceMappingURL=cori.data.api290.js.map

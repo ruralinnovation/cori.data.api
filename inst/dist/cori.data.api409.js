@@ -1,28 +1,50 @@
-import { Column as u, Literal as l, Dictionary as s } from "./cori.data.api339.js";
-import m from "./cori.data.api319.js";
+import { random as t } from "./cori.data.api301.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const c = {
-  "==": 1,
-  "!=": 1,
-  "===": 1,
-  "!==": 1
+const n = {
+  random: t,
+  is_nan: Number.isNaN,
+  is_finite: Number.isFinite,
+  abs: Math.abs,
+  cbrt: Math.cbrt,
+  ceil: Math.ceil,
+  clz32: Math.clz32,
+  exp: Math.exp,
+  expm1: Math.expm1,
+  floor: Math.floor,
+  fround: Math.fround,
+  greatest: Math.max,
+  least: Math.min,
+  log: Math.log,
+  log10: Math.log10,
+  log1p: Math.log1p,
+  log2: Math.log2,
+  pow: Math.pow,
+  round: Math.round,
+  sign: Math.sign,
+  sqrt: Math.sqrt,
+  trunc: Math.trunc,
+  degrees: (a) => 180 * a / Math.PI,
+  radians: (a) => Math.PI * a / 180,
+  acos: Math.acos,
+  acosh: Math.acosh,
+  asin: Math.asin,
+  asinh: Math.asinh,
+  atan: Math.atan,
+  atan2: Math.atan2,
+  atanh: Math.atanh,
+  cos: Math.cos,
+  cosh: Math.cosh,
+  sin: Math.sin,
+  sinh: Math.sinh,
+  tan: Math.tan,
+  tanh: Math.tanh
 };
-function w(t, n, r = 0, a, e) {
-  if (t.type = u, t.name = n, t.table = r, e && a && m(a.keyFor)) {
-    const i = c[e.operator] ? e.left === t ? e.right : e.left : e.callee && e.callee.name === "equal" ? e.arguments[e.arguments[0] === t ? 1 : 0] : null;
-    i && i.type === l && f(e, t, i, a.keyFor(i.value));
-  }
-  return t;
-}
-function f(t, n, r, a) {
-  return a < 0 ? (t.type = l, t.value = !1, t.raw = "false") : (n.type = s, r.value = a, r.raw = a + ""), !0;
-}
 export {
-  w as default
+  n as default
 };
 //# sourceMappingURL=cori.data.api409.js.map

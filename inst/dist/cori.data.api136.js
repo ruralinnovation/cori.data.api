@@ -1,39 +1,26 @@
-import { tickStep as s } from "./cori.data.api101.js";
-import c from "./cori.data.api111.js";
-import e from "./cori.data.api116.js";
-import p from "./cori.data.api118.js";
-import l from "./cori.data.api117.js";
-import { formatPrefix as u, format as h } from "./cori.data.api41.js";
+import { Selection as h } from "./cori.data.api124.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function d(r, t, i, a) {
-  var n = s(r, t, i), o;
-  switch (a = c(a ?? ",f"), a.type) {
-    case "s": {
-      var m = Math.max(Math.abs(r), Math.abs(t));
-      return a.precision == null && !isNaN(o = l(n, m)) && (a.precision = o), u(a, m);
-    }
-    case "":
-    case "e":
-    case "g":
-    case "p":
-    case "r": {
-      a.precision == null && !isNaN(o = p(n, Math.max(Math.abs(r), Math.abs(t)))) && (a.precision = o - (a.type === "e"));
-      break;
-    }
-    case "f":
-    case "%": {
-      a.precision == null && !isNaN(o = e(n)) && (a.precision = o - (a.type === "%") * 2);
-      break;
-    }
+function N(t) {
+  t || (t = u);
+  function n(_, f) {
+    return _ && f ? t(_.__data__, f.__data__) : !_ - !f;
   }
-  return h(a);
+  for (var a = this._groups, i = a.length, o = new Array(i), e = 0; e < i; ++e) {
+    for (var c = a[e], d = c.length, l = o[e] = new Array(d), s, r = 0; r < d; ++r)
+      (s = c[r]) && (l[r] = s);
+    l.sort(n);
+  }
+  return new h(o, this._parents).order();
+}
+function u(t, n) {
+  return t < n ? -1 : t > n ? 1 : t >= n ? 0 : NaN;
 }
 export {
-  d as default
+  N as default
 };
 //# sourceMappingURL=cori.data.api136.js.map

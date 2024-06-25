@@ -1,17 +1,13 @@
-import u from "./cori.data.api481.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(t, i) {
-  t = u(t) ? t : new Set(t);
-  let e = i, r = 0;
-  for (; t.has(e); )
-    e = i + ++r;
-  return e;
-}
+const o = {
+  parse_json: (s) => JSON.parse(s),
+  to_json: (s) => JSON.stringify(s)
+};
 export {
   o as default
 };

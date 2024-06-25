@@ -1,52 +1,54 @@
-import s from "./cori.data.api315.js";
-import m from "./cori.data.api355.js";
-import g from "./cori.data.api405.js";
-import h from "./cori.data.api319.js";
-import u from "./cori.data.api344.js";
-import b from "./cori.data.api406.js";
-import d from "./cori.data.api362.js";
+import { resolveUrl as l } from "./cori.data.api116.js";
+import { getMimeType as i } from "./cori.data.api319.js";
+import { isDataUrl as f, resourceToDataURL as m } from "./cori.data.api320.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function I(t, o) {
-  const r = (c) => s(`Illegal argument type: ${c || typeof t}`);
-  return t instanceof Map ? l(t.entries(), o) : g(t) ? r("Date") : b(t) ? r("RegExp") : d(t) ? r() : m(t) ? k(t, o) : h(t[Symbol.iterator]) ? j(t, o) : u(t) ? l(Object.entries(t), o) : r();
+const a = /url\((['"]?)([^'"]+?)\1\)/g, p = /url\([^)]+\)\s*format\((["']?)([^"']+)\1\)/g, R = /src:\s*(?:url\([^)]+\)\s*format\([^)]+\)[,;]\s*)+/g;
+function d(r) {
+  const e = r.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1");
+  return new RegExp(`(url\\(['"]?)(${e})(['"]?\\))`, "g");
 }
-function l(t, o = ["key", "value"]) {
-  const r = [], c = [];
-  for (const [f, e] of t)
-    r.push(f), c.push(e);
-  const i = {};
-  return o[0] && (i[o[0]] = r), o[1] && (i[o[1]] = c), i;
+function g(r) {
+  const e = [];
+  return r.replace(a, (t, n, o) => (e.push(o), t)), e.filter((t) => !f(t));
 }
-function k(t, o) {
-  const r = t.length, c = {}, i = (f) => c[f] = Array(r);
-  if (r) {
-    o = o || Object.keys(t[0]);
-    const f = o.map(i), e = f.length;
-    for (let n = 0; n < r; ++n) {
-      const y = t[n];
-      for (let p = 0; p < e; ++p)
-        f[p][n] = y[o[p]];
-    }
-  } else
-    o && o.forEach(i);
-  return c;
-}
-function j(t, o) {
-  const r = {}, c = (e) => r[e] = [];
-  let i, f;
-  for (const e of t) {
-    i || (o = o || Object.keys(e), i = o.map(c), f = i.length);
-    for (let n = 0; n < f; ++n)
-      i[n].push(e[o[n]]);
+async function E(r, e, t, n, o) {
+  try {
+    const c = t ? l(e, t) : e, s = i(e);
+    let u;
+    return o || (u = await m(c, s, n)), r.replace(d(e), `$1${u}$3`);
+  } catch {
   }
-  return !i && o && o.forEach(c), r;
+  return r;
+}
+function $(r, { preferredFontFormat: e }) {
+  return e ? r.replace(R, (t) => {
+    for (; ; ) {
+      const [n, , o] = p.exec(t) || [];
+      if (!o)
+        return "";
+      if (o === e)
+        return `src: ${n};`;
+    }
+  }) : r;
+}
+function h(r) {
+  return r.search(a) !== -1;
+}
+async function v(r, e, t) {
+  if (!h(r))
+    return r;
+  const n = $(r, t);
+  return g(n).reduce((c, s) => c.then((u) => E(u, s, e, t)), Promise.resolve(n));
 }
 export {
-  I as default
+  E as embed,
+  v as embedResources,
+  g as parseURLs,
+  h as shouldEmbed
 };
 //# sourceMappingURL=cori.data.api321.js.map

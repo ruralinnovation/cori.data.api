@@ -1,32 +1,23 @@
-import g from "./cori.data.api125.js";
+import { childMatcher as i } from "./cori.data.api123.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var x = /[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g, c = new RegExp(x.source, "g");
-function p(i) {
+var n = Array.prototype.find;
+function r(t) {
   return function() {
-    return i;
+    return n.call(this.children, t);
   };
 }
-function h(i) {
-  return function(n) {
-    return i(n) + "";
-  };
+function e() {
+  return this.firstElementChild;
 }
-function v(i, n) {
-  var u = x.lastIndex = c.lastIndex = 0, o, l, t, r = -1, e = [], f = [];
-  for (i = i + "", n = n + ""; (o = x.exec(i)) && (l = c.exec(n)); )
-    (t = l.index) > u && (t = n.slice(u, t), e[r] ? e[r] += t : e[++r] = t), (o = o[0]) === (l = l[0]) ? e[r] ? e[r] += l : e[++r] = l : (e[++r] = null, f.push({ i: r, x: g(o, l) })), u = c.lastIndex;
-  return u < n.length && (t = n.slice(u), e[r] ? e[r] += t : e[++r] = t), e.length < 2 ? f[0] ? h(f[0].x) : p(n) : (n = f.length, function(d) {
-    for (var s = 0, a; s < n; ++s)
-      e[(a = f[s]).i] = a.x(d);
-    return e.join("");
-  });
+function o(t) {
+  return this.select(t == null ? e : r(typeof t == "function" ? t : i(t)));
 }
 export {
-  v as default
+  o as default
 };
 //# sourceMappingURL=cori.data.api127.js.map

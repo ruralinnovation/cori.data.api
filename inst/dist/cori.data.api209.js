@@ -1,79 +1,51 @@
-import i from "./cori.data.api206.js";
-import h from "./cori.data.api220.js";
+import i from "./cori.data.api190.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const c = (s) => s instanceof h ? { ...s } : s;
-function C(s, o) {
-  o = o || {};
-  const f = {};
-  function d(t, e, r) {
-    return i.isPlainObject(t) && i.isPlainObject(e) ? i.merge.call({ caseless: r }, t, e) : i.isPlainObject(e) ? i.merge({}, e) : i.isArray(e) ? e.slice() : e;
-  }
-  function u(t, e, r) {
-    if (i.isUndefined(e)) {
-      if (!i.isUndefined(t))
-        return d(void 0, t, r);
-    } else
-      return d(t, e, r);
-  }
-  function a(t, e) {
-    if (!i.isUndefined(e))
-      return d(void 0, e);
-  }
-  function n(t, e) {
-    if (i.isUndefined(e)) {
-      if (!i.isUndefined(t))
-        return d(void 0, t);
-    } else
-      return d(void 0, e);
-  }
-  function l(t, e, r) {
-    if (r in o)
-      return d(t, e);
-    if (r in s)
-      return d(void 0, t);
-  }
-  const g = {
-    url: a,
-    method: a,
-    data: a,
-    baseURL: n,
-    transformRequest: n,
-    transformResponse: n,
-    paramsSerializer: n,
-    timeout: n,
-    timeoutMessage: n,
-    withCredentials: n,
-    withXSRFToken: n,
-    adapter: n,
-    responseType: n,
-    xsrfCookieName: n,
-    xsrfHeaderName: n,
-    onUploadProgress: n,
-    onDownloadProgress: n,
-    decompress: n,
-    maxContentLength: n,
-    maxBodyLength: n,
-    beforeRedirect: n,
-    transport: n,
-    httpAgent: n,
-    httpsAgent: n,
-    cancelToken: n,
-    socketPath: n,
-    responseEncoding: n,
-    validateStatus: l,
-    headers: (t, e) => u(c(t), c(e), !0)
+function o(t) {
+  return function() {
+    this.removeAttribute(t);
   };
-  return i.forEach(Object.keys(Object.assign({}, s, o)), function(e) {
-    const r = g[e] || u, m = r(s[e], o[e], e);
-    i.isUndefined(m) && r !== l || (f[e] = m);
-  }), f;
+}
+function u(t) {
+  return function() {
+    this.removeAttributeNS(t.space, t.local);
+  };
+}
+function c(t, n) {
+  return function() {
+    this.setAttribute(t, n);
+  };
+}
+function s(t, n) {
+  return function() {
+    this.setAttributeNS(t.space, t.local, n);
+  };
+}
+function a(t, n) {
+  return function() {
+    var e = n.apply(this, arguments);
+    e == null ? this.removeAttribute(t) : this.setAttribute(t, e);
+  };
+}
+function l(t, n) {
+  return function() {
+    var e = n.apply(this, arguments);
+    e == null ? this.removeAttributeNS(t.space, t.local) : this.setAttributeNS(t.space, t.local, e);
+  };
+}
+function h(t, n) {
+  var e = i(t);
+  if (arguments.length < 2) {
+    var r = this.node();
+    return e.local ? r.getAttributeNS(e.space, e.local) : r.getAttribute(e);
+  }
+  return this.each((n == null ? e.local ? u : o : typeof n == "function" ? e.local ? l : a : e.local ? s : c)(e, n));
 }
 export {
-  C as default
+  h as default
 };
 //# sourceMappingURL=cori.data.api209.js.map

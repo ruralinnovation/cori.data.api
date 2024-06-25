@@ -1,31 +1,30 @@
-import m from "./cori.data.api521.js";
-import s from "./cori.data.api315.js";
-import f from "./cori.data.api624.js";
-import a from "./cori.data.api355.js";
-import c from "./cori.data.api362.js";
+import { rowLookup as g } from "./cori.data.api613.js";
+import { aggregateGet as _ } from "./cori.data.api528.js";
+import $ from "./cori.data.api273.js";
+import k from "./cori.data.api418.js";
+import w from "./cori.data.api614.js";
+import h from "./cori.data.api482.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function h(i, t, e) {
-  if (e)
-    c(e) ? e = [e, e] : a(e) && e.length === 1 && (e = [e[0], e[0]]);
-  else {
-    const r = f(i.columnNames(), t.columnNames());
-    r.length || s("Natural join requires shared column names."), e = [r, r];
-  }
-  return e;
-}
-function g(i, t, e, r) {
-  return e.length !== r.length && s("Mismatched number of join keys"), [
-    m("join", i, e),
-    m("join", t, r)
-  ];
+function S(r, a, [n, p], { names: c, exprs: s, ops: d }) {
+  const m = $(r), i = r.totalRows();
+  c.forEach((o) => m.add(o, Array(i).fill(k)));
+  const u = g(a, p), l = h(
+    ["lr", "rr", "data"],
+    "{" + w(c, (o, t) => `_[${t}][lr] = $[${t}](rr, data);`) + "}",
+    c.map((o) => m.data[o]),
+    _(a, d, s)
+  ), e = a.data();
+  return r.scan((o, t) => {
+    const f = u.get(n(o, t));
+    f >= 0 && l(o, f, e);
+  }), r.create(m);
 }
 export {
-  h as inferKeys,
-  g as keyPredicate
+  S as default
 };
 //# sourceMappingURL=cori.data.api518.js.map

@@ -1,52 +1,21 @@
-import { factorySpace as l } from "./cori.data.api629.js";
-import { blankLine as a } from "./cori.data.api630.js";
-import { content as e } from "./cori.data.api631.js";
+import { array as d } from "./cori.data.api31.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const d = {
-  tokenize: m
-};
-function m(n) {
-  const o = this, i = n.attempt(
-    // Try to parse a blank line.
-    a,
-    u,
-    // Try to parse initial flow (essentially, only code).
-    n.attempt(
-      this.parser.constructs.flowInitial,
-      r,
-      l(
-        n,
-        n.attempt(
-          this.parser.constructs.flow,
-          r,
-          n.attempt(e, r)
-        ),
-        "linePrefix"
-      )
-    )
-  );
-  return i;
-  function u(t) {
-    if (t === null) {
-      n.consume(t);
-      return;
-    }
-    return n.enter("lineEndingBlank"), n.consume(t), n.exit("lineEndingBlank"), o.currentConstruct = void 0, i;
-  }
-  function r(t) {
-    if (t === null) {
-      n.consume(t);
-      return;
-    }
-    return n.enter("lineEnding"), n.consume(t), n.exit("lineEnding"), o.currentConstruct = void 0, i;
-  }
+function f(a, t) {
+  const r = d(a.ArrayType, t << 1);
+  return {
+    set(i, s) {
+      const o = s << 1;
+      r[o] = i % 4294967296 | 0, r[o + 1] = i / 4294967296 | 0;
+    },
+    data: () => ({ type: a, length: t, buffers: [null, r] })
+  };
 }
 export {
-  d as flow
+  f as default
 };
 //# sourceMappingURL=cori.data.api534.js.map

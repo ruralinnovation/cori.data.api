@@ -1,20 +1,20 @@
-import a from "./cori.data.api206.js";
-import p from "./cori.data.api207.js";
-import m from "./cori.data.api208.js";
-import i from "./cori.data.api209.js";
-import f from "./cori.data.api210.js";
-import l from "./cori.data.api211.js";
-import c from "./cori.data.api212.js";
-import d from "./cori.data.api213.js";
-import u from "./cori.data.api214.js";
-import { VERSION as x } from "./cori.data.api215.js";
-import C from "./cori.data.api216.js";
-import A from "./cori.data.api217.js";
-import E from "./cori.data.api218.js";
-import O from "./cori.data.api219.js";
-import S from "./cori.data.api220.js";
-import H from "./cori.data.api221.js";
-import T from "./cori.data.api222.js";
+import a from "./cori.data.api57.js";
+import p from "./cori.data.api58.js";
+import m from "./cori.data.api59.js";
+import i from "./cori.data.api60.js";
+import f from "./cori.data.api61.js";
+import l from "./cori.data.api62.js";
+import c from "./cori.data.api63.js";
+import d from "./cori.data.api64.js";
+import u from "./cori.data.api65.js";
+import { VERSION as x } from "./cori.data.api66.js";
+import C from "./cori.data.api67.js";
+import A from "./cori.data.api68.js";
+import E from "./cori.data.api69.js";
+import O from "./cori.data.api70.js";
+import S from "./cori.data.api71.js";
+import H from "./cori.data.api72.js";
+import T from "./cori.data.api73.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

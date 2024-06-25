@@ -4,16 +4,16 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var w = "http://www.w3.org/1999/xhtml";
-const t = {
-  svg: "http://www.w3.org/2000/svg",
-  xhtml: w,
-  xlink: "http://www.w3.org/1999/xlink",
-  xml: "http://www.w3.org/XML/1998/namespace",
-  xmlns: "http://www.w3.org/2000/xmlns/"
-};
+function o() {
+  for (var e = this._groups, r = 0, a = e.length; r < a; ++r)
+    for (var n = e[r], t = 0, f = n.length; t < f; ++t) {
+      var l = n[t];
+      if (l)
+        return l;
+    }
+  return null;
+}
 export {
-  t as default,
-  w as xhtml
+  o as default
 };
 //# sourceMappingURL=cori.data.api139.js.map

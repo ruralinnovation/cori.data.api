@@ -1,1 +1,1 @@
-{"version":3,"file":"cori.data.api389.js","sources":[],"sourcesContent":[],"names":[],"mappings":";;;;;;;"}
+{"version":3,"file":"cori.data.api389.js","sources":["../../node_modules/arquero/src/util/is-map.js"],"sourcesContent":["export default function(value) {\n  return value instanceof Map;\n}"],"names":["isMap","value"],"mappings":";;;;;;AAAe,SAAQA,EAACC,GAAO;AAC7B,SAAOA,aAAiB;AAC1B;","x_google_ignoreList":[0]}

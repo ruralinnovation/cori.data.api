@@ -1,19 +1,36 @@
+import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api628.js";
+import "./cori.data.api556.js";
+import "./cori.data.api557.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function c(o, e, r) {
-  const i = [];
-  let n = -1;
-  for (; ++n < o.length; ) {
-    const l = o[n].resolveAll;
-    l && !i.includes(l) && (e = l(e, r), i.push(l));
+class s {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  return e;
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
+  }
+  static getRootAsBinary(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static getSizePrefixedRootAsBinary(t, i) {
+    return t.setPosition(t.position() + n), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static startBinary(t) {
+    t.startObject(0);
+  }
+  static endBinary(t) {
+    return t.endObject();
+  }
+  static createBinary(t) {
+    return s.startBinary(t), s.endBinary(t);
+  }
 }
 export {
-  c as resolveAll
+  s as Binary
 };
 //# sourceMappingURL=cori.data.api632.js.map

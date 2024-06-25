@@ -1,20 +1,15 @@
-import o, { identity as i } from "./cori.data.api254.js";
+import t from "./cori.data.api326.js";
+import { Selection as e } from "./cori.data.api124.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var n;
-function s(t) {
-  const r = new (typeof DOMMatrix == "function" ? DOMMatrix : WebKitCSSMatrix)(t + "");
-  return r.isIdentity ? i : o(r.a, r.b, r.c, r.d, r.e, r.f);
-}
-function f(t) {
-  return t == null ? i : (n || (n = document.createElementNS("http://www.w3.org/2000/svg", "g")), n.setAttribute("transform", t), (t = n.transform.baseVal.consolidate()) ? (t = t.matrix, o(t.a, t.b, t.c, t.d, t.e, t.f)) : i);
+function o() {
+  return new e(this._exit || this._groups.map(t), this._parents);
 }
 export {
-  s as parseCss,
-  f as parseSvg
+  o as default
 };
 //# sourceMappingURL=cori.data.api132.js.map

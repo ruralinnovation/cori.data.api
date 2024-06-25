@@ -1,36 +1,21 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api655.js";
-import "./cori.data.api564.js";
-import "./cori.data.api565.js";
+import { factorySpace as t } from "./cori.data.api644.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
-  }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
-  }
-  static getRootAsBinary(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsBinary(t, i) {
-    return t.setPosition(t.position() + n), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static startBinary(t) {
-    t.startObject(0);
-  }
-  static endBinary(t) {
-    return t.endObject();
-  }
-  static createBinary(t) {
-    return s.startBinary(t), s.endBinary(t);
+const g = {
+  name: "lineEnding",
+  tokenize: o
+};
+function o(n, i) {
+  return e;
+  function e(r) {
+    return n.enter("lineEnding"), n.consume(r), n.exit("lineEnding"), t(n, i, "linePrefix");
   }
 }
 export {
-  s as Binary
+  g as lineEnding
 };
 //# sourceMappingURL=cori.data.api659.js.map

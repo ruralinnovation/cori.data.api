@@ -1,28 +1,36 @@
-import o from "./cori.data.api94.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(n, t, i) {
-  var c = o(n), e = c.CustomEvent;
-  typeof e == "function" ? e = new e(t, i) : (e = c.document.createEvent("Event"), i ? (e.initEvent(t, i.bubbles, i.cancelable), e.detail = i.detail) : e.initEvent(t, !1, !1)), n.dispatchEvent(e);
+var o = /^(?:(.)?([<>=^]))?([+\-( ])?([$#])?(0)?(\d+)?(,)?(\.\d+)?(~)?([a-z%])?$/i;
+function d(t) {
+  if (!(n = o.exec(t)))
+    throw new Error("invalid format: " + t);
+  var n;
+  return new i({
+    fill: n[1],
+    align: n[2],
+    sign: n[3],
+    symbol: n[4],
+    zero: n[5],
+    width: n[6],
+    comma: n[7],
+    precision: n[8] && n[8].slice(1),
+    trim: n[9],
+    type: n[10]
+  });
 }
-function f(n, t) {
-  return function() {
-    return u(this, n, t);
-  };
+d.prototype = i.prototype;
+function i(t) {
+  this.fill = t.fill === void 0 ? " " : t.fill + "", this.align = t.align === void 0 ? ">" : t.align + "", this.sign = t.sign === void 0 ? "-" : t.sign + "", this.symbol = t.symbol === void 0 ? "" : t.symbol + "", this.zero = !!t.zero, this.width = t.width === void 0 ? void 0 : +t.width, this.comma = !!t.comma, this.precision = t.precision === void 0 ? void 0 : +t.precision, this.trim = !!t.trim, this.type = t.type === void 0 ? "" : t.type + "";
 }
-function s(n, t) {
-  return function() {
-    return u(this, n, t.apply(this, arguments));
-  };
-}
-function r(n, t) {
-  return this.each((typeof t == "function" ? s : f)(n, t));
-}
+i.prototype.toString = function() {
+  return this.fill + this.align + this.sign + this.symbol + (this.zero ? "0" : "") + (this.width === void 0 ? "" : Math.max(1, this.width | 0)) + (this.comma ? "," : "") + (this.precision === void 0 ? "" : "." + Math.max(0, this.precision | 0)) + (this.trim ? "~" : "") + this.type;
+};
 export {
-  r as default
+  i as FormatSpecifier,
+  d as default
 };
 //# sourceMappingURL=cori.data.api91.js.map

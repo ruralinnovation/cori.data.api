@@ -1,26 +1,21 @@
+import { normalizeUri as o } from "./cori.data.api365.js";
+import { revert as p } from "./cori.data.api465.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const e = "Expr", s = "ExprList", n = "ExprNumber", t = "ExprObject", o = "JoinKeys", c = "JoinValues", r = "Options", i = "OrderKeys", b = "SelectionList", p = "TableRef", l = "TableRefList", x = "Descending", a = "Query", y = "Selection", E = "Verb", u = "Window";
+function m(e, t) {
+  const l = String(t.identifier).toUpperCase(), i = e.definitionById.get(l);
+  if (!i)
+    return p(e, t);
+  const r = { src: o(i.url || ""), alt: t.alt };
+  i.title !== null && i.title !== void 0 && (r.title = i.title);
+  const n = { type: "element", tagName: "img", properties: r, children: [] };
+  return e.patch(t, n), e.applyData(t, n);
+}
 export {
-  x as Descending,
-  e as Expr,
-  s as ExprList,
-  n as ExprNumber,
-  t as ExprObject,
-  o as JoinKeys,
-  c as JoinValues,
-  r as Options,
-  i as OrderbyKeys,
-  a as Query,
-  y as Selection,
-  b as SelectionList,
-  p as TableRef,
-  l as TableRefList,
-  E as Verb,
-  u as Window
+  m as imageReference
 };
 //# sourceMappingURL=cori.data.api347.js.map

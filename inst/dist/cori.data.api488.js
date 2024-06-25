@@ -1,102 +1,129 @@
-import { DataType as c } from "./cori.data.api429.js";
-import { MetadataVersion as f } from "./cori.data.api508.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class l {
-  constructor(t = [], n, e, i = f.V5) {
-    this.fields = t || [], this.metadata = n || /* @__PURE__ */ new Map(), e || (e = m(t)), this.dictionaries = e, this.metadataVersion = i;
+function v(n, c, o, r) {
+  function u(t) {
+    return t instanceof o ? t : new o(function(i) {
+      i(t);
+    });
   }
-  get [Symbol.toStringTag]() {
-    return "Schema";
-  }
-  get names() {
-    return this.fields.map((t) => t.name);
-  }
-  toString() {
-    return `Schema<{ ${this.fields.map((t, n) => `${n}: ${t}`).join(", ")} }>`;
-  }
-  /**
-   * Construct a new Schema containing only specified fields.
-   *
-   * @param fieldNames Names of fields to keep.
-   * @returns A new Schema of fields matching the specified names.
-   */
-  select(t) {
-    const n = new Set(t), e = this.fields.filter((i) => n.has(i.name));
-    return new l(e, this.metadata);
-  }
-  /**
-   * Construct a new Schema containing only fields at the specified indices.
-   *
-   * @param fieldIndices Indices of fields to keep.
-   * @returns A new Schema of fields at the specified indices.
-   */
-  selectAt(t) {
-    const n = t.map((e) => this.fields[e]).filter(Boolean);
-    return new l(n, this.metadata);
-  }
-  assign(...t) {
-    const n = t[0] instanceof l ? t[0] : Array.isArray(t[0]) ? new l(t[0]) : new l(t), e = [...this.fields], i = s(s(/* @__PURE__ */ new Map(), this.metadata), n.metadata), a = n.fields.filter((d) => {
-      const p = e.findIndex((u) => u.name === d.name);
-      return ~p ? (e[p] = d.clone({
-        metadata: s(s(/* @__PURE__ */ new Map(), e[p].metadata), d.metadata)
-      })) && !1 : !0;
-    }), h = m(a, /* @__PURE__ */ new Map());
-    return new l([...e, ...a], i, new Map([...this.dictionaries, ...h]));
-  }
-}
-l.prototype.fields = null;
-l.prototype.metadata = null;
-l.prototype.dictionaries = null;
-class o {
-  /** @nocollapse */
-  static new(...t) {
-    let [n, e, i, a] = t;
-    return t[0] && typeof t[0] == "object" && ({ name: n } = t[0], e === void 0 && (e = t[0].type), i === void 0 && (i = t[0].nullable), a === void 0 && (a = t[0].metadata)), new o(`${n}`, e, i, a);
-  }
-  constructor(t, n, e = !1, i) {
-    this.name = t, this.type = n, this.nullable = e, this.metadata = i || /* @__PURE__ */ new Map();
-  }
-  get typeId() {
-    return this.type.typeId;
-  }
-  get [Symbol.toStringTag]() {
-    return "Field";
-  }
-  toString() {
-    return `${this.name}: ${this.type}`;
-  }
-  clone(...t) {
-    let [n, e, i, a] = t;
-    return !t[0] || typeof t[0] != "object" ? [n = this.name, e = this.type, i = this.nullable, a = this.metadata] = t : { name: n = this.name, type: e = this.type, nullable: i = this.nullable, metadata: a = this.metadata } = t[0], o.new(n, e, i, a);
-  }
-}
-o.prototype.type = null;
-o.prototype.name = null;
-o.prototype.nullable = null;
-o.prototype.metadata = null;
-function s(r, t) {
-  return new Map([...r || /* @__PURE__ */ new Map(), ...t || /* @__PURE__ */ new Map()]);
-}
-function m(r, t = /* @__PURE__ */ new Map()) {
-  for (let n = -1, e = r.length; ++n < e; ) {
-    const a = r[n].type;
-    if (c.isDictionary(a)) {
-      if (!t.has(a.id))
-        t.set(a.id, a.dictionary);
-      else if (t.get(a.id) !== a.dictionary)
-        throw new Error("Cannot create Schema containing two different dictionaries with the same Id");
+  return new (o || (o = Promise))(function(t, i) {
+    function a(s) {
+      try {
+        y(r.next(s));
+      } catch (h) {
+        i(h);
+      }
     }
-    a.children && a.children.length > 0 && m(a.children, t);
+    function f(s) {
+      try {
+        y(r.throw(s));
+      } catch (h) {
+        i(h);
+      }
+    }
+    function y(s) {
+      s.done ? t(s.value) : u(s.value).then(a, f);
+    }
+    y((r = r.apply(n, c || [])).next());
+  });
+}
+function d(n) {
+  var c = typeof Symbol == "function" && Symbol.iterator, o = c && n[c], r = 0;
+  if (o)
+    return o.call(n);
+  if (n && typeof n.length == "number")
+    return {
+      next: function() {
+        return n && r >= n.length && (n = void 0), { value: n && n[r++], done: !n };
+      }
+    };
+  throw new TypeError(c ? "Object is not iterable." : "Symbol.iterator is not defined.");
+}
+function m(n) {
+  return this instanceof m ? (this.v = n, this) : new m(n);
+}
+function _(n, c, o) {
+  if (!Symbol.asyncIterator)
+    throw new TypeError("Symbol.asyncIterator is not defined.");
+  var r = o.apply(n, c || []), u, t = [];
+  return u = {}, a("next"), a("throw"), a("return", i), u[Symbol.asyncIterator] = function() {
+    return this;
+  }, u;
+  function i(e) {
+    return function(l) {
+      return Promise.resolve(l).then(e, h);
+    };
   }
-  return t;
+  function a(e, l) {
+    r[e] && (u[e] = function(p) {
+      return new Promise(function(b, S) {
+        t.push([e, p, b, S]) > 1 || f(e, p);
+      });
+    }, l && (u[e] = l(u[e])));
+  }
+  function f(e, l) {
+    try {
+      y(r[e](l));
+    } catch (p) {
+      w(t[0][3], p);
+    }
+  }
+  function y(e) {
+    e.value instanceof m ? Promise.resolve(e.value.v).then(s, h) : w(t[0][2], e);
+  }
+  function s(e) {
+    f("next", e);
+  }
+  function h(e) {
+    f("throw", e);
+  }
+  function w(e, l) {
+    e(l), t.shift(), t.length && f(t[0][0], t[0][1]);
+  }
+}
+function x(n) {
+  var c, o;
+  return c = {}, r("next"), r("throw", function(u) {
+    throw u;
+  }), r("return"), c[Symbol.iterator] = function() {
+    return this;
+  }, c;
+  function r(u, t) {
+    c[u] = n[u] ? function(i) {
+      return (o = !o) ? { value: m(n[u](i)), done: !1 } : t ? t(i) : i;
+    } : t;
+  }
+}
+function E(n) {
+  if (!Symbol.asyncIterator)
+    throw new TypeError("Symbol.asyncIterator is not defined.");
+  var c = n[Symbol.asyncIterator], o;
+  return c ? c.call(n) : (n = typeof d == "function" ? d(n) : n[Symbol.iterator](), o = {}, r("next"), r("throw"), r("return"), o[Symbol.asyncIterator] = function() {
+    return this;
+  }, o);
+  function r(t) {
+    o[t] = n[t] && function(i) {
+      return new Promise(function(a, f) {
+        i = n[t](i), u(a, f, i.done, i.value);
+      });
+    };
+  }
+  function u(t, i, a, f) {
+    Promise.resolve(f).then(function(y) {
+      t({ value: y, done: a });
+    }, i);
+  }
 }
 export {
-  o as Field,
-  l as Schema
+  x as __asyncDelegator,
+  _ as __asyncGenerator,
+  E as __asyncValues,
+  m as __await,
+  v as __awaiter,
+  d as __values
 };
 //# sourceMappingURL=cori.data.api488.js.map

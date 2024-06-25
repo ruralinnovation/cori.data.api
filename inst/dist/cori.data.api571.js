@@ -1,60 +1,44 @@
-import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api655.js";
-import "./cori.data.api564.js";
-import "./cori.data.api565.js";
-import { RecordBatch as e } from "./cori.data.api570.js";
+import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api628.js";
+import "./cori.data.api556.js";
+import "./cori.data.api557.js";
+import { Precision as s } from "./cori.data.api550.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
+class o {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
   __init(t, i) {
     return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsDictionaryBatch(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getRootAsFloatingPoint(t, i) {
+    return (i || new o()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsDictionaryBatch(t, i) {
-    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsFloatingPoint(t, i) {
+    return t.setPosition(t.position() + n), (i || new o()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  id() {
+  precision() {
     const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt64(this.bb_pos + t) : BigInt("0");
+    return t ? this.bb.readInt16(this.bb_pos + t) : s.HALF;
   }
-  data(t) {
-    const i = this.bb.__offset(this.bb_pos, 6);
-    return i ? (t || new e()).__init(this.bb.__indirect(this.bb_pos + i), this.bb) : null;
+  static startFloatingPoint(t) {
+    t.startObject(1);
   }
-  /**
-   * If isDelta is true the values in the dictionary are to be appended to a
-   * dictionary with the indicated id. If isDelta is false this dictionary
-   * should replace the existing dictionary.
-   */
-  isDelta() {
-    const t = this.bb.__offset(this.bb_pos, 8);
-    return t ? !!this.bb.readInt8(this.bb_pos + t) : !1;
+  static addPrecision(t, i) {
+    t.addFieldInt16(0, i, s.HALF);
   }
-  static startDictionaryBatch(t) {
-    t.startObject(3);
-  }
-  static addId(t, i) {
-    t.addFieldInt64(0, i, BigInt("0"));
-  }
-  static addData(t, i) {
-    t.addFieldOffset(1, i, 0);
-  }
-  static addIsDelta(t, i) {
-    t.addFieldInt8(2, +i, 0);
-  }
-  static endDictionaryBatch(t) {
+  static endFloatingPoint(t) {
     return t.endObject();
+  }
+  static createFloatingPoint(t, i) {
+    return o.startFloatingPoint(t), o.addPrecision(t, i), o.endFloatingPoint(t);
   }
 }
 export {
-  s as DictionaryBatch
+  o as FloatingPoint
 };
 //# sourceMappingURL=cori.data.api571.js.map

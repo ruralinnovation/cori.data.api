@@ -1,29 +1,17 @@
-import { valueToString as i } from "./cori.data.api557.js";
+import "./cori.data.api556.js";
+import "./cori.data.api557.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(n) {
-  if (!n || n.length <= 0)
-    return function(f) {
-      return !0;
-    };
-  let e = "";
-  const r = n.filter((t) => t === t);
-  return r.length > 0 && (e = `
-    switch (x) {${r.map((t) => `
-        case ${o(t)}:`).join("")}
-            return false;
-    }`), n.length !== r.length && (e = `if (x !== x) return false;
-${e}`), new Function("x", `${e}
-return true;`);
-}
-function o(n) {
-  return typeof n != "bigint" ? i(n) : `${i(n)}n`;
-}
+const n = "ARROW1", o = new Uint8Array(n.length);
+for (let t = 0; t < n.length; t += 1)
+  o[t] = n.codePointAt(t);
+o.length;
 export {
-  a as createIsValidFunction
+  o as MAGIC,
+  n as MAGIC_STR
 };
 //# sourceMappingURL=cori.data.api496.js.map

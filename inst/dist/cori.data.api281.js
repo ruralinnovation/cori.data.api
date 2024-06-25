@@ -1,28 +1,66 @@
+import p from "./cori.data.api311.js";
+import j from "./cori.data.api266.js";
+import N from "./cori.data.api312.js";
+import u from "./cori.data.api306.js";
+import x from "./cori.data.api270.js";
+import c from "./cori.data.api267.js";
+import O from "./cori.data.api295.js";
+import e from "./cori.data.api313.js";
+import h from "./cori.data.api314.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function f(e, l, n) {
-  const h = n ? n.children : void 0, p = (h ? h.indexOf(l) : 1) === 0 ? "th" : "td", c = n && n.type === "table" ? n.align : void 0, g = c ? c.length : l.children.length;
-  let r = -1;
-  const d = [];
-  for (; ++r < g; ) {
-    const i = l.children[r], s = {}, a = c ? c[r] : void 0;
-    a && (s.align = a);
-    let t = { type: "element", tagName: p, properties: s, children: [] };
-    i && (t.children = e.all(i), e.patch(i, t), t = e.applyData(i, t)), d.push(t);
-  }
-  const o = {
-    type: "element",
-    tagName: "tr",
-    properties: {},
-    children: e.wrap(d, !0)
-  };
-  return e.patch(l, o), e.applyData(l, o);
+function f(o, r, n = /* @__PURE__ */ new Map()) {
+  return r = c(r) ? o.columnName(r) : r, e(r) ? n.set(r, r) : u(r) ? r.forEach((i) => f(o, i, n)) : x(r) ? f(o, r(o), n) : O(r) ? p(n, r) : j(`Invalid column selection: ${h(r)}`), n;
+}
+function t(o, r) {
+  return o.toObject = r, o;
+}
+function s(o) {
+  return u(o) ? o.map(s) : o && o.toObject ? o.toObject() : o;
+}
+function M() {
+  return t(
+    (o) => o.columnNames(),
+    () => ({ all: [] })
+  );
+}
+function $(...o) {
+  return o = o.flat(), t(
+    (r) => {
+      const n = f(r, o);
+      return r.columnNames((i) => !n.has(i));
+    },
+    () => ({ not: s(o) })
+  );
+}
+function a(o, r) {
+  return t(
+    (n) => {
+      let i = c(o) ? o : n.columnIndex(o), m = c(r) ? r : n.columnIndex(r);
+      if (m < i) {
+        const g = m;
+        m = i, i = g;
+      }
+      return n.columnNames().slice(i, m + 1);
+    },
+    () => ({ range: [o, r] })
+  );
+}
+function b(o) {
+  return e(o) && (o = RegExp(N(o))), t(
+    (r) => r.columnNames((n) => o.test(n)),
+    () => ({ matches: [o.source, o.flags] })
+  );
 }
 export {
-  f as tableRow
+  M as all,
+  f as default,
+  b as matches,
+  $ as not,
+  a as range
 };
 //# sourceMappingURL=cori.data.api281.js.map

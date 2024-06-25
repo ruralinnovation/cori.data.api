@@ -1,28 +1,21 @@
-import o from "./cori.data.api178.js";
+import { Transition as v } from "./cori.data.api166.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(n, t, i) {
-  var c = o(n), e = c.CustomEvent;
-  typeof e == "function" ? e = new e(t, i) : (e = c.document.createEvent("Event"), i ? (e.initEvent(t, i.bubbles, i.cancelable), e.detail = i.detail) : e.initEvent(t, !1, !1)), n.dispatchEvent(e);
-}
-function f(n, t) {
-  return function() {
-    return u(this, n, t);
-  };
-}
-function s(n, t) {
-  return function() {
-    return u(this, n, t.apply(this, arguments));
-  };
-}
-function r(n, t) {
-  return this.each((typeof t == "function" ? s : f)(n, t));
+function A(h) {
+  if (h._id !== this._id)
+    throw new Error();
+  for (var n = this._groups, e = h._groups, i = n.length, s = e.length, w = Math.min(i, s), a = new Array(i), r = 0; r < w; ++r)
+    for (var f = n[r], l = e[r], _ = f.length, d = a[r] = new Array(_), o, t = 0; t < _; ++t)
+      (o = f[t] || l[t]) && (d[t] = o);
+  for (; r < i; ++r)
+    a[r] = n[r];
+  return new v(a, this._parents, this._name, this._id);
 }
 export {
-  r as default
+  A as default
 };
 //# sourceMappingURL=cori.data.api174.js.map

@@ -1,18 +1,16 @@
-import { deserialize as t } from "./cori.data.api386.js";
-import { serialize as u } from "./cori.data.api387.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const s = typeof structuredClone == "function" ? (
-  /* c8 ignore start */
-  (r, e) => e && ("json" in e || "lossy" in e) ? t(u(r, e)) : structuredClone(r)
-) : (r, e) => t(u(r, e));
+function u(r = 0, t = 1 / 0) {
+  return `${n(r)} < row_number() && row_number() <= ${n(t)}`;
+}
+function n(r) {
+  return r < 0 ? `count() + ${r}` : r;
+}
 export {
-  s as default,
-  t as deserialize,
-  u as serialize
+  u as default
 };
 //# sourceMappingURL=cori.data.api287.js.map

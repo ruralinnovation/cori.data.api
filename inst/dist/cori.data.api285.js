@@ -1,97 +1,47 @@
-import x from "./cori.data.api287.js";
-import { normalizeUri as N } from "./cori.data.api288.js";
+import h from "./cori.data.api302.js";
+import y from "./cori.data.api303.js";
+import { scanArray as b, scanTable as w } from "./cori.data.api304.js";
+import { table as F } from "./cori.data.api305.js";
+import l from "./cori.data.api266.js";
+import f from "./cori.data.api306.js";
+import u from "./cori.data.api270.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function L(e, o) {
-  const r = [{ type: "text", value: "↩" }];
-  return o > 1 && r.push({
-    type: "element",
-    tagName: "sup",
-    properties: {},
-    children: [{ type: "text", value: String(o) }]
-  }), r;
+function E(n, m = {}) {
+  const { types: o = {} } = m, { dataFrom: r, names: t, nrows: s, scan: a } = T(n, m), i = {};
+  t.forEach((e) => {
+    const c = r(n, e, s, a, o[e]);
+    c.length !== s && l("Column length mismatch"), i[e] = c;
+  });
+  const p = F();
+  return new p(i);
 }
-function k(e, o) {
-  return "Back to reference " + (e + 1) + (o > 1 ? "-" + o : "");
-}
-function C(e) {
-  const o = typeof e.options.clobberPrefix == "string" ? e.options.clobberPrefix : "user-content-", r = e.options.footnoteBackContent || L, s = e.options.footnoteBackLabel || k, y = e.options.footnoteLabel || "Footnotes", g = e.options.footnoteLabelTagName || "h2", b = e.options.footnoteLabelProperties || {
-    className: ["sr-only"]
-  }, f = [];
-  let a = -1;
-  for (; ++a < e.footnoteOrder.length; ) {
-    const p = e.footnoteById.get(
-      e.footnoteOrder[a]
-    );
-    if (!p)
-      continue;
-    const c = e.all(p), u = String(p.identifier).toUpperCase(), d = N(u.toLowerCase());
-    let l = 0;
-    const i = [], h = e.footnoteCounts.get(u);
-    for (; h !== void 0 && ++l <= h; ) {
-      i.length > 0 && i.push({ type: "text", value: " " });
-      let t = typeof r == "string" ? r : r(a, l);
-      typeof t == "string" && (t = { type: "text", value: t }), i.push({
-        type: "element",
-        tagName: "a",
-        properties: {
-          href: "#" + o + "fnref-" + d + (l > 1 ? "-" + l : ""),
-          dataFootnoteBackref: "",
-          ariaLabel: typeof s == "string" ? s : s(a, l),
-          className: ["data-footnote-backref"]
-        },
-        children: Array.isArray(t) ? t : [t]
-      });
-    }
-    const n = c[c.length - 1];
-    if (n && n.type === "element" && n.tagName === "p") {
-      const t = n.children[n.children.length - 1];
-      t && t.type === "text" ? t.value += " " : n.children.push({ type: "text", value: " " }), n.children.push(...i);
-    } else
-      c.push(...i);
-    const m = {
-      type: "element",
-      tagName: "li",
-      properties: { id: o + "fn-" + d },
-      children: e.wrap(c, !0)
-    };
-    e.patch(p, m), f.push(m);
-  }
-  if (f.length !== 0)
+function T(n, m) {
+  const { columns: o, limit: r = 1 / 0, offset: t = 0 } = m, s = u(o) ? o(n) : f(o) ? o : null;
+  if (f(n))
     return {
-      type: "element",
-      tagName: "section",
-      properties: { dataFootnotes: !0, className: ["footnotes"] },
-      children: [
-        {
-          type: "element",
-          tagName: g,
-          properties: {
-            ...x(b),
-            id: "footnote-label"
-          },
-          children: [{ type: "text", value: y }]
-        },
-        { type: "text", value: `
-` },
-        {
-          type: "element",
-          tagName: "ol",
-          properties: {},
-          children: e.wrap(f, !0)
-        },
-        { type: "text", value: `
-` }
-      ]
+      dataFrom: h,
+      names: s || Object.keys(n[0]),
+      nrows: Math.min(r, n.length - t),
+      scan: b(n, r, t)
     };
+  if (g(n))
+    return {
+      dataFrom: y,
+      names: s || n.columnNames(),
+      nrows: Math.min(r, n.numRows() - t),
+      scan: w(n, r, t)
+    };
+  l("Unsupported input data type");
+}
+function g(n) {
+  return n && u(n.reify);
 }
 export {
-  L as defaultFootnoteBackContent,
-  k as defaultFootnoteBackLabel,
-  C as footer
+  E as default
 };
 //# sourceMappingURL=cori.data.api285.js.map

@@ -4,10 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(t) {
-  return t instanceof Date;
+function r(n, t, f, i, o) {
+  return n == null ? null : n < t ? -1 / 0 : n > f ? 1 / 0 : (n = Math.max(t, Math.min(n, f)), t + i * Math.floor(1e-14 + (n - t) / i + (o || 0)));
 }
 export {
-  e as default
+  r as default
 };
 //# sourceMappingURL=cori.data.api405.js.map

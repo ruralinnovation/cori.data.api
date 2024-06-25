@@ -1,32 +1,31 @@
-import { groupOutput as p, aggregate as s } from "./cori.data.api530.js";
-import a from "./cori.data.api322.js";
+import m from "./cori.data.api519.js";
+import s from "./cori.data.api266.js";
+import f from "./cori.data.api615.js";
+import a from "./cori.data.api306.js";
+import c from "./cori.data.api313.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function j(t, { names: l, exprs: u, ops: f }) {
-  const n = a(), e = t.groups();
-  return e && p(n, e), h(l, u, e, s(t, f), n), t.create(n.new());
-}
-function h(t, l, u, f = [], n) {
-  if (!l.length)
-    return;
-  const e = u ? u.size : 1, c = (o, r) => f[o][r], d = t.length;
-  for (let o = 0; o < d; ++o) {
-    const r = l[o];
-    if (r.field != null)
-      n.add(t[o], f[r.field]);
-    else if (e > 1) {
-      const g = n.add(t[o], Array(e));
-      for (let i = 0; i < e; ++i)
-        g[i] = r(i, null, c);
-    } else
-      n.add(t[o], [r(0, null, c)]);
+function h(i, t, e) {
+  if (e)
+    c(e) ? e = [e, e] : a(e) && e.length === 1 && (e = [e[0], e[0]]);
+  else {
+    const r = f(i.columnNames(), t.columnNames());
+    r.length || s("Natural join requires shared column names."), e = [r, r];
   }
+  return e;
+}
+function g(i, t, e, r) {
+  return e.length !== r.length && s("Mismatched number of join keys"), [
+    m("join", i, e),
+    m("join", t, r)
+  ];
 }
 export {
-  j as default
+  h as inferKeys,
+  g as keyPredicate
 };
 //# sourceMappingURL=cori.data.api516.js.map

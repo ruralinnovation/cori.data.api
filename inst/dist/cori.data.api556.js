@@ -4,11 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var r;
-(function(e) {
-  e[e.Sparse = 0] = "Sparse", e[e.Dense = 1] = "Dense";
-})(r || (r = {}));
+const n = new Int32Array(2), t = new Float32Array(n.buffer), r = new Float64Array(n.buffer), a = new Uint16Array(new Uint8Array([1, 0]).buffer)[0] === 1;
 export {
-  r as UnionMode
+  t as float32,
+  r as float64,
+  n as int32,
+  a as isLittleEndian
 };
 //# sourceMappingURL=cori.data.api556.js.map

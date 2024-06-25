@@ -1,28 +1,19 @@
+import a from "./cori.data.api285.js";
+import { tableToIPC as f } from "./cori.data.api383.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(r, t) {
-  const s = {}, a = r.all(t);
-  let l = -1;
-  for (typeof t.start == "number" && t.start !== 1 && (s.start = t.start); ++l < a.length; ) {
-    const e = a[l];
-    if (e.type === "element" && e.tagName === "li" && e.properties && Array.isArray(e.properties.className) && e.properties.className.includes("task-list-item")) {
-      s.className = ["contains-task-list"];
-      break;
-    }
-  }
-  const i = {
-    type: "element",
-    tagName: t.ordered ? "ol" : "ul",
-    properties: s,
-    children: r.wrap(a, !0)
-  };
-  return r.patch(t, i), r.applyData(t, i);
+function s(r, t = {}) {
+  const { format: o, ...e } = t, m = o || "stream";
+  if (!["stream", "file"].includes(m))
+    throw Error("Unrecognised output format");
+  return f(a(r, e), o);
 }
 export {
-  p as list
+  a as default,
+  s as toArrowIPC
 };
 //# sourceMappingURL=cori.data.api276.js.map

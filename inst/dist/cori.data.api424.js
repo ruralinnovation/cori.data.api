@@ -1,14 +1,22 @@
+import f from "./cori.data.api509.js";
+import m from "./cori.data.api510.js";
+import n from "./cori.data.api289.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const t = /^([-+]\d{2})?\d{4}(-\d{2}(-\d{2})?)?(T\d{2}:\d{2}(:\d{2}(\.\d{3})?)?(Z|[-+]\d{2}:\d{2})?)?$/;
-function a(d) {
-  return d.match(t) && !isNaN(Date.parse(d));
+function u(r, o) {
+  const t = n({ p: o }, { table: r });
+  let e = t.exprs[0];
+  if (t.ops.length) {
+    const { data: p } = f(r, t, { drop: !0 }).column("p");
+    e = (i) => p[i];
+  }
+  return m(r, e);
 }
 export {
-  a as default
+  u as default
 };
 //# sourceMappingURL=cori.data.api424.js.map

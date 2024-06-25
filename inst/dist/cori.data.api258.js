@@ -4,11 +4,7 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function t(n) {
-  return function() {
-    return n;
-  };
-}
+const t = null;
 export {
   t as default
 };

@@ -1,26 +1,22 @@
-import e from "./cori.data.api445.js";
-import l from "./cori.data.api423.js";
-import r from "./cori.data.api362.js";
-import c from "./cori.data.api421.js";
+import f from "./cori.data.api518.js";
+import { inferKeys as i } from "./cori.data.api516.js";
+import m from "./cori.data.api519.js";
+import k from "./cori.data.api512.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const n = (i) => l(i) || r(i), a = {
-  compact: (i) => l(i) ? i.filter((o) => c(o)) : i,
-  concat: (...i) => [].concat(...i),
-  includes: (i, o, t) => n(i) ? i.includes(o, t) : !1,
-  indexof: (i, o) => n(i) ? i.indexOf(o) : -1,
-  join: (i, o) => l(i) ? i.join(o) : e,
-  lastindexof: (i, o) => n(i) ? i.lastIndexOf(o) : -1,
-  length: (i) => n(i) ? i.length : 0,
-  pluck: (i, o) => l(i) ? i.map((t) => c(t) ? t[o] : e) : e,
-  reverse: (i) => l(i) ? i.slice().reverse() : r(i) ? i.split("").reverse().join("") : e,
-  slice: (i, o, t) => n(i) ? i.slice(o, t) : e
-};
+function y(p, o, r, u) {
+  return r = i(p, o, r), f(
+    p,
+    o,
+    [m("lookup", p, r[0]), m("lookup", o, r[1])],
+    k("lookup", o, u)
+  );
+}
 export {
-  a as default
+  y as default
 };
 //# sourceMappingURL=cori.data.api430.js.map

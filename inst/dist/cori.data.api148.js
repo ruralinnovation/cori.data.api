@@ -1,34 +1,27 @@
-import n from "./cori.data.api259.js";
-import { Selection as o } from "./cori.data.api141.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u() {
-  return new o(this._enter || this._groups.map(n), this._parents);
+function i() {
+  this.innerHTML = "";
 }
-function r(e, t) {
-  this.ownerDocument = e.ownerDocument, this.namespaceURI = e.namespaceURI, this._next = null, this._parent = e, this.__data__ = t;
+function e(n) {
+  return function() {
+    this.innerHTML = n;
+  };
 }
-r.prototype = {
-  constructor: r,
-  appendChild: function(e) {
-    return this._parent.insertBefore(e, this._next);
-  },
-  insertBefore: function(e, t) {
-    return this._parent.insertBefore(e, t);
-  },
-  querySelector: function(e) {
-    return this._parent.querySelector(e);
-  },
-  querySelectorAll: function(e) {
-    return this._parent.querySelectorAll(e);
-  }
-};
+function o(n) {
+  return function() {
+    var t = n.apply(this, arguments);
+    this.innerHTML = t ?? "";
+  };
+}
+function r(n) {
+  return arguments.length ? this.each(n == null ? i : (typeof n == "function" ? o : e)(n)) : this.node().innerHTML;
+}
 export {
-  r as EnterNode,
-  u as default
+  r as default
 };
 //# sourceMappingURL=cori.data.api148.js.map

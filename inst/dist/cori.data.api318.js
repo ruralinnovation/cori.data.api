@@ -1,47 +1,41 @@
-import e from "./cori.data.api319.js";
+import { uuid as a, toArray as i } from "./cori.data.api116.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class n {
-  /**
-   * Create a new column instance.
-   * @param {Array} data The backing array (or array-like object)
-   *  containing the column data.
-   */
-  constructor(r) {
-    this.data = r;
-  }
-  /**
-   * Get the length (number of rows) of the column.
-   * @return {number} The length of the column array.
-   */
-  get length() {
-    return this.data.length;
-  }
-  /**
-   * Get the column value at the given row index.
-   * @param {number} row The row index of the value to retrieve.
-   * @return {import('./table').DataValue} The column value.
-   */
-  get(r) {
-    return this.data[r];
-  }
-  /**
-   * Returns an iterator over the column values.
-   * @return {Iterator<object>} An iterator over column values.
-   */
-  [Symbol.iterator]() {
-    return this.data[Symbol.iterator]();
-  }
+function l(e) {
+  const t = e.getPropertyValue("content");
+  return `${e.cssText} content: '${t.replace(/'|"/g, "")}';`;
 }
-let u = function(t) {
-  return t && e(t.get) ? t : new n(t);
-};
+function m(e) {
+  return i(e).map((t) => {
+    const n = e.getPropertyValue(t), r = e.getPropertyPriority(t);
+    return `${t}: ${n}${r ? " !important" : ""};`;
+  }).join(" ");
+}
+function p(e, t, n) {
+  const r = `.${e}:${t}`, o = n.cssText ? l(n) : m(n);
+  return document.createTextNode(`${r}{${o}}`);
+}
+function u(e, t, n) {
+  const r = window.getComputedStyle(e, n), o = r.getPropertyValue("content");
+  if (o === "" || o === "none")
+    return;
+  const c = a();
+  try {
+    t.className = `${t.className} ${c}`;
+  } catch {
+    return;
+  }
+  const s = document.createElement("style");
+  s.appendChild(p(c, n, r)), t.appendChild(s);
+}
+function P(e, t) {
+  u(e, t, ":before"), u(e, t, ":after");
+}
 export {
-  n as default,
-  u as defaultColumnFactory
+  P as clonePseudoElements
 };
 //# sourceMappingURL=cori.data.api318.js.map

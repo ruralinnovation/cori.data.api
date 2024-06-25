@@ -1,36 +1,22 @@
-import n from "./cori.data.api515.js";
-import f from "./cori.data.api516.js";
-import u from "./cori.data.api338.js";
-import c from "./cori.data.api514.js";
-import { array_agg_distinct as s } from "./cori.data.api33.js";
-import a from "./cori.data.api315.js";
-import g from "./cori.data.api363.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function S(r, o, m = {}) {
-  if (o = u(o, { table: r }), o.names.forEach(
-    (t) => r.column(t) ? 0 : a(`Invalid impute column ${g(t)}`)
-  ), m.expand) {
-    const t = { preparse: d, aggronly: !0 }, p = c("impute", r, m.expand, t), i = f(r.ungroup(), p);
-    return n(
-      r,
-      o,
-      p.names,
-      p.names.map((e) => i.get(e, 0))
-    );
-  } else
-    return n(r, o);
+function o(n) {
+  return !n || typeof n != "object" ? "" : "position" in n || "type" in n ? t(n.position) : "start" in n || "end" in n ? t(n) : "line" in n || "column" in n ? i(n) : "";
 }
-function d(r) {
-  r.forEach(
-    (o, m) => o.field ? r.set(m, s(o + "")) : 0
-  );
+function i(n) {
+  return r(n && n.line) + ":" + r(n && n.column);
+}
+function t(n) {
+  return i(n && n.start) + "-" + i(n && n.end);
+}
+function r(n) {
+  return n && typeof n == "number" ? n : 1;
 }
 export {
-  S as default
+  o as stringifyPosition
 };
 //# sourceMappingURL=cori.data.api453.js.map

@@ -1,23 +1,34 @@
-import { childMatcher as i } from "./cori.data.api140.js";
+import l from "./cori.data.api161.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var n = Array.prototype.find;
-function r(t) {
+function s(t) {
   return function() {
-    return n.call(this.children, t);
+    this.style.removeProperty(t);
   };
 }
-function e() {
-  return this.firstElementChild;
+function u(t, e, n) {
+  return function() {
+    this.style.setProperty(t, e, n);
+  };
 }
-function o(t) {
-  return this.select(t == null ? e : r(typeof t == "function" ? t : i(t)));
+function o(t, e, n) {
+  return function() {
+    var r = e.apply(this, arguments);
+    r == null ? this.style.removeProperty(t) : this.style.setProperty(t, r, n);
+  };
+}
+function f(t, e, n) {
+  return arguments.length > 1 ? this.each((e == null ? s : typeof e == "function" ? o : u)(t, e, n ?? "")) : i(this.node(), t);
+}
+function i(t, e) {
+  return t.style.getPropertyValue(e) || l(t).getComputedStyle(t, null).getPropertyValue(e);
 }
 export {
-  o as default
+  f as default,
+  i as styleValue
 };
 //# sourceMappingURL=cori.data.api144.js.map

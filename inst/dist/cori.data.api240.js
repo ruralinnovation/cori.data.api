@@ -1,63 +1,47 @@
-import { color as A } from "./cori.data.api403.js";
-import { convert as I } from "./cori.data.api404.js";
+import { getDefaultExportFromCjs as m } from "./cori.data.api39.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const g = [], j = !0, a = !1, k = "skip";
-function w(t, o, u, s) {
-  let p;
-  typeof o == "function" && typeof u != "function" ? (s = u, u = o) : p = o;
-  const b = I(p), y = s ? -1 : 1;
-  m(t, void 0, [])();
-  function m(n, N, l) {
-    const i = (
-      /** @type {Record<string, unknown>} */
-      n && typeof n == "object" ? n : {}
-    );
-    if (typeof i.type == "string") {
-      const e = (
-        // `hast`
-        typeof i.tagName == "string" ? i.tagName : (
-          // `xast`
-          typeof i.name == "string" ? i.name : void 0
-        )
-      );
-      Object.defineProperty(h, "name", {
-        value: "node (" + A(n.type + (e ? "<" + e + ">" : "")) + ")"
-      });
-    }
-    return h;
-    function h() {
-      let e = g, f, r, d;
-      if ((!o || b(n, N, l[l.length - 1] || void 0)) && (e = E(u(n, l)), e[0] === a))
-        return e;
-      if ("children" in n && n.children) {
-        const c = (
-          /** @type {UnistParent} */
-          n
-        );
-        if (c.children && e[0] !== k)
-          for (r = (s ? c.children.length : -1) + y, d = l.concat(c); r > -1 && r < c.children.length; ) {
-            const P = c.children[r];
-            if (f = m(P, r, d)(), f[0] === a)
-              return f;
-            r = typeof f[1] == "number" ? f[1] : r + y;
-          }
-      }
-      return e;
-    }
-  }
-}
-function E(t) {
-  return Array.isArray(t) ? t : typeof t == "number" ? [j, t] : t == null ? g : [t];
-}
+var u = Object.prototype.hasOwnProperty, P = Object.prototype.toString, s = Object.defineProperty, y = Object.getOwnPropertyDescriptor, p = function(r) {
+  return typeof Array.isArray == "function" ? Array.isArray(r) : P.call(r) === "[object Array]";
+}, v = function(r) {
+  if (!r || P.call(r) !== "[object Object]")
+    return !1;
+  var e = u.call(r, "constructor"), a = r.constructor && r.constructor.prototype && u.call(r.constructor.prototype, "isPrototypeOf");
+  if (r.constructor && !e && !a)
+    return !1;
+  var t;
+  for (t in r)
+    ;
+  return typeof t > "u" || u.call(r, t);
+}, O = function(r, e) {
+  s && e.name === "__proto__" ? s(r, e.name, {
+    enumerable: !0,
+    configurable: !0,
+    value: e.newValue,
+    writable: !0
+  }) : r[e.name] = e.newValue;
+}, g = function(r, e) {
+  if (e === "__proto__")
+    if (u.call(r, e)) {
+      if (y)
+        return y(r, e).value;
+    } else
+      return;
+  return r[e];
+}, w = function o() {
+  var r, e, a, t, c, l, n = arguments[0], f = 1, d = arguments.length, i = !1;
+  for (typeof n == "boolean" && (i = n, n = arguments[1] || {}, f = 2), (n == null || typeof n != "object" && typeof n != "function") && (n = {}); f < d; ++f)
+    if (r = arguments[f], r != null)
+      for (e in r)
+        a = g(n, e), t = g(r, e), n !== t && (i && t && (v(t) || (c = p(t))) ? (c ? (c = !1, l = a && p(a) ? a : []) : l = a && v(a) ? a : {}, O(n, { name: e, newValue: o(i, l, t) })) : typeof t < "u" && O(n, { name: e, newValue: t }));
+  return n;
+};
+const _ = /* @__PURE__ */ m(w);
 export {
-  j as CONTINUE,
-  a as EXIT,
-  k as SKIP,
-  w as visitParents
+  _ as default
 };
 //# sourceMappingURL=cori.data.api240.js.map

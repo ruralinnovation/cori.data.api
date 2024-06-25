@@ -1,48 +1,64 @@
-import u from "./cori.data.api138.js";
+import { get as h, set as l } from "./cori.data.api188.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(r, n) {
-  return function(t) {
-    this.setAttribute(r, n.call(this, t));
+function s(t, r) {
+  var u, n;
+  return function() {
+    var e = l(this, t), i = e.tween;
+    if (i !== u) {
+      n = u = i;
+      for (var a = 0, o = n.length; a < o; ++a)
+        if (n[a].name === r) {
+          n = n.slice(), n.splice(a, 1);
+          break;
+        }
+    }
+    e.tween = n;
   };
 }
-function f(r, n) {
-  return function(t) {
-    this.setAttributeNS(r.space, r.local, n.call(this, t));
-  };
-}
-function s(r, n) {
-  var t, e;
-  function a() {
-    var i = n.apply(this, arguments);
-    return i !== e && (t = (e = i) && f(r, i)), t;
-  }
-  return a._value = n, a;
-}
-function l(r, n) {
-  var t, e;
-  function a() {
-    var i = n.apply(this, arguments);
-    return i !== e && (t = (e = i) && o(r, i)), t;
-  }
-  return a._value = n, a;
-}
-function h(r, n) {
-  var t = "attr." + r;
-  if (arguments.length < 2)
-    return (t = this.tween(t)) && t._value;
-  if (n == null)
-    return this.tween(t, null);
-  if (typeof n != "function")
+function w(t, r, u) {
+  var n, e;
+  if (typeof u != "function")
     throw new Error();
-  var e = u(r);
-  return this.tween(t, (e.local ? s : l)(e, n));
+  return function() {
+    var i = l(this, t), a = i.tween;
+    if (a !== n) {
+      e = (n = a).slice();
+      for (var o = { name: r, value: u }, f = 0, c = e.length; f < c; ++f)
+        if (e[f].name === r) {
+          e[f] = o;
+          break;
+        }
+      f === c && e.push(o);
+    }
+    i.tween = e;
+  };
+}
+function d(t, r) {
+  var u = this._id;
+  if (t += "", arguments.length < 2) {
+    for (var n = h(this.node(), u).tween, e = 0, i = n.length, a; e < i; ++e)
+      if ((a = n[e]).name === t)
+        return a.value;
+    return null;
+  }
+  return this.each((r == null ? s : w)(u, t, r));
+}
+function g(t, r, u) {
+  var n = t._id;
+  return t.each(function() {
+    var e = l(this, n);
+    (e.value || (e.value = {}))[r] = u.apply(this, arguments);
+  }), function(e) {
+    return h(e, n).value[r];
+  };
 }
 export {
-  h as default
+  d as default,
+  g as tweenValue
 };
 //# sourceMappingURL=cori.data.api185.js.map

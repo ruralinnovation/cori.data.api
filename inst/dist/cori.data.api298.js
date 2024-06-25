@@ -1,65 +1,26 @@
-import n from "./cori.data.api206.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class a {
-  constructor() {
-    this.handlers = [];
-  }
-  /**
-   * Add a new interceptor to the stack
-   *
-   * @param {Function} fulfilled The function to handle `then` for a `Promise`
-   * @param {Function} rejected The function to handle `reject` for a `Promise`
-   *
-   * @return {Number} An ID used to remove interceptor later
-   */
-  use(s, h, r) {
-    return this.handlers.push({
-      fulfilled: s,
-      rejected: h,
-      synchronous: r ? r.synchronous : !1,
-      runWhen: r ? r.runWhen : null
-    }), this.handlers.length - 1;
-  }
-  /**
-   * Remove an interceptor from the stack
-   *
-   * @param {Number} id The ID that was returned by `use`
-   *
-   * @returns {Boolean} `true` if the interceptor was removed, `false` otherwise
-   */
-  eject(s) {
-    this.handlers[s] && (this.handlers[s] = null);
-  }
-  /**
-   * Clear all interceptors from the stack
-   *
-   * @returns {void}
-   */
-  clear() {
-    this.handlers && (this.handlers = []);
-  }
-  /**
-   * Iterate over all the registered interceptors
-   *
-   * This method is particularly useful for skipping over any
-   * interceptors that may have become `null` calling `eject`.
-   *
-   * @param {Function} fn The function to call for each interceptor
-   *
-   * @returns {void}
-   */
-  forEach(s) {
-    n.forEach(this.handlers, function(r) {
-      r !== null && s(r);
-    });
-  }
-}
+const e = "Expr", s = "ExprList", n = "ExprNumber", t = "ExprObject", o = "JoinKeys", c = "JoinValues", r = "Options", i = "OrderKeys", b = "SelectionList", p = "TableRef", l = "TableRefList", x = "Descending", a = "Query", y = "Selection", E = "Verb", u = "Window";
 export {
-  a as default
+  x as Descending,
+  e as Expr,
+  s as ExprList,
+  n as ExprNumber,
+  t as ExprObject,
+  o as JoinKeys,
+  c as JoinValues,
+  r as Options,
+  i as OrderbyKeys,
+  a as Query,
+  y as Selection,
+  b as SelectionList,
+  p as TableRef,
+  l as TableRefList,
+  E as Verb,
+  u as Window
 };
 //# sourceMappingURL=cori.data.api298.js.map

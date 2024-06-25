@@ -1,31 +1,56 @@
-import { FixedWidthBuilder as o } from "./cori.data.api493.js";
-import { setDuration as s, setDurationSecond as r, setDurationMillisecond as i, setDurationMicrosecond as n, setDurationNanosecond as a } from "./cori.data.api551.js";
+import { Field as u } from "./cori.data.api486.js";
+import { DataBufferBuilder as r } from "./cori.data.api494.js";
+import { Builder as p } from "./cori.data.api490.js";
+import { Union as a } from "./cori.data.api402.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class e extends o {
+class l extends p {
+  constructor(e) {
+    super(e), this._typeIds = new r(Int8Array, 0, 1), typeof e.valueToChildTypeId == "function" && (this._valueToChildTypeId = e.valueToChildTypeId);
+  }
+  get typeIdToChildIndex() {
+    return this.type.typeIdToChildIndex;
+  }
+  append(e, s) {
+    return this.set(this.length, e, s);
+  }
+  set(e, s, t) {
+    return t === void 0 && (t = this._valueToChildTypeId(this, s, e)), this.setValue(e, s, t), this;
+  }
+  setValue(e, s, t) {
+    this._typeIds.set(e, t);
+    const n = this.type.typeIdToChildIndex[t], i = this.children[n];
+    i == null || i.set(e, s);
+  }
+  addChild(e, s = `${this.children.length}`) {
+    const t = this.children.push(e), { type: { children: n, mode: i, typeIds: d } } = this, h = [...n, new u(s, e.type)];
+    return this.type = new a(i, [...d, t], h), t;
+  }
+  /** @ignore */
+  // @ts-ignore
+  _valueToChildTypeId(e, s, t) {
+    throw new Error("Cannot map UnionBuilder value to child typeId. Pass the `childTypeId` as the second argument to unionBuilder.append(), or supply a `valueToChildTypeId` function as part of the UnionBuilder constructor options.");
+  }
 }
-e.prototype._setValue = s;
-class d extends e {
+class T extends l {
 }
-d.prototype._setValue = r;
-class u extends e {
+class C extends l {
+  constructor(e) {
+    super(e), this._offsets = new r(Int32Array);
+  }
+  /** @ignore */
+  setValue(e, s, t) {
+    const n = this._typeIds.set(e, t).buffer[e], i = this.getChildAt(this.type.typeIdToChildIndex[n]), d = this._offsets.set(e, i.length).buffer[e];
+    i == null || i.set(d, s);
+  }
 }
-u.prototype._setValue = i;
-class l extends e {
-}
-l.prototype._setValue = n;
-class c extends e {
-}
-c.prototype._setValue = a;
 export {
-  e as DurationBuilder,
-  l as DurationMicrosecondBuilder,
-  u as DurationMillisecondBuilder,
-  c as DurationNanosecondBuilder,
-  d as DurationSecondBuilder
+  C as DenseUnionBuilder,
+  T as SparseUnionBuilder,
+  l as UnionBuilder
 };
 //# sourceMappingURL=cori.data.api609.js.map

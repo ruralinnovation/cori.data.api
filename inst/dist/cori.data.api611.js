@@ -1,36 +1,66 @@
-import { BufferBuilder as h } from "./cori.data.api497.js";
-import { VariableWidthBuilder as o } from "./cori.data.api493.js";
-import { toUint8Array as u } from "./cori.data.api492.js";
+import { reducers as w } from "./cori.data.api528.js";
+import { hasAggregate as h, getWindow as O } from "./cori.data.api393.js";
+import $ from "./cori.data.api614.js";
+import x from "./cori.data.api482.js";
+import A from "./cori.data.api639.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class c extends o {
-  constructor(e) {
-    super(e), this._values = new h(Uint8Array);
-  }
-  get byteLength() {
-    let e = this._pendingLength + this.length * 4;
-    return this._offsets && (e += this._offsets.byteLength), this._values && (e += this._values.byteLength), this._nulls && (e += this._nulls.byteLength), e;
-  }
-  setValue(e, t) {
-    return super.setValue(e, u(t));
-  }
-  _flushPending(e, t) {
-    const n = this._offsets, f = this._values.reserve(t).buffer;
-    let r = 0;
-    for (const [i, s] of e)
-      if (s === void 0)
-        n.set(i, 0);
-      else {
-        const l = s.length;
-        f.set(s, r), n.set(i, l), r += l;
-      }
-  }
+const E = (n) => (n.frame || [null, null]).map((e) => Number.isFinite(e) ? Math.abs(e) : null), S = (n) => !!n.peers;
+function V(n) {
+  const { id: e, name: a, fields: t = [], params: i = [] } = n, r = O(a).create(...i);
+  return t.length && (r.get = t[0]), r.id = e, r;
+}
+function U(n, e, a, t = {}, i) {
+  const r = n.data(), o = j(i, r), c = o.length, f = x(
+    ["r", "d", "op"],
+    "{" + $(e, (p, m) => `_${m}[r] = $${m}(r, d, op);`) + "}",
+    e,
+    a
+  );
+  n.partitions().forEach((p, m) => {
+    const u = p.length, l = y(n, p);
+    for (let s = 0; s < c; ++s)
+      o[s].init(p, l, t, m);
+    const g = (s) => t[s][m];
+    for (let s = 0; s < u; ++s) {
+      for (let d = 0; d < c; ++d)
+        o[d].step(s);
+      f(p[s], r, g);
+    }
+  });
+}
+function j(n, e) {
+  const a = {};
+  return n.forEach((t) => {
+    const i = E(t), r = S(t), o = `${i},${r}`, { aggOps: c, winOps: f } = a[o] || (a[o] = {
+      frame: i,
+      peers: r,
+      aggOps: [],
+      winOps: []
+    });
+    h(t.name) ? c.push(t) : f.push(V(t));
+  }), Object.values(a).map((t) => A(
+    e,
+    t.frame,
+    t.peers,
+    t.winOps,
+    w(t.aggOps, t.frame[0] != null ? -1 : 1)
+  ));
+}
+function y(n, e) {
+  if (n.isOrdered()) {
+    const a = n.comparator(), t = n.data(), i = e.length, r = new Uint32Array(i);
+    for (let o = 1, c = 0; o < i; ++o)
+      r[o] = a(e[o - 1], e[o], t) ? ++c : c;
+    return r;
+  } else
+    return e;
 }
 export {
-  c as BinaryBuilder
+  U as window
 };
 //# sourceMappingURL=cori.data.api611.js.map

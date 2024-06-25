@@ -4,8 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const r = Array.isArray;
+function o(r, p) {
+  const l = { type: "root", children: r.wrap(r.all(p)) };
+  return r.patch(p, l), r.applyData(p, l);
+}
 export {
-  r as default
+  o as root
 };
 //# sourceMappingURL=cori.data.api355.js.map

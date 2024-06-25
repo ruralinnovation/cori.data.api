@@ -1,26 +1,52 @@
+import { factorySpace as l } from "./cori.data.api644.js";
+import { blankLine as a } from "./cori.data.api645.js";
+import { content as e } from "./cori.data.api646.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function r(e, u) {
-  const s = /* @__PURE__ */ new Map();
-  return e.scan((t, c) => {
-    const n = u(t, c);
-    n != null && n === n && s.set(n, t);
-  }), s;
-}
-function p(e, u, s) {
-  const t = /* @__PURE__ */ new Map(), c = e.length;
-  for (let n = 0; n < c; ++n) {
-    const l = e[n], o = s(l, u);
-    o != null && o === o && (t.has(o) ? t.get(o).push(n) : t.set(o, [n]));
+const d = {
+  tokenize: m
+};
+function m(n) {
+  const o = this, i = n.attempt(
+    // Try to parse a blank line.
+    a,
+    u,
+    // Try to parse initial flow (essentially, only code).
+    n.attempt(
+      this.parser.constructs.flowInitial,
+      r,
+      l(
+        n,
+        n.attempt(
+          this.parser.constructs.flow,
+          r,
+          n.attempt(e, r)
+        ),
+        "linePrefix"
+      )
+    )
+  );
+  return i;
+  function u(t) {
+    if (t === null) {
+      n.consume(t);
+      return;
+    }
+    return n.enter("lineEndingBlank"), n.consume(t), n.exit("lineEndingBlank"), o.currentConstruct = void 0, i;
   }
-  return t;
+  function r(t) {
+    if (t === null) {
+      n.consume(t);
+      return;
+    }
+    return n.enter("lineEnding"), n.consume(t), n.exit("lineEnding"), o.currentConstruct = void 0, i;
+  }
 }
 export {
-  p as indexLookup,
-  r as rowLookup
+  d as flow
 };
 //# sourceMappingURL=cori.data.api622.js.map

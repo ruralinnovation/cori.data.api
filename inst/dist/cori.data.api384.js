@@ -1,34 +1,44 @@
-import { Info as h } from "./cori.data.api385.js";
-import * as s from "./cori.data.api381.js";
+import g from "./cori.data.api481.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const n = Object.keys(s);
-class d extends h {
-  /**
-   * @constructor
-   * @param {string} property
-   * @param {string} attribute
-   * @param {number|null} [mask]
-   * @param {string} [space]
-   */
-  constructor(t, e, r, p) {
-    let o = -1;
-    if (super(t, e), f(this, "space", p), typeof r == "number")
-      for (; ++o < n.length; ) {
-        const i = n[o];
-        f(this, n[o], (r & s[i]) === s[i]);
-      }
-  }
+const e = (t) => (t < 10 ? "0" : "") + t, C = (t) => t < 0 ? "-" + g(-t, 6) : t > 9999 ? "+" + g(t, 6) : g(t, 4);
+function s(t, n, T, o, a, i, f, l, u) {
+  const r = l ? "Z" : "";
+  return C(t) + "-" + e(n + 1) + "-" + e(T) + (!u || f ? "T" + e(o) + ":" + e(a) + ":" + e(i) + "." + g(f, 3) + r : i ? "T" + e(o) + ":" + e(a) + ":" + e(i) + r : a || o || !l ? "T" + e(o) + ":" + e(a) + r : "");
 }
-d.prototype.defined = !0;
-function f(c, t, e) {
-  e && (c[t] = e);
+function c(t, n) {
+  return isNaN(t) ? "Invalid Date" : s(
+    t.getFullYear(),
+    t.getMonth(),
+    t.getDate(),
+    t.getHours(),
+    t.getMinutes(),
+    t.getSeconds(),
+    t.getMilliseconds(),
+    !1,
+    n
+  );
+}
+function D(t, n) {
+  return isNaN(t) ? "Invalid Date" : s(
+    t.getUTCFullYear(),
+    t.getUTCMonth(),
+    t.getUTCDate(),
+    t.getUTCHours(),
+    t.getUTCMinutes(),
+    t.getUTCSeconds(),
+    t.getUTCMilliseconds(),
+    !0,
+    n
+  );
 }
 export {
-  d as DefinedInfo
+  c as formatDate,
+  s as formatISO,
+  D as formatUTCDate
 };
 //# sourceMappingURL=cori.data.api384.js.map

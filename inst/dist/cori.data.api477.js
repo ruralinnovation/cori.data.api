@@ -1,26 +1,44 @@
+import h from "./cori.data.api57.js";
+import c from "./cori.data.api256.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function y(t, n) {
-  t = t || 10;
-  const c = new Array(t), o = new Array(t);
-  let e = 0, r = 0, i;
-  return n = n !== void 0 ? n : 1e3, function(h) {
-    const d = Date.now(), a = o[r];
-    i || (i = d), c[e] = h, o[e] = d;
-    let f = r, u = 0;
-    for (; f !== e; )
-      u += c[f++], f = f % t;
-    if (e = (e + 1) % t, e === r && (r = (r + 1) % t), d - i < n)
-      return;
-    const w = a && d - a;
-    return w ? Math.round(u * 1e3 / w) : void 0;
-  };
-}
+const f = c.hasStandardBrowserEnv ? (
+  // Standard browser envs have full support of the APIs needed to test
+  // whether the request URL is of the same origin as current location.
+  function() {
+    const o = /(msie|trident)/i.test(navigator.userAgent), t = document.createElement("a");
+    let e;
+    function n(a) {
+      let r = a;
+      return o && (t.setAttribute("href", r), r = t.href), t.setAttribute("href", r), {
+        href: t.href,
+        protocol: t.protocol ? t.protocol.replace(/:$/, "") : "",
+        host: t.host,
+        search: t.search ? t.search.replace(/^\?/, "") : "",
+        hash: t.hash ? t.hash.replace(/^#/, "") : "",
+        hostname: t.hostname,
+        port: t.port,
+        pathname: t.pathname.charAt(0) === "/" ? t.pathname : "/" + t.pathname
+      };
+    }
+    return e = n(window.location.href), function(r) {
+      const s = h.isString(r) ? n(r) : r;
+      return s.protocol === e.protocol && s.host === e.host;
+    };
+  }()
+) : (
+  // Non standard browser envs (web workers, react-native) lack needed support.
+  /* @__PURE__ */ function() {
+    return function() {
+      return !0;
+    };
+  }()
+);
 export {
-  y as default
+  f as default
 };
 //# sourceMappingURL=cori.data.api477.js.map

@@ -1,93 +1,26 @@
+import e from "./cori.data.api418.js";
+import l from "./cori.data.api396.js";
+import r from "./cori.data.api313.js";
+import c from "./cori.data.api394.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const i = (
-  // Note: overloads in JSDoc can’t yet use different `@template`s.
-  /**
-   * @type {(
-   *   (<Condition extends string>(test: Condition) => (node: unknown, index?: number | null | undefined, parent?: Parent | null | undefined, context?: unknown) => node is Node & {type: Condition}) &
-   *   (<Condition extends Props>(test: Condition) => (node: unknown, index?: number | null | undefined, parent?: Parent | null | undefined, context?: unknown) => node is Node & Condition) &
-   *   (<Condition extends TestFunction>(test: Condition) => (node: unknown, index?: number | null | undefined, parent?: Parent | null | undefined, context?: unknown) => node is Node & Predicate<Condition, Node>) &
-   *   ((test?: null | undefined) => (node?: unknown, index?: number | null | undefined, parent?: Parent | null | undefined, context?: unknown) => node is Node) &
-   *   ((test?: Test) => Check)
-   * )}
-   */
-  /**
-   * @param {Test} [test]
-   * @returns {Check}
-   */
-  function(n) {
-    if (n == null)
-      return p;
-    if (typeof n == "function")
-      return c(n);
-    if (typeof n == "object")
-      return Array.isArray(n) ? f(n) : y(n);
-    if (typeof n == "string")
-      return l(n);
-    throw new Error("Expected function, string, or object as test");
-  }
-);
-function f(n) {
-  const e = [];
-  let r = -1;
-  for (; ++r < n.length; )
-    e[r] = i(n[r]);
-  return c(t);
-  function t(...u) {
-    let o = -1;
-    for (; ++o < e.length; )
-      if (e[o].apply(this, u))
-        return !0;
-    return !1;
-  }
-}
-function y(n) {
-  const e = (
-    /** @type {Record<string, unknown>} */
-    n
-  );
-  return c(r);
-  function r(t) {
-    const u = (
-      /** @type {Record<string, unknown>} */
-      /** @type {unknown} */
-      t
-    );
-    let o;
-    for (o in n)
-      if (u[o] !== e[o])
-        return !1;
-    return !0;
-  }
-}
-function l(n) {
-  return c(e);
-  function e(r) {
-    return r && r.type === n;
-  }
-}
-function c(n) {
-  return e;
-  function e(r, t, u) {
-    return !!(a(r) && n.call(
-      this,
-      r,
-      typeof t == "number" ? t : void 0,
-      u || void 0
-    ));
-  }
-}
-function p() {
-  return !0;
-}
-function a(n) {
-  return n !== null && typeof n == "object" && "type" in n;
-}
+const n = (i) => l(i) || r(i), a = {
+  compact: (i) => l(i) ? i.filter((o) => c(o)) : i,
+  concat: (...i) => [].concat(...i),
+  includes: (i, o, t) => n(i) ? i.includes(o, t) : !1,
+  indexof: (i, o) => n(i) ? i.indexOf(o) : -1,
+  join: (i, o) => l(i) ? i.join(o) : e,
+  lastindexof: (i, o) => n(i) ? i.lastIndexOf(o) : -1,
+  length: (i) => n(i) ? i.length : 0,
+  pluck: (i, o) => l(i) ? i.map((t) => c(t) ? t[o] : e) : e,
+  reverse: (i) => l(i) ? i.slice().reverse() : r(i) ? i.split("").reverse().join("") : e,
+  slice: (i, o, t) => n(i) ? i.slice(o, t) : e
+};
 export {
-  i as convert
+  a as default
 };
 //# sourceMappingURL=cori.data.api404.js.map

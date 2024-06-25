@@ -1,31 +1,26 @@
-import { FixedWidthBuilder as t } from "./cori.data.api493.js";
-import { setTime as o, setTimeSecond as i, setTimeMillisecond as d, setTimeMicrosecond as l, setTimeNanosecond as r } from "./cori.data.api551.js";
+import { Field as n } from "./cori.data.api486.js";
+import { Builder as h } from "./cori.data.api490.js";
+import { FixedSizeList as l } from "./cori.data.api402.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class e extends t {
+class u extends h {
+  setValue(e, i) {
+    const [t] = this.children, s = e * this.stride;
+    for (let r = -1, d = i.length; ++r < d; )
+      t.set(s + r, i[r]);
+  }
+  addChild(e, i = "0") {
+    if (this.numChildren > 0)
+      throw new Error("FixedSizeListBuilder can only have one child.");
+    const t = this.children.push(e);
+    return this.type = new l(this.type.listSize, new n(i, e.type, !0)), t;
+  }
 }
-e.prototype._setValue = o;
-class c extends e {
-}
-c.prototype._setValue = i;
-class n extends e {
-}
-n.prototype._setValue = d;
-class m extends e {
-}
-m.prototype._setValue = l;
-class p extends e {
-}
-p.prototype._setValue = r;
 export {
-  e as TimeBuilder,
-  m as TimeMicrosecondBuilder,
-  n as TimeMillisecondBuilder,
-  p as TimeNanosecondBuilder,
-  c as TimeSecondBuilder
+  u as FixedSizeListBuilder
 };
 //# sourceMappingURL=cori.data.api606.js.map

@@ -1,49 +1,40 @@
+import { ObjectExpression as m, Property as n, Literal as c } from "./cori.data.api290.js";
+import f from "./cori.data.api293.js";
+import s from "./cori.data.api294.js";
+import u from "./cori.data.api382.js";
+import y from "./cori.data.api283.js";
+import w from "./cori.data.api306.js";
+import O from "./cori.data.api314.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function f(l, e, s) {
-  const n = l.all(e), a = s ? m(s) : o(e), r = {}, p = [];
-  if (typeof e.checked == "boolean") {
-    const t = n[0];
-    let i;
-    t && t.type === "element" && t.tagName === "p" ? i = t : (i = { type: "element", tagName: "p", properties: {}, children: [] }, n.unshift(i)), i.children.length > 0 && i.children.unshift({ type: "text", value: " " }), i.children.unshift({
-      type: "element",
-      tagName: "input",
-      properties: { type: "checkbox", checked: e.checked, disabled: !0 },
-      children: []
-    }), r.className = ["task-list-item"];
+const B = "row_object";
+function a(r, t) {
+  r.type = m;
+  const e = r.properties = [];
+  for (const o of y(t)) {
+    const [p, i] = w(o) ? o : [o, o];
+    e.push({
+      type: n,
+      key: { type: c, raw: O(i) },
+      value: u({ computed: !0 }, p)
+    });
   }
-  let c = -1;
-  for (; ++c < n.length; ) {
-    const t = n[c];
-    (a || c !== 0 || t.type !== "element" || t.tagName !== "p") && p.push({ type: "text", value: `
-` }), t.type === "element" && t.tagName === "p" && !a ? p.push(...t.children) : p.push(t);
-  }
-  const h = n[n.length - 1];
-  h && (a || h.type !== "element" || h.tagName !== "p") && p.push({ type: "text", value: `
-` });
-  const u = { type: "element", tagName: "li", properties: r, children: p };
-  return l.patch(e, u), l.applyData(e, u);
+  return r;
 }
-function m(l) {
-  let e = !1;
-  if (l.type === "list") {
-    e = l.spread || !1;
-    const s = l.children;
-    let n = -1;
-    for (; !e && ++n < s.length; )
-      e = o(s[n]);
-  }
-  return e;
+function b(r) {
+  return f(a({}, r));
 }
-function o(l) {
-  const e = l.spread;
-  return e ?? l.children.length > 1;
+function C(r) {
+  return s.expr(b(r));
 }
 export {
-  f as listItem
+  B as ROW_OBJECT,
+  C as rowObjectBuilder,
+  b as rowObjectCode,
+  a as rowObjectExpression
 };
 //# sourceMappingURL=cori.data.api275.js.map

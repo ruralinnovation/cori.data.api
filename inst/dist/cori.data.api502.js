@@ -1,126 +1,232 @@
-import { Visitor as f } from "./cori.data.api555.js";
+import { makeData as h, Data as g } from "./cori.data.api491.js";
+import { Table as C } from "./cori.data.api395.js";
+import { Vector as f } from "./cori.data.api401.js";
+import { Field as b, Schema as p } from "./cori.data.api486.js";
+import { Struct as u, Null as S, DataType as A } from "./cori.data.api402.js";
+import { instance as D } from "./cori.data.api541.js";
+import { instance as B } from "./cori.data.api542.js";
+import { instance as _ } from "./cori.data.api543.js";
+import { instance as R } from "./cori.data.api544.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class n extends f {
-  compareSchemas(i, o) {
-    return i === o || o instanceof i.constructor && this.compareManyFields(i.fields, o.fields);
+var y;
+class d {
+  constructor(...t) {
+    switch (t.length) {
+      case 2: {
+        if ([this.schema] = t, !(this.schema instanceof p))
+          throw new TypeError("RecordBatch constructor expects a [Schema, Data] pair.");
+        if ([
+          ,
+          this.data = h({
+            nullCount: 0,
+            type: new u(this.schema.fields),
+            children: this.schema.fields.map((e) => h({ type: e.type, nullCount: 0 }))
+          })
+        ] = t, !(this.data instanceof g))
+          throw new TypeError("RecordBatch constructor expects a [Schema, Data] pair.");
+        [this.schema, this.data] = w(this.schema, this.data.children);
+        break;
+      }
+      case 1: {
+        const [e] = t, { fields: n, children: i, length: a } = Object.keys(e).reduce((s, r, m) => (s.children[m] = e[r], s.length = Math.max(s.length, e[r].length), s.fields[m] = b.new({ name: r, type: e[r].type, nullable: !0 }), s), {
+          length: 0,
+          fields: new Array(),
+          children: new Array()
+        }), c = new p(n), o = h({ type: new u(n), length: a, children: i, nullCount: 0 });
+        [this.schema, this.data] = w(c, o.children, a);
+        break;
+      }
+      default:
+        throw new TypeError("RecordBatch constructor expects an Object mapping names to child Data, or a [Schema, Data] pair.");
+    }
   }
-  compareManyFields(i, o) {
-    return i === o || Array.isArray(i) && Array.isArray(o) && i.length === o.length && i.every((u, S) => this.compareFields(u, o[S]));
+  get dictionaries() {
+    return this._dictionaries || (this._dictionaries = v(this.schema.fields, this.data.children));
   }
-  compareFields(i, o) {
-    return i === o || o instanceof i.constructor && i.name === o.name && i.nullable === o.nullable && this.visit(i.type, o.type);
+  /**
+   * The number of columns in this RecordBatch.
+   */
+  get numCols() {
+    return this.schema.fields.length;
+  }
+  /**
+   * The number of rows in this RecordBatch.
+   */
+  get numRows() {
+    return this.data.length;
+  }
+  /**
+   * The number of null rows in this RecordBatch.
+   */
+  get nullCount() {
+    return this.data.nullCount;
+  }
+  /**
+   * Check whether an element is null.
+   * @param index The index at which to read the validity bitmap.
+   */
+  isValid(t) {
+    return this.data.getValid(t);
+  }
+  /**
+   * Get a row by position.
+   * @param index The index of the element to read.
+   */
+  get(t) {
+    return D.visit(this.data, t);
+  }
+  /**
+   * Set a row by position.
+   * @param index The index of the element to write.
+   * @param value The value to set.
+   */
+  set(t, e) {
+    return B.visit(this.data, t, e);
+  }
+  /**
+   * Retrieve the index of the first occurrence of a row in an RecordBatch.
+   * @param element The row to locate in the RecordBatch.
+   * @param offset The index at which to begin the search. If offset is omitted, the search starts at index 0.
+   */
+  indexOf(t, e) {
+    return _.visit(this.data, t, e);
+  }
+  /**
+   * Iterator for rows in this RecordBatch.
+   */
+  [Symbol.iterator]() {
+    return R.visit(new f([this.data]));
+  }
+  /**
+   * Return a JavaScript Array of the RecordBatch rows.
+   * @returns An Array of RecordBatch rows.
+   */
+  toArray() {
+    return [...this];
+  }
+  /**
+   * Combines two or more RecordBatch of the same schema.
+   * @param others Additional RecordBatch to add to the end of this RecordBatch.
+   */
+  concat(...t) {
+    return new C(this.schema, [this, ...t]);
+  }
+  /**
+   * Return a zero-copy sub-section of this RecordBatch.
+   * @param start The beginning of the specified portion of the RecordBatch.
+   * @param end The end of the specified portion of the RecordBatch. This is exclusive of the element at the index 'end'.
+   */
+  slice(t, e) {
+    const [n] = new f([this.data]).slice(t, e).data;
+    return new d(this.schema, n);
+  }
+  /**
+   * Returns a child Vector by name, or null if this Vector has no child with the given name.
+   * @param name The name of the child to retrieve.
+   */
+  getChild(t) {
+    var e;
+    return this.getChildAt((e = this.schema.fields) === null || e === void 0 ? void 0 : e.findIndex((n) => n.name === t));
+  }
+  /**
+   * Returns a child Vector by index, or null if this Vector has no child at the supplied index.
+   * @param index The index of the child to retrieve.
+   */
+  getChildAt(t) {
+    return t > -1 && t < this.schema.fields.length ? new f([this.data.children[t]]) : null;
+  }
+  /**
+   * Sets a child Vector by name.
+   * @param name The name of the child to overwrite.
+   * @returns A new RecordBatch with the new child for the specified name.
+   */
+  setChild(t, e) {
+    var n;
+    return this.setChildAt((n = this.schema.fields) === null || n === void 0 ? void 0 : n.findIndex((i) => i.name === t), e);
+  }
+  setChildAt(t, e) {
+    let n = this.schema, i = this.data;
+    if (t > -1 && t < this.numCols) {
+      e || (e = new f([h({ type: new S(), length: this.numRows })]));
+      const a = n.fields.slice(), c = i.children.slice(), o = a[t].clone({ type: e.type });
+      [a[t], c[t]] = [o, e.data[0]], n = new p(a, new Map(this.schema.metadata)), i = h({ type: new u(a), children: c });
+    }
+    return new d(n, i);
+  }
+  /**
+   * Construct a new RecordBatch containing only specified columns.
+   *
+   * @param columnNames Names of columns to keep.
+   * @returns A new RecordBatch of columns matching the specified names.
+   */
+  select(t) {
+    const e = this.schema.select(t), n = new u(e.fields), i = [];
+    for (const a of t) {
+      const c = this.schema.fields.findIndex((o) => o.name === a);
+      ~c && (i[c] = this.data.children[c]);
+    }
+    return new d(e, h({ type: n, length: this.numRows, children: i }));
+  }
+  /**
+   * Construct a new RecordBatch containing only columns at the specified indices.
+   *
+   * @param columnIndices Indices of columns to keep.
+   * @returns A new RecordBatch of columns matching at the specified indices.
+   */
+  selectAt(t) {
+    const e = this.schema.selectAt(t), n = t.map((a) => this.data.children[a]).filter(Boolean), i = h({ type: new u(e.fields), length: this.numRows, children: n });
+    return new d(e, i);
   }
 }
-function r(t, i) {
-  return i instanceof t.constructor;
+y = Symbol.toStringTag;
+d[y] = ((l) => (l._nullCount = -1, l[Symbol.isConcatSpreadable] = !0, "RecordBatch"))(d.prototype);
+function w(l, t, e = t.reduce((n, i) => Math.max(n, i.length), 0)) {
+  var n;
+  const i = [...l.fields], a = [...t], c = (e + 63 & -64) >> 3;
+  for (const [o, s] of l.fields.entries()) {
+    const r = t[o];
+    (!r || r.length !== e) && (i[o] = s.clone({ nullable: !0 }), a[o] = (n = r == null ? void 0 : r._changeLengthAndBackfillNullBitmap(e)) !== null && n !== void 0 ? n : h({
+      type: s.type,
+      length: e,
+      nullCount: e,
+      nullBitmap: new Uint8Array(c)
+    }));
+  }
+  return [
+    l.assign(i),
+    h({ type: new u(i), length: e, children: a })
+  ];
 }
-function c(t, i) {
-  return t === i || r(t, i);
+function v(l, t, e = /* @__PURE__ */ new Map()) {
+  var n, i;
+  if (((n = l == null ? void 0 : l.length) !== null && n !== void 0 ? n : 0) > 0 && (l == null ? void 0 : l.length) === (t == null ? void 0 : t.length))
+    for (let a = -1, c = l.length; ++a < c; ) {
+      const { type: o } = l[a], s = t[a];
+      for (const r of [s, ...((i = s == null ? void 0 : s.dictionary) === null || i === void 0 ? void 0 : i.data) || []])
+        v(o.children, r == null ? void 0 : r.children, e);
+      if (A.isDictionary(o)) {
+        const { id: r } = o;
+        if (!e.has(r))
+          s != null && s.dictionary && e.set(r, s.dictionary);
+        else if (e.get(r) !== s.dictionary)
+          throw new Error("Cannot create Schema containing two different dictionaries with the same Id");
+      }
+    }
+  return e;
 }
-function e(t, i) {
-  return t === i || r(t, i) && t.bitWidth === i.bitWidth && t.isSigned === i.isSigned;
-}
-function l(t, i) {
-  return t === i || r(t, i) && t.precision === i.precision;
-}
-function F(t, i) {
-  return t === i || r(t, i) && t.byteWidth === i.byteWidth;
-}
-function v(t, i) {
-  return t === i || r(t, i) && t.unit === i.unit;
-}
-function p(t, i) {
-  return t === i || r(t, i) && t.unit === i.unit && t.timezone === i.timezone;
-}
-function a(t, i) {
-  return t === i || r(t, i) && t.unit === i.unit && t.bitWidth === i.bitWidth;
-}
-function M(t, i) {
-  return t === i || r(t, i) && t.children.length === i.children.length && s.compareManyFields(t.children, i.children);
-}
-function D(t, i) {
-  return t === i || r(t, i) && t.children.length === i.children.length && s.compareManyFields(t.children, i.children);
-}
-function m(t, i) {
-  return t === i || r(t, i) && t.mode === i.mode && t.typeIds.every((o, u) => o === i.typeIds[u]) && s.compareManyFields(t.children, i.children);
-}
-function g(t, i) {
-  return t === i || r(t, i) && t.id === i.id && t.isOrdered === i.isOrdered && s.visit(t.indices, i.indices) && s.visit(t.dictionary, i.dictionary);
-}
-function y(t, i) {
-  return t === i || r(t, i) && t.unit === i.unit;
-}
-function d(t, i) {
-  return t === i || r(t, i) && t.unit === i.unit;
-}
-function T(t, i) {
-  return t === i || r(t, i) && t.listSize === i.listSize && t.children.length === i.children.length && s.compareManyFields(t.children, i.children);
-}
-function I(t, i) {
-  return t === i || r(t, i) && t.keysSorted === i.keysSorted && t.children.length === i.children.length && s.compareManyFields(t.children, i.children);
-}
-n.prototype.visitNull = c;
-n.prototype.visitBool = c;
-n.prototype.visitInt = e;
-n.prototype.visitInt8 = e;
-n.prototype.visitInt16 = e;
-n.prototype.visitInt32 = e;
-n.prototype.visitInt64 = e;
-n.prototype.visitUint8 = e;
-n.prototype.visitUint16 = e;
-n.prototype.visitUint32 = e;
-n.prototype.visitUint64 = e;
-n.prototype.visitFloat = l;
-n.prototype.visitFloat16 = l;
-n.prototype.visitFloat32 = l;
-n.prototype.visitFloat64 = l;
-n.prototype.visitUtf8 = c;
-n.prototype.visitLargeUtf8 = c;
-n.prototype.visitBinary = c;
-n.prototype.visitLargeBinary = c;
-n.prototype.visitFixedSizeBinary = F;
-n.prototype.visitDate = v;
-n.prototype.visitDateDay = v;
-n.prototype.visitDateMillisecond = v;
-n.prototype.visitTimestamp = p;
-n.prototype.visitTimestampSecond = p;
-n.prototype.visitTimestampMillisecond = p;
-n.prototype.visitTimestampMicrosecond = p;
-n.prototype.visitTimestampNanosecond = p;
-n.prototype.visitTime = a;
-n.prototype.visitTimeSecond = a;
-n.prototype.visitTimeMillisecond = a;
-n.prototype.visitTimeMicrosecond = a;
-n.prototype.visitTimeNanosecond = a;
-n.prototype.visitDecimal = c;
-n.prototype.visitList = M;
-n.prototype.visitStruct = D;
-n.prototype.visitUnion = m;
-n.prototype.visitDenseUnion = m;
-n.prototype.visitSparseUnion = m;
-n.prototype.visitDictionary = g;
-n.prototype.visitInterval = y;
-n.prototype.visitIntervalDayTime = y;
-n.prototype.visitIntervalYearMonth = y;
-n.prototype.visitDuration = d;
-n.prototype.visitDurationSecond = d;
-n.prototype.visitDurationMillisecond = d;
-n.prototype.visitDurationMicrosecond = d;
-n.prototype.visitDurationNanosecond = d;
-n.prototype.visitFixedSizeList = T;
-n.prototype.visitMap = I;
-const s = new n();
-function b(t, i) {
-  return s.compareSchemas(t, i);
+class $ extends d {
+  constructor(t) {
+    const e = t.fields.map((i) => h({ type: i.type })), n = h({ type: new u(t.fields), nullCount: 0, children: e });
+    super(t, n);
+  }
 }
 export {
-  n as TypeComparator,
-  b as compareSchemas,
-  s as instance
+  d as RecordBatch,
+  $ as _InternalEmptyPlaceholderRecordBatch
 };
 //# sourceMappingURL=cori.data.api502.js.map

@@ -1,32 +1,17 @@
+import { footer as i } from "./cori.data.api362.js";
+import { createState as s } from "./cori.data.api363.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const r = (
-  /**
-   * @type {new <Parameters extends Array<unknown>, Result>(property: string | symbol) => (...parameters: Parameters) => Result}
-   */
-  /** @type {unknown} */
-  /**
-   * @this {Function}
-   * @param {string | symbol} property
-   * @returns {(...parameters: Array<unknown>) => unknown}
-   */
-  function(n) {
-    const o = (
-      /** @type {Record<string | symbol, Function>} */
-      // Prototypes do exist.
-      // type-coverage:ignore-next-line
-      this.constructor.prototype
-    ), s = o[n], t = function() {
-      return s.apply(t, arguments);
-    };
-    return Object.setPrototypeOf(t, o), t;
-  }
-);
+function p(o, c) {
+  const e = s(o, c), t = e.one(o, void 0), r = i(e), n = Array.isArray(t) ? { type: "root", children: t } : t || { type: "root", children: [] };
+  return r && n.children.push({ type: "text", value: `
+` }, r), n;
+}
 export {
-  r as CallableInstance
+  p as toHast
 };
 //# sourceMappingURL=cori.data.api238.js.map

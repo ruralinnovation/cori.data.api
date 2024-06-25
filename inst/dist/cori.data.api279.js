@@ -1,19 +1,30 @@
+import d from "./cori.data.api378.js";
+import "./cori.data.api30.js";
+import { formatUTCDate as g } from "./cori.data.api384.js";
+import "./cori.data.api31.js";
+import { columns as h } from "./cori.data.api385.js";
+import p from "./cori.data.api387.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(r, t) {
-  const e = {
-    type: "element",
-    tagName: "strong",
-    properties: {},
-    children: r.all(t)
-  };
-  return r.patch(t, e), r.applyData(t, e);
+const J = (t) => d(t) ? g(t, !0) : t;
+function T(t, r = {}) {
+  const f = p(r.schema), e = r.format || {}, c = h(t, r.columns);
+  let m = "{";
+  return f && (m += '"schema":{"fields":' + JSON.stringify(c.map((o) => ({ name: o }))) + '},"data":{'), c.forEach((o, s) => {
+    m += (s ? "," : "") + JSON.stringify(o) + ":[";
+    const a = t.column(o), i = e[o] || J;
+    let n = -1;
+    t.scan((u) => {
+      const l = a.get(u);
+      m += (++n ? "," : "") + JSON.stringify(i(l));
+    }, !0, r.limit, r.offset), m += "]";
+  }), m + "}" + (f ? "}" : "");
 }
 export {
-  p as strong
+  T as default
 };
 //# sourceMappingURL=cori.data.api279.js.map

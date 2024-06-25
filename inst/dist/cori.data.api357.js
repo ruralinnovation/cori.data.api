@@ -1,29 +1,39 @@
-import s from "./cori.data.api319.js";
+import { pointStart as a, pointEnd as h } from "./cori.data.api236.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(t, r) {
-  return t && t.expr ? new n({ ...t, ...r }) : new n(r, t);
-}
-class n {
-  constructor(r, i) {
-    this.expr = i, Object.assign(this, r);
-  }
-  toString() {
-    return String(this.expr);
-  }
-  toObject() {
-    return {
-      ...this,
-      expr: this.toString(),
-      ...s(this.expr) ? { func: !0 } : {}
+function m(t, e) {
+  const n = t.all(e), i = n.shift(), p = [];
+  if (i) {
+    const r = {
+      type: "element",
+      tagName: "thead",
+      properties: {},
+      children: t.wrap([i], !0)
     };
+    t.patch(e.children[0], r), p.push(r);
   }
+  if (n.length > 0) {
+    const r = {
+      type: "element",
+      tagName: "tbody",
+      properties: {},
+      children: t.wrap(n, !0)
+    }, c = a(e.children[1]), o = h(e.children[e.children.length - 1]);
+    c && o && (r.position = { start: c, end: o }), p.push(r);
+  }
+  const l = {
+    type: "element",
+    tagName: "table",
+    properties: {},
+    children: t.wrap(p, !0)
+  };
+  return t.patch(e, l), t.applyData(e, l);
 }
 export {
-  o as default
+  m as table
 };
 //# sourceMappingURL=cori.data.api357.js.map

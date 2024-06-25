@@ -1,36 +1,26 @@
-import { toUint8Array as h } from "./cori.data.api492.js";
-import { BufferBuilder as o } from "./cori.data.api497.js";
-import { VariableWidthBuilder as u } from "./cori.data.api493.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class c extends u {
-  constructor(e) {
-    super(e), this._values = new o(Uint8Array);
+function r(e, u) {
+  const s = /* @__PURE__ */ new Map();
+  return e.scan((t, c) => {
+    const n = u(t, c);
+    n != null && n === n && s.set(n, t);
+  }), s;
+}
+function p(e, u, s) {
+  const t = /* @__PURE__ */ new Map(), c = e.length;
+  for (let n = 0; n < c; ++n) {
+    const l = e[n], o = s(l, u);
+    o != null && o === o && (t.has(o) ? t.get(o).push(n) : t.set(o, [n]));
   }
-  get byteLength() {
-    let e = this._pendingLength + this.length * 4;
-    return this._offsets && (e += this._offsets.byteLength), this._values && (e += this._values.byteLength), this._nulls && (e += this._nulls.byteLength), e;
-  }
-  setValue(e, t) {
-    return super.setValue(e, h(t));
-  }
-  _flushPending(e, t) {
-    const n = this._offsets, f = this._values.reserve(t).buffer;
-    let i = 0;
-    for (const [r, s] of e)
-      if (s === void 0)
-        n.set(r, BigInt(0));
-      else {
-        const l = s.length;
-        f.set(s, i), n.set(r, BigInt(l)), i += l;
-      }
-  }
+  return t;
 }
 export {
-  c as LargeBinaryBuilder
+  p as indexLookup,
+  r as rowLookup
 };
 //# sourceMappingURL=cori.data.api613.js.map

@@ -1,13 +1,14 @@
+import { RecordBatchStreamWriter as e, RecordBatchFileWriter as o } from "./cori.data.api495.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(e) {
-  return e.toLowerCase();
+function i(r, t = "stream") {
+  return (t === "stream" ? e : o).writeAll(r).toUint8Array(!0);
 }
 export {
-  o as normalize
+  i as tableToIPC
 };
 //# sourceMappingURL=cori.data.api383.js.map

@@ -4,11 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var n;
-(function(F) {
-  F[F.BUFFER = 0] = "BUFFER";
-})(n || (n = {}));
+var t;
+(function(Z) {
+  Z[Z.LZ4_FRAME = 0] = "LZ4_FRAME", Z[Z.ZSTD = 1] = "ZSTD";
+})(t || (t = {}));
 export {
-  n as BodyCompressionMethod
+  t as CompressionType
 };
 //# sourceMappingURL=cori.data.api670.js.map

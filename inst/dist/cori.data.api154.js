@@ -5,10 +5,17 @@
  * @license ISC
  */
 function t() {
-  var a = arguments[0];
-  return arguments[0] = this, a.apply(null, arguments), this;
+  var e = this.cloneNode(!1), n = this.parentNode;
+  return n ? n.insertBefore(e, this.nextSibling) : e;
+}
+function o() {
+  var e = this.cloneNode(!0), n = this.parentNode;
+  return n ? n.insertBefore(e, this.nextSibling) : e;
+}
+function i(e) {
+  return this.select(e ? o : t);
 }
 export {
-  t as default
+  i as default
 };
 //# sourceMappingURL=cori.data.api154.js.map

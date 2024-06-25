@@ -4,62 +4,47 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(t) {
-  return t.trim().split(/^|\s+/);
+const w = Math.sqrt(50), q = Math.sqrt(10), m = Math.sqrt(2);
+function k(i, r, f) {
+  const c = (r - i) / Math.max(0, f), M = Math.floor(Math.log10(c)), d = c / Math.pow(10, M), l = d >= w ? 10 : d >= q ? 5 : d >= m ? 2 : 1;
+  let n, h, e;
+  return M < 0 ? (e = Math.pow(10, -M) / l, n = Math.round(i * e), h = Math.round(r * e), n / e < i && ++n, h / e > r && --h, e = -e) : (e = Math.pow(10, M) * l, n = Math.round(i / e), h = Math.round(r / e), n * e < i && ++n, h * e > r && --h), h < n && 0.5 <= f && f < 2 ? k(i, r, f * 2) : [n, h, e];
 }
-function r(t) {
-  return t.classList || new c(t);
+function v(i, r, f) {
+  if (r = +r, i = +i, f = +f, !(f > 0))
+    return [];
+  if (i === r)
+    return [i];
+  const c = r < i, [M, d, l] = c ? k(r, i, f) : k(i, r, f);
+  if (!(d >= M))
+    return [];
+  const n = d - M + 1, h = new Array(n);
+  if (c)
+    if (l < 0)
+      for (let e = 0; e < n; ++e)
+        h[e] = (d - e) / -l;
+    else
+      for (let e = 0; e < n; ++e)
+        h[e] = (d - e) * l;
+  else if (l < 0)
+    for (let e = 0; e < n; ++e)
+      h[e] = (M + e) / -l;
+  else
+    for (let e = 0; e < n; ++e)
+      h[e] = (M + e) * l;
+  return h;
 }
-function c(t) {
-  this._node = t, this._names = a(t.getAttribute("class") || "");
+function u(i, r, f) {
+  return r = +r, i = +i, f = +f, k(i, r, f)[2];
 }
-c.prototype = {
-  add: function(t) {
-    var n = this._names.indexOf(t);
-    n < 0 && (this._names.push(t), this._node.setAttribute("class", this._names.join(" ")));
-  },
-  remove: function(t) {
-    var n = this._names.indexOf(t);
-    n >= 0 && (this._names.splice(n, 1), this._node.setAttribute("class", this._names.join(" ")));
-  },
-  contains: function(t) {
-    return this._names.indexOf(t) >= 0;
-  }
-};
-function u(t, n) {
-  for (var s = r(t), i = -1, e = n.length; ++i < e; )
-    s.add(n[i]);
-}
-function o(t, n) {
-  for (var s = r(t), i = -1, e = n.length; ++i < e; )
-    s.remove(n[i]);
-}
-function f(t) {
-  return function() {
-    u(this, t);
-  };
-}
-function h(t) {
-  return function() {
-    o(this, t);
-  };
-}
-function d(t, n) {
-  return function() {
-    (n.apply(this, arguments) ? u : o)(this, t);
-  };
-}
-function m(t, n) {
-  var s = a(t + "");
-  if (arguments.length < 2) {
-    for (var i = r(this.node()), e = -1, l = s.length; ++e < l; )
-      if (!i.contains(s[e]))
-        return !1;
-    return !0;
-  }
-  return this.each((typeof n == "function" ? d : n ? f : h)(s, n));
+function x(i, r, f) {
+  r = +r, i = +i, f = +f;
+  const c = r < i, M = c ? u(r, i, f) : u(i, r, f);
+  return (c ? -1 : 1) * (M < 0 ? 1 / -M : M);
 }
 export {
-  m as default
+  v as default,
+  u as tickIncrement,
+  x as tickStep
 };
 //# sourceMappingURL=cori.data.api80.js.map

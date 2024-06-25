@@ -1,36 +1,40 @@
-import { aggregateGet as w } from "./cori.data.api530.js";
-import y from "./cori.data.api322.js";
-import M from "./cori.data.api445.js";
-import x from "./cori.data.api335.js";
+import { aggregateGet as h } from "./cori.data.api528.js";
+import k from "./cori.data.api508.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function $(o, { names: c, exprs: f, ops: h = [] }, r = {}) {
-  if (c.length === 0)
-    return o;
-  const s = c.length === 1 && r.as || [], m = r.drop == null ? !0 : !!r.drop, e = r.limit == null ? s.length || 1 / 0 : Math.max(1, +r.limit || 1), i = w(o, h, f), n = y(), u = c.reduce((t, a, d) => t.set(a, d), /* @__PURE__ */ new Map()), g = (t, a) => {
-    const d = A(o, i[t], e), p = d.length;
-    for (let l = 0; l < p; ++l)
-      n.add(s[l] || `${a}_${l + 1}`, d[l]);
-  };
-  return o.columnNames().forEach((t) => {
-    u.has(t) ? (m || n.add(t, o.column(t)), g(u.get(t), t), u.delete(t)) : n.add(t, o.column(t));
-  }), u.forEach(g), o.create(n);
+function x(n, e) {
+  return n.create({
+    groups: m(n, e)
+  });
 }
-function A(o, c, f) {
-  const h = o.totalRows(), r = [];
-  return o.scan((s, m) => {
-    const e = x(c(s, m)), i = Math.min(e.length, f);
-    for (; r.length < i; )
-      r.push(Array(h).fill(M));
-    for (let n = 0; n < i; ++n)
-      r[n][s] = e[n];
-  }), r;
+function m(n, { names: e = [], exprs: u = [], ops: a = [] }) {
+  const p = e.length;
+  if (p === 0)
+    return null;
+  if (p === 1 && !n.isFiltered() && u[0].field) {
+    const t = n.column(u[0].field);
+    if (t.groups)
+      return t.groups(e);
+  }
+  let s = h(n, a, u);
+  const d = k(s), y = n.totalRows(), l = new Uint32Array(y), c = {}, i = [], f = n.data(), g = n.mask();
+  if (g)
+    for (let t = g.next(0); t >= 0; t = g.next(t + 1)) {
+      const o = d(t, f) + "", r = c[o];
+      l[t] = r ?? (c[o] = i.push(t) - 1);
+    }
+  else
+    for (let t = 0; t < y; ++t) {
+      const o = d(t, f) + "", r = c[o];
+      l[t] = r ?? (c[o] = i.push(t) - 1);
+    }
+  return a.length || (s = s.map((t) => (o) => t(o, f))), { keys: l, get: s, names: e, rows: i, size: i.length };
 }
 export {
-  $ as default
+  x as default
 };
 //# sourceMappingURL=cori.data.api525.js.map

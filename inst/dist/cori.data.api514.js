@@ -1,26 +1,32 @@
-import m from "./cori.data.api338.js";
-import n from "./cori.data.api358.js";
-import c from "./cori.data.api330.js";
-import u from "./cori.data.api360.js";
-import l from "./cori.data.api315.js";
-import p from "./cori.data.api316.js";
-import d from "./cori.data.api344.js";
-import h from "./cori.data.api362.js";
-import v from "./cori.data.api319.js";
-import w from "./cori.data.api335.js";
+import { groupOutput as p, aggregate as s } from "./cori.data.api528.js";
+import a from "./cori.data.api273.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function M(t, i, s, e = { window: !1 }) {
-  const o = /* @__PURE__ */ new Map(), f = (r) => {
-    r = p(r) ? i.columnName(r) : r, h(r) ? o.set(r, n(r)) : v(r) ? c(i, r).forEach(f) : d(r) ? u(o, r) : l(`Invalid ${t} value: ${r + ""}`);
-  };
-  return w(s).forEach(f), e.preparse && e.preparse(o), m(o, { table: i, ...e });
+function j(t, { names: l, exprs: u, ops: f }) {
+  const n = a(), e = t.groups();
+  return e && p(n, e), h(l, u, e, s(t, f), n), t.create(n.new());
+}
+function h(t, l, u, f = [], n) {
+  if (!l.length)
+    return;
+  const e = u ? u.size : 1, c = (o, r) => f[o][r], d = t.length;
+  for (let o = 0; o < d; ++o) {
+    const r = l[o];
+    if (r.field != null)
+      n.add(t[o], f[r.field]);
+    else if (e > 1) {
+      const g = n.add(t[o], Array(e));
+      for (let i = 0; i < e; ++i)
+        g[i] = r(i, null, c);
+    } else
+      n.add(t[o], [r(0, null, c)]);
+  }
 }
 export {
-  M as default
+  j as default
 };
 //# sourceMappingURL=cori.data.api514.js.map

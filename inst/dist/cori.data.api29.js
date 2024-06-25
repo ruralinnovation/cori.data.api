@@ -1,5 +1,5 @@
-import { __exports as T } from "./cori.data.api32.js";
-import { __require as or } from "./cori.data.api31.js";
+import { __exports as T } from "./cori.data.api44.js";
+import { r as or } from "./cori.data.api10.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
@@ -18,11 +18,11 @@ import { __require as or } from "./cori.data.api31.js";
 var Ee;
 function lr() {
   return Ee ? T : (Ee = 1, process.env.NODE_ENV !== "production" && function() {
-    var Re = or(), x = Symbol.for("react.element"), _e = Symbol.for("react.portal"), C = Symbol.for("react.fragment"), K = Symbol.for("react.strict_mode"), N = Symbol.for("react.profiler"), q = Symbol.for("react.provider"), G = Symbol.for("react.context"), S = Symbol.for("react.forward_ref"), A = Symbol.for("react.suspense"), D = Symbol.for("react.suspense_list"), w = Symbol.for("react.memo"), F = Symbol.for("react.lazy"), me = Symbol.for("react.offscreen"), J = Symbol.iterator, Te = "@@iterator";
+    var Re = or, x = Symbol.for("react.element"), me = Symbol.for("react.portal"), C = Symbol.for("react.fragment"), K = Symbol.for("react.strict_mode"), N = Symbol.for("react.profiler"), G = Symbol.for("react.provider"), J = Symbol.for("react.context"), S = Symbol.for("react.forward_ref"), A = Symbol.for("react.suspense"), D = Symbol.for("react.suspense_list"), w = Symbol.for("react.memo"), F = Symbol.for("react.lazy"), _e = Symbol.for("react.offscreen"), q = Symbol.iterator, Te = "@@iterator";
     function Ce(e) {
       if (e === null || typeof e != "object")
         return null;
-      var r = J && e[J] || e[Te];
+      var r = q && e[q] || e[Te];
       return typeof r == "function" ? r : null;
     }
     var h = Re.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
@@ -46,7 +46,7 @@ function lr() {
     var we = !1, Oe = !1, Pe = !1, je = !1, ke = !1, z;
     z = Symbol.for("react.module.reference");
     function xe(e) {
-      return !!(typeof e == "string" || typeof e == "function" || e === C || e === N || ke || e === K || e === A || e === D || je || e === me || we || Oe || Pe || typeof e == "object" && e !== null && (e.$$typeof === F || e.$$typeof === w || e.$$typeof === q || e.$$typeof === G || e.$$typeof === S || // This needs to include all possible module reference object
+      return !!(typeof e == "string" || typeof e == "function" || e === C || e === N || ke || e === K || e === A || e === D || je || e === _e || we || Oe || Pe || typeof e == "object" && e !== null && (e.$$typeof === F || e.$$typeof === w || e.$$typeof === G || e.$$typeof === J || e.$$typeof === S || // This needs to include all possible module reference object
       // types supported by any Flight configuration anywhere since
       // we don't know which Flight build this will end up being used
       // with.
@@ -72,7 +72,7 @@ function lr() {
       switch (e) {
         case C:
           return "Fragment";
-        case _e:
+        case me:
           return "Portal";
         case N:
           return "Profiler";
@@ -85,10 +85,10 @@ function lr() {
       }
       if (typeof e == "object")
         switch (e.$$typeof) {
-          case G:
+          case J:
             var r = e;
             return X(r) + ".Consumer";
-          case q:
+          case G:
             var t = e;
             return X(t._context) + ".Provider";
           case S:
@@ -295,7 +295,7 @@ function lr() {
         }
       return "";
     }
-    var _ = Object.prototype.hasOwnProperty, oe = {}, ue = h.ReactDebugCurrentFrame;
+    var m = Object.prototype.hasOwnProperty, oe = {}, ue = h.ReactDebugCurrentFrame;
     function k(e) {
       if (e) {
         var r = e._owner, t = j(e.type, e._source, r ? r.type : null);
@@ -305,7 +305,7 @@ function lr() {
     }
     function $e(e, r, t, n, o) {
       {
-        var u = Function.call.bind(_);
+        var u = Function.call.bind(m);
         for (var i in e)
           if (u(e, i)) {
             var a = void 0;
@@ -346,7 +346,7 @@ function lr() {
       if (Le(e))
         return f("The provided key is an unsupported type %s. This value must be coerced to a string before before using it here.", Ve(e)), se(e);
     }
-    var m = h.ReactCurrentOwner, Ue = {
+    var _ = h.ReactCurrentOwner, Ue = {
       key: !0,
       ref: !0,
       __self: !0,
@@ -354,7 +354,7 @@ function lr() {
     }, fe, ce, M;
     M = {};
     function Be(e) {
-      if (_.call(e, "ref")) {
+      if (m.call(e, "ref")) {
         var r = Object.getOwnPropertyDescriptor(e, "ref").get;
         if (r && r.isReactWarning)
           return !1;
@@ -362,7 +362,7 @@ function lr() {
       return e.ref !== void 0;
     }
     function Ke(e) {
-      if (_.call(e, "key")) {
+      if (m.call(e, "key")) {
         var r = Object.getOwnPropertyDescriptor(e, "key").get;
         if (r && r.isReactWarning)
           return !1;
@@ -370,12 +370,12 @@ function lr() {
       return e.key !== void 0;
     }
     function Ne(e, r) {
-      if (typeof e.ref == "string" && m.current && r && m.current.stateNode !== r) {
-        var t = p(m.current.type);
-        M[t] || (f('Component "%s" contains the string ref "%s". Support for string refs will be removed in a future major release. This case cannot be automatically converted to an arrow function. We ask you to manually fix this case by using useRef() or createRef() instead. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-string-ref', p(m.current.type), e.ref), M[t] = !0);
+      if (typeof e.ref == "string" && _.current && r && _.current.stateNode !== r) {
+        var t = p(_.current.type);
+        M[t] || (f('Component "%s" contains the string ref "%s". Support for string refs will be removed in a future major release. This case cannot be automatically converted to an arrow function. We ask you to manually fix this case by using useRef() or createRef() instead. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-string-ref', p(_.current.type), e.ref), M[t] = !0);
       }
     }
-    function qe(e, r) {
+    function Ge(e, r) {
       {
         var t = function() {
           fe || (fe = !0, f("%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", r));
@@ -386,7 +386,7 @@ function lr() {
         });
       }
     }
-    function Ge(e, r) {
+    function Je(e, r) {
       {
         var t = function() {
           ce || (ce = !0, f("%s: `ref` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", r));
@@ -397,7 +397,7 @@ function lr() {
         });
       }
     }
-    var Je = function(e, r, t, n, o, u, i) {
+    var qe = function(e, r, t, n, o, u, i) {
       var a = {
         // This tag allows us to uniquely identify this as a React Element
         $$typeof: x,
@@ -431,7 +431,7 @@ function lr() {
         var u, i = {}, a = null, c = null;
         t !== void 0 && (le(t), a = "" + t), Ke(r) && (le(r.key), a = "" + r.key), Be(r) && (c = r.ref, Ne(r, o));
         for (u in r)
-          _.call(r, u) && !Ue.hasOwnProperty(u) && (i[u] = r[u]);
+          m.call(r, u) && !Ue.hasOwnProperty(u) && (i[u] = r[u]);
         if (e && e.defaultProps) {
           var s = e.defaultProps;
           for (u in s)
@@ -439,9 +439,9 @@ function lr() {
         }
         if (a || c) {
           var l = typeof e == "function" ? e.displayName || e.name || "Unknown" : e;
-          a && qe(i, l), c && Ge(i, l);
+          a && Ge(i, l), c && Je(i, l);
         }
-        return Je(e, a, c, o, n, m.current, i);
+        return qe(e, a, c, o, n, _.current, i);
       }
     }
     var V = h.ReactCurrentOwner, ve = h.ReactDebugCurrentFrame;
@@ -582,7 +582,7 @@ Check the top-level render call using <` + t + ">.");
             else
               be(d, e);
         }
-        if (_.call(r, "key")) {
+        if (m.call(r, "key")) {
           var b = p(e), v = Object.keys(r).filter(function(ir) {
             return ir !== "key";
           }), B = v.length > 0 ? "{key: someKey, " + v.join(": ..., ") + ": ...}" : "{key: someKey}";

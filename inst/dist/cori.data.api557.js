@@ -4,22 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function t(r) {
-  if (r === null)
-    return "null";
-  if (r === void 0)
-    return "undefined";
-  switch (typeof r) {
-    case "number":
-      return `${r}`;
-    case "bigint":
-      return `${r}`;
-    case "string":
-      return `"${r}"`;
-  }
-  return typeof r[Symbol.toPrimitive] == "function" ? r[Symbol.toPrimitive]("string") : ArrayBuffer.isView(r) ? r instanceof BigInt64Array || r instanceof BigUint64Array ? `[${[...r].map((n) => t(n))}]` : `[${r}]` : ArrayBuffer.isView(r) ? `[${r}]` : JSON.stringify(r, (n, i) => typeof i == "bigint" ? `${i}` : i);
-}
+var F;
+(function(T) {
+  T[T.UTF8_BYTES = 1] = "UTF8_BYTES", T[T.UTF16_STRING = 2] = "UTF16_STRING";
+})(F || (F = {}));
 export {
-  t as valueToString
+  F as Encoding
 };
 //# sourceMappingURL=cori.data.api557.js.map

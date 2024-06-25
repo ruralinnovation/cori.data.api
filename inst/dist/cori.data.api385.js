@@ -1,30 +1,38 @@
+import l from "./cori.data.api270.js";
+import m from "./cori.data.api480.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class e {
-  /**
-   * @constructor
-   * @param {string} property
-   * @param {string} attribute
-   */
-  constructor(o, t) {
-    this.property = o, this.attribute = t;
-  }
+function d(o, t) {
+  return l(t) ? t(o) : t || o.columnNames();
 }
-e.prototype.space = null;
-e.prototype.boolean = !1;
-e.prototype.booleanish = !1;
-e.prototype.overloadedBoolean = !1;
-e.prototype.number = !1;
-e.prototype.commaSeparated = !1;
-e.prototype.spaceSeparated = !1;
-e.prototype.commaOrSpaceSeparated = !1;
-e.prototype.mustUseProperty = !1;
-e.prototype.defined = !1;
+function h(o, t, r) {
+  const f = r.format || {}, u = r.align || {}, i = {}, a = {};
+  return t.forEach((n) => {
+    const c = m(g(o, n), r);
+    a[n] = u[n] || c.align, i[n] = f[n] || c.format;
+  }), { align: a, format: i };
+}
+function g(o, t) {
+  const r = o.column(t);
+  return (f) => o.scan((u) => f(r.get(u)));
+}
+function F(o, t, r = 100, f, u) {
+  const i = o.data(), a = t.length;
+  o.scan((n) => {
+    u.row(n);
+    for (let c = 0; c < a; ++c) {
+      const s = t[c];
+      u.cell(i[t[c]].get(n), s, c);
+    }
+  }, !0, r, f);
+}
 export {
-  e as Info
+  d as columns,
+  h as formats,
+  F as scan
 };
 //# sourceMappingURL=cori.data.api385.js.map

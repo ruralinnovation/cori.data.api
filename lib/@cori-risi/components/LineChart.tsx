@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 import * as d3textwrap from "d3-textwrap";
 
@@ -24,8 +24,8 @@ function LineChart ({ primary_geoid, metric, data, metadata, width, height }: Li
   const primary_dta = data.filter(d => d.geoid === primary_geoid && d.metric === metric);
   const has_valid_data = !primary_dta.every(d => d.value === null);
 
-  const ref = useRef<HTMLDivElement>(null);
-  const svgRef = useRef<SVGSVGElement>(null);
+  const ref = React.useRef<HTMLDivElement>(null);
+  const svgRef = React.useRef<SVGSVGElement>(null);
 
   const [colorScaleDomain, setColorScaleDomain] = useState<string[]>([]);
   const [colorScaleRange, setColorScaleRange] = useState<unknown[]>([]);

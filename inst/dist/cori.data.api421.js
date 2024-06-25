@@ -4,10 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function t(n) {
-  return n != null && n === n;
+function e(r, u = []) {
+  return r.groupby(u.length ? u : r.columnNames()).filter("row_number() === 1").ungroup().reify();
 }
 export {
-  t as default
+  e as default
 };
 //# sourceMappingURL=cori.data.api421.js.map

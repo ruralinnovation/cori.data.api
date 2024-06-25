@@ -1,58 +1,53 @@
-import { factorySpace as f } from "./cori.data.api629.js";
-import { markdownSpace as d, markdownLineEnding as s } from "./cori.data.api388.js";
+import x from "./cori.data.api640.js";
+import y from "./cori.data.api641.js";
+import A from "./cori.data.api614.js";
+import O from "./cori.data.api482.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const S = {
-  name: "setextUnderline",
-  tokenize: h,
-  resolveTo: y
-};
-function y(e, l) {
-  let t = e.length, i, r, a;
-  for (; t--; )
-    if (e[t][0] === "enter") {
-      if (e[t][1].type === "content") {
-        i = t;
-        break;
+const M = y(x);
+function C(h, _, k, o, s) {
+  let f, n, d, u, p;
+  const w = (i) => n[i - 1] === n[i], v = o.length, z = s.length, $ = o.length ? O(
+    ["w", "r", "k"],
+    "{" + A(o, (i, e) => `r[_${e}.id][k]=_${e}.value(w,_${e}.get);`) + "}",
+    o
+  ) : () => {
+  }, t = {
+    i0: 0,
+    i1: 0,
+    index: 0,
+    size: 0,
+    peer: w,
+    init(i, e, m, c) {
+      t.index = t.i0 = t.i1 = 0, t.size = e.length, f = i, n = e, u = m, p = c, d = s ? s.map((r) => r.init()) : null;
+      for (let r = 0; r < v; ++r)
+        o[r].init();
+      return t;
+    },
+    value(i, e) {
+      return e(f[i], h);
+    },
+    step(i) {
+      const [e, m] = _, c = t.size, r = t.i0, j = t.i1;
+      t.i0 = e != null ? Math.max(0, i - Math.abs(e)) : 0, t.i1 = m != null ? Math.min(c, i + Math.abs(m) + 1) : c, t.index = i, k && (t.i0 > 0 && w(t.i0) && (t.i0 = M.left(n, n[t.i0])), t.i1 < c && w(t.i1) && (t.i1 = M.right(n, n[t.i1 - 1])));
+      for (let a = 0; a < z; ++a) {
+        const g = s[a], b = d[a];
+        for (let l = r; l < t.i0; ++l)
+          g.rem(b, f[l], h);
+        for (let l = j; l < t.i1; ++l)
+          g.add(b, f[l], h);
+        g.write(b, u, p);
       }
-      e[t][1].type === "paragraph" && (r = t);
-    } else
-      e[t][1].type === "content" && e.splice(t, 1), !a && e[t][1].type === "definition" && (a = t);
-  const p = {
-    type: "setextHeading",
-    start: Object.assign({}, e[r][1].start),
-    end: Object.assign({}, e[e.length - 1][1].end)
+      return $(t, u, p), u;
+    }
   };
-  return e[r][1].type = "setextHeadingText", a ? (e.splice(r, 0, ["enter", p, l]), e.splice(a + 1, 0, ["exit", e[i][1], l]), e[i][1].end = Object.assign({}, e[a][1].end)) : e[i][1] = p, e.push(["exit", p, l]), e;
-}
-function h(e, l, t) {
-  const i = this;
-  let r;
-  return a;
-  function a(n) {
-    let u = i.events.length, g;
-    for (; u--; )
-      if (i.events[u][1].type !== "lineEnding" && i.events[u][1].type !== "linePrefix" && i.events[u][1].type !== "content") {
-        g = i.events[u][1].type === "paragraph";
-        break;
-      }
-    return !i.parser.lazy[i.now().line] && (i.interrupt || g) ? (e.enter("setextHeadingLine"), r = n, p(n)) : t(n);
-  }
-  function p(n) {
-    return e.enter("setextHeadingLineSequence"), o(n);
-  }
-  function o(n) {
-    return n === r ? (e.consume(n), o) : (e.exit("setextHeadingLineSequence"), d(n) ? f(e, x, "lineSuffix")(n) : x(n));
-  }
-  function x(n) {
-    return n === null || s(n) ? (e.exit("setextHeadingLine"), l(n)) : t(n);
-  }
+  return t;
 }
 export {
-  S as setextUnderline
+  C as default
 };
 //# sourceMappingURL=cori.data.api639.js.map

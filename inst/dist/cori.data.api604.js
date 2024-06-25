@@ -1,30 +1,36 @@
+import { toUint8Array as h } from "./cori.data.api489.js";
+import { BufferBuilder as o } from "./cori.data.api494.js";
+import { VariableWidthBuilder as u } from "./cori.data.api490.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const o = new Float64Array(1), e = new Uint32Array(o.buffer);
-function r(t) {
-  const n = (t & 31744) >> 10, F = (t & 1023) / 1024, x = Math.pow(-1, (t & 32768) >> 15);
-  switch (n) {
-    case 31:
-      return x * (F ? Number.NaN : 1 / 0);
-    case 0:
-      return x * (F ? 6103515625e-14 * F : 0);
+class c extends u {
+  constructor(e) {
+    super(e), this._values = new o(Uint8Array);
   }
-  return x * Math.pow(2, n - 15) * (1 + F);
-}
-function s(t) {
-  if (t !== t)
-    return 32256;
-  o[0] = t;
-  const n = (e[1] & 2147483648) >> 16 & 65535;
-  let F = e[1] & 2146435072, x = 0;
-  return F >= 1089470464 ? e[0] > 0 ? F = 31744 : (F = (F & 2080374784) >> 16, x = (e[1] & 1048575) >> 10) : F <= 1056964608 ? (x = 1048576 + (e[1] & 1048575), x = 1048576 + (x << (F >> 20) - 998) >> 21, F = 0) : (F = F - 1056964608 >> 10, x = (e[1] & 1048575) + 512 >> 10), n | F | x & 65535;
+  get byteLength() {
+    let e = this._pendingLength + this.length * 4;
+    return this._offsets && (e += this._offsets.byteLength), this._values && (e += this._values.byteLength), this._nulls && (e += this._nulls.byteLength), e;
+  }
+  setValue(e, t) {
+    return super.setValue(e, h(t));
+  }
+  _flushPending(e, t) {
+    const n = this._offsets, f = this._values.reserve(t).buffer;
+    let i = 0;
+    for (const [r, s] of e)
+      if (s === void 0)
+        n.set(r, BigInt(0));
+      else {
+        const l = s.length;
+        f.set(s, i), n.set(r, BigInt(l)), i += l;
+      }
+  }
 }
 export {
-  s as float64ToUint16,
-  r as uint16ToFloat64
+  c as LargeBinaryBuilder
 };
 //# sourceMappingURL=cori.data.api604.js.map

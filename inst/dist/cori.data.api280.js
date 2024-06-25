@@ -1,39 +1,29 @@
-import { pointStart as a, pointEnd as h } from "./cori.data.api232.js";
+import "./cori.data.api30.js";
+import "./cori.data.api31.js";
+import { columns as s, formats as i, scan as u } from "./cori.data.api385.js";
+import p from "./cori.data.api386.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function m(t, e) {
-  const n = t.all(e), i = n.shift(), p = [];
-  if (i) {
-    const r = {
-      type: "element",
-      tagName: "thead",
-      properties: {},
-      children: t.wrap([i], !0)
-    };
-    t.patch(e.children[0], r), p.push(r);
-  }
-  if (n.length > 0) {
-    const r = {
-      type: "element",
-      tagName: "tbody",
-      properties: {},
-      children: t.wrap(n, !0)
-    }, c = a(e.children[1]), o = h(e.children[e.children.length - 1]);
-    c && o && (r.position = { start: c, end: o }), p.push(r);
-  }
-  const l = {
-    type: "element",
-    tagName: "table",
-    properties: {},
-    children: t.wrap(p, !0)
-  };
-  return t.patch(e, l), t.applyData(e, l);
+function x(t, n = {}) {
+  const r = s(t, n.columns), { align: c, format: e } = i(t, r, n), l = (o) => o === "c" ? ":-:" : o === "r" ? "-:" : ":-", a = (o) => o.replace(/\|/g, "\\|");
+  let m = "|" + r.map(a).join("|") + `|
+|` + r.map((o) => l(c[o])).join("|") + "|";
+  return u(t, r, n.limit, n.offset, {
+    row() {
+      m += `
+|`;
+    },
+    cell(o, f) {
+      m += a(p(o, e[f])) + "|";
+    }
+  }), m + `
+`;
 }
 export {
-  m as table
+  x as default
 };
 //# sourceMappingURL=cori.data.api280.js.map

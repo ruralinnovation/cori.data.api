@@ -1,32 +1,36 @@
-import { factorySpace as o } from "./cori.data.api629.js";
-import { markdownSpace as B, markdownLineEnding as c } from "./cori.data.api388.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api628.js";
+import "./cori.data.api556.js";
+import "./cori.data.api557.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const q = {
-  name: "thematicBreak",
-  tokenize: p
-};
-function p(t, u, m) {
-  let a = 0, e;
-  return k;
-  function k(r) {
-    return t.enter("thematicBreak"), h(r);
+class s {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  function h(r) {
-    return e = r, n(r);
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  function n(r) {
-    return r === e ? (t.enter("thematicBreakSequence"), i(r)) : a >= 3 && (r === null || c(r)) ? (t.exit("thematicBreak"), u(r)) : m(r);
+  static getRootAsStruct_(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  function i(r) {
-    return r === e ? (t.consume(r), a++, i) : (t.exit("thematicBreakSequence"), B(r) ? o(t, n, "whitespace")(r) : n(r));
+  static getSizePrefixedRootAsStruct_(t, i) {
+    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static startStruct_(t) {
+    t.startObject(0);
+  }
+  static endStruct_(t) {
+    return t.endObject();
+  }
+  static createStruct_(t) {
+    return s.startStruct_(t), s.endStruct_(t);
   }
 }
 export {
-  q as thematicBreak
+  s as Struct_
 };
 //# sourceMappingURL=cori.data.api638.js.map

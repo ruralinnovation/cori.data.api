@@ -1,23 +1,19 @@
+import { Selection as s } from "./cori.data.api124.js";
+import c from "./cori.data.api123.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function f(r, e) {
-  e || (e = []);
-  var u = r ? Math.min(e.length, r.length) : 0, i = e.slice(), n;
-  return function(t) {
-    for (n = 0; n < u; ++n)
-      i[n] = r[n] * (1 - t) + e[n] * t;
-    return i;
-  };
-}
-function a(r) {
-  return ArrayBuffer.isView(r) && !(r instanceof DataView);
+function v(t) {
+  typeof t != "function" && (t = c(t));
+  for (var i = this._groups, l = i.length, a = new Array(l), r = 0; r < l; ++r)
+    for (var n = i[r], _ = n.length, o = a[r] = [], e, f = 0; f < _; ++f)
+      (e = n[f]) && t.call(e, e.__data__, f, n) && o.push(e);
+  return new s(a, this._parents);
 }
 export {
-  f as default,
-  a as isNumberArray
+  v as default
 };
 //# sourceMappingURL=cori.data.api129.js.map

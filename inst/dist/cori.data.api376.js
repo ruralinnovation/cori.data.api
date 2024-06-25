@@ -1,20 +1,35 @@
+import f from "./cori.data.api63.js";
+import s from "./cori.data.api68.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s(i, e) {
-  const f = e.referenceType;
-  let l = "]";
-  if (f === "collapsed" ? l += "[]" : f === "full" && (l += "[" + (e.label || e.identifier) + "]"), e.type === "imageReference")
-    return [{ type: "text", value: "![" + e.alt + l }];
-  const t = i.all(e), u = t[0];
-  u && u.type === "text" ? u.value = "[" + u.value : t.unshift({ type: "text", value: "[" });
-  const a = t[t.length - 1];
-  return a && a.type === "text" ? a.value += l : t.push({ type: "text", value: l }), t;
-}
+const l = (t, c) => {
+  let u = new AbortController(), i;
+  const n = function(e) {
+    if (!i) {
+      i = !0, a();
+      const o = e instanceof Error ? e : this.reason;
+      u.abort(o instanceof s ? o : new f(o instanceof Error ? o.message : o));
+    }
+  };
+  let r = c && setTimeout(() => {
+    n(new s(`timeout ${c} of ms exceeded`, s.ETIMEDOUT));
+  }, c);
+  const a = () => {
+    t && (r && clearTimeout(r), r = null, t.forEach((e) => {
+      e && (e.removeEventListener ? e.removeEventListener("abort", n) : e.unsubscribe(n));
+    }), t = null);
+  };
+  t.forEach((e) => e && e.addEventListener && e.addEventListener("abort", n));
+  const { signal: b } = u;
+  return b.unsubscribe = a, [b, () => {
+    r && clearTimeout(r), r = null;
+  }];
+};
 export {
-  s as revert
+  l as default
 };
 //# sourceMappingURL=cori.data.api376.js.map

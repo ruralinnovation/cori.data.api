@@ -1,64 +1,26 @@
-import { get as h, set as l } from "./cori.data.api205.js";
+import { Selection as h } from "./cori.data.api56.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s(t, r) {
-  var u, n;
-  return function() {
-    var e = l(this, t), i = e.tween;
-    if (i !== u) {
-      n = u = i;
-      for (var a = 0, o = n.length; a < o; ++a)
-        if (n[a].name === r) {
-          n = n.slice(), n.splice(a, 1);
-          break;
-        }
-    }
-    e.tween = n;
-  };
-}
-function w(t, r, u) {
-  var n, e;
-  if (typeof u != "function")
-    throw new Error();
-  return function() {
-    var i = l(this, t), a = i.tween;
-    if (a !== n) {
-      e = (n = a).slice();
-      for (var o = { name: r, value: u }, f = 0, c = e.length; f < c; ++f)
-        if (e[f].name === r) {
-          e[f] = o;
-          break;
-        }
-      f === c && e.push(o);
-    }
-    i.tween = e;
-  };
-}
-function d(t, r) {
-  var u = this._id;
-  if (t += "", arguments.length < 2) {
-    for (var n = h(this.node(), u).tween, e = 0, i = n.length, a; e < i; ++e)
-      if ((a = n[e]).name === t)
-        return a.value;
-    return null;
+function N(t) {
+  t || (t = u);
+  function n(_, f) {
+    return _ && f ? t(_.__data__, f.__data__) : !_ - !f;
   }
-  return this.each((r == null ? s : w)(u, t, r));
+  for (var a = this._groups, i = a.length, o = new Array(i), e = 0; e < i; ++e) {
+    for (var c = a[e], d = c.length, l = o[e] = new Array(d), s, r = 0; r < d; ++r)
+      (s = c[r]) && (l[r] = s);
+    l.sort(n);
+  }
+  return new h(o, this._parents).order();
 }
-function g(t, r, u) {
-  var n = t._id;
-  return t.each(function() {
-    var e = l(this, n);
-    (e.value || (e.value = {}))[r] = u.apply(this, arguments);
-  }), function(e) {
-    return h(e, n).value[r];
-  };
+function u(t, n) {
+  return t < n ? -1 : t > n ? 1 : t >= n ? 0 : NaN;
 }
 export {
-  d as default,
-  g as tweenValue
+  N as default
 };
 //# sourceMappingURL=cori.data.api202.js.map

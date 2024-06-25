@@ -1,20 +1,23 @@
-import i from "./cori.data.api206.js";
-import m from "./cori.data.api210.js";
-import s from "./cori.data.api220.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function h(f, t) {
-  const o = this || m, r = t || o, n = s.from(r.headers);
-  let a = r.data;
-  return i.forEach(f, function(e) {
-    a = e.call(o, a, n.normalize(), t ? t.status : void 0);
-  }), n.normalize(), a;
-}
+const t = {
+  undefined: "void(0)",
+  Infinity: "Number.POSITIVE_INFINITY",
+  NaN: "Number.NaN",
+  E: "Math.E",
+  LN2: "Math.LN2",
+  LN10: "Math.LN10",
+  LOG2E: "Math.LOG2E",
+  LOG10E: "Math.LOG10E",
+  PI: "Math.PI",
+  SQRT1_2: "Math.SQRT1_2",
+  SQRT2: "Math.SQRT2"
+};
 export {
-  h as default
+  t as default
 };
 //# sourceMappingURL=cori.data.api392.js.map

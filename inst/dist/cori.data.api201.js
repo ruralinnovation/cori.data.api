@@ -1,26 +1,16 @@
-import { Transition as l, newId as _ } from "./cori.data.api183.js";
-import u, { get as v } from "./cori.data.api205.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function w() {
-  for (var s = this._name, o = this._id, d = _(), e = this._groups, m = e.length, n = 0; n < m; ++n)
-    for (var r = e[n], f = r.length, i, a = 0; a < f; ++a)
-      if (i = r[a]) {
-        var t = v(i, o);
-        u(i, s, d, a, r, {
-          time: t.time + t.delay + t.duration,
-          delay: 0,
-          duration: t.duration,
-          ease: t.ease
-        });
-      }
-  return new l(e, this._parents, s, d);
+function s() {
+  for (var i = this._groups, o = -1, a = i.length; ++o < a; )
+    for (var e = i[o], f = e.length - 1, r = e[f], t; --f >= 0; )
+      (t = e[f]) && (r && t.compareDocumentPosition(r) ^ 4 && r.parentNode.insertBefore(t, r), r = t);
+  return this;
 }
 export {
-  w as default
+  s as default
 };
 //# sourceMappingURL=cori.data.api201.js.map

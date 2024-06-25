@@ -4,13 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(e, r, ...n) {
-  const t = ["_", "$"], o = t.slice(0, n.length);
-  return o.push(
-    '"use strict"; const ' + n.map(($, u) => $.map((a, c) => `${t[u]}${c} = ${t[u]}[${c}]`).join(", ")).join(", ") + `; return (${e}) => ${r};`
-  ), Function(...o)(...n);
+function t(e) {
+  return e.getUTCHours() === 0 && e.getUTCMinutes() === 0 && e.getUTCSeconds() === 0 && e.getUTCMilliseconds() === 0;
 }
 export {
-  p as default
+  t as default
 };
 //# sourceMappingURL=cori.data.api484.js.map

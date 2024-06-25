@@ -1,56 +1,26 @@
-import { tweenValue as c } from "./cori.data.api202.js";
-import l from "./cori.data.api260.js";
-import f from "./cori.data.api138.js";
-import { interpolateTransformSvg as g } from "./cori.data.api131.js";
+import { Transition as l, newId as _ } from "./cori.data.api166.js";
+import u, { get as v } from "./cori.data.api188.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(t) {
-  return function() {
-    this.removeAttribute(t);
-  };
-}
-function v(t) {
-  return function() {
-    this.removeAttributeNS(t.space, t.local);
-  };
-}
-function h(t, e, r) {
-  var i, u = r + "", o;
-  return function() {
-    var n = this.getAttribute(t);
-    return n === u ? null : n === i ? o : o = e(i = n, r);
-  };
-}
-function m(t, e, r) {
-  var i, u = r + "", o;
-  return function() {
-    var n = this.getAttributeNS(t.space, t.local);
-    return n === u ? null : n === i ? o : o = e(i = n, r);
-  };
-}
-function b(t, e, r) {
-  var i, u, o;
-  return function() {
-    var n, a = r(this), s;
-    return a == null ? void this.removeAttribute(t) : (n = this.getAttribute(t), s = a + "", n === s ? null : n === i && s === u ? o : (u = s, o = e(i = n, a)));
-  };
-}
-function A(t, e, r) {
-  var i, u, o;
-  return function() {
-    var n, a = r(this), s;
-    return a == null ? void this.removeAttributeNS(t.space, t.local) : (n = this.getAttributeNS(t.space, t.local), s = a + "", n === s ? null : n === i && s === u ? o : (u = s, o = e(i = n, a)));
-  };
-}
-function C(t, e) {
-  var r = f(t), i = r === "transform" ? g : l;
-  return this.attrTween(t, typeof e == "function" ? (r.local ? A : b)(r, i, c(this, "attr." + t, e)) : e == null ? (r.local ? v : p)(r) : (r.local ? m : h)(r, i, e));
+function w() {
+  for (var s = this._name, o = this._id, d = _(), e = this._groups, m = e.length, n = 0; n < m; ++n)
+    for (var r = e[n], f = r.length, i, a = 0; a < f; ++a)
+      if (i = r[a]) {
+        var t = v(i, o);
+        u(i, s, d, a, r, {
+          time: t.time + t.delay + t.duration,
+          delay: 0,
+          duration: t.duration,
+          ease: t.ease
+        });
+      }
+  return new l(e, this._parents, s, d);
 }
 export {
-  C as default
+  w as default
 };
 //# sourceMappingURL=cori.data.api184.js.map

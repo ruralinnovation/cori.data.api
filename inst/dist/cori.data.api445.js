@@ -4,7 +4,9 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const e = void 0;
+function e(r) {
+  return r.isOrdered() ? r.create({ order: null }) : r;
+}
 export {
   e as default
 };

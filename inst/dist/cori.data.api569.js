@@ -1,6 +1,6 @@
-import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api655.js";
-import "./cori.data.api564.js";
-import "./cori.data.api565.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api628.js";
+import "./cori.data.api556.js";
+import "./cori.data.api557.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
@@ -14,37 +14,37 @@ class i {
   __init(t, s) {
     return this.bb_pos = t, this.bb = s, this;
   }
-  static getRootAsInt(t, s) {
+  static getRootAsKeyValue(t, s) {
     return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsInt(t, s) {
-    return t.setPosition(t.position() + e), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsKeyValue(t, s) {
+    return t.setPosition(t.position() + o), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  bitWidth() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
+  key(t) {
+    const s = this.bb.__offset(this.bb_pos, 4);
+    return s ? this.bb.__string(this.bb_pos + s, t) : null;
   }
-  isSigned() {
-    const t = this.bb.__offset(this.bb_pos, 6);
-    return t ? !!this.bb.readInt8(this.bb_pos + t) : !1;
+  value(t) {
+    const s = this.bb.__offset(this.bb_pos, 6);
+    return s ? this.bb.__string(this.bb_pos + s, t) : null;
   }
-  static startInt(t) {
+  static startKeyValue(t) {
     t.startObject(2);
   }
-  static addBitWidth(t, s) {
-    t.addFieldInt32(0, s, 0);
+  static addKey(t, s) {
+    t.addFieldOffset(0, s, 0);
   }
-  static addIsSigned(t, s) {
-    t.addFieldInt8(1, +s, 0);
+  static addValue(t, s) {
+    t.addFieldOffset(1, s, 0);
   }
-  static endInt(t) {
+  static endKeyValue(t) {
     return t.endObject();
   }
-  static createInt(t, s, o) {
-    return i.startInt(t), i.addBitWidth(t, s), i.addIsSigned(t, o), i.endInt(t);
+  static createKeyValue(t, s, e) {
+    return i.startKeyValue(t), i.addKey(t, s), i.addValue(t, e), i.endKeyValue(t);
   }
 }
 export {
-  i as Int
+  i as KeyValue
 };
 //# sourceMappingURL=cori.data.api569.js.map

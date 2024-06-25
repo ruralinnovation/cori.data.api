@@ -1,18 +1,18 @@
-import { create as n } from "./cori.data.api379.js";
-import { caseInsensitiveTransform as s } from "./cori.data.api380.js";
+import { FunctionExpression as o, ArrowFunctionExpression as t } from "./cori.data.api290.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const m = n({
-  space: "xmlns",
-  attributes: { xmlnsxlink: "xmlns:xlink" },
-  transform: s,
-  properties: { xmlns: null, xmlnsXLink: null }
-});
+function i(n, r) {
+  return r && r.type === n;
+}
+function u(n) {
+  return i(o, n) || i(t, n);
+}
 export {
-  m as xmlns
+  i as is,
+  u as isFunctionExpression
 };
 //# sourceMappingURL=cori.data.api292.js.map

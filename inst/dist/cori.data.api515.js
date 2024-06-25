@@ -1,79 +1,59 @@
-import { aggregateGet as x } from "./cori.data.api530.js";
-import E from "./cori.data.api322.js";
-import z from "./cori.data.api421.js";
-import k from "./cori.data.api510.js";
-import _ from "./cori.data.api484.js";
+import { indexLookup as J } from "./cori.data.api613.js";
+import q from "./cori.data.api273.js";
+import v from "./cori.data.api614.js";
+import z from "./cori.data.api306.js";
+import B from "./cori.data.api482.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function O(t, u, e, s) {
-  const i = e && e.length;
-  return $(
-    i ? j(t, e, s) : t,
-    u,
-    i
-  );
-}
-function $(t, { names: u, exprs: e, ops: s }, i) {
-  const d = x(t, s, e), g = i ? null : E(t), m = t.totalRows();
-  return u.forEach((p, f) => {
-    const n = t.column(p), c = i ? n.data : g.add(p, Array(m)), l = d[f];
-    t.scan((h) => {
-      const o = n.get(h);
-      c[h] = z(o) ? o : l(h);
-    });
-  }), i ? t : t.create(g);
-}
-function j(t, u, e) {
-  const s = t.groups(), i = t.data(), d = (s ? s.names : []).concat(u), g = (s ? s.get : []).concat(u.map((o) => t.getter(o))), m = /* @__PURE__ */ new Set(), p = k(g);
-  t.scan((o, r) => m.add(p(o, r)));
-  const f = t.columnNames(), n = E(), c = f.map((o) => n.add(o, []));
-  f.forEach((o, r) => {
-    const a = i[o], y = c[r];
-    t.scan((w) => y.push(a.get(w)));
-  });
-  const l = k(g.map((o, r) => (a) => a[r])), h = _(
-    "v",
-    "{" + c.map((o, r) => `_${r}.push(v[$${r}]);`).join("") + "}",
+function C(o, e) {
+  const c = ["i", "a", "j", "b"];
+  return B(
     c,
-    f.map((o) => d.indexOf(o))
+    "{" + v(o, (s, f) => `_${f}.push($${f}(${c}));`) + "}",
+    o,
+    e
   );
-  if (s) {
-    let o = s.keys.length;
-    const r = e.reduce((y, w) => y * w.length, s.size), a = new Uint32Array(r + (o - m.size));
-    a.set(s.keys), A(s, e, (y, w) => {
-      m.has(l(y)) || (h(y), a[o++] = w[0]);
-    }), n.groupby({ ...s, keys: a });
-  } else
-    A(s, e, (o) => {
-      m.has(l(o)) || h(o);
-    });
-  return t.create(n.new());
 }
-function A(t, u, e) {
-  const s = t ? t.get.length : 0, i = t ? 1 : 0, d = i + u.length, g = new Int32Array(d), m = new Int32Array(d), p = [];
-  if (t) {
-    const { get: n, rows: c, size: l } = t;
-    g[0] = l, p.push((h, o) => {
-      const r = c[o];
-      for (let a = 0; a < s; ++a)
-        h[a] = n[a](r);
-    });
+function O(o, e, c, { names: s, exprs: f }, g = {}) {
+  const a = o.data(), h = o.indices(!1), m = h.length, p = new Int32Array(m), i = e.data(), r = e.indices(!1), n = r.length, l = new Int32Array(n), d = s.length, j = q(), S = Array(d), w = Array(d);
+  for (let t = 0; t < s.length; ++t)
+    S[t] = j.add(s[t], []), w[t] = f[t];
+  const u = C(S, w);
+  if ((z(c) ? E : D)(u, c, a, i, h, r, p, l, m, n), g.left)
+    for (let t = 0; t < m; ++t)
+      p[t] || u(h[t], a, -1, i);
+  if (g.right)
+    for (let t = 0; t < n; ++t)
+      l[t] || u(-1, a, r[t], i);
+  return o.create(j.new());
+}
+function D(o, e, c, s, f, g, a, h, m, p) {
+  for (let i = 0; i < m; ++i) {
+    const r = f[i];
+    for (let n = 0; n < p; ++n) {
+      const l = g[n];
+      e(r, c, l, s) && (o(r, c, l, s), a[i] = 1, h[n] = 1);
+    }
   }
-  u.forEach((n, c) => {
-    const l = c + s;
-    g[c + i] = n.length, p.push((h, o) => h[l] = n[o]);
-  });
-  const f = Array(s + u.length);
-  for (let n = 0; n < d; ++n)
-    p[n](f, 0);
-  e(f, m);
-  for (let n = d - 1; n >= 0; ) {
-    const c = ++m[n];
-    c < g[n] ? (p[n](f, c), e(f, m), n = d - 1) : (m[n] = 0, p[n](f, 0), --n);
+}
+function E(o, [e, c], s, f, g, a, h, m, p, i) {
+  let r, n, l, d, j, S, w, u, H = o;
+  p >= i ? (r = s, n = e, l = h, d = g, j = f, S = c, w = m, u = a) : (r = f, n = c, l = m, d = a, j = s, S = e, w = h, u = g, H = (y, x, A, $) => o(A, $, y, x));
+  const t = J(u, j, S), I = d.length;
+  for (let y = 0; y < I; ++y) {
+    const x = d[y], A = t.get(n(x, r));
+    if (A) {
+      const $ = A.length;
+      for (let _ = 0; _ < $; ++_) {
+        const k = A[_];
+        H(x, r, u[k], j), w[k] = 1;
+      }
+      l[y] = 1;
+    }
   }
 }
 export {

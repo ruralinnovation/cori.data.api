@@ -1,55 +1,49 @@
-import { dataFromArray as p, dataFromScan as A } from "./cori.data.api425.js";
-import { profile as d } from "./cori.data.api426.js";
-import l from "./cori.data.api427.js";
-import F from "./cori.data.api415.js";
-import { Vector as y } from "./cori.data.api428.js";
-import { Float32 as I, Float64 as U, Int8 as T, Int16 as g, Int32 as w, Uint8 as B, Uint16 as V, Uint32 as v, Int64 as x, Uint64 as C } from "./cori.data.api429.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function E(r, n, i, f, t, e = !0) {
-  t = l(t);
-  const a = r.column(n), s = !(r.isFiltered() || r.isOrdered()), c = O(a);
-  if (c && s && u(c.type, t))
-    return c;
-  const m = a.data;
-  if (F(m)) {
-    const o = S(m);
-    if (s && o && u(o, t))
-      return p(m, o);
-    t = t || o, e = !1;
+function f(l, e, s) {
+  const n = l.all(e), a = s ? m(s) : o(e), r = {}, p = [];
+  if (typeof e.checked == "boolean") {
+    const t = n[0];
+    let i;
+    t && t.type === "element" && t.tagName === "p" ? i = t : (i = { type: "element", tagName: "p", properties: {}, children: [] }, n.unshift(i)), i.children.length > 0 && i.children.unshift({ type: "text", value: " " }), i.children.unshift({
+      type: "element",
+      tagName: "input",
+      properties: { type: "checkbox", checked: e.checked, disabled: !0 },
+      children: []
+    }), r.className = ["task-list-item"];
   }
-  if (!t) {
-    const o = d(f, a);
-    e = o.nulls > 0, t = o.type();
+  let c = -1;
+  for (; ++c < n.length; ) {
+    const t = n[c];
+    (a || c !== 0 || t.type !== "element" || t.tagName !== "p") && p.push({ type: "text", value: `
+` }), t.type === "element" && t.tagName === "p" && !a ? p.push(...t.children) : p.push(t);
   }
-  return A(i, f, a, t, e);
+  const h = n[n.length - 1];
+  h && (a || h.type !== "element" || h.tagName !== "p") && p.push({ type: "text", value: `
+` });
+  const u = { type: "element", tagName: "li", properties: r, children: p };
+  return l.patch(e, u), l.applyData(e, u);
 }
-function O(r) {
-  return r instanceof y ? r : r.vector instanceof y ? r.vector : null;
+function m(l) {
+  let e = !1;
+  if (l.type === "list") {
+    e = l.spread || !1;
+    const s = l.children;
+    let n = -1;
+    for (; !e && ++n < s.length; )
+      e = o(s[n]);
+  }
+  return e;
 }
-function S(r) {
-  const i = {
-    Float32Array: I,
-    Float64Array: U,
-    Int8Array: T,
-    Int16Array: g,
-    Int32Array: w,
-    Uint8Array: B,
-    Uint16Array: V,
-    Uint32Array: v,
-    BigInt64Array: x,
-    BigUint64Array: C
-  }[r.constructor.name];
-  return i ? new i() : null;
-}
-function u(r, n) {
-  return !r || !n ? !0 : r.compareTo(n);
+function o(l) {
+  const e = l.spread;
+  return e ?? l.children.length > 1;
 }
 export {
-  E as default
+  f as listItem
 };
 //# sourceMappingURL=cori.data.api352.js.map

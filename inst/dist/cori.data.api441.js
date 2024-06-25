@@ -1,36 +1,35 @@
+import d from "./cori.data.api526.js";
+import p from "./cori.data.api527.js";
+import f from "./cori.data.api309.js";
+import u from "./cori.data.api266.js";
+import s from "./cori.data.api270.js";
+import l from "./cori.data.api295.js";
+import x from "./cori.data.api267.js";
+import y from "./cori.data.api313.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function v(l, t, M = 15, b = !0, u = 0, o) {
-  const n = Math.LN10;
-  if (o == null) {
-    const a = Math.ceil(Math.log(M) / n), h = t - l || Math.abs(l) || 1, c = [5, 2];
-    for (o = Math.max(
-      u,
-      Math.pow(10, Math.round(Math.log(h) / n) - a)
-    ); Math.ceil(h / o) > M; )
-      o *= 10;
-    const e = c.length;
-    for (let r = 0; r < e; ++r) {
-      const f = o / c[r];
-      f >= u && h / f <= M && (o = f);
-    }
-  }
-  if (b) {
-    let a = Math.log(o);
-    const h = a >= 0 ? 0 : ~~(-a / n) + 1, c = Math.pow(10, -h - 1);
-    a = Math.floor(l / o + c) * o, l = l < a ? a - o : a, t = Math.ceil(t / o) * o;
-  }
-  return [
-    l,
-    t === l ? l + o : t,
-    o
-  ];
+function E(e, i) {
+  return d(e, b(e, i));
+}
+function b(e, i) {
+  let m = -1;
+  const t = /* @__PURE__ */ new Map(), n = (r) => t.set(++m + "", r);
+  return i.forEach((r) => {
+    const o = r.expr != null ? r.expr : r;
+    if (l(o) && !s(o))
+      for (const c in o)
+        n(o[c]);
+    else
+      n(
+        x(o) ? f(r, e.columnName(o)) : y(o) ? f(r) : s(o) ? r : u(`Invalid orderby field: ${r + ""}`)
+      );
+  }), p(e, t);
 }
 export {
-  v as default
+  E as default
 };
 //# sourceMappingURL=cori.data.api441.js.map

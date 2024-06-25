@@ -1,4 +1,4 @@
-import { markdownLineEndingOrSpace as i, unicodeWhitespace as r, unicodePunctuation as t } from "./cori.data.api388.js";
+import { markdownLineEndingOrSpace as i, unicodeWhitespace as r, unicodePunctuation as t } from "./cori.data.api469.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

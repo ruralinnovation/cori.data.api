@@ -1,12 +1,18 @@
-import { __require as r } from "./cori.data.api31.js";
+import { getDefaultExportFromCjs as e } from "./cori.data.api39.js";
+import { __module as r } from "./cori.data.api40.js";
+import { __require as o } from "./cori.data.api41.js";
+import { __require as t } from "./cori.data.api42.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var a = r();
+process.env.NODE_ENV === "production" ? r.exports = o() : r.exports = t();
+var p = r.exports;
+const _ = /* @__PURE__ */ e(p);
 export {
-  a as r
+  _ as default,
+  p as r
 };
 //# sourceMappingURL=cori.data.api10.js.map

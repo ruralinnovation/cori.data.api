@@ -1,47 +1,101 @@
-import { __awaiter as h, __asyncValues as m } from "./cori.data.api491.js";
-import { decodeUtf8 as l } from "./cori.data.api547.js";
-import { AsyncQueue as p } from "./cori.data.api506.js";
-import { toUint8Array as A, joinUint8Arrays as c } from "./cori.data.api492.js";
+import { __awaiter as t } from "./cori.data.api488.js";
+import i from "./cori.data.api487.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class v extends p {
-  write(t) {
-    if ((t = A(t)).byteLength > 0)
-      return super.write(t);
+const s = Object.freeze({ done: !0, value: void 0 });
+class n {
+  tee() {
+    return this._getDOMStream().tee();
   }
-  toString(t = !1) {
-    return t ? l(this.toUint8Array(!0)) : this.toUint8Array(!1).then(l);
+  pipe(e, r) {
+    return this._getNodeStream().pipe(e, r);
   }
-  toUint8Array(t = !1) {
-    return t ? c(this._values)[0] : h(this, void 0, void 0, function* () {
-      var e, i, a, u;
-      const y = [];
-      let f = 0;
-      try {
-        for (var n = !0, o = m(this), s; s = yield o.next(), e = s.done, !e; n = !0) {
-          u = s.value, n = !1;
-          const r = u;
-          y.push(r), f += r.byteLength;
-        }
-      } catch (r) {
-        i = { error: r };
-      } finally {
-        try {
-          !n && !e && (a = o.return) && (yield a.call(o));
-        } finally {
-          if (i)
-            throw i.error;
-        }
-      }
-      return c(y, f)[0];
+  pipeTo(e, r) {
+    return this._getDOMStream().pipeTo(e, r);
+  }
+  pipeThrough(e, r) {
+    return this._getDOMStream().pipeThrough(e, r);
+  }
+  _getDOMStream() {
+    return this._DOMStream || (this._DOMStream = this.toDOMStream());
+  }
+  _getNodeStream() {
+    return this._nodeStream || (this._nodeStream = this.toNodeStream());
+  }
+}
+class d extends n {
+  constructor() {
+    super(), this._values = [], this.resolvers = [], this._closedPromise = new Promise((e) => this._closedPromiseResolve = e);
+  }
+  get closed() {
+    return this._closedPromise;
+  }
+  cancel(e) {
+    return t(this, void 0, void 0, function* () {
+      yield this.return(e);
     });
+  }
+  write(e) {
+    this._ensureOpen() && (this.resolvers.length <= 0 ? this._values.push(e) : this.resolvers.shift().resolve({ done: !1, value: e }));
+  }
+  abort(e) {
+    this._closedPromiseResolve && (this.resolvers.length <= 0 ? this._error = { error: e } : this.resolvers.shift().reject({ done: !0, value: e }));
+  }
+  close() {
+    if (this._closedPromiseResolve) {
+      const { resolvers: e } = this;
+      for (; e.length > 0; )
+        e.shift().resolve(s);
+      this._closedPromiseResolve(), this._closedPromiseResolve = void 0;
+    }
+  }
+  [Symbol.asyncIterator]() {
+    return this;
+  }
+  toDOMStream(e) {
+    return i.toDOMStream(this._closedPromiseResolve || this._error ? this : this._values, e);
+  }
+  toNodeStream(e) {
+    return i.toNodeStream(this._closedPromiseResolve || this._error ? this : this._values, e);
+  }
+  throw(e) {
+    return t(this, void 0, void 0, function* () {
+      return yield this.abort(e), s;
+    });
+  }
+  return(e) {
+    return t(this, void 0, void 0, function* () {
+      return yield this.close(), s;
+    });
+  }
+  read(e) {
+    return t(this, void 0, void 0, function* () {
+      return (yield this.next(e, "read")).value;
+    });
+  }
+  peek(e) {
+    return t(this, void 0, void 0, function* () {
+      return (yield this.next(e, "peek")).value;
+    });
+  }
+  next(...e) {
+    return this._values.length > 0 ? Promise.resolve({ done: !1, value: this._values.shift() }) : this._error ? Promise.reject({ done: !0, value: this._error.error }) : this._closedPromiseResolve ? new Promise((r, h) => {
+      this.resolvers.push({ resolve: r, reject: h });
+    }) : Promise.resolve(s);
+  }
+  _ensureOpen() {
+    if (this._closedPromiseResolve)
+      return !0;
+    throw new Error("AsyncQueue is closed");
   }
 }
 export {
-  v as AsyncByteQueue
+  d as AsyncQueue,
+  s as ITERATOR_DONE,
+  n as ReadableInterop
 };
 //# sourceMappingURL=cori.data.api503.js.map

@@ -1,40 +1,77 @@
-import n from "./cori.data.api304.js";
-import p from "./cori.data.api206.js";
-import h from "./cori.data.api479.js";
-import c from "./cori.data.api480.js";
-import C from "./cori.data.api300.js";
-import w from "./cori.data.api209.js";
-import S from "./cori.data.api220.js";
-import b from "./cori.data.api297.js";
+import a from "./cori.data.api266.js";
+import c from "./cori.data.api314.js";
+import { DataType as o, Utf8 as t, Uint64 as i, Uint32 as s, Uint16 as u, Uint8 as l, TimeSecond as w, TimeNanosecond as m, TimeMillisecond as d, TimeMicrosecond as I, Null as T, IntervalYearMonth as D, IntervalDayTime as U, Int64 as f, Int32 as r, Int16 as y, Int8 as p, Float64 as M, Float32 as F, Float16 as v, Dictionary as B, DateMillisecond as N, DateDay as h, Bool as S, Binary as Y } from "./cori.data.api402.js";
+import { Type as e } from "./cori.data.api485.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const F = (s) => {
-  const e = w({}, s);
-  let { data: l, withXSRFToken: o, xsrfHeaderName: m, xsrfCookieName: f, headers: r, auth: t } = e;
-  e.headers = r = S.from(r), e.url = b(C(e.baseURL, e.url), s.params, s.paramsSerializer), t && r.set(
-    "Authorization",
-    "Basic " + btoa((t.username || "") + ":" + (t.password ? unescape(encodeURIComponent(t.password)) : ""))
-  );
-  let i;
-  if (p.isFormData(l)) {
-    if (n.hasStandardBrowserEnv || n.hasStandardBrowserWebWorkerEnv)
-      r.setContentType(void 0);
-    else if ((i = r.getContentType()) !== !1) {
-      const [a, ...d] = i ? i.split(";").map((u) => u.trim()).filter(Boolean) : [];
-      r.setContentType([a || "multipart/form-data", ...d].join("; "));
-    }
+function j(n) {
+  if (n instanceof o || n == null)
+    return n;
+  switch (n) {
+    case e.Binary:
+      return new Y();
+    case e.Bool:
+      return new S();
+    case e.DateDay:
+      return new h();
+    case e.DateMillisecond:
+    case e.Date:
+      return new N();
+    case e.Dictionary:
+      return new B(new t(), new r());
+    case e.Float16:
+      return new v();
+    case e.Float32:
+      return new F();
+    case e.Float64:
+    case e.Float:
+      return new M();
+    case e.Int8:
+      return new p();
+    case e.Int16:
+      return new y();
+    case e.Int32:
+    case e.Int:
+      return new r();
+    case e.Int64:
+      return new f();
+    case e.IntervalDayTime:
+      return new U();
+    case e.Interval:
+    case e.IntervalYearMonth:
+      return new D();
+    case e.Null:
+      return new T();
+    case e.TimeMicrosecond:
+      return new I();
+    case e.TimeMillisecond:
+    case e.Time:
+      return new d();
+    case e.TimeNanosecond:
+      return new m();
+    case e.TimeSecond:
+      return new w();
+    case e.Uint8:
+      return new l();
+    case e.Uint16:
+      return new u();
+    case e.Uint32:
+      return new s();
+    case e.Uint64:
+      return new i();
+    case e.Utf8:
+      return new t();
+    default:
+      a(
+        `Unsupported type code: ${c(n)}. Use a data type constructor instead?`
+      );
   }
-  if (n.hasStandardBrowserEnv && (o && p.isFunction(o) && (o = o(e)), o || o !== !1 && h(e.url))) {
-    const a = m && f && c.read(f);
-    a && r.set(m, a);
-  }
-  return e;
-};
+}
 export {
-  F as default
+  j as default
 };
 //# sourceMappingURL=cori.data.api400.js.map

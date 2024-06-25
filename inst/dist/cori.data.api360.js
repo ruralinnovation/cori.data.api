@@ -1,16 +1,15 @@
-import n from "./cori.data.api332.js";
+import { trimLines as p } from "./cori.data.api466.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function f(e, t) {
-  for (const [o, r] of n(t))
-    e.set(o, r);
-  return e;
+function i(r, t) {
+  const e = { type: "text", value: p(String(t.value)) };
+  return r.patch(t, e), r.applyData(t, e);
 }
 export {
-  f as default
+  i as text
 };
 //# sourceMappingURL=cori.data.api360.js.map

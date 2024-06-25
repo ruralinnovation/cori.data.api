@@ -1,14 +1,39 @@
+import m from "./cori.data.api306.js";
+import e from "./cori.data.api378.js";
+import y from "./cori.data.api379.js";
+import $ from "./cori.data.api388.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var c;
-(function(V) {
-  V[V.V1 = 0] = "V1", V[V.V2 = 1] = "V2", V[V.V3 = 2] = "V3", V[V.V4 = 3] = "V4", V[V.V5 = 4] = "V5";
-})(c || (c = {}));
+function s(t) {
+  const r = typeof t;
+  return r === "string" ? `"${t}"` : r !== "object" || !t ? t : e(t) ? +t : m(t) || $(t) ? `[${t.map(s)}]` : y(t) ? t + "" : k(t);
+}
+function k(t) {
+  let r = "{", o = -1;
+  for (const n in t)
+    ++o > 0 && (r += ","), r += `"${n}":${s(t[n])}`;
+  return r += "}", r;
+}
+function A(t, r) {
+  const o = t.length;
+  return o === 1 ? (n, c) => s(t[0](n, c)) : (n, c) => {
+    let p = "";
+    for (let i = 0; i < o; ++i) {
+      i > 0 && (p += "|");
+      const f = t[i](n, c);
+      if (r && (f == null || f !== f))
+        return null;
+      p += s(f);
+    }
+    return p;
+  };
+}
 export {
-  c as MetadataVersion
+  A as default,
+  s as key
 };
 //# sourceMappingURL=cori.data.api508.js.map

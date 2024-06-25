@@ -1,44 +1,68 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api655.js";
-import "./cori.data.api564.js";
-import "./cori.data.api565.js";
-import { Precision as s } from "./cori.data.api559.js";
+import { SIZE_PREFIX_LENGTH as r } from "./cori.data.api628.js";
+import "./cori.data.api556.js";
+import "./cori.data.api557.js";
+import { UnionMode as i } from "./cori.data.api547.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class o {
+class e {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
   }
-  static getRootAsFloatingPoint(t, i) {
-    return (i || new o()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getRootAsUnion(t, s) {
+    return (s || new e()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsFloatingPoint(t, i) {
-    return t.setPosition(t.position() + n), (i || new o()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsUnion(t, s) {
+    return t.setPosition(t.position() + r), (s || new e()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  precision() {
+  mode() {
     const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : s.HALF;
+    return t ? this.bb.readInt16(this.bb_pos + t) : i.Sparse;
   }
-  static startFloatingPoint(t) {
-    t.startObject(1);
+  typeIds(t) {
+    const s = this.bb.__offset(this.bb_pos, 6);
+    return s ? this.bb.readInt32(this.bb.__vector(this.bb_pos + s) + t * 4) : 0;
   }
-  static addPrecision(t, i) {
-    t.addFieldInt16(0, i, s.HALF);
+  typeIdsLength() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
-  static endFloatingPoint(t) {
+  typeIdsArray() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? new Int32Array(this.bb.bytes().buffer, this.bb.bytes().byteOffset + this.bb.__vector(this.bb_pos + t), this.bb.__vector_len(this.bb_pos + t)) : null;
+  }
+  static startUnion(t) {
+    t.startObject(2);
+  }
+  static addMode(t, s) {
+    t.addFieldInt16(0, s, i.Sparse);
+  }
+  static addTypeIds(t, s) {
+    t.addFieldOffset(1, s, 0);
+  }
+  static createTypeIdsVector(t, s) {
+    t.startVector(4, s.length, 4);
+    for (let o = s.length - 1; o >= 0; o--)
+      t.addInt32(s[o]);
+    return t.endVector();
+  }
+  static startTypeIdsVector(t, s) {
+    t.startVector(4, s, 4);
+  }
+  static endUnion(t) {
     return t.endObject();
   }
-  static createFloatingPoint(t, i) {
-    return o.startFloatingPoint(t), o.addPrecision(t, i), o.endFloatingPoint(t);
+  static createUnion(t, s, o) {
+    return e.startUnion(t), e.addMode(t, s), e.addTypeIds(t, o), e.endUnion(t);
   }
 }
 export {
-  o as FloatingPoint
+  e as Union
 };
 //# sourceMappingURL=cori.data.api578.js.map

@@ -1,22 +1,31 @@
+import c from "./cori.data.api475.js";
+import m from "./cori.data.api476.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(n) {
-  return !n || typeof n != "object" ? "" : "position" in n || "type" in n ? t(n.position) : "start" in n || "end" in n ? t(n) : "line" in n || "column" in n ? i(n) : "";
-}
-function i(n) {
-  return r(n && n.line) + ":" + r(n && n.column);
-}
-function t(n) {
-  return i(n && n.start) + "-" + i(n && n.end);
-}
-function r(n) {
-  return n && typeof n == "number" ? n : 1;
-}
+const b = (a, l, u = 3) => {
+  let d = 0;
+  const p = c(50, 250);
+  return m((o) => {
+    const t = o.loaded, e = o.lengthComputable ? o.total : void 0, s = t - d, n = p(s), i = t <= e;
+    d = t;
+    const r = {
+      loaded: t,
+      total: e,
+      progress: e ? t / e : void 0,
+      bytes: s,
+      rate: n || void 0,
+      estimated: n && e && i ? (e - t) / n : void 0,
+      event: o,
+      lengthComputable: e != null
+    };
+    r[l ? "download" : "upload"] = !0, a(r);
+  }, u);
+};
 export {
-  o as stringifyPosition
+  b as default
 };
 //# sourceMappingURL=cori.data.api374.js.map
