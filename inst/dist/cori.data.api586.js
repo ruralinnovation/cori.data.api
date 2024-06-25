@@ -1,50 +1,46 @@
-import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api665.js";
-import "./cori.data.api574.js";
-import "./cori.data.api575.js";
+import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api655.js";
+import "./cori.data.api564.js";
+import "./cori.data.api565.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i {
+class s {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
-  __init(t, s) {
-    return this.bb_pos = t, this.bb = s, this;
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsKeyValue(t, s) {
-    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getRootAsFixedSizeBinary(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsKeyValue(t, s) {
-    return t.setPosition(t.position() + o), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsFixedSizeBinary(t, i) {
+    return t.setPosition(t.position() + e), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  key(t) {
-    const s = this.bb.__offset(this.bb_pos, 4);
-    return s ? this.bb.__string(this.bb_pos + s, t) : null;
+  /**
+   * Number of bytes per value
+   */
+  byteWidth() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
   }
-  value(t) {
-    const s = this.bb.__offset(this.bb_pos, 6);
-    return s ? this.bb.__string(this.bb_pos + s, t) : null;
+  static startFixedSizeBinary(t) {
+    t.startObject(1);
   }
-  static startKeyValue(t) {
-    t.startObject(2);
+  static addByteWidth(t, i) {
+    t.addFieldInt32(0, i, 0);
   }
-  static addKey(t, s) {
-    t.addFieldOffset(0, s, 0);
-  }
-  static addValue(t, s) {
-    t.addFieldOffset(1, s, 0);
-  }
-  static endKeyValue(t) {
+  static endFixedSizeBinary(t) {
     return t.endObject();
   }
-  static createKeyValue(t, s, e) {
-    return i.startKeyValue(t), i.addKey(t, s), i.addValue(t, e), i.endKeyValue(t);
+  static createFixedSizeBinary(t, i) {
+    return s.startFixedSizeBinary(t), s.addByteWidth(t, i), s.endFixedSizeBinary(t);
   }
 }
 export {
-  i as KeyValue
+  s as FixedSizeBinary
 };
 //# sourceMappingURL=cori.data.api586.js.map

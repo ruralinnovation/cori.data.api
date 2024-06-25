@@ -1,39 +1,38 @@
-import { combineExtensions as i } from "./cori.data.api541.js";
-import { content as m } from "./cori.data.api542.js";
-import { document as f } from "./cori.data.api543.js";
-import { flow as u } from "./cori.data.api544.js";
-import { string as p, text as a } from "./cori.data.api545.js";
-import { createTokenizer as x } from "./cori.data.api546.js";
-import * as d from "./cori.data.api547.js";
+import l from "./cori.data.api319.js";
+import m from "./cori.data.api482.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function E(r) {
-  const n = (
-    /** @type {FullNormalizedExtension} */
-    i([d, ...(r || {}).extensions || []])
-  ), o = {
-    defined: [],
-    lazy: {},
-    constructs: n,
-    content: t(m),
-    document: t(f),
-    flow: t(u),
-    string: t(p),
-    text: t(a)
-  };
-  return o;
-  function t(e) {
-    return s;
-    function s(c) {
-      return x(o, e, c);
+function d(o, t) {
+  return l(t) ? t(o) : t || o.columnNames();
+}
+function h(o, t, r) {
+  const f = r.format || {}, u = r.align || {}, i = {}, a = {};
+  return t.forEach((n) => {
+    const c = m(g(o, n), r);
+    a[n] = u[n] || c.align, i[n] = f[n] || c.format;
+  }), { align: a, format: i };
+}
+function g(o, t) {
+  const r = o.column(t);
+  return (f) => o.scan((u) => f(r.get(u)));
+}
+function F(o, t, r = 100, f, u) {
+  const i = o.data(), a = t.length;
+  o.scan((n) => {
+    u.row(n);
+    for (let c = 0; c < a; ++c) {
+      const s = t[c];
+      u.cell(i[t[c]].get(n), s, c);
     }
-  }
+  }, !0, r, f);
 }
 export {
-  E as parse
+  d as columns,
+  h as formats,
+  F as scan
 };
 //# sourceMappingURL=cori.data.api412.js.map

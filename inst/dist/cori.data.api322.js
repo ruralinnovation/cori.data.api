@@ -1,39 +1,31 @@
-import { pointStart as a, pointEnd as h } from "./cori.data.api254.js";
+import h from "./cori.data.api407.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function m(t, e) {
-  const n = t.all(e), i = n.shift(), p = [];
-  if (i) {
-    const r = {
-      type: "element",
-      tagName: "thead",
-      properties: {},
-      children: t.wrap([i], !0)
-    };
-    t.patch(e.children[0], r), p.push(r);
+function n(s) {
+  return s ? new u({ ...s.data() }, s.columnNames()) : new u();
+}
+class u {
+  constructor(t, r) {
+    this.data = t || {}, this.names = r || [];
   }
-  if (n.length > 0) {
-    const r = {
-      type: "element",
-      tagName: "tbody",
-      properties: {},
-      children: t.wrap(n, !0)
-    }, c = a(e.children[1]), o = h(e.children[e.children.length - 1]);
-    c && o && (r.position = { start: c, end: o }), p.push(r);
+  add(t, r) {
+    return this.has(t) || this.names.push(t + ""), this.data[t] = r;
   }
-  const l = {
-    type: "element",
-    tagName: "table",
-    properties: {},
-    children: t.wrap(p, !0)
-  };
-  return t.patch(e, l), t.applyData(e, l);
+  has(t) {
+    return h(this.data, t);
+  }
+  new() {
+    return this.filter = null, this.groups = this.groups || null, this.order = null, this;
+  }
+  groupby(t) {
+    return this.groups = t, this;
+  }
 }
 export {
-  m as table
+  n as default
 };
 //# sourceMappingURL=cori.data.api322.js.map

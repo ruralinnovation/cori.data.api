@@ -1,53 +1,50 @@
-import { factorySpace as H } from "./cori.data.api639.js";
-import { markdownLineEndingOrSpace as m, markdownLineEnding as o, markdownSpace as h } from "./cori.data.api419.js";
-import { splice as S } from "./cori.data.api638.js";
+import { asciiAlpha as z, asciiAlphanumeric as a, asciiControl as E, asciiAtext as O } from "./cori.data.api388.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const T = {
-  name: "headingAtx",
-  tokenize: d,
-  resolve: y
+const b = {
+  name: "autolink",
+  tokenize: P
 };
-function y(t, i) {
-  let e = t.length - 2, r = 3, a, u;
-  return t[r][1].type === "whitespace" && (r += 2), e - 2 > r && t[e][1].type === "whitespace" && (e -= 2), t[e][1].type === "atxHeadingSequence" && (r === e - 1 || e - 4 > r && t[e - 2][1].type === "whitespace") && (e -= r + 1 === e ? 2 : 4), e > r && (a = {
-    type: "atxHeadingText",
-    start: t[r][1].start,
-    end: t[e][1].end
-  }, u = {
-    type: "chunkText",
-    start: t[r][1].start,
-    end: t[e][1].end,
-    contentType: "text"
-  }, S(t, r, e - r + 1, [["enter", a, i], ["enter", u, i], ["exit", u, i], ["exit", a, i]])), t;
-}
-function d(t, i, e) {
-  let r = 0;
-  return a;
-  function a(n) {
-    return t.enter("atxHeading"), u(n);
+function P(r, l, t) {
+  let i = 0;
+  return p;
+  function p(n) {
+    return r.enter("autolink"), r.enter("autolinkMarker"), r.consume(n), r.exit("autolinkMarker"), r.enter("autolinkProtocol"), M;
+  }
+  function M(n) {
+    return z(n) ? (r.consume(n), h) : n === 64 ? t(n) : u(n);
+  }
+  function h(n) {
+    return n === 43 || n === 45 || n === 46 || a(n) ? (i = 1, m(n)) : u(n);
+  }
+  function m(n) {
+    return n === 58 ? (r.consume(n), i = 0, k) : (n === 43 || n === 45 || n === 46 || a(n)) && i++ < 32 ? (r.consume(n), m) : (i = 0, u(n));
+  }
+  function k(n) {
+    return n === 62 ? (r.exit("autolinkProtocol"), r.enter("autolinkMarker"), r.consume(n), r.exit("autolinkMarker"), r.exit("autolink"), l) : n === null || n === 32 || n === 60 || E(n) ? t(n) : (r.consume(n), k);
   }
   function u(n) {
-    return t.enter("atxHeadingSequence"), p(n);
+    return n === 64 ? (r.consume(n), o) : O(n) ? (r.consume(n), u) : t(n);
   }
-  function p(n) {
-    return n === 35 && r++ < 6 ? (t.consume(n), p) : n === null || m(n) ? (t.exit("atxHeadingSequence"), x(n)) : e(n);
+  function o(n) {
+    return a(n) ? x(n) : t(n);
   }
   function x(n) {
-    return n === 35 ? (t.enter("atxHeadingSequence"), g(n)) : n === null || o(n) ? (t.exit("atxHeading"), i(n)) : h(n) ? H(t, x, "whitespace")(n) : (t.enter("atxHeadingText"), l(n));
+    return n === 46 ? (r.consume(n), i = 0, o) : n === 62 ? (r.exit("autolinkProtocol").type = "autolinkEmail", r.enter("autolinkMarker"), r.consume(n), r.exit("autolinkMarker"), r.exit("autolink"), l) : A(n);
   }
-  function g(n) {
-    return n === 35 ? (t.consume(n), g) : (t.exit("atxHeadingSequence"), x(n));
-  }
-  function l(n) {
-    return n === null || n === 35 || m(n) ? (t.exit("atxHeadingText"), x(n)) : (t.consume(n), l);
+  function A(n) {
+    if ((n === 45 || a(n)) && i++ < 63) {
+      const e = n === 45 ? A : x;
+      return r.consume(n), e;
+    }
+    return t(n);
   }
 }
 export {
-  T as headingAtx
+  b as autolink
 };
 //# sourceMappingURL=cori.data.api647.js.map

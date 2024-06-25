@@ -1,4 +1,4 @@
-import B from "./cori.data.api77.js";
+import B from "./cori.data.api103.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

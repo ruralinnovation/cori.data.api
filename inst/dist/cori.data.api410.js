@@ -1,17 +1,14 @@
+import { RecordBatchStreamWriter as e, RecordBatchFileWriter as o } from "./cori.data.api498.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const r = document.createElement("i");
-function c(t) {
-  const n = "&" + t + ";";
-  r.innerHTML = n;
-  const e = r.textContent;
-  return e.charCodeAt(e.length - 1) === 59 && t !== "semi" || e === n ? !1 : e;
+function i(r, t = "stream") {
+  return (t === "stream" ? e : o).writeAll(r).toUint8Array(!0);
 }
 export {
-  c as decodeNamedCharacterReference
+  i as tableToIPC
 };
 //# sourceMappingURL=cori.data.api410.js.map

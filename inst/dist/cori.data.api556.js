@@ -1,24 +1,14 @@
-import { array as e } from "./cori.data.api37.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(l, n) {
-  const s = e(Uint8Array, n / 8);
-  let r = 0;
-  return {
-    set(t, a) {
-      t == null ? ++r : (l.set(t, a), s[a >> 3] |= 1 << a % 8);
-    },
-    data: () => {
-      const t = l.data();
-      return r && (t.nulls = r, t.buffers[2] = s), t;
-    }
-  };
-}
+var r;
+(function(e) {
+  e[e.Sparse = 0] = "Sparse", e[e.Dense = 1] = "Dense";
+})(r || (r = {}));
 export {
-  u as default
+  r as UnionMode
 };
 //# sourceMappingURL=cori.data.api556.js.map

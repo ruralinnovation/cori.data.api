@@ -1,7 +1,7 @@
-import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api665.js";
-import "./cori.data.api574.js";
-import "./cori.data.api575.js";
-import { RecordBatch as e } from "./cori.data.api580.js";
+import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api655.js";
+import "./cori.data.api564.js";
+import "./cori.data.api565.js";
+import { TimeUnit as o } from "./cori.data.api561.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
@@ -15,46 +15,37 @@ class s {
   __init(t, i) {
     return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsDictionaryBatch(t, i) {
+  static getRootAsTime(t, i) {
     return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsDictionaryBatch(t, i) {
-    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsTime(t, i) {
+    return t.setPosition(t.position() + e), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  id() {
+  unit() {
     const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt64(this.bb_pos + t) : BigInt("0");
+    return t ? this.bb.readInt16(this.bb_pos + t) : o.MILLISECOND;
   }
-  data(t) {
-    const i = this.bb.__offset(this.bb_pos, 6);
-    return i ? (t || new e()).__init(this.bb.__indirect(this.bb_pos + i), this.bb) : null;
+  bitWidth() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? this.bb.readInt32(this.bb_pos + t) : 32;
   }
-  /**
-   * If isDelta is true the values in the dictionary are to be appended to a
-   * dictionary with the indicated id. If isDelta is false this dictionary
-   * should replace the existing dictionary.
-   */
-  isDelta() {
-    const t = this.bb.__offset(this.bb_pos, 8);
-    return t ? !!this.bb.readInt8(this.bb_pos + t) : !1;
+  static startTime(t) {
+    t.startObject(2);
   }
-  static startDictionaryBatch(t) {
-    t.startObject(3);
+  static addUnit(t, i) {
+    t.addFieldInt16(0, i, o.MILLISECOND);
   }
-  static addId(t, i) {
-    t.addFieldInt64(0, i, BigInt("0"));
+  static addBitWidth(t, i) {
+    t.addFieldInt32(1, i, 32);
   }
-  static addData(t, i) {
-    t.addFieldOffset(1, i, 0);
-  }
-  static addIsDelta(t, i) {
-    t.addFieldInt8(2, +i, 0);
-  }
-  static endDictionaryBatch(t) {
+  static endTime(t) {
     return t.endObject();
+  }
+  static createTime(t, i, n) {
+    return s.startTime(t), s.addUnit(t, i), s.addBitWidth(t, n), s.endTime(t);
   }
 }
 export {
-  s as DictionaryBatch
+  s as Time
 };
 //# sourceMappingURL=cori.data.api581.js.map

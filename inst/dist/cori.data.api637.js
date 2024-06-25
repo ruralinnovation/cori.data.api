@@ -1,96 +1,53 @@
-import _ from "./cori.data.api355.js";
-import { getAggregate as p } from "./cori.data.api435.js";
-import v from "./cori.data.api633.js";
-import g from "./cori.data.api333.js";
-import d from "./cori.data.api436.js";
-import x from "./cori.data.api494.js";
-import R from "./cori.data.api679.js";
+import { factorySpace as H } from "./cori.data.api629.js";
+import { markdownLineEndingOrSpace as m, markdownLineEnding as o, markdownSpace as h } from "./cori.data.api388.js";
+import { splice as S } from "./cori.data.api628.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const l = (n, t, s) => x(
-  t,
-  "{" + v(n, (r, i) => `_${i}.${s}(${t});`) + "}",
-  n
-);
-function U(n, t) {
-  const { ops: s, output: r } = E(n, t), i = n[0].fields, e = i.length, o = e === 0 ? h : e === 1 ? F : e === 2 ? $ : g("Unsupported field count: " + e);
-  return new o(i, s, r, t);
+const T = {
+  name: "headingAtx",
+  tokenize: d,
+  resolve: y
+};
+function y(t, i) {
+  let e = t.length - 2, r = 3, a, u;
+  return t[r][1].type === "whitespace" && (r += 2), e - 2 > r && t[e][1].type === "whitespace" && (e -= 2), t[e][1].type === "atxHeadingSequence" && (r === e - 1 || e - 4 > r && t[e - 2][1].type === "whitespace") && (e -= r + 1 === e ? 2 : 4), e > r && (a = {
+    type: "atxHeadingText",
+    start: t[r][1].start,
+    end: t[e][1].end
+  }, u = {
+    type: "chunkText",
+    start: t[r][1].start,
+    end: t[e][1].end,
+    contentType: "text"
+  }, S(t, r, e - r + 1, [["enter", a, i], ["enter", u, i], ["exit", u, i], ["exit", a, i]])), t;
 }
-function E(n, t) {
-  const s = {}, r = [];
-  function i(o, c = []) {
-    const f = o + ":" + c;
-    if (s[f])
-      return s[f];
-    const u = p(o), a = u.create(...c);
-    return t < 0 && u.stream && u.stream.forEach((m) => i(m, [])), u.req && u.req.forEach((m) => i(m, [])), s[f] = a, r.push(a), a;
+function d(t, i, e) {
+  let r = 0;
+  return a;
+  function a(n) {
+    return t.enter("atxHeading"), u(n);
   }
-  const e = n.map((o) => {
-    const c = i(o.name, o.params);
-    return c.output = o.id, c;
-  });
-  return { ops: r, output: e };
-}
-class h extends _ {
-  constructor(t, s, r, i) {
-    super(r), this._op = s, this._fields = t, this._stream = !!i;
+  function u(n) {
+    return t.enter("atxHeadingSequence"), p(n);
   }
-  init() {
-    const t = { count: 0, valid: 0, stream: this._stream };
-    return this._op.forEach((s) => s.init(t)), t.values && (t.list = new R()), t;
+  function p(n) {
+    return n === 35 && r++ < 6 ? (t.consume(n), p) : n === null || m(n) ? (t.exit("atxHeadingSequence"), x(n)) : e(n);
   }
-  write(t, s, r) {
-    const i = this._outputs, e = i.length;
-    for (let o = 0; o < e; ++o)
-      s[i[o].output][r] = i[o].value(t);
-    return 1;
+  function x(n) {
+    return n === 35 ? (t.enter("atxHeadingSequence"), g(n)) : n === null || o(n) ? (t.exit("atxHeading"), i(n)) : h(n) ? H(t, x, "whitespace")(n) : (t.enter("atxHeadingText"), l(n));
   }
-  _add() {
+  function g(n) {
+    return n === 35 ? (t.consume(n), g) : (t.exit("atxHeadingSequence"), x(n));
   }
-  _rem() {
-  }
-  add(t) {
-    ++t.count;
-  }
-  rem(t) {
-    --t.count;
-  }
-}
-class F extends h {
-  constructor(t, s, r, i) {
-    super(t, s, r, i);
-    const e = ["state", "v1", "v2"];
-    this._add = l(s, e, "add"), this._rem = l(s, e, "rem");
-  }
-  add(t, s, r) {
-    const i = this._fields[0](s, r);
-    ++t.count, d(i) && (++t.valid, t.list && t.list.add(i), this._add(t, i));
-  }
-  rem(t, s, r) {
-    const i = this._fields[0](s, r);
-    --t.count, d(i) && (--t.valid, t.list && t.list.rem(), this._rem(t, i));
-  }
-}
-class $ extends h {
-  constructor(t, s, r, i) {
-    super(t, s, r, i);
-    const e = ["state", "v1", "v2"];
-    this._add = l(s, e, "add"), this._rem = l(s, e, "rem");
-  }
-  add(t, s, r) {
-    const i = this._fields[0](s, r), e = this._fields[1](s, r);
-    ++t.count, d(i) && d(e) && (++t.valid, t.list && t.list.add([i, e]), this._add(t, i, e));
-  }
-  rem(t, s, r) {
-    const i = this._fields[0](s, r), e = this._fields[1](s, r);
-    --t.count, d(i) && d(e) && (--t.valid, t.list && t.list.rem(), this._rem(t, i, e));
+  function l(n) {
+    return n === null || n === 35 || m(n) ? (t.exit("atxHeadingText"), x(n)) : (t.consume(n), l);
   }
 }
 export {
-  U as default
+  T as headingAtx
 };
 //# sourceMappingURL=cori.data.api637.js.map

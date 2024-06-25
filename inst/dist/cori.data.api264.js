@@ -4,29 +4,19 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const r = (
-  /**
-   * @type {new <Parameters extends Array<unknown>, Result>(property: string | symbol) => (...parameters: Parameters) => Result}
-   */
-  /** @type {unknown} */
-  /**
-   * @this {Function}
-   * @param {string | symbol} property
-   * @returns {(...parameters: Array<unknown>) => unknown}
-   */
-  function(n) {
-    const o = (
-      /** @type {Record<string | symbol, Function>} */
-      // Prototypes do exist.
-      // type-coverage:ignore-next-line
-      this.constructor.prototype
-    ), s = o[n], t = function() {
-      return s.apply(t, arguments);
-    };
-    return Object.setPrototypeOf(t, o), t;
-  }
-);
+function r(t, e) {
+  const p = e.value ? e.value + `
+` : "", l = {};
+  e.lang && (l.className = ["language-" + e.lang]);
+  let a = {
+    type: "element",
+    tagName: "code",
+    properties: l,
+    children: [{ type: "text", value: p }]
+  };
+  return e.meta && (a.data = { meta: e.meta }), t.patch(e, a), a = t.applyData(e, a), a = { type: "element", tagName: "pre", properties: {}, children: [a] }, t.patch(e, a), a;
+}
 export {
-  r as CallableInstance
+  r as code
 };
 //# sourceMappingURL=cori.data.api264.js.map

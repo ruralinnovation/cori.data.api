@@ -1,63 +1,35 @@
-import { color as A } from "./cori.data.api488.js";
-import { convert as I } from "./cori.data.api489.js";
+import { normalizeUri as s } from "./cori.data.api288.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const g = [], j = !0, a = !1, k = "skip";
-function w(t, o, u, s) {
-  let p;
-  typeof o == "function" && typeof u != "function" ? (s = u, u = o) : p = o;
-  const b = I(p), y = s ? -1 : 1;
-  m(t, void 0, [])();
-  function m(n, N, l) {
-    const i = (
-      /** @type {Record<string, unknown>} */
-      n && typeof n == "object" ? n : {}
-    );
-    if (typeof i.type == "string") {
-      const e = (
-        // `hast`
-        typeof i.tagName == "string" ? i.tagName : (
-          // `xast`
-          typeof i.name == "string" ? i.name : void 0
-        )
-      );
-      Object.defineProperty(h, "name", {
-        value: "node (" + A(n.type + (e ? "<" + e + ">" : "")) + ")"
-      });
-    }
-    return h;
-    function h() {
-      let e = g, f, r, d;
-      if ((!o || b(n, N, l[l.length - 1] || void 0)) && (e = E(u(n, l)), e[0] === a))
-        return e;
-      if ("children" in n && n.children) {
-        const c = (
-          /** @type {UnistParent} */
-          n
-        );
-        if (c.children && e[0] !== k)
-          for (r = (s ? c.children.length : -1) + y, d = l.concat(c); r > -1 && r < c.children.length; ) {
-            const P = c.children[r];
-            if (f = m(P, r, d)(), f[0] === a)
-              return f;
-            r = typeof f[1] == "number" ? f[1] : r + y;
-          }
-      }
-      return e;
-    }
-  }
-}
-function E(t) {
-  return Array.isArray(t) ? t : typeof t == "number" ? [j, t] : t == null ? g : [t];
+function d(e, r) {
+  const i = typeof e.options.clobberPrefix == "string" ? e.options.clobberPrefix : "user-content-", t = String(r.identifier).toUpperCase(), f = s(t.toLowerCase()), l = e.footnoteOrder.indexOf(t);
+  let n, o = e.footnoteCounts.get(t);
+  o === void 0 ? (o = 0, e.footnoteOrder.push(t), n = e.footnoteOrder.length) : n = l + 1, o += 1, e.footnoteCounts.set(t, o);
+  const p = {
+    type: "element",
+    tagName: "a",
+    properties: {
+      href: "#" + i + "fn-" + f,
+      id: i + "fnref-" + f + (o > 1 ? "-" + o : ""),
+      dataFootnoteRef: !0,
+      ariaDescribedBy: ["footnote-label"]
+    },
+    children: [{ type: "text", value: String(n) }]
+  };
+  e.patch(r, p);
+  const c = {
+    type: "element",
+    tagName: "sup",
+    properties: {},
+    children: [p]
+  };
+  return e.patch(r, c), e.applyData(r, c);
 }
 export {
-  j as CONTINUE,
-  a as EXIT,
-  k as SKIP,
-  w as visitParents
+  d as footnoteReference
 };
 //# sourceMappingURL=cori.data.api267.js.map

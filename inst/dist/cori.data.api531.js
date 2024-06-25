@@ -1,27 +1,43 @@
-import s from "./cori.data.api356.js";
-import m from "./cori.data.api376.js";
-import u from "./cori.data.api333.js";
-import c from "./cori.data.api337.js";
-import l from "./cori.data.api334.js";
-import p from "./cori.data.api362.js";
-import d from "./cori.data.api380.js";
-import g from "./cori.data.api520.js";
-import x from "./cori.data.api353.js";
+import { splice as a } from "./cori.data.api628.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function j(i, e, f) {
-  const r = /* @__PURE__ */ new Map();
-  x(f).forEach((o, t) => {
-    o = l(o) ? e.columnName(o) : o, d(o) ? r.set(t, m(o)) : c(o) || p(o) && o.expr ? r.set(t, o) : u(`Invalid ${i} key value: ${o + ""}`);
-  });
-  const n = s(r, { table: e, aggregate: !1, window: !1 });
-  return g(n.exprs, !0);
+const s = {}.hasOwnProperty;
+function d(t) {
+  const e = {};
+  let n = -1;
+  for (; ++n < t.length; )
+    l(e, t[n]);
+  return e;
+}
+function l(t, e) {
+  let n;
+  for (n in e) {
+    const i = (s.call(t, n) ? t[n] : void 0) || (t[n] = {}), f = e[n];
+    let o;
+    if (f)
+      for (o in f) {
+        s.call(i, o) || (i[o] = []);
+        const r = f[o];
+        h(
+          // @ts-expect-error Looks like a list.
+          i[o],
+          Array.isArray(r) ? r : r ? [r] : []
+        );
+      }
+  }
+}
+function h(t, e) {
+  let n = -1;
+  const c = [];
+  for (; ++n < e.length; )
+    (e[n].add === "after" ? t : c).push(e[n]);
+  a(t, 0, 0, c);
 }
 export {
-  j as default
+  d as combineExtensions
 };
 //# sourceMappingURL=cori.data.api531.js.map

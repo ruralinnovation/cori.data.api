@@ -1,97 +1,39 @@
-import x from "./cori.data.api329.js";
-import { normalizeUri as N } from "./cori.data.api330.js";
+import F from "./cori.data.api319.js";
+import "./cori.data.api33.js";
+import "./cori.data.api34.js";
+import { columns as V, formats as j, scan as w } from "./cori.data.api412.js";
+import H from "./cori.data.api413.js";
+import L from "./cori.data.api333.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function L(e, o) {
-  const r = [{ type: "text", value: "↩" }];
-  return o > 1 && r.push({
-    type: "element",
-    tagName: "sup",
-    properties: {},
-    children: [{ type: "text", value: String(o) }]
-  }), r;
-}
-function k(e, o) {
-  return "Back to reference " + (e + 1) + (o > 1 ? "-" + o : "");
-}
-function C(e) {
-  const o = typeof e.options.clobberPrefix == "string" ? e.options.clobberPrefix : "user-content-", r = e.options.footnoteBackContent || L, s = e.options.footnoteBackLabel || k, y = e.options.footnoteLabel || "Footnotes", g = e.options.footnoteLabelTagName || "h2", b = e.options.footnoteLabelProperties || {
-    className: ["sr-only"]
-  }, f = [];
-  let a = -1;
-  for (; ++a < e.footnoteOrder.length; ) {
-    const p = e.footnoteById.get(
-      e.footnoteOrder[a]
-    );
-    if (!p)
-      continue;
-    const c = e.all(p), u = String(p.identifier).toUpperCase(), d = N(u.toLowerCase());
-    let l = 0;
-    const i = [], h = e.footnoteCounts.get(u);
-    for (; h !== void 0 && ++l <= h; ) {
-      i.length > 0 && i.push({ type: "text", value: " " });
-      let t = typeof r == "string" ? r : r(a, l);
-      typeof t == "string" && (t = { type: "text", value: t }), i.push({
-        type: "element",
-        tagName: "a",
-        properties: {
-          href: "#" + o + "fnref-" + d + (l > 1 ? "-" + l : ""),
-          dataFootnoteBackref: "",
-          ariaLabel: typeof s == "string" ? s : s(a, l),
-          className: ["data-footnote-backref"]
-        },
-        children: Array.isArray(t) ? t : [t]
-      });
+function C(c, r = {}) {
+  const s = V(c, r.columns), { align: g, format: h } = j(c, s, r), m = M(r), a = r.null, y = (t) => t === "c" ? "center" : t === "r" ? "right" : "left", $ = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"), f = (t, o) => $(H(t, o)), x = a ? (t, o) => t == null ? a(t) : f(t, o) : f;
+  let l = -1, i = -1;
+  const e = (t, o, b) => {
+    const u = b ? y(g[o]) : "", p = m[t] && m[t](o, i, l) || "", d = (u ? `text-align: ${u};` + (p ? " " : "") : "") + p;
+    return `<${t}${d ? ` style="${d}"` : ""}>`;
+  };
+  let n = e("table") + e("thead") + e("tr", l) + s.map((t) => `${e("th", t, 1)}${t}</th>`).join("") + "</tr></thead>" + e("tbody");
+  return w(c, s, r.limit, r.offset, {
+    row(t) {
+      l = t, n += (++i ? "</tr>" : "") + e("tr");
+    },
+    cell(t, o) {
+      n += e("td", o, 1) + x(t, h[o]) + "</td>";
     }
-    const n = c[c.length - 1];
-    if (n && n.type === "element" && n.tagName === "p") {
-      const t = n.children[n.children.length - 1];
-      t && t.type === "text" ? t.value += " " : n.children.push({ type: "text", value: " " }), n.children.push(...i);
-    } else
-      c.push(...i);
-    const m = {
-      type: "element",
-      tagName: "li",
-      properties: { id: o + "fn-" + d },
-      children: e.wrap(c, !0)
-    };
-    e.patch(p, m), f.push(m);
-  }
-  if (f.length !== 0)
-    return {
-      type: "element",
-      tagName: "section",
-      properties: { dataFootnotes: !0, className: ["footnotes"] },
-      children: [
-        {
-          type: "element",
-          tagName: g,
-          properties: {
-            ...x(b),
-            id: "footnote-label"
-          },
-          children: [{ type: "text", value: y }]
-        },
-        { type: "text", value: `
-` },
-        {
-          type: "element",
-          tagName: "ol",
-          properties: {},
-          children: e.wrap(f, !0)
-        },
-        { type: "text", value: `
-` }
-      ]
-    };
+  }), n + "</tr></tbody></table>";
+}
+function M(c) {
+  return L(
+    c.style,
+    (r) => F(r) ? r : () => r
+  );
 }
 export {
-  L as defaultFootnoteBackContent,
-  k as defaultFootnoteBackLabel,
-  C as footer
+  C as default
 };
 //# sourceMappingURL=cori.data.api327.js.map

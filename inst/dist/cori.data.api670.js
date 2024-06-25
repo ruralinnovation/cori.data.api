@@ -1,36 +1,14 @@
-import { SIZE_PREFIX_LENGTH as s } from "./cori.data.api665.js";
-import "./cori.data.api574.js";
-import "./cori.data.api575.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class r {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
-  }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
-  }
-  static getRootAsLargeBinary(t, i) {
-    return (i || new r()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsLargeBinary(t, i) {
-    return t.setPosition(t.position() + s), (i || new r()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static startLargeBinary(t) {
-    t.startObject(0);
-  }
-  static endLargeBinary(t) {
-    return t.endObject();
-  }
-  static createLargeBinary(t) {
-    return r.startLargeBinary(t), r.endLargeBinary(t);
-  }
-}
+var n;
+(function(F) {
+  F[F.BUFFER = 0] = "BUFFER";
+})(n || (n = {}));
 export {
-  r as LargeBinary
+  n as BodyCompressionMethod
 };
 //# sourceMappingURL=cori.data.api670.js.map

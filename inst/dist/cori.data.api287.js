@@ -1,22 +1,18 @@
-import o from "./cori.data.api389.js";
-import r from "./cori.data.api390.js";
-import t from "./cori.data.api391.js";
+import { deserialize as t } from "./cori.data.api386.js";
+import { serialize as u } from "./cori.data.api387.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const l = {
-  isBrowser: !0,
-  classes: {
-    URLSearchParams: o,
-    FormData: r,
-    Blob: t
-  },
-  protocols: ["http", "https", "file", "blob", "url", "data"]
-};
+const s = typeof structuredClone == "function" ? (
+  /* c8 ignore start */
+  (r, e) => e && ("json" in e || "lossy" in e) ? t(u(r, e)) : structuredClone(r)
+) : (r, e) => t(u(r, e));
 export {
-  l as default
+  s as default,
+  t as deserialize,
+  u as serialize
 };
 //# sourceMappingURL=cori.data.api287.js.map

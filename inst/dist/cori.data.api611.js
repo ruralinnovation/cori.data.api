@@ -1,61 +1,36 @@
-import { Dictionary as c } from "./cori.data.api444.js";
-import { Builder as d } from "./cori.data.api502.js";
-import { makeBuilder as r } from "./cori.data.api604.js";
+import { BufferBuilder as h } from "./cori.data.api497.js";
+import { VariableWidthBuilder as o } from "./cori.data.api493.js";
+import { toUint8Array as u } from "./cori.data.api492.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class a extends d {
-  constructor({ type: i, nullValues: e, dictionaryHashFunction: t }) {
-    super({ type: new c(i.dictionary, i.indices, i.id, i.isOrdered) }), this._nulls = null, this._dictionaryOffset = 0, this._keysToIndices = /* @__PURE__ */ Object.create(null), this.indices = r({ type: this.type.indices, nullValues: e }), this.dictionary = r({ type: this.type.dictionary, nullValues: null }), typeof t == "function" && (this.valueToKey = t);
-  }
-  get values() {
-    return this.indices.values;
-  }
-  get nullCount() {
-    return this.indices.nullCount;
-  }
-  get nullBitmap() {
-    return this.indices.nullBitmap;
+class c extends o {
+  constructor(e) {
+    super(e), this._values = new h(Uint8Array);
   }
   get byteLength() {
-    return this.indices.byteLength + this.dictionary.byteLength;
+    let e = this._pendingLength + this.length * 4;
+    return this._offsets && (e += this._offsets.byteLength), this._values && (e += this._values.byteLength), this._nulls && (e += this._nulls.byteLength), e;
   }
-  get reservedLength() {
-    return this.indices.reservedLength + this.dictionary.reservedLength;
+  setValue(e, t) {
+    return super.setValue(e, u(t));
   }
-  get reservedByteLength() {
-    return this.indices.reservedByteLength + this.dictionary.reservedByteLength;
-  }
-  isValid(i) {
-    return this.indices.isValid(i);
-  }
-  setValid(i, e) {
-    const t = this.indices;
-    return e = t.setValid(i, e), this.length = t.length, e;
-  }
-  setValue(i, e) {
-    const t = this._keysToIndices, s = this.valueToKey(e);
-    let n = t[s];
-    return n === void 0 && (t[s] = n = this._dictionaryOffset + this.dictionary.append(e).length - 1), this.indices.setValue(i, n);
-  }
-  flush() {
-    const i = this.type, e = this._dictionary, t = this.dictionary.toVector(), s = this.indices.flush().clone(i);
-    return s.dictionary = e ? e.concat(t) : t, this.finished || (this._dictionaryOffset += t.length), this._dictionary = s.dictionary, this.clear(), s;
-  }
-  finish() {
-    return this.indices.finish(), this.dictionary.finish(), this._dictionaryOffset = 0, this._keysToIndices = /* @__PURE__ */ Object.create(null), super.finish();
-  }
-  clear() {
-    return this.indices.clear(), this.dictionary.clear(), super.clear();
-  }
-  valueToKey(i) {
-    return typeof i == "string" ? i : `${i}`;
+  _flushPending(e, t) {
+    const n = this._offsets, f = this._values.reserve(t).buffer;
+    let r = 0;
+    for (const [i, s] of e)
+      if (s === void 0)
+        n.set(i, 0);
+      else {
+        const l = s.length;
+        f.set(s, r), n.set(i, l), r += l;
+      }
   }
 }
 export {
-  a as DictionaryBuilder
+  c as BinaryBuilder
 };
 //# sourceMappingURL=cori.data.api611.js.map

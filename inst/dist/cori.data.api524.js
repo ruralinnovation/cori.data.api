@@ -1,26 +1,26 @@
-import m from "./cori.data.api356.js";
-import n from "./cori.data.api376.js";
-import c from "./cori.data.api348.js";
-import u from "./cori.data.api378.js";
-import l from "./cori.data.api333.js";
-import p from "./cori.data.api334.js";
-import d from "./cori.data.api362.js";
-import h from "./cori.data.api380.js";
-import v from "./cori.data.api337.js";
-import w from "./cori.data.api353.js";
+import i from "./cori.data.api625.js";
+import g from "./cori.data.api626.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function M(t, i, s, e = { window: !1 }) {
-  const o = /* @__PURE__ */ new Map(), f = (r) => {
-    r = p(r) ? i.columnName(r) : r, h(r) ? o.set(r, n(r)) : v(r) ? c(i, r).forEach(f) : d(r) ? u(o, r) : l(`Invalid ${t} value: ${r + ""}`);
-  };
-  return w(s).forEach(f), e.preparse && e.preparse(o), m(o, { table: i, ...e });
+function b(f, s, m, u = {}) {
+  const { replace: r, shuffle: h } = u, a = f.partitions(!1);
+  let o = 0;
+  s = a.map((e, n) => {
+    let t = s(n);
+    return o += t = r ? t : Math.min(e.length, t), t;
+  });
+  const l = new Uint32Array(o);
+  let p = 0;
+  return a.forEach((e, n) => {
+    const t = s[n], c = l.subarray(p, p += t);
+    !r && t === e.length ? c.set(e) : i(c, r, e, m);
+  }), h !== !1 && (a.length > 1 || !r) && g(l), f.reify(l);
 }
 export {
-  M as default
+  b as default
 };
 //# sourceMappingURL=cori.data.api524.js.map

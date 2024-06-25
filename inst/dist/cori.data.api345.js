@@ -1,39 +1,20 @@
-import F from "./cori.data.api337.js";
-import "./cori.data.api36.js";
-import "./cori.data.api37.js";
-import { columns as V, formats as j, scan as w } from "./cori.data.api427.js";
-import H from "./cori.data.api428.js";
-import L from "./cori.data.api351.js";
+import a from "./cori.data.api343.js";
+import { rowObjectCode as p } from "./cori.data.api324.js";
+import n from "./cori.data.api315.js";
+import c from "./cori.data.api417.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function C(c, r = {}) {
-  const s = V(c, r.columns), { align: g, format: h } = j(c, s, r), m = M(r), a = r.null, y = (t) => t === "c" ? "center" : t === "r" ? "right" : "left", $ = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"), f = (t, o) => $(H(t, o)), x = a ? (t, o) => t == null ? a(t) : f(t, o) : f;
-  let l = -1, i = -1;
-  const e = (t, o, b) => {
-    const u = b ? y(g[o]) : "", p = m[t] && m[t](o, i, l) || "", d = (u ? `text-align: ${u};` + (p ? " " : "") : "") + p;
-    return `<${t}${d ? ` style="${d}"` : ""}>`;
-  };
-  let n = e("table") + e("thead") + e("tr", l) + s.map((t) => `${e("th", t, 1)}${t}</th>`).join("") + "</tr></thead>" + e("tbody");
-  return w(c, s, r.limit, r.offset, {
-    row(t) {
-      l = t, n += (++i ? "</tr>" : "") + e("tr");
-    },
-    cell(t, o) {
-      n += e("td", o, 1) + x(t, h[o]) + "</td>";
-    }
-  }), n + "</tr></tbody></table>";
-}
-function M(c) {
-  return L(
-    c.style,
-    (r) => F(r) ? r : () => r
-  );
+const s = "Escaped functions are not valid as rollup or pivot values.";
+function u(o, r, e) {
+  o.aggronly && n(s);
+  const t = "(row,data)=>fn(" + p(o.table.columnNames()) + ",$)";
+  return { escape: a.escape(t, c(r.expr), e) };
 }
 export {
-  C as default
+  u as default
 };
 //# sourceMappingURL=cori.data.api345.js.map

@@ -1,26 +1,36 @@
-import { labelEnd as o } from "./cori.data.api661.js";
+import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api655.js";
+import "./cori.data.api564.js";
+import "./cori.data.api565.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const b = {
-  name: "labelStartLink",
-  tokenize: k,
-  resolveAll: o.resolveAll
-};
-function k(n, r, e) {
-  const l = this;
-  return a;
-  function a(t) {
-    return n.enter("labelLink"), n.enter("labelMarker"), n.consume(t), n.exit("labelMarker"), n.exit("labelLink"), i;
+class s {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  function i(t) {
-    return t === 94 && "_hiddenFootnoteSupport" in l.parser.constructs ? e(t) : r(t);
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
+  }
+  static getRootAsBinary(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static getSizePrefixedRootAsBinary(t, i) {
+    return t.setPosition(t.position() + n), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static startBinary(t) {
+    t.startObject(0);
+  }
+  static endBinary(t) {
+    return t.endObject();
+  }
+  static createBinary(t) {
+    return s.startBinary(t), s.endBinary(t);
   }
 }
 export {
-  b as labelStartLink
+  s as Binary
 };
 //# sourceMappingURL=cori.data.api659.js.map

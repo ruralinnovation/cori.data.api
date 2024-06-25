@@ -1,33 +1,26 @@
-import e from "./cori.data.api521.js";
-import t from "./cori.data.api526.js";
-import p from "./cori.data.api534.js";
-import n from "./cori.data.api356.js";
-import u from "./cori.data.api334.js";
-import f from "./cori.data.api380.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function N(o, r, m = {}) {
-  return p(
-    o,
-    c(o, r),
-    l(o, m.weight),
-    m
-  );
-}
-const i = (o) => (r) => o.get(r) || 0;
-function c(o, r) {
-  return u(r) ? () => r : i(t(o, n({ size: r }, { table: o, window: !1 })).column("size"));
-}
-function l(o, r) {
-  return r == null ? null : (r = u(r) ? o.columnName(r) : r, i(
-    f(r) ? o.column(r) : e(o, n({ w: r }, { table: o }), { drop: !0 }).column("w")
-  ));
+function y(t, n) {
+  t = t || 10;
+  const c = new Array(t), o = new Array(t);
+  let e = 0, r = 0, i;
+  return n = n !== void 0 ? n : 1e3, function(h) {
+    const d = Date.now(), a = o[r];
+    i || (i = d), c[e] = h, o[e] = d;
+    let f = r, u = 0;
+    for (; f !== e; )
+      u += c[f++], f = f % t;
+    if (e = (e + 1) % t, e === r && (r = (r + 1) % t), d - i < n)
+      return;
+    const w = a && d - a;
+    return w ? Math.round(u * 1e3 / w) : void 0;
+  };
 }
 export {
-  N as default
+  y as default
 };
 //# sourceMappingURL=cori.data.api477.js.map

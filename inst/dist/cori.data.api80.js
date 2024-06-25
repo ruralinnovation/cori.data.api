@@ -1,46 +1,65 @@
-import d from "./cori.data.api79.js";
-import p from "./cori.data.api82.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function b(c) {
-  let u, o, s;
-  c.length !== 2 ? (u = d, o = (n, e) => d(c(n), e), s = (n, e) => c(n) - e) : (u = c === d || c === p ? c : l, o = c, s = c);
-  function f(n, e, t = 0, r = n.length) {
-    if (t < r) {
-      if (u(e, e) !== 0)
-        return r;
-      do {
-        const i = t + r >>> 1;
-        o(n[i], e) < 0 ? t = i + 1 : r = i;
-      } while (t < r);
-    }
-    return t;
-  }
-  function m(n, e, t = 0, r = n.length) {
-    if (t < r) {
-      if (u(e, e) !== 0)
-        return r;
-      do {
-        const i = t + r >>> 1;
-        o(n[i], e) <= 0 ? t = i + 1 : r = i;
-      } while (t < r);
-    }
-    return t;
-  }
-  function g(n, e, t = 0, r = n.length) {
-    const i = f(n, e, t, r - 1);
-    return i > t && s(n[i - 1], e) > -s(n[i], e) ? i - 1 : i;
-  }
-  return { left: f, center: g, right: m };
+function a(t) {
+  return t.trim().split(/^|\s+/);
 }
-function l() {
-  return 0;
+function r(t) {
+  return t.classList || new c(t);
+}
+function c(t) {
+  this._node = t, this._names = a(t.getAttribute("class") || "");
+}
+c.prototype = {
+  add: function(t) {
+    var n = this._names.indexOf(t);
+    n < 0 && (this._names.push(t), this._node.setAttribute("class", this._names.join(" ")));
+  },
+  remove: function(t) {
+    var n = this._names.indexOf(t);
+    n >= 0 && (this._names.splice(n, 1), this._node.setAttribute("class", this._names.join(" ")));
+  },
+  contains: function(t) {
+    return this._names.indexOf(t) >= 0;
+  }
+};
+function u(t, n) {
+  for (var s = r(t), i = -1, e = n.length; ++i < e; )
+    s.add(n[i]);
+}
+function o(t, n) {
+  for (var s = r(t), i = -1, e = n.length; ++i < e; )
+    s.remove(n[i]);
+}
+function f(t) {
+  return function() {
+    u(this, t);
+  };
+}
+function h(t) {
+  return function() {
+    o(this, t);
+  };
+}
+function d(t, n) {
+  return function() {
+    (n.apply(this, arguments) ? u : o)(this, t);
+  };
+}
+function m(t, n) {
+  var s = a(t + "");
+  if (arguments.length < 2) {
+    for (var i = r(this.node()), e = -1, l = s.length; ++e < l; )
+      if (!i.contains(s[e]))
+        return !1;
+    return !0;
+  }
+  return this.each((typeof n == "function" ? d : n ? f : h)(s, n));
 }
 export {
-  b as default
+  m as default
 };
 //# sourceMappingURL=cori.data.api80.js.map

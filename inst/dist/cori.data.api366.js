@@ -1,82 +1,70 @@
-import y from "./cori.data.api374.js";
-import m from "./cori.data.api376.js";
-import g from "./cori.data.api377.js";
-import { all as j, range as O, matches as w, not as E } from "./cori.data.api348.js";
-import S from "./cori.data.api39.js";
-import p from "./cori.data.api333.js";
-import n from "./cori.data.api373.js";
-import f from "./cori.data.api337.js";
-import u from "./cori.data.api334.js";
-import c from "./cori.data.api362.js";
-import h from "./cori.data.api380.js";
-import b from "./cori.data.api351.js";
-import d from "./cori.data.api353.js";
+import e from "./cori.data.api448.js";
+import f from "./cori.data.api449.js";
+import u from "./cori.data.api450.js";
+import n from "./cori.data.api451.js";
+import c from "./cori.data.api452.js";
+import l from "./cori.data.api453.js";
+import s from "./cori.data.api454.js";
+import _ from "./cori.data.api455.js";
+import t from "./cori.data.api456.js";
+import a from "./cori.data.api457.js";
+import d from "./cori.data.api458.js";
+import b from "./cori.data.api459.js";
+import g from "./cori.data.api460.js";
+import i from "./cori.data.api461.js";
+import j from "./cori.data.api462.js";
+import v from "./cori.data.api463.js";
+import x from "./cori.data.api464.js";
+import y from "./cori.data.api465.js";
+import h from "./cori.data.api466.js";
+import k from "./cori.data.api467.js";
+import q from "./cori.data.api468.js";
+import w from "./cori.data.api469.js";
+import z from "./cori.data.api470.js";
+import A from "./cori.data.api471.js";
+import B from "./cori.data.api472.js";
+import { count as C } from "./cori.data.api33.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function K(t) {
-  const o = (r) => r;
-  return o.toString = () => t, o;
-}
-function G(t, o) {
-  return o = o && f(o.query) ? o.query() : o, o && f(o.evaluate) ? o.evaluate(null, t) : t(o);
-}
-function H(t) {
-  return c(t) && (n(t.all) || n(t.matches) || n(t.not) || n(t.range));
-}
-function e(t) {
-  return t && f(t.toObject) ? t.toObject() : f(t) ? { expr: String(t), func: !0 } : n(t) ? t.map(e) : c(t) ? b(t, (o) => e(o)) : t;
-}
-function x(t) {
-  return n(t) ? t.map(x) : c(t) ? n(t.verbs) ? S.from(t) : n(t.all) ? j() : n(t.range) ? O(...t.range) : n(t.match) ? w(RegExp(...t.match)) : n(t.not) ? E(t.not.map(e)) : q(t) : t;
-}
-function q(t) {
-  let o = t, r = t.expr;
-  if (r != null) {
-    if (t.field === !0 ? o = r = m(r) : t.func === !0 && (o = r = K(r)), c(t.window)) {
-      const { frame: i, peers: s } = t.window;
-      o = r = g(r, i, s);
-    }
-    t.desc === !0 && (o = y(r));
-  }
-  return t === o ? b(t, (i) => x(i)) : o;
-}
-function L(t) {
-  return n(t) ? t.map(A) : t;
-}
-function A(t) {
-  const o = [];
-  return d(t).forEach((r) => {
-    u(r) ? o.push(r) : h(r) ? o.push(m(r, null)) : c(r) && r.expr || f(r) ? o.push(r) : p(`Invalid key value: ${r + ""}`);
-  }), o;
-}
-function M(t) {
-  return n(t) ? t.map(I) : t;
-}
-function I(t, o) {
-  return o < 2 ? d(t) : t;
-}
-function P(t) {
-  const o = [];
-  return t.forEach((r) => {
-    const i = r.expr != null ? r.expr : r;
-    if (c(i) && !f(i))
-      for (const s in i)
-        o.push(i[s]);
-    else
-      r = u(i) ? i : h(i) ? m(r) : f(i) ? r : p(`Invalid orderby field: ${r + ""}`), o.push(r);
-  }), o;
-}
+const mr = {
+  __antijoin: (r, o, m) => t(r, o, m, { anti: !0 }),
+  __count: (r, o = {}) => i(r, { [o.as || "count"]: C() }),
+  __cross: (r, o, m, p) => _(r, o, () => !0, m, {
+    ...p,
+    left: !0,
+    right: !0
+  }),
+  __concat: w,
+  __dedupe: e,
+  __derive: f,
+  __except: u,
+  __filter: n,
+  __fold: c,
+  __impute: l,
+  __intersect: s,
+  __join: _,
+  __lookup: a,
+  __pivot: d,
+  __relocate: b,
+  __rename: g,
+  __rollup: i,
+  __sample: j,
+  __select: v,
+  __semijoin: t,
+  __spread: x,
+  __union: y,
+  __unroll: h,
+  __groupby: k,
+  __orderby: q,
+  __ungroup: A,
+  __unorder: B,
+  __reduce: z
+};
 export {
-  x as fromObject,
-  G as getTable,
-  H as isSelection,
-  L as joinKeys,
-  M as joinValues,
-  P as orderbyKeys,
-  e as toObject
+  mr as default
 };
 //# sourceMappingURL=cori.data.api366.js.map

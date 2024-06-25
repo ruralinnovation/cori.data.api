@@ -1,28 +1,29 @@
-import o from "./cori.data.api232.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(n, t, i) {
-  var c = o(n), e = c.CustomEvent;
-  typeof e == "function" ? e = new e(t, i) : (e = c.document.createEvent("Event"), i ? (e.initEvent(t, i.bubbles, i.cancelable), e.detail = i.detail) : e.initEvent(t, !1, !1)), n.dispatchEvent(e);
-}
-function f(n, t) {
-  return function() {
-    return u(this, n, t);
-  };
-}
-function s(n, t) {
-  return function() {
-    return u(this, n, t.apply(this, arguments));
-  };
-}
-function r(n, t) {
-  return this.each((typeof t == "function" ? s : f)(n, t));
-}
+const e = {
+  classId: "classID",
+  dataType: "datatype",
+  itemId: "itemID",
+  strokeDashArray: "strokeDasharray",
+  strokeDashOffset: "strokeDashoffset",
+  strokeLineCap: "strokeLinecap",
+  strokeLineJoin: "strokeLinejoin",
+  strokeMiterLimit: "strokeMiterlimit",
+  typeOf: "typeof",
+  xLinkActuate: "xlinkActuate",
+  xLinkArcRole: "xlinkArcrole",
+  xLinkHref: "xlinkHref",
+  xLinkRole: "xlinkRole",
+  xLinkShow: "xlinkShow",
+  xLinkTitle: "xlinkTitle",
+  xLinkType: "xlinkType",
+  xmlnsXLink: "xmlnsXlink"
+};
 export {
-  r as default
+  e as hastToReact
 };
 //# sourceMappingURL=cori.data.api229.js.map

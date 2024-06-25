@@ -1,52 +1,23 @@
-import { factorySpace as l } from "./cori.data.api639.js";
-import { blankLine as a } from "./cori.data.api640.js";
-import { content as e } from "./cori.data.api641.js";
+import { makeBuilder as n } from "./cori.data.api594.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const d = {
-  tokenize: m
-};
-function m(n) {
-  const o = this, i = n.attempt(
-    // Try to parse a blank line.
-    a,
-    u,
-    // Try to parse initial flow (essentially, only code).
-    n.attempt(
-      this.parser.constructs.flowInitial,
-      r,
-      l(
-        n,
-        n.attempt(
-          this.parser.constructs.flow,
-          r,
-          n.attempt(e, r)
-        ),
-        "linePrefix"
-      )
-    )
-  );
-  return i;
-  function u(t) {
-    if (t === null) {
-      n.consume(t);
-      return;
-    }
-    return n.enter("lineEndingBlank"), n.consume(t), n.exit("lineEndingBlank"), o.currentConstruct = void 0, i;
-  }
-  function r(t) {
-    if (t === null) {
-      n.consume(t);
-      return;
-    }
-    return n.enter("lineEnding"), n.consume(t), n.exit("lineEnding"), o.currentConstruct = void 0, i;
-  }
+function d(u) {
+  const e = n({
+    type: u,
+    nullValues: [null, void 0]
+  });
+  return {
+    set(l, t) {
+      e.set(t, l);
+    },
+    data: () => e.finish().flush()
+  };
 }
 export {
-  d as flow
+  d as default
 };
 //# sourceMappingURL=cori.data.api544.js.map

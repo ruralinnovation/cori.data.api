@@ -1,87 +1,29 @@
-import { factoryDestination as D } from "./cori.data.api687.js";
-import { factoryLabel as S } from "./cori.data.api688.js";
-import { factorySpace as s } from "./cori.data.api639.js";
-import { factoryTitle as g } from "./cori.data.api689.js";
-import { factoryWhitespace as d } from "./cori.data.api690.js";
-import { markdownLineEndingOrSpace as k, markdownSpace as h, markdownLineEnding as L } from "./cori.data.api419.js";
-import { normalizeIdentifier as w } from "./cori.data.api409.js";
+import { labelEnd as u } from "./cori.data.api651.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const O = {
-  name: "definition",
-  tokenize: M
-}, z = {
-  tokenize: y,
-  partial: !0
+const g = {
+  name: "labelStartImage",
+  tokenize: m,
+  resolveAll: u.resolveAll
 };
-function M(t, f, e) {
-  const r = this;
-  let o;
-  return u;
-  function u(i) {
-    return t.enter("definition"), a(i);
+function m(r, a, t) {
+  const n = this;
+  return l;
+  function l(e) {
+    return r.enter("labelImage"), r.enter("labelImageMarker"), r.consume(e), r.exit("labelImageMarker"), o;
   }
-  function a(i) {
-    return S.call(
-      r,
-      t,
-      n,
-      // Note: we don’t need to reset the way `markdown-rs` does.
-      e,
-      "definitionLabel",
-      "definitionLabelMarker",
-      "definitionLabelString"
-    )(i);
+  function o(e) {
+    return e === 91 ? (r.enter("labelMarker"), r.consume(e), r.exit("labelMarker"), r.exit("labelImage"), i) : t(e);
   }
-  function n(i) {
-    return o = w(r.sliceSerialize(r.events[r.events.length - 1][1]).slice(1, -1)), i === 58 ? (t.enter("definitionMarker"), t.consume(i), t.exit("definitionMarker"), b) : e(i);
-  }
-  function b(i) {
-    return k(i) ? d(t, l)(i) : l(i);
-  }
-  function l(i) {
-    return D(
-      t,
-      c,
-      // Note: we don’t need to reset the way `markdown-rs` does.
-      e,
-      "definitionDestination",
-      "definitionDestinationLiteral",
-      "definitionDestinationLiteralMarker",
-      "definitionDestinationRaw",
-      "definitionDestinationString"
-    )(i);
-  }
-  function c(i) {
-    return t.attempt(z, m, m)(i);
-  }
-  function m(i) {
-    return h(i) ? s(t, p, "whitespace")(i) : p(i);
-  }
-  function p(i) {
-    return i === null || L(i) ? (t.exit("definition"), r.parser.defined.push(o), f(i)) : e(i);
-  }
-}
-function y(t, f, e) {
-  return r;
-  function r(n) {
-    return k(n) ? d(t, o)(n) : e(n);
-  }
-  function o(n) {
-    return g(t, u, e, "definitionTitle", "definitionTitleMarker", "definitionTitleString")(n);
-  }
-  function u(n) {
-    return h(n) ? s(t, a, "whitespace")(n) : a(n);
-  }
-  function a(n) {
-    return n === null || L(n) ? f(n) : e(n);
+  function i(e) {
+    return e === 94 && "_hiddenFootnoteSupport" in n.parser.constructs ? t(e) : a(e);
   }
 }
 export {
-  O as definition
+  g as labelStartImage
 };
 //# sourceMappingURL=cori.data.api645.js.map

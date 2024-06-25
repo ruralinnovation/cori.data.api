@@ -4,27 +4,27 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const f = e("end"), s = e("start");
-function e(o) {
-  return i;
-  function i(t) {
-    const n = t && t.position && t.position[o] || {};
-    if (typeof n.line == "number" && n.line > 0 && typeof n.column == "number" && n.column > 0)
-      return {
-        line: n.line,
-        column: n.column,
-        offset: typeof n.offset == "number" && n.offset > -1 ? n.offset : void 0
-      };
-  }
-}
-function u(o) {
-  const i = s(o), t = f(o);
-  if (i && t)
-    return { start: i, end: t };
+var X = 180 / Math.PI, o = {
+  translateX: 0,
+  translateY: 0,
+  rotate: 0,
+  skewX: 0,
+  scaleX: 1,
+  scaleY: 1
+};
+function h(t, e, s, r, i, f) {
+  var l, n, a;
+  return (l = Math.sqrt(t * t + e * e)) && (t /= l, e /= l), (a = t * s + e * r) && (s -= t * a, r -= e * a), (n = Math.sqrt(s * s + r * r)) && (s /= n, r /= n, a /= n), t * r < e * s && (t = -t, e = -e, a = -a, l = -l), {
+    translateX: i,
+    translateY: f,
+    rotate: Math.atan2(e, t) * X,
+    skewX: Math.atan(a) * X,
+    scaleX: l,
+    scaleY: n
+  };
 }
 export {
-  f as pointEnd,
-  s as pointStart,
-  u as position
+  h as default,
+  o as identity
 };
 //# sourceMappingURL=cori.data.api254.js.map

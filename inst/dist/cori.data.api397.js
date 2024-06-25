@@ -1,29 +1,21 @@
-import { normalize as s } from "./cori.data.api401.js";
-import { Schema as a } from "./cori.data.api396.js";
-import { DefinedInfo as c } from "./cori.data.api402.js";
+import a from "./cori.data.api217.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const u = {}.hasOwnProperty;
-function w(e) {
-  const p = {}, t = {};
-  let r;
-  for (r in e.properties)
-    if (u.call(e.properties, r)) {
-      const m = e.properties[r], o = new c(
-        r,
-        e.transform(e.attributes || {}, r),
-        m,
-        e.space
-      );
-      e.mustUseProperty && e.mustUseProperty.includes(r) && (o.mustUseProperty = !0), p[r] = o, t[s(r)] = r, t[s(o.attribute)] = r;
-    }
-  return new a(p, t, e.space);
+function E(i, f, t) {
+  const u = t.config.validateStatus;
+  !t.status || !u || u(t.status) ? i(t) : f(new a(
+    "Request failed with status code " + t.status,
+    [a.ERR_BAD_REQUEST, a.ERR_BAD_RESPONSE][Math.floor(t.status / 100) - 4],
+    t.config,
+    t.request,
+    t
+  ));
 }
 export {
-  w as create
+  E as default
 };
 //# sourceMappingURL=cori.data.api397.js.map

@@ -1,54 +1,46 @@
-import { resolveUrl as l } from "./cori.data.api260.js";
-import { getMimeType as i } from "./cori.data.api386.js";
-import { isDataUrl as f, resourceToDataURL as m } from "./cori.data.api387.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const a = /url\((['"]?)([^'"]+?)\1\)/g, p = /url\([^)]+\)\s*format\((["']?)([^"']+)\1\)/g, R = /src:\s*(?:url\([^)]+\)\s*format\([^)]+\)[,;]\s*)+/g;
-function d(r) {
-  const e = r.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1");
-  return new RegExp(`(url\\(['"]?)(${e})(['"]?\\))`, "g");
+const c = i(/[A-Za-z]/), r = i(/[\dA-Za-z]/), a = i(/[#-'*+\--9=?A-Z^-~]/);
+function s(n) {
+  return (
+    // Special whitespace codes (which have negative values), C0 and Control
+    // character DEL
+    n !== null && (n < 32 || n === 127)
+  );
 }
-function g(r) {
-  const e = [];
-  return r.replace(a, (t, n, o) => (e.push(o), t)), e.filter((t) => !f(t));
+const o = i(/\d/), e = i(/[\dA-Fa-f]/), l = i(/[!-/:-@[-`{-~]/);
+function f(n) {
+  return n !== null && n < -2;
 }
-async function E(r, e, t, n, o) {
-  try {
-    const c = t ? l(e, t) : e, s = i(e);
-    let u;
-    return o || (u = await m(c, s, n)), r.replace(d(e), `$1${u}$3`);
-  } catch {
+function p(n) {
+  return n !== null && (n < 0 || n === 32);
+}
+function A(n) {
+  return n === -2 || n === -1 || n === 32;
+}
+const g = i(new RegExp("\\p{P}|\\p{S}", "u")), h = i(/\s/);
+function i(n) {
+  return u;
+  function u(t) {
+    return t !== null && t > -1 && n.test(String.fromCharCode(t));
   }
-  return r;
-}
-function $(r, { preferredFontFormat: e }) {
-  return e ? r.replace(R, (t) => {
-    for (; ; ) {
-      const [n, , o] = p.exec(t) || [];
-      if (!o)
-        return "";
-      if (o === e)
-        return `src: ${n};`;
-    }
-  }) : r;
-}
-function h(r) {
-  return r.search(a) !== -1;
-}
-async function v(r, e, t) {
-  if (!h(r))
-    return r;
-  const n = $(r, t);
-  return g(n).reduce((c, s) => c.then((u) => E(u, s, e, t)), Promise.resolve(n));
 }
 export {
-  E as embed,
-  v as embedResources,
-  g as parseURLs,
-  h as shouldEmbed
+  c as asciiAlpha,
+  r as asciiAlphanumeric,
+  a as asciiAtext,
+  s as asciiControl,
+  o as asciiDigit,
+  e as asciiHexDigit,
+  l as asciiPunctuation,
+  f as markdownLineEnding,
+  p as markdownLineEndingOrSpace,
+  A as markdownSpace,
+  g as unicodePunctuation,
+  h as unicodeWhitespace
 };
 //# sourceMappingURL=cori.data.api388.js.map

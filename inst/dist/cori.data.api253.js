@@ -1,14 +1,18 @@
+import { formatDecimalParts as a } from "./cori.data.api252.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const n = /^[$_\p{ID_Start}][$_\u{200C}\u{200D}\p{ID_Continue}]*$/u, e = /^[$_\p{ID_Start}][-$_\u{200C}\u{200D}\p{ID_Continue}]*$/u, s = {};
-function _(t, o) {
-  return (s.jsx ? e : n).test(t);
+function f(t, o) {
+  var n = a(t, o);
+  if (!n)
+    return t + "";
+  var e = n[0], r = n[1];
+  return r < 0 ? "0." + new Array(-r).join("0") + e : e.length > r + 1 ? e.slice(0, r + 1) + "." + e.slice(r + 1) : e + new Array(r - e.length + 2).join("0");
 }
 export {
-  _ as name
+  f as default
 };
 //# sourceMappingURL=cori.data.api253.js.map

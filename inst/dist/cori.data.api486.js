@@ -4,10 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function r(u) {
-  return u.isGrouped() ? u.create({ groups: null }) : u;
+function t(e) {
+  return e.getUTCHours() === 0 && e.getUTCMinutes() === 0 && e.getUTCSeconds() === 0 && e.getUTCMilliseconds() === 0;
 }
 export {
-  r as default
+  t as default
 };
 //# sourceMappingURL=cori.data.api486.js.map

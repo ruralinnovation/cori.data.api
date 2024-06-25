@@ -1,19 +1,25 @@
-import { Selection as o } from "./cori.data.api59.js";
-import m from "./cori.data.api230.js";
+import { tweenValue as e } from "./cori.data.api202.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(a) {
-  typeof a != "function" && (a = m(a));
-  for (var n = this._groups, e = n.length, l = new Array(e), r = 0; r < e; ++r)
-    for (var f = n[r], c = f.length, h = l[r] = new Array(c), _, i, t = 0; t < c; ++t)
-      (_ = f[t]) && (i = a.call(_, _.__data__, t, f)) && ("__data__" in _ && (i.__data__ = _.__data__), h[t] = i);
-  return new o(l, this._parents);
+function i(t) {
+  return function() {
+    this.textContent = t;
+  };
+}
+function o(t) {
+  return function() {
+    var n = t(this);
+    this.textContent = n ?? "";
+  };
+}
+function r(t) {
+  return this.tween("text", typeof t == "function" ? o(e(this, "text", t)) : i(t == null ? "" : t + ""));
 }
 export {
-  p as default
+  r as default
 };
 //# sourceMappingURL=cori.data.api199.js.map

@@ -1,37 +1,33 @@
-import s from "./cori.data.api677.js";
-import i from "./cori.data.api683.js";
-import r from "./cori.data.api684.js";
-import e from "./cori.data.api685.js";
+import { factorySpace as k } from "./cori.data.api629.js";
+import { markdownLineEnding as E } from "./cori.data.api388.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class u {
-  constructor(t) {
-    this._values = t || [], this._sorted = null, this._start = 0;
+function B(r, S, m, x, u, a) {
+  let i;
+  return h;
+  function h(n) {
+    return n === 34 || n === 39 || n === 40 ? (r.enter(x), r.enter(u), r.consume(n), r.exit(u), i = n === 40 ? 41 : n, g) : m(n);
   }
-  values(t) {
-    return this._start && (this._values = this._values.slice(this._start), this._start = 0), t ? this._values.slice() : this._values;
+  function g(n) {
+    return n === i ? (r.enter(u), r.consume(n), r.exit(u), r.exit(x), S) : (r.enter(a), l(n));
   }
-  add(t) {
-    this._values.push(t), this._sorted = null;
+  function l(n) {
+    return n === i ? (r.exit(a), g(i)) : n === null ? m(n) : E(n) ? (r.enter("lineEnding"), r.consume(n), r.exit("lineEnding"), k(r, l, "linePrefix")) : (r.enter("chunkString", {
+      contentType: "string"
+    }), t(n));
   }
-  rem() {
-    this._start += 1, this._sorted = null;
+  function t(n) {
+    return n === i || n === null || E(n) ? (r.exit("chunkString"), l(n)) : (r.consume(n), n === 92 ? b : t);
   }
-  min() {
-    return this._sorted && this._sorted.length ? this._sorted[0] : i(this._values, this._start);
-  }
-  max() {
-    return this._sorted && this._sorted.length ? this._sorted[this._sorted.length - 1] : r(this._values, this._start);
-  }
-  quantile(t) {
-    return this._sorted || (this._sorted = this.values(!0), this._sorted.sort(s)), e(this._sorted, t);
+  function b(n) {
+    return n === i || n === 92 ? (r.consume(n), t) : t(n);
   }
 }
 export {
-  u as default
+  B as factoryTitle
 };
 //# sourceMappingURL=cori.data.api679.js.map

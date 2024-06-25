@@ -1,36 +1,106 @@
-import { aggregateGet as w } from "./cori.data.api540.js";
-import y from "./cori.data.api340.js";
-import M from "./cori.data.api460.js";
-import x from "./cori.data.api353.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function $(o, { names: c, exprs: f, ops: h = [] }, r = {}) {
-  if (c.length === 0)
-    return o;
-  const s = c.length === 1 && r.as || [], m = r.drop == null ? !0 : !!r.drop, e = r.limit == null ? s.length || 1 / 0 : Math.max(1, +r.limit || 1), i = w(o, h, f), n = y(), u = c.reduce((t, a, d) => t.set(a, d), /* @__PURE__ */ new Map()), g = (t, a) => {
-    const d = A(o, i[t], e), p = d.length;
-    for (let l = 0; l < p; ++l)
-      n.add(s[l] || `${a}_${l + 1}`, d[l]);
+const b = {
+  resolveAll: g()
+}, k = x("string"), m = x("text");
+function x(r) {
+  return {
+    tokenize: f,
+    resolveAll: g(
+      r === "text" ? p : void 0
+    )
   };
-  return o.columnNames().forEach((t) => {
-    u.has(t) ? (m || n.add(t, o.column(t)), g(u.get(t), t), u.delete(t)) : n.add(t, o.column(t));
-  }), u.forEach(g), o.create(n);
+  function f(t) {
+    const i = this, e = this.parser.constructs[r], n = t.attempt(e, s, a);
+    return s;
+    function s(l) {
+      return u(l) ? n(l) : a(l);
+    }
+    function a(l) {
+      if (l === null) {
+        t.consume(l);
+        return;
+      }
+      return t.enter("data"), t.consume(l), o;
+    }
+    function o(l) {
+      return u(l) ? (t.exit("data"), n(l)) : (t.consume(l), o);
+    }
+    function u(l) {
+      if (l === null)
+        return !0;
+      const c = e[l];
+      let d = -1;
+      if (c)
+        for (; ++d < c.length; ) {
+          const h = c[d];
+          if (!h.previous || h.previous.call(i, i.previous))
+            return !0;
+        }
+      return !1;
+    }
+  }
 }
-function A(o, c, f) {
-  const h = o.totalRows(), r = [];
-  return o.scan((s, m) => {
-    const e = x(c(s, m)), i = Math.min(e.length, f);
-    for (; r.length < i; )
-      r.push(Array(h).fill(M));
-    for (let n = 0; n < i; ++n)
-      r[n][s] = e[n];
-  }), r;
+function g(r) {
+  return f;
+  function f(t, i) {
+    let e = -1, n;
+    for (; ++e <= t.length; )
+      n === void 0 ? t[e] && t[e][1].type === "data" && (n = e, e++) : (!t[e] || t[e][1].type !== "data") && (e !== n + 2 && (t[n][1].end = t[e - 1][1].end, t.splice(n + 2, e - n - 2), e = n + 2), n = void 0);
+    return r ? r(t, i) : t;
+  }
+}
+function p(r, f) {
+  let t = 0;
+  for (; ++t <= r.length; )
+    if ((t === r.length || r[t][1].type === "lineEnding") && r[t - 1][1].type === "data") {
+      const i = r[t - 1][1], e = f.sliceStream(i);
+      let n = e.length, s = -1, a = 0, o;
+      for (; n--; ) {
+        const u = e[n];
+        if (typeof u == "string") {
+          for (s = u.length; u.charCodeAt(s - 1) === 32; )
+            a++, s--;
+          if (s)
+            break;
+          s = -1;
+        } else if (u === -2)
+          o = !0, a++;
+        else if (u !== -1) {
+          n++;
+          break;
+        }
+      }
+      if (a) {
+        const u = {
+          type: t === r.length || o || a < 2 ? "lineSuffix" : "hardBreakTrailing",
+          start: {
+            line: i.end.line,
+            column: i.end.column - a,
+            offset: i.end.offset - a,
+            _index: i.start._index + n,
+            _bufferIndex: n ? s : i.start._bufferIndex + s
+          },
+          end: Object.assign({}, i.end)
+        };
+        i.end = Object.assign({}, u.start), i.start.offset === i.end.offset ? Object.assign(i, u) : (r.splice(
+          t,
+          0,
+          ["enter", u, f],
+          ["exit", u, f]
+        ), t += 2);
+      }
+      t++;
+    }
+  return r;
 }
 export {
-  $ as default
+  b as resolver,
+  k as string,
+  m as text
 };
 //# sourceMappingURL=cori.data.api535.js.map

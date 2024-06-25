@@ -1,146 +1,122 @@
-import D from "./cori.data.api240.js";
-import s from "./cori.data.api60.js";
-import p from "./cori.data.api71.js";
-import v from "./cori.data.api293.js";
-import { trackStream as F } from "./cori.data.api294.js";
-import k from "./cori.data.api74.js";
-import O from "./cori.data.api291.js";
-import H from "./cori.data.api292.js";
-import K from "./cori.data.api289.js";
+import { toArray as f } from "./cori.data.api245.js";
+import { fetchAsDataURL as x } from "./cori.data.api311.js";
+import { embedResources as g, shouldEmbed as y } from "./cori.data.api312.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const A = (e, r) => {
-  const o = e != null;
-  return (n) => setTimeout(() => r({
-    lengthComputable: o,
-    total: e,
-    loaded: n
-  }));
-}, l = typeof fetch == "function" && typeof Request == "function" && typeof Response == "function", N = l && typeof ReadableStream == "function", y = l && (typeof TextEncoder == "function" ? /* @__PURE__ */ ((e) => (r) => e.encode(r))(new TextEncoder()) : async (e) => new Uint8Array(await new Response(e).arrayBuffer())), z = N && (() => {
-  let e = !1;
-  const r = new Request(D.origin, {
-    body: new ReadableStream(),
-    method: "POST",
-    get duplex() {
-      return e = !0, "half";
-    }
-  }).headers.has("Content-Type");
-  return e && !r;
-})(), B = 64 * 1024, T = N && !!(() => {
-  try {
-    return s.isReadableStream(new Response("").body);
-  } catch {
-  }
-})(), f = {
-  stream: T && ((e) => e.body)
-};
-l && ((e) => {
-  ["text", "arrayBuffer", "blob", "formData", "stream"].forEach((r) => {
-    !f[r] && (f[r] = s.isFunction(e[r]) ? (o) => o[r]() : (o, n) => {
-      throw new p(`Response type '${r}' is not supported`, p.ERR_NOT_SUPPORT, n);
-    });
+const h = {};
+async function m(t) {
+  let e = h[t];
+  if (e != null)
+    return e;
+  const s = await (await fetch(t)).text();
+  return e = { url: t, cssText: s }, h[t] = e, e;
+}
+async function S(t, e) {
+  let c = t.cssText;
+  const s = /url\(["']?([^"')]+)["']?\)/g, o = (c.match(/url\([^)]+\)/g) || []).map(async (i) => {
+    let n = i.replace(s, "$1");
+    return n.startsWith("https://") || (n = new URL(n, t.url).href), x(n, e.fetchRequestInit, ({ result: l }) => (c = c.replace(i, `url(${l})`), [i, l]));
   });
-})(new Response());
-const j = async (e) => {
-  if (e == null)
-    return 0;
-  if (s.isBlob(e))
-    return e.size;
-  if (s.isSpecCompliantForm(e))
-    return (await new Request(e).arrayBuffer()).byteLength;
-  if (s.isArrayBufferView(e))
-    return e.byteLength;
-  if (s.isURLSearchParams(e) && (e = e + ""), s.isString(e))
-    return (await y(e)).byteLength;
-}, I = async (e, r) => {
-  const o = s.toFiniteNumber(e.getContentLength());
-  return o ?? j(r);
-}, Y = l && (async (e) => {
-  let {
-    url: r,
-    method: o,
-    data: n,
-    signal: S,
-    cancelToken: x,
-    timeout: b,
-    onDownloadProgress: h,
-    onUploadProgress: C,
-    responseType: a,
-    headers: d,
-    withCredentials: m = "same-origin",
-    fetchOptions: U
-  } = H(e);
-  a = a ? (a + "").toLowerCase() : "text";
-  let [w, E] = S || x || b ? v([S, x], b) : [], L, c;
-  const g = () => {
-    !L && setTimeout(() => {
-      w && w.unsubscribe();
-    }), L = !0;
-  };
-  let q;
-  try {
-    if (C && z && o !== "get" && o !== "head" && (q = await I(d, n)) !== 0) {
-      let i = new Request(r, {
-        method: "POST",
-        body: n,
-        duplex: "half"
-      }), u;
-      s.isFormData(n) && (u = i.headers.get("content-type")) && d.setContentType(u), i.body && (n = F(i.body, B, A(
-        q,
-        O(C)
-      ), null, y));
-    }
-    s.isString(m) || (m = m ? "cors" : "omit"), c = new Request(r, {
-      ...U,
-      signal: w,
-      method: o.toUpperCase(),
-      headers: d.normalize().toJSON(),
-      body: n,
-      duplex: "half",
-      withCredentials: m
-    });
-    let t = await fetch(c);
-    const R = T && (a === "stream" || a === "response");
-    if (T && (h || R)) {
-      const i = {};
-      ["status", "statusText", "headers"].forEach((P) => {
-        i[P] = t[P];
-      });
-      const u = s.toFiniteNumber(t.headers.get("content-length"));
-      t = new Response(
-        F(t.body, B, h && A(
-          u,
-          O(h, !0)
-        ), R && g, y),
-        i
-      );
-    }
-    a = a || "text";
-    let _ = await f[s.findKey(f, a) || "text"](t, e);
-    return !R && g(), E && E(), await new Promise((i, u) => {
-      K(i, u, {
-        data: _,
-        headers: k.from(t.headers),
-        status: t.status,
-        statusText: t.statusText,
-        config: e,
-        request: c
-      });
-    });
-  } catch (t) {
-    throw g(), t && t.name === "TypeError" && /fetch/i.test(t.message) ? Object.assign(
-      new p("Network Error", p.ERR_NETWORK, e, c),
-      {
-        cause: t.cause || t
-      }
-    ) : p.from(t, t && t.code, e, c);
+  return Promise.all(o).then(() => c);
+}
+function p(t) {
+  if (t == null)
+    return [];
+  const e = [], c = /(\/\*[\s\S]*?\*\/)/gi;
+  let s = t.replace(c, "");
+  const r = new RegExp("((@.*?keyframes [\\s\\S]*?){([\\s\\S]*?}\\s*?)})", "gi");
+  for (; ; ) {
+    const l = r.exec(s);
+    if (l === null)
+      break;
+    e.push(l[0]);
   }
-});
+  s = s.replace(r, "");
+  const o = /@import[\s\S]*?url\([^)]*\)[\s\S]*?;/gi, i = "((\\s*?(?:\\/\\*[\\s\\S]*?\\*\\/)?\\s*?@media[\\s\\S]*?){([\\s\\S]*?)}\\s*?})|(([\\s\\S]*?){([\\s\\S]*?)})", n = new RegExp(i, "gi");
+  for (; ; ) {
+    let l = o.exec(s);
+    if (l === null) {
+      if (l = n.exec(s), l === null)
+        break;
+      o.lastIndex = n.lastIndex;
+    } else
+      n.lastIndex = o.lastIndex;
+    e.push(l[0]);
+  }
+  return e;
+}
+async function E(t, e) {
+  const c = [], s = [];
+  return t.forEach((r) => {
+    if ("cssRules" in r)
+      try {
+        f(r.cssRules || []).forEach((o, i) => {
+          if (o.type === CSSRule.IMPORT_RULE) {
+            let n = i + 1;
+            const l = o.href, R = m(l).then((a) => S(a, e)).then((a) => p(a).forEach((u) => {
+              try {
+                r.insertRule(u, u.startsWith("@import") ? n += 1 : r.cssRules.length);
+              } catch (d) {
+                console.error("Error inserting rule from remote css", {
+                  rule: u,
+                  error: d
+                });
+              }
+            })).catch((a) => {
+              console.error("Error loading remote css", a.toString());
+            });
+            s.push(R);
+          }
+        });
+      } catch (o) {
+        const i = t.find((n) => n.href == null) || document.styleSheets[0];
+        r.href != null && s.push(m(r.href).then((n) => S(n, e)).then((n) => p(n).forEach((l) => {
+          i.insertRule(l, r.cssRules.length);
+        })).catch((n) => {
+          console.error("Error loading remote stylesheet", n);
+        })), console.error("Error inlining remote css file", o);
+      }
+  }), Promise.all(s).then(() => (t.forEach((r) => {
+    if ("cssRules" in r)
+      try {
+        f(r.cssRules || []).forEach((o) => {
+          c.push(o);
+        });
+      } catch (o) {
+        console.error(`Error while reading CSS rules from ${r.href}`, o);
+      }
+  }), c));
+}
+function w(t) {
+  return t.filter((e) => e.type === CSSRule.FONT_FACE_RULE).filter((e) => y(e.style.getPropertyValue("src")));
+}
+async function C(t, e) {
+  if (t.ownerDocument == null)
+    throw new Error("Provided element is not within a Document");
+  const c = f(t.ownerDocument.styleSheets), s = await E(c, e);
+  return w(s);
+}
+async function b(t, e) {
+  const c = await C(t, e);
+  return (await Promise.all(c.map((r) => {
+    const o = r.parentStyleSheet ? r.parentStyleSheet.href : null;
+    return g(r.cssText, o, e);
+  }))).join(`
+`);
+}
+async function L(t, e) {
+  const c = e.fontEmbedCSS != null ? e.fontEmbedCSS : e.skipFonts ? null : await b(t, e);
+  if (c) {
+    const s = document.createElement("style"), r = document.createTextNode(c);
+    s.appendChild(r), t.firstChild ? t.insertBefore(s, t.firstChild) : t.appendChild(s);
+  }
+}
 export {
-  Y as default
+  L as embedWebFonts,
+  b as getWebFontCSS
 };
 //# sourceMappingURL=cori.data.api244.js.map

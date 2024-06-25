@@ -4,26 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const e = {
-  classId: "classID",
-  dataType: "datatype",
-  itemId: "itemID",
-  strokeDashArray: "strokeDasharray",
-  strokeDashOffset: "strokeDashoffset",
-  strokeLineCap: "strokeLinecap",
-  strokeLineJoin: "strokeLinejoin",
-  strokeMiterLimit: "strokeMiterlimit",
-  typeOf: "typeof",
-  xLinkActuate: "xlinkActuate",
-  xLinkArcRole: "xlinkArcrole",
-  xLinkHref: "xlinkHref",
-  xLinkRole: "xlinkRole",
-  xLinkShow: "xlinkShow",
-  xLinkTitle: "xlinkTitle",
-  xLinkType: "xlinkType",
-  xmlnsXLink: "xmlnsXlink"
-};
+function r(e) {
+  return new Array(e.length);
+}
 export {
-  e as hastToReact
+  r as default
 };
 //# sourceMappingURL=cori.data.api251.js.map

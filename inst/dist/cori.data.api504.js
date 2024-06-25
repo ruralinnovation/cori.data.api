@@ -1,100 +1,129 @@
-import { Vector as c } from "./cori.data.api443.js";
-import { valueToString as a } from "./cori.data.api566.js";
-import { instance as l } from "./cori.data.api559.js";
-import { instance as f } from "./cori.data.api560.js";
+import { Vector as U } from "./cori.data.api428.js";
+import { Visitor as I } from "./cori.data.api555.js";
+import { RecordBatch as V } from "./cori.data.api505.js";
+import { rebaseValueOffsets as _ } from "./cori.data.api492.js";
+import { truncateBitmap as w, packBools as D } from "./cori.data.api554.js";
+import { FieldNode as d, BufferRegion as R } from "./cori.data.api500.js";
+import { DataType as m } from "./cori.data.api429.js";
+import { bigIntToNumber as L } from "./cori.data.api558.js";
+import { UnionMode as B } from "./cori.data.api556.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const n = Symbol.for("keys"), i = Symbol.for("vals");
-class h {
-  constructor(e) {
-    return this[n] = new c([e.children[0]]).memoize(), this[i] = e.children[1], new Proxy(this, new b());
+class i extends I {
+  /** @nocollapse */
+  static assemble(...t) {
+    const s = (r) => r.flatMap((o) => Array.isArray(o) ? s(o) : o instanceof V ? o.data.children : o.data), n = new i();
+    return n.visitMany(s(t)), n;
   }
-  [Symbol.iterator]() {
-    return new m(this[n], this[i]);
+  constructor() {
+    super(), this._byteLength = 0, this._nodes = [], this._buffers = [], this._bufferRegions = [];
   }
-  get size() {
-    return this[n].length;
+  visit(t) {
+    if (t instanceof U)
+      return this.visitMany(t.data), this;
+    const { type: s } = t;
+    if (!m.isDictionary(s)) {
+      const { length: n } = t;
+      if (n > 2147483647)
+        throw new RangeError("Cannot write arrays larger than 2^31 - 1 in length");
+      if (m.isUnion(s))
+        this.nodes.push(new d(n, 0));
+      else {
+        const { nullCount: r } = t;
+        m.isNull(s) || l.call(this, r <= 0 ? new Uint8Array(0) : w(t.offset, n, t.nullBitmap)), this.nodes.push(new d(n, r));
+      }
+    }
+    return super.visit(t);
   }
-  toArray() {
-    return Object.values(this.toJSON());
-  }
-  toJSON() {
-    const e = this[n], t = this[i], r = {};
-    for (let s = -1, u = e.length; ++s < u; )
-      r[e.get(s)] = l.visit(t, s);
-    return r;
-  }
-  toString() {
-    return `{${[...this].map(([e, t]) => `${a(e)}: ${a(t)}`).join(", ")}}`;
-  }
-  [Symbol.for("nodejs.util.inspect.custom")]() {
-    return this.toString();
-  }
-}
-class m {
-  constructor(e, t) {
-    this.keys = e, this.vals = t, this.keyIndex = 0, this.numKeys = e.length;
-  }
-  [Symbol.iterator]() {
+  visitNull(t) {
     return this;
   }
-  next() {
-    const e = this.keyIndex;
-    return e === this.numKeys ? { done: !0, value: null } : (this.keyIndex++, {
-      done: !1,
-      value: [
-        this.keys.get(e),
-        l.visit(this.vals, e)
-      ]
-    });
+  visitDictionary(t) {
+    return this.visit(t.clone(t.type.indices));
+  }
+  get nodes() {
+    return this._nodes;
+  }
+  get buffers() {
+    return this._buffers;
+  }
+  get byteLength() {
+    return this._byteLength;
+  }
+  get bufferRegions() {
+    return this._bufferRegions;
   }
 }
-class b {
-  isExtensible() {
-    return !1;
-  }
-  deleteProperty() {
-    return !1;
-  }
-  preventExtensions() {
-    return !0;
-  }
-  ownKeys(e) {
-    return e[n].toArray().map(String);
-  }
-  has(e, t) {
-    return e[n].includes(t);
-  }
-  getOwnPropertyDescriptor(e, t) {
-    if (e[n].indexOf(t) !== -1)
-      return { writable: !0, enumerable: !0, configurable: !0 };
-  }
-  get(e, t) {
-    if (Reflect.has(e, t))
-      return e[t];
-    const r = e[n].indexOf(t);
-    if (r !== -1) {
-      const s = l.visit(Reflect.get(e, i), r);
-      return Reflect.set(e, t, s), s;
+function l(e) {
+  const t = e.byteLength + 7 & -8;
+  return this.buffers.push(e), this.bufferRegions.push(new R(this._byteLength, t)), this._byteLength += t, this;
+}
+function A(e) {
+  var t;
+  const { type: s, length: n, typeIds: r, valueOffsets: o } = e;
+  if (l.call(this, r), s.mode === B.Sparse)
+    return g.call(this, e);
+  if (s.mode === B.Dense) {
+    if (e.offset <= 0)
+      return l.call(this, o), g.call(this, e);
+    {
+      const p = new Int32Array(n), a = /* @__PURE__ */ Object.create(null), v = /* @__PURE__ */ Object.create(null);
+      for (let h, u, c = -1; ++c < n; )
+        (h = r[c]) !== void 0 && ((u = a[h]) === void 0 && (u = a[h] = o[c]), p[c] = o[c] - u, v[h] = ((t = v[h]) !== null && t !== void 0 ? t : 0) + 1);
+      l.call(this, p), this.visitMany(e.children.map((h, u) => {
+        const c = s.typeIds[u], M = a[c], O = v[c];
+        return h.slice(M, Math.min(n, O));
+      }));
     }
   }
-  set(e, t, r) {
-    const s = e[n].indexOf(t);
-    return s !== -1 ? (f.visit(Reflect.get(e, i), s, r), Reflect.set(e, t, r)) : Reflect.has(e, t) ? Reflect.set(e, t, r) : !1;
-  }
+  return this;
 }
-Object.defineProperties(h.prototype, {
-  [Symbol.toStringTag]: { enumerable: !1, configurable: !1, value: "Row" },
-  [n]: { writable: !0, enumerable: !1, configurable: !1, value: null },
-  [i]: { writable: !0, enumerable: !1, configurable: !1, value: null }
-});
+function F(e) {
+  let t;
+  return e.nullCount >= e.length ? l.call(this, new Uint8Array(0)) : (t = e.values) instanceof Uint8Array ? l.call(this, w(e.offset, e.length, t)) : l.call(this, D(e.values));
+}
+function f(e) {
+  return l.call(this, e.values.subarray(0, e.length * e.stride));
+}
+function y(e) {
+  const { length: t, values: s, valueOffsets: n } = e, r = L(n[0]), o = L(n[t]), p = Math.min(o - r, s.byteLength - r);
+  return l.call(this, _(-r, t + 1, n)), l.call(this, s.subarray(r, r + p)), this;
+}
+function b(e) {
+  const { length: t, valueOffsets: s } = e;
+  if (s) {
+    const { [0]: n, [t]: r } = s;
+    return l.call(this, _(-n, t + 1, s)), this.visit(e.children[0].slice(n, r - n));
+  }
+  return this.visit(e.children[0]);
+}
+function g(e) {
+  return this.visitMany(e.type.children.map((t, s) => e.children[s]).filter(Boolean))[0];
+}
+i.prototype.visitBool = F;
+i.prototype.visitInt = f;
+i.prototype.visitFloat = f;
+i.prototype.visitUtf8 = y;
+i.prototype.visitLargeUtf8 = y;
+i.prototype.visitBinary = y;
+i.prototype.visitLargeBinary = y;
+i.prototype.visitFixedSizeBinary = f;
+i.prototype.visitDate = f;
+i.prototype.visitTimestamp = f;
+i.prototype.visitTime = f;
+i.prototype.visitDecimal = f;
+i.prototype.visitList = b;
+i.prototype.visitStruct = g;
+i.prototype.visitUnion = A;
+i.prototype.visitInterval = f;
+i.prototype.visitDuration = f;
+i.prototype.visitFixedSizeList = b;
+i.prototype.visitMap = b;
 export {
-  h as MapRow,
-  n as kKeys,
-  i as kVals
+  i as VectorAssembler
 };
 //# sourceMappingURL=cori.data.api504.js.map

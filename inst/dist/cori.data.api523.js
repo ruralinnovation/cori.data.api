@@ -1,25 +1,23 @@
-import m from "./cori.data.api536.js";
-import { aggregateGet as s } from "./cori.data.api540.js";
+import i from "./cori.data.api322.js";
+import f from "./cori.data.api315.js";
+import s from "./cori.data.api362.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function i(r, { names: o = [], exprs: e = [], ops: f = [] }, t = {}) {
-  if (o.length === 0)
-    return r;
-  const [n = "key", u = "value"] = t.as || [], a = s(r, f, e);
-  return m(
-    r,
-    {
-      names: [n, u],
-      exprs: [() => o, (l, p) => a.map((g) => g(l, p))]
-    },
-    { ...t, drop: o }
-  );
+function a(t, e) {
+  const n = i();
+  return e.forEach((r, o) => {
+    const c = s(r) ? r : o;
+    if (c) {
+      const m = t.column(o) || f(`Unrecognized column: ${o}`);
+      n.add(c, m);
+    }
+  }), t.create(n);
 }
 export {
-  i as default
+  a as default
 };
 //# sourceMappingURL=cori.data.api523.js.map

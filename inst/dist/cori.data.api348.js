@@ -1,66 +1,82 @@
-import p from "./cori.data.api378.js";
-import j from "./cori.data.api333.js";
-import N from "./cori.data.api379.js";
-import u from "./cori.data.api373.js";
-import x from "./cori.data.api337.js";
-import c from "./cori.data.api334.js";
-import O from "./cori.data.api362.js";
-import e from "./cori.data.api380.js";
-import h from "./cori.data.api381.js";
+import y from "./cori.data.api356.js";
+import m from "./cori.data.api358.js";
+import g from "./cori.data.api359.js";
+import { all as j, range as O, matches as w, not as E } from "./cori.data.api330.js";
+import S from "./cori.data.api36.js";
+import p from "./cori.data.api315.js";
+import n from "./cori.data.api355.js";
+import f from "./cori.data.api319.js";
+import u from "./cori.data.api316.js";
+import c from "./cori.data.api344.js";
+import h from "./cori.data.api362.js";
+import b from "./cori.data.api333.js";
+import d from "./cori.data.api335.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function f(o, r, n = /* @__PURE__ */ new Map()) {
-  return r = c(r) ? o.columnName(r) : r, e(r) ? n.set(r, r) : u(r) ? r.forEach((i) => f(o, i, n)) : x(r) ? f(o, r(o), n) : O(r) ? p(n, r) : j(`Invalid column selection: ${h(r)}`), n;
+function K(t) {
+  const o = (r) => r;
+  return o.toString = () => t, o;
 }
-function t(o, r) {
-  return o.toObject = r, o;
+function G(t, o) {
+  return o = o && f(o.query) ? o.query() : o, o && f(o.evaluate) ? o.evaluate(null, t) : t(o);
 }
-function s(o) {
-  return u(o) ? o.map(s) : o && o.toObject ? o.toObject() : o;
+function H(t) {
+  return c(t) && (n(t.all) || n(t.matches) || n(t.not) || n(t.range));
 }
-function M() {
-  return t(
-    (o) => o.columnNames(),
-    () => ({ all: [] })
-  );
+function e(t) {
+  return t && f(t.toObject) ? t.toObject() : f(t) ? { expr: String(t), func: !0 } : n(t) ? t.map(e) : c(t) ? b(t, (o) => e(o)) : t;
 }
-function $(...o) {
-  return o = o.flat(), t(
-    (r) => {
-      const n = f(r, o);
-      return r.columnNames((i) => !n.has(i));
-    },
-    () => ({ not: s(o) })
-  );
+function x(t) {
+  return n(t) ? t.map(x) : c(t) ? n(t.verbs) ? S.from(t) : n(t.all) ? j() : n(t.range) ? O(...t.range) : n(t.match) ? w(RegExp(...t.match)) : n(t.not) ? E(t.not.map(e)) : q(t) : t;
 }
-function a(o, r) {
-  return t(
-    (n) => {
-      let i = c(o) ? o : n.columnIndex(o), m = c(r) ? r : n.columnIndex(r);
-      if (m < i) {
-        const g = m;
-        m = i, i = g;
-      }
-      return n.columnNames().slice(i, m + 1);
-    },
-    () => ({ range: [o, r] })
-  );
+function q(t) {
+  let o = t, r = t.expr;
+  if (r != null) {
+    if (t.field === !0 ? o = r = m(r) : t.func === !0 && (o = r = K(r)), c(t.window)) {
+      const { frame: i, peers: s } = t.window;
+      o = r = g(r, i, s);
+    }
+    t.desc === !0 && (o = y(r));
+  }
+  return t === o ? b(t, (i) => x(i)) : o;
 }
-function b(o) {
-  return e(o) && (o = RegExp(N(o))), t(
-    (r) => r.columnNames((n) => o.test(n)),
-    () => ({ matches: [o.source, o.flags] })
-  );
+function L(t) {
+  return n(t) ? t.map(A) : t;
+}
+function A(t) {
+  const o = [];
+  return d(t).forEach((r) => {
+    u(r) ? o.push(r) : h(r) ? o.push(m(r, null)) : c(r) && r.expr || f(r) ? o.push(r) : p(`Invalid key value: ${r + ""}`);
+  }), o;
+}
+function M(t) {
+  return n(t) ? t.map(I) : t;
+}
+function I(t, o) {
+  return o < 2 ? d(t) : t;
+}
+function P(t) {
+  const o = [];
+  return t.forEach((r) => {
+    const i = r.expr != null ? r.expr : r;
+    if (c(i) && !f(i))
+      for (const s in i)
+        o.push(i[s]);
+    else
+      r = u(i) ? i : h(i) ? m(r) : f(i) ? r : p(`Invalid orderby field: ${r + ""}`), o.push(r);
+  }), o;
 }
 export {
-  M as all,
-  f as default,
-  b as matches,
-  $ as not,
-  a as range
+  x as fromObject,
+  G as getTable,
+  H as isSelection,
+  L as joinKeys,
+  M as joinValues,
+  P as orderbyKeys,
+  e as toObject
 };
 //# sourceMappingURL=cori.data.api348.js.map

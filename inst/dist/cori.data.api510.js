@@ -1,107 +1,39 @@
-import { Block as m } from "./cori.data.api602.js";
-import { Footer as o } from "./cori.data.api603.js";
-import "./cori.data.api574.js";
-import "./cori.data.api575.js";
-import { Builder as u } from "./cori.data.api576.js";
-import { ByteBuffer as B } from "./cori.data.api577.js";
-import { Schema as a } from "./cori.data.api498.js";
-import { toUint8Array as g } from "./cori.data.api501.js";
-import { bigIntToNumber as h } from "./cori.data.api567.js";
-import { MetadataVersion as d } from "./cori.data.api517.js";
+import m from "./cori.data.api355.js";
+import e from "./cori.data.api405.js";
+import y from "./cori.data.api406.js";
+import $ from "./cori.data.api415.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var l = u, y = B;
-class p {
-  /** @nocollapse */
-  static decode(t) {
-    t = new y(g(t));
-    const e = o.getRootAsFooter(t), r = a.decode(e.schema(), /* @__PURE__ */ new Map(), e.version());
-    return new D(r, e);
-  }
-  /** @nocollapse */
-  static encode(t) {
-    const e = new l(), r = a.encode(e, t.schema);
-    o.startRecordBatchesVector(e, t.numRecordBatches);
-    for (const n of [...t.recordBatches()].slice().reverse())
-      s.encode(e, n);
-    const c = e.endVector();
-    o.startDictionariesVector(e, t.numDictionaries);
-    for (const n of [...t.dictionaryBatches()].slice().reverse())
-      s.encode(e, n);
-    const i = e.endVector();
-    return o.startFooter(e), o.addSchema(e, r), o.addVersion(e, d.V5), o.addRecordBatches(e, c), o.addDictionaries(e, i), o.finishFooterBuffer(e, o.endFooter(e)), e.asUint8Array();
-  }
-  get numRecordBatches() {
-    return this._recordBatches.length;
-  }
-  get numDictionaries() {
-    return this._dictionaryBatches.length;
-  }
-  constructor(t, e = d.V5, r, c) {
-    this.schema = t, this.version = e, r && (this._recordBatches = r), c && (this._dictionaryBatches = c);
-  }
-  *recordBatches() {
-    for (let t, e = -1, r = this.numRecordBatches; ++e < r; )
-      (t = this.getRecordBatch(e)) && (yield t);
-  }
-  *dictionaryBatches() {
-    for (let t, e = -1, r = this.numDictionaries; ++e < r; )
-      (t = this.getDictionaryBatch(e)) && (yield t);
-  }
-  getRecordBatch(t) {
-    return t >= 0 && t < this.numRecordBatches && this._recordBatches[t] || null;
-  }
-  getDictionaryBatch(t) {
-    return t >= 0 && t < this.numDictionaries && this._dictionaryBatches[t] || null;
-  }
+function s(t) {
+  const r = typeof t;
+  return r === "string" ? `"${t}"` : r !== "object" || !t ? t : e(t) ? +t : m(t) || $(t) ? `[${t.map(s)}]` : y(t) ? t + "" : k(t);
 }
-class D extends p {
-  get numRecordBatches() {
-    return this._footer.recordBatchesLength();
-  }
-  get numDictionaries() {
-    return this._footer.dictionariesLength();
-  }
-  constructor(t, e) {
-    super(t, e.version()), this._footer = e;
-  }
-  getRecordBatch(t) {
-    if (t >= 0 && t < this.numRecordBatches) {
-      const e = this._footer.recordBatches(t);
-      if (e)
-        return s.decode(e);
-    }
-    return null;
-  }
-  getDictionaryBatch(t) {
-    if (t >= 0 && t < this.numDictionaries) {
-      const e = this._footer.dictionaries(t);
-      if (e)
-        return s.decode(e);
-    }
-    return null;
-  }
+function k(t) {
+  let r = "{", o = -1;
+  for (const n in t)
+    ++o > 0 && (r += ","), r += `"${n}":${s(t[n])}`;
+  return r += "}", r;
 }
-class s {
-  /** @nocollapse */
-  static decode(t) {
-    return new s(t.metaDataLength(), t.bodyLength(), t.offset());
-  }
-  /** @nocollapse */
-  static encode(t, e) {
-    const { metaDataLength: r } = e, c = BigInt(e.offset), i = BigInt(e.bodyLength);
-    return m.createBlock(t, c, r, i);
-  }
-  constructor(t, e, r) {
-    this.metaDataLength = t, this.offset = h(r), this.bodyLength = h(e);
-  }
+function A(t, r) {
+  const o = t.length;
+  return o === 1 ? (n, c) => s(t[0](n, c)) : (n, c) => {
+    let p = "";
+    for (let i = 0; i < o; ++i) {
+      i > 0 && (p += "|");
+      const f = t[i](n, c);
+      if (r && (f == null || f !== f))
+        return null;
+      p += s(f);
+    }
+    return p;
+  };
 }
 export {
-  s as FileBlock,
-  p as Footer
+  A as default,
+  s as key
 };
 //# sourceMappingURL=cori.data.api510.js.map

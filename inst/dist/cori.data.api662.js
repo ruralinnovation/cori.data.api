@@ -1,52 +1,36 @@
-import { markdownLineEnding as d } from "./cori.data.api419.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api655.js";
+import "./cori.data.api564.js";
+import "./cori.data.api565.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const m = {
-  name: "codeText",
-  tokenize: E,
-  resolve: y,
-  previous: g
-};
-function y(e) {
-  let r = e.length - 4, u = 3, t, i;
-  if ((e[u][1].type === "lineEnding" || e[u][1].type === "space") && (e[r][1].type === "lineEnding" || e[r][1].type === "space")) {
-    for (t = u; ++t < r; )
-      if (e[t][1].type === "codeTextData") {
-        e[u][1].type = "codeTextPadding", e[r][1].type = "codeTextPadding", u += 2, r -= 2;
-        break;
-      }
+class s {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  for (t = u - 1, r++; ++t <= r; )
-    i === void 0 ? t !== r && e[t][1].type !== "lineEnding" && (i = t) : (t === r || e[t][1].type === "lineEnding") && (e[i][1].type = "codeTextData", t !== i + 2 && (e[i][1].end = e[t - 1][1].end, e.splice(i + 2, t - i - 2), r -= t - i - 2, t = i + 2), i = void 0);
-  return e;
-}
-function g(e) {
-  return e !== 96 || this.events[this.events.length - 1][1].type === "characterEscape";
-}
-function E(e, r, u) {
-  let t = 0, i, l;
-  return T;
-  function T(n) {
-    return e.enter("codeText"), e.enter("codeTextSequence"), o(n);
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  function o(n) {
-    return n === 96 ? (e.consume(n), t++, o) : (e.exit("codeTextSequence"), x(n));
+  static getRootAsUtf8(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  function x(n) {
-    return n === null ? u(n) : n === 32 ? (e.enter("space"), e.consume(n), e.exit("space"), x) : n === 96 ? (l = e.enter("codeTextSequence"), i = 0, p(n)) : d(n) ? (e.enter("lineEnding"), e.consume(n), e.exit("lineEnding"), x) : (e.enter("codeTextData"), a(n));
+  static getSizePrefixedRootAsUtf8(t, i) {
+    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  function a(n) {
-    return n === null || n === 32 || n === 96 || d(n) ? (e.exit("codeTextData"), x(n)) : (e.consume(n), a);
+  static startUtf8(t) {
+    t.startObject(0);
   }
-  function p(n) {
-    return n === 96 ? (e.consume(n), i++, p) : i === t ? (e.exit("codeTextSequence"), e.exit("codeText"), r(n)) : (l.type = "codeTextData", a(n));
+  static endUtf8(t) {
+    return t.endObject();
+  }
+  static createUtf8(t) {
+    return s.startUtf8(t), s.endUtf8(t);
   }
 }
 export {
-  m as codeText
+  s as Utf8
 };
 //# sourceMappingURL=cori.data.api662.js.map

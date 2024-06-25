@@ -1,26 +1,20 @@
-import p from "./cori.data.api532.js";
-import { any as n } from "./cori.data.api36.js";
-import t from "./cori.data.api524.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(o, r, f, i) {
-  return p(
-    o,
-    t("fold", o, r),
-    t("fold", o, f, { preparse: e, aggronly: !0 }),
-    i
-  );
-}
-function e(o) {
-  o.forEach(
-    (r, f) => r.field ? o.set(f, n(r + "")) : 0
-  );
-}
+const o = -1, t = 0, c = 1, n = 2, s = 3, E = 4, R = 5, I = 6, T = 7, A = 8;
 export {
-  u as default
+  c as ARRAY,
+  A as BIGINT,
+  s as DATE,
+  T as ERROR,
+  R as MAP,
+  n as OBJECT,
+  t as PRIMITIVE,
+  E as REGEXP,
+  I as SET,
+  o as VOID
 };
 //# sourceMappingURL=cori.data.api473.js.map

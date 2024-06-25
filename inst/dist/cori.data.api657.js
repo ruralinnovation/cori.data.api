@@ -1,50 +1,81 @@
-import { asciiAlpha as z, asciiAlphanumeric as a, asciiControl as E, asciiAtext as O } from "./cori.data.api419.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api655.js";
+import "./cori.data.api564.js";
+import "./cori.data.api565.js";
+import { DictionaryKind as n } from "./cori.data.api672.js";
+import { Int as e } from "./cori.data.api569.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const b = {
-  name: "autolink",
-  tokenize: P
-};
-function P(r, l, t) {
-  let i = 0;
-  return p;
-  function p(n) {
-    return r.enter("autolink"), r.enter("autolinkMarker"), r.consume(n), r.exit("autolinkMarker"), r.enter("autolinkProtocol"), M;
+class s {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  function M(n) {
-    return z(n) ? (r.consume(n), h) : n === 64 ? t(n) : u(n);
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  function h(n) {
-    return n === 43 || n === 45 || n === 46 || a(n) ? (i = 1, m(n)) : u(n);
+  static getRootAsDictionaryEncoding(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  function m(n) {
-    return n === 58 ? (r.consume(n), i = 0, k) : (n === 43 || n === 45 || n === 46 || a(n)) && i++ < 32 ? (r.consume(n), m) : (i = 0, u(n));
+  static getSizePrefixedRootAsDictionaryEncoding(t, i) {
+    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  function k(n) {
-    return n === 62 ? (r.exit("autolinkProtocol"), r.enter("autolinkMarker"), r.consume(n), r.exit("autolinkMarker"), r.exit("autolink"), l) : n === null || n === 32 || n === 60 || E(n) ? t(n) : (r.consume(n), k);
+  /**
+   * The known dictionary id in the application where this data is used. In
+   * the file or streaming formats, the dictionary ids are found in the
+   * DictionaryBatch messages
+   */
+  id() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt64(this.bb_pos + t) : BigInt("0");
   }
-  function u(n) {
-    return n === 64 ? (r.consume(n), o) : O(n) ? (r.consume(n), u) : t(n);
+  /**
+   * The dictionary indices are constrained to be non-negative integers. If
+   * this field is null, the indices must be signed int32. To maximize
+   * cross-language compatibility and performance, implementations are
+   * recommended to prefer signed integer types over unsigned integer types
+   * and to avoid uint64 indices unless they are required by an application.
+   */
+  indexType(t) {
+    const i = this.bb.__offset(this.bb_pos, 6);
+    return i ? (t || new e()).__init(this.bb.__indirect(this.bb_pos + i), this.bb) : null;
   }
-  function o(n) {
-    return a(n) ? x(n) : t(n);
+  /**
+   * By default, dictionaries are not ordered, or the order does not have
+   * semantic meaning. In some statistical, applications, dictionary-encoding
+   * is used to represent ordered categorical data, and we provide a way to
+   * preserve that metadata here
+   */
+  isOrdered() {
+    const t = this.bb.__offset(this.bb_pos, 8);
+    return t ? !!this.bb.readInt8(this.bb_pos + t) : !1;
   }
-  function x(n) {
-    return n === 46 ? (r.consume(n), i = 0, o) : n === 62 ? (r.exit("autolinkProtocol").type = "autolinkEmail", r.enter("autolinkMarker"), r.consume(n), r.exit("autolinkMarker"), r.exit("autolink"), l) : A(n);
+  dictionaryKind() {
+    const t = this.bb.__offset(this.bb_pos, 10);
+    return t ? this.bb.readInt16(this.bb_pos + t) : n.DenseArray;
   }
-  function A(n) {
-    if ((n === 45 || a(n)) && i++ < 63) {
-      const e = n === 45 ? A : x;
-      return r.consume(n), e;
-    }
-    return t(n);
+  static startDictionaryEncoding(t) {
+    t.startObject(4);
+  }
+  static addId(t, i) {
+    t.addFieldInt64(0, i, BigInt("0"));
+  }
+  static addIndexType(t, i) {
+    t.addFieldOffset(1, i, 0);
+  }
+  static addIsOrdered(t, i) {
+    t.addFieldInt8(2, +i, 0);
+  }
+  static addDictionaryKind(t, i) {
+    t.addFieldInt16(3, i, n.DenseArray);
+  }
+  static endDictionaryEncoding(t) {
+    return t.endObject();
   }
 }
 export {
-  b as autolink
+  s as DictionaryEncoding
 };
 //# sourceMappingURL=cori.data.api657.js.map

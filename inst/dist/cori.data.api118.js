@@ -1,23 +1,14 @@
+import a from "./cori.data.api108.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(e, t) {
-  switch (arguments.length) {
-    case 0:
-      break;
-    case 1:
-      this.range(e);
-      break;
-    default:
-      this.range(t).domain(e);
-      break;
-  }
-  return this;
+function t(n, o) {
+  return n = Math.abs(n), o = Math.abs(o) - n, Math.max(0, a(o) - a(n)) + 1;
 }
 export {
-  a as initRange
+  t as default
 };
 //# sourceMappingURL=cori.data.api118.js.map

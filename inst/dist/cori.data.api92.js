@@ -1,12 +1,15 @@
-import { formatDecimalParts as a } from "./cori.data.api272.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(t) {
-  return t = a(Math.abs(t)), t ? t[1] : NaN;
+function t() {
+}
+function e(n) {
+  return n == null ? t : function() {
+    return this.querySelector(n);
+  };
 }
 export {
   e as default

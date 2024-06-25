@@ -1,25 +1,32 @@
-import { Selection as e } from "./cori.data.api125.js";
-import h from "./cori.data.api277.js";
-import _ from "./cori.data.api161.js";
+import g from "./cori.data.api125.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(r) {
+var x = /[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g, c = new RegExp(x.source, "g");
+function p(i) {
   return function() {
-    return h(r.apply(this, arguments));
+    return i;
   };
 }
-function s(r) {
-  typeof r == "function" ? r = p(r) : r = _(r);
-  for (var l = this._groups, m = l.length, o = [], i = [], n = 0; n < m; ++n)
-    for (var a = l[n], u = a.length, t, f = 0; f < u; ++f)
-      (t = a[f]) && (o.push(r.call(t, t.__data__, f, a)), i.push(t));
-  return new e(o, i);
+function h(i) {
+  return function(n) {
+    return i(n) + "";
+  };
+}
+function v(i, n) {
+  var u = x.lastIndex = c.lastIndex = 0, o, l, t, r = -1, e = [], f = [];
+  for (i = i + "", n = n + ""; (o = x.exec(i)) && (l = c.exec(n)); )
+    (t = l.index) > u && (t = n.slice(u, t), e[r] ? e[r] += t : e[++r] = t), (o = o[0]) === (l = l[0]) ? e[r] ? e[r] += l : e[++r] = l : (e[++r] = null, f.push({ i: r, x: g(o, l) })), u = c.lastIndex;
+  return u < n.length && (t = n.slice(u), e[r] ? e[r] += t : e[++r] = t), e.length < 2 ? f[0] ? h(f[0].x) : p(n) : (n = f.length, function(d) {
+    for (var s = 0, a; s < n; ++s)
+      e[(a = f[s]).i] = a.x(d);
+    return e.join("");
+  });
 }
 export {
-  s as default
+  v as default
 };
 //# sourceMappingURL=cori.data.api127.js.map

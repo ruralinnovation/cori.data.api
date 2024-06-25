@@ -1,20 +1,20 @@
-import o, { identity as i } from "./cori.data.api274.js";
+import { formatDecimalParts as f } from "./cori.data.api252.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var n;
-function s(t) {
-  const r = new (typeof DOMMatrix == "function" ? DOMMatrix : WebKitCSSMatrix)(t + "");
-  return r.isIdentity ? i : o(r.a, r.b, r.c, r.d, r.e, r.f);
-}
-function f(t) {
-  return t == null ? i : (n || (n = document.createElementNS("http://www.w3.org/2000/svg", "g")), n.setAttribute("transform", t), (t = n.transform.baseVal.consolidate()) ? (t = t.matrix, o(t.a, t.b, t.c, t.d, t.e, t.f)) : i);
+var m;
+function l(a, i) {
+  var e = f(a, i);
+  if (!e)
+    return a + "";
+  var t = e[0], o = e[1], r = o - (m = Math.max(-8, Math.min(8, Math.floor(o / 3))) * 3) + 1, n = t.length;
+  return r === n ? t : r > n ? t + new Array(r - n + 1).join("0") : r > 0 ? t.slice(0, r) + "." + t.slice(r) : "0." + new Array(1 - r).join("0") + f(a, Math.max(0, i + r - 1))[0];
 }
 export {
-  s as parseCss,
-  f as parseSvg
+  l as default,
+  m as prefixExponent
 };
 //# sourceMappingURL=cori.data.api114.js.map

@@ -1,19 +1,39 @@
+import u from "./cori.data.api206.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o() {
-  for (var e = this._groups, r = 0, a = e.length; r < a; ++r)
-    for (var n = e[r], t = 0, f = n.length; t < f; ++t) {
-      var l = n[t];
-      if (l)
-        return l;
-    }
+function f(e) {
+  return u.matchAll(/\w+|\[(\w*)]/g, e).map((o) => o[0] === "[]" ? "" : o[1] || o[0]);
+}
+function y(e) {
+  const o = {}, r = Object.keys(e);
+  let i;
+  const n = r.length;
+  let c;
+  for (i = 0; i < n; i++)
+    c = r[i], o[c] = e[c];
+  return o;
+}
+function m(e) {
+  function o(r, i, n, c) {
+    let s = r[c++];
+    if (s === "__proto__")
+      return !0;
+    const t = Number.isFinite(+s), l = c >= r.length;
+    return s = !s && u.isArray(n) ? n.length : s, l ? (u.hasOwnProp(n, s) ? n[s] = [n[s], i] : n[s] = i, !t) : ((!n[s] || !u.isObject(n[s])) && (n[s] = []), o(r, i, n[s], c) && u.isArray(n[s]) && (n[s] = y(n[s])), !t);
+  }
+  if (u.isFormData(e) && u.isFunction(e.entries)) {
+    const r = {};
+    return u.forEachEntry(e, (i, n) => {
+      o(f(i), n, r, 0);
+    }), r;
+  }
   return null;
 }
 export {
-  o as default
+  m as default
 };
 //# sourceMappingURL=cori.data.api211.js.map

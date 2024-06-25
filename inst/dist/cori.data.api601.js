@@ -1,139 +1,61 @@
-import { Schema as T, Field as c } from "./cori.data.api498.js";
-import { Int32 as p, Dictionary as w, Int as g, Struct as d, List as I, Bool as D, LargeUtf8 as J, Utf8 as B, LargeBinary as U, Binary as L, Null as y, Map_ as x, FixedSizeList as z, FixedSizeBinary as A, Union as E, Duration as M, Interval as W, Timestamp as Y, Time as v, Date_ as C, Decimal as P, Float as V } from "./cori.data.api444.js";
-import { RecordBatch as k, DictionaryBatch as R, FieldNode as j, BufferRegion as u } from "./cori.data.api509.js";
-import { UnionMode as $ } from "./cori.data.api565.js";
-import { TimeUnit as l } from "./cori.data.api570.js";
-import { IntervalUnit as q } from "./cori.data.api571.js";
-import { DateUnit as G } from "./cori.data.api569.js";
-import { Precision as H } from "./cori.data.api568.js";
+import { Dictionary as c } from "./cori.data.api429.js";
+import { Builder as d } from "./cori.data.api493.js";
+import { makeBuilder as r } from "./cori.data.api594.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function oe(e, n = /* @__PURE__ */ new Map()) {
-  return new T(Q(e, n), m(e.metadata), n);
-}
-function K(e) {
-  return new k(e.count, N(e.columns), O(e.columns));
-}
-function ae(e) {
-  return new R(K(e.data), e.id, e.isDelta);
-}
-function Q(e, n) {
-  return (e.fields || []).filter(Boolean).map((r) => c.fromJSON(r, n));
-}
-function h(e, n) {
-  return (e.children || []).filter(Boolean).map((r) => c.fromJSON(r, n));
-}
-function N(e) {
-  return (e || []).reduce((n, r) => [
-    ...n,
-    new j(r.count, X(r.VALIDITY)),
-    ...N(r.children)
-  ], []);
-}
-function O(e, n = []) {
-  for (let r = -1, t = (e || []).length; ++r < t; ) {
-    const o = e[r];
-    o.VALIDITY && n.push(new u(n.length, o.VALIDITY.length)), o.TYPE_ID && n.push(new u(n.length, o.TYPE_ID.length)), o.OFFSET && n.push(new u(n.length, o.OFFSET.length)), o.DATA && n.push(new u(n.length, o.DATA.length)), n = O(o.children, n);
+class a extends d {
+  constructor({ type: i, nullValues: e, dictionaryHashFunction: t }) {
+    super({ type: new c(i.dictionary, i.indices, i.id, i.isOrdered) }), this._nulls = null, this._dictionaryOffset = 0, this._keysToIndices = /* @__PURE__ */ Object.create(null), this.indices = r({ type: this.type.indices, nullValues: e }), this.dictionary = r({ type: this.type.dictionary, nullValues: null }), typeof t == "function" && (this.valueToKey = t);
   }
-  return n;
-}
-function X(e) {
-  return (e || []).reduce((n, r) => n + +(r === 0), 0);
-}
-function ie(e, n) {
-  let r, t, o, a, i, s;
-  return !n || !(a = e.dictionary) ? (i = F(e, h(e, n)), o = new c(e.name, i, e.nullable, m(e.metadata))) : n.has(r = a.id) ? (t = (t = a.indexType) ? S(t) : new p(), s = new w(n.get(r), t, r, a.isOrdered), o = new c(e.name, s, e.nullable, m(e.metadata))) : (t = (t = a.indexType) ? S(t) : new p(), n.set(r, i = F(e, h(e, n))), s = new w(i, t, r, a.isOrdered), o = new c(e.name, s, e.nullable, m(e.metadata))), o || null;
-}
-function m(e = []) {
-  return new Map(e.map(({ key: n, value: r }) => [n, r]));
-}
-function S(e) {
-  return new g(e.isSigned, e.bitWidth);
-}
-function F(e, n) {
-  const r = e.type.name;
-  switch (r) {
-    case "NONE":
-      return new y();
-    case "null":
-      return new y();
-    case "binary":
-      return new L();
-    case "largebinary":
-      return new U();
-    case "utf8":
-      return new B();
-    case "largeutf8":
-      return new J();
-    case "bool":
-      return new D();
-    case "list":
-      return new I((n || [])[0]);
-    case "struct":
-      return new d(n || []);
-    case "struct_":
-      return new d(n || []);
+  get values() {
+    return this.indices.values;
   }
-  switch (r) {
-    case "int": {
-      const t = e.type;
-      return new g(t.isSigned, t.bitWidth);
-    }
-    case "floatingpoint": {
-      const t = e.type;
-      return new V(H[t.precision]);
-    }
-    case "decimal": {
-      const t = e.type;
-      return new P(t.scale, t.precision, t.bitWidth);
-    }
-    case "date": {
-      const t = e.type;
-      return new C(G[t.unit]);
-    }
-    case "time": {
-      const t = e.type;
-      return new v(l[t.unit], t.bitWidth);
-    }
-    case "timestamp": {
-      const t = e.type;
-      return new Y(l[t.unit], t.timezone);
-    }
-    case "interval": {
-      const t = e.type;
-      return new W(q[t.unit]);
-    }
-    case "duration": {
-      const t = e.type;
-      return new M(l[t.unit]);
-    }
-    case "union": {
-      const t = e.type, [o, ...a] = (t.mode + "").toLowerCase(), i = o.toUpperCase() + a.join("");
-      return new E($[i], t.typeIds || [], n || []);
-    }
-    case "fixedsizebinary": {
-      const t = e.type;
-      return new A(t.byteWidth);
-    }
-    case "fixedsizelist": {
-      const t = e.type;
-      return new z(t.listSize, (n || [])[0]);
-    }
-    case "map": {
-      const t = e.type;
-      return new x((n || [])[0], t.keysSorted);
-    }
+  get nullCount() {
+    return this.indices.nullCount;
   }
-  throw new Error(`Unrecognized type: "${r}"`);
+  get nullBitmap() {
+    return this.indices.nullBitmap;
+  }
+  get byteLength() {
+    return this.indices.byteLength + this.dictionary.byteLength;
+  }
+  get reservedLength() {
+    return this.indices.reservedLength + this.dictionary.reservedLength;
+  }
+  get reservedByteLength() {
+    return this.indices.reservedByteLength + this.dictionary.reservedByteLength;
+  }
+  isValid(i) {
+    return this.indices.isValid(i);
+  }
+  setValid(i, e) {
+    const t = this.indices;
+    return e = t.setValid(i, e), this.length = t.length, e;
+  }
+  setValue(i, e) {
+    const t = this._keysToIndices, s = this.valueToKey(e);
+    let n = t[s];
+    return n === void 0 && (t[s] = n = this._dictionaryOffset + this.dictionary.append(e).length - 1), this.indices.setValue(i, n);
+  }
+  flush() {
+    const i = this.type, e = this._dictionary, t = this.dictionary.toVector(), s = this.indices.flush().clone(i);
+    return s.dictionary = e ? e.concat(t) : t, this.finished || (this._dictionaryOffset += t.length), this._dictionary = s.dictionary, this.clear(), s;
+  }
+  finish() {
+    return this.indices.finish(), this.dictionary.finish(), this._dictionaryOffset = 0, this._keysToIndices = /* @__PURE__ */ Object.create(null), super.finish();
+  }
+  clear() {
+    return this.indices.clear(), this.dictionary.clear(), super.clear();
+  }
+  valueToKey(i) {
+    return typeof i == "string" ? i : `${i}`;
+  }
 }
 export {
-  ae as dictionaryBatchFromJSON,
-  ie as fieldFromJSON,
-  K as recordBatchFromJSON,
-  oe as schemaFromJSON
+  a as DictionaryBuilder
 };
 //# sourceMappingURL=cori.data.api601.js.map

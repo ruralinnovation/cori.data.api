@@ -4,18 +4,13 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function r(t) {
-  return function() {
-    return this.matches(t);
-  };
-}
-function e(t) {
-  return function(n) {
-    return n.matches(t);
+function u(e, t) {
+  var n = /* @__PURE__ */ new Date();
+  return e = +e, t = +t, function(r) {
+    return n.setTime(e * (1 - r) + t * r), n;
   };
 }
 export {
-  e as childMatcher,
-  r as default
+  u as default
 };
 //# sourceMappingURL=cori.data.api124.js.map

@@ -1,26 +1,31 @@
+import o from "./cori.data.api335.js";
+import i from "./cori.data.api363.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const e = "Expr", s = "ExprList", n = "ExprNumber", t = "ExprObject", o = "JoinKeys", c = "JoinValues", r = "Options", i = "OrderKeys", b = "SelectionList", p = "TableRef", l = "TableRefList", x = "Descending", a = "Query", y = "Selection", E = "Verb", u = "Window";
+function m(s, t = [], r = []) {
+  return new a(s, o(t), o(r));
+}
+class a {
+  constructor(t, r, n) {
+    this.name = t, this.fields = r, this.params = n;
+  }
+  toString() {
+    const t = [
+      ...this.fields.map((r) => `d[${i(r)}]`),
+      ...this.params.map(i)
+    ];
+    return `d => op.${this.name}(${t})`;
+  }
+  toObject() {
+    return { expr: this.toString(), func: !0 };
+  }
+}
 export {
-  x as Descending,
-  e as Expr,
-  s as ExprList,
-  n as ExprNumber,
-  t as ExprObject,
-  o as JoinKeys,
-  c as JoinValues,
-  r as Options,
-  i as OrderbyKeys,
-  a as Query,
-  y as Selection,
-  b as SelectionList,
-  p as TableRef,
-  l as TableRefList,
-  E as Verb,
-  u as Window
+  a as Op,
+  m as default
 };
 //# sourceMappingURL=cori.data.api365.js.map

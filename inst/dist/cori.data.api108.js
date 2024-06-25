@@ -1,22 +1,14 @@
-import r from "./cori.data.api103.js";
+import { formatDecimalParts as a } from "./cori.data.api252.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(o, e) {
-  var n = {}, f = {}, t;
-  (o === null || typeof o != "object") && (o = {}), (e === null || typeof e != "object") && (e = {});
-  for (t in e)
-    t in o ? n[t] = r(o[t], e[t]) : f[t] = e[t];
-  return function(i) {
-    for (t in n)
-      f[t] = n[t](i);
-    return f;
-  };
+function e(t) {
+  return t = a(Math.abs(t)), t ? t[1] : NaN;
 }
 export {
-  u as default
+  e as default
 };
 //# sourceMappingURL=cori.data.api108.js.map

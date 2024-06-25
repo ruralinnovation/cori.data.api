@@ -1,43 +1,42 @@
-import { rowLookup as w } from "./cori.data.api632.js";
-import j from "./cori.data.api631.js";
-import l from "./cori.data.api373.js";
+import k from "./cori.data.api342.js";
+import g from "./cori.data.api338.js";
+import { aggregate as h } from "./cori.data.api530.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function h(o, i, n, r = {}) {
-  const t = new j(o.totalRows());
-  return (l(n) ? R : k)(t, o, i, n), r.anti && t.not().and(o.mask()), o.create({ filter: t });
-}
-function R(o, i, n, [r, t]) {
-  const f = w(n, t);
-  i.scan((e, a) => {
-    f.get(r(e, a)) >= 0 && o.set(e);
-  });
-}
-function k(o, i, n, r) {
-  const t = i.numRows(), f = n.numRows(), e = i.data(), a = n.data();
-  if (i.isFiltered() || n.isFiltered()) {
-    const s = i.indices(!1), c = n.indices(!1);
-    for (let m = 0; m < t; ++m) {
-      const u = s[m];
-      for (let d = 0; d < f; ++d)
-        if (r(u, e, c[d], a)) {
-          o.set(u);
-          break;
-        }
-    }
-  } else
-    for (let s = 0; s < t; ++s)
-      for (let c = 0; c < f; ++c)
-        if (r(s, e, c, a)) {
-          o.set(s);
-          break;
-        }
+const y = (e, t, o, u) => `((u = ${e}) < (v = ${t}) || u == null) && v != null ? ${o}
+    : (u > v || v == null) && u != null ? ${u}
+    : ((v = v instanceof Date ? +v : v), (u = u instanceof Date ? +u : u)) !== u && v === v ? ${o}
+    : v !== v && u === u ? ${u} : `;
+function G(e, t) {
+  const o = [], u = [], a = [];
+  let v = null, f = "0", i = "0";
+  e.isGrouped() && (v = e.groups().keys, f = "ka", i = "kb");
+  const { ops: $ } = g(t, {
+    table: e,
+    value: (n, s) => {
+      if (o.push(n), s.escape) {
+        const p = (c) => `fn[${a.length}](${c}, data)`;
+        u.push([p("a"), p("b")]), a.push(s.escape);
+      } else
+        u.push([
+          k(s, { index: "a", op: f }),
+          k(s, { index: "b", op: i })
+        ]);
+    },
+    window: !1
+  }), d = h(e, $), l = (n, s) => d[n][s], m = o.length;
+  let r = "return (a, b) => {" + (l && e.isGrouped() ? "const ka = keys[a], kb = keys[b];" : "") + "let u, v; return ";
+  for (let n = 0; n < m; ++n) {
+    const s = t.get(o[n]).desc ? -1 : 1, [p, c] = u[n];
+    r += y(p, c, -s, s);
+  }
+  return r += "0;};", Function("op", "keys", "fn", "data", r)(l, v, a, e.data());
 }
 export {
-  h as default
+  G as default
 };
 //# sourceMappingURL=cori.data.api529.js.map

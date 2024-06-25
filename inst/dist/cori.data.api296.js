@@ -1,26 +1,31 @@
-import { create as n } from "./cori.data.api397.js";
+import { commonjsGlobal as u } from "./cori.data.api120.js";
+import { __exports as l } from "./cori.data.api389.js";
+import { i as p } from "./cori.data.api390.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const r = n({
-  space: "xlink",
-  transform(e, l) {
-    return "xlink:" + l.slice(5).toLowerCase();
-  },
-  properties: {
-    xLinkActuate: null,
-    xLinkArcRole: null,
-    xLinkHref: null,
-    xLinkRole: null,
-    xLinkShow: null,
-    xLinkTitle: null,
-    xLinkType: null
-  }
-});
+var s = u && u.__importDefault || function(e) {
+  return e && e.__esModule ? e : { default: e };
+};
+Object.defineProperty(l, "__esModule", { value: !0 });
+var _ = s(p);
+function v(e, f) {
+  var r = null;
+  if (!e || typeof e != "string")
+    return r;
+  var n = (0, _.default)(e), i = typeof f == "function";
+  return n.forEach(function(t) {
+    if (t.type === "declaration") {
+      var o = t.property, a = t.value;
+      i ? f(o, a, t) : a && (r = r || {}, r[o] = a);
+    }
+  }), r;
+}
+var j = l.default = v;
 export {
-  r as xlink
+  j as default
 };
 //# sourceMappingURL=cori.data.api296.js.map

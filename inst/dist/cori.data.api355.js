@@ -4,26 +4,7 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class r {
-  constructor(t) {
-    this._outputs = t;
-  }
-  size() {
-    return this._outputs.length;
-  }
-  outputs() {
-    return this._outputs;
-  }
-  init() {
-    return {};
-  }
-  add() {
-  }
-  rem() {
-  }
-  write() {
-  }
-}
+const r = Array.isArray;
 export {
   r as default
 };

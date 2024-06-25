@@ -1,35 +1,68 @@
-import f from "./cori.data.api66.js";
-import s from "./cori.data.api71.js";
+import { booleanish as a, number as r, spaceSeparated as i } from "./cori.data.api381.js";
+import { create as l } from "./cori.data.api379.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const l = (t, c) => {
-  let u = new AbortController(), i;
-  const n = function(e) {
-    if (!i) {
-      i = !0, a();
-      const o = e instanceof Error ? e : this.reason;
-      u.abort(o instanceof s ? o : new f(o instanceof Error ? o.message : o));
-    }
-  };
-  let r = c && setTimeout(() => {
-    n(new s(`timeout ${c} of ms exceeded`, s.ETIMEDOUT));
-  }, c);
-  const a = () => {
-    t && (r && clearTimeout(r), r = null, t.forEach((e) => {
-      e && (e.removeEventListener ? e.removeEventListener("abort", n) : e.unsubscribe(n));
-    }), t = null);
-  };
-  t.forEach((e) => e && e.addEventListener && e.addEventListener("abort", n));
-  const { signal: b } = u;
-  return b.unsubscribe = a, [b, () => {
-    r && clearTimeout(r), r = null;
-  }];
-};
+const u = l({
+  transform(n, e) {
+    return e === "role" ? e : "aria-" + e.slice(4).toLowerCase();
+  },
+  properties: {
+    ariaActiveDescendant: null,
+    ariaAtomic: a,
+    ariaAutoComplete: null,
+    ariaBusy: a,
+    ariaChecked: a,
+    ariaColCount: r,
+    ariaColIndex: r,
+    ariaColSpan: r,
+    ariaControls: i,
+    ariaCurrent: null,
+    ariaDescribedBy: i,
+    ariaDetails: null,
+    ariaDisabled: a,
+    ariaDropEffect: i,
+    ariaErrorMessage: null,
+    ariaExpanded: a,
+    ariaFlowTo: i,
+    ariaGrabbed: a,
+    ariaHasPopup: null,
+    ariaHidden: a,
+    ariaInvalid: null,
+    ariaKeyShortcuts: null,
+    ariaLabel: null,
+    ariaLabelledBy: i,
+    ariaLevel: r,
+    ariaLive: null,
+    ariaModal: a,
+    ariaMultiLine: a,
+    ariaMultiSelectable: a,
+    ariaOrientation: null,
+    ariaOwns: i,
+    ariaPlaceholder: null,
+    ariaPosInSet: r,
+    ariaPressed: a,
+    ariaReadOnly: a,
+    ariaRelevant: null,
+    ariaRequired: a,
+    ariaRoleDescription: i,
+    ariaRowCount: r,
+    ariaRowIndex: r,
+    ariaRowSpan: r,
+    ariaSelected: a,
+    ariaSetSize: r,
+    ariaSort: null,
+    ariaValueMax: r,
+    ariaValueMin: r,
+    ariaValueNow: r,
+    ariaValueText: null,
+    role: null
+  }
+});
 export {
-  l as default
+  u as aria
 };
 //# sourceMappingURL=cori.data.api293.js.map

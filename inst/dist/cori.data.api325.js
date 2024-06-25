@@ -1,15 +1,19 @@
-import { trimLines as p } from "./cori.data.api416.js";
+import a from "./cori.data.api334.js";
+import { tableToIPC as f } from "./cori.data.api410.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function i(r, t) {
-  const e = { type: "text", value: p(String(t.value)) };
-  return r.patch(t, e), r.applyData(t, e);
+function s(r, t = {}) {
+  const { format: o, ...e } = t, m = o || "stream";
+  if (!["stream", "file"].includes(m))
+    throw Error("Unrecognised output format");
+  return f(a(r, e), o);
 }
 export {
-  i as text
+  a as default,
+  s as toArrowIPC
 };
 //# sourceMappingURL=cori.data.api325.js.map

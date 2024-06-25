@@ -1,45 +1,53 @@
-import h from "./cori.data.api369.js";
-import y from "./cori.data.api370.js";
-import { scanArray as b, scanTable as w } from "./cori.data.api371.js";
-import { table as F } from "./cori.data.api372.js";
-import l from "./cori.data.api333.js";
-import f from "./cori.data.api373.js";
-import u from "./cori.data.api337.js";
+import { dataFromArray as p, dataFromScan as A } from "./cori.data.api425.js";
+import { profile as d } from "./cori.data.api426.js";
+import l from "./cori.data.api427.js";
+import F from "./cori.data.api415.js";
+import { Vector as y } from "./cori.data.api428.js";
+import { Float32 as I, Float64 as U, Int8 as T, Int16 as g, Int32 as w, Uint8 as B, Uint16 as V, Uint32 as v, Int64 as x, Uint64 as C } from "./cori.data.api429.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function E(n, m = {}) {
-  const { types: o = {} } = m, { dataFrom: r, names: t, nrows: s, scan: a } = T(n, m), i = {};
-  t.forEach((e) => {
-    const c = r(n, e, s, a, o[e]);
-    c.length !== s && l("Column length mismatch"), i[e] = c;
-  });
-  const p = F();
-  return new p(i);
+function E(r, n, i, f, t, e = !0) {
+  t = l(t);
+  const a = r.column(n), s = !(r.isFiltered() || r.isOrdered()), c = O(a);
+  if (c && s && u(c.type, t))
+    return c;
+  const m = a.data;
+  if (F(m)) {
+    const o = S(m);
+    if (s && o && u(o, t))
+      return p(m, o);
+    t = t || o, e = !1;
+  }
+  if (!t) {
+    const o = d(f, a);
+    e = o.nulls > 0, t = o.type();
+  }
+  return A(i, f, a, t, e);
 }
-function T(n, m) {
-  const { columns: o, limit: r = 1 / 0, offset: t = 0 } = m, s = u(o) ? o(n) : f(o) ? o : null;
-  if (f(n))
-    return {
-      dataFrom: h,
-      names: s || Object.keys(n[0]),
-      nrows: Math.min(r, n.length - t),
-      scan: b(n, r, t)
-    };
-  if (g(n))
-    return {
-      dataFrom: y,
-      names: s || n.columnNames(),
-      nrows: Math.min(r, n.numRows() - t),
-      scan: w(n, r, t)
-    };
-  l("Unsupported input data type");
+function O(r) {
+  return r instanceof y ? r : r.vector instanceof y ? r.vector : null;
 }
-function g(n) {
-  return n && u(n.reify);
+function S(r) {
+  const i = {
+    Float32Array: I,
+    Float64Array: U,
+    Int8Array: T,
+    Int16Array: g,
+    Int32Array: w,
+    Uint8Array: B,
+    Uint16Array: V,
+    Uint32Array: v,
+    BigInt64Array: x,
+    BigUint64Array: C
+  }[r.constructor.name];
+  return i ? new i() : null;
+}
+function u(r, n) {
+  return !r || !n ? !0 : r.compareTo(n);
 }
 export {
   E as default

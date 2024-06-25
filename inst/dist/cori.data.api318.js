@@ -1,28 +1,47 @@
+import e from "./cori.data.api319.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(r, t) {
-  const s = {}, a = r.all(t);
-  let l = -1;
-  for (typeof t.start == "number" && t.start !== 1 && (s.start = t.start); ++l < a.length; ) {
-    const e = a[l];
-    if (e.type === "element" && e.tagName === "li" && e.properties && Array.isArray(e.properties.className) && e.properties.className.includes("task-list-item")) {
-      s.className = ["contains-task-list"];
-      break;
-    }
+class n {
+  /**
+   * Create a new column instance.
+   * @param {Array} data The backing array (or array-like object)
+   *  containing the column data.
+   */
+  constructor(r) {
+    this.data = r;
   }
-  const i = {
-    type: "element",
-    tagName: t.ordered ? "ol" : "ul",
-    properties: s,
-    children: r.wrap(a, !0)
-  };
-  return r.patch(t, i), r.applyData(t, i);
+  /**
+   * Get the length (number of rows) of the column.
+   * @return {number} The length of the column array.
+   */
+  get length() {
+    return this.data.length;
+  }
+  /**
+   * Get the column value at the given row index.
+   * @param {number} row The row index of the value to retrieve.
+   * @return {import('./table').DataValue} The column value.
+   */
+  get(r) {
+    return this.data[r];
+  }
+  /**
+   * Returns an iterator over the column values.
+   * @return {Iterator<object>} An iterator over column values.
+   */
+  [Symbol.iterator]() {
+    return this.data[Symbol.iterator]();
+  }
 }
+let u = function(t) {
+  return t && e(t.get) ? t : new n(t);
+};
 export {
-  p as list
+  n as default,
+  u as defaultColumnFactory
 };
 //# sourceMappingURL=cori.data.api318.js.map

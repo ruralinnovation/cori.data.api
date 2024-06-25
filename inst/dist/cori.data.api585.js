@@ -1,14 +1,68 @@
+import { SIZE_PREFIX_LENGTH as r } from "./cori.data.api655.js";
+import "./cori.data.api564.js";
+import "./cori.data.api565.js";
+import { UnionMode as i } from "./cori.data.api556.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var t;
-(function(i) {
-  i[i.NONE = 0] = "NONE", i[i.Null = 1] = "Null", i[i.Int = 2] = "Int", i[i.FloatingPoint = 3] = "FloatingPoint", i[i.Binary = 4] = "Binary", i[i.Utf8 = 5] = "Utf8", i[i.Bool = 6] = "Bool", i[i.Decimal = 7] = "Decimal", i[i.Date = 8] = "Date", i[i.Time = 9] = "Time", i[i.Timestamp = 10] = "Timestamp", i[i.Interval = 11] = "Interval", i[i.List = 12] = "List", i[i.Struct_ = 13] = "Struct_", i[i.Union = 14] = "Union", i[i.FixedSizeBinary = 15] = "FixedSizeBinary", i[i.FixedSizeList = 16] = "FixedSizeList", i[i.Map = 17] = "Map", i[i.Duration = 18] = "Duration", i[i.LargeBinary = 19] = "LargeBinary", i[i.LargeUtf8 = 20] = "LargeUtf8", i[i.LargeList = 21] = "LargeList", i[i.RunEndEncoded = 22] = "RunEndEncoded";
-})(t || (t = {}));
+class e {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
+  }
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
+  }
+  static getRootAsUnion(t, s) {
+    return (s || new e()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static getSizePrefixedRootAsUnion(t, s) {
+    return t.setPosition(t.position() + r), (s || new e()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  mode() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt16(this.bb_pos + t) : i.Sparse;
+  }
+  typeIds(t) {
+    const s = this.bb.__offset(this.bb_pos, 6);
+    return s ? this.bb.readInt32(this.bb.__vector(this.bb_pos + s) + t * 4) : 0;
+  }
+  typeIdsLength() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
+  }
+  typeIdsArray() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? new Int32Array(this.bb.bytes().buffer, this.bb.bytes().byteOffset + this.bb.__vector(this.bb_pos + t), this.bb.__vector_len(this.bb_pos + t)) : null;
+  }
+  static startUnion(t) {
+    t.startObject(2);
+  }
+  static addMode(t, s) {
+    t.addFieldInt16(0, s, i.Sparse);
+  }
+  static addTypeIds(t, s) {
+    t.addFieldOffset(1, s, 0);
+  }
+  static createTypeIdsVector(t, s) {
+    t.startVector(4, s.length, 4);
+    for (let o = s.length - 1; o >= 0; o--)
+      t.addInt32(s[o]);
+    return t.endVector();
+  }
+  static startTypeIdsVector(t, s) {
+    t.startVector(4, s, 4);
+  }
+  static endUnion(t) {
+    return t.endObject();
+  }
+  static createUnion(t, s, o) {
+    return e.startUnion(t), e.addMode(t, s), e.addTypeIds(t, o), e.endUnion(t);
+  }
+}
 export {
-  t as Type
+  e as Union
 };
 //# sourceMappingURL=cori.data.api585.js.map

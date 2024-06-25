@@ -1,27 +1,23 @@
-import c from "./cori.data.api122.js";
-import { xhtml as n } from "./cori.data.api123.js";
+import e from "./cori.data.api122.js";
+import { genericArray as a } from "./cori.data.api123.js";
+import f from "./cori.data.api124.js";
+import i from "./cori.data.api125.js";
+import p from "./cori.data.api126.js";
+import u from "./cori.data.api127.js";
+import c from "./cori.data.api128.js";
+import l, { isNumberArray as s } from "./cori.data.api129.js";
+import n from "./cori.data.api104.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(e) {
-  return function() {
-    var t = this.ownerDocument, r = this.namespaceURI;
-    return r === n && t.documentElement.namespaceURI === n ? t.createElement(e) : t.createElementNS(r, e);
-  };
-}
-function a(e) {
-  return function() {
-    return this.ownerDocument.createElementNS(e.space, e.local);
-  };
-}
-function i(e) {
-  var t = c(e);
-  return (t.local ? a : o)(t);
+function D(m, r) {
+  var o = typeof r, t;
+  return r == null || o === "boolean" ? c(r) : (o === "number" ? i : o === "string" ? (t = n(r)) ? (r = t, e) : u : r instanceof n ? e : r instanceof Date ? f : s(r) ? l : Array.isArray(r) ? a : typeof r.valueOf != "function" && typeof r.toString != "function" || isNaN(r) ? p : i)(m, r);
 }
 export {
-  i as default
+  D as default
 };
 //# sourceMappingURL=cori.data.api121.js.map

@@ -1,6 +1,6 @@
-import { initRange as v } from "./cori.data.api118.js";
+import { initRange as v } from "./cori.data.api134.js";
 import w from "./cori.data.api24.js";
-import b from "./cori.data.api85.js";
+import b from "./cori.data.api100.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

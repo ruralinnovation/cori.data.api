@@ -1,59 +1,53 @@
-import { SIZE_PREFIX_LENGTH as r } from "./cori.data.api665.js";
-import "./cori.data.api574.js";
-import "./cori.data.api575.js";
-import { BodyCompressionMethod as i } from "./cori.data.api680.js";
-import { CompressionType as e } from "./cori.data.api681.js";
+import x from "./cori.data.api667.js";
+import y from "./cori.data.api668.js";
+import A from "./cori.data.api623.js";
+import O from "./cori.data.api484.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
-  }
-  __init(t, o) {
-    return this.bb_pos = t, this.bb = o, this;
-  }
-  static getRootAsBodyCompression(t, o) {
-    return (o || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsBodyCompression(t, o) {
-    return t.setPosition(t.position() + r), (o || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  /**
-   * Compressor library.
-   * For LZ4_FRAME, each compressed buffer must consist of a single frame.
-   */
-  codec() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt8(this.bb_pos + t) : e.LZ4_FRAME;
-  }
-  /**
-   * Indicates the way the record batch body was compressed
-   */
-  method() {
-    const t = this.bb.__offset(this.bb_pos, 6);
-    return t ? this.bb.readInt8(this.bb_pos + t) : i.BUFFER;
-  }
-  static startBodyCompression(t) {
-    t.startObject(2);
-  }
-  static addCodec(t, o) {
-    t.addFieldInt8(0, o, e.LZ4_FRAME);
-  }
-  static addMethod(t, o) {
-    t.addFieldInt8(1, o, i.BUFFER);
-  }
-  static endBodyCompression(t) {
-    return t.endObject();
-  }
-  static createBodyCompression(t, o, n) {
-    return s.startBodyCompression(t), s.addCodec(t, o), s.addMethod(t, n), s.endBodyCompression(t);
-  }
+const M = y(x);
+function C(h, _, k, o, s) {
+  let f, n, d, u, p;
+  const w = (i) => n[i - 1] === n[i], v = o.length, z = s.length, $ = o.length ? O(
+    ["w", "r", "k"],
+    "{" + A(o, (i, e) => `r[_${e}.id][k]=_${e}.value(w,_${e}.get);`) + "}",
+    o
+  ) : () => {
+  }, t = {
+    i0: 0,
+    i1: 0,
+    index: 0,
+    size: 0,
+    peer: w,
+    init(i, e, m, c) {
+      t.index = t.i0 = t.i1 = 0, t.size = e.length, f = i, n = e, u = m, p = c, d = s ? s.map((r) => r.init()) : null;
+      for (let r = 0; r < v; ++r)
+        o[r].init();
+      return t;
+    },
+    value(i, e) {
+      return e(f[i], h);
+    },
+    step(i) {
+      const [e, m] = _, c = t.size, r = t.i0, j = t.i1;
+      t.i0 = e != null ? Math.max(0, i - Math.abs(e)) : 0, t.i1 = m != null ? Math.min(c, i + Math.abs(m) + 1) : c, t.index = i, k && (t.i0 > 0 && w(t.i0) && (t.i0 = M.left(n, n[t.i0])), t.i1 < c && w(t.i1) && (t.i1 = M.right(n, n[t.i1 - 1])));
+      for (let a = 0; a < z; ++a) {
+        const g = s[a], b = d[a];
+        for (let l = r; l < t.i0; ++l)
+          g.rem(b, f[l], h);
+        for (let l = j; l < t.i1; ++l)
+          g.add(b, f[l], h);
+        g.write(b, u, p);
+      }
+      return $(t, u, p), u;
+    }
+  };
+  return t;
 }
 export {
-  s as BodyCompression
+  C as default
 };
 //# sourceMappingURL=cori.data.api666.js.map

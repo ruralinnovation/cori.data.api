@@ -1,36 +1,35 @@
-import n from "./cori.data.api525.js";
-import f from "./cori.data.api526.js";
-import u from "./cori.data.api356.js";
-import c from "./cori.data.api524.js";
-import { array_agg_distinct as s } from "./cori.data.api36.js";
-import a from "./cori.data.api333.js";
-import g from "./cori.data.api381.js";
+import d from "./cori.data.api528.js";
+import p from "./cori.data.api529.js";
+import f from "./cori.data.api358.js";
+import u from "./cori.data.api315.js";
+import s from "./cori.data.api319.js";
+import l from "./cori.data.api344.js";
+import x from "./cori.data.api316.js";
+import y from "./cori.data.api362.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function S(r, o, m = {}) {
-  if (o = u(o, { table: r }), o.names.forEach(
-    (t) => r.column(t) ? 0 : a(`Invalid impute column ${g(t)}`)
-  ), m.expand) {
-    const t = { preparse: d, aggronly: !0 }, p = c("impute", r, m.expand, t), i = f(r.ungroup(), p);
-    return n(
-      r,
-      o,
-      p.names,
-      p.names.map((e) => i.get(e, 0))
-    );
-  } else
-    return n(r, o);
+function E(e, i) {
+  return d(e, b(e, i));
 }
-function d(r) {
-  r.forEach(
-    (o, m) => o.field ? r.set(m, s(o + "")) : 0
-  );
+function b(e, i) {
+  let m = -1;
+  const t = /* @__PURE__ */ new Map(), n = (r) => t.set(++m + "", r);
+  return i.forEach((r) => {
+    const o = r.expr != null ? r.expr : r;
+    if (l(o) && !s(o))
+      for (const c in o)
+        n(o[c]);
+    else
+      n(
+        x(o) ? f(r, e.columnName(o)) : y(o) ? f(r) : s(o) ? r : u(`Invalid orderby field: ${r + ""}`)
+      );
+  }), p(e, t);
 }
 export {
-  S as default
+  E as default
 };
 //# sourceMappingURL=cori.data.api468.js.map

@@ -4,19 +4,8 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function r(t, e) {
-  const p = e.value ? e.value + `
-` : "", l = {};
-  e.lang && (l.className = ["language-" + e.lang]);
-  let a = {
-    type: "element",
-    tagName: "code",
-    properties: l,
-    children: [{ type: "text", value: p }]
-  };
-  return e.meta && (a.data = { meta: e.meta }), t.patch(e, a), a = t.applyData(e, a), a = { type: "element", tagName: "pre", properties: {}, children: [a] }, t.patch(e, a), a;
-}
+const t = null;
 export {
-  r as code
+  t as default
 };
 //# sourceMappingURL=cori.data.api306.js.map

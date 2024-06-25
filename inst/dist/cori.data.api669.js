@@ -1,36 +1,37 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api665.js";
-import "./cori.data.api574.js";
-import "./cori.data.api575.js";
+import s from "./cori.data.api667.js";
+import i from "./cori.data.api673.js";
+import r from "./cori.data.api674.js";
+import e from "./cori.data.api675.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
+class u {
+  constructor(t) {
+    this._values = t || [], this._sorted = null, this._start = 0;
   }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
+  values(t) {
+    return this._start && (this._values = this._values.slice(this._start), this._start = 0), t ? this._values.slice() : this._values;
   }
-  static getRootAsBinary(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  add(t) {
+    this._values.push(t), this._sorted = null;
   }
-  static getSizePrefixedRootAsBinary(t, i) {
-    return t.setPosition(t.position() + n), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  rem() {
+    this._start += 1, this._sorted = null;
   }
-  static startBinary(t) {
-    t.startObject(0);
+  min() {
+    return this._sorted && this._sorted.length ? this._sorted[0] : i(this._values, this._start);
   }
-  static endBinary(t) {
-    return t.endObject();
+  max() {
+    return this._sorted && this._sorted.length ? this._sorted[this._sorted.length - 1] : r(this._values, this._start);
   }
-  static createBinary(t) {
-    return s.startBinary(t), s.endBinary(t);
+  quantile(t) {
+    return this._sorted || (this._sorted = this.values(!0), this._sorted.sort(s)), e(this._sorted, t);
   }
 }
 export {
-  s as Binary
+  u as default
 };
 //# sourceMappingURL=cori.data.api669.js.map

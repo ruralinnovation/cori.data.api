@@ -1,6 +1,6 @@
-import { __module as e } from "./cori.data.api30.js";
-import { __require as r } from "./cori.data.api31.js";
-import { __require as o } from "./cori.data.api32.js";
+import { __module as e } from "./cori.data.api27.js";
+import { __require as r } from "./cori.data.api28.js";
+import { __require as o } from "./cori.data.api29.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

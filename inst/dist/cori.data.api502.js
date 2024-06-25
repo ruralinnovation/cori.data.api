@@ -1,224 +1,126 @@
-import { Vector as _ } from "./cori.data.api443.js";
-import { makeData as c } from "./cori.data.api503.js";
-import { MapRow as v, kKeys as y } from "./cori.data.api504.js";
-import { strideForType as m } from "./cori.data.api444.js";
-import { createIsValidFunction as V } from "./cori.data.api505.js";
-import { BitmapBufferBuilder as L, DataBufferBuilder as B, OffsetsBufferBuilder as b } from "./cori.data.api506.js";
+import { Visitor as f } from "./cori.data.api555.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class r {
-  /** @nocollapse */
-  // @ts-ignore
-  static throughNode(e) {
-    throw new Error('"throughNode" not available in this environment');
+class n extends f {
+  compareSchemas(i, o) {
+    return i === o || o instanceof i.constructor && this.compareManyFields(i.fields, o.fields);
   }
-  /** @nocollapse */
-  // @ts-ignore
-  static throughDOM(e) {
-    throw new Error('"throughDOM" not available in this environment');
+  compareManyFields(i, o) {
+    return i === o || Array.isArray(i) && Array.isArray(o) && i.length === o.length && i.every((u, S) => this.compareFields(u, o[S]));
   }
-  /**
-   * Construct a builder with the given Arrow DataType with optional null values,
-   * which will be interpreted as "null" when set or appended to the `Builder`.
-   * @param {{ type: T, nullValues?: any[] }} options A `BuilderOptions` object used to create this `Builder`.
-   */
-  constructor({ type: e, nullValues: t }) {
-    this.length = 0, this.finished = !1, this.type = e, this.children = [], this.nullValues = t, this.stride = m(e), this._nulls = new L(), t && t.length > 0 && (this._isValid = V(t));
-  }
-  /**
-   * Flush the `Builder` and return a `Vector<T>`.
-   * @returns {Vector<T>} A `Vector<T>` of the flushed values.
-   */
-  toVector() {
-    return new _([this.flush()]);
-  }
-  get ArrayType() {
-    return this.type.ArrayType;
-  }
-  get nullCount() {
-    return this._nulls.numInvalid;
-  }
-  get numChildren() {
-    return this.children.length;
-  }
-  /**
-   * @returns The aggregate length (in bytes) of the values that have been written.
-   */
-  get byteLength() {
-    let e = 0;
-    const { _offsets: t, _values: s, _nulls: i, _typeIds: h, children: n } = this;
-    return t && (e += t.byteLength), s && (e += s.byteLength), i && (e += i.byteLength), h && (e += h.byteLength), n.reduce((o, d) => o + d.byteLength, e);
-  }
-  /**
-   * @returns The aggregate number of rows that have been reserved to write new values.
-   */
-  get reservedLength() {
-    return this._nulls.reservedLength;
-  }
-  /**
-   * @returns The aggregate length (in bytes) that has been reserved to write new values.
-   */
-  get reservedByteLength() {
-    let e = 0;
-    return this._offsets && (e += this._offsets.reservedByteLength), this._values && (e += this._values.reservedByteLength), this._nulls && (e += this._nulls.reservedByteLength), this._typeIds && (e += this._typeIds.reservedByteLength), this.children.reduce((t, s) => t + s.reservedByteLength, e);
-  }
-  get valueOffsets() {
-    return this._offsets ? this._offsets.buffer : null;
-  }
-  get values() {
-    return this._values ? this._values.buffer : null;
-  }
-  get nullBitmap() {
-    return this._nulls ? this._nulls.buffer : null;
-  }
-  get typeIds() {
-    return this._typeIds ? this._typeIds.buffer : null;
-  }
-  /**
-   * Appends a value (or null) to this `Builder`.
-   * This is equivalent to `builder.set(builder.length, value)`.
-   * @param {T['TValue'] | TNull } value The value to append.
-   */
-  append(e) {
-    return this.set(this.length, e);
-  }
-  /**
-   * Validates whether a value is valid (true), or null (false)
-   * @param {T['TValue'] | TNull } value The value to compare against null the value representations
-   */
-  isValid(e) {
-    return this._isValid(e);
-  }
-  /**
-   * Write a value (or null-value sentinel) at the supplied index.
-   * If the value matches one of the null-value representations, a 1-bit is
-   * written to the null `BitmapBufferBuilder`. Otherwise, a 0 is written to
-   * the null `BitmapBufferBuilder`, and the value is passed to
-   * `Builder.prototype.setValue()`.
-   * @param {number} index The index of the value to write.
-   * @param {T['TValue'] | TNull } value The value to write at the supplied index.
-   * @returns {this} The updated `Builder` instance.
-   */
-  set(e, t) {
-    return this.setValid(e, this.isValid(t)) && this.setValue(e, t), this;
-  }
-  /**
-   * Write a value to the underlying buffers at the supplied index, bypassing
-   * the null-value check. This is a low-level method that
-   * @param {number} index
-   * @param {T['TValue'] | TNull } value
-   */
-  setValue(e, t) {
-    this._setValue(this, e, t);
-  }
-  setValid(e, t) {
-    return this.length = this._nulls.set(e, +t).length, t;
-  }
-  // @ts-ignore
-  addChild(e, t = `${this.numChildren}`) {
-    throw new Error(`Cannot append children to non-nested type "${this.type}"`);
-  }
-  /**
-   * Retrieve the child `Builder` at the supplied `index`, or null if no child
-   * exists at that index.
-   * @param {number} index The index of the child `Builder` to retrieve.
-   * @returns {Builder | null} The child Builder at the supplied index or null.
-   */
-  getChildAt(e) {
-    return this.children[e] || null;
-  }
-  /**
-   * Commit all the values that have been written to their underlying
-   * ArrayBuffers, including any child Builders if applicable, and reset
-   * the internal `Builder` state.
-   * @returns A `Data<T>` of the buffers and children representing the values written.
-   */
-  flush() {
-    let e, t, s, i;
-    const { type: h, length: n, nullCount: o, _typeIds: d, _offsets: l, _values: u, _nulls: f } = this;
-    (t = d == null ? void 0 : d.flush(n)) ? i = l == null ? void 0 : l.flush(n) : (i = l == null ? void 0 : l.flush(n)) ? e = u == null ? void 0 : u.flush(l.last()) : e = u == null ? void 0 : u.flush(n), o > 0 && (s = f == null ? void 0 : f.flush(n));
-    const p = this.children.map((g) => g.flush());
-    return this.clear(), c({
-      type: h,
-      length: n,
-      nullCount: o,
-      children: p,
-      child: p[0],
-      data: e,
-      typeIds: t,
-      nullBitmap: s,
-      valueOffsets: i
-    });
-  }
-  /**
-   * Finalize this `Builder`, and child builders if applicable.
-   * @returns {this} The finalized `Builder` instance.
-   */
-  finish() {
-    this.finished = !0;
-    for (const e of this.children)
-      e.finish();
-    return this;
-  }
-  /**
-   * Clear this Builder's internal state, including child Builders if applicable, and reset the length to 0.
-   * @returns {this} The cleared `Builder` instance.
-   */
-  clear() {
-    var e, t, s, i;
-    this.length = 0, (e = this._nulls) === null || e === void 0 || e.clear(), (t = this._values) === null || t === void 0 || t.clear(), (s = this._offsets) === null || s === void 0 || s.clear(), (i = this._typeIds) === null || i === void 0 || i.clear();
-    for (const h of this.children)
-      h.clear();
-    return this;
+  compareFields(i, o) {
+    return i === o || o instanceof i.constructor && i.name === o.name && i.nullable === o.nullable && this.visit(i.type, o.type);
   }
 }
-r.prototype.length = 1;
-r.prototype.stride = 1;
-r.prototype.children = null;
-r.prototype.finished = !1;
-r.prototype.nullValues = null;
-r.prototype._isValid = () => !0;
-class D extends r {
-  constructor(e) {
-    super(e), this._values = new B(this.ArrayType, 0, this.stride);
-  }
-  setValue(e, t) {
-    const s = this._values;
-    return s.reserve(e - s.length + 1), super.setValue(e, t);
-  }
+function r(t, i) {
+  return i instanceof t.constructor;
 }
-class T extends r {
-  constructor(e) {
-    super(e), this._pendingLength = 0, this._offsets = new b(e.type);
-  }
-  setValue(e, t) {
-    const s = this._pending || (this._pending = /* @__PURE__ */ new Map()), i = s.get(e);
-    i && (this._pendingLength -= i.length), this._pendingLength += t instanceof v ? t[y].length : t.length, s.set(e, t);
-  }
-  setValid(e, t) {
-    return super.setValid(e, t) ? !0 : ((this._pending || (this._pending = /* @__PURE__ */ new Map())).set(e, void 0), !1);
-  }
-  clear() {
-    return this._pendingLength = 0, this._pending = void 0, super.clear();
-  }
-  flush() {
-    return this._flush(), super.flush();
-  }
-  finish() {
-    return this._flush(), super.finish();
-  }
-  _flush() {
-    const e = this._pending, t = this._pendingLength;
-    return this._pendingLength = 0, this._pending = void 0, e && e.size > 0 && this._flushPending(e, t), this;
-  }
+function c(t, i) {
+  return t === i || r(t, i);
+}
+function e(t, i) {
+  return t === i || r(t, i) && t.bitWidth === i.bitWidth && t.isSigned === i.isSigned;
+}
+function l(t, i) {
+  return t === i || r(t, i) && t.precision === i.precision;
+}
+function F(t, i) {
+  return t === i || r(t, i) && t.byteWidth === i.byteWidth;
+}
+function v(t, i) {
+  return t === i || r(t, i) && t.unit === i.unit;
+}
+function p(t, i) {
+  return t === i || r(t, i) && t.unit === i.unit && t.timezone === i.timezone;
+}
+function a(t, i) {
+  return t === i || r(t, i) && t.unit === i.unit && t.bitWidth === i.bitWidth;
+}
+function M(t, i) {
+  return t === i || r(t, i) && t.children.length === i.children.length && s.compareManyFields(t.children, i.children);
+}
+function D(t, i) {
+  return t === i || r(t, i) && t.children.length === i.children.length && s.compareManyFields(t.children, i.children);
+}
+function m(t, i) {
+  return t === i || r(t, i) && t.mode === i.mode && t.typeIds.every((o, u) => o === i.typeIds[u]) && s.compareManyFields(t.children, i.children);
+}
+function g(t, i) {
+  return t === i || r(t, i) && t.id === i.id && t.isOrdered === i.isOrdered && s.visit(t.indices, i.indices) && s.visit(t.dictionary, i.dictionary);
+}
+function y(t, i) {
+  return t === i || r(t, i) && t.unit === i.unit;
+}
+function d(t, i) {
+  return t === i || r(t, i) && t.unit === i.unit;
+}
+function T(t, i) {
+  return t === i || r(t, i) && t.listSize === i.listSize && t.children.length === i.children.length && s.compareManyFields(t.children, i.children);
+}
+function I(t, i) {
+  return t === i || r(t, i) && t.keysSorted === i.keysSorted && t.children.length === i.children.length && s.compareManyFields(t.children, i.children);
+}
+n.prototype.visitNull = c;
+n.prototype.visitBool = c;
+n.prototype.visitInt = e;
+n.prototype.visitInt8 = e;
+n.prototype.visitInt16 = e;
+n.prototype.visitInt32 = e;
+n.prototype.visitInt64 = e;
+n.prototype.visitUint8 = e;
+n.prototype.visitUint16 = e;
+n.prototype.visitUint32 = e;
+n.prototype.visitUint64 = e;
+n.prototype.visitFloat = l;
+n.prototype.visitFloat16 = l;
+n.prototype.visitFloat32 = l;
+n.prototype.visitFloat64 = l;
+n.prototype.visitUtf8 = c;
+n.prototype.visitLargeUtf8 = c;
+n.prototype.visitBinary = c;
+n.prototype.visitLargeBinary = c;
+n.prototype.visitFixedSizeBinary = F;
+n.prototype.visitDate = v;
+n.prototype.visitDateDay = v;
+n.prototype.visitDateMillisecond = v;
+n.prototype.visitTimestamp = p;
+n.prototype.visitTimestampSecond = p;
+n.prototype.visitTimestampMillisecond = p;
+n.prototype.visitTimestampMicrosecond = p;
+n.prototype.visitTimestampNanosecond = p;
+n.prototype.visitTime = a;
+n.prototype.visitTimeSecond = a;
+n.prototype.visitTimeMillisecond = a;
+n.prototype.visitTimeMicrosecond = a;
+n.prototype.visitTimeNanosecond = a;
+n.prototype.visitDecimal = c;
+n.prototype.visitList = M;
+n.prototype.visitStruct = D;
+n.prototype.visitUnion = m;
+n.prototype.visitDenseUnion = m;
+n.prototype.visitSparseUnion = m;
+n.prototype.visitDictionary = g;
+n.prototype.visitInterval = y;
+n.prototype.visitIntervalDayTime = y;
+n.prototype.visitIntervalYearMonth = y;
+n.prototype.visitDuration = d;
+n.prototype.visitDurationSecond = d;
+n.prototype.visitDurationMillisecond = d;
+n.prototype.visitDurationMicrosecond = d;
+n.prototype.visitDurationNanosecond = d;
+n.prototype.visitFixedSizeList = T;
+n.prototype.visitMap = I;
+const s = new n();
+function b(t, i) {
+  return s.compareSchemas(t, i);
 }
 export {
-  r as Builder,
-  D as FixedWidthBuilder,
-  T as VariableWidthBuilder
+  n as TypeComparator,
+  b as compareSchemas,
+  s as instance
 };
 //# sourceMappingURL=cori.data.api502.js.map

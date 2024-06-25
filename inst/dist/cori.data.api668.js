@@ -1,36 +1,28 @@
-import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api665.js";
-import "./cori.data.api574.js";
-import "./cori.data.api575.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
-  }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
-  }
-  static getRootAsNull(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsNull(t, i) {
-    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static startNull(t) {
-    t.startObject(0);
-  }
-  static endNull(t) {
-    return t.endObject();
-  }
-  static createNull(t) {
-    return s.startNull(t), s.endNull(t);
-  }
+function l(r) {
+  return {
+    left(f, u, e, n) {
+      for (e == null && (e = 0), n == null && (n = f.length); e < n; ) {
+        const t = e + n >>> 1;
+        r(f[t], u) < 0 ? e = t + 1 : n = t;
+      }
+      return e;
+    },
+    right(f, u, e, n) {
+      for (e == null && (e = 0), n == null && (n = f.length); e < n; ) {
+        const t = e + n >>> 1;
+        r(f[t], u) > 0 ? n = t : e = t + 1;
+      }
+      return e;
+    }
+  };
 }
 export {
-  s as Null
+  l as default
 };
 //# sourceMappingURL=cori.data.api668.js.map

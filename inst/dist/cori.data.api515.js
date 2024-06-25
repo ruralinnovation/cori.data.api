@@ -1,101 +1,82 @@
-import { __awaiter as t } from "./cori.data.api500.js";
-import i from "./cori.data.api499.js";
+import { aggregateGet as x } from "./cori.data.api530.js";
+import E from "./cori.data.api322.js";
+import z from "./cori.data.api421.js";
+import k from "./cori.data.api510.js";
+import _ from "./cori.data.api484.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const s = Object.freeze({ done: !0, value: void 0 });
-class n {
-  tee() {
-    return this._getDOMStream().tee();
-  }
-  pipe(e, r) {
-    return this._getNodeStream().pipe(e, r);
-  }
-  pipeTo(e, r) {
-    return this._getDOMStream().pipeTo(e, r);
-  }
-  pipeThrough(e, r) {
-    return this._getDOMStream().pipeThrough(e, r);
-  }
-  _getDOMStream() {
-    return this._DOMStream || (this._DOMStream = this.toDOMStream());
-  }
-  _getNodeStream() {
-    return this._nodeStream || (this._nodeStream = this.toNodeStream());
-  }
+function O(t, u, e, s) {
+  const i = e && e.length;
+  return $(
+    i ? j(t, e, s) : t,
+    u,
+    i
+  );
 }
-class d extends n {
-  constructor() {
-    super(), this._values = [], this.resolvers = [], this._closedPromise = new Promise((e) => this._closedPromiseResolve = e);
-  }
-  get closed() {
-    return this._closedPromise;
-  }
-  cancel(e) {
-    return t(this, void 0, void 0, function* () {
-      yield this.return(e);
+function $(t, { names: u, exprs: e, ops: s }, i) {
+  const d = x(t, s, e), g = i ? null : E(t), m = t.totalRows();
+  return u.forEach((p, f) => {
+    const n = t.column(p), c = i ? n.data : g.add(p, Array(m)), l = d[f];
+    t.scan((h) => {
+      const o = n.get(h);
+      c[h] = z(o) ? o : l(h);
+    });
+  }), i ? t : t.create(g);
+}
+function j(t, u, e) {
+  const s = t.groups(), i = t.data(), d = (s ? s.names : []).concat(u), g = (s ? s.get : []).concat(u.map((o) => t.getter(o))), m = /* @__PURE__ */ new Set(), p = k(g);
+  t.scan((o, r) => m.add(p(o, r)));
+  const f = t.columnNames(), n = E(), c = f.map((o) => n.add(o, []));
+  f.forEach((o, r) => {
+    const a = i[o], y = c[r];
+    t.scan((w) => y.push(a.get(w)));
+  });
+  const l = k(g.map((o, r) => (a) => a[r])), h = _(
+    "v",
+    "{" + c.map((o, r) => `_${r}.push(v[$${r}]);`).join("") + "}",
+    c,
+    f.map((o) => d.indexOf(o))
+  );
+  if (s) {
+    let o = s.keys.length;
+    const r = e.reduce((y, w) => y * w.length, s.size), a = new Uint32Array(r + (o - m.size));
+    a.set(s.keys), A(s, e, (y, w) => {
+      m.has(l(y)) || (h(y), a[o++] = w[0]);
+    }), n.groupby({ ...s, keys: a });
+  } else
+    A(s, e, (o) => {
+      m.has(l(o)) || h(o);
+    });
+  return t.create(n.new());
+}
+function A(t, u, e) {
+  const s = t ? t.get.length : 0, i = t ? 1 : 0, d = i + u.length, g = new Int32Array(d), m = new Int32Array(d), p = [];
+  if (t) {
+    const { get: n, rows: c, size: l } = t;
+    g[0] = l, p.push((h, o) => {
+      const r = c[o];
+      for (let a = 0; a < s; ++a)
+        h[a] = n[a](r);
     });
   }
-  write(e) {
-    this._ensureOpen() && (this.resolvers.length <= 0 ? this._values.push(e) : this.resolvers.shift().resolve({ done: !1, value: e }));
-  }
-  abort(e) {
-    this._closedPromiseResolve && (this.resolvers.length <= 0 ? this._error = { error: e } : this.resolvers.shift().reject({ done: !0, value: e }));
-  }
-  close() {
-    if (this._closedPromiseResolve) {
-      const { resolvers: e } = this;
-      for (; e.length > 0; )
-        e.shift().resolve(s);
-      this._closedPromiseResolve(), this._closedPromiseResolve = void 0;
-    }
-  }
-  [Symbol.asyncIterator]() {
-    return this;
-  }
-  toDOMStream(e) {
-    return i.toDOMStream(this._closedPromiseResolve || this._error ? this : this._values, e);
-  }
-  toNodeStream(e) {
-    return i.toNodeStream(this._closedPromiseResolve || this._error ? this : this._values, e);
-  }
-  throw(e) {
-    return t(this, void 0, void 0, function* () {
-      return yield this.abort(e), s;
-    });
-  }
-  return(e) {
-    return t(this, void 0, void 0, function* () {
-      return yield this.close(), s;
-    });
-  }
-  read(e) {
-    return t(this, void 0, void 0, function* () {
-      return (yield this.next(e, "read")).value;
-    });
-  }
-  peek(e) {
-    return t(this, void 0, void 0, function* () {
-      return (yield this.next(e, "peek")).value;
-    });
-  }
-  next(...e) {
-    return this._values.length > 0 ? Promise.resolve({ done: !1, value: this._values.shift() }) : this._error ? Promise.reject({ done: !0, value: this._error.error }) : this._closedPromiseResolve ? new Promise((r, h) => {
-      this.resolvers.push({ resolve: r, reject: h });
-    }) : Promise.resolve(s);
-  }
-  _ensureOpen() {
-    if (this._closedPromiseResolve)
-      return !0;
-    throw new Error("AsyncQueue is closed");
+  u.forEach((n, c) => {
+    const l = c + s;
+    g[c + i] = n.length, p.push((h, o) => h[l] = n[o]);
+  });
+  const f = Array(s + u.length);
+  for (let n = 0; n < d; ++n)
+    p[n](f, 0);
+  e(f, m);
+  for (let n = d - 1; n >= 0; ) {
+    const c = ++m[n];
+    c < g[n] ? (p[n](f, c), e(f, m), n = d - 1) : (m[n] = 0, p[n](f, 0), --n);
   }
 }
 export {
-  d as AsyncQueue,
-  s as ITERATOR_DONE,
-  n as ReadableInterop
+  O as default
 };
 //# sourceMappingURL=cori.data.api515.js.map

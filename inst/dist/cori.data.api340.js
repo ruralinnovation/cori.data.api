@@ -1,31 +1,24 @@
-import h from "./cori.data.api422.js";
+import r from "./cori.data.api346.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function n(s) {
-  return s ? new u({ ...s.data() }, s.columnNames()) : new u();
+function l(e) {
+  delete e.start, delete e.end, delete e.optional;
 }
-class u {
-  constructor(t, r) {
-    this.data = t || {}, this.names = r || [];
-  }
-  add(t, r) {
-    return this.has(t) || this.names.push(t + ""), this.data[t] = r;
-  }
-  has(t) {
-    return h(this.data, t);
-  }
-  new() {
-    return this.filter = null, this.groups = this.groups || null, this.order = null, this;
-  }
-  groupby(t) {
-    return this.groups = t, this;
-  }
+function t(e) {
+  l(e), delete e.object, delete e.property, delete e.computed, e.table || delete e.table;
+}
+function u(e) {
+  return r(e, null, {
+    Column: t,
+    Constant: t,
+    Default: l
+  }), e;
 }
 export {
-  n as default
+  u as default
 };
 //# sourceMappingURL=cori.data.api340.js.map

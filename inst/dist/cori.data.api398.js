@@ -1,14 +1,14 @@
-import { caseSensitiveTransform as n } from "./cori.data.api400.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s(e, r) {
-  return n(e, r.toLowerCase());
+function o(e) {
+  const t = /^([-+\w]{1,25})(:?\/\/|:)/.exec(e);
+  return t && t[1] || "";
 }
 export {
-  s as caseInsensitiveTransform
+  o as default
 };
 //# sourceMappingURL=cori.data.api398.js.map

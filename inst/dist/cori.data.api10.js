@@ -1,4 +1,4 @@
-import { __require as r } from "./cori.data.api34.js";
+import { __require as r } from "./cori.data.api31.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

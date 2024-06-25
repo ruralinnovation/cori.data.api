@@ -1,55 +1,127 @@
-import { makeData as f } from "./cori.data.api503.js";
-import { Struct as p } from "./cori.data.api444.js";
-import { RecordBatch as B } from "./cori.data.api514.js";
+import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api655.js";
+import "./cori.data.api564.js";
+import "./cori.data.api565.js";
+import { DictionaryEncoding as r } from "./cori.data.api657.js";
+import { KeyValue as b } from "./cori.data.api576.js";
+import { Type as o } from "./cori.data.api575.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function N(u, t) {
-  return h(u, t.map((i) => i.data.concat()));
-}
-function h(u, t) {
-  const i = [...u.fields], s = [], a = { numBatches: t.reduce((r, d) => Math.max(r, d.length), 0) };
-  let c = 0, l = 0, n = -1;
-  const m = t.length;
-  let e, o = [];
-  for (; a.numBatches-- > 0; ) {
-    for (l = Number.POSITIVE_INFINITY, n = -1; ++n < m; )
-      o[n] = e = t[n].shift(), l = Math.min(l, e ? e.length : l);
-    Number.isFinite(l) && (o = v(i, l, o, t, a), l > 0 && (s[c++] = f({
-      type: new p(i),
-      length: l,
-      nullCount: 0,
-      children: o.slice()
-    })));
+class i {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  return [
-    u = u.assign(i),
-    s.map((r) => new B(u, r))
-  ];
-}
-function v(u, t, i, s, a) {
-  var c;
-  const l = (t + 63 & -64) >> 3;
-  for (let n = -1, m = s.length; ++n < m; ) {
-    const e = i[n], o = e == null ? void 0 : e.length;
-    if (o >= t)
-      o === t ? i[n] = e : (i[n] = e.slice(0, t), a.numBatches = Math.max(a.numBatches, s[n].unshift(e.slice(t, o - t))));
-    else {
-      const r = u[n];
-      u[n] = r.clone({ nullable: !0 }), i[n] = (c = e == null ? void 0 : e._changeLengthAndBackfillNullBitmap(t)) !== null && c !== void 0 ? c : f({
-        type: r.type,
-        length: t,
-        nullCount: t,
-        nullBitmap: new Uint8Array(l)
-      });
-    }
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
   }
-  return i;
+  static getRootAsField(t, s) {
+    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static getSizePrefixedRootAsField(t, s) {
+    return t.setPosition(t.position() + n), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  name(t) {
+    const s = this.bb.__offset(this.bb_pos, 4);
+    return s ? this.bb.__string(this.bb_pos + s, t) : null;
+  }
+  /**
+   * Whether or not this field can contain nulls. Should be true in general.
+   */
+  nullable() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? !!this.bb.readInt8(this.bb_pos + t) : !1;
+  }
+  typeType() {
+    const t = this.bb.__offset(this.bb_pos, 8);
+    return t ? this.bb.readUint8(this.bb_pos + t) : o.NONE;
+  }
+  /**
+   * This is the type of the decoded value if the field is dictionary encoded.
+   */
+  type(t) {
+    const s = this.bb.__offset(this.bb_pos, 10);
+    return s ? this.bb.__union(t, this.bb_pos + s) : null;
+  }
+  /**
+   * Present only if the field is dictionary encoded.
+   */
+  dictionary(t) {
+    const s = this.bb.__offset(this.bb_pos, 12);
+    return s ? (t || new r()).__init(this.bb.__indirect(this.bb_pos + s), this.bb) : null;
+  }
+  /**
+   * children apply only to nested data types like Struct, List and Union. For
+   * primitive types children will have length 0.
+   */
+  children(t, s) {
+    const e = this.bb.__offset(this.bb_pos, 14);
+    return e ? (s || new i()).__init(this.bb.__indirect(this.bb.__vector(this.bb_pos + e) + t * 4), this.bb) : null;
+  }
+  childrenLength() {
+    const t = this.bb.__offset(this.bb_pos, 14);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
+  }
+  /**
+   * User-defined metadata
+   */
+  customMetadata(t, s) {
+    const e = this.bb.__offset(this.bb_pos, 16);
+    return e ? (s || new b()).__init(this.bb.__indirect(this.bb.__vector(this.bb_pos + e) + t * 4), this.bb) : null;
+  }
+  customMetadataLength() {
+    const t = this.bb.__offset(this.bb_pos, 16);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
+  }
+  static startField(t) {
+    t.startObject(7);
+  }
+  static addName(t, s) {
+    t.addFieldOffset(0, s, 0);
+  }
+  static addNullable(t, s) {
+    t.addFieldInt8(1, +s, 0);
+  }
+  static addTypeType(t, s) {
+    t.addFieldInt8(2, s, o.NONE);
+  }
+  static addType(t, s) {
+    t.addFieldOffset(3, s, 0);
+  }
+  static addDictionary(t, s) {
+    t.addFieldOffset(4, s, 0);
+  }
+  static addChildren(t, s) {
+    t.addFieldOffset(5, s, 0);
+  }
+  static createChildrenVector(t, s) {
+    t.startVector(4, s.length, 4);
+    for (let e = s.length - 1; e >= 0; e--)
+      t.addOffset(s[e]);
+    return t.endVector();
+  }
+  static startChildrenVector(t, s) {
+    t.startVector(4, s, 4);
+  }
+  static addCustomMetadata(t, s) {
+    t.addFieldOffset(6, s, 0);
+  }
+  static createCustomMetadataVector(t, s) {
+    t.startVector(4, s.length, 4);
+    for (let e = s.length - 1; e >= 0; e--)
+      t.addOffset(s[e]);
+    return t.endVector();
+  }
+  static startCustomMetadataVector(t, s) {
+    t.startVector(4, s, 4);
+  }
+  static endField(t) {
+    return t.endObject();
+  }
 }
 export {
-  N as distributeVectorsIntoRecordBatches
+  i as Field
 };
 //# sourceMappingURL=cori.data.api573.js.map

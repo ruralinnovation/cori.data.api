@@ -1,36 +1,24 @@
-import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api665.js";
-import "./cori.data.api574.js";
-import "./cori.data.api575.js";
+import c from "./cori.data.api443.js";
+import e from "./cori.data.api445.js";
+import i from "./cori.data.api682.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
-  }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
-  }
-  static getRootAsStruct_(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsStruct_(t, i) {
-    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static startStruct_(t) {
-    t.startObject(0);
-  }
-  static endStruct_(t) {
-    return t.endObject();
-  }
-  static createStruct_(t) {
-    return s.startStruct_(t), s.endStruct_(t);
-  }
+function s(t, r) {
+  const o = t.length;
+  if (!o)
+    return e;
+  if ((r = +r) <= 0 || o < 2)
+    return i(t[0]);
+  if (r >= 1)
+    return i(t[o - 1]);
+  const m = (o - 1) * r, f = Math.floor(m), n = i(t[f]);
+  return c(n) ? n : n + (i(t[f + 1]) - n) * (m - f);
 }
 export {
-  s as Struct_
+  s as default
 };
 //# sourceMappingURL=cori.data.api675.js.map

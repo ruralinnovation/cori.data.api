@@ -1,51 +1,47 @@
-import { Selection as k } from "./cori.data.api125.js";
-import { EnterNode as v } from "./cori.data.api132.js";
-import x from "./cori.data.api278.js";
+import o from "./cori.data.api125.js";
+import { parseCss as Y, parseSvg as T } from "./cori.data.api132.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function B(r, l, y, s, h, t) {
-  for (var e = 0, n, f = l.length, o = t.length; e < o; ++e)
-    (n = l[e]) ? (n.__data__ = t[e], s[e] = n) : y[e] = new v(r, t[e]);
-  for (; e < f; ++e)
-    (n = l[e]) && (h[e] = n);
-}
-function E(r, l, y, s, h, t, e) {
-  var n, f, o = /* @__PURE__ */ new Map(), i = l.length, w = t.length, g = new Array(i), _;
-  for (n = 0; n < i; ++n)
-    (f = l[n]) && (g[n] = _ = e.call(f, f.__data__, n, l) + "", o.has(_) ? h[n] = f : o.set(_, f));
-  for (n = 0; n < w; ++n)
-    _ = e.call(r, t[n], n, t) + "", (f = o.get(_)) ? (s[n] = f, f.__data__ = t[n], o.delete(_)) : y[n] = new v(r, t[n]);
-  for (n = 0; n < i; ++n)
-    (f = l[n]) && o.get(g[n]) === f && (h[n] = f);
-}
-function I(r) {
-  return r.__data__;
-}
-function d(r, l) {
-  if (!arguments.length)
-    return Array.from(this, I);
-  var y = l ? E : B, s = this._parents, h = this._groups;
-  typeof r != "function" && (r = x(r));
-  for (var t = h.length, e = new Array(t), n = new Array(t), f = new Array(t), o = 0; o < t; ++o) {
-    var i = s[o], w = h[o], g = w.length, _ = L(r.call(i, i && i.__data__, o, s)), a = _.length, m = n[o] = new Array(a), b = e[o] = new Array(a), K = f[o] = new Array(g);
-    y(i, w, m, b, K, _, l);
-    for (var c = 0, A = 0, u, V; c < a; ++c)
-      if (u = m[c]) {
-        for (c >= A && (A = c + 1); !(V = b[A]) && ++A < a; )
-          ;
-        u._next = V || null;
-      }
+function X(f, a, c, p) {
+  function i(e) {
+    return e.length ? e.pop() + " " : "";
   }
-  return e = new k(e, s), e._enter = n, e._exit = f, e;
+  function v(e, t, n, l, r, u) {
+    if (e !== n || t !== l) {
+      var s = r.push("translate(", null, a, null, c);
+      u.push({ i: s - 4, x: o(e, n) }, { i: s - 2, x: o(t, l) });
+    } else
+      (n || l) && r.push("translate(" + n + a + l + c);
+  }
+  function m(e, t, n, l) {
+    e !== t ? (e - t > 180 ? t += 360 : t - e > 180 && (e += 360), l.push({ i: n.push(i(n) + "rotate(", null, p) - 2, x: o(e, t) })) : t && n.push(i(n) + "rotate(" + t + p);
+  }
+  function w(e, t, n, l) {
+    e !== t ? l.push({ i: n.push(i(n) + "skewX(", null, p) - 2, x: o(e, t) }) : t && n.push(i(n) + "skewX(" + t + p);
+  }
+  function k(e, t, n, l, r, u) {
+    if (e !== n || t !== l) {
+      var s = r.push(i(r) + "scale(", null, ",", null, ")");
+      u.push({ i: s - 4, x: o(e, n) }, { i: s - 2, x: o(t, l) });
+    } else
+      (n !== 1 || l !== 1) && r.push(i(r) + "scale(" + n + "," + l + ")");
+  }
+  return function(e, t) {
+    var n = [], l = [];
+    return e = f(e), t = f(t), v(e.translateX, e.translateY, t.translateX, t.translateY, n, l), m(e.rotate, t.rotate, n, l), w(e.skewX, t.skewX, n, l), k(e.scaleX, e.scaleY, t.scaleX, t.scaleY, n, l), e = t = null, function(r) {
+      for (var u = -1, s = l.length, h; ++u < s; )
+        n[(h = l[u]).i] = h.x(r);
+      return n.join("");
+    };
+  };
 }
-function L(r) {
-  return typeof r == "object" && "length" in r ? r : Array.from(r);
-}
+var j = X(Y, "px, ", "px)", "deg)"), q = X(T, ", ", ")", ")");
 export {
-  d as default
+  j as interpolateTransformCss,
+  q as interpolateTransformSvg
 };
 //# sourceMappingURL=cori.data.api131.js.map

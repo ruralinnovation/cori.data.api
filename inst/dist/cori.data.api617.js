@@ -1,31 +1,34 @@
-import { FixedWidthBuilder as t } from "./cori.data.api502.js";
-import { setTimestamp as o, setTimestampSecond as i, setTimestampMillisecond as m, setTimestampMicrosecond as p, setTimestampNanosecond as a } from "./cori.data.api560.js";
+import { Field as i } from "./cori.data.api488.js";
+import { Builder as n } from "./cori.data.api493.js";
+import { Struct as d } from "./cori.data.api429.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class e extends t {
+class p extends n {
+  setValue(t, r) {
+    const { children: e, type: h } = this;
+    switch (Array.isArray(r) || r.constructor) {
+      case !0:
+        return h.children.forEach((c, s) => e[s].set(t, r[s]));
+      case Map:
+        return h.children.forEach((c, s) => e[s].set(t, r.get(c.name)));
+      default:
+        return h.children.forEach((c, s) => e[s].set(t, r[c.name]));
+    }
+  }
+  /** @inheritdoc */
+  setValid(t, r) {
+    return super.setValid(t, r) || this.children.forEach((e) => e.setValid(t, r)), r;
+  }
+  addChild(t, r = `${this.numChildren}`) {
+    const e = this.children.push(t);
+    return this.type = new d([...this.type.children, new i(r, t.type, !0)]), e;
+  }
 }
-e.prototype._setValue = o;
-class d extends e {
-}
-d.prototype._setValue = i;
-class l extends e {
-}
-l.prototype._setValue = m;
-class r extends e {
-}
-r.prototype._setValue = p;
-class c extends e {
-}
-c.prototype._setValue = a;
 export {
-  e as TimestampBuilder,
-  r as TimestampMicrosecondBuilder,
-  l as TimestampMillisecondBuilder,
-  c as TimestampNanosecondBuilder,
-  d as TimestampSecondBuilder
+  p as StructBuilder
 };
 //# sourceMappingURL=cori.data.api617.js.map

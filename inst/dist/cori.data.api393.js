@@ -4,18 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function i(n, u) {
-  let e = 0;
-  const r = 1e3 / u;
-  let t = null;
-  return function() {
-    const o = this === !0, l = Date.now();
-    if (o || l - e > r)
-      return t && (clearTimeout(t), t = null), e = l, n.apply(null, arguments);
-    t || (t = setTimeout(() => (t = null, e = Date.now(), n.apply(null, arguments)), r - (l - e)));
-  };
+function e(t) {
+  return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(t);
 }
 export {
-  i as default
+  e as default
 };
 //# sourceMappingURL=cori.data.api393.js.map

@@ -1,93 +1,32 @@
+import o from "./cori.data.api430.js";
+import r from "./cori.data.api431.js";
+import m from "./cori.data.api432.js";
+import t from "./cori.data.api433.js";
+import i from "./cori.data.api434.js";
+import f from "./cori.data.api435.js";
+import p from "./cori.data.api436.js";
+import e from "./cori.data.api437.js";
+import a from "./cori.data.api438.js";
+import n from "./cori.data.api439.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(a, r, t, i) {
-  const l = t[a.type] || t.Default;
-  if (l && l(a, r, i) === !1)
-    return;
-  const y = n[a.type];
-  y && y(a, r, t);
-}
-const p = (a, r, t) => {
-  e(a.argument, r, t, a);
-}, m = (a, r, t) => {
-  e(a.left, r, t, a), e(a.right, r, t, a);
-}, E = (a, r, t) => {
-  e(a.test, r, t, a), e(a.consequent, r, t, a), a.alternate && e(a.alternate, r, t, a);
-}, u = (a, r, t) => {
-  s(a.params, r, t, a), e(a.body, r, t, a);
-}, c = (a, r, t) => {
-  e(a.callee, r, t, a), s(a.arguments, r, t, a);
-}, s = (a, r, t, i) => {
-  a.forEach((l) => e(l, r, t, i));
-}, n = {
-  TemplateLiteral: (a, r, t) => {
-    s(a.expressions, r, t, a), s(a.quasis, r, t, a);
-  },
-  MemberExpression: (a, r, t) => {
-    e(a.object, r, t, a), e(a.property, r, t, a);
-  },
-  CallExpression: c,
-  NewExpression: c,
-  ArrayExpression: (a, r, t) => {
-    s(a.elements, r, t, a);
-  },
-  AssignmentExpression: m,
-  AwaitExpression: p,
-  BinaryExpression: m,
-  LogicalExpression: m,
-  UnaryExpression: p,
-  UpdateExpression: p,
-  ConditionalExpression: E,
-  ObjectExpression: (a, r, t) => {
-    s(a.properties, r, t, a);
-  },
-  Property: (a, r, t) => {
-    e(a.key, r, t, a), e(a.value, r, t, a);
-  },
-  ArrowFunctionExpression: u,
-  FunctionExpression: u,
-  FunctionDeclaration: u,
-  VariableDeclaration: (a, r, t) => {
-    s(a.declarations, r, t, a);
-  },
-  VariableDeclarator: (a, r, t) => {
-    e(a.id, r, t, a), e(a.init, r, t, a);
-  },
-  SpreadElement: (a, r, t) => {
-    e(a.argument, r, t, a);
-  },
-  BlockStatement: (a, r, t) => {
-    s(a.body, r, t, a);
-  },
-  ExpressionStatement: (a, r, t) => {
-    e(a.expression, r, t, a);
-  },
-  IfStatement: E,
-  ForStatement: (a, r, t) => {
-    e(a.init, r, t, a), e(a.test, r, t, a), e(a.update, r, t, a), e(a.body, r, t, a);
-  },
-  WhileStatement: (a, r, t) => {
-    e(a.test, r, t, a), e(a.body, r, t, a);
-  },
-  DoWhileStatement: (a, r, t) => {
-    e(a.body, r, t, a), e(a.test, r, t, a);
-  },
-  SwitchStatement: (a, r, t) => {
-    e(a.discriminant, r, t, a), s(a.cases, r, t, a);
-  },
-  SwitchCase: (a, r, t) => {
-    a.test && e(a.test, r, t, a), s(a.consequent, r, t, a);
-  },
-  ReturnStatement: p,
-  Program: (a, r, t) => {
-    e(a.body[0], r, t, a);
-  }
+const x = {
+  bin: r,
+  equal: t,
+  recode: e,
+  sequence: a,
+  ...o,
+  ...m,
+  ...i,
+  ...f,
+  ...p,
+  ...n
 };
 export {
-  e as default
+  x as default
 };
 //# sourceMappingURL=cori.data.api364.js.map

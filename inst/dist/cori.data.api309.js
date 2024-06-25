@@ -1,35 +1,41 @@
-import { normalizeUri as s } from "./cori.data.api330.js";
+import { uuid as a, toArray as i } from "./cori.data.api245.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function d(e, r) {
-  const i = typeof e.options.clobberPrefix == "string" ? e.options.clobberPrefix : "user-content-", t = String(r.identifier).toUpperCase(), f = s(t.toLowerCase()), l = e.footnoteOrder.indexOf(t);
-  let n, o = e.footnoteCounts.get(t);
-  o === void 0 ? (o = 0, e.footnoteOrder.push(t), n = e.footnoteOrder.length) : n = l + 1, o += 1, e.footnoteCounts.set(t, o);
-  const p = {
-    type: "element",
-    tagName: "a",
-    properties: {
-      href: "#" + i + "fn-" + f,
-      id: i + "fnref-" + f + (o > 1 ? "-" + o : ""),
-      dataFootnoteRef: !0,
-      ariaDescribedBy: ["footnote-label"]
-    },
-    children: [{ type: "text", value: String(n) }]
-  };
-  e.patch(r, p);
-  const c = {
-    type: "element",
-    tagName: "sup",
-    properties: {},
-    children: [p]
-  };
-  return e.patch(r, c), e.applyData(r, c);
+function l(e) {
+  const t = e.getPropertyValue("content");
+  return `${e.cssText} content: '${t.replace(/'|"/g, "")}';`;
+}
+function m(e) {
+  return i(e).map((t) => {
+    const n = e.getPropertyValue(t), r = e.getPropertyPriority(t);
+    return `${t}: ${n}${r ? " !important" : ""};`;
+  }).join(" ");
+}
+function p(e, t, n) {
+  const r = `.${e}:${t}`, o = n.cssText ? l(n) : m(n);
+  return document.createTextNode(`${r}{${o}}`);
+}
+function u(e, t, n) {
+  const r = window.getComputedStyle(e, n), o = r.getPropertyValue("content");
+  if (o === "" || o === "none")
+    return;
+  const c = a();
+  try {
+    t.className = `${t.className} ${c}`;
+  } catch {
+    return;
+  }
+  const s = document.createElement("style");
+  s.appendChild(p(c, n, r)), t.appendChild(s);
+}
+function P(e, t) {
+  u(e, t, ":before"), u(e, t, ":after");
 }
 export {
-  d as footnoteReference
+  P as clonePseudoElements
 };
 //# sourceMappingURL=cori.data.api309.js.map

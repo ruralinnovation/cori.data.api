@@ -1,14 +1,31 @@
+import m from "./cori.data.api521.js";
+import s from "./cori.data.api315.js";
+import f from "./cori.data.api624.js";
+import a from "./cori.data.api355.js";
+import c from "./cori.data.api362.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var o;
-(function(c) {
-  c[c.NONE = 0] = "NONE", c[c.Schema = 1] = "Schema", c[c.DictionaryBatch = 2] = "DictionaryBatch", c[c.RecordBatch = 3] = "RecordBatch", c[c.Tensor = 4] = "Tensor", c[c.SparseTensor = 5] = "SparseTensor";
-})(o || (o = {}));
+function h(i, t, e) {
+  if (e)
+    c(e) ? e = [e, e] : a(e) && e.length === 1 && (e = [e[0], e[0]]);
+  else {
+    const r = f(i.columnNames(), t.columnNames());
+    r.length || s("Natural join requires shared column names."), e = [r, r];
+  }
+  return e;
+}
+function g(i, t, e, r) {
+  return e.length !== r.length && s("Mismatched number of join keys"), [
+    m("join", i, e),
+    m("join", t, r)
+  ];
+}
 export {
-  o as MessageHeader
+  h as inferKeys,
+  g as keyPredicate
 };
 //# sourceMappingURL=cori.data.api518.js.map

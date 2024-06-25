@@ -1,51 +1,43 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api665.js";
-import "./cori.data.api574.js";
-import "./cori.data.api575.js";
-import { TimeUnit as o } from "./cori.data.api570.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
+class b {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
   }
-  static getRootAsTimestamp(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  /**
+   * Index to the start of the RecordBlock (note this is past the Message header)
+   */
+  offset() {
+    return this.bb.readInt64(this.bb_pos);
   }
-  static getSizePrefixedRootAsTimestamp(t, i) {
-    return t.setPosition(t.position() + n), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  /**
+   * Length of the metadata
+   */
+  metaDataLength() {
+    return this.bb.readInt32(this.bb_pos + 8);
   }
-  unit() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : o.SECOND;
+  /**
+   * Length of the data (this is aligned so there can be a gap between this and
+   * the metadata).
+   */
+  bodyLength() {
+    return this.bb.readInt64(this.bb_pos + 16);
   }
-  timezone(t) {
-    const i = this.bb.__offset(this.bb_pos, 6);
-    return i ? this.bb.__string(this.bb_pos + i, t) : null;
+  static sizeOf() {
+    return 24;
   }
-  static startTimestamp(t) {
-    t.startObject(2);
-  }
-  static addUnit(t, i) {
-    t.addFieldInt16(0, i, o.SECOND);
-  }
-  static addTimezone(t, i) {
-    t.addFieldOffset(1, i, 0);
-  }
-  static endTimestamp(t) {
-    return t.endObject();
-  }
-  static createTimestamp(t, i, e) {
-    return s.startTimestamp(t), s.addUnit(t, i), s.addTimezone(t, e), s.endTimestamp(t);
+  static createBlock(t, s, i, n) {
+    return t.prep(8, 24), t.writeInt64(BigInt(n ?? 0)), t.pad(4), t.writeInt32(i), t.writeInt64(BigInt(s ?? 0)), t.offset();
   }
 }
 export {
-  s as Timestamp
+  b as Block
 };
 //# sourceMappingURL=cori.data.api592.js.map

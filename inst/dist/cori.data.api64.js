@@ -1,96 +1,48 @@
-import t from "./cori.data.api60.js";
-import p from "./cori.data.api71.js";
-import u from "./cori.data.api238.js";
-import S from "./cori.data.api70.js";
-import h from "./cori.data.api239.js";
-import l from "./cori.data.api240.js";
-import O from "./cori.data.api65.js";
+import { Selection as B } from "./cori.data.api56.js";
+import { EnterNode as a } from "./cori.data.api65.js";
+import E from "./cori.data.api250.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function y(i, r, e) {
-  if (t.isString(i))
-    try {
-      return (r || JSON.parse)(i), t.trim(i);
-    } catch (n) {
-      if (n.name !== "SyntaxError")
-        throw n;
-    }
-  return (e || JSON.stringify)(i);
+var K = "$";
+function I(_, o, y, h, t, i) {
+  for (var r = 0, n, f = o.length, e = i.length; r < e; ++r)
+    (n = o[r]) ? (n.__data__ = i[r], h[r] = n) : y[r] = new a(_, i[r]);
+  for (; r < f; ++r)
+    (n = o[r]) && (t[r] = n);
 }
-const a = {
-  transitional: u,
-  adapter: ["xhr", "http", "fetch"],
-  transformRequest: [function(r, e) {
-    const n = e.getContentType() || "", s = n.indexOf("application/json") > -1, f = t.isObject(r);
-    if (f && t.isHTMLForm(r) && (r = new FormData(r)), t.isFormData(r))
-      return s ? JSON.stringify(O(r)) : r;
-    if (t.isArrayBuffer(r) || t.isBuffer(r) || t.isStream(r) || t.isFile(r) || t.isBlob(r) || t.isReadableStream(r))
-      return r;
-    if (t.isArrayBufferView(r))
-      return r.buffer;
-    if (t.isURLSearchParams(r))
-      return e.setContentType("application/x-www-form-urlencoded;charset=utf-8", !1), r.toString();
-    let o;
-    if (f) {
-      if (n.indexOf("application/x-www-form-urlencoded") > -1)
-        return h(r, this.formSerializer).toString();
-      if ((o = t.isFileList(r)) || n.indexOf("multipart/form-data") > -1) {
-        const c = this.env && this.env.FormData;
-        return S(
-          o ? { "files[]": r } : r,
-          c && new c(),
-          this.formSerializer
-        );
+function L(_, o, y, h, t, i, r) {
+  var n, f, e = {}, s = o.length, w = i.length, A = new Array(s), l;
+  for (n = 0; n < s; ++n)
+    (f = o[n]) && (A[n] = l = K + r.call(f, f.__data__, n, o), l in e ? t[n] = f : e[l] = f);
+  for (n = 0; n < w; ++n)
+    l = K + r.call(_, i[n], n, i), (f = e[l]) ? (h[n] = f, f.__data__ = i[n], e[l] = null) : y[n] = new a(_, i[n]);
+  for (n = 0; n < s; ++n)
+    (f = o[n]) && e[A[n]] === f && (t[n] = f);
+}
+function $(_, o) {
+  if (!_)
+    return l = new Array(this.size()), e = -1, this.each(function(z) {
+      l[++e] = z;
+    }), l;
+  var y = o ? L : I, h = this._parents, t = this._groups;
+  typeof _ != "function" && (_ = E(_));
+  for (var i = t.length, r = new Array(i), n = new Array(i), f = new Array(i), e = 0; e < i; ++e) {
+    var s = h[e], w = t[e], A = w.length, l = _.call(s, s && s.__data__, e, h), g = l.length, m = n[e] = new Array(g), V = r[e] = new Array(g), k = f[e] = new Array(A);
+    y(s, w, m, V, k, l, o);
+    for (var c = 0, b = 0, v, x; c < g; ++c)
+      if (v = m[c]) {
+        for (c >= b && (b = c + 1); !(x = V[b]) && ++b < g; )
+          ;
+        v._next = x || null;
       }
-    }
-    return f || s ? (e.setContentType("application/json", !1), y(r)) : r;
-  }],
-  transformResponse: [function(r) {
-    const e = this.transitional || a.transitional, n = e && e.forcedJSONParsing, s = this.responseType === "json";
-    if (t.isResponse(r) || t.isReadableStream(r))
-      return r;
-    if (r && t.isString(r) && (n && !this.responseType || s)) {
-      const m = !(e && e.silentJSONParsing) && s;
-      try {
-        return JSON.parse(r);
-      } catch (o) {
-        if (m)
-          throw o.name === "SyntaxError" ? p.from(o, p.ERR_BAD_RESPONSE, this, null, this.response) : o;
-      }
-    }
-    return r;
-  }],
-  /**
-   * A timeout in milliseconds to abort a request. If set to 0 (default) a
-   * timeout is not created.
-   */
-  timeout: 0,
-  xsrfCookieName: "XSRF-TOKEN",
-  xsrfHeaderName: "X-XSRF-TOKEN",
-  maxContentLength: -1,
-  maxBodyLength: -1,
-  env: {
-    FormData: l.classes.FormData,
-    Blob: l.classes.Blob
-  },
-  validateStatus: function(r) {
-    return r >= 200 && r < 300;
-  },
-  headers: {
-    common: {
-      Accept: "application/json, text/plain, */*",
-      "Content-Type": void 0
-    }
   }
-};
-t.forEach(["delete", "get", "head", "post", "put", "patch"], (i) => {
-  a.headers[i] = {};
-});
+  return r = new B(r, h), r._enter = n, r._exit = f, r;
+}
 export {
-  a as default
+  $ as default
 };
 //# sourceMappingURL=cori.data.api64.js.map

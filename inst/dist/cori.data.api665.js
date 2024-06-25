@@ -1,14 +1,36 @@
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api655.js";
+import "./cori.data.api564.js";
+import "./cori.data.api565.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const E = 2, I = 4, _ = 4, o = 4;
+class s {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
+  }
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
+  }
+  static getRootAsStruct_(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static getSizePrefixedRootAsStruct_(t, i) {
+    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static startStruct_(t) {
+    t.startObject(0);
+  }
+  static endStruct_(t) {
+    return t.endObject();
+  }
+  static createStruct_(t) {
+    return s.startStruct_(t), s.endStruct_(t);
+  }
+}
 export {
-  _ as FILE_IDENTIFIER_LENGTH,
-  I as SIZEOF_INT,
-  E as SIZEOF_SHORT,
-  o as SIZE_PREFIX_LENGTH
+  s as Struct_
 };
 //# sourceMappingURL=cori.data.api665.js.map

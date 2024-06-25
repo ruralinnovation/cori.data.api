@@ -1,39 +1,44 @@
+import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api655.js";
+import "./cori.data.api564.js";
+import "./cori.data.api565.js";
+import { TimeUnit as o } from "./cori.data.api561.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class e {
+class s {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
-  __init(t, s) {
-    return this.bb_pos = t, this.bb = s, this;
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  /**
-   * The number of value slots in the Arrow array at this level of a nested
-   * tree
-   */
-  length() {
-    return this.bb.readInt64(this.bb_pos);
+  static getRootAsDuration(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  /**
-   * The number of observed nulls. Fields with null_count == 0 may choose not
-   * to write their physical validity bitmap out as a materialized buffer,
-   * instead setting the length of the bitmap buffer to 0.
-   */
-  nullCount() {
-    return this.bb.readInt64(this.bb_pos + 8);
+  static getSizePrefixedRootAsDuration(t, i) {
+    return t.setPosition(t.position() + n), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static sizeOf() {
-    return 16;
+  unit() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt16(this.bb_pos + t) : o.MILLISECOND;
   }
-  static createFieldNode(t, s, i) {
-    return t.prep(8, 16), t.writeInt64(BigInt(i ?? 0)), t.writeInt64(BigInt(s ?? 0)), t.offset();
+  static startDuration(t) {
+    t.startObject(1);
+  }
+  static addUnit(t, i) {
+    t.addFieldInt16(0, i, o.MILLISECOND);
+  }
+  static endDuration(t) {
+    return t.endObject();
+  }
+  static createDuration(t, i) {
+    return s.startDuration(t), s.addUnit(t, i), s.endDuration(t);
   }
 }
 export {
-  e as FieldNode
+  s as Duration
 };
 //# sourceMappingURL=cori.data.api584.js.map

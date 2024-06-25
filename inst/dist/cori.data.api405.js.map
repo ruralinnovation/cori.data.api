@@ -1,1 +1,1 @@
-{"version":3,"file":"cori.data.api405.js","sources":[],"sourcesContent":[],"names":[],"mappings":";;;;;;;"}
+{"version":3,"file":"cori.data.api405.js","sources":["../../node_modules/arquero/src/util/is-date.js"],"sourcesContent":["export default function(value) {\n  return value instanceof Date;\n}"],"names":["isDate","value"],"mappings":";;;;;;AAAe,SAAQA,EAACC,GAAO;AAC7B,SAAOA,aAAiB;AAC1B;","x_google_ignoreList":[0]}

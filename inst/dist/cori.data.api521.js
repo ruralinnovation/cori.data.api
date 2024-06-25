@@ -1,48 +1,27 @@
-import { window as d } from "./cori.data.api630.js";
-import { aggregate as w } from "./cori.data.api540.js";
-import { hasWindow as l } from "./cori.data.api435.js";
-import h from "./cori.data.api340.js";
-import O from "./cori.data.api335.js";
+import s from "./cori.data.api338.js";
+import m from "./cori.data.api358.js";
+import u from "./cori.data.api315.js";
+import c from "./cori.data.api319.js";
+import l from "./cori.data.api316.js";
+import p from "./cori.data.api344.js";
+import d from "./cori.data.api362.js";
+import g from "./cori.data.api510.js";
+import x from "./cori.data.api335.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function y(t) {
-  return l(t.name) || t.frame && (Number.isFinite(t.frame[0]) || Number.isFinite(t.frame[1]));
-}
-function W(t, { names: e, exprs: i, ops: c }, n = {}) {
-  const r = t.totalRows(), f = h(n.drop ? null : t), u = e.map((s) => f.add(s, Array(r))), [p, o] = k(c), m = t.isGrouped() ? t.groups().size : 1, a = w(
-    t,
-    p,
-    O(c.length, () => Array(m))
-  );
-  return o.length ? d(t, u, i, a, o) : x(t, u, i, a), t.create(f);
-}
-function k(t) {
-  const e = [], i = [], c = t.length;
-  for (let n = 0; n < c; ++n) {
-    const r = t[n];
-    r.id = n, (y(r) ? i : e).push(r);
-  }
-  return [e, i];
-}
-function x(t, e, i, c) {
-  const n = t.mask(), r = t.data(), { keys: f } = t.groups() || {}, u = f ? (o, m) => c[o][f[m]] : (o) => c[o][0], p = e.length;
-  for (let o = 0; o < p; ++o) {
-    const m = i[o], a = e[o];
-    if (n)
-      for (let s = n.next(0); s >= 0; s = n.next(s + 1))
-        a[s] = m(s, r, u);
-    else {
-      const s = t.totalRows();
-      for (let g = 0; g < s; ++g)
-        a[g] = m(g, r, u);
-    }
-  }
+function j(i, e, f) {
+  const r = /* @__PURE__ */ new Map();
+  x(f).forEach((o, t) => {
+    o = l(o) ? e.columnName(o) : o, d(o) ? r.set(t, m(o)) : c(o) || p(o) && o.expr ? r.set(t, o) : u(`Invalid ${i} key value: ${o + ""}`);
+  });
+  const n = s(r, { table: e, aggregate: !1, window: !1 });
+  return g(n.exprs, !0);
 }
 export {
-  W as default
+  j as default
 };
 //# sourceMappingURL=cori.data.api521.js.map

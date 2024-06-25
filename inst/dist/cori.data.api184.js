@@ -1,25 +1,56 @@
-import { Transition as g } from "./cori.data.api172.js";
-import w, { get as x } from "./cori.data.api194.js";
-import y from "./cori.data.api161.js";
+import { tweenValue as c } from "./cori.data.api202.js";
+import l from "./cori.data.api260.js";
+import f from "./cori.data.api138.js";
+import { interpolateTransformSvg as g } from "./cori.data.api131.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function B(f) {
-  var n = this._name, o = this._id;
-  typeof f != "function" && (f = y(f));
-  for (var l = this._groups, e = l.length, h = [], s = [], m = 0; m < e; ++m)
-    for (var _ = l[m], p = _.length, t, a = 0; a < p; ++a)
-      if (t = _[a]) {
-        for (var r = f.call(t, t.__data__, a, _), v, u = x(t, o), i = 0, A = r.length; i < A; ++i)
-          (v = r[i]) && w(v, n, o, i, r, u);
-        h.push(r), s.push(t);
-      }
-  return new g(h, s, n, o);
+function p(t) {
+  return function() {
+    this.removeAttribute(t);
+  };
+}
+function v(t) {
+  return function() {
+    this.removeAttributeNS(t.space, t.local);
+  };
+}
+function h(t, e, r) {
+  var i, u = r + "", o;
+  return function() {
+    var n = this.getAttribute(t);
+    return n === u ? null : n === i ? o : o = e(i = n, r);
+  };
+}
+function m(t, e, r) {
+  var i, u = r + "", o;
+  return function() {
+    var n = this.getAttributeNS(t.space, t.local);
+    return n === u ? null : n === i ? o : o = e(i = n, r);
+  };
+}
+function b(t, e, r) {
+  var i, u, o;
+  return function() {
+    var n, a = r(this), s;
+    return a == null ? void this.removeAttribute(t) : (n = this.getAttribute(t), s = a + "", n === s ? null : n === i && s === u ? o : (u = s, o = e(i = n, a)));
+  };
+}
+function A(t, e, r) {
+  var i, u, o;
+  return function() {
+    var n, a = r(this), s;
+    return a == null ? void this.removeAttributeNS(t.space, t.local) : (n = this.getAttributeNS(t.space, t.local), s = a + "", n === s ? null : n === i && s === u ? o : (u = s, o = e(i = n, a)));
+  };
+}
+function C(t, e) {
+  var r = f(t), i = r === "transform" ? g : l;
+  return this.attrTween(t, typeof e == "function" ? (r.local ? A : b)(r, i, c(this, "attr." + t, e)) : e == null ? (r.local ? v : p)(r) : (r.local ? m : h)(r, i, e));
 }
 export {
-  B as default
+  C as default
 };
 //# sourceMappingURL=cori.data.api184.js.map

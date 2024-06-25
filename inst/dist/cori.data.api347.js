@@ -1,29 +1,26 @@
-import "./cori.data.api36.js";
-import "./cori.data.api37.js";
-import { columns as s, formats as i, scan as u } from "./cori.data.api427.js";
-import p from "./cori.data.api428.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function x(t, n = {}) {
-  const r = s(t, n.columns), { align: c, format: e } = i(t, r, n), l = (o) => o === "c" ? ":-:" : o === "r" ? "-:" : ":-", a = (o) => o.replace(/\|/g, "\\|");
-  let m = "|" + r.map(a).join("|") + `|
-|` + r.map((o) => l(c[o])).join("|") + "|";
-  return u(t, r, n.limit, n.offset, {
-    row() {
-      m += `
-|`;
-    },
-    cell(o, f) {
-      m += a(p(o, e[f])) + "|";
-    }
-  }), m + `
-`;
-}
+const e = "Expr", s = "ExprList", n = "ExprNumber", t = "ExprObject", o = "JoinKeys", c = "JoinValues", r = "Options", i = "OrderKeys", b = "SelectionList", p = "TableRef", l = "TableRefList", x = "Descending", a = "Query", y = "Selection", E = "Verb", u = "Window";
 export {
-  x as default
+  x as Descending,
+  e as Expr,
+  s as ExprList,
+  n as ExprNumber,
+  t as ExprObject,
+  o as JoinKeys,
+  c as JoinValues,
+  r as Options,
+  i as OrderbyKeys,
+  a as Query,
+  y as Selection,
+  b as SelectionList,
+  p as TableRef,
+  l as TableRefList,
+  E as Verb,
+  u as Window
 };
 //# sourceMappingURL=cori.data.api347.js.map

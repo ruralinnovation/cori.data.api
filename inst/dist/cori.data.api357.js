@@ -1,25 +1,29 @@
+import s from "./cori.data.api319.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const n = "ArrayPattern", t = "ArrowFunctionExpression", o = "FunctionExpression", r = "Identifier", e = "Literal", s = "MemberExpression", c = "ObjectExpression", i = "ObjectPattern", a = "Property", p = "Column", x = "Constant", u = "Dictionary", E = "Function", P = "Parameter", b = "Op";
+function o(t, r) {
+  return t && t.expr ? new n({ ...t, ...r }) : new n(r, t);
+}
+class n {
+  constructor(r, i) {
+    this.expr = i, Object.assign(this, r);
+  }
+  toString() {
+    return String(this.expr);
+  }
+  toObject() {
+    return {
+      ...this,
+      expr: this.toString(),
+      ...s(this.expr) ? { func: !0 } : {}
+    };
+  }
+}
 export {
-  n as ArrayPattern,
-  t as ArrowFunctionExpression,
-  p as Column,
-  x as Constant,
-  u as Dictionary,
-  E as Function,
-  o as FunctionExpression,
-  r as Identifier,
-  e as Literal,
-  s as MemberExpression,
-  c as ObjectExpression,
-  i as ObjectPattern,
-  b as Op,
-  P as Parameter,
-  a as Property
+  o as default
 };
 //# sourceMappingURL=cori.data.api357.js.map

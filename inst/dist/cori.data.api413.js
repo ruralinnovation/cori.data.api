@@ -1,47 +1,35 @@
+import { formatUTCDate as f, formatDate as n } from "./cori.data.api411.js";
+import m from "./cori.data.api405.js";
+import s from "./cori.data.api319.js";
+import u from "./cori.data.api415.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const u = /[\0\t\n\r]/g;
-function x() {
-  let s = 1, c = "", f = !0, r;
-  return p;
-  function p(e, l, a) {
-    const t = [];
-    let d, o, n, i, h;
-    for (e = c + (typeof e == "string" ? e.toString() : new TextDecoder(l || void 0).decode(e)), n = 0, c = "", f && (e.charCodeAt(0) === 65279 && n++, f = void 0); n < e.length; ) {
-      if (u.lastIndex = n, d = u.exec(e), i = d && d.index !== void 0 ? d.index : e.length, h = e.charCodeAt(i), !d) {
-        c = e.slice(n);
-        break;
-      }
-      if (h === 10 && n === i && r)
-        t.push(-3), r = void 0;
-      else
-        switch (r && (t.push(-5), r = void 0), n < i && (t.push(e.slice(n, i)), s += i - n), h) {
-          case 0: {
-            t.push(65533), s++;
-            break;
-          }
-          case 9: {
-            for (o = Math.ceil(s / 4) * 4, t.push(-2); s++ < o; )
-              t.push(-1);
-            break;
-          }
-          case 10: {
-            t.push(-4), s = 1;
-            break;
-          }
-          default:
-            r = !0, s = 1;
-        }
-      n = i + 1;
+function x(t, r = {}) {
+  if (s(r))
+    return r(t) + "";
+  const o = typeof t;
+  if (o === "object") {
+    if (m(t))
+      return r.utc ? f(t) : n(t);
+    {
+      const e = JSON.stringify(
+        t,
+        (l, i) => u(i) ? Array.from(i) : i
+      ), a = r.maxlen || 30;
+      return e.length > a ? e.slice(0, 28) + "…" + (e[0] === "[" ? "]" : "}") : e;
     }
-    return a && (r && t.push(-5), c && t.push(c), t.push(null)), t;
-  }
+  } else if (o === "number") {
+    const e = r.digits || 0;
+    let a;
+    return t !== 0 && ((a = Math.abs(t)) >= 1e18 || a < Math.pow(10, -e)) ? t.toExponential(e) : t.toFixed(e);
+  } else
+    return t + "";
 }
 export {
-  x as preprocess
+  x as default
 };
 //# sourceMappingURL=cori.data.api413.js.map

@@ -1,27 +1,25 @@
-import c from "./cori.data.api196.js";
-import { xhtml as n } from "./cori.data.api197.js";
+import { Transition as g } from "./cori.data.api183.js";
+import w, { get as x } from "./cori.data.api205.js";
+import y from "./cori.data.api177.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(e) {
-  return function() {
-    var t = this.ownerDocument, r = this.namespaceURI;
-    return r === n && t.documentElement.namespaceURI === n ? t.createElement(e) : t.createElementNS(r, e);
-  };
-}
-function a(e) {
-  return function() {
-    return this.ownerDocument.createElementNS(e.space, e.local);
-  };
-}
-function i(e) {
-  var t = c(e);
-  return (t.local ? a : o)(t);
+function B(f) {
+  var n = this._name, o = this._id;
+  typeof f != "function" && (f = y(f));
+  for (var l = this._groups, e = l.length, h = [], s = [], m = 0; m < e; ++m)
+    for (var _ = l[m], p = _.length, t, a = 0; a < p; ++a)
+      if (t = _[a]) {
+        for (var r = f.call(t, t.__data__, a, _), v, u = x(t, o), i = 0, A = r.length; i < A; ++i)
+          (v = r[i]) && w(v, n, o, i, r, u);
+        h.push(r), s.push(t);
+      }
+  return new g(h, s, n, o);
 }
 export {
-  i as default
+  B as default
 };
 //# sourceMappingURL=cori.data.api195.js.map

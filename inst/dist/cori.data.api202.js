@@ -1,48 +1,64 @@
-import { Selection as B } from "./cori.data.api59.js";
-import { EnterNode as a } from "./cori.data.api203.js";
-import E from "./cori.data.api281.js";
+import { get as h, set as l } from "./cori.data.api205.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var K = "$";
-function I(_, o, y, h, t, i) {
-  for (var r = 0, n, f = o.length, e = i.length; r < e; ++r)
-    (n = o[r]) ? (n.__data__ = i[r], h[r] = n) : y[r] = new a(_, i[r]);
-  for (; r < f; ++r)
-    (n = o[r]) && (t[r] = n);
+function s(t, r) {
+  var u, n;
+  return function() {
+    var e = l(this, t), i = e.tween;
+    if (i !== u) {
+      n = u = i;
+      for (var a = 0, o = n.length; a < o; ++a)
+        if (n[a].name === r) {
+          n = n.slice(), n.splice(a, 1);
+          break;
+        }
+    }
+    e.tween = n;
+  };
 }
-function L(_, o, y, h, t, i, r) {
-  var n, f, e = {}, s = o.length, w = i.length, A = new Array(s), l;
-  for (n = 0; n < s; ++n)
-    (f = o[n]) && (A[n] = l = K + r.call(f, f.__data__, n, o), l in e ? t[n] = f : e[l] = f);
-  for (n = 0; n < w; ++n)
-    l = K + r.call(_, i[n], n, i), (f = e[l]) ? (h[n] = f, f.__data__ = i[n], e[l] = null) : y[n] = new a(_, i[n]);
-  for (n = 0; n < s; ++n)
-    (f = o[n]) && e[A[n]] === f && (t[n] = f);
+function w(t, r, u) {
+  var n, e;
+  if (typeof u != "function")
+    throw new Error();
+  return function() {
+    var i = l(this, t), a = i.tween;
+    if (a !== n) {
+      e = (n = a).slice();
+      for (var o = { name: r, value: u }, f = 0, c = e.length; f < c; ++f)
+        if (e[f].name === r) {
+          e[f] = o;
+          break;
+        }
+      f === c && e.push(o);
+    }
+    i.tween = e;
+  };
 }
-function $(_, o) {
-  if (!_)
-    return l = new Array(this.size()), e = -1, this.each(function(z) {
-      l[++e] = z;
-    }), l;
-  var y = o ? L : I, h = this._parents, t = this._groups;
-  typeof _ != "function" && (_ = E(_));
-  for (var i = t.length, r = new Array(i), n = new Array(i), f = new Array(i), e = 0; e < i; ++e) {
-    var s = h[e], w = t[e], A = w.length, l = _.call(s, s && s.__data__, e, h), g = l.length, m = n[e] = new Array(g), V = r[e] = new Array(g), k = f[e] = new Array(A);
-    y(s, w, m, V, k, l, o);
-    for (var c = 0, b = 0, v, x; c < g; ++c)
-      if (v = m[c]) {
-        for (c >= b && (b = c + 1); !(x = V[b]) && ++b < g; )
-          ;
-        v._next = x || null;
-      }
+function d(t, r) {
+  var u = this._id;
+  if (t += "", arguments.length < 2) {
+    for (var n = h(this.node(), u).tween, e = 0, i = n.length, a; e < i; ++e)
+      if ((a = n[e]).name === t)
+        return a.value;
+    return null;
   }
-  return r = new B(r, h), r._enter = n, r._exit = f, r;
+  return this.each((r == null ? s : w)(u, t, r));
+}
+function g(t, r, u) {
+  var n = t._id;
+  return t.each(function() {
+    var e = l(this, n);
+    (e.value || (e.value = {}))[r] = u.apply(this, arguments);
+  }), function(e) {
+    return h(e, n).value[r];
+  };
 }
 export {
-  $ as default
+  d as default,
+  g as tweenValue
 };
 //# sourceMappingURL=cori.data.api202.js.map

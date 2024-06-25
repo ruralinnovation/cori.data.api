@@ -1,44 +1,22 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api665.js";
-import "./cori.data.api574.js";
-import "./cori.data.api575.js";
-import { TimeUnit as o } from "./cori.data.api570.js";
+import { instance as u } from "./cori.data.api595.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
+function a(e) {
+  const n = e.type, s = new (u.getVisitFn(n)())(e);
+  if (n.children && n.children.length > 0) {
+    const r = e.children || [], c = { nullValues: e.nullValues }, l = Array.isArray(r) ? (t, i) => r[i] || c : ({ name: t }) => r[t] || c;
+    for (const [t, i] of n.children.entries()) {
+      const { type: d } = i, o = l(i, t);
+      s.children.push(a(Object.assign(Object.assign({}, o), { type: d })));
+    }
   }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
-  }
-  static getRootAsDuration(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsDuration(t, i) {
-    return t.setPosition(t.position() + n), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  unit() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : o.MILLISECOND;
-  }
-  static startDuration(t) {
-    t.startObject(1);
-  }
-  static addUnit(t, i) {
-    t.addFieldInt16(0, i, o.MILLISECOND);
-  }
-  static endDuration(t) {
-    return t.endObject();
-  }
-  static createDuration(t, i) {
-    return s.startDuration(t), s.addUnit(t, i), s.endDuration(t);
-  }
+  return s;
 }
 export {
-  s as Duration
+  a as makeBuilder
 };
 //# sourceMappingURL=cori.data.api594.js.map

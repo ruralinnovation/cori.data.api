@@ -1,4 +1,4 @@
-import { Selection as t, root as n } from "./cori.data.api125.js";
+import { Selection as t, root as n } from "./cori.data.api141.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

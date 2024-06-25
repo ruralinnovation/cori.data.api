@@ -1,68 +1,38 @@
-import { booleanish as a, number as r, spaceSeparated as i } from "./cori.data.api399.js";
-import { create as l } from "./cori.data.api397.js";
+import r from "./cori.data.api392.js";
+import p from "./cori.data.api214.js";
+import o from "./cori.data.api210.js";
+import l from "./cori.data.api212.js";
+import a from "./cori.data.api220.js";
+import m from "./cori.data.api221.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const u = l({
-  transform(n, e) {
-    return e === "role" ? e : "aria-" + e.slice(4).toLowerCase();
-  },
-  properties: {
-    ariaActiveDescendant: null,
-    ariaAtomic: a,
-    ariaAutoComplete: null,
-    ariaBusy: a,
-    ariaChecked: a,
-    ariaColCount: r,
-    ariaColIndex: r,
-    ariaColSpan: r,
-    ariaControls: i,
-    ariaCurrent: null,
-    ariaDescribedBy: i,
-    ariaDetails: null,
-    ariaDisabled: a,
-    ariaDropEffect: i,
-    ariaErrorMessage: null,
-    ariaExpanded: a,
-    ariaFlowTo: i,
-    ariaGrabbed: a,
-    ariaHasPopup: null,
-    ariaHidden: a,
-    ariaInvalid: null,
-    ariaKeyShortcuts: null,
-    ariaLabel: null,
-    ariaLabelledBy: i,
-    ariaLevel: r,
-    ariaLive: null,
-    ariaModal: a,
-    ariaMultiLine: a,
-    ariaMultiSelectable: a,
-    ariaOrientation: null,
-    ariaOwns: i,
-    ariaPlaceholder: null,
-    ariaPosInSet: r,
-    ariaPressed: a,
-    ariaReadOnly: a,
-    ariaRelevant: null,
-    ariaRequired: a,
-    ariaRoleDescription: i,
-    ariaRowCount: r,
-    ariaRowIndex: r,
-    ariaRowSpan: r,
-    ariaSelected: a,
-    ariaSetSize: r,
-    ariaSort: null,
-    ariaValueMax: r,
-    ariaValueMin: r,
-    ariaValueNow: r,
-    ariaValueText: null,
-    role: null
-  }
-});
+function d(e) {
+  if (e.cancelToken && e.cancelToken.throwIfRequested(), e.signal && e.signal.aborted)
+    throw new l(null, e);
+}
+function q(e) {
+  return d(e), e.headers = a.from(e.headers), e.data = r.call(
+    e,
+    e.transformRequest
+  ), ["post", "put", "patch"].indexOf(e.method) !== -1 && e.headers.setContentType("application/x-www-form-urlencoded", !1), m.getAdapter(e.adapter || o.adapter)(e).then(function(t) {
+    return d(e), t.data = r.call(
+      e,
+      e.transformResponse,
+      t
+    ), t.headers = a.from(t.headers), t;
+  }, function(t) {
+    return p(t) || (d(e), t && t.response && (t.response.data = r.call(
+      e,
+      e.transformResponse,
+      t.response
+    ), t.response.headers = a.from(t.response.headers))), Promise.reject(t);
+  });
+}
 export {
-  u as aria
+  q as default
 };
 //# sourceMappingURL=cori.data.api299.js.map

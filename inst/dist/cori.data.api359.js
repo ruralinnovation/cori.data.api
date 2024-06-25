@@ -1,18 +1,19 @@
-import { FunctionExpression as o, ArrowFunctionExpression as t } from "./cori.data.api357.js";
+import i from "./cori.data.api357.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function i(n, r) {
-  return r && r.type === n;
-}
-function u(n) {
-  return i(o, n) || i(t, n);
+function t(r, n, e) {
+  return i(r, {
+    window: {
+      frame: n || [-1 / 0, 0],
+      peers: !!e
+    }
+  });
 }
 export {
-  i as is,
-  u as isFunctionExpression
+  t as default
 };
 //# sourceMappingURL=cori.data.api359.js.map
