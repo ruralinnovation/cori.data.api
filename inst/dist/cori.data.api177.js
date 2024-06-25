@@ -1,21 +1,26 @@
-import { Transition as v } from "./cori.data.api166.js";
-import w, { get as y } from "./cori.data.api188.js";
-import s from "./cori.data.api159.js";
+import { Selection as h } from "./cori.data.api165.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function x(_) {
-  var m = this._name, i = this._id;
-  typeof _ != "function" && (_ = s(_));
-  for (var e = this._groups, l = e.length, c = new Array(l), r = 0; r < l; ++r)
-    for (var f = e[r], o = f.length, n = c[r] = new Array(o), a, h, t = 0; t < o; ++t)
-      (a = f[t]) && (h = _.call(a, a.__data__, t, f)) && ("__data__" in a && (h.__data__ = a.__data__), n[t] = h, w(n[t], m, i, t, n, y(a, i)));
-  return new v(c, this._parents, m, i);
+function N(t) {
+  t || (t = u);
+  function n(_, f) {
+    return _ && f ? t(_.__data__, f.__data__) : !_ - !f;
+  }
+  for (var a = this._groups, i = a.length, o = new Array(i), e = 0; e < i; ++e) {
+    for (var c = a[e], d = c.length, l = o[e] = new Array(d), s, r = 0; r < d; ++r)
+      (s = c[r]) && (l[r] = s);
+    l.sort(n);
+  }
+  return new h(o, this._parents).order();
+}
+function u(t, n) {
+  return t < n ? -1 : t > n ? 1 : t >= n ? 0 : NaN;
 }
 export {
-  x as default
+  N as default
 };
 //# sourceMappingURL=cori.data.api177.js.map

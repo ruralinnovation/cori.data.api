@@ -1,35 +1,94 @@
-import { Transition as s, newId as h } from "./cori.data.api166.js";
-import c from "./cori.data.api188.js";
-import { now as _ } from "./cori.data.api162.js";
-import { cubicInOut as m } from "./cori.data.api84.js";
+import r from "./cori.data.api166.js";
+import i from "./cori.data.api167.js";
+import m from "./cori.data.api168.js";
+import l from "./cori.data.api169.js";
+import n from "./cori.data.api170.js";
+import s from "./cori.data.api171.js";
+import c from "./cori.data.api172.js";
+import p from "./cori.data.api173.js";
+import f from "./cori.data.api174.js";
+import _ from "./cori.data.api175.js";
+import a from "./cori.data.api176.js";
+import d from "./cori.data.api177.js";
+import h from "./cori.data.api178.js";
+import u from "./cori.data.api179.js";
+import y from "./cori.data.api180.js";
+import x from "./cori.data.api181.js";
+import C from "./cori.data.api182.js";
+import g from "./cori.data.api183.js";
+import v from "./cori.data.api184.js";
+import w from "./cori.data.api185.js";
+import j from "./cori.data.api186.js";
+import z from "./cori.data.api187.js";
+import A from "./cori.data.api188.js";
+import S from "./cori.data.api189.js";
+import b from "./cori.data.api190.js";
+import E from "./cori.data.api191.js";
+import k from "./cori.data.api192.js";
+import q from "./cori.data.api193.js";
+import B from "./cori.data.api194.js";
+import D from "./cori.data.api195.js";
+import F from "./cori.data.api196.js";
+import G from "./cori.data.api197.js";
+import H from "./cori.data.api198.js";
+import I from "./cori.data.api199.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var w = {
-  time: null,
-  // Set on use.
-  delay: 0,
-  duration: 250,
-  ease: m
+var J = [null];
+function e(o, t) {
+  this._groups = o, this._parents = t;
+}
+function K() {
+  return new e([[document.documentElement]], J);
+}
+function L() {
+  return this;
+}
+e.prototype = K.prototype = {
+  constructor: e,
+  select: r,
+  selectAll: i,
+  selectChild: m,
+  selectChildren: l,
+  filter: n,
+  data: s,
+  enter: c,
+  exit: p,
+  join: f,
+  merge: _,
+  selection: L,
+  order: a,
+  sort: d,
+  call: h,
+  nodes: u,
+  node: y,
+  size: x,
+  empty: C,
+  each: g,
+  attr: v,
+  style: w,
+  property: j,
+  classed: z,
+  text: A,
+  html: S,
+  raise: b,
+  lower: E,
+  append: k,
+  insert: q,
+  remove: B,
+  clone: D,
+  datum: F,
+  on: G,
+  dispatch: H,
+  [Symbol.iterator]: I
 };
-function d(t, i) {
-  for (var r; !(r = t.__transition) || !(r = r[i]); )
-    if (!(t = t.parentNode))
-      throw new Error(`transition ${i} not found`);
-  return r;
-}
-function T(t) {
-  var i, r;
-  t instanceof s ? (i = t._id, t = t._name) : (i = h(), (r = w).time = _(), t = t == null ? null : t + "");
-  for (var o = this._groups, a = o.length, e = 0; e < a; ++e)
-    for (var f = o[e], u = f.length, l, n = 0; n < u; ++n)
-      (l = f[n]) && c(l, t, i, n, f, r || d(l, i));
-  return new s(o, this._parents, t, i);
-}
 export {
-  T as default
+  e as Selection,
+  K as default,
+  J as root
 };
 //# sourceMappingURL=cori.data.api165.js.map

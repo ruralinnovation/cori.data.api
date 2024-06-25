@@ -1,16 +1,19 @@
+import t from "./cori.data.api389.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function d(t, r = 0, n = t.length) {
-  let e = t[r++];
-  for (let o = r; o < n; ++o)
-    e *= t[o];
-  return e;
+function i(r, e, n) {
+  if (e instanceof Map) {
+    if (e.has(r))
+      return e.get(r);
+  } else if (t(e, r))
+    return e[r];
+  return n !== void 0 ? n : r;
 }
 export {
-  d as default
+  i as default
 };
 //# sourceMappingURL=cori.data.api419.js.map

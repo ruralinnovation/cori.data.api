@@ -1,40 +1,22 @@
-import { Data as c } from "./cori.data.api491.js";
-import { Vector as u } from "./cori.data.api401.js";
+import i from "./cori.data.api322.js";
+import n from "./cori.data.api323.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function i(n, t = 1) {
-  return (n * t + 63 & -64 || 64) / t;
-}
-function E(n, t, e = n.BYTES_PER_ELEMENT) {
-  return new n(i(t, e));
-}
-function f(n) {
-  return n instanceof c ? n : new c(n.type, 0, n.length, n.nulls, n.buffers, null, n.dict);
-}
-function m(n) {
-  return new u([f(n)]);
-}
-const r = new TextEncoder();
-function a(n, t, e) {
-  const o = r.encode(e);
-  return n.set(o, t), o.length;
-}
-function s(n, t, e) {
-  return r.encodeInto(e, n.subarray(t)).written;
-}
-const y = r.encodeInto ? s : a;
+const c = (a) => n("any", a), o = () => n("count"), _ = (a) => n("array_agg", a), l = (a) => n("array_agg_distinct", a), s = (a, e) => n("map_agg", [a, e]), d = (a, e) => n("object_agg", [a, e]), g = (a, e) => n("entries_agg", [a, e]);
+({
+  ...i
+});
 export {
-  E as array,
-  f as arrowData,
-  m as arrowVector,
-  i as ceil64Bytes,
-  a as encode,
-  s as encodeInto,
-  r as encoder,
-  y as writeUtf8
+  c as any,
+  _ as array_agg,
+  l as array_agg_distinct,
+  o as count,
+  g as entries_agg,
+  s as map_agg,
+  d as object_agg
 };
 //# sourceMappingURL=cori.data.api31.js.map

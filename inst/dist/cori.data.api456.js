@@ -1,29 +1,25 @@
-import { normalize as s } from "./cori.data.api460.js";
-import { Schema as a } from "./cori.data.api455.js";
-import { DefinedInfo as c } from "./cori.data.api461.js";
+import { decodeNamedCharacterReference as o } from "./cori.data.api458.js";
+import { decodeNumericCharacterReference as a } from "./cori.data.api455.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const u = {}.hasOwnProperty;
-function w(e) {
-  const p = {}, t = {};
-  let r;
-  for (r in e.properties)
-    if (u.call(e.properties, r)) {
-      const m = e.properties[r], o = new c(
-        r,
-        e.transform(e.attributes || {}, r),
-        m,
-        e.space
-      );
-      e.mustUseProperty && e.mustUseProperty.includes(r) && (o.mustUseProperty = !0), p[r] = o, t[s(r)] = r, t[s(o.attribute)] = r;
-    }
-  return new a(p, t, e.space);
+const n = /\\([!-/:-@[-`{-~])|&(#(?:\d{1,7}|x[\da-f]{1,6})|[\da-z]{1,31});/gi;
+function m(r) {
+  return r.replace(n, f);
+}
+function f(r, c, e) {
+  if (c)
+    return c;
+  if (e.charCodeAt(0) === 35) {
+    const t = e.charCodeAt(1), d = t === 120 || t === 88;
+    return a(e.slice(d ? 2 : 1), d ? 16 : 10);
+  }
+  return o(e) || r;
 }
 export {
-  w as create
+  m as decodeString
 };
 //# sourceMappingURL=cori.data.api456.js.map

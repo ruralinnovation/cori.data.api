@@ -1,38 +1,35 @@
-import l from "./cori.data.api270.js";
-import m from "./cori.data.api480.js";
+import f from "./cori.data.api66.js";
+import s from "./cori.data.api71.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function d(o, t) {
-  return l(t) ? t(o) : t || o.columnNames();
-}
-function h(o, t, r) {
-  const f = r.format || {}, u = r.align || {}, i = {}, a = {};
-  return t.forEach((n) => {
-    const c = m(g(o, n), r);
-    a[n] = u[n] || c.align, i[n] = f[n] || c.format;
-  }), { align: a, format: i };
-}
-function g(o, t) {
-  const r = o.column(t);
-  return (f) => o.scan((u) => f(r.get(u)));
-}
-function F(o, t, r = 100, f, u) {
-  const i = o.data(), a = t.length;
-  o.scan((n) => {
-    u.row(n);
-    for (let c = 0; c < a; ++c) {
-      const s = t[c];
-      u.cell(i[t[c]].get(n), s, c);
+const l = (t, c) => {
+  let u = new AbortController(), i;
+  const n = function(e) {
+    if (!i) {
+      i = !0, a();
+      const o = e instanceof Error ? e : this.reason;
+      u.abort(o instanceof s ? o : new f(o instanceof Error ? o.message : o));
     }
-  }, !0, r, f);
-}
+  };
+  let r = c && setTimeout(() => {
+    n(new s(`timeout ${c} of ms exceeded`, s.ETIMEDOUT));
+  }, c);
+  const a = () => {
+    t && (r && clearTimeout(r), r = null, t.forEach((e) => {
+      e && (e.removeEventListener ? e.removeEventListener("abort", n) : e.unsubscribe(n));
+    }), t = null);
+  };
+  t.forEach((e) => e && e.addEventListener && e.addEventListener("abort", n));
+  const { signal: b } = u;
+  return b.unsubscribe = a, [b, () => {
+    r && clearTimeout(r), r = null;
+  }];
+};
 export {
-  d as columns,
-  h as formats,
-  F as scan
+  l as default
 };
 //# sourceMappingURL=cori.data.api385.js.map

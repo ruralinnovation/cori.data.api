@@ -4,30 +4,13 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(n) {
-  return function(t) {
-    this.textContent = n.call(this, t);
-  };
-}
-function o(n) {
-  var t, r;
-  function i() {
-    var e = n.apply(this, arguments);
-    return e !== r && (t = (r = e) && u(e)), t;
-  }
-  return i._value = n, i;
-}
-function f(n) {
-  var t = "text";
-  if (arguments.length < 1)
-    return (t = this.tween(t)) && t._value;
-  if (n == null)
-    return this.tween(t, null);
-  if (typeof n != "function")
-    throw new Error();
-  return this.tween(t, o(n));
+function c(f) {
+  for (var _ = this._groups, a = 0, h = _.length; a < h; ++a)
+    for (var e = _[a], t = 0, r = e.length, l; t < r; ++t)
+      (l = e[t]) && f.call(l, l.__data__, t, e);
+  return this;
 }
 export {
-  f as default
+  c as default
 };
 //# sourceMappingURL=cori.data.api183.js.map

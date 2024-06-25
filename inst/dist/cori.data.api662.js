@@ -1,50 +1,97 @@
-import { asciiAlpha as z, asciiAlphanumeric as a, asciiControl as E, asciiAtext as O } from "./cori.data.api469.js";
+import { factorySpace as c } from "./cori.data.api658.js";
+import { asciiDigit as h, markdownSpace as k } from "./cori.data.api481.js";
+import { blankLine as f } from "./cori.data.api659.js";
+import { thematicBreak as d } from "./cori.data.api667.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const b = {
-  name: "autolink",
-  tokenize: P
+const z = {
+  name: "list",
+  tokenize: B,
+  continuation: {
+    tokenize: y
+  },
+  exit: v
+}, P = {
+  tokenize: W,
+  partial: !0
+}, L = {
+  tokenize: g,
+  partial: !0
 };
-function P(r, l, t) {
-  let i = 0;
-  return p;
-  function p(n) {
-    return r.enter("autolink"), r.enter("autolinkMarker"), r.consume(n), r.exit("autolinkMarker"), r.enter("autolinkProtocol"), M;
-  }
-  function M(n) {
-    return z(n) ? (r.consume(n), h) : n === 64 ? t(n) : u(n);
-  }
-  function h(n) {
-    return n === 43 || n === 45 || n === 46 || a(n) ? (i = 1, m(n)) : u(n);
-  }
-  function m(n) {
-    return n === 58 ? (r.consume(n), i = 0, k) : (n === 43 || n === 45 || n === 46 || a(n)) && i++ < 32 ? (r.consume(n), m) : (i = 0, u(n));
-  }
-  function k(n) {
-    return n === 62 ? (r.exit("autolinkProtocol"), r.enter("autolinkMarker"), r.consume(n), r.exit("autolinkMarker"), r.exit("autolink"), l) : n === null || n === 32 || n === 60 || E(n) ? t(n) : (r.consume(n), k);
-  }
-  function u(n) {
-    return n === 64 ? (r.consume(n), o) : O(n) ? (r.consume(n), u) : t(n);
-  }
-  function o(n) {
-    return a(n) ? x(n) : t(n);
-  }
-  function x(n) {
-    return n === 46 ? (r.consume(n), i = 0, o) : n === 62 ? (r.exit("autolinkProtocol").type = "autolinkEmail", r.enter("autolinkMarker"), r.consume(n), r.exit("autolinkMarker"), r.exit("autolink"), l) : A(n);
-  }
-  function A(n) {
-    if ((n === 45 || a(n)) && i++ < 63) {
-      const e = n === 45 ? A : x;
-      return r.consume(n), e;
+function B(n, u, r) {
+  const t = this, l = t.events[t.events.length - 1];
+  let a = l && l[1].type === "linePrefix" ? l[2].sliceSerialize(l[1], !0).length : 0, i = 0;
+  return s;
+  function s(e) {
+    const o = t.containerState.type || (e === 42 || e === 43 || e === 45 ? "listUnordered" : "listOrdered");
+    if (o === "listUnordered" ? !t.containerState.marker || e === t.containerState.marker : h(e)) {
+      if (t.containerState.type || (t.containerState.type = o, n.enter(o, {
+        _container: !0
+      })), o === "listUnordered")
+        return n.enter("listItemPrefix"), e === 42 || e === 45 ? n.check(d, r, m)(e) : m(e);
+      if (!t.interrupt || e === 49)
+        return n.enter("listItemPrefix"), n.enter("listItemValue"), p(e);
     }
-    return t(n);
+    return r(e);
+  }
+  function p(e) {
+    return h(e) && ++i < 10 ? (n.consume(e), p) : (!t.interrupt || i < 2) && (t.containerState.marker ? e === t.containerState.marker : e === 41 || e === 46) ? (n.exit("listItemValue"), m(e)) : r(e);
+  }
+  function m(e) {
+    return n.enter("listItemMarker"), n.consume(e), n.exit("listItemMarker"), t.containerState.marker = t.containerState.marker || e, n.check(
+      f,
+      // Can’t be empty when interrupting.
+      t.interrupt ? r : I,
+      n.attempt(P, S, x)
+    );
+  }
+  function I(e) {
+    return t.containerState.initialBlankLine = !0, a++, S(e);
+  }
+  function x(e) {
+    return k(e) ? (n.enter("listItemPrefixWhitespace"), n.consume(e), n.exit("listItemPrefixWhitespace"), S) : r(e);
+  }
+  function S(e) {
+    return t.containerState.size = a + t.sliceSerialize(n.exit("listItemPrefix"), !0).length, u(e);
+  }
+}
+function y(n, u, r) {
+  const t = this;
+  return t.containerState._closeFlow = void 0, n.check(f, l, a);
+  function l(s) {
+    return t.containerState.furtherBlankLines = t.containerState.furtherBlankLines || t.containerState.initialBlankLine, c(n, u, "listItemIndent", t.containerState.size + 1)(s);
+  }
+  function a(s) {
+    return t.containerState.furtherBlankLines || !k(s) ? (t.containerState.furtherBlankLines = void 0, t.containerState.initialBlankLine = void 0, i(s)) : (t.containerState.furtherBlankLines = void 0, t.containerState.initialBlankLine = void 0, n.attempt(L, u, i)(s));
+  }
+  function i(s) {
+    return t.containerState._closeFlow = !0, t.interrupt = void 0, c(n, n.attempt(z, u, r), "linePrefix", t.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 4)(s);
+  }
+}
+function g(n, u, r) {
+  const t = this;
+  return c(n, l, "listItemIndent", t.containerState.size + 1);
+  function l(a) {
+    const i = t.events[t.events.length - 1];
+    return i && i[1].type === "listItemIndent" && i[2].sliceSerialize(i[1], !0).length === t.containerState.size ? u(a) : r(a);
+  }
+}
+function v(n) {
+  n.exit(this.containerState.type);
+}
+function W(n, u, r) {
+  const t = this;
+  return c(n, l, "listItemPrefixWhitespace", t.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 5);
+  function l(a) {
+    const i = t.events[t.events.length - 1];
+    return !k(a) && i && i[1].type === "listItemPrefixWhitespace" ? u(a) : r(a);
   }
 }
 export {
-  b as autolink
+  z as list
 };
 //# sourceMappingURL=cori.data.api662.js.map

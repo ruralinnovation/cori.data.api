@@ -1,232 +1,224 @@
-import { makeData as h, Data as g } from "./cori.data.api491.js";
-import { Table as C } from "./cori.data.api395.js";
-import { Vector as f } from "./cori.data.api401.js";
-import { Field as b, Schema as p } from "./cori.data.api486.js";
-import { Struct as u, Null as S, DataType as A } from "./cori.data.api402.js";
-import { instance as D } from "./cori.data.api541.js";
-import { instance as B } from "./cori.data.api542.js";
-import { instance as _ } from "./cori.data.api543.js";
-import { instance as R } from "./cori.data.api544.js";
+import { Vector as _ } from "./cori.data.api410.js";
+import { makeData as c } from "./cori.data.api503.js";
+import { MapRow as v, kKeys as y } from "./cori.data.api504.js";
+import { strideForType as m } from "./cori.data.api411.js";
+import { createIsValidFunction as V } from "./cori.data.api505.js";
+import { BitmapBufferBuilder as L, DataBufferBuilder as B, OffsetsBufferBuilder as b } from "./cori.data.api506.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var y;
-class d {
-  constructor(...t) {
-    switch (t.length) {
-      case 2: {
-        if ([this.schema] = t, !(this.schema instanceof p))
-          throw new TypeError("RecordBatch constructor expects a [Schema, Data] pair.");
-        if ([
-          ,
-          this.data = h({
-            nullCount: 0,
-            type: new u(this.schema.fields),
-            children: this.schema.fields.map((e) => h({ type: e.type, nullCount: 0 }))
-          })
-        ] = t, !(this.data instanceof g))
-          throw new TypeError("RecordBatch constructor expects a [Schema, Data] pair.");
-        [this.schema, this.data] = w(this.schema, this.data.children);
-        break;
-      }
-      case 1: {
-        const [e] = t, { fields: n, children: i, length: a } = Object.keys(e).reduce((s, r, m) => (s.children[m] = e[r], s.length = Math.max(s.length, e[r].length), s.fields[m] = b.new({ name: r, type: e[r].type, nullable: !0 }), s), {
-          length: 0,
-          fields: new Array(),
-          children: new Array()
-        }), c = new p(n), o = h({ type: new u(n), length: a, children: i, nullCount: 0 });
-        [this.schema, this.data] = w(c, o.children, a);
-        break;
-      }
-      default:
-        throw new TypeError("RecordBatch constructor expects an Object mapping names to child Data, or a [Schema, Data] pair.");
-    }
+class r {
+  /** @nocollapse */
+  // @ts-ignore
+  static throughNode(e) {
+    throw new Error('"throughNode" not available in this environment');
   }
-  get dictionaries() {
-    return this._dictionaries || (this._dictionaries = v(this.schema.fields, this.data.children));
+  /** @nocollapse */
+  // @ts-ignore
+  static throughDOM(e) {
+    throw new Error('"throughDOM" not available in this environment');
   }
   /**
-   * The number of columns in this RecordBatch.
+   * Construct a builder with the given Arrow DataType with optional null values,
+   * which will be interpreted as "null" when set or appended to the `Builder`.
+   * @param {{ type: T, nullValues?: any[] }} options A `BuilderOptions` object used to create this `Builder`.
    */
-  get numCols() {
-    return this.schema.fields.length;
+  constructor({ type: e, nullValues: t }) {
+    this.length = 0, this.finished = !1, this.type = e, this.children = [], this.nullValues = t, this.stride = m(e), this._nulls = new L(), t && t.length > 0 && (this._isValid = V(t));
   }
   /**
-   * The number of rows in this RecordBatch.
+   * Flush the `Builder` and return a `Vector<T>`.
+   * @returns {Vector<T>} A `Vector<T>` of the flushed values.
    */
-  get numRows() {
-    return this.data.length;
+  toVector() {
+    return new _([this.flush()]);
   }
-  /**
-   * The number of null rows in this RecordBatch.
-   */
+  get ArrayType() {
+    return this.type.ArrayType;
+  }
   get nullCount() {
-    return this.data.nullCount;
+    return this._nulls.numInvalid;
+  }
+  get numChildren() {
+    return this.children.length;
   }
   /**
-   * Check whether an element is null.
-   * @param index The index at which to read the validity bitmap.
+   * @returns The aggregate length (in bytes) of the values that have been written.
    */
-  isValid(t) {
-    return this.data.getValid(t);
+  get byteLength() {
+    let e = 0;
+    const { _offsets: t, _values: s, _nulls: i, _typeIds: h, children: n } = this;
+    return t && (e += t.byteLength), s && (e += s.byteLength), i && (e += i.byteLength), h && (e += h.byteLength), n.reduce((o, d) => o + d.byteLength, e);
   }
   /**
-   * Get a row by position.
-   * @param index The index of the element to read.
+   * @returns The aggregate number of rows that have been reserved to write new values.
    */
-  get(t) {
-    return D.visit(this.data, t);
+  get reservedLength() {
+    return this._nulls.reservedLength;
   }
   /**
-   * Set a row by position.
-   * @param index The index of the element to write.
-   * @param value The value to set.
+   * @returns The aggregate length (in bytes) that has been reserved to write new values.
    */
-  set(t, e) {
-    return B.visit(this.data, t, e);
+  get reservedByteLength() {
+    let e = 0;
+    return this._offsets && (e += this._offsets.reservedByteLength), this._values && (e += this._values.reservedByteLength), this._nulls && (e += this._nulls.reservedByteLength), this._typeIds && (e += this._typeIds.reservedByteLength), this.children.reduce((t, s) => t + s.reservedByteLength, e);
+  }
+  get valueOffsets() {
+    return this._offsets ? this._offsets.buffer : null;
+  }
+  get values() {
+    return this._values ? this._values.buffer : null;
+  }
+  get nullBitmap() {
+    return this._nulls ? this._nulls.buffer : null;
+  }
+  get typeIds() {
+    return this._typeIds ? this._typeIds.buffer : null;
   }
   /**
-   * Retrieve the index of the first occurrence of a row in an RecordBatch.
-   * @param element The row to locate in the RecordBatch.
-   * @param offset The index at which to begin the search. If offset is omitted, the search starts at index 0.
+   * Appends a value (or null) to this `Builder`.
+   * This is equivalent to `builder.set(builder.length, value)`.
+   * @param {T['TValue'] | TNull } value The value to append.
    */
-  indexOf(t, e) {
-    return _.visit(this.data, t, e);
+  append(e) {
+    return this.set(this.length, e);
   }
   /**
-   * Iterator for rows in this RecordBatch.
+   * Validates whether a value is valid (true), or null (false)
+   * @param {T['TValue'] | TNull } value The value to compare against null the value representations
    */
-  [Symbol.iterator]() {
-    return R.visit(new f([this.data]));
+  isValid(e) {
+    return this._isValid(e);
   }
   /**
-   * Return a JavaScript Array of the RecordBatch rows.
-   * @returns An Array of RecordBatch rows.
+   * Write a value (or null-value sentinel) at the supplied index.
+   * If the value matches one of the null-value representations, a 1-bit is
+   * written to the null `BitmapBufferBuilder`. Otherwise, a 0 is written to
+   * the null `BitmapBufferBuilder`, and the value is passed to
+   * `Builder.prototype.setValue()`.
+   * @param {number} index The index of the value to write.
+   * @param {T['TValue'] | TNull } value The value to write at the supplied index.
+   * @returns {this} The updated `Builder` instance.
    */
-  toArray() {
-    return [...this];
+  set(e, t) {
+    return this.setValid(e, this.isValid(t)) && this.setValue(e, t), this;
   }
   /**
-   * Combines two or more RecordBatch of the same schema.
-   * @param others Additional RecordBatch to add to the end of this RecordBatch.
+   * Write a value to the underlying buffers at the supplied index, bypassing
+   * the null-value check. This is a low-level method that
+   * @param {number} index
+   * @param {T['TValue'] | TNull } value
    */
-  concat(...t) {
-    return new C(this.schema, [this, ...t]);
+  setValue(e, t) {
+    this._setValue(this, e, t);
+  }
+  setValid(e, t) {
+    return this.length = this._nulls.set(e, +t).length, t;
+  }
+  // @ts-ignore
+  addChild(e, t = `${this.numChildren}`) {
+    throw new Error(`Cannot append children to non-nested type "${this.type}"`);
   }
   /**
-   * Return a zero-copy sub-section of this RecordBatch.
-   * @param start The beginning of the specified portion of the RecordBatch.
-   * @param end The end of the specified portion of the RecordBatch. This is exclusive of the element at the index 'end'.
+   * Retrieve the child `Builder` at the supplied `index`, or null if no child
+   * exists at that index.
+   * @param {number} index The index of the child `Builder` to retrieve.
+   * @returns {Builder | null} The child Builder at the supplied index or null.
    */
-  slice(t, e) {
-    const [n] = new f([this.data]).slice(t, e).data;
-    return new d(this.schema, n);
+  getChildAt(e) {
+    return this.children[e] || null;
   }
   /**
-   * Returns a child Vector by name, or null if this Vector has no child with the given name.
-   * @param name The name of the child to retrieve.
+   * Commit all the values that have been written to their underlying
+   * ArrayBuffers, including any child Builders if applicable, and reset
+   * the internal `Builder` state.
+   * @returns A `Data<T>` of the buffers and children representing the values written.
    */
-  getChild(t) {
-    var e;
-    return this.getChildAt((e = this.schema.fields) === null || e === void 0 ? void 0 : e.findIndex((n) => n.name === t));
+  flush() {
+    let e, t, s, i;
+    const { type: h, length: n, nullCount: o, _typeIds: d, _offsets: l, _values: u, _nulls: f } = this;
+    (t = d == null ? void 0 : d.flush(n)) ? i = l == null ? void 0 : l.flush(n) : (i = l == null ? void 0 : l.flush(n)) ? e = u == null ? void 0 : u.flush(l.last()) : e = u == null ? void 0 : u.flush(n), o > 0 && (s = f == null ? void 0 : f.flush(n));
+    const p = this.children.map((g) => g.flush());
+    return this.clear(), c({
+      type: h,
+      length: n,
+      nullCount: o,
+      children: p,
+      child: p[0],
+      data: e,
+      typeIds: t,
+      nullBitmap: s,
+      valueOffsets: i
+    });
   }
   /**
-   * Returns a child Vector by index, or null if this Vector has no child at the supplied index.
-   * @param index The index of the child to retrieve.
+   * Finalize this `Builder`, and child builders if applicable.
+   * @returns {this} The finalized `Builder` instance.
    */
-  getChildAt(t) {
-    return t > -1 && t < this.schema.fields.length ? new f([this.data.children[t]]) : null;
+  finish() {
+    this.finished = !0;
+    for (const e of this.children)
+      e.finish();
+    return this;
   }
   /**
-   * Sets a child Vector by name.
-   * @param name The name of the child to overwrite.
-   * @returns A new RecordBatch with the new child for the specified name.
+   * Clear this Builder's internal state, including child Builders if applicable, and reset the length to 0.
+   * @returns {this} The cleared `Builder` instance.
    */
-  setChild(t, e) {
-    var n;
-    return this.setChildAt((n = this.schema.fields) === null || n === void 0 ? void 0 : n.findIndex((i) => i.name === t), e);
-  }
-  setChildAt(t, e) {
-    let n = this.schema, i = this.data;
-    if (t > -1 && t < this.numCols) {
-      e || (e = new f([h({ type: new S(), length: this.numRows })]));
-      const a = n.fields.slice(), c = i.children.slice(), o = a[t].clone({ type: e.type });
-      [a[t], c[t]] = [o, e.data[0]], n = new p(a, new Map(this.schema.metadata)), i = h({ type: new u(a), children: c });
-    }
-    return new d(n, i);
-  }
-  /**
-   * Construct a new RecordBatch containing only specified columns.
-   *
-   * @param columnNames Names of columns to keep.
-   * @returns A new RecordBatch of columns matching the specified names.
-   */
-  select(t) {
-    const e = this.schema.select(t), n = new u(e.fields), i = [];
-    for (const a of t) {
-      const c = this.schema.fields.findIndex((o) => o.name === a);
-      ~c && (i[c] = this.data.children[c]);
-    }
-    return new d(e, h({ type: n, length: this.numRows, children: i }));
-  }
-  /**
-   * Construct a new RecordBatch containing only columns at the specified indices.
-   *
-   * @param columnIndices Indices of columns to keep.
-   * @returns A new RecordBatch of columns matching at the specified indices.
-   */
-  selectAt(t) {
-    const e = this.schema.selectAt(t), n = t.map((a) => this.data.children[a]).filter(Boolean), i = h({ type: new u(e.fields), length: this.numRows, children: n });
-    return new d(e, i);
+  clear() {
+    var e, t, s, i;
+    this.length = 0, (e = this._nulls) === null || e === void 0 || e.clear(), (t = this._values) === null || t === void 0 || t.clear(), (s = this._offsets) === null || s === void 0 || s.clear(), (i = this._typeIds) === null || i === void 0 || i.clear();
+    for (const h of this.children)
+      h.clear();
+    return this;
   }
 }
-y = Symbol.toStringTag;
-d[y] = ((l) => (l._nullCount = -1, l[Symbol.isConcatSpreadable] = !0, "RecordBatch"))(d.prototype);
-function w(l, t, e = t.reduce((n, i) => Math.max(n, i.length), 0)) {
-  var n;
-  const i = [...l.fields], a = [...t], c = (e + 63 & -64) >> 3;
-  for (const [o, s] of l.fields.entries()) {
-    const r = t[o];
-    (!r || r.length !== e) && (i[o] = s.clone({ nullable: !0 }), a[o] = (n = r == null ? void 0 : r._changeLengthAndBackfillNullBitmap(e)) !== null && n !== void 0 ? n : h({
-      type: s.type,
-      length: e,
-      nullCount: e,
-      nullBitmap: new Uint8Array(c)
-    }));
+r.prototype.length = 1;
+r.prototype.stride = 1;
+r.prototype.children = null;
+r.prototype.finished = !1;
+r.prototype.nullValues = null;
+r.prototype._isValid = () => !0;
+class D extends r {
+  constructor(e) {
+    super(e), this._values = new B(this.ArrayType, 0, this.stride);
   }
-  return [
-    l.assign(i),
-    h({ type: new u(i), length: e, children: a })
-  ];
+  setValue(e, t) {
+    const s = this._values;
+    return s.reserve(e - s.length + 1), super.setValue(e, t);
+  }
 }
-function v(l, t, e = /* @__PURE__ */ new Map()) {
-  var n, i;
-  if (((n = l == null ? void 0 : l.length) !== null && n !== void 0 ? n : 0) > 0 && (l == null ? void 0 : l.length) === (t == null ? void 0 : t.length))
-    for (let a = -1, c = l.length; ++a < c; ) {
-      const { type: o } = l[a], s = t[a];
-      for (const r of [s, ...((i = s == null ? void 0 : s.dictionary) === null || i === void 0 ? void 0 : i.data) || []])
-        v(o.children, r == null ? void 0 : r.children, e);
-      if (A.isDictionary(o)) {
-        const { id: r } = o;
-        if (!e.has(r))
-          s != null && s.dictionary && e.set(r, s.dictionary);
-        else if (e.get(r) !== s.dictionary)
-          throw new Error("Cannot create Schema containing two different dictionaries with the same Id");
-      }
-    }
-  return e;
-}
-class $ extends d {
-  constructor(t) {
-    const e = t.fields.map((i) => h({ type: i.type })), n = h({ type: new u(t.fields), nullCount: 0, children: e });
-    super(t, n);
+class T extends r {
+  constructor(e) {
+    super(e), this._pendingLength = 0, this._offsets = new b(e.type);
+  }
+  setValue(e, t) {
+    const s = this._pending || (this._pending = /* @__PURE__ */ new Map()), i = s.get(e);
+    i && (this._pendingLength -= i.length), this._pendingLength += t instanceof v ? t[y].length : t.length, s.set(e, t);
+  }
+  setValid(e, t) {
+    return super.setValid(e, t) ? !0 : ((this._pending || (this._pending = /* @__PURE__ */ new Map())).set(e, void 0), !1);
+  }
+  clear() {
+    return this._pendingLength = 0, this._pending = void 0, super.clear();
+  }
+  flush() {
+    return this._flush(), super.flush();
+  }
+  finish() {
+    return this._flush(), super.finish();
+  }
+  _flush() {
+    const e = this._pending, t = this._pendingLength;
+    return this._pendingLength = 0, this._pending = void 0, e && e.size > 0 && this._flushPending(e, t), this;
   }
 }
 export {
-  d as RecordBatch,
-  $ as _InternalEmptyPlaceholderRecordBatch
+  r as Builder,
+  D as FixedWidthBuilder,
+  T as VariableWidthBuilder
 };
 //# sourceMappingURL=cori.data.api502.js.map

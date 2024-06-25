@@ -1,13 +1,13 @@
-import l from "./cori.data.api514.js";
-import p from "./cori.data.api289.js";
+import t from "./cori.data.api523.js";
+import d from "./cori.data.api524.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(r, o) {
-  return l(r, p(o, { table: r, aggronly: !0, window: !1 }));
+function e(o, r, f) {
+  return t(o, d("fold", o, r), f);
 }
 export {
   e as default

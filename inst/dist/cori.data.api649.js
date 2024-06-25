@@ -1,49 +1,36 @@
-import { factorySpace as l } from "./cori.data.api644.js";
-import { markdownSpace as a } from "./cori.data.api469.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api642.js";
+import "./cori.data.api570.js";
+import "./cori.data.api571.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const k = {
-  name: "blockQuote",
-  tokenize: x,
-  continuation: {
-    tokenize: Q
-  },
-  exit: b
-};
-function x(t, e, r) {
-  const i = this;
-  return u;
-  function u(n) {
-    if (n === 62) {
-      const c = i.containerState;
-      return c.open || (t.enter("blockQuote", {
-        _container: !0
-      }), c.open = !0), t.enter("blockQuotePrefix"), t.enter("blockQuoteMarker"), t.consume(n), t.exit("blockQuoteMarker"), o;
-    }
-    return r(n);
+class s {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  function o(n) {
-    return a(n) ? (t.enter("blockQuotePrefixWhitespace"), t.consume(n), t.exit("blockQuotePrefixWhitespace"), t.exit("blockQuotePrefix"), e) : (t.exit("blockQuotePrefix"), e(n));
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-}
-function Q(t, e, r) {
-  const i = this;
-  return u;
-  function u(n) {
-    return a(n) ? l(t, o, "linePrefix", i.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 4)(n) : o(n);
+  static getRootAsUtf8(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  function o(n) {
-    return t.attempt(k, e, r)(n);
+  static getSizePrefixedRootAsUtf8(t, i) {
+    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-}
-function b(t) {
-  t.exit("blockQuote");
+  static startUtf8(t) {
+    t.startObject(0);
+  }
+  static endUtf8(t) {
+    return t.endObject();
+  }
+  static createUtf8(t) {
+    return s.startUtf8(t), s.endUtf8(t);
+  }
 }
 export {
-  k as blockQuote
+  s as Utf8
 };
 //# sourceMappingURL=cori.data.api649.js.map

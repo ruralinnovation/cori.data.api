@@ -1,36 +1,44 @@
-import o from "./cori.data.api414.js";
-import r from "./cori.data.api420.js";
-import i from "./cori.data.api315.js";
-import n from "./cori.data.api380.js";
+import g from "./cori.data.api493.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(t) {
-  return n(o, t);
+const e = (t) => (t < 10 ? "0" : "") + t, C = (t) => t < 0 ? "-" + g(-t, 6) : t > 9999 ? "+" + g(t, 6) : g(t, 4);
+function s(t, n, T, o, a, i, f, l, u) {
+  const r = l ? "Z" : "";
+  return C(t) + "-" + e(n + 1) + "-" + e(T) + (!u || f ? "T" + e(o) + ":" + e(a) + ":" + e(i) + "." + g(f, 3) + r : i ? "T" + e(o) + ":" + e(a) + ":" + e(i) + r : a || o || !l ? "T" + e(o) + ":" + e(a) + r : "");
 }
-function e(t) {
-  return n(r, t);
+function c(t, n) {
+  return isNaN(t) ? "Invalid Date" : s(
+    t.getFullYear(),
+    t.getMonth(),
+    t.getDate(),
+    t.getHours(),
+    t.getMinutes(),
+    t.getSeconds(),
+    t.getMilliseconds(),
+    !1,
+    n
+  );
 }
-function a(t) {
-  return n(i, t) || t === "row_object";
-}
-function m(t) {
-  return u(t) && o[t];
-}
-function p(t) {
-  return e(t) && r[t];
+function D(t, n) {
+  return isNaN(t) ? "Invalid Date" : s(
+    t.getUTCFullYear(),
+    t.getUTCMonth(),
+    t.getUTCDate(),
+    t.getUTCHours(),
+    t.getUTCMinutes(),
+    t.getUTCSeconds(),
+    t.getUTCMilliseconds(),
+    !0,
+    n
+  );
 }
 export {
-  o as aggregateFunctions,
-  i as functions,
-  m as getAggregate,
-  p as getWindow,
-  u as hasAggregate,
-  a as hasFunction,
-  e as hasWindow,
-  r as windowFunctions
+  c as formatDate,
+  s as formatISO,
+  D as formatUTCDate
 };
 //# sourceMappingURL=cori.data.api393.js.map

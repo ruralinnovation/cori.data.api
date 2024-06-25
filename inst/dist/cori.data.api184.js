@@ -1,26 +1,51 @@
-import { Transition as l, newId as _ } from "./cori.data.api166.js";
-import u, { get as v } from "./cori.data.api188.js";
+import i from "./cori.data.api162.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function w() {
-  for (var s = this._name, o = this._id, d = _(), e = this._groups, m = e.length, n = 0; n < m; ++n)
-    for (var r = e[n], f = r.length, i, a = 0; a < f; ++a)
-      if (i = r[a]) {
-        var t = v(i, o);
-        u(i, s, d, a, r, {
-          time: t.time + t.delay + t.duration,
-          delay: 0,
-          duration: t.duration,
-          ease: t.ease
-        });
-      }
-  return new l(e, this._parents, s, d);
+function o(t) {
+  return function() {
+    this.removeAttribute(t);
+  };
+}
+function u(t) {
+  return function() {
+    this.removeAttributeNS(t.space, t.local);
+  };
+}
+function c(t, n) {
+  return function() {
+    this.setAttribute(t, n);
+  };
+}
+function s(t, n) {
+  return function() {
+    this.setAttributeNS(t.space, t.local, n);
+  };
+}
+function a(t, n) {
+  return function() {
+    var e = n.apply(this, arguments);
+    e == null ? this.removeAttribute(t) : this.setAttribute(t, e);
+  };
+}
+function l(t, n) {
+  return function() {
+    var e = n.apply(this, arguments);
+    e == null ? this.removeAttributeNS(t.space, t.local) : this.setAttributeNS(t.space, t.local, e);
+  };
+}
+function h(t, n) {
+  var e = i(t);
+  if (arguments.length < 2) {
+    var r = this.node();
+    return e.local ? r.getAttributeNS(e.space, e.local) : r.getAttribute(e);
+  }
+  return this.each((n == null ? e.local ? u : o : typeof n == "function" ? e.local ? l : a : e.local ? s : c)(e, n));
 }
 export {
-  w as default
+  h as default
 };
 //# sourceMappingURL=cori.data.api184.js.map

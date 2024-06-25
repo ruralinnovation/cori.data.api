@@ -1,25 +1,23 @@
-import { get as e, init as i } from "./cori.data.api188.js";
+import { childMatcher as e } from "./cori.data.api164.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(n, t) {
+var t = Array.prototype.filter;
+function n() {
+  return Array.from(this.children);
+}
+function i(r) {
   return function() {
-    i(this, n).delay = +t.apply(this, arguments);
+    return t.call(this.children, r);
   };
 }
-function r(n, t) {
-  return t = +t, function() {
-    i(this, n).delay = t;
-  };
-}
-function s(n) {
-  var t = this._id;
-  return arguments.length ? this.each((typeof n == "function" ? o : r)(t, n)) : e(this.node(), t).delay;
+function o(r) {
+  return this.selectAll(r == null ? n : i(typeof r == "function" ? r : e(r)));
 }
 export {
-  s as default
+  o as default
 };
 //# sourceMappingURL=cori.data.api169.js.map

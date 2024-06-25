@@ -4,15 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(t, h) {
-  const { style: l } = t;
-  h.backgroundColor && (l.backgroundColor = h.backgroundColor), h.width && (l.width = `${h.width}px`), h.height && (l.height = `${h.height}px`);
-  const r = h.style;
-  return r != null && Object.keys(r).forEach((c) => {
-    l[c] = r[c];
-  }), t;
+function t(e) {
+  return e.ownerDocument && e.ownerDocument.defaultView || e.document && e || e.defaultView;
 }
 export {
-  e as applyStyle
+  t as default
 };
 //# sourceMappingURL=cori.data.api114.js.map

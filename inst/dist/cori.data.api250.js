@@ -1,65 +1,63 @@
-import n from "./cori.data.api57.js";
+import { color as A } from "./cori.data.api482.js";
+import { convert as I } from "./cori.data.api483.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class a {
-  constructor() {
-    this.handlers = [];
-  }
-  /**
-   * Add a new interceptor to the stack
-   *
-   * @param {Function} fulfilled The function to handle `then` for a `Promise`
-   * @param {Function} rejected The function to handle `reject` for a `Promise`
-   *
-   * @return {Number} An ID used to remove interceptor later
-   */
-  use(s, h, r) {
-    return this.handlers.push({
-      fulfilled: s,
-      rejected: h,
-      synchronous: r ? r.synchronous : !1,
-      runWhen: r ? r.runWhen : null
-    }), this.handlers.length - 1;
-  }
-  /**
-   * Remove an interceptor from the stack
-   *
-   * @param {Number} id The ID that was returned by `use`
-   *
-   * @returns {Boolean} `true` if the interceptor was removed, `false` otherwise
-   */
-  eject(s) {
-    this.handlers[s] && (this.handlers[s] = null);
-  }
-  /**
-   * Clear all interceptors from the stack
-   *
-   * @returns {void}
-   */
-  clear() {
-    this.handlers && (this.handlers = []);
-  }
-  /**
-   * Iterate over all the registered interceptors
-   *
-   * This method is particularly useful for skipping over any
-   * interceptors that may have become `null` calling `eject`.
-   *
-   * @param {Function} fn The function to call for each interceptor
-   *
-   * @returns {void}
-   */
-  forEach(s) {
-    n.forEach(this.handlers, function(r) {
-      r !== null && s(r);
-    });
+const g = [], j = !0, a = !1, k = "skip";
+function w(t, o, u, s) {
+  let p;
+  typeof o == "function" && typeof u != "function" ? (s = u, u = o) : p = o;
+  const b = I(p), y = s ? -1 : 1;
+  m(t, void 0, [])();
+  function m(n, N, l) {
+    const i = (
+      /** @type {Record<string, unknown>} */
+      n && typeof n == "object" ? n : {}
+    );
+    if (typeof i.type == "string") {
+      const e = (
+        // `hast`
+        typeof i.tagName == "string" ? i.tagName : (
+          // `xast`
+          typeof i.name == "string" ? i.name : void 0
+        )
+      );
+      Object.defineProperty(h, "name", {
+        value: "node (" + A(n.type + (e ? "<" + e + ">" : "")) + ")"
+      });
+    }
+    return h;
+    function h() {
+      let e = g, f, r, d;
+      if ((!o || b(n, N, l[l.length - 1] || void 0)) && (e = E(u(n, l)), e[0] === a))
+        return e;
+      if ("children" in n && n.children) {
+        const c = (
+          /** @type {UnistParent} */
+          n
+        );
+        if (c.children && e[0] !== k)
+          for (r = (s ? c.children.length : -1) + y, d = l.concat(c); r > -1 && r < c.children.length; ) {
+            const P = c.children[r];
+            if (f = m(P, r, d)(), f[0] === a)
+              return f;
+            r = typeof f[1] == "number" ? f[1] : r + y;
+          }
+      }
+      return e;
+    }
   }
 }
+function E(t) {
+  return Array.isArray(t) ? t : typeof t == "number" ? [j, t] : t == null ? g : [t];
+}
 export {
-  a as default
+  j as CONTINUE,
+  a as EXIT,
+  k as SKIP,
+  w as visitParents
 };
 //# sourceMappingURL=cori.data.api250.js.map

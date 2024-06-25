@@ -1,30 +1,94 @@
-import { encodeUtf8 as s } from "./cori.data.api538.js";
-import { BinaryBuilder as n } from "./cori.data.api602.js";
-import { BufferBuilder as i } from "./cori.data.api494.js";
-import { VariableWidthBuilder as r } from "./cori.data.api490.js";
+import { valueToString as u } from "./cori.data.api562.js";
+import { instance as o } from "./cori.data.api555.js";
+import { instance as h } from "./cori.data.api556.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class h extends r {
-  constructor(e) {
-    super(e), this._values = new i(Uint8Array);
+const r = Symbol.for("parent"), s = Symbol.for("rowIndex");
+class d {
+  constructor(e, t) {
+    return this[r] = e, this[s] = t, new Proxy(this, new m());
   }
-  get byteLength() {
-    let e = this._pendingLength + this.length * 4;
-    return this._offsets && (e += this._offsets.byteLength), this._values && (e += this._values.byteLength), this._nulls && (e += this._nulls.byteLength), e;
+  toArray() {
+    return Object.values(this.toJSON());
   }
-  setValue(e, t) {
-    return super.setValue(e, s(t));
+  toJSON() {
+    const e = this[s], t = this[r], n = t.type.children, i = {};
+    for (let l = -1, a = n.length; ++l < a; )
+      i[n[l].name] = o.visit(t.children[l], e);
+    return i;
   }
-  // @ts-ignore
-  _flushPending(e, t) {
+  toString() {
+    return `{${[...this].map(([e, t]) => `${u(e)}: ${u(t)}`).join(", ")}}`;
+  }
+  [Symbol.for("nodejs.util.inspect.custom")]() {
+    return this.toString();
+  }
+  [Symbol.iterator]() {
+    return new f(this[r], this[s]);
   }
 }
-h.prototype._flushPending = n.prototype._flushPending;
+class f {
+  constructor(e, t) {
+    this.childIndex = 0, this.children = e.children, this.rowIndex = t, this.childFields = e.type.children, this.numChildren = this.childFields.length;
+  }
+  [Symbol.iterator]() {
+    return this;
+  }
+  next() {
+    const e = this.childIndex;
+    return e < this.numChildren ? (this.childIndex = e + 1, {
+      done: !1,
+      value: [
+        this.childFields[e].name,
+        o.visit(this.children[e], this.rowIndex)
+      ]
+    }) : { done: !0, value: null };
+  }
+}
+Object.defineProperties(d.prototype, {
+  [Symbol.toStringTag]: { enumerable: !1, configurable: !1, value: "Row" },
+  [r]: { writable: !0, enumerable: !1, configurable: !1, value: null },
+  [s]: { writable: !0, enumerable: !1, configurable: !1, value: -1 }
+});
+class m {
+  isExtensible() {
+    return !1;
+  }
+  deleteProperty() {
+    return !1;
+  }
+  preventExtensions() {
+    return !0;
+  }
+  ownKeys(e) {
+    return e[r].type.children.map((t) => t.name);
+  }
+  has(e, t) {
+    return e[r].type.children.findIndex((n) => n.name === t) !== -1;
+  }
+  getOwnPropertyDescriptor(e, t) {
+    if (e[r].type.children.findIndex((n) => n.name === t) !== -1)
+      return { writable: !0, enumerable: !0, configurable: !0 };
+  }
+  get(e, t) {
+    if (Reflect.has(e, t))
+      return e[t];
+    const n = e[r].type.children.findIndex((i) => i.name === t);
+    if (n !== -1) {
+      const i = o.visit(e[r].children[n], e[s]);
+      return Reflect.set(e, t, i), i;
+    }
+  }
+  set(e, t, n) {
+    const i = e[r].type.children.findIndex((l) => l.name === t);
+    return i !== -1 ? (h.visit(e[r].children[i], e[s], n), Reflect.set(e, t, n)) : Reflect.has(e, t) || typeof t == "symbol" ? Reflect.set(e, t, n) : !1;
+  }
+}
 export {
-  h as Utf8Builder
+  d as StructRow
 };
 //# sourceMappingURL=cori.data.api601.js.map

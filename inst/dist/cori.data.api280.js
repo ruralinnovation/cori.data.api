@@ -1,29 +1,31 @@
-import "./cori.data.api30.js";
-import "./cori.data.api31.js";
-import { columns as s, formats as i, scan as u } from "./cori.data.api385.js";
-import p from "./cori.data.api386.js";
+import h from "./cori.data.api389.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function x(t, n = {}) {
-  const r = s(t, n.columns), { align: c, format: e } = i(t, r, n), l = (o) => o === "c" ? ":-:" : o === "r" ? "-:" : ":-", a = (o) => o.replace(/\|/g, "\\|");
-  let m = "|" + r.map(a).join("|") + `|
-|` + r.map((o) => l(c[o])).join("|") + "|";
-  return u(t, r, n.limit, n.offset, {
-    row() {
-      m += `
-|`;
-    },
-    cell(o, f) {
-      m += a(p(o, e[f])) + "|";
-    }
-  }), m + `
-`;
+function n(s) {
+  return s ? new u({ ...s.data() }, s.columnNames()) : new u();
+}
+class u {
+  constructor(t, r) {
+    this.data = t || {}, this.names = r || [];
+  }
+  add(t, r) {
+    return this.has(t) || this.names.push(t + ""), this.data[t] = r;
+  }
+  has(t) {
+    return h(this.data, t);
+  }
+  new() {
+    return this.filter = null, this.groups = this.groups || null, this.order = null, this;
+  }
+  groupby(t) {
+    return this.groups = t, this;
+  }
 }
 export {
-  x as default
+  n as default
 };
 //# sourceMappingURL=cori.data.api280.js.map

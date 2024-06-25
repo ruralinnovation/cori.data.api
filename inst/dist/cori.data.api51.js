@@ -1,318 +1,413 @@
-import { stringify as w } from "./cori.data.api227.js";
-import { ok as p } from "./cori.data.api45.js";
-import { svg as f, html as C } from "./cori.data.api228.js";
-import { stringify as N } from "./cori.data.api229.js";
-import S from "./cori.data.api230.js";
-import { whitespace as j } from "./cori.data.api231.js";
-import { find as A } from "./cori.data.api232.js";
-import { hastToReact as T } from "./cori.data.api233.js";
-import { VFileMessage as x } from "./cori.data.api234.js";
-import { name as h } from "./cori.data.api235.js";
-import { pointStart as F } from "./cori.data.api236.js";
+import { path as n } from "./cori.data.api251.js";
+import { proc as d } from "./cori.data.api252.js";
+import { urlToPath as u } from "./cori.data.api253.js";
+import { isUrl as f } from "./cori.data.api254.js";
+import { VFileMessage as c } from "./cori.data.api237.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const m = {}.hasOwnProperty, P = /* @__PURE__ */ new Map(), J = /[A-Z]/g, I = /-([a-z])/g, L = /* @__PURE__ */ new Set(["table", "tbody", "thead", "tfoot", "tr"]), M = /* @__PURE__ */ new Set(["td", "th"]), g = "https://github.com/syntax-tree/hast-util-to-jsx-runtime";
-function le(t, e) {
-  if (!e || e.Fragment === void 0)
-    throw new TypeError("Expected `Fragment` in options");
-  const r = e.filePath || void 0;
-  let n;
-  if (e.development) {
-    if (typeof e.jsxDEV != "function")
-      throw new TypeError(
-        "Expected `jsxDEV` in options when `development: true`"
-      );
-    n = R(r, e.jsxDEV);
-  } else {
-    if (typeof e.jsx != "function")
-      throw new TypeError("Expected `jsx` in production options");
-    if (typeof e.jsxs != "function")
-      throw new TypeError("Expected `jsxs` in production options");
-    n = B(r, e.jsx, e.jsxs);
-  }
-  const i = {
-    Fragment: e.Fragment,
-    ancestors: [],
-    components: e.components || {},
-    create: n,
-    elementAttributeNameCase: e.elementAttributeNameCase || "react",
-    evaluater: e.createEvaluater ? e.createEvaluater() : void 0,
-    filePath: r,
-    ignoreInvalidStyle: e.ignoreInvalidStyle || !1,
-    passKeys: e.passKeys !== !1,
-    passNode: e.passNode || !1,
-    schema: e.space === "svg" ? f : C,
-    stylePropertyNameCase: e.stylePropertyNameCase || "dom",
-    tableCellAlignToStyle: e.tableCellAlignToStyle !== !1
-  }, s = E(i, t, void 0);
-  return s && typeof s != "string" ? s : i.create(
-    t,
-    i.Fragment,
-    { children: s || void 0 },
-    void 0
-  );
-}
-function E(t, e, r) {
-  if (e.type === "element")
-    return D(t, e, r);
-  if (e.type === "mdxFlowExpression" || e.type === "mdxTextExpression")
-    return O(t, e);
-  if (e.type === "mdxJsxFlowElement" || e.type === "mdxJsxTextElement")
-    return K(t, e, r);
-  if (e.type === "mdxjsEsm")
-    return V(t, e);
-  if (e.type === "root")
-    return _(t, e, r);
-  if (e.type === "text")
-    return z(t, e);
-}
-function D(t, e, r) {
-  const n = t.schema;
-  let i = n;
-  e.tagName.toLowerCase() === "svg" && n.space === "html" && (i = f, t.schema = i), t.ancestors.push(e);
-  const s = b(t, e.tagName, !1), a = k(t, e);
-  let o = d(t, e);
-  return L.has(e.tagName) && (o = o.filter(function(l) {
-    return typeof l == "string" ? !j(l) : !0;
-  })), v(t, a, s, e), y(a, o), t.ancestors.pop(), t.schema = n, t.create(e, s, a, r);
-}
-function O(t, e) {
-  if (e.data && e.data.estree && t.evaluater) {
-    const n = e.data.estree.body[0];
-    return p(n.type === "ExpressionStatement"), /** @type {Child | undefined} */
-    t.evaluater.evaluateExpression(n.expression);
-  }
-  u(t, e.position);
-}
-function V(t, e) {
-  if (e.data && e.data.estree && t.evaluater)
-    return (
-      /** @type {Child | undefined} */
-      t.evaluater.evaluateProgram(e.data.estree)
-    );
-  u(t, e.position);
-}
-function K(t, e, r) {
-  const n = t.schema;
-  let i = n;
-  e.name === "svg" && n.space === "html" && (i = f, t.schema = i), t.ancestors.push(e);
-  const s = e.name === null ? t.Fragment : b(t, e.name, !0), a = U(t, e), o = d(t, e);
-  return v(t, a, s, e), y(a, o), t.ancestors.pop(), t.schema = n, t.create(e, s, a, r);
-}
-function _(t, e, r) {
-  const n = {};
-  return y(n, d(t, e)), t.create(e, t.Fragment, n, r);
-}
-function z(t, e) {
-  return e.value;
-}
-function v(t, e, r, n) {
-  typeof r != "string" && r !== t.Fragment && t.passNode && (e.node = n);
-}
-function y(t, e) {
-  if (e.length > 0) {
-    const r = e.length > 1 ? e : e[0];
-    r && (t.children = r);
-  }
-}
-function B(t, e, r) {
-  return n;
-  function n(i, s, a, o) {
-    const c = Array.isArray(a.children) ? r : e;
-    return o ? c(s, a, o) : c(s, a);
-  }
-}
-function R(t, e) {
-  return r;
-  function r(n, i, s, a) {
-    const o = Array.isArray(s.children), l = F(n);
-    return e(
-      i,
-      s,
-      a,
-      o,
-      {
-        columnNumber: l ? l.column - 1 : void 0,
-        fileName: t,
-        lineNumber: l ? l.line : void 0
-      },
-      void 0
-    );
-  }
-}
-function k(t, e) {
-  const r = {};
-  let n, i;
-  for (i in e.properties)
-    if (i !== "children" && m.call(e.properties, i)) {
-      const s = X(t, i, e.properties[i]);
-      if (s) {
-        const [a, o] = s;
-        t.tableCellAlignToStyle && a === "align" && typeof o == "string" && M.has(e.tagName) ? n = o : r[a] = o;
-      }
+const o = (
+  /** @type {const} */
+  [
+    "history",
+    "path",
+    "basename",
+    "stem",
+    "extname",
+    "dirname"
+  ]
+);
+class E {
+  /**
+   * Create a new virtual file.
+   *
+   * `options` is treated as:
+   *
+   * *   `string` or `Uint8Array` — `{value: options}`
+   * *   `URL` — `{path: options}`
+   * *   `VFile` — shallow copies its data over to the new file
+   * *   `object` — all fields are shallow copied over to the new file
+   *
+   * Path related fields are set in the following order (least specific to
+   * most specific): `history`, `path`, `basename`, `stem`, `extname`,
+   * `dirname`.
+   *
+   * You cannot set `dirname` or `extname` without setting either `history`,
+   * `path`, `basename`, or `stem` too.
+   *
+   * @param {Compatible | null | undefined} [value]
+   *   File value.
+   * @returns
+   *   New instance.
+   */
+  constructor(t) {
+    let e;
+    t ? f(t) ? e = { path: t } : typeof t == "string" || g(t) ? e = { value: t } : e = t : e = {}, this.cwd = d.cwd(), this.data = {}, this.history = [], this.messages = [], this.value, this.map, this.result, this.stored;
+    let r = -1;
+    for (; ++r < o.length; ) {
+      const h = o[r];
+      h in e && e[h] !== void 0 && e[h] !== null && (this[h] = h === "history" ? [...e[h]] : e[h]);
     }
-  if (n) {
-    const s = (
-      /** @type {Style} */
-      r.style || (r.style = {})
-    );
-    s[t.stylePropertyNameCase === "css" ? "text-align" : "textAlign"] = n;
+    let s;
+    for (s in e)
+      o.includes(s) || (this[s] = e[s]);
   }
-  return r;
-}
-function U(t, e) {
-  const r = {};
-  for (const n of e.attributes)
-    if (n.type === "mdxJsxExpressionAttribute")
-      if (n.data && n.data.estree && t.evaluater) {
-        const s = n.data.estree.body[0];
-        p(s.type === "ExpressionStatement");
-        const a = s.expression;
-        p(a.type === "ObjectExpression");
-        const o = a.properties[0];
-        p(o.type === "SpreadElement"), Object.assign(
-          r,
-          t.evaluater.evaluateExpression(o.argument)
-        );
-      } else
-        u(t, e.position);
-    else {
-      const i = n.name;
-      let s;
-      if (n.value && typeof n.value == "object")
-        if (n.value.data && n.value.data.estree && t.evaluater) {
-          const o = n.value.data.estree.body[0];
-          p(o.type === "ExpressionStatement"), s = t.evaluater.evaluateExpression(o.expression);
-        } else
-          u(t, e.position);
-      else
-        s = n.value === null ? !0 : n.value;
-      r[i] = /** @type {Props[keyof Props]} */
-      s;
-    }
-  return r;
-}
-function d(t, e) {
-  const r = [];
-  let n = -1;
-  const i = t.passKeys ? /* @__PURE__ */ new Map() : P;
-  for (; ++n < e.children.length; ) {
-    const s = e.children[n];
-    let a;
-    if (t.passKeys) {
-      const l = s.type === "element" ? s.tagName : s.type === "mdxJsxFlowElement" || s.type === "mdxJsxTextElement" ? s.name : void 0;
-      if (l) {
-        const c = i.get(l) || 0;
-        a = l + "-" + c, i.set(l, c + 1);
-      }
-    }
-    const o = E(t, s, a);
-    o !== void 0 && r.push(o);
+  /**
+   * Get the basename (including extname) (example: `'index.min.js'`).
+   *
+   * @returns {string | undefined}
+   *   Basename.
+   */
+  get basename() {
+    return typeof this.path == "string" ? n.basename(this.path) : void 0;
   }
-  return r;
-}
-function X(t, e, r) {
-  const n = A(t.schema, e);
-  if (!(r == null || typeof r == "number" && Number.isNaN(r))) {
-    if (Array.isArray(r) && (r = n.commaSeparated ? w(r) : N(r)), n.property === "style") {
-      let i = typeof r == "object" ? r : Z(t, String(r));
-      return t.stylePropertyNameCase === "css" && (i = q(i)), ["style", i];
+  /**
+   * Set basename (including extname) (`'index.min.js'`).
+   *
+   * Cannot contain path separators (`'/'` on unix, macOS, and browsers, `'\'`
+   * on windows).
+   * Cannot be nullified (use `file.path = file.dirname` instead).
+   *
+   * @param {string} basename
+   *   Basename.
+   * @returns {undefined}
+   *   Nothing.
+   */
+  set basename(t) {
+    m(t, "basename"), a(t, "basename"), this.path = n.join(this.dirname || "", t);
+  }
+  /**
+   * Get the parent path (example: `'~'`).
+   *
+   * @returns {string | undefined}
+   *   Dirname.
+   */
+  get dirname() {
+    return typeof this.path == "string" ? n.dirname(this.path) : void 0;
+  }
+  /**
+   * Set the parent path (example: `'~'`).
+   *
+   * Cannot be set if there’s no `path` yet.
+   *
+   * @param {string | undefined} dirname
+   *   Dirname.
+   * @returns {undefined}
+   *   Nothing.
+   */
+  set dirname(t) {
+    p(this.basename, "dirname"), this.path = n.join(t || "", this.basename);
+  }
+  /**
+   * Get the extname (including dot) (example: `'.js'`).
+   *
+   * @returns {string | undefined}
+   *   Extname.
+   */
+  get extname() {
+    return typeof this.path == "string" ? n.extname(this.path) : void 0;
+  }
+  /**
+   * Set the extname (including dot) (example: `'.js'`).
+   *
+   * Cannot contain path separators (`'/'` on unix, macOS, and browsers, `'\'`
+   * on windows).
+   * Cannot be set if there’s no `path` yet.
+   *
+   * @param {string | undefined} extname
+   *   Extname.
+   * @returns {undefined}
+   *   Nothing.
+   */
+  set extname(t) {
+    if (a(t, "extname"), p(this.dirname, "extname"), t) {
+      if (t.codePointAt(0) !== 46)
+        throw new Error("`extname` must start with `.`");
+      if (t.includes(".", 1))
+        throw new Error("`extname` cannot contain multiple dots");
     }
-    return [
-      t.elementAttributeNameCase === "react" && n.space ? T[n.property] || n.property : n.attribute,
+    this.path = n.join(this.dirname, this.stem + (t || ""));
+  }
+  /**
+   * Get the full path (example: `'~/index.min.js'`).
+   *
+   * @returns {string}
+   *   Path.
+   */
+  get path() {
+    return this.history[this.history.length - 1];
+  }
+  /**
+   * Set the full path (example: `'~/index.min.js'`).
+   *
+   * Cannot be nullified.
+   * You can set a file URL (a `URL` object with a `file:` protocol) which will
+   * be turned into a path with `url.fileURLToPath`.
+   *
+   * @param {URL | string} path
+   *   Path.
+   * @returns {undefined}
+   *   Nothing.
+   */
+  set path(t) {
+    f(t) && (t = u(t)), m(t, "path"), this.path !== t && this.history.push(t);
+  }
+  /**
+   * Get the stem (basename w/o extname) (example: `'index.min'`).
+   *
+   * @returns {string | undefined}
+   *   Stem.
+   */
+  get stem() {
+    return typeof this.path == "string" ? n.basename(this.path, this.extname) : void 0;
+  }
+  /**
+   * Set the stem (basename w/o extname) (example: `'index.min'`).
+   *
+   * Cannot contain path separators (`'/'` on unix, macOS, and browsers, `'\'`
+   * on windows).
+   * Cannot be nullified (use `file.path = file.dirname` instead).
+   *
+   * @param {string} stem
+   *   Stem.
+   * @returns {undefined}
+   *   Nothing.
+   */
+  set stem(t) {
+    m(t, "stem"), a(t, "stem"), this.path = n.join(this.dirname || "", t + (this.extname || ""));
+  }
+  // Normal prototypal methods.
+  /**
+   * Create a fatal message for `reason` associated with the file.
+   *
+   * The `fatal` field of the message is set to `true` (error; file not usable)
+   * and the `file` field is set to the current file path.
+   * The message is added to the `messages` field on `file`.
+   *
+   * > 🪦 **Note**: also has obsolete signatures.
+   *
+   * @overload
+   * @param {string} reason
+   * @param {MessageOptions | null | undefined} [options]
+   * @returns {never}
+   *
+   * @overload
+   * @param {string} reason
+   * @param {Node | NodeLike | null | undefined} parent
+   * @param {string | null | undefined} [origin]
+   * @returns {never}
+   *
+   * @overload
+   * @param {string} reason
+   * @param {Point | Position | null | undefined} place
+   * @param {string | null | undefined} [origin]
+   * @returns {never}
+   *
+   * @overload
+   * @param {string} reason
+   * @param {string | null | undefined} [origin]
+   * @returns {never}
+   *
+   * @overload
+   * @param {Error | VFileMessage} cause
+   * @param {Node | NodeLike | null | undefined} parent
+   * @param {string | null | undefined} [origin]
+   * @returns {never}
+   *
+   * @overload
+   * @param {Error | VFileMessage} cause
+   * @param {Point | Position | null | undefined} place
+   * @param {string | null | undefined} [origin]
+   * @returns {never}
+   *
+   * @overload
+   * @param {Error | VFileMessage} cause
+   * @param {string | null | undefined} [origin]
+   * @returns {never}
+   *
+   * @param {Error | VFileMessage | string} causeOrReason
+   *   Reason for message, should use markdown.
+   * @param {Node | NodeLike | MessageOptions | Point | Position | string | null | undefined} [optionsOrParentOrPlace]
+   *   Configuration (optional).
+   * @param {string | null | undefined} [origin]
+   *   Place in code where the message originates (example:
+   *   `'my-package:my-rule'` or `'my-rule'`).
+   * @returns {never}
+   *   Never.
+   * @throws {VFileMessage}
+   *   Message.
+   */
+  fail(t, e, r) {
+    const s = this.message(t, e, r);
+    throw s.fatal = !0, s;
+  }
+  /**
+   * Create an info message for `reason` associated with the file.
+   *
+   * The `fatal` field of the message is set to `undefined` (info; change
+   * likely not needed) and the `file` field is set to the current file path.
+   * The message is added to the `messages` field on `file`.
+   *
+   * > 🪦 **Note**: also has obsolete signatures.
+   *
+   * @overload
+   * @param {string} reason
+   * @param {MessageOptions | null | undefined} [options]
+   * @returns {VFileMessage}
+   *
+   * @overload
+   * @param {string} reason
+   * @param {Node | NodeLike | null | undefined} parent
+   * @param {string | null | undefined} [origin]
+   * @returns {VFileMessage}
+   *
+   * @overload
+   * @param {string} reason
+   * @param {Point | Position | null | undefined} place
+   * @param {string | null | undefined} [origin]
+   * @returns {VFileMessage}
+   *
+   * @overload
+   * @param {string} reason
+   * @param {string | null | undefined} [origin]
+   * @returns {VFileMessage}
+   *
+   * @overload
+   * @param {Error | VFileMessage} cause
+   * @param {Node | NodeLike | null | undefined} parent
+   * @param {string | null | undefined} [origin]
+   * @returns {VFileMessage}
+   *
+   * @overload
+   * @param {Error | VFileMessage} cause
+   * @param {Point | Position | null | undefined} place
+   * @param {string | null | undefined} [origin]
+   * @returns {VFileMessage}
+   *
+   * @overload
+   * @param {Error | VFileMessage} cause
+   * @param {string | null | undefined} [origin]
+   * @returns {VFileMessage}
+   *
+   * @param {Error | VFileMessage | string} causeOrReason
+   *   Reason for message, should use markdown.
+   * @param {Node | NodeLike | MessageOptions | Point | Position | string | null | undefined} [optionsOrParentOrPlace]
+   *   Configuration (optional).
+   * @param {string | null | undefined} [origin]
+   *   Place in code where the message originates (example:
+   *   `'my-package:my-rule'` or `'my-rule'`).
+   * @returns {VFileMessage}
+   *   Message.
+   */
+  info(t, e, r) {
+    const s = this.message(t, e, r);
+    return s.fatal = void 0, s;
+  }
+  /**
+   * Create a message for `reason` associated with the file.
+   *
+   * The `fatal` field of the message is set to `false` (warning; change may be
+   * needed) and the `file` field is set to the current file path.
+   * The message is added to the `messages` field on `file`.
+   *
+   * > 🪦 **Note**: also has obsolete signatures.
+   *
+   * @overload
+   * @param {string} reason
+   * @param {MessageOptions | null | undefined} [options]
+   * @returns {VFileMessage}
+   *
+   * @overload
+   * @param {string} reason
+   * @param {Node | NodeLike | null | undefined} parent
+   * @param {string | null | undefined} [origin]
+   * @returns {VFileMessage}
+   *
+   * @overload
+   * @param {string} reason
+   * @param {Point | Position | null | undefined} place
+   * @param {string | null | undefined} [origin]
+   * @returns {VFileMessage}
+   *
+   * @overload
+   * @param {string} reason
+   * @param {string | null | undefined} [origin]
+   * @returns {VFileMessage}
+   *
+   * @overload
+   * @param {Error | VFileMessage} cause
+   * @param {Node | NodeLike | null | undefined} parent
+   * @param {string | null | undefined} [origin]
+   * @returns {VFileMessage}
+   *
+   * @overload
+   * @param {Error | VFileMessage} cause
+   * @param {Point | Position | null | undefined} place
+   * @param {string | null | undefined} [origin]
+   * @returns {VFileMessage}
+   *
+   * @overload
+   * @param {Error | VFileMessage} cause
+   * @param {string | null | undefined} [origin]
+   * @returns {VFileMessage}
+   *
+   * @param {Error | VFileMessage | string} causeOrReason
+   *   Reason for message, should use markdown.
+   * @param {Node | NodeLike | MessageOptions | Point | Position | string | null | undefined} [optionsOrParentOrPlace]
+   *   Configuration (optional).
+   * @param {string | null | undefined} [origin]
+   *   Place in code where the message originates (example:
+   *   `'my-package:my-rule'` or `'my-rule'`).
+   * @returns {VFileMessage}
+   *   Message.
+   */
+  message(t, e, r) {
+    const s = new c(
+      // @ts-expect-error: the overloads are fine.
+      t,
+      e,
       r
-    ];
-  }
-}
-function Z(t, e) {
-  const r = {};
-  try {
-    S(e, n);
-  } catch (i) {
-    if (!t.ignoreInvalidStyle) {
-      const s = (
-        /** @type {Error} */
-        i
-      ), a = new x("Cannot parse `style` attribute", {
-        ancestors: t.ancestors,
-        cause: s,
-        ruleId: "style",
-        source: "hast-util-to-jsx-runtime"
-      });
-      throw a.file = t.filePath || void 0, a.url = g + "#cannot-parse-style-attribute", a;
-    }
-  }
-  return r;
-  function n(i, s) {
-    let a = i;
-    a.slice(0, 2) !== "--" && (a.slice(0, 4) === "-ms-" && (a = "ms-" + a.slice(4)), a = a.replace(I, H)), r[a] = s;
-  }
-}
-function b(t, e, r) {
-  let n;
-  if (!r)
-    n = { type: "Literal", value: e };
-  else if (e.includes(".")) {
-    const i = e.split(".");
-    let s = -1, a;
-    for (; ++s < i.length; ) {
-      const o = h(i[s]) ? { type: "Identifier", name: i[s] } : { type: "Literal", value: i[s] };
-      a = a ? {
-        type: "MemberExpression",
-        object: a,
-        property: o,
-        computed: !!(s && o.type === "Literal"),
-        optional: !1
-      } : o;
-    }
-    n = a;
-  } else
-    n = h(e) && !/^[a-z]/.test(e) ? { type: "Identifier", name: e } : { type: "Literal", value: e };
-  if (n.type === "Literal") {
-    const i = (
-      /** @type {keyof JSX.IntrinsicElements} */
-      n.value
     );
-    return m.call(t.components, i) ? t.components[i] : i;
+    return this.path && (s.name = this.path + ":" + s.name, s.file = this.path), s.fatal = !1, this.messages.push(s), s;
   }
-  if (t.evaluater)
-    return t.evaluater.evaluateExpression(n);
-  u(t);
+  /**
+   * Serialize the file.
+   *
+   * > **Note**: which encodings are supported depends on the engine.
+   * > For info on Node.js, see:
+   * > <https://nodejs.org/api/util.html#whatwg-supported-encodings>.
+   *
+   * @param {string | null | undefined} [encoding='utf8']
+   *   Character encoding to understand `value` as when it’s a `Uint8Array`
+   *   (default: `'utf-8'`).
+   * @returns {string}
+   *   Serialized file.
+   */
+  toString(t) {
+    return this.value === void 0 ? "" : typeof this.value == "string" ? this.value : new TextDecoder(t || void 0).decode(this.value);
+  }
 }
-function u(t, e) {
-  const r = new x(
-    "Cannot handle MDX estrees without `createEvaluater`",
-    {
-      ancestors: t.ancestors,
-      place: e,
-      ruleId: "mdx-estree",
-      source: "hast-util-to-jsx-runtime"
-    }
-  );
-  throw r.file = t.filePath || void 0, r.url = g + "#cannot-handle-mdx-estrees-without-createevaluater", r;
+function a(i, t) {
+  if (i && i.includes(n.sep))
+    throw new Error(
+      "`" + t + "` cannot be a path: did not expect `" + n.sep + "`"
+    );
 }
-function q(t) {
-  const e = {};
-  let r;
-  for (r in t)
-    m.call(t, r) && (e[G(r)] = t[r]);
-  return e;
+function m(i, t) {
+  if (!i)
+    throw new Error("`" + t + "` cannot be empty");
 }
-function G(t) {
-  let e = t.replace(J, Q);
-  return e.slice(0, 3) === "ms-" && (e = "-" + e), e;
+function p(i, t) {
+  if (!i)
+    throw new Error("Setting `" + t + "` requires `path` to be set too");
 }
-function H(t, e) {
-  return e.toUpperCase();
-}
-function Q(t) {
-  return "-" + t.toLowerCase();
+function g(i) {
+  return !!(i && typeof i == "object" && "byteLength" in i && "byteOffset" in i);
 }
 export {
-  le as toJsxRuntime
+  E as VFile
 };
 //# sourceMappingURL=cori.data.api51.js.map

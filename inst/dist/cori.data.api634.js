@@ -1,36 +1,48 @@
-import { SIZE_PREFIX_LENGTH as s } from "./cori.data.api628.js";
-import "./cori.data.api556.js";
-import "./cori.data.api557.js";
+import { factorySpace as l } from "./cori.data.api658.js";
+import { markdownLineEnding as m } from "./cori.data.api481.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
+const g = {
+  tokenize: x
+};
+function x(n) {
+  const i = n.attempt(
+    this.parser.constructs.contentInitial,
+    e,
+    p
+  );
+  let r;
+  return i;
+  function e(t) {
+    if (t === null) {
+      n.consume(t);
+      return;
+    }
+    return n.enter("lineEnding"), n.consume(t), n.exit("lineEnding"), l(n, i, "linePrefix");
   }
-  __init(t, o) {
-    return this.bb_pos = t, this.bb = o, this;
+  function p(t) {
+    return n.enter("paragraph"), u(t);
   }
-  static getRootAsBool(t, o) {
-    return (o || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  function u(t) {
+    const a = n.enter("chunkText", {
+      contentType: "text",
+      previous: r
+    });
+    return r && (r.next = a), r = a, o(t);
   }
-  static getSizePrefixedRootAsBool(t, o) {
-    return t.setPosition(t.position() + s), (o || new i()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static startBool(t) {
-    t.startObject(0);
-  }
-  static endBool(t) {
-    return t.endObject();
-  }
-  static createBool(t) {
-    return i.startBool(t), i.endBool(t);
+  function o(t) {
+    if (t === null) {
+      n.exit("chunkText"), n.exit("paragraph"), n.consume(t);
+      return;
+    }
+    return m(t) ? (n.consume(t), n.exit("chunkText"), u) : (n.consume(t), o);
   }
 }
 export {
-  i as Bool
+  g as content
 };
 //# sourceMappingURL=cori.data.api634.js.map

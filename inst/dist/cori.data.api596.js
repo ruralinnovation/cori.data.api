@@ -1,40 +1,46 @@
-import { FixedWidthBuilder as l } from "./cori.data.api490.js";
+import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api642.js";
+import "./cori.data.api570.js";
+import "./cori.data.api571.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s extends l {
-  setValue(t, d) {
-    this._values.set(t, d);
+class s {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
+  }
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
+  }
+  static getRootAsFixedSizeList(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static getSizePrefixedRootAsFixedSizeList(t, i) {
+    return t.setPosition(t.position() + e), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  /**
+   * Number of list items per value
+   */
+  listSize() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
+  }
+  static startFixedSizeList(t) {
+    t.startObject(1);
+  }
+  static addListSize(t, i) {
+    t.addFieldInt32(0, i, 0);
+  }
+  static endFixedSizeList(t) {
+    return t.endObject();
+  }
+  static createFixedSizeList(t, i) {
+    return s.startFixedSizeList(t), s.addListSize(t, i), s.endFixedSizeList(t);
   }
 }
-class n extends s {
-}
-class r extends s {
-}
-class u extends s {
-}
-class a extends s {
-}
-class x extends s {
-}
-class B extends s {
-}
-class c extends s {
-}
-class I extends s {
-}
 export {
-  r as Int16Builder,
-  u as Int32Builder,
-  a as Int64Builder,
-  n as Int8Builder,
-  s as IntBuilder,
-  B as Uint16Builder,
-  c as Uint32Builder,
-  I as Uint64Builder,
-  x as Uint8Builder
+  s as FixedSizeList
 };
 //# sourceMappingURL=cori.data.api596.js.map

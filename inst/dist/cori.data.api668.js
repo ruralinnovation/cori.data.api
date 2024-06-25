@@ -1,182 +1,58 @@
+import { factorySpace as f } from "./cori.data.api658.js";
+import { markdownSpace as d, markdownLineEnding as s } from "./cori.data.api481.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class n {
-  /**
-   * @param {ReadonlyArray<T> | null | undefined} [initial]
-   *   Initial items (optional).
-   * @returns
-   *   Splice buffer.
-   */
-  constructor(t) {
-    this.left = t ? [...t] : [], this.right = [];
-  }
-  /**
-   * Array access;
-   * does not move the cursor.
-   *
-   * @param {number} index
-   *   Index.
-   * @return {T}
-   *   Item.
-   */
-  get(t) {
-    if (t < 0 || t >= this.left.length + this.right.length)
-      throw new RangeError("Cannot access index `" + t + "` in a splice buffer of size `" + (this.left.length + this.right.length) + "`");
-    return t < this.left.length ? this.left[t] : this.right[this.right.length - t + this.left.length - 1];
-  }
-  /**
-   * The length of the splice buffer, one greater than the largest index in the
-   * array.
-   */
-  get length() {
-    return this.left.length + this.right.length;
-  }
-  /**
-   * Remove and return `list[0]`;
-   * moves the cursor to `0`.
-   *
-   * @returns {T | undefined}
-   *   Item, optional.
-   */
-  shift() {
-    return this.setCursor(0), this.right.pop();
-  }
-  /**
-   * Slice the buffer to get an array;
-   * does not move the cursor.
-   *
-   * @param {number} start
-   *   Start.
-   * @param {number | null | undefined} [end]
-   *   End (optional).
-   * @returns {Array<T>}
-   *   Array of items.
-   */
-  slice(t, e) {
-    const h = e ?? Number.POSITIVE_INFINITY;
-    return h < this.left.length ? this.left.slice(t, h) : t > this.left.length ? this.right.slice(this.right.length - h + this.left.length, this.right.length - t + this.left.length).reverse() : this.left.slice(t).concat(this.right.slice(this.right.length - h + this.left.length).reverse());
-  }
-  /**
-   * Mimics the behavior of Array.prototype.splice() except for the change of
-   * interface necessary to avoid segfaults when patching in very large arrays.
-   *
-   * This operation moves cursor is moved to `start` and results in the cursor
-   * placed after any inserted items.
-   *
-   * @param {number} start
-   *   Start;
-   *   zero-based index at which to start changing the array;
-   *   negative numbers count backwards from the end of the array and values
-   *   that are out-of bounds are clamped to the appropriate end of the array.
-   * @param {number | null | undefined} [deleteCount=0]
-   *   Delete count (default: `0`);
-   *   maximum number of elements to delete, starting from start.
-   * @param {Array<T> | null | undefined} [items=[]]
-   *   Items to include in place of the deleted items (default: `[]`).
-   * @return {Array<T>}
-   *   Any removed items.
-   */
-  splice(t, e, h) {
-    const r = e || 0;
-    this.setCursor(Math.trunc(t));
-    const l = this.right.splice(this.right.length - r, Number.POSITIVE_INFINITY);
-    return h && s(this.left, h), l.reverse();
-  }
-  /**
-   * Remove and return the highest-numbered item in the array, so
-   * `list[list.length - 1]`;
-   * Moves the cursor to `length`.
-   *
-   * @returns {T | undefined}
-   *   Item, optional.
-   */
-  pop() {
-    return this.setCursor(Number.POSITIVE_INFINITY), this.left.pop();
-  }
-  /**
-   * Inserts a single item to the high-numbered side of the array;
-   * moves the cursor to `length`.
-   *
-   * @param {T} item
-   *   Item.
-   * @returns {undefined}
-   *   Nothing.
-   */
-  push(t) {
-    this.setCursor(Number.POSITIVE_INFINITY), this.left.push(t);
-  }
-  /**
-   * Inserts many items to the high-numbered side of the array.
-   * Moves the cursor to `length`.
-   *
-   * @param {Array<T>} items
-   *   Items.
-   * @returns {undefined}
-   *   Nothing.
-   */
-  pushMany(t) {
-    this.setCursor(Number.POSITIVE_INFINITY), s(this.left, t);
-  }
-  /**
-   * Inserts a single item to the low-numbered side of the array;
-   * Moves the cursor to `0`.
-   *
-   * @param {T} item
-   *   Item.
-   * @returns {undefined}
-   *   Nothing.
-   */
-  unshift(t) {
-    this.setCursor(0), this.right.push(t);
-  }
-  /**
-   * Inserts many items to the low-numbered side of the array;
-   * moves the cursor to `0`.
-   *
-   * @param {Array<T>} items
-   *   Items.
-   * @returns {undefined}
-   *   Nothing.
-   */
-  unshiftMany(t) {
-    this.setCursor(0), s(this.right, t.reverse());
-  }
-  /**
-   * Move the cursor to a specific position in the array. Requires
-   * time proportional to the distance moved.
-   *
-   * If `n < 0`, the cursor will end up at the beginning.
-   * If `n > length`, the cursor will end up at the end.
-   *
-   * @param {number} n
-   *   Position.
-   * @return {undefined}
-   *   Nothing.
-   */
-  setCursor(t) {
-    if (!(t === this.left.length || t > this.left.length && this.right.length === 0 || t < 0 && this.left.length === 0))
-      if (t < this.left.length) {
-        const e = this.left.splice(t, Number.POSITIVE_INFINITY);
-        s(this.right, e.reverse());
-      } else {
-        const e = this.right.splice(this.left.length + this.right.length - t, Number.POSITIVE_INFINITY);
-        s(this.left, e.reverse());
+const S = {
+  name: "setextUnderline",
+  tokenize: h,
+  resolveTo: y
+};
+function y(e, l) {
+  let t = e.length, i, r, a;
+  for (; t--; )
+    if (e[t][0] === "enter") {
+      if (e[t][1].type === "content") {
+        i = t;
+        break;
       }
-  }
+      e[t][1].type === "paragraph" && (r = t);
+    } else
+      e[t][1].type === "content" && e.splice(t, 1), !a && e[t][1].type === "definition" && (a = t);
+  const p = {
+    type: "setextHeading",
+    start: Object.assign({}, e[r][1].start),
+    end: Object.assign({}, e[e.length - 1][1].end)
+  };
+  return e[r][1].type = "setextHeadingText", a ? (e.splice(r, 0, ["enter", p, l]), e.splice(a + 1, 0, ["exit", e[i][1], l]), e[i][1].end = Object.assign({}, e[a][1].end)) : e[i][1] = p, e.push(["exit", p, l]), e;
 }
-function s(i, t) {
-  let e = 0;
-  if (t.length < 1e4)
-    i.push(...t);
-  else
-    for (; e < t.length; )
-      i.push(...t.slice(e, e + 1e4)), e += 1e4;
+function h(e, l, t) {
+  const i = this;
+  let r;
+  return a;
+  function a(n) {
+    let u = i.events.length, g;
+    for (; u--; )
+      if (i.events[u][1].type !== "lineEnding" && i.events[u][1].type !== "linePrefix" && i.events[u][1].type !== "content") {
+        g = i.events[u][1].type === "paragraph";
+        break;
+      }
+    return !i.parser.lazy[i.now().line] && (i.interrupt || g) ? (e.enter("setextHeadingLine"), r = n, p(n)) : t(n);
+  }
+  function p(n) {
+    return e.enter("setextHeadingLineSequence"), o(n);
+  }
+  function o(n) {
+    return n === r ? (e.consume(n), o) : (e.exit("setextHeadingLineSequence"), d(n) ? f(e, x, "lineSuffix")(n) : x(n));
+  }
+  function x(n) {
+    return n === null || s(n) ? (e.exit("setextHeadingLine"), l(n)) : t(n);
+  }
 }
 export {
-  n as SpliceBuffer
+  S as setextUnderline
 };
 //# sourceMappingURL=cori.data.api668.js.map

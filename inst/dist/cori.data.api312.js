@@ -1,13 +1,22 @@
+import r from "./cori.data.api273.js";
+import { Table as t } from "./cori.data.api404.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(e) {
-  return e.replace(/[.*+\-?^${}()|[\]\\]/g, "\\$&");
+const o = () => r(
+  "Apache Arrow not imported, see https://github.com/uwdata/arquero#usage"
+);
+function i() {
+  try {
+    return t;
+  } catch {
+    o();
+  }
 }
 export {
-  a as default
+  i as table
 };
 //# sourceMappingURL=cori.data.api312.js.map

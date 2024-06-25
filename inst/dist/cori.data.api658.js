@@ -1,24 +1,22 @@
-import { asciiPunctuation as i } from "./cori.data.api469.js";
+import { markdownSpace as m } from "./cori.data.api481.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const o = {
-  name: "characterEscape",
-  tokenize: u
-};
-function u(r, e, n) {
-  return t;
-  function t(a) {
-    return r.enter("characterEscape"), r.enter("escapeMarker"), r.consume(a), r.exit("escapeMarker"), c;
+function p(n, t, i, u) {
+  const o = u ? u - 1 : Number.POSITIVE_INFINITY;
+  let I = 0;
+  return a;
+  function a(r) {
+    return m(r) ? (n.enter(i), e(r)) : t(r);
   }
-  function c(a) {
-    return i(a) ? (r.enter("characterEscapeValue"), r.consume(a), r.exit("characterEscapeValue"), r.exit("characterEscape"), e) : n(a);
+  function e(r) {
+    return m(r) && I++ < o ? (n.consume(r), e) : (n.exit(i), t(r));
   }
 }
 export {
-  o as characterEscape
+  p as factorySpace
 };
 //# sourceMappingURL=cori.data.api658.js.map

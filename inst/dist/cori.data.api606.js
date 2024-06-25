@@ -1,26 +1,61 @@
-import { Field as n } from "./cori.data.api486.js";
-import { Builder as h } from "./cori.data.api490.js";
-import { FixedSizeList as l } from "./cori.data.api402.js";
+import { Dictionary as c } from "./cori.data.api411.js";
+import { Builder as d } from "./cori.data.api502.js";
+import { makeBuilder as r } from "./cori.data.api574.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class u extends h {
-  setValue(e, i) {
-    const [t] = this.children, s = e * this.stride;
-    for (let r = -1, d = i.length; ++r < d; )
-      t.set(s + r, i[r]);
+class a extends d {
+  constructor({ type: i, nullValues: e, dictionaryHashFunction: t }) {
+    super({ type: new c(i.dictionary, i.indices, i.id, i.isOrdered) }), this._nulls = null, this._dictionaryOffset = 0, this._keysToIndices = /* @__PURE__ */ Object.create(null), this.indices = r({ type: this.type.indices, nullValues: e }), this.dictionary = r({ type: this.type.dictionary, nullValues: null }), typeof t == "function" && (this.valueToKey = t);
   }
-  addChild(e, i = "0") {
-    if (this.numChildren > 0)
-      throw new Error("FixedSizeListBuilder can only have one child.");
-    const t = this.children.push(e);
-    return this.type = new l(this.type.listSize, new n(i, e.type, !0)), t;
+  get values() {
+    return this.indices.values;
+  }
+  get nullCount() {
+    return this.indices.nullCount;
+  }
+  get nullBitmap() {
+    return this.indices.nullBitmap;
+  }
+  get byteLength() {
+    return this.indices.byteLength + this.dictionary.byteLength;
+  }
+  get reservedLength() {
+    return this.indices.reservedLength + this.dictionary.reservedLength;
+  }
+  get reservedByteLength() {
+    return this.indices.reservedByteLength + this.dictionary.reservedByteLength;
+  }
+  isValid(i) {
+    return this.indices.isValid(i);
+  }
+  setValid(i, e) {
+    const t = this.indices;
+    return e = t.setValid(i, e), this.length = t.length, e;
+  }
+  setValue(i, e) {
+    const t = this._keysToIndices, s = this.valueToKey(e);
+    let n = t[s];
+    return n === void 0 && (t[s] = n = this._dictionaryOffset + this.dictionary.append(e).length - 1), this.indices.setValue(i, n);
+  }
+  flush() {
+    const i = this.type, e = this._dictionary, t = this.dictionary.toVector(), s = this.indices.flush().clone(i);
+    return s.dictionary = e ? e.concat(t) : t, this.finished || (this._dictionaryOffset += t.length), this._dictionary = s.dictionary, this.clear(), s;
+  }
+  finish() {
+    return this.indices.finish(), this.dictionary.finish(), this._dictionaryOffset = 0, this._keysToIndices = /* @__PURE__ */ Object.create(null), super.finish();
+  }
+  clear() {
+    return this.indices.clear(), this.dictionary.clear(), super.clear();
+  }
+  valueToKey(i) {
+    return typeof i == "string" ? i : `${i}`;
   }
 }
 export {
-  u as FixedSizeListBuilder
+  a as DictionaryBuilder
 };
 //# sourceMappingURL=cori.data.api606.js.map

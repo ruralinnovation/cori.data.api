@@ -1,22 +1,16 @@
-import r from "./cori.data.api99.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(o, e) {
-  var n = {}, f = {}, t;
-  (o === null || typeof o != "object") && (o = {}), (e === null || typeof e != "object") && (e = {});
-  for (t in e)
-    t in o ? n[t] = r(o[t], e[t]) : f[t] = e[t];
-  return function(i) {
-    for (t in n)
-      f[t] = n[t](i);
-    return f;
-  };
+function e() {
+  this.previousSibling && this.parentNode.insertBefore(this, this.parentNode.firstChild);
+}
+function i() {
+  return this.each(e);
 }
 export {
-  u as default
+  i as default
 };
 //# sourceMappingURL=cori.data.api104.js.map

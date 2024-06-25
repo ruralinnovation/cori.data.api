@@ -1,25 +1,36 @@
-import { factorySpace as o } from "./cori.data.api644.js";
-import { markdownSpace as f, markdownLineEnding as u } from "./cori.data.api469.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api642.js";
+import "./cori.data.api570.js";
+import "./cori.data.api571.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const p = {
-  tokenize: k,
-  partial: !0
-};
-function k(t, i, e) {
-  return a;
-  function a(n) {
-    return f(n) ? o(t, r, "linePrefix")(n) : r(n);
+class s {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  function r(n) {
-    return n === null || u(n) ? i(n) : e(n);
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
+  }
+  static getRootAsNull(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static getSizePrefixedRootAsNull(t, i) {
+    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static startNull(t) {
+    t.startObject(0);
+  }
+  static endNull(t) {
+    return t.endObject();
+  }
+  static createNull(t) {
+    return s.startNull(t), s.endNull(t);
   }
 }
 export {
-  p as blankLine
+  s as Null
 };
 //# sourceMappingURL=cori.data.api645.js.map

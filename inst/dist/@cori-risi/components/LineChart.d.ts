@@ -8,5 +8,5 @@ interface LineChartProps {
     width: number;
     height: number;
 }
-declare function LineChart({ primary_geoid, metric, data, metadata, width, height }: LineChartProps): JSX.Element;
-export default LineChart;
+declare const _default: (props: LineChartProps) => import("react/jsx-runtime").JSX.Element;
+export default _default;

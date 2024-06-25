@@ -1,18 +1,21 @@
-import u from "./cori.data.api479.js";
+import a from "./cori.data.api71.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(t, i) {
-  t = u(t) ? t : new Set(t);
-  let e = i, r = 0;
-  for (; t.has(e); )
-    e = i + ++r;
-  return e;
+function E(i, f, t) {
+  const u = t.config.validateStatus;
+  !t.status || !u || u(t.status) ? i(t) : f(new a(
+    "Request failed with status code " + t.status,
+    [a.ERR_BAD_REQUEST, a.ERR_BAD_RESPONSE][Math.floor(t.status / 100) - 4],
+    t.config,
+    t.request,
+    t
+  ));
 }
 export {
-  o as default
+  E as default
 };
 //# sourceMappingURL=cori.data.api381.js.map

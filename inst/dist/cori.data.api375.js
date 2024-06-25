@@ -1,40 +1,40 @@
-import n from "./cori.data.api256.js";
-import p from "./cori.data.api57.js";
-import h from "./cori.data.api477.js";
-import c from "./cori.data.api478.js";
-import C from "./cori.data.api252.js";
-import w from "./cori.data.api60.js";
-import S from "./cori.data.api71.js";
-import b from "./cori.data.api249.js";
+import p from "./cori.data.api70.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const F = (s) => {
-  const e = w({}, s);
-  let { data: l, withXSRFToken: o, xsrfHeaderName: m, xsrfCookieName: f, headers: r, auth: t } = e;
-  e.headers = r = S.from(r), e.url = b(C(e.baseURL, e.url), s.params, s.paramsSerializer), t && r.set(
-    "Authorization",
-    "Basic " + btoa((t.username || "") + ":" + (t.password ? unescape(encodeURIComponent(t.password)) : ""))
-  );
-  let i;
-  if (p.isFormData(l)) {
-    if (n.hasStandardBrowserEnv || n.hasStandardBrowserWebWorkerEnv)
-      r.setContentType(void 0);
-    else if ((i = r.getContentType()) !== !1) {
-      const [a, ...d] = i ? i.split(";").map((u) => u.trim()).filter(Boolean) : [];
-      r.setContentType([a || "multipart/form-data", ...d].join("; "));
-    }
-  }
-  if (n.hasStandardBrowserEnv && (o && p.isFunction(o) && (o = o(e)), o || o !== !1 && h(e.url))) {
-    const a = m && f && c.read(f);
-    a && r.set(m, a);
-  }
-  return e;
+function i(n) {
+  const t = {
+    "!": "%21",
+    "'": "%27",
+    "(": "%28",
+    ")": "%29",
+    "~": "%7E",
+    "%20": "+",
+    "%00": "\0"
+  };
+  return encodeURIComponent(n).replace(/[!'()~]|%20|%00/g, function(r) {
+    return t[r];
+  });
+}
+function a(n, t) {
+  this._pairs = [], n && p(n, this, t);
+}
+const c = a.prototype;
+c.append = function(t, o) {
+  this._pairs.push([t, o]);
+};
+c.toString = function(t) {
+  const o = t ? function(r) {
+    return t.call(this, r, i);
+  } : i;
+  return this._pairs.map(function(e) {
+    return o(e[0]) + "=" + o(e[1]);
+  }, "").join("&");
 };
 export {
-  F as default
+  a as default
 };
 //# sourceMappingURL=cori.data.api375.js.map

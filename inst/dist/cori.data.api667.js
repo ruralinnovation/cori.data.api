@@ -1,52 +1,32 @@
-import { markdownLineEnding as d } from "./cori.data.api469.js";
+import { factorySpace as o } from "./cori.data.api658.js";
+import { markdownSpace as B, markdownLineEnding as c } from "./cori.data.api481.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const m = {
-  name: "codeText",
-  tokenize: E,
-  resolve: y,
-  previous: g
+const q = {
+  name: "thematicBreak",
+  tokenize: p
 };
-function y(e) {
-  let r = e.length - 4, u = 3, t, i;
-  if ((e[u][1].type === "lineEnding" || e[u][1].type === "space") && (e[r][1].type === "lineEnding" || e[r][1].type === "space")) {
-    for (t = u; ++t < r; )
-      if (e[t][1].type === "codeTextData") {
-        e[u][1].type = "codeTextPadding", e[r][1].type = "codeTextPadding", u += 2, r -= 2;
-        break;
-      }
+function p(t, u, m) {
+  let a = 0, e;
+  return k;
+  function k(r) {
+    return t.enter("thematicBreak"), h(r);
   }
-  for (t = u - 1, r++; ++t <= r; )
-    i === void 0 ? t !== r && e[t][1].type !== "lineEnding" && (i = t) : (t === r || e[t][1].type === "lineEnding") && (e[i][1].type = "codeTextData", t !== i + 2 && (e[i][1].end = e[t - 1][1].end, e.splice(i + 2, t - i - 2), r -= t - i - 2, t = i + 2), i = void 0);
-  return e;
-}
-function g(e) {
-  return e !== 96 || this.events[this.events.length - 1][1].type === "characterEscape";
-}
-function E(e, r, u) {
-  let t = 0, i, l;
-  return T;
-  function T(n) {
-    return e.enter("codeText"), e.enter("codeTextSequence"), o(n);
+  function h(r) {
+    return e = r, n(r);
   }
-  function o(n) {
-    return n === 96 ? (e.consume(n), t++, o) : (e.exit("codeTextSequence"), x(n));
+  function n(r) {
+    return r === e ? (t.enter("thematicBreakSequence"), i(r)) : a >= 3 && (r === null || c(r)) ? (t.exit("thematicBreak"), u(r)) : m(r);
   }
-  function x(n) {
-    return n === null ? u(n) : n === 32 ? (e.enter("space"), e.consume(n), e.exit("space"), x) : n === 96 ? (l = e.enter("codeTextSequence"), i = 0, p(n)) : d(n) ? (e.enter("lineEnding"), e.consume(n), e.exit("lineEnding"), x) : (e.enter("codeTextData"), a(n));
-  }
-  function a(n) {
-    return n === null || n === 32 || n === 96 || d(n) ? (e.exit("codeTextData"), x(n)) : (e.consume(n), a);
-  }
-  function p(n) {
-    return n === 96 ? (e.consume(n), i++, p) : i === t ? (e.exit("codeTextSequence"), e.exit("codeText"), r(n)) : (l.type = "codeTextData", a(n));
+  function i(r) {
+    return r === e ? (t.consume(r), a++, i) : (t.exit("thematicBreakSequence"), B(r) ? o(t, n, "whitespace")(r) : n(r));
   }
 }
 export {
-  m as codeText
+  q as thematicBreak
 };
 //# sourceMappingURL=cori.data.api667.js.map

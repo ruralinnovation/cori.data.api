@@ -4,90 +4,27 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const i = (
-  // Note: overloads in JSDoc can’t yet use different `@template`s.
+class e {
   /**
-   * @type {(
-   *   (<Condition extends string>(test: Condition) => (node: unknown, index?: number | null | undefined, parent?: Parent | null | undefined, context?: unknown) => node is Node & {type: Condition}) &
-   *   (<Condition extends Props>(test: Condition) => (node: unknown, index?: number | null | undefined, parent?: Parent | null | undefined, context?: unknown) => node is Node & Condition) &
-   *   (<Condition extends TestFunction>(test: Condition) => (node: unknown, index?: number | null | undefined, parent?: Parent | null | undefined, context?: unknown) => node is Node & Predicate<Condition, Node>) &
-   *   ((test?: null | undefined) => (node?: unknown, index?: number | null | undefined, parent?: Parent | null | undefined, context?: unknown) => node is Node) &
-   *   ((test?: Test) => Check)
-   * )}
+   * @constructor
+   * @param {string} property
+   * @param {string} attribute
    */
-  /**
-   * @param {Test} [test]
-   * @returns {Check}
-   */
-  function(n) {
-    if (n == null)
-      return p;
-    if (typeof n == "function")
-      return c(n);
-    if (typeof n == "object")
-      return Array.isArray(n) ? f(n) : y(n);
-    if (typeof n == "string")
-      return l(n);
-    throw new Error("Expected function, string, or object as test");
-  }
-);
-function f(n) {
-  const e = [];
-  let r = -1;
-  for (; ++r < n.length; )
-    e[r] = i(n[r]);
-  return c(t);
-  function t(...u) {
-    let o = -1;
-    for (; ++o < e.length; )
-      if (e[o].apply(this, u))
-        return !0;
-    return !1;
+  constructor(o, t) {
+    this.property = o, this.attribute = t;
   }
 }
-function y(n) {
-  const e = (
-    /** @type {Record<string, unknown>} */
-    n
-  );
-  return c(r);
-  function r(t) {
-    const u = (
-      /** @type {Record<string, unknown>} */
-      /** @type {unknown} */
-      t
-    );
-    let o;
-    for (o in n)
-      if (u[o] !== e[o])
-        return !1;
-    return !0;
-  }
-}
-function l(n) {
-  return c(e);
-  function e(r) {
-    return r && r.type === n;
-  }
-}
-function c(n) {
-  return e;
-  function e(r, t, u) {
-    return !!(a(r) && n.call(
-      this,
-      r,
-      typeof t == "number" ? t : void 0,
-      u || void 0
-    ));
-  }
-}
-function p() {
-  return !0;
-}
-function a(n) {
-  return n !== null && typeof n == "object" && "type" in n;
-}
+e.prototype.space = null;
+e.prototype.boolean = !1;
+e.prototype.booleanish = !1;
+e.prototype.overloadedBoolean = !1;
+e.prototype.number = !1;
+e.prototype.commaSeparated = !1;
+e.prototype.spaceSeparated = !1;
+e.prototype.commaOrSpaceSeparated = !1;
+e.prototype.mustUseProperty = !1;
+e.prototype.defined = !1;
 export {
-  i as convert
+  e as Info
 };
 //# sourceMappingURL=cori.data.api471.js.map

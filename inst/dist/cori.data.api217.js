@@ -1,17 +1,22 @@
-import r from "./cori.data.api189.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function i(t) {
-  var e = typeof t == "function" ? t : r(t);
-  return this.select(function() {
-    return this.appendChild(e.apply(this, arguments));
-  });
+function r(t) {
+  return function() {
+    var n = this.parentNode;
+    for (var i in this.__transition)
+      if (+i !== t)
+        return;
+    n && n.removeChild(this);
+  };
+}
+function e() {
+  return this.on("end.remove", r(this._id));
 }
 export {
-  i as default
+  e as default
 };
 //# sourceMappingURL=cori.data.api217.js.map

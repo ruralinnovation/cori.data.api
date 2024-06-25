@@ -4,11 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const r = Object.getPrototypeOf(Int8Array);
-function e(t) {
-  return t instanceof r;
+function n(e) {
+  return e instanceof RegExp;
 }
 export {
-  e as default
+  n as default
 };
 //# sourceMappingURL=cori.data.api388.js.map

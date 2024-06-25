@@ -1,19 +1,31 @@
+import { FixedWidthBuilder as o } from "./cori.data.api502.js";
+import { setDuration as s, setDurationSecond as r, setDurationMillisecond as i, setDurationMicrosecond as n, setDurationNanosecond as a } from "./cori.data.api556.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(n, r = (t) => t, c = "") {
-  const t = n.length;
-  if (!t)
-    return "";
-  let o = r(n[0], 0);
-  for (let e = 1; e < t; ++e)
-    o += c + r(n[e], e);
-  return o;
+class e extends o {
 }
+e.prototype._setValue = s;
+class d extends e {
+}
+d.prototype._setValue = r;
+class u extends e {
+}
+u.prototype._setValue = i;
+class l extends e {
+}
+l.prototype._setValue = n;
+class c extends e {
+}
+c.prototype._setValue = a;
 export {
-  u as default
+  e as DurationBuilder,
+  l as DurationMicrosecondBuilder,
+  u as DurationMillisecondBuilder,
+  c as DurationNanosecondBuilder,
+  d as DurationSecondBuilder
 };
 //# sourceMappingURL=cori.data.api614.js.map

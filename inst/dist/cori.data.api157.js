@@ -1,28 +1,31 @@
-import o from "./cori.data.api161.js";
+import o from "./cori.data.api152.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(n, t, i) {
-  var c = o(n), e = c.CustomEvent;
-  typeof e == "function" ? e = new e(t, i) : (e = c.document.createEvent("Event"), i ? (e.initEvent(t, i.bubbles, i.cancelable), e.detail = i.detail) : e.initEvent(t, !1, !1)), n.dispatchEvent(e);
-}
-function f(n, t) {
-  return function() {
-    return u(this, n, t);
+function e(n, r) {
+  return function(t) {
+    return n + t * r;
   };
 }
-function s(n, t) {
-  return function() {
-    return u(this, n, t.apply(this, arguments));
+function i(n, r, t) {
+  return n = Math.pow(n, t), r = Math.pow(r, t) - n, t = 1 / t, function(u) {
+    return Math.pow(n + u * r, t);
   };
 }
-function r(n, t) {
-  return this.each((typeof t == "function" ? s : f)(n, t));
+function a(n) {
+  return (n = +n) == 1 ? f : function(r, t) {
+    return t - r ? i(r, t, n) : o(isNaN(r) ? t : r);
+  };
+}
+function f(n, r) {
+  var t = r - n;
+  return t ? e(n, t) : o(isNaN(n) ? r : n);
 }
 export {
-  r as default
+  f as default,
+  a as gamma
 };
 //# sourceMappingURL=cori.data.api157.js.map

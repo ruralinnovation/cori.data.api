@@ -1,35 +1,65 @@
-import { normalizeUri as s } from "./cori.data.api365.js";
+import { blockquote as r } from "./cori.data.api345.js";
+import { hardBreak as m } from "./cori.data.api346.js";
+import { code as t } from "./cori.data.api347.js";
+import { strikethrough as e } from "./cori.data.api348.js";
+import { emphasis as i } from "./cori.data.api349.js";
+import { footnoteReference as f } from "./cori.data.api350.js";
+import { heading as p } from "./cori.data.api351.js";
+import { html as n } from "./cori.data.api352.js";
+import { imageReference as a } from "./cori.data.api353.js";
+import { image as l } from "./cori.data.api354.js";
+import { inlineCode as d } from "./cori.data.api355.js";
+import { linkReference as h } from "./cori.data.api356.js";
+import { link as c } from "./cori.data.api357.js";
+import { listItem as s } from "./cori.data.api358.js";
+import { list as g } from "./cori.data.api359.js";
+import { paragraph as k } from "./cori.data.api360.js";
+import { root as b } from "./cori.data.api361.js";
+import { strong as u } from "./cori.data.api362.js";
+import { table as R } from "./cori.data.api363.js";
+import { tableRow as x } from "./cori.data.api364.js";
+import { tableCell as B } from "./cori.data.api365.js";
+import { text as C } from "./cori.data.api366.js";
+import { thematicBreak as q } from "./cori.data.api367.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function d(e, r) {
-  const i = typeof e.options.clobberPrefix == "string" ? e.options.clobberPrefix : "user-content-", t = String(r.identifier).toUpperCase(), f = s(t.toLowerCase()), l = e.footnoteOrder.indexOf(t);
-  let n, o = e.footnoteCounts.get(t);
-  o === void 0 ? (o = 0, e.footnoteOrder.push(t), n = e.footnoteOrder.length) : n = l + 1, o += 1, e.footnoteCounts.set(t, o);
-  const p = {
-    type: "element",
-    tagName: "a",
-    properties: {
-      href: "#" + i + "fn-" + f,
-      id: i + "fnref-" + f + (o > 1 ? "-" + o : ""),
-      dataFootnoteRef: !0,
-      ariaDescribedBy: ["footnote-label"]
-    },
-    children: [{ type: "text", value: String(n) }]
-  };
-  e.patch(r, p);
-  const c = {
-    type: "element",
-    tagName: "sup",
-    properties: {},
-    children: [p]
-  };
-  return e.patch(r, c), e.applyData(r, c);
+const V = {
+  blockquote: r,
+  break: m,
+  code: t,
+  delete: e,
+  emphasis: i,
+  footnoteReference: f,
+  heading: p,
+  html: n,
+  imageReference: a,
+  image: l,
+  inlineCode: d,
+  linkReference: h,
+  link: c,
+  listItem: s,
+  list: g,
+  paragraph: k,
+  // @ts-expect-error: root is different, but hard to type.
+  root: b,
+  strong: u,
+  table: R,
+  tableCell: B,
+  tableRow: x,
+  text: C,
+  thematicBreak: q,
+  toml: o,
+  yaml: o,
+  definition: o,
+  footnoteDefinition: o
+};
+function o() {
 }
 export {
-  d as footnoteReference
+  V as handlers
 };
 //# sourceMappingURL=cori.data.api344.js.map

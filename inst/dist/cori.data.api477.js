@@ -1,44 +1,20 @@
-import h from "./cori.data.api57.js";
-import c from "./cori.data.api256.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const f = c.hasStandardBrowserEnv ? (
-  // Standard browser envs have full support of the APIs needed to test
-  // whether the request URL is of the same origin as current location.
-  function() {
-    const o = /(msie|trident)/i.test(navigator.userAgent), t = document.createElement("a");
-    let e;
-    function n(a) {
-      let r = a;
-      return o && (t.setAttribute("href", r), r = t.href), t.setAttribute("href", r), {
-        href: t.href,
-        protocol: t.protocol ? t.protocol.replace(/:$/, "") : "",
-        host: t.host,
-        search: t.search ? t.search.replace(/^\?/, "") : "",
-        hash: t.hash ? t.hash.replace(/^#/, "") : "",
-        hostname: t.hostname,
-        port: t.port,
-        pathname: t.pathname.charAt(0) === "/" ? t.pathname : "/" + t.pathname
-      };
-    }
-    return e = n(window.location.href), function(r) {
-      const s = h.isString(r) ? n(r) : r;
-      return s.protocol === e.protocol && s.host === e.host;
-    };
-  }()
-) : (
-  // Non standard browser envs (web workers, react-native) lack needed support.
-  /* @__PURE__ */ function() {
-    return function() {
-      return !0;
-    };
-  }()
-);
+function s(i, e) {
+  const f = e.referenceType;
+  let l = "]";
+  if (f === "collapsed" ? l += "[]" : f === "full" && (l += "[" + (e.label || e.identifier) + "]"), e.type === "imageReference")
+    return [{ type: "text", value: "![" + e.alt + l }];
+  const t = i.all(e), u = t[0];
+  u && u.type === "text" ? u.value = "[" + u.value : t.unshift({ type: "text", value: "[" });
+  const a = t[t.length - 1];
+  return a && a.type === "text" ? a.value += l : t.push({ type: "text", value: l }), t;
+}
 export {
-  f as default
+  s as revert
 };
 //# sourceMappingURL=cori.data.api477.js.map

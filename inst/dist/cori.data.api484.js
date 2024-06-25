@@ -1,13 +1,12 @@
+import a from "./cori.data.api375.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function t(e) {
-  return e.getUTCHours() === 0 && e.getUTCMinutes() === 0 && e.getUTCSeconds() === 0 && e.getUTCMilliseconds() === 0;
-}
+const e = typeof URLSearchParams < "u" ? URLSearchParams : a;
 export {
-  t as default
+  e as default
 };
 //# sourceMappingURL=cori.data.api484.js.map

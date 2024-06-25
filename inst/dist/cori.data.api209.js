@@ -1,49 +1,46 @@
-import i from "./cori.data.api190.js";
+import u from "./cori.data.api162.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(t) {
-  return function() {
-    this.removeAttribute(t);
+function o(r, n) {
+  return function(t) {
+    this.setAttribute(r, n.call(this, t));
   };
 }
-function u(t) {
-  return function() {
-    this.removeAttributeNS(t.space, t.local);
+function f(r, n) {
+  return function(t) {
+    this.setAttributeNS(r.space, r.local, n.call(this, t));
   };
 }
-function c(t, n) {
-  return function() {
-    this.setAttribute(t, n);
-  };
-}
-function s(t, n) {
-  return function() {
-    this.setAttributeNS(t.space, t.local, n);
-  };
-}
-function a(t, n) {
-  return function() {
-    var e = n.apply(this, arguments);
-    e == null ? this.removeAttribute(t) : this.setAttribute(t, e);
-  };
-}
-function l(t, n) {
-  return function() {
-    var e = n.apply(this, arguments);
-    e == null ? this.removeAttributeNS(t.space, t.local) : this.setAttributeNS(t.space, t.local, e);
-  };
-}
-function h(t, n) {
-  var e = i(t);
-  if (arguments.length < 2) {
-    var r = this.node();
-    return e.local ? r.getAttributeNS(e.space, e.local) : r.getAttribute(e);
+function s(r, n) {
+  var t, e;
+  function a() {
+    var i = n.apply(this, arguments);
+    return i !== e && (t = (e = i) && f(r, i)), t;
   }
-  return this.each((n == null ? e.local ? u : o : typeof n == "function" ? e.local ? l : a : e.local ? s : c)(e, n));
+  return a._value = n, a;
+}
+function l(r, n) {
+  var t, e;
+  function a() {
+    var i = n.apply(this, arguments);
+    return i !== e && (t = (e = i) && o(r, i)), t;
+  }
+  return a._value = n, a;
+}
+function h(r, n) {
+  var t = "attr." + r;
+  if (arguments.length < 2)
+    return (t = this.tween(t)) && t._value;
+  if (n == null)
+    return this.tween(t, null);
+  if (typeof n != "function")
+    throw new Error();
+  var e = u(r);
+  return this.tween(t, (e.local ? s : l)(e, n));
 }
 export {
   h as default

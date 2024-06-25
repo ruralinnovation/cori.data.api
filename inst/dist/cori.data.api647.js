@@ -1,19 +1,36 @@
+import { SIZE_PREFIX_LENGTH as s } from "./cori.data.api642.js";
+import "./cori.data.api570.js";
+import "./cori.data.api571.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function c(o, e, r) {
-  const i = [];
-  let n = -1;
-  for (; ++n < o.length; ) {
-    const l = o[n].resolveAll;
-    l && !i.includes(l) && (e = l(e, r), i.push(l));
+class r {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  return e;
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
+  }
+  static getRootAsLargeBinary(t, i) {
+    return (i || new r()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static getSizePrefixedRootAsLargeBinary(t, i) {
+    return t.setPosition(t.position() + s), (i || new r()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static startLargeBinary(t) {
+    t.startObject(0);
+  }
+  static endLargeBinary(t) {
+    return t.endObject();
+  }
+  static createLargeBinary(t) {
+    return r.startLargeBinary(t), r.endLargeBinary(t);
+  }
 }
 export {
-  c as resolveAll
+  r as LargeBinary
 };
 //# sourceMappingURL=cori.data.api647.js.map

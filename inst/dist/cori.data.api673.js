@@ -1,17 +1,21 @@
-import n from "./cori.data.api418.js";
+import { factorySpace as t } from "./cori.data.api658.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(f, i = 0, m = f.length) {
-  let t = m ? f[i++] : n;
-  for (let r = i; r < m; ++r)
-    t < f[r] && (t = f[r]);
-  return t;
+const g = {
+  name: "lineEnding",
+  tokenize: o
+};
+function o(n, i) {
+  return e;
+  function e(r) {
+    return n.enter("lineEnding"), n.consume(r), n.exit("lineEnding"), t(n, i, "linePrefix");
+  }
 }
 export {
-  e as default
+  g as lineEnding
 };
 //# sourceMappingURL=cori.data.api673.js.map

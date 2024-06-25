@@ -4,11 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const t = /^([-+]\d{2})?\d{4}(-\d{2}(-\d{2})?)?(T\d{2}:\d{2}(:\d{2}(\.\d{3})?)?(Z|[-+]\d{2}:\d{2})?)?$/;
-function a(d) {
-  return d.match(t) && !isNaN(Date.parse(d));
+const r = Object.getPrototypeOf(Int8Array);
+function e(t) {
+  return t instanceof r;
 }
 export {
-  a as default
+  e as default
 };
 //# sourceMappingURL=cori.data.api397.js.map

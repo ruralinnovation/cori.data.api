@@ -1,39 +1,22 @@
-import { pointStart as a, pointEnd as h } from "./cori.data.api236.js";
+import { normalizeUri as e } from "./cori.data.api371.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function m(t, e) {
-  const n = t.all(e), i = n.shift(), p = [];
-  if (i) {
-    const r = {
-      type: "element",
-      tagName: "thead",
-      properties: {},
-      children: t.wrap([i], !0)
-    };
-    t.patch(e.children[0], r), p.push(r);
-  }
-  if (n.length > 0) {
-    const r = {
-      type: "element",
-      tagName: "tbody",
-      properties: {},
-      children: t.wrap(n, !0)
-    }, c = a(e.children[1]), o = h(e.children[e.children.length - 1]);
-    c && o && (r.position = { start: c, end: o }), p.push(r);
-  }
-  const l = {
+function a(l, t) {
+  const i = { href: e(t.url) };
+  t.title !== null && t.title !== void 0 && (i.title = t.title);
+  const r = {
     type: "element",
-    tagName: "table",
-    properties: {},
-    children: t.wrap(p, !0)
+    tagName: "a",
+    properties: i,
+    children: l.all(t)
   };
-  return t.patch(e, l), t.applyData(e, l);
+  return l.patch(t, r), l.applyData(t, r);
 }
 export {
-  m as table
+  a as link
 };
 //# sourceMappingURL=cori.data.api357.js.map

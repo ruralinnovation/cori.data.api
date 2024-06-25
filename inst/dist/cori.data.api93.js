@@ -1,28 +1,19 @@
-import i from "./cori.data.api261.js";
-import a from "./cori.data.api94.js";
-import r from "./cori.data.api262.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const d = {
-  "%": (o, t) => (o * 100).toFixed(t),
-  b: (o) => Math.round(o).toString(2),
-  c: (o) => o + "",
-  d: i,
-  e: (o, t) => o.toExponential(t),
-  f: (o, t) => o.toFixed(t),
-  g: (o, t) => o.toPrecision(t),
-  o: (o) => Math.round(o).toString(8),
-  p: (o, t) => r(o * 100, t),
-  r,
-  s: a,
-  X: (o) => Math.round(o).toString(16).toUpperCase(),
-  x: (o) => Math.round(o).toString(16)
-};
+function o() {
+  for (var e = this._groups, r = 0, a = e.length; r < a; ++r)
+    for (var n = e[r], t = 0, f = n.length; t < f; ++t) {
+      var l = n[t];
+      if (l)
+        return l;
+    }
+  return null;
+}
 export {
-  d as default
+  o as default
 };
 //# sourceMappingURL=cori.data.api93.js.map

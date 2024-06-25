@@ -4,9 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const o = new TextDecoder("utf-8"), d = (e) => o.decode(e), c = new TextEncoder(), n = (e) => c.encode(e);
+function t(r, e) {
+  return r.create({ order: e });
+}
 export {
-  d as decodeUtf8,
-  n as encodeUtf8
+  t as default
 };
 //# sourceMappingURL=cori.data.api538.js.map

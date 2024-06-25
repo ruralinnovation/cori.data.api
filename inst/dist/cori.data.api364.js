@@ -1,18 +1,28 @@
-import { deserialize as t } from "./cori.data.api467.js";
-import { serialize as u } from "./cori.data.api468.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const s = typeof structuredClone == "function" ? (
-  /* c8 ignore start */
-  (r, e) => e && ("json" in e || "lossy" in e) ? t(u(r, e)) : structuredClone(r)
-) : (r, e) => t(u(r, e));
+function f(e, l, n) {
+  const h = n ? n.children : void 0, p = (h ? h.indexOf(l) : 1) === 0 ? "th" : "td", c = n && n.type === "table" ? n.align : void 0, g = c ? c.length : l.children.length;
+  let r = -1;
+  const d = [];
+  for (; ++r < g; ) {
+    const i = l.children[r], s = {}, a = c ? c[r] : void 0;
+    a && (s.align = a);
+    let t = { type: "element", tagName: p, properties: s, children: [] };
+    i && (t.children = e.all(i), e.patch(i, t), t = e.applyData(i, t)), d.push(t);
+  }
+  const o = {
+    type: "element",
+    tagName: "tr",
+    properties: {},
+    children: e.wrap(d, !0)
+  };
+  return e.patch(l, o), e.applyData(l, o);
+}
 export {
-  s as default,
-  t as deserialize,
-  u as serialize
+  f as tableRow
 };
 //# sourceMappingURL=cori.data.api364.js.map

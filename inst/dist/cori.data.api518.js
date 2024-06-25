@@ -1,30 +1,14 @@
-import { rowLookup as g } from "./cori.data.api613.js";
-import { aggregateGet as _ } from "./cori.data.api528.js";
-import $ from "./cori.data.api273.js";
-import k from "./cori.data.api418.js";
-import w from "./cori.data.api614.js";
-import h from "./cori.data.api482.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function S(r, a, [n, p], { names: c, exprs: s, ops: d }) {
-  const m = $(r), i = r.totalRows();
-  c.forEach((o) => m.add(o, Array(i).fill(k)));
-  const u = g(a, p), l = h(
-    ["lr", "rr", "data"],
-    "{" + w(c, (o, t) => `_[${t}][lr] = $[${t}](rr, data);`) + "}",
-    c.map((o) => m.data[o]),
-    _(a, d, s)
-  ), e = a.data();
-  return r.scan((o, t) => {
-    const f = u.get(n(o, t));
-    f >= 0 && l(o, f, e);
-  }), r.create(m);
-}
+var o;
+(function(c) {
+  c[c.NONE = 0] = "NONE", c[c.Schema = 1] = "Schema", c[c.DictionaryBatch = 2] = "DictionaryBatch", c[c.RecordBatch = 3] = "RecordBatch", c[c.Tensor = 4] = "Tensor", c[c.SparseTensor = 5] = "SparseTensor";
+})(o || (o = {}));
 export {
-  S as default
+  o as MessageHeader
 };
 //# sourceMappingURL=cori.data.api518.js.map

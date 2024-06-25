@@ -1,19 +1,20 @@
-import { Selection as y } from "./cori.data.api124.js";
+import { formatDecimalParts as f } from "./cori.data.api269.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(t) {
-  for (var s = t.selection ? t.selection() : t, n = this._groups, f = s._groups, a = n.length, c = f.length, _ = Math.min(a, c), l = new Array(a), e = 0; e < _; ++e)
-    for (var i = n[e], v = f[e], o = i.length, w = l[e] = new Array(o), h, r = 0; r < o; ++r)
-      (h = i[r] || v[r]) && (w[r] = h);
-  for (; e < a; ++e)
-    l[e] = n[e];
-  return new y(l, this._parents);
+var m;
+function l(a, i) {
+  var e = f(a, i);
+  if (!e)
+    return a + "";
+  var t = e[0], o = e[1], r = o - (m = Math.max(-8, Math.min(8, Math.floor(o / 3))) * 3) + 1, n = t.length;
+  return r === n ? t : r > n ? t + new Array(r - n + 1).join("0") : r > 0 ? t.slice(0, r) + "." + t.slice(r) : "0." + new Array(1 - r).join("0") + f(a, Math.max(0, i + r - 1))[0];
 }
 export {
-  p as default
+  l as default,
+  m as prefixExponent
 };
 //# sourceMappingURL=cori.data.api134.js.map

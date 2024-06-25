@@ -1,19 +1,25 @@
-import { merge as m } from "./cori.data.api330.js";
-import { xlink as o } from "./cori.data.api331.js";
-import { xml as r } from "./cori.data.api332.js";
-import { xmlns as t } from "./cori.data.api333.js";
-import { aria as i } from "./cori.data.api334.js";
-import { html as s } from "./cori.data.api335.js";
-import { svg as p } from "./cori.data.api336.js";
+import { STARTING as u, ENDING as s, ENDED as c } from "./cori.data.api229.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const x = m([r, o, t, i, s], "html"), e = m([r, o, t, i, p], "svg");
+function o(e, i) {
+  var r = e.__transition, t, a, n = !0, l;
+  if (r) {
+    i = i == null ? null : i + "";
+    for (l in r) {
+      if ((t = r[l]).name !== i) {
+        n = !1;
+        continue;
+      }
+      a = t.state > u && t.state < s, t.state = c, t.timer.stop(), t.on.call(a ? "interrupt" : "cancel", e, e.__data__, t.index, t.group), delete r[l];
+    }
+    n && delete e.__transition;
+  }
+}
 export {
-  x as html,
-  e as svg
+  o as default
 };
 //# sourceMappingURL=cori.data.api228.js.map

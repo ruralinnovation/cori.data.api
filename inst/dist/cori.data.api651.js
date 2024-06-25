@@ -1,50 +1,36 @@
-import { factorySpace as h } from "./cori.data.api644.js";
-import { markdownLineEnding as o } from "./cori.data.api469.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api642.js";
+import "./cori.data.api570.js";
+import "./cori.data.api571.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const P = {
-  name: "codeIndented",
-  tokenize: p
-}, m = {
-  tokenize: d,
-  partial: !0
-};
-function p(e, f, l) {
-  const r = this;
-  return u;
-  function u(n) {
-    return e.enter("codeIndented"), h(e, s, "linePrefix", 5)(n);
+class s {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  function s(n) {
-    const a = r.events[r.events.length - 1];
-    return a && a[1].type === "linePrefix" && a[2].sliceSerialize(a[1], !0).length >= 4 ? t(n) : l(n);
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  function t(n) {
-    return n === null ? x(n) : o(n) ? e.attempt(m, t, x)(n) : (e.enter("codeFlowValue"), i(n));
+  static getRootAsList(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  function i(n) {
-    return n === null || o(n) ? (e.exit("codeFlowValue"), t(n)) : (e.consume(n), i);
+  static getSizePrefixedRootAsList(t, i) {
+    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  function x(n) {
-    return e.exit("codeIndented"), f(n);
+  static startList(t) {
+    t.startObject(0);
   }
-}
-function d(e, f, l) {
-  const r = this;
-  return u;
-  function u(t) {
-    return r.parser.lazy[r.now().line] ? l(t) : o(t) ? (e.enter("lineEnding"), e.consume(t), e.exit("lineEnding"), u) : h(e, s, "linePrefix", 5)(t);
+  static endList(t) {
+    return t.endObject();
   }
-  function s(t) {
-    const i = r.events[r.events.length - 1];
-    return i && i[1].type === "linePrefix" && i[2].sliceSerialize(i[1], !0).length >= 4 ? f(t) : o(t) ? u(t) : l(t);
+  static createList(t) {
+    return s.startList(t), s.endList(t);
   }
 }
 export {
-  P as codeIndented
+  s as List
 };
 //# sourceMappingURL=cori.data.api651.js.map

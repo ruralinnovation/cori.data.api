@@ -1,36 +1,43 @@
-import { SIZE_PREFIX_LENGTH as s } from "./cori.data.api628.js";
-import "./cori.data.api556.js";
-import "./cori.data.api557.js";
+import { splice as a } from "./cori.data.api657.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class r {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
-  }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
-  }
-  static getRootAsLargeBinary(t, i) {
-    return (i || new r()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsLargeBinary(t, i) {
-    return t.setPosition(t.position() + s), (i || new r()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static startLargeBinary(t) {
-    t.startObject(0);
-  }
-  static endLargeBinary(t) {
-    return t.endObject();
-  }
-  static createLargeBinary(t) {
-    return r.startLargeBinary(t), r.endLargeBinary(t);
+const s = {}.hasOwnProperty;
+function d(t) {
+  const e = {};
+  let n = -1;
+  for (; ++n < t.length; )
+    l(e, t[n]);
+  return e;
+}
+function l(t, e) {
+  let n;
+  for (n in e) {
+    const i = (s.call(t, n) ? t[n] : void 0) || (t[n] = {}), f = e[n];
+    let o;
+    if (f)
+      for (o in f) {
+        s.call(i, o) || (i[o] = []);
+        const r = f[o];
+        h(
+          // @ts-expect-error Looks like a list.
+          i[o],
+          Array.isArray(r) ? r : r ? [r] : []
+        );
+      }
   }
 }
+function h(t, e) {
+  let n = -1;
+  const c = [];
+  for (; ++n < e.length; )
+    (e[n].add === "after" ? t : c).push(e[n]);
+  a(t, 0, 0, c);
+}
 export {
-  r as LargeBinary
+  d as combineExtensions
 };
 //# sourceMappingURL=cori.data.api633.js.map

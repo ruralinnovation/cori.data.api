@@ -1,14 +1,29 @@
+import { valueToString as i } from "./cori.data.api562.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var c;
-(function(V) {
-  V[V.V1 = 0] = "V1", V[V.V2 = 1] = "V2", V[V.V3 = 2] = "V3", V[V.V4 = 3] = "V4", V[V.V5 = 4] = "V5";
-})(c || (c = {}));
+function a(n) {
+  if (!n || n.length <= 0)
+    return function(f) {
+      return !0;
+    };
+  let e = "";
+  const r = n.filter((t) => t === t);
+  return r.length > 0 && (e = `
+    switch (x) {${r.map((t) => `
+        case ${o(t)}:`).join("")}
+            return false;
+    }`), n.length !== r.length && (e = `if (x !== x) return false;
+${e}`), new Function("x", `${e}
+return true;`);
+}
+function o(n) {
+  return typeof n != "bigint" ? i(n) : `${i(n)}n`;
+}
 export {
-  c as MetadataVersion
+  a as createIsValidFunction
 };
 //# sourceMappingURL=cori.data.api505.js.map

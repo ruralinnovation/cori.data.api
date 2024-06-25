@@ -4,21 +4,20 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class t {
-  /**
-   * @constructor
-   * @param {Properties} property
-   * @param {Normal} normal
-   * @param {string} [space]
-   */
-  constructor(p, r, o) {
-    this.property = p, this.normal = r, o && (this.space = o);
-  }
+function n(r, _) {
+  const e = Number.parseInt(r, _);
+  return (
+    // C0 except for HT, LF, FF, CR, space.
+    e < 9 || e === 11 || e > 13 && e < 32 || // Control character (DEL) of C0, and C1 controls.
+    e > 126 && e < 160 || // Lone high surrogates and low surrogates.
+    e > 55295 && e < 57344 || // Noncharacters.
+    e > 64975 && e < 65008 || /* eslint-disable no-bitwise */
+    (e & 65535) === 65535 || (e & 65535) === 65534 || /* eslint-enable no-bitwise */
+    // Out of range
+    e > 1114111 ? "�" : String.fromCodePoint(e)
+  );
 }
-t.prototype.property = {};
-t.prototype.normal = {};
-t.prototype.space = null;
 export {
-  t as Schema
+  n as decodeNumericCharacterReference
 };
 //# sourceMappingURL=cori.data.api455.js.map

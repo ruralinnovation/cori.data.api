@@ -1,33 +1,24 @@
-import { factorySpace as k } from "./cori.data.api644.js";
-import { markdownLineEnding as E } from "./cori.data.api469.js";
+import { markdownLineEnding as o } from "./cori.data.api481.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function B(r, S, m, x, u, a) {
-  let i;
-  return h;
-  function h(n) {
-    return n === 34 || n === 39 || n === 40 ? (r.enter(x), r.enter(u), r.consume(n), r.exit(u), i = n === 40 ? 41 : n, g) : m(n);
+const p = {
+  name: "hardBreakEscape",
+  tokenize: k
+};
+function k(e, n, a) {
+  return t;
+  function t(r) {
+    return e.enter("hardBreakEscape"), e.consume(r), i;
   }
-  function g(n) {
-    return n === i ? (r.enter(u), r.consume(n), r.exit(u), r.exit(x), S) : (r.enter(a), l(n));
-  }
-  function l(n) {
-    return n === i ? (r.exit(a), g(i)) : n === null ? m(n) : E(n) ? (r.enter("lineEnding"), r.consume(n), r.exit("lineEnding"), k(r, l, "linePrefix")) : (r.enter("chunkString", {
-      contentType: "string"
-    }), t(n));
-  }
-  function t(n) {
-    return n === i || n === null || E(n) ? (r.exit("chunkString"), l(n)) : (r.consume(n), n === 92 ? b : t);
-  }
-  function b(n) {
-    return n === i || n === 92 ? (r.consume(n), t) : t(n);
+  function i(r) {
+    return o(r) ? (e.exit("hardBreakEscape"), n(r)) : a(r);
   }
 }
 export {
-  B as factoryTitle
+  p as hardBreakEscape
 };
 //# sourceMappingURL=cori.data.api679.js.map

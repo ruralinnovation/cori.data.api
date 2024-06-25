@@ -1,44 +1,40 @@
-import g from "./cori.data.api481.js";
+import n from "./cori.data.api262.js";
+import p from "./cori.data.api60.js";
+import h from "./cori.data.api489.js";
+import c from "./cori.data.api490.js";
+import C from "./cori.data.api258.js";
+import w from "./cori.data.api63.js";
+import S from "./cori.data.api74.js";
+import b from "./cori.data.api255.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const e = (t) => (t < 10 ? "0" : "") + t, C = (t) => t < 0 ? "-" + g(-t, 6) : t > 9999 ? "+" + g(t, 6) : g(t, 4);
-function s(t, n, T, o, a, i, f, l, u) {
-  const r = l ? "Z" : "";
-  return C(t) + "-" + e(n + 1) + "-" + e(T) + (!u || f ? "T" + e(o) + ":" + e(a) + ":" + e(i) + "." + g(f, 3) + r : i ? "T" + e(o) + ":" + e(a) + ":" + e(i) + r : a || o || !l ? "T" + e(o) + ":" + e(a) + r : "");
-}
-function c(t, n) {
-  return isNaN(t) ? "Invalid Date" : s(
-    t.getFullYear(),
-    t.getMonth(),
-    t.getDate(),
-    t.getHours(),
-    t.getMinutes(),
-    t.getSeconds(),
-    t.getMilliseconds(),
-    !1,
-    n
+const F = (s) => {
+  const e = w({}, s);
+  let { data: l, withXSRFToken: o, xsrfHeaderName: m, xsrfCookieName: f, headers: r, auth: t } = e;
+  e.headers = r = S.from(r), e.url = b(C(e.baseURL, e.url), s.params, s.paramsSerializer), t && r.set(
+    "Authorization",
+    "Basic " + btoa((t.username || "") + ":" + (t.password ? unescape(encodeURIComponent(t.password)) : ""))
   );
-}
-function D(t, n) {
-  return isNaN(t) ? "Invalid Date" : s(
-    t.getUTCFullYear(),
-    t.getUTCMonth(),
-    t.getUTCDate(),
-    t.getUTCHours(),
-    t.getUTCMinutes(),
-    t.getUTCSeconds(),
-    t.getUTCMilliseconds(),
-    !0,
-    n
-  );
-}
+  let i;
+  if (p.isFormData(l)) {
+    if (n.hasStandardBrowserEnv || n.hasStandardBrowserWebWorkerEnv)
+      r.setContentType(void 0);
+    else if ((i = r.getContentType()) !== !1) {
+      const [a, ...d] = i ? i.split(";").map((u) => u.trim()).filter(Boolean) : [];
+      r.setContentType([a || "multipart/form-data", ...d].join("; "));
+    }
+  }
+  if (n.hasStandardBrowserEnv && (o && p.isFunction(o) && (o = o(e)), o || o !== !1 && h(e.url))) {
+    const a = m && f && c.read(f);
+    a && r.set(m, a);
+  }
+  return e;
+};
 export {
-  c as formatDate,
-  s as formatISO,
-  D as formatUTCDate
+  F as default
 };
 //# sourceMappingURL=cori.data.api384.js.map

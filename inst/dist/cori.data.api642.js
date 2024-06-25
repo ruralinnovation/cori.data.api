@@ -1,37 +1,14 @@
-import s from "./cori.data.api640.js";
-import i from "./cori.data.api672.js";
-import r from "./cori.data.api673.js";
-import e from "./cori.data.api674.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class u {
-  constructor(t) {
-    this._values = t || [], this._sorted = null, this._start = 0;
-  }
-  values(t) {
-    return this._start && (this._values = this._values.slice(this._start), this._start = 0), t ? this._values.slice() : this._values;
-  }
-  add(t) {
-    this._values.push(t), this._sorted = null;
-  }
-  rem() {
-    this._start += 1, this._sorted = null;
-  }
-  min() {
-    return this._sorted && this._sorted.length ? this._sorted[0] : i(this._values, this._start);
-  }
-  max() {
-    return this._sorted && this._sorted.length ? this._sorted[this._sorted.length - 1] : r(this._values, this._start);
-  }
-  quantile(t) {
-    return this._sorted || (this._sorted = this.values(!0), this._sorted.sort(s)), e(this._sorted, t);
-  }
-}
+const E = 2, I = 4, _ = 4, o = 4;
 export {
-  u as default
+  _ as FILE_IDENTIFIER_LENGTH,
+  I as SIZEOF_INT,
+  E as SIZEOF_SHORT,
+  o as SIZE_PREFIX_LENGTH
 };
 //# sourceMappingURL=cori.data.api642.js.map

@@ -1,51 +1,186 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api628.js";
-import "./cori.data.api556.js";
-import "./cori.data.api557.js";
-import { TimeUnit as o } from "./cori.data.api552.js";
+import { Visitor as i } from "./cori.data.api560.js";
+import { BinaryBuilder as r } from "./cori.data.api616.js";
+import { LargeBinaryBuilder as t } from "./cori.data.api618.js";
+import { BoolBuilder as e } from "./cori.data.api602.js";
+import { DateBuilder as n, DateDayBuilder as o, DateMillisecondBuilder as u } from "./cori.data.api604.js";
+import { DecimalBuilder as s } from "./cori.data.api605.js";
+import { DictionaryBuilder as l } from "./cori.data.api606.js";
+import { FixedSizeBinaryBuilder as d } from "./cori.data.api607.js";
+import { FixedSizeListBuilder as m } from "./cori.data.api620.js";
+import { FloatBuilder as a, Float16Builder as B, Float32Builder as v, Float64Builder as c } from "./cori.data.api608.js";
+import { IntervalBuilder as p, IntervalDayTimeBuilder as f, IntervalYearMonthBuilder as D } from "./cori.data.api613.js";
+import { DurationBuilder as T, DurationSecondBuilder as M, DurationMillisecondBuilder as U, DurationMicrosecondBuilder as I, DurationNanosecondBuilder as S } from "./cori.data.api614.js";
+import { IntBuilder as y, Int8Builder as F, Int16Builder as L, Int32Builder as N, Int64Builder as x, Uint8Builder as g, Uint16Builder as z, Uint32Builder as h, Uint64Builder as Y } from "./cori.data.api610.js";
+import { ListBuilder as w } from "./cori.data.api619.js";
+import { MapBuilder as C } from "./cori.data.api621.js";
+import { NullBuilder as G } from "./cori.data.api603.js";
+import { StructBuilder as V } from "./cori.data.api622.js";
+import { TimestampBuilder as b, TimestampSecondBuilder as j, TimestampMillisecondBuilder as k, TimestampMicrosecondBuilder as q, TimestampNanosecondBuilder as A } from "./cori.data.api612.js";
+import { TimeBuilder as E, TimeSecondBuilder as H, TimeMillisecondBuilder as J, TimeMicrosecondBuilder as K, TimeNanosecondBuilder as O } from "./cori.data.api611.js";
+import { UnionBuilder as P, DenseUnionBuilder as Q, SparseUnionBuilder as R } from "./cori.data.api623.js";
+import { Utf8Builder as W } from "./cori.data.api615.js";
+import { LargeUtf8Builder as X } from "./cori.data.api617.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
+class Z extends i {
+  visitNull() {
+    return G;
   }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
+  visitBool() {
+    return e;
   }
-  static getRootAsTimestamp(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  visitInt() {
+    return y;
   }
-  static getSizePrefixedRootAsTimestamp(t, i) {
-    return t.setPosition(t.position() + n), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  visitInt8() {
+    return F;
   }
-  unit() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : o.SECOND;
+  visitInt16() {
+    return L;
   }
-  timezone(t) {
-    const i = this.bb.__offset(this.bb_pos, 6);
-    return i ? this.bb.__string(this.bb_pos + i, t) : null;
+  visitInt32() {
+    return N;
   }
-  static startTimestamp(t) {
-    t.startObject(2);
+  visitInt64() {
+    return x;
   }
-  static addUnit(t, i) {
-    t.addFieldInt16(0, i, o.SECOND);
+  visitUint8() {
+    return g;
   }
-  static addTimezone(t, i) {
-    t.addFieldOffset(1, i, 0);
+  visitUint16() {
+    return z;
   }
-  static endTimestamp(t) {
-    return t.endObject();
+  visitUint32() {
+    return h;
   }
-  static createTimestamp(t, i, e) {
-    return s.startTimestamp(t), s.addUnit(t, i), s.addTimezone(t, e), s.endTimestamp(t);
+  visitUint64() {
+    return Y;
+  }
+  visitFloat() {
+    return a;
+  }
+  visitFloat16() {
+    return B;
+  }
+  visitFloat32() {
+    return v;
+  }
+  visitFloat64() {
+    return c;
+  }
+  visitUtf8() {
+    return W;
+  }
+  visitLargeUtf8() {
+    return X;
+  }
+  visitBinary() {
+    return r;
+  }
+  visitLargeBinary() {
+    return t;
+  }
+  visitFixedSizeBinary() {
+    return d;
+  }
+  visitDate() {
+    return n;
+  }
+  visitDateDay() {
+    return o;
+  }
+  visitDateMillisecond() {
+    return u;
+  }
+  visitTimestamp() {
+    return b;
+  }
+  visitTimestampSecond() {
+    return j;
+  }
+  visitTimestampMillisecond() {
+    return k;
+  }
+  visitTimestampMicrosecond() {
+    return q;
+  }
+  visitTimestampNanosecond() {
+    return A;
+  }
+  visitTime() {
+    return E;
+  }
+  visitTimeSecond() {
+    return H;
+  }
+  visitTimeMillisecond() {
+    return J;
+  }
+  visitTimeMicrosecond() {
+    return K;
+  }
+  visitTimeNanosecond() {
+    return O;
+  }
+  visitDecimal() {
+    return s;
+  }
+  visitList() {
+    return w;
+  }
+  visitStruct() {
+    return V;
+  }
+  visitUnion() {
+    return P;
+  }
+  visitDenseUnion() {
+    return Q;
+  }
+  visitSparseUnion() {
+    return R;
+  }
+  visitDictionary() {
+    return l;
+  }
+  visitInterval() {
+    return p;
+  }
+  visitIntervalDayTime() {
+    return f;
+  }
+  visitIntervalYearMonth() {
+    return D;
+  }
+  visitDuration() {
+    return T;
+  }
+  visitDurationSecond() {
+    return M;
+  }
+  visitDurationMillisecond() {
+    return U;
+  }
+  visitDurationMicrosecond() {
+    return I;
+  }
+  visitDurationNanosecond() {
+    return S;
+  }
+  visitFixedSizeList() {
+    return m;
+  }
+  visitMap() {
+    return C;
   }
 }
+const Ii = new Z();
 export {
-  s as Timestamp
+  Z as GetBuilderCtor,
+  Ii as instance
 };
 //# sourceMappingURL=cori.data.api575.js.map

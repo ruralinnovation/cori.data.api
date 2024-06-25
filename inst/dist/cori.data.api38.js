@@ -1,22 +1,28 @@
-import o from "./cori.data.api87.js";
+import { cloneNode as d } from "./cori.data.api140.js";
+import { embedImages as l } from "./cori.data.api141.js";
+import { applyStyle as w } from "./cori.data.api142.js";
+import { embedWebFonts as u } from "./cori.data.api143.js";
+import { getImageSize as m, createImage as f, getPixelRatio as v, checkCanvasDimensions as y, nodeToDataURL as b } from "./cori.data.api144.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var r, t, f;
-e({
-  thousands: ",",
-  grouping: [3],
-  currency: ["$", ""]
-});
-function e(a) {
-  return r = o(a), t = r.format, f = r.formatPrefix, r;
+async function x(e, t = {}) {
+  const { width: i, height: n } = m(e, t), c = await d(e, t, !0);
+  return await u(c, t), await l(c, t), w(c, t), await b(c, i, n);
+}
+async function C(e, t = {}) {
+  const { width: i, height: n } = m(e, t), c = await x(e, t), o = await f(c), a = document.createElement("canvas"), r = a.getContext("2d"), h = t.pixelRatio || v(), s = t.canvasWidth || i, g = t.canvasHeight || n;
+  return a.width = s * h, a.height = g * h, t.skipAutoScale || y(a), a.style.width = `${s}`, a.style.height = `${g}`, t.backgroundColor && (r.fillStyle = t.backgroundColor, r.fillRect(0, 0, a.width, a.height)), r.drawImage(o, 0, 0, a.width, a.height), a;
+}
+async function W(e, t = {}) {
+  return (await C(e, t)).toDataURL();
 }
 export {
-  e as default,
-  t as format,
-  f as formatPrefix
+  C as toCanvas,
+  W as toPng,
+  x as toSvg
 };
 //# sourceMappingURL=cori.data.api38.js.map

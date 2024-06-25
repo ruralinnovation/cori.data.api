@@ -1,62 +1,101 @@
-import { indexLookup as J } from "./cori.data.api613.js";
-import q from "./cori.data.api273.js";
-import v from "./cori.data.api614.js";
-import z from "./cori.data.api306.js";
-import B from "./cori.data.api482.js";
+import { __awaiter as t } from "./cori.data.api500.js";
+import i from "./cori.data.api499.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function C(o, e) {
-  const c = ["i", "a", "j", "b"];
-  return B(
-    c,
-    "{" + v(o, (s, f) => `_${f}.push($${f}(${c}));`) + "}",
-    o,
-    e
-  );
-}
-function O(o, e, c, { names: s, exprs: f }, g = {}) {
-  const a = o.data(), h = o.indices(!1), m = h.length, p = new Int32Array(m), i = e.data(), r = e.indices(!1), n = r.length, l = new Int32Array(n), d = s.length, j = q(), S = Array(d), w = Array(d);
-  for (let t = 0; t < s.length; ++t)
-    S[t] = j.add(s[t], []), w[t] = f[t];
-  const u = C(S, w);
-  if ((z(c) ? E : D)(u, c, a, i, h, r, p, l, m, n), g.left)
-    for (let t = 0; t < m; ++t)
-      p[t] || u(h[t], a, -1, i);
-  if (g.right)
-    for (let t = 0; t < n; ++t)
-      l[t] || u(-1, a, r[t], i);
-  return o.create(j.new());
-}
-function D(o, e, c, s, f, g, a, h, m, p) {
-  for (let i = 0; i < m; ++i) {
-    const r = f[i];
-    for (let n = 0; n < p; ++n) {
-      const l = g[n];
-      e(r, c, l, s) && (o(r, c, l, s), a[i] = 1, h[n] = 1);
-    }
+const s = Object.freeze({ done: !0, value: void 0 });
+class n {
+  tee() {
+    return this._getDOMStream().tee();
+  }
+  pipe(e, r) {
+    return this._getNodeStream().pipe(e, r);
+  }
+  pipeTo(e, r) {
+    return this._getDOMStream().pipeTo(e, r);
+  }
+  pipeThrough(e, r) {
+    return this._getDOMStream().pipeThrough(e, r);
+  }
+  _getDOMStream() {
+    return this._DOMStream || (this._DOMStream = this.toDOMStream());
+  }
+  _getNodeStream() {
+    return this._nodeStream || (this._nodeStream = this.toNodeStream());
   }
 }
-function E(o, [e, c], s, f, g, a, h, m, p, i) {
-  let r, n, l, d, j, S, w, u, H = o;
-  p >= i ? (r = s, n = e, l = h, d = g, j = f, S = c, w = m, u = a) : (r = f, n = c, l = m, d = a, j = s, S = e, w = h, u = g, H = (y, x, A, $) => o(A, $, y, x));
-  const t = J(u, j, S), I = d.length;
-  for (let y = 0; y < I; ++y) {
-    const x = d[y], A = t.get(n(x, r));
-    if (A) {
-      const $ = A.length;
-      for (let _ = 0; _ < $; ++_) {
-        const k = A[_];
-        H(x, r, u[k], j), w[k] = 1;
-      }
-      l[y] = 1;
+class d extends n {
+  constructor() {
+    super(), this._values = [], this.resolvers = [], this._closedPromise = new Promise((e) => this._closedPromiseResolve = e);
+  }
+  get closed() {
+    return this._closedPromise;
+  }
+  cancel(e) {
+    return t(this, void 0, void 0, function* () {
+      yield this.return(e);
+    });
+  }
+  write(e) {
+    this._ensureOpen() && (this.resolvers.length <= 0 ? this._values.push(e) : this.resolvers.shift().resolve({ done: !1, value: e }));
+  }
+  abort(e) {
+    this._closedPromiseResolve && (this.resolvers.length <= 0 ? this._error = { error: e } : this.resolvers.shift().reject({ done: !0, value: e }));
+  }
+  close() {
+    if (this._closedPromiseResolve) {
+      const { resolvers: e } = this;
+      for (; e.length > 0; )
+        e.shift().resolve(s);
+      this._closedPromiseResolve(), this._closedPromiseResolve = void 0;
     }
+  }
+  [Symbol.asyncIterator]() {
+    return this;
+  }
+  toDOMStream(e) {
+    return i.toDOMStream(this._closedPromiseResolve || this._error ? this : this._values, e);
+  }
+  toNodeStream(e) {
+    return i.toNodeStream(this._closedPromiseResolve || this._error ? this : this._values, e);
+  }
+  throw(e) {
+    return t(this, void 0, void 0, function* () {
+      return yield this.abort(e), s;
+    });
+  }
+  return(e) {
+    return t(this, void 0, void 0, function* () {
+      return yield this.close(), s;
+    });
+  }
+  read(e) {
+    return t(this, void 0, void 0, function* () {
+      return (yield this.next(e, "read")).value;
+    });
+  }
+  peek(e) {
+    return t(this, void 0, void 0, function* () {
+      return (yield this.next(e, "peek")).value;
+    });
+  }
+  next(...e) {
+    return this._values.length > 0 ? Promise.resolve({ done: !1, value: this._values.shift() }) : this._error ? Promise.reject({ done: !0, value: this._error.error }) : this._closedPromiseResolve ? new Promise((r, h) => {
+      this.resolvers.push({ resolve: r, reject: h });
+    }) : Promise.resolve(s);
+  }
+  _ensureOpen() {
+    if (this._closedPromiseResolve)
+      return !0;
+    throw new Error("AsyncQueue is closed");
   }
 }
 export {
-  O as default
+  d as AsyncQueue,
+  s as ITERATOR_DONE,
+  n as ReadableInterop
 };
 //# sourceMappingURL=cori.data.api515.js.map

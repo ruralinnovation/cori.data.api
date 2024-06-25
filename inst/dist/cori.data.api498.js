@@ -1,107 +1,102 @@
-import { Block as m } from "./cori.data.api554.js";
-import { Footer as o } from "./cori.data.api555.js";
-import "./cori.data.api556.js";
-import "./cori.data.api557.js";
-import { Builder as u } from "./cori.data.api558.js";
-import { ByteBuffer as B } from "./cori.data.api559.js";
-import { Schema as a } from "./cori.data.api486.js";
-import { toUint8Array as g } from "./cori.data.api489.js";
-import { bigIntToNumber as h } from "./cori.data.api549.js";
-import { MetadataVersion as d } from "./cori.data.api505.js";
+import { DataType as c } from "./cori.data.api411.js";
+import { MetadataVersion as f } from "./cori.data.api517.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var l = u, y = B;
-class p {
-  /** @nocollapse */
-  static decode(t) {
-    t = new y(g(t));
-    const e = o.getRootAsFooter(t), r = a.decode(e.schema(), /* @__PURE__ */ new Map(), e.version());
-    return new D(r, e);
+class l {
+  constructor(t = [], n, e, i = f.V5) {
+    this.fields = t || [], this.metadata = n || /* @__PURE__ */ new Map(), e || (e = m(t)), this.dictionaries = e, this.metadataVersion = i;
   }
-  /** @nocollapse */
-  static encode(t) {
-    const e = new l(), r = a.encode(e, t.schema);
-    o.startRecordBatchesVector(e, t.numRecordBatches);
-    for (const n of [...t.recordBatches()].slice().reverse())
-      s.encode(e, n);
-    const c = e.endVector();
-    o.startDictionariesVector(e, t.numDictionaries);
-    for (const n of [...t.dictionaryBatches()].slice().reverse())
-      s.encode(e, n);
-    const i = e.endVector();
-    return o.startFooter(e), o.addSchema(e, r), o.addVersion(e, d.V5), o.addRecordBatches(e, c), o.addDictionaries(e, i), o.finishFooterBuffer(e, o.endFooter(e)), e.asUint8Array();
+  get [Symbol.toStringTag]() {
+    return "Schema";
   }
-  get numRecordBatches() {
-    return this._recordBatches.length;
+  get names() {
+    return this.fields.map((t) => t.name);
   }
-  get numDictionaries() {
-    return this._dictionaryBatches.length;
+  toString() {
+    return `Schema<{ ${this.fields.map((t, n) => `${n}: ${t}`).join(", ")} }>`;
   }
-  constructor(t, e = d.V5, r, c) {
-    this.schema = t, this.version = e, r && (this._recordBatches = r), c && (this._dictionaryBatches = c);
+  /**
+   * Construct a new Schema containing only specified fields.
+   *
+   * @param fieldNames Names of fields to keep.
+   * @returns A new Schema of fields matching the specified names.
+   */
+  select(t) {
+    const n = new Set(t), e = this.fields.filter((i) => n.has(i.name));
+    return new l(e, this.metadata);
   }
-  *recordBatches() {
-    for (let t, e = -1, r = this.numRecordBatches; ++e < r; )
-      (t = this.getRecordBatch(e)) && (yield t);
+  /**
+   * Construct a new Schema containing only fields at the specified indices.
+   *
+   * @param fieldIndices Indices of fields to keep.
+   * @returns A new Schema of fields at the specified indices.
+   */
+  selectAt(t) {
+    const n = t.map((e) => this.fields[e]).filter(Boolean);
+    return new l(n, this.metadata);
   }
-  *dictionaryBatches() {
-    for (let t, e = -1, r = this.numDictionaries; ++e < r; )
-      (t = this.getDictionaryBatch(e)) && (yield t);
-  }
-  getRecordBatch(t) {
-    return t >= 0 && t < this.numRecordBatches && this._recordBatches[t] || null;
-  }
-  getDictionaryBatch(t) {
-    return t >= 0 && t < this.numDictionaries && this._dictionaryBatches[t] || null;
+  assign(...t) {
+    const n = t[0] instanceof l ? t[0] : Array.isArray(t[0]) ? new l(t[0]) : new l(t), e = [...this.fields], i = s(s(/* @__PURE__ */ new Map(), this.metadata), n.metadata), a = n.fields.filter((d) => {
+      const p = e.findIndex((u) => u.name === d.name);
+      return ~p ? (e[p] = d.clone({
+        metadata: s(s(/* @__PURE__ */ new Map(), e[p].metadata), d.metadata)
+      })) && !1 : !0;
+    }), h = m(a, /* @__PURE__ */ new Map());
+    return new l([...e, ...a], i, new Map([...this.dictionaries, ...h]));
   }
 }
-class D extends p {
-  get numRecordBatches() {
-    return this._footer.recordBatchesLength();
+l.prototype.fields = null;
+l.prototype.metadata = null;
+l.prototype.dictionaries = null;
+class o {
+  /** @nocollapse */
+  static new(...t) {
+    let [n, e, i, a] = t;
+    return t[0] && typeof t[0] == "object" && ({ name: n } = t[0], e === void 0 && (e = t[0].type), i === void 0 && (i = t[0].nullable), a === void 0 && (a = t[0].metadata)), new o(`${n}`, e, i, a);
   }
-  get numDictionaries() {
-    return this._footer.dictionariesLength();
+  constructor(t, n, e = !1, i) {
+    this.name = t, this.type = n, this.nullable = e, this.metadata = i || /* @__PURE__ */ new Map();
   }
-  constructor(t, e) {
-    super(t, e.version()), this._footer = e;
+  get typeId() {
+    return this.type.typeId;
   }
-  getRecordBatch(t) {
-    if (t >= 0 && t < this.numRecordBatches) {
-      const e = this._footer.recordBatches(t);
-      if (e)
-        return s.decode(e);
-    }
-    return null;
+  get [Symbol.toStringTag]() {
+    return "Field";
   }
-  getDictionaryBatch(t) {
-    if (t >= 0 && t < this.numDictionaries) {
-      const e = this._footer.dictionaries(t);
-      if (e)
-        return s.decode(e);
-    }
-    return null;
+  toString() {
+    return `${this.name}: ${this.type}`;
+  }
+  clone(...t) {
+    let [n, e, i, a] = t;
+    return !t[0] || typeof t[0] != "object" ? [n = this.name, e = this.type, i = this.nullable, a = this.metadata] = t : { name: n = this.name, type: e = this.type, nullable: i = this.nullable, metadata: a = this.metadata } = t[0], o.new(n, e, i, a);
   }
 }
-class s {
-  /** @nocollapse */
-  static decode(t) {
-    return new s(t.metaDataLength(), t.bodyLength(), t.offset());
+o.prototype.type = null;
+o.prototype.name = null;
+o.prototype.nullable = null;
+o.prototype.metadata = null;
+function s(r, t) {
+  return new Map([...r || /* @__PURE__ */ new Map(), ...t || /* @__PURE__ */ new Map()]);
+}
+function m(r, t = /* @__PURE__ */ new Map()) {
+  for (let n = -1, e = r.length; ++n < e; ) {
+    const a = r[n].type;
+    if (c.isDictionary(a)) {
+      if (!t.has(a.id))
+        t.set(a.id, a.dictionary);
+      else if (t.get(a.id) !== a.dictionary)
+        throw new Error("Cannot create Schema containing two different dictionaries with the same Id");
+    }
+    a.children && a.children.length > 0 && m(a.children, t);
   }
-  /** @nocollapse */
-  static encode(t, e) {
-    const { metaDataLength: r } = e, c = BigInt(e.offset), i = BigInt(e.bodyLength);
-    return m.createBlock(t, c, r, i);
-  }
-  constructor(t, e, r) {
-    this.metaDataLength = t, this.offset = h(r), this.bodyLength = h(e);
-  }
+  return t;
 }
 export {
-  s as FileBlock,
-  p as Footer
+  o as Field,
+  l as Schema
 };
 //# sourceMappingURL=cori.data.api498.js.map

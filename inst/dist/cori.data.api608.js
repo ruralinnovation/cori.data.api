@@ -1,34 +1,29 @@
-import { Field as i } from "./cori.data.api486.js";
-import { Builder as n } from "./cori.data.api490.js";
-import { Struct as d } from "./cori.data.api402.js";
+import { float64ToUint16 as a } from "./cori.data.api609.js";
+import { FixedWidthBuilder as d } from "./cori.data.api502.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class p extends n {
-  setValue(t, r) {
-    const { children: e, type: h } = this;
-    switch (Array.isArray(r) || r.constructor) {
-      case !0:
-        return h.children.forEach((c, s) => e[s].set(t, r[s]));
-      case Map:
-        return h.children.forEach((c, s) => e[s].set(t, r.get(c.name)));
-      default:
-        return h.children.forEach((c, s) => e[s].set(t, r[c.name]));
-    }
-  }
-  /** @inheritdoc */
-  setValid(t, r) {
-    return super.setValid(t, r) || this.children.forEach((e) => e.setValid(t, r)), r;
-  }
-  addChild(t, r = `${this.numChildren}`) {
-    const e = this.children.push(t);
-    return this.type = new d([...this.type.children, new i(r, t.type, !0)]), e;
+class l extends d {
+  setValue(s, t) {
+    this._values.set(s, t);
   }
 }
+class r extends l {
+  setValue(s, t) {
+    super.setValue(s, a(t));
+  }
+}
+class u extends l {
+}
+class x extends l {
+}
 export {
-  p as StructBuilder
+  r as Float16Builder,
+  u as Float32Builder,
+  x as Float64Builder,
+  l as FloatBuilder
 };
 //# sourceMappingURL=cori.data.api608.js.map

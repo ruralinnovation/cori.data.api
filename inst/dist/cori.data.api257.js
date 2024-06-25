@@ -1,37 +1,38 @@
-import n from "./cori.data.api57.js";
+import r from "./cori.data.api376.js";
+import p from "./cori.data.api68.js";
+import o from "./cori.data.api64.js";
+import l from "./cori.data.api66.js";
+import a from "./cori.data.api74.js";
+import m from "./cori.data.api75.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const a = n.toObjectSet([
-  "age",
-  "authorization",
-  "content-length",
-  "content-type",
-  "etag",
-  "expires",
-  "from",
-  "host",
-  "if-modified-since",
-  "if-unmodified-since",
-  "last-modified",
-  "location",
-  "max-forwards",
-  "proxy-authorization",
-  "referer",
-  "retry-after",
-  "user-agent"
-]), u = (s) => {
-  const t = {};
-  let e, r, i;
-  return s && s.split(`
-`).forEach(function(o) {
-    i = o.indexOf(":"), e = o.substring(0, i).trim().toLowerCase(), r = o.substring(i + 1).trim(), !(!e || t[e] && a[e]) && (e === "set-cookie" ? t[e] ? t[e].push(r) : t[e] = [r] : t[e] = t[e] ? t[e] + ", " + r : r);
-  }), t;
-};
+function d(e) {
+  if (e.cancelToken && e.cancelToken.throwIfRequested(), e.signal && e.signal.aborted)
+    throw new l(null, e);
+}
+function q(e) {
+  return d(e), e.headers = a.from(e.headers), e.data = r.call(
+    e,
+    e.transformRequest
+  ), ["post", "put", "patch"].indexOf(e.method) !== -1 && e.headers.setContentType("application/x-www-form-urlencoded", !1), m.getAdapter(e.adapter || o.adapter)(e).then(function(t) {
+    return d(e), t.data = r.call(
+      e,
+      e.transformResponse,
+      t
+    ), t.headers = a.from(t.headers), t;
+  }, function(t) {
+    return p(t) || (d(e), t && t.response && (t.response.data = r.call(
+      e,
+      e.transformResponse,
+      t.response
+    ), t.response.headers = a.from(t.response.headers))), Promise.reject(t);
+  });
+}
 export {
-  u as default
+  q as default
 };
 //# sourceMappingURL=cori.data.api257.js.map

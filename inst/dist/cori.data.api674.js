@@ -1,24 +1,29 @@
-import c from "./cori.data.api403.js";
-import e from "./cori.data.api418.js";
-import i from "./cori.data.api675.js";
+import { labelEnd as u } from "./cori.data.api680.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s(t, r) {
-  const o = t.length;
-  if (!o)
-    return e;
-  if ((r = +r) <= 0 || o < 2)
-    return i(t[0]);
-  if (r >= 1)
-    return i(t[o - 1]);
-  const m = (o - 1) * r, f = Math.floor(m), n = i(t[f]);
-  return c(n) ? n : n + (i(t[f + 1]) - n) * (m - f);
+const g = {
+  name: "labelStartImage",
+  tokenize: m,
+  resolveAll: u.resolveAll
+};
+function m(r, a, t) {
+  const n = this;
+  return l;
+  function l(e) {
+    return r.enter("labelImage"), r.enter("labelImageMarker"), r.consume(e), r.exit("labelImageMarker"), o;
+  }
+  function o(e) {
+    return e === 91 ? (r.enter("labelMarker"), r.consume(e), r.exit("labelMarker"), r.exit("labelImage"), i) : t(e);
+  }
+  function i(e) {
+    return e === 94 && "_hiddenFootnoteSupport" in n.parser.constructs ? t(e) : a(e);
+  }
 }
 export {
-  s as default
+  g as labelStartImage
 };
 //# sourceMappingURL=cori.data.api674.js.map

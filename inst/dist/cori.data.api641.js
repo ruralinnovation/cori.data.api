@@ -1,24 +1,20 @@
+import { array as s, writeUtf8 as i, ceil64Bytes as c } from "./cori.data.api32.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function l(r) {
+function l(o, n, u) {
+  const f = s(Int32Array, n + 1), t = s(Uint8Array, 3 * u);
+  let r = 0;
   return {
-    left(f, u, e, n) {
-      for (e == null && (e = 0), n == null && (n = f.length); e < n; ) {
-        const t = e + n >>> 1;
-        r(f[t], u) < 0 ? e = t + 1 : n = t;
-      }
-      return e;
+    set(e, a) {
+      r += i(t, r, e), f[a + 1] = r;
     },
-    right(f, u, e, n) {
-      for (e == null && (e = 0), n == null && (n = f.length); e < n; ) {
-        const t = e + n >>> 1;
-        r(f[t], u) > 0 ? n = t : e = t + 1;
-      }
-      return e;
+    data: () => {
+      const e = c(r), a = t.length > e ? t.subarray(0, e) : t;
+      return { type: o, length: n, buffers: [f, a] };
     }
   };
 }

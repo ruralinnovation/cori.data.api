@@ -1,106 +1,39 @@
-import { Visitor as T } from "./cori.data.api546.js";
-import { Null as v } from "./cori.data.api631.js";
-import { Int as a } from "./cori.data.api562.js";
-import { FloatingPoint as m } from "./cori.data.api571.js";
-import { Binary as B } from "./cori.data.api632.js";
-import { LargeBinary as S } from "./cori.data.api633.js";
-import { Bool as g } from "./cori.data.api634.js";
-import { Utf8 as I } from "./cori.data.api635.js";
-import { LargeUtf8 as L } from "./cori.data.api636.js";
-import { Decimal as n } from "./cori.data.api572.js";
-import { Date as u } from "./cori.data.api573.js";
-import { Time as o } from "./cori.data.api574.js";
-import { Timestamp as s } from "./cori.data.api575.js";
-import { Interval as p } from "./cori.data.api576.js";
-import { Duration as f } from "./cori.data.api577.js";
-import { List as U } from "./cori.data.api637.js";
-import { Struct_ as D } from "./cori.data.api638.js";
-import { Union as e } from "./cori.data.api578.js";
-import { DictionaryEncoding as d } from "./cori.data.api630.js";
-import { FixedSizeBinary as l } from "./cori.data.api579.js";
-import { FixedSizeList as c } from "./cori.data.api580.js";
-import { Map as y } from "./cori.data.api581.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class z extends T {
-  visit(i, t) {
-    return i == null || t == null ? void 0 : super.visit(i, t);
+class e {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  visitNull(i, t) {
-    return v.startNull(t), v.endNull(t);
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
   }
-  visitInt(i, t) {
-    return a.startInt(t), a.addBitWidth(t, i.bitWidth), a.addIsSigned(t, i.isSigned), a.endInt(t);
+  /**
+   * The number of value slots in the Arrow array at this level of a nested
+   * tree
+   */
+  length() {
+    return this.bb.readInt64(this.bb_pos);
   }
-  visitFloat(i, t) {
-    return m.startFloatingPoint(t), m.addPrecision(t, i.precision), m.endFloatingPoint(t);
+  /**
+   * The number of observed nulls. Fields with null_count == 0 may choose not
+   * to write their physical validity bitmap out as a materialized buffer,
+   * instead setting the length of the bitmap buffer to 0.
+   */
+  nullCount() {
+    return this.bb.readInt64(this.bb_pos + 8);
   }
-  visitBinary(i, t) {
-    return B.startBinary(t), B.endBinary(t);
+  static sizeOf() {
+    return 16;
   }
-  visitLargeBinary(i, t) {
-    return S.startLargeBinary(t), S.endLargeBinary(t);
-  }
-  visitBool(i, t) {
-    return g.startBool(t), g.endBool(t);
-  }
-  visitUtf8(i, t) {
-    return I.startUtf8(t), I.endUtf8(t);
-  }
-  visitLargeUtf8(i, t) {
-    return L.startLargeUtf8(t), L.endLargeUtf8(t);
-  }
-  visitDecimal(i, t) {
-    return n.startDecimal(t), n.addScale(t, i.scale), n.addPrecision(t, i.precision), n.addBitWidth(t, i.bitWidth), n.endDecimal(t);
-  }
-  visitDate(i, t) {
-    return u.startDate(t), u.addUnit(t, i.unit), u.endDate(t);
-  }
-  visitTime(i, t) {
-    return o.startTime(t), o.addUnit(t, i.unit), o.addBitWidth(t, i.bitWidth), o.endTime(t);
-  }
-  visitTimestamp(i, t) {
-    const r = i.timezone && t.createString(i.timezone) || void 0;
-    return s.startTimestamp(t), s.addUnit(t, i.unit), r !== void 0 && s.addTimezone(t, r), s.endTimestamp(t);
-  }
-  visitInterval(i, t) {
-    return p.startInterval(t), p.addUnit(t, i.unit), p.endInterval(t);
-  }
-  visitDuration(i, t) {
-    return f.startDuration(t), f.addUnit(t, i.unit), f.endDuration(t);
-  }
-  visitList(i, t) {
-    return U.startList(t), U.endList(t);
-  }
-  visitStruct(i, t) {
-    return D.startStruct_(t), D.endStruct_(t);
-  }
-  visitUnion(i, t) {
-    e.startTypeIdsVector(t, i.typeIds.length);
-    const r = e.createTypeIdsVector(t, i.typeIds);
-    return e.startUnion(t), e.addMode(t, i.mode), e.addTypeIds(t, r), e.endUnion(t);
-  }
-  visitDictionary(i, t) {
-    const r = this.visit(i.indices, t);
-    return d.startDictionaryEncoding(t), d.addId(t, BigInt(i.id)), d.addIsOrdered(t, i.isOrdered), r !== void 0 && d.addIndexType(t, r), d.endDictionaryEncoding(t);
-  }
-  visitFixedSizeBinary(i, t) {
-    return l.startFixedSizeBinary(t), l.addByteWidth(t, i.byteWidth), l.endFixedSizeBinary(t);
-  }
-  visitFixedSizeList(i, t) {
-    return c.startFixedSizeList(t), c.addListSize(t, i.listSize), c.endFixedSizeList(t);
-  }
-  visitMap(i, t) {
-    return y.startMap(t), y.addKeysSorted(t, i.keysSorted), y.endMap(t);
+  static createFieldNode(t, s, i) {
+    return t.prep(8, 16), t.writeInt64(BigInt(i ?? 0)), t.writeInt64(BigInt(s ?? 0)), t.offset();
   }
 }
-const X = new z();
 export {
-  z as TypeAssembler,
-  X as instance
+  e as FieldNode
 };
 //# sourceMappingURL=cori.data.api583.js.map

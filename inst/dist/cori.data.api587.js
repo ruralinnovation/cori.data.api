@@ -1,94 +1,44 @@
-import { valueToString as u } from "./cori.data.api548.js";
-import { instance as o } from "./cori.data.api541.js";
-import { instance as h } from "./cori.data.api542.js";
+import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api642.js";
+import "./cori.data.api570.js";
+import "./cori.data.api571.js";
+import { Precision as s } from "./cori.data.api564.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const r = Symbol.for("parent"), s = Symbol.for("rowIndex");
-class d {
-  constructor(e, t) {
-    return this[r] = e, this[s] = t, new Proxy(this, new m());
+class o {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  toArray() {
-    return Object.values(this.toJSON());
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  toJSON() {
-    const e = this[s], t = this[r], n = t.type.children, i = {};
-    for (let l = -1, a = n.length; ++l < a; )
-      i[n[l].name] = o.visit(t.children[l], e);
-    return i;
+  static getRootAsFloatingPoint(t, i) {
+    return (i || new o()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  toString() {
-    return `{${[...this].map(([e, t]) => `${u(e)}: ${u(t)}`).join(", ")}}`;
+  static getSizePrefixedRootAsFloatingPoint(t, i) {
+    return t.setPosition(t.position() + n), (i || new o()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  [Symbol.for("nodejs.util.inspect.custom")]() {
-    return this.toString();
+  precision() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt16(this.bb_pos + t) : s.HALF;
   }
-  [Symbol.iterator]() {
-    return new f(this[r], this[s]);
+  static startFloatingPoint(t) {
+    t.startObject(1);
   }
-}
-class f {
-  constructor(e, t) {
-    this.childIndex = 0, this.children = e.children, this.rowIndex = t, this.childFields = e.type.children, this.numChildren = this.childFields.length;
+  static addPrecision(t, i) {
+    t.addFieldInt16(0, i, s.HALF);
   }
-  [Symbol.iterator]() {
-    return this;
+  static endFloatingPoint(t) {
+    return t.endObject();
   }
-  next() {
-    const e = this.childIndex;
-    return e < this.numChildren ? (this.childIndex = e + 1, {
-      done: !1,
-      value: [
-        this.childFields[e].name,
-        o.visit(this.children[e], this.rowIndex)
-      ]
-    }) : { done: !0, value: null };
-  }
-}
-Object.defineProperties(d.prototype, {
-  [Symbol.toStringTag]: { enumerable: !1, configurable: !1, value: "Row" },
-  [r]: { writable: !0, enumerable: !1, configurable: !1, value: null },
-  [s]: { writable: !0, enumerable: !1, configurable: !1, value: -1 }
-});
-class m {
-  isExtensible() {
-    return !1;
-  }
-  deleteProperty() {
-    return !1;
-  }
-  preventExtensions() {
-    return !0;
-  }
-  ownKeys(e) {
-    return e[r].type.children.map((t) => t.name);
-  }
-  has(e, t) {
-    return e[r].type.children.findIndex((n) => n.name === t) !== -1;
-  }
-  getOwnPropertyDescriptor(e, t) {
-    if (e[r].type.children.findIndex((n) => n.name === t) !== -1)
-      return { writable: !0, enumerable: !0, configurable: !0 };
-  }
-  get(e, t) {
-    if (Reflect.has(e, t))
-      return e[t];
-    const n = e[r].type.children.findIndex((i) => i.name === t);
-    if (n !== -1) {
-      const i = o.visit(e[r].children[n], e[s]);
-      return Reflect.set(e, t, i), i;
-    }
-  }
-  set(e, t, n) {
-    const i = e[r].type.children.findIndex((l) => l.name === t);
-    return i !== -1 ? (h.visit(e[r].children[i], e[s], n), Reflect.set(e, t, n)) : Reflect.has(e, t) || typeof t == "symbol" ? Reflect.set(e, t, n) : !1;
+  static createFloatingPoint(t, i) {
+    return o.startFloatingPoint(t), o.addPrecision(t, i), o.endFloatingPoint(t);
   }
 }
 export {
-  d as StructRow
+  o as FloatingPoint
 };
 //# sourceMappingURL=cori.data.api587.js.map

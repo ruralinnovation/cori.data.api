@@ -1,34 +1,60 @@
-import n from "./cori.data.api329.js";
-import { Selection as o } from "./cori.data.api56.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u() {
-  return new o(this._enter || this._groups.map(n), this._parents);
+function h(i) {
+  return function(t) {
+    i.call(this, t, this.__data__);
+  };
 }
-function r(e, t) {
-  this.ownerDocument = e.ownerDocument, this.namespaceURI = e.namespaceURI, this._next = null, this._parent = e, this.__data__ = t;
+function p(i) {
+  return i.trim().split(/^|\s+/).map(function(t) {
+    var s = "", n = t.indexOf(".");
+    return n >= 0 && (s = t.slice(n + 1), t = t.slice(0, n)), { type: t, name: s };
+  });
 }
-r.prototype = {
-  constructor: r,
-  appendChild: function(e) {
-    return this._parent.insertBefore(e, this._next);
-  },
-  insertBefore: function(e, t) {
-    return this._parent.insertBefore(e, t);
-  },
-  querySelector: function(e) {
-    return this._parent.querySelector(e);
-  },
-  querySelectorAll: function(e) {
-    return this._parent.querySelectorAll(e);
+function c(i) {
+  return function() {
+    var t = this.__on;
+    if (t) {
+      for (var s = 0, n = -1, e = t.length, r; s < e; ++s)
+        r = t[s], (!i.type || r.type === i.type) && r.name === i.name ? this.removeEventListener(r.type, r.listener, r.options) : t[++n] = r;
+      ++n ? t.length = n : delete this.__on;
+    }
+  };
+}
+function v(i, t, s) {
+  return function() {
+    var n = this.__on, e, r = h(t);
+    if (n) {
+      for (var a = 0, f = n.length; a < f; ++a)
+        if ((e = n[a]).type === i.type && e.name === i.name) {
+          this.removeEventListener(e.type, e.listener, e.options), this.addEventListener(e.type, e.listener = r, e.options = s), e.value = t;
+          return;
+        }
+    }
+    this.addEventListener(i.type, r, s), e = { type: i.type, name: i.name, value: t, listener: r, options: s }, n ? n.push(e) : this.__on = [e];
+  };
+}
+function _(i, t, s) {
+  var n = p(i + ""), e, r = n.length, a;
+  if (arguments.length < 2) {
+    var f = this.node().__on;
+    if (f) {
+      for (var l = 0, u = f.length, o; l < u; ++l)
+        for (e = 0, o = f[l]; e < r; ++e)
+          if ((a = n[e]).type === o.type && a.name === o.name)
+            return o.value;
+    }
+    return;
   }
-};
+  for (f = t ? v : c, e = 0; e < r; ++e)
+    this.each(f(n[e], t, s));
+  return this;
+}
 export {
-  r as EnterNode,
-  u as default
+  _ as default
 };
 //# sourceMappingURL=cori.data.api197.js.map

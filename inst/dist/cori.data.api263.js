@@ -1,30 +1,37 @@
+import n from "./cori.data.api60.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var X = 180 / Math.PI, o = {
-  translateX: 0,
-  translateY: 0,
-  rotate: 0,
-  skewX: 0,
-  scaleX: 1,
-  scaleY: 1
+const a = n.toObjectSet([
+  "age",
+  "authorization",
+  "content-length",
+  "content-type",
+  "etag",
+  "expires",
+  "from",
+  "host",
+  "if-modified-since",
+  "if-unmodified-since",
+  "last-modified",
+  "location",
+  "max-forwards",
+  "proxy-authorization",
+  "referer",
+  "retry-after",
+  "user-agent"
+]), u = (s) => {
+  const t = {};
+  let e, r, i;
+  return s && s.split(`
+`).forEach(function(o) {
+    i = o.indexOf(":"), e = o.substring(0, i).trim().toLowerCase(), r = o.substring(i + 1).trim(), !(!e || t[e] && a[e]) && (e === "set-cookie" ? t[e] ? t[e].push(r) : t[e] = [r] : t[e] = t[e] ? t[e] + ", " + r : r);
+  }), t;
 };
-function h(t, e, s, r, i, f) {
-  var l, n, a;
-  return (l = Math.sqrt(t * t + e * e)) && (t /= l, e /= l), (a = t * s + e * r) && (s -= t * a, r -= e * a), (n = Math.sqrt(s * s + r * r)) && (s /= n, r /= n, a /= n), t * r < e * s && (t = -t, e = -e, a = -a, l = -l), {
-    translateX: i,
-    translateY: f,
-    rotate: Math.atan2(e, t) * X,
-    skewX: Math.atan(a) * X,
-    scaleX: l,
-    scaleY: n
-  };
-}
 export {
-  h as default,
-  o as identity
+  u as default
 };
 //# sourceMappingURL=cori.data.api263.js.map

@@ -1,6 +1,7 @@
-import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api628.js";
-import "./cori.data.api556.js";
-import "./cori.data.api557.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api642.js";
+import "./cori.data.api570.js";
+import "./cori.data.api571.js";
+import { RecordBatch as e } from "./cori.data.api579.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
@@ -14,33 +15,46 @@ class s {
   __init(t, i) {
     return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsFixedSizeList(t, i) {
+  static getRootAsDictionaryBatch(t, i) {
     return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsFixedSizeList(t, i) {
-    return t.setPosition(t.position() + e), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsDictionaryBatch(t, i) {
+    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  id() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt64(this.bb_pos + t) : BigInt("0");
+  }
+  data(t) {
+    const i = this.bb.__offset(this.bb_pos, 6);
+    return i ? (t || new e()).__init(this.bb.__indirect(this.bb_pos + i), this.bb) : null;
   }
   /**
-   * Number of list items per value
+   * If isDelta is true the values in the dictionary are to be appended to a
+   * dictionary with the indicated id. If isDelta is false this dictionary
+   * should replace the existing dictionary.
    */
-  listSize() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
+  isDelta() {
+    const t = this.bb.__offset(this.bb_pos, 8);
+    return t ? !!this.bb.readInt8(this.bb_pos + t) : !1;
   }
-  static startFixedSizeList(t) {
-    t.startObject(1);
+  static startDictionaryBatch(t) {
+    t.startObject(3);
   }
-  static addListSize(t, i) {
-    t.addFieldInt32(0, i, 0);
+  static addId(t, i) {
+    t.addFieldInt64(0, i, BigInt("0"));
   }
-  static endFixedSizeList(t) {
+  static addData(t, i) {
+    t.addFieldOffset(1, i, 0);
+  }
+  static addIsDelta(t, i) {
+    t.addFieldInt8(2, +i, 0);
+  }
+  static endDictionaryBatch(t) {
     return t.endObject();
-  }
-  static createFixedSizeList(t, i) {
-    return s.startFixedSizeList(t), s.addListSize(t, i), s.endFixedSizeList(t);
   }
 }
 export {
-  s as FixedSizeList
+  s as DictionaryBatch
 };
 //# sourceMappingURL=cori.data.api580.js.map

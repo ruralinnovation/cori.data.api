@@ -1,92 +1,66 @@
-import { resolver as f } from "./cori.data.api623.js";
-import { list as o } from "./cori.data.api648.js";
-import { blockQuote as p } from "./cori.data.api649.js";
-import { definition as c } from "./cori.data.api650.js";
-import { codeIndented as t } from "./cori.data.api651.js";
-import { headingAtx as s } from "./cori.data.api652.js";
-import { thematicBreak as r } from "./cori.data.api653.js";
-import { setextUnderline as i } from "./cori.data.api654.js";
-import { htmlFlow as d } from "./cori.data.api655.js";
-import { codeFenced as n } from "./cori.data.api656.js";
-import { characterReference as l } from "./cori.data.api657.js";
-import { characterEscape as a } from "./cori.data.api658.js";
-import { lineEnding as m } from "./cori.data.api659.js";
-import { labelStartImage as h } from "./cori.data.api660.js";
-import { attention as e } from "./cori.data.api661.js";
-import { autolink as k } from "./cori.data.api662.js";
-import { htmlText as u } from "./cori.data.api663.js";
-import { labelStartLink as x } from "./cori.data.api664.js";
-import { hardBreakEscape as b } from "./cori.data.api665.js";
-import { labelEnd as g } from "./cori.data.api666.js";
-import { codeText as E } from "./cori.data.api667.js";
+import { reducers as w } from "./cori.data.api540.js";
+import { hasAggregate as h, getWindow as O } from "./cori.data.api402.js";
+import $ from "./cori.data.api628.js";
+import x from "./cori.data.api494.js";
+import A from "./cori.data.api653.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const J = {
-  42: o,
-  43: o,
-  45: o,
-  48: o,
-  49: o,
-  50: o,
-  51: o,
-  52: o,
-  53: o,
-  54: o,
-  55: o,
-  56: o,
-  57: o,
-  62: p
-}, K = {
-  91: c
-}, N = {
-  [-2]: t,
-  [-1]: t,
-  32: t
-}, O = {
-  35: s,
-  42: r,
-  45: [i, r],
-  60: d,
-  61: i,
-  95: r,
-  96: n,
-  126: n
-}, P = {
-  38: l,
-  92: a
-}, V = {
-  [-5]: m,
-  [-4]: m,
-  [-3]: m,
-  33: h,
-  38: l,
-  42: e,
-  60: [k, u],
-  91: x,
-  92: [b, a],
-  93: g,
-  95: e,
-  96: E
-}, W = {
-  null: [e, f]
-}, X = {
-  null: [42, 95]
-}, Y = {
-  null: []
-};
+const E = (n) => (n.frame || [null, null]).map((e) => Number.isFinite(e) ? Math.abs(e) : null), S = (n) => !!n.peers;
+function V(n) {
+  const { id: e, name: a, fields: t = [], params: i = [] } = n, r = O(a).create(...i);
+  return t.length && (r.get = t[0]), r.id = e, r;
+}
+function U(n, e, a, t = {}, i) {
+  const r = n.data(), o = j(i, r), c = o.length, f = x(
+    ["r", "d", "op"],
+    "{" + $(e, (p, m) => `_${m}[r] = $${m}(r, d, op);`) + "}",
+    e,
+    a
+  );
+  n.partitions().forEach((p, m) => {
+    const u = p.length, l = y(n, p);
+    for (let s = 0; s < c; ++s)
+      o[s].init(p, l, t, m);
+    const g = (s) => t[s][m];
+    for (let s = 0; s < u; ++s) {
+      for (let d = 0; d < c; ++d)
+        o[d].step(s);
+      f(p[s], r, g);
+    }
+  });
+}
+function j(n, e) {
+  const a = {};
+  return n.forEach((t) => {
+    const i = E(t), r = S(t), o = `${i},${r}`, { aggOps: c, winOps: f } = a[o] || (a[o] = {
+      frame: i,
+      peers: r,
+      aggOps: [],
+      winOps: []
+    });
+    h(t.name) ? c.push(t) : f.push(V(t));
+  }), Object.values(a).map((t) => A(
+    e,
+    t.frame,
+    t.peers,
+    t.winOps,
+    w(t.aggOps, t.frame[0] != null ? -1 : 1)
+  ));
+}
+function y(n, e) {
+  if (n.isOrdered()) {
+    const a = n.comparator(), t = n.data(), i = e.length, r = new Uint32Array(i);
+    for (let o = 1, c = 0; o < i; ++o)
+      r[o] = a(e[o - 1], e[o], t) ? ++c : c;
+    return r;
+  } else
+    return e;
+}
 export {
-  X as attentionMarkers,
-  K as contentInitial,
-  Y as disable,
-  J as document,
-  O as flow,
-  N as flowInitial,
-  W as insideSpan,
-  P as string,
-  V as text
+  U as window
 };
 //# sourceMappingURL=cori.data.api625.js.map

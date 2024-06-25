@@ -1,48 +1,26 @@
-import { factorySpace as l } from "./cori.data.api644.js";
-import { markdownLineEnding as m } from "./cori.data.api469.js";
+import { Field as n } from "./cori.data.api498.js";
+import { Builder as h } from "./cori.data.api502.js";
+import { FixedSizeList as l } from "./cori.data.api411.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const g = {
-  tokenize: x
-};
-function x(n) {
-  const i = n.attempt(
-    this.parser.constructs.contentInitial,
-    e,
-    p
-  );
-  let r;
-  return i;
-  function e(t) {
-    if (t === null) {
-      n.consume(t);
-      return;
-    }
-    return n.enter("lineEnding"), n.consume(t), n.exit("lineEnding"), l(n, i, "linePrefix");
+class u extends h {
+  setValue(e, i) {
+    const [t] = this.children, s = e * this.stride;
+    for (let r = -1, d = i.length; ++r < d; )
+      t.set(s + r, i[r]);
   }
-  function p(t) {
-    return n.enter("paragraph"), u(t);
-  }
-  function u(t) {
-    const a = n.enter("chunkText", {
-      contentType: "text",
-      previous: r
-    });
-    return r && (r.next = a), r = a, o(t);
-  }
-  function o(t) {
-    if (t === null) {
-      n.exit("chunkText"), n.exit("paragraph"), n.consume(t);
-      return;
-    }
-    return m(t) ? (n.consume(t), n.exit("chunkText"), u) : (n.consume(t), o);
+  addChild(e, i = "0") {
+    if (this.numChildren > 0)
+      throw new Error("FixedSizeListBuilder can only have one child.");
+    const t = this.children.push(e);
+    return this.type = new l(this.type.listSize, new n(i, e.type, !0)), t;
   }
 }
 export {
-  g as content
+  u as FixedSizeListBuilder
 };
 //# sourceMappingURL=cori.data.api620.js.map

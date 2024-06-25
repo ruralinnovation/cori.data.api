@@ -1,7 +1,7 @@
-import p, { copy as v } from "./cori.data.api118.js";
-import { initRange as c } from "./cori.data.api117.js";
-import h from "./cori.data.api119.js";
-import s, { tickIncrement as d } from "./cori.data.api80.js";
+import p, { copy as v } from "./cori.data.api159.js";
+import { initRange as c } from "./cori.data.api158.js";
+import h from "./cori.data.api160.js";
+import s, { tickIncrement as d } from "./cori.data.api121.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

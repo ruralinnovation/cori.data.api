@@ -1,112 +1,88 @@
+import u from "./cori.data.api632.js";
+import l from "./cori.data.api275.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class d {
-  constructor(n = 0, e) {
-    this.numChunks = n, this.getChunkIterator = e, this.chunkIndex = 0, this.chunkIterator = this.getChunkIterator(0);
+function w(n, c, i) {
+  if (c.length) {
+    const r = n.data(), { keys: f } = n.groups() || {}, e = g(n, c), t = f ? (o, s) => e[o][f[s]] : (o) => e[o][0];
+    i = i.map((o) => (s) => o(s, r, t));
   }
-  next() {
-    for (; this.chunkIndex < this.numChunks; ) {
-      const n = this.chunkIterator.next();
-      if (!n.done)
-        return n;
-      ++this.chunkIndex < this.numChunks && (this.chunkIterator = this.getChunkIterator(this.chunkIndex));
+  return i;
+}
+function g(n, c, i) {
+  if (!c.length)
+    return i;
+  const r = p(c), f = n.groups(), e = f ? f.size : 1;
+  return i = i || l(c.length, () => Array(e)), e > 1 ? r.forEach((t) => {
+    const o = h(n, t, f);
+    for (let s = 0; s < e; ++s)
+      t.write(o[s], i, s);
+  }) : r.forEach((t) => {
+    const o = m(n, t);
+    t.write(o, i, 0);
+  }), i;
+}
+function p(n, c) {
+  const i = [], r = {};
+  for (const f of n) {
+    const e = f.fields.map((t) => t + "").join(",");
+    (r[e] || (r[e] = [])).push(f);
+  }
+  for (const f in r)
+    i.push(u(r[f], c));
+  return i;
+}
+function m(n, c) {
+  const i = c.init(), r = n.totalRows(), f = n.data(), e = n.mask();
+  if (n.isOrdered()) {
+    const t = n.indices();
+    for (let o = 0; o < r; ++o)
+      c.add(i, t[o], f);
+  } else if (e)
+    for (let t = e.next(0); t >= 0; t = e.next(t + 1))
+      c.add(i, t, f);
+  else
+    for (let t = 0; t < r; ++t)
+      c.add(i, t, f);
+  return i;
+}
+function h(n, c, i) {
+  const { keys: r, size: f } = i, e = l(f, () => c.init()), t = n.data();
+  if (n.isOrdered()) {
+    const o = n.indices(), s = o.length;
+    for (let a = 0; a < s; ++a) {
+      const d = o[a];
+      c.add(e[r[d]], d, t);
     }
-    return { done: !0, value: null };
+  } else if (n.isFiltered()) {
+    const o = n.mask();
+    for (let s = o.next(0); s >= 0; s = o.next(s + 1))
+      c.add(e[r[s]], s, t);
+  } else {
+    const o = n.totalRows();
+    for (let s = 0; s < o; ++s)
+      c.add(e[r[s]], s, t);
   }
-  [Symbol.iterator]() {
-    return this;
+  return e;
+}
+function y(n, c) {
+  const { get: i, names: r, rows: f, size: e } = c, t = r.length;
+  for (let o = 0; o < t; ++o) {
+    const s = n.add(r[o], Array(e)), a = i[o];
+    for (let d = 0; d < e; ++d)
+      s[d] = a(f[d]);
   }
-}
-function k(u) {
-  return u.some((n) => n.nullable);
-}
-function C(u) {
-  return u.reduce((n, e) => n + e.nullCount, 0);
-}
-function m(u) {
-  return u.reduce((n, e, r) => (n[r + 1] = n[r] + e.length, n), new Uint32Array(u.length + 1));
-}
-function I(u, n, e, r) {
-  const t = [];
-  for (let h = -1, i = u.length; ++h < i; ) {
-    const c = u[h], o = n[h], { length: s } = c;
-    if (o >= r)
-      break;
-    if (e >= o + s)
-      continue;
-    if (o >= e && o + s <= r) {
-      t.push(c);
-      continue;
-    }
-    const l = Math.max(0, e - o), a = Math.min(r - o, s);
-    t.push(c.slice(l, a - l));
-  }
-  return t.length === 0 && t.push(u[0].slice(0, 0)), t;
-}
-function f(u, n, e, r) {
-  let t = 0, h = 0, i = n.length - 1;
-  do {
-    if (t >= i - 1)
-      return e < n[i] ? r(u, t, e - n[t]) : null;
-    h = t + Math.trunc((i - t) * 0.5), e < n[h] ? i = h : t = h;
-  } while (t < i);
-}
-function g(u, n) {
-  return u.getValid(n);
-}
-function p(u) {
-  function n(e, r, t) {
-    return u(e[r], t);
-  }
-  return function(e) {
-    const r = this.data;
-    return f(r, this._offsets, e, n);
-  };
-}
-function x(u) {
-  let n;
-  function e(r, t, h) {
-    return u(r[t], h, n);
-  }
-  return function(r, t) {
-    const h = this.data;
-    n = t;
-    const i = f(h, this._offsets, r, e);
-    return n = void 0, i;
-  };
-}
-function w(u) {
-  let n;
-  function e(r, t, h) {
-    let i = h, c = 0, o = 0;
-    for (let s = t - 1, l = r.length; ++s < l; ) {
-      const a = r[s];
-      if (~(c = u(a, n, i)))
-        return o + c;
-      i = 0, o += a.length;
-    }
-    return -1;
-  }
-  return function(r, t) {
-    n = r;
-    const h = this.data, i = typeof t != "number" ? e(h, 0, 0) : f(h, this._offsets, t, e);
-    return n = void 0, i;
-  };
 }
 export {
-  d as ChunkedIterator,
-  f as binarySearch,
-  C as computeChunkNullCounts,
-  k as computeChunkNullable,
-  m as computeChunkOffsets,
-  g as isChunkedValid,
-  I as sliceChunks,
-  p as wrapChunkedCall1,
-  x as wrapChunkedCall2,
-  w as wrapChunkedIndexOf
+  g as aggregate,
+  w as aggregateGet,
+  y as groupOutput,
+  m as reduceFlat,
+  h as reduceGroups,
+  p as reducers
 };
 //# sourceMappingURL=cori.data.api540.js.map

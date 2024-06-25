@@ -1,16 +1,17 @@
+import { Timer as i } from "./cori.data.api203.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function t() {
-  var e = new Array(this.size()), n = -1;
-  return this.each(function() {
-    e[++n] = this;
-  }), e;
+function e(o, t, n) {
+  var r = new i();
+  return t = t == null ? 0 : +t, r.restart((u) => {
+    r.stop(), o(u + t);
+  }, t, n), r;
 }
 export {
-  t as default
+  e as default
 };
 //# sourceMappingURL=cori.data.api204.js.map

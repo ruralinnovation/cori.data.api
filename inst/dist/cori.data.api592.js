@@ -1,61 +1,44 @@
-import { Dictionary as c } from "./cori.data.api402.js";
-import { Builder as d } from "./cori.data.api490.js";
-import { makeBuilder as r } from "./cori.data.api585.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api642.js";
+import "./cori.data.api570.js";
+import "./cori.data.api571.js";
+import { IntervalUnit as n } from "./cori.data.api567.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class a extends d {
-  constructor({ type: i, nullValues: e, dictionaryHashFunction: t }) {
-    super({ type: new c(i.dictionary, i.indices, i.id, i.isOrdered) }), this._nulls = null, this._dictionaryOffset = 0, this._keysToIndices = /* @__PURE__ */ Object.create(null), this.indices = r({ type: this.type.indices, nullValues: e }), this.dictionary = r({ type: this.type.dictionary, nullValues: null }), typeof t == "function" && (this.valueToKey = t);
+class s {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  get values() {
-    return this.indices.values;
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  get nullCount() {
-    return this.indices.nullCount;
+  static getRootAsInterval(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  get nullBitmap() {
-    return this.indices.nullBitmap;
+  static getSizePrefixedRootAsInterval(t, i) {
+    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  get byteLength() {
-    return this.indices.byteLength + this.dictionary.byteLength;
+  unit() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt16(this.bb_pos + t) : n.YEAR_MONTH;
   }
-  get reservedLength() {
-    return this.indices.reservedLength + this.dictionary.reservedLength;
+  static startInterval(t) {
+    t.startObject(1);
   }
-  get reservedByteLength() {
-    return this.indices.reservedByteLength + this.dictionary.reservedByteLength;
+  static addUnit(t, i) {
+    t.addFieldInt16(0, i, n.YEAR_MONTH);
   }
-  isValid(i) {
-    return this.indices.isValid(i);
+  static endInterval(t) {
+    return t.endObject();
   }
-  setValid(i, e) {
-    const t = this.indices;
-    return e = t.setValid(i, e), this.length = t.length, e;
-  }
-  setValue(i, e) {
-    const t = this._keysToIndices, s = this.valueToKey(e);
-    let n = t[s];
-    return n === void 0 && (t[s] = n = this._dictionaryOffset + this.dictionary.append(e).length - 1), this.indices.setValue(i, n);
-  }
-  flush() {
-    const i = this.type, e = this._dictionary, t = this.dictionary.toVector(), s = this.indices.flush().clone(i);
-    return s.dictionary = e ? e.concat(t) : t, this.finished || (this._dictionaryOffset += t.length), this._dictionary = s.dictionary, this.clear(), s;
-  }
-  finish() {
-    return this.indices.finish(), this.dictionary.finish(), this._dictionaryOffset = 0, this._keysToIndices = /* @__PURE__ */ Object.create(null), super.finish();
-  }
-  clear() {
-    return this.indices.clear(), this.dictionary.clear(), super.clear();
-  }
-  valueToKey(i) {
-    return typeof i == "string" ? i : `${i}`;
+  static createInterval(t, i) {
+    return s.startInterval(t), s.addUnit(t, i), s.endInterval(t);
   }
 }
 export {
-  a as DictionaryBuilder
+  s as Interval
 };
 //# sourceMappingURL=cori.data.api592.js.map

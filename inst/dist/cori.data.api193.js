@@ -1,19 +1,21 @@
-import { Selection as o } from "./cori.data.api56.js";
-import m from "./cori.data.api224.js";
+import l from "./cori.data.api161.js";
+import u from "./cori.data.api200.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(a) {
-  typeof a != "function" && (a = m(a));
-  for (var n = this._groups, e = n.length, l = new Array(e), r = 0; r < e; ++r)
-    for (var f = n[r], c = f.length, h = l[r] = new Array(c), _, i, t = 0; t < c; ++t)
-      (_ = f[t]) && (i = a.call(_, _.__data__, t, f)) && ("__data__" in _ && (i.__data__ = _.__data__), h[t] = i);
-  return new o(l, this._parents);
+function i() {
+  return null;
+}
+function c(n, t) {
+  var r = typeof n == "function" ? n : l(n), e = t == null ? i : typeof t == "function" ? t : u(t);
+  return this.select(function() {
+    return this.insertBefore(r.apply(this, arguments), e.apply(this, arguments) || null);
+  });
 }
 export {
-  p as default
+  c as default
 };
 //# sourceMappingURL=cori.data.api193.js.map

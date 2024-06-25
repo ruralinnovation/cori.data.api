@@ -4,8 +4,8 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const l = typeof Blob < "u" ? Blob : null;
+var e = { exports: {} };
 export {
-  l as default
+  e as __module
 };
 //# sourceMappingURL=cori.data.api474.js.map

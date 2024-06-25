@@ -4,20 +4,14 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function f(r, e) {
-  e || (e = []);
-  var u = r ? Math.min(e.length, r.length) : 0, i = e.slice(), n;
-  return function(t) {
-    for (n = 0; n < u; ++n)
-      i[n] = r[n] * (1 - t) + e[n] * t;
-    return i;
-  };
+function t() {
+  var e = this.parentNode;
+  e && e.removeChild(this);
 }
-function a(r) {
-  return ArrayBuffer.isView(r) && !(r instanceof DataView);
+function r() {
+  return this.each(t);
 }
 export {
-  f as default,
-  a as isNumberArray
+  r as default
 };
 //# sourceMappingURL=cori.data.api107.js.map

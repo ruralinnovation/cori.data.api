@@ -1,17 +1,19 @@
+import { merge as m } from "./cori.data.api336.js";
+import { xlink as o } from "./cori.data.api337.js";
+import { xml as r } from "./cori.data.api338.js";
+import { xmlns as t } from "./cori.data.api339.js";
+import { aria as i } from "./cori.data.api340.js";
+import { html as s } from "./cori.data.api341.js";
+import { svg as p } from "./cori.data.api342.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const r = /[ \t\n\f\r]/g;
-function c(e) {
-  return typeof e == "object" ? e.type === "text" ? t(e.value) : !1 : t(e);
-}
-function t(e) {
-  return e.replace(r, "") === "";
-}
+const x = m([r, o, t, i, s], "html"), e = m([r, o, t, i, p], "svg");
 export {
-  c as whitespace
+  x as html,
+  e as svg
 };
 //# sourceMappingURL=cori.data.api231.js.map

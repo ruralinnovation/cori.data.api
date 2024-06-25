@@ -1,14 +1,33 @@
+import l from "./cori.data.api641.js";
+import { array as f, arrowVector as y } from "./cori.data.api32.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var E;
-(function(L) {
-  L[L.HALF = 0] = "HALF", L[L.SINGLE = 1] = "SINGLE", L[L.DOUBLE = 2] = "DOUBLE";
-})(E || (E = {}));
+function p(t, r) {
+  const e = [], n = f(t.indices.ArrayType, r), a = /* @__PURE__ */ Object.create(null);
+  let d = -1, c = 0;
+  return {
+    set(s, u) {
+      const i = String(s);
+      let o = a[i];
+      o === void 0 && (c += i.length, a[i] = o = ++d, e.push(i)), n[u] = o;
+    },
+    data: () => ({
+      type: t,
+      length: r,
+      buffers: [null, n],
+      dict: m(t.dictionary, e, c)
+    })
+  };
+}
+function m(t, r, e) {
+  const n = l(t, r.length, e);
+  return r.forEach(n.set), y(n.data());
+}
 export {
-  E as Precision
+  p as default
 };
 //# sourceMappingURL=cori.data.api550.js.map

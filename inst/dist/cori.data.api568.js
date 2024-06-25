@@ -4,11 +4,40 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var t;
-(function(i) {
-  i[i.NONE = 0] = "NONE", i[i.Null = 1] = "Null", i[i.Int = 2] = "Int", i[i.FloatingPoint = 3] = "FloatingPoint", i[i.Binary = 4] = "Binary", i[i.Utf8 = 5] = "Utf8", i[i.Bool = 6] = "Bool", i[i.Decimal = 7] = "Decimal", i[i.Date = 8] = "Date", i[i.Time = 9] = "Time", i[i.Timestamp = 10] = "Timestamp", i[i.Interval = 11] = "Interval", i[i.List = 12] = "List", i[i.Struct_ = 13] = "Struct_", i[i.Union = 14] = "Union", i[i.FixedSizeBinary = 15] = "FixedSizeBinary", i[i.FixedSizeList = 16] = "FixedSizeList", i[i.Map = 17] = "Map", i[i.Duration = 18] = "Duration", i[i.LargeBinary = 19] = "LargeBinary", i[i.LargeUtf8 = 20] = "LargeUtf8", i[i.LargeList = 21] = "LargeList", i[i.RunEndEncoded = 22] = "RunEndEncoded";
-})(t || (t = {}));
+class b {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
+  }
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
+  }
+  /**
+   * Index to the start of the RecordBlock (note this is past the Message header)
+   */
+  offset() {
+    return this.bb.readInt64(this.bb_pos);
+  }
+  /**
+   * Length of the metadata
+   */
+  metaDataLength() {
+    return this.bb.readInt32(this.bb_pos + 8);
+  }
+  /**
+   * Length of the data (this is aligned so there can be a gap between this and
+   * the metadata).
+   */
+  bodyLength() {
+    return this.bb.readInt64(this.bb_pos + 16);
+  }
+  static sizeOf() {
+    return 24;
+  }
+  static createBlock(t, s, i, n) {
+    return t.prep(8, 24), t.writeInt64(BigInt(n ?? 0)), t.pad(4), t.writeInt32(i), t.writeInt64(BigInt(s ?? 0)), t.offset();
+  }
+}
 export {
-  t as Type
+  b as Block
 };
 //# sourceMappingURL=cori.data.api568.js.map

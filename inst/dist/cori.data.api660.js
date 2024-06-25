@@ -1,29 +1,57 @@
-import { labelEnd as u } from "./cori.data.api666.js";
+import { factorySpace as a } from "./cori.data.api658.js";
+import { markdownLineEnding as l } from "./cori.data.api481.js";
+import { subtokenize as p } from "./cori.data.api640.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const g = {
-  name: "labelStartImage",
-  tokenize: m,
-  resolveAll: u.resolveAll
+const d = {
+  tokenize: h,
+  resolve: s
+}, k = {
+  tokenize: x,
+  partial: !0
 };
-function m(r, a, t) {
-  const n = this;
-  return l;
-  function l(e) {
-    return r.enter("labelImage"), r.enter("labelImageMarker"), r.consume(e), r.exit("labelImageMarker"), o;
+function s(n) {
+  return p(n), n;
+}
+function h(n, u) {
+  let r;
+  return i;
+  function i(t) {
+    return n.enter("content"), r = n.enter("chunkContent", {
+      contentType: "content"
+    }), o(t);
   }
+  function o(t) {
+    return t === null ? c(t) : l(t) ? n.check(k, e, c)(t) : (n.consume(t), o);
+  }
+  function c(t) {
+    return n.exit("chunkContent"), n.exit("content"), u(t);
+  }
+  function e(t) {
+    return n.consume(t), n.exit("chunkContent"), r.next = n.enter("chunkContent", {
+      contentType: "content",
+      previous: r
+    }), r = r.next, o;
+  }
+}
+function x(n, u, r) {
+  const i = this;
+  return o;
   function o(e) {
-    return e === 91 ? (r.enter("labelMarker"), r.consume(e), r.exit("labelMarker"), r.exit("labelImage"), i) : t(e);
+    return n.exit("chunkContent"), n.enter("lineEnding"), n.consume(e), n.exit("lineEnding"), a(n, c, "linePrefix");
   }
-  function i(e) {
-    return e === 94 && "_hiddenFootnoteSupport" in n.parser.constructs ? t(e) : a(e);
+  function c(e) {
+    if (e === null || l(e))
+      return r(e);
+    const t = i.events[i.events.length - 1];
+    return !i.parser.constructs.disable.null.includes("codeIndented") && t && t[1].type === "linePrefix" && t[2].sliceSerialize(t[1], !0).length >= 4 ? u(e) : n.interrupt(i.parser.constructs.flow, r, u)(e);
   }
 }
 export {
-  g as labelStartImage
+  d as content
 };
 //# sourceMappingURL=cori.data.api660.js.map

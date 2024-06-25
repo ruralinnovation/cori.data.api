@@ -1,129 +1,127 @@
-import { Vector as U } from "./cori.data.api401.js";
-import { Visitor as I } from "./cori.data.api546.js";
-import { RecordBatch as V } from "./cori.data.api502.js";
-import { rebaseValueOffsets as _ } from "./cori.data.api489.js";
-import { truncateBitmap as w, packBools as D } from "./cori.data.api545.js";
-import { FieldNode as d, BufferRegion as R } from "./cori.data.api497.js";
-import { DataType as m } from "./cori.data.api402.js";
-import { bigIntToNumber as L } from "./cori.data.api549.js";
-import { UnionMode as B } from "./cori.data.api547.js";
+import { __asyncGenerator as d, __await as o, __asyncDelegator as c, __asyncValues as h } from "./cori.data.api500.js";
+import { encodeUtf8 as U } from "./cori.data.api552.js";
+import { isIteratorResult as p, isFlatbuffersByteBuffer as _, isIterable as I, isPromise as B, isAsyncIterable as x } from "./cori.data.api516.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i extends I {
-  /** @nocollapse */
-  static assemble(...t) {
-    const s = (r) => r.flatMap((o) => Array.isArray(o) ? s(o) : o instanceof V ? o.data.children : o.data), n = new i();
-    return n.visitMany(s(t)), n;
-  }
-  constructor() {
-    super(), this._byteLength = 0, this._nodes = [], this._buffers = [], this._bufferRegions = [];
-  }
-  visit(t) {
-    if (t instanceof U)
-      return this.visitMany(t.data), this;
-    const { type: s } = t;
-    if (!m.isDictionary(s)) {
-      const { length: n } = t;
-      if (n > 2147483647)
-        throw new RangeError("Cannot write arrays larger than 2^31 - 1 in length");
-      if (m.isUnion(s))
-        this.nodes.push(new d(n, 0));
-      else {
-        const { nullCount: r } = t;
-        m.isNull(s) || l.call(this, r <= 0 ? new Uint8Array(0) : w(t.offset, n, t.nullBitmap)), this.nodes.push(new d(n, r));
-      }
+const m = typeof SharedArrayBuffer < "u" ? SharedArrayBuffer : ArrayBuffer;
+function O(n) {
+  const e = n[0] ? [n[0]] : [];
+  let t, r, l, f;
+  for (let i, y, a = 0, s = 0, b = n.length; ++a < b; ) {
+    if (i = e[s], y = n[a], !i || !y || i.buffer !== y.buffer || y.byteOffset < i.byteOffset) {
+      y && (e[++s] = y);
+      continue;
     }
-    return super.visit(t);
-  }
-  visitNull(t) {
-    return this;
-  }
-  visitDictionary(t) {
-    return this.visit(t.clone(t.type.indices));
-  }
-  get nodes() {
-    return this._nodes;
-  }
-  get buffers() {
-    return this._buffers;
-  }
-  get byteLength() {
-    return this._byteLength;
-  }
-  get bufferRegions() {
-    return this._bufferRegions;
-  }
-}
-function l(e) {
-  const t = e.byteLength + 7 & -8;
-  return this.buffers.push(e), this.bufferRegions.push(new R(this._byteLength, t)), this._byteLength += t, this;
-}
-function A(e) {
-  var t;
-  const { type: s, length: n, typeIds: r, valueOffsets: o } = e;
-  if (l.call(this, r), s.mode === B.Sparse)
-    return g.call(this, e);
-  if (s.mode === B.Dense) {
-    if (e.offset <= 0)
-      return l.call(this, o), g.call(this, e);
-    {
-      const p = new Int32Array(n), a = /* @__PURE__ */ Object.create(null), v = /* @__PURE__ */ Object.create(null);
-      for (let h, u, c = -1; ++c < n; )
-        (h = r[c]) !== void 0 && ((u = a[h]) === void 0 && (u = a[h] = o[c]), p[c] = o[c] - u, v[h] = ((t = v[h]) !== null && t !== void 0 ? t : 0) + 1);
-      l.call(this, p), this.visitMany(e.children.map((h, u) => {
-        const c = s.typeIds[u], M = a[c], O = v[c];
-        return h.slice(M, Math.min(n, O));
-      }));
+    if ({ byteOffset: t, byteLength: l } = i, { byteOffset: r, byteLength: f } = y, t + l < r || r + f < t) {
+      y && (e[++s] = y);
+      continue;
     }
+    e[s] = new Uint8Array(i.buffer, t, r - t + f);
   }
-  return this;
+  return e;
 }
-function F(e) {
-  let t;
-  return e.nullCount >= e.length ? l.call(this, new Uint8Array(0)) : (t = e.values) instanceof Uint8Array ? l.call(this, w(e.offset, e.length, t)) : l.call(this, D(e.values));
+function A(n, e, t = 0, r = e.byteLength) {
+  const l = n.byteLength, f = new Uint8Array(n.buffer, n.byteOffset, l), i = new Uint8Array(e.buffer, e.byteOffset, Math.min(r, l));
+  return f.set(i, t), n;
 }
-function f(e) {
-  return l.call(this, e.values.subarray(0, e.length * e.stride));
-}
-function y(e) {
-  const { length: t, values: s, valueOffsets: n } = e, r = L(n[0]), o = L(n[t]), p = Math.min(o - r, s.byteLength - r);
-  return l.call(this, _(-r, t + 1, n)), l.call(this, s.subarray(r, r + p)), this;
-}
-function b(e) {
-  const { length: t, valueOffsets: s } = e;
-  if (s) {
-    const { [0]: n, [t]: r } = s;
-    return l.call(this, _(-n, t + 1, s)), this.visit(e.children[0].slice(n, r - n));
+function T(n, e) {
+  const t = O(n), r = t.reduce((b, L) => b + L.byteLength, 0);
+  let l, f, i, y = 0, a = -1;
+  const s = Math.min(e || Number.POSITIVE_INFINITY, r);
+  for (const b = t.length; ++a < b; ) {
+    if (l = t[a], f = l.subarray(0, Math.min(l.length, s - y)), s <= y + f.length) {
+      f.length < l.length ? t[a] = l.subarray(f.length) : f.length === l.length && a++, i ? A(i, f, y) : i = f;
+      break;
+    }
+    A(i || (i = new Uint8Array(s)), f, y), y += f.length;
   }
-  return this.visit(e.children[0]);
+  return [i || new Uint8Array(0), t.slice(a), r - (i ? i.byteLength : 0)];
 }
-function g(e) {
-  return this.visitMany(e.type.children.map((t, s) => e.children[s]).filter(Boolean))[0];
+function u(n, e) {
+  let t = p(e) ? e.value : e;
+  return t instanceof n ? n === Uint8Array ? new n(t.buffer, t.byteOffset, t.byteLength) : t : t ? (typeof t == "string" && (t = U(t)), t instanceof ArrayBuffer ? new n(t) : t instanceof m ? new n(t) : _(t) ? u(n, t.bytes()) : ArrayBuffer.isView(t) ? t.byteLength <= 0 ? new n(0) : new n(t.buffer, t.byteOffset, t.byteLength / n.BYTES_PER_ELEMENT) : n.from(t)) : new n(0);
 }
-i.prototype.visitBool = F;
-i.prototype.visitInt = f;
-i.prototype.visitFloat = f;
-i.prototype.visitUtf8 = y;
-i.prototype.visitLargeUtf8 = y;
-i.prototype.visitBinary = y;
-i.prototype.visitLargeBinary = y;
-i.prototype.visitFixedSizeBinary = f;
-i.prototype.visitDate = f;
-i.prototype.visitTimestamp = f;
-i.prototype.visitTime = f;
-i.prototype.visitDecimal = f;
-i.prototype.visitList = b;
-i.prototype.visitStruct = g;
-i.prototype.visitUnion = A;
-i.prototype.visitInterval = f;
-i.prototype.visitDuration = f;
-i.prototype.visitFixedSizeList = b;
-i.prototype.visitMap = b;
+const P = (n) => u(Int32Array, n), R = (n) => u(BigInt64Array, n), j = (n) => u(Uint8Array, n), g = (n) => (n.next(), n);
+function* S(n, e) {
+  const t = function* (l) {
+    yield l;
+  }, r = typeof e == "string" || ArrayBuffer.isView(e) || e instanceof ArrayBuffer || e instanceof m ? t(e) : I(e) ? e : t(e);
+  return yield* g(function* (l) {
+    let f = null;
+    do
+      f = l.next(yield u(n, f));
+    while (!f.done);
+  }(r[Symbol.iterator]())), new n();
+}
+const F = (n) => S(Uint8Array, n);
+function w(n, e) {
+  return d(this, arguments, function* () {
+    if (B(e))
+      return yield o(yield o(yield* c(h(w(n, yield o(e))))));
+    const r = function(i) {
+      return d(this, arguments, function* () {
+        yield yield o(yield o(i));
+      });
+    }, l = function(i) {
+      return d(this, arguments, function* () {
+        yield o(yield* c(h(g(function* (y) {
+          let a = null;
+          do
+            a = y.next(yield a == null ? void 0 : a.value);
+          while (!a.done);
+        }(i[Symbol.iterator]())))));
+      });
+    }, f = typeof e == "string" || ArrayBuffer.isView(e) || e instanceof ArrayBuffer || e instanceof m ? r(e) : I(e) ? l(e) : x(e) ? e : r(e);
+    return yield o(
+      // otherwise if AsyncIterable, use it
+      yield* c(h(g(function(i) {
+        return d(this, arguments, function* () {
+          let y = null;
+          do
+            y = yield o(i.next(yield yield o(u(n, y))));
+          while (!y.done);
+        });
+      }(f[Symbol.asyncIterator]()))))
+    ), yield o(new n());
+  });
+}
+const Y = (n) => w(Uint8Array, n);
+function v(n, e, t) {
+  if (n !== 0) {
+    t = t.slice(0, e);
+    for (let r = -1, l = t.length; ++r < l; )
+      t[r] += n;
+  }
+  return t.subarray(0, e);
+}
+function D(n, e) {
+  let t = 0;
+  const r = n.length;
+  if (r !== e.length)
+    return !1;
+  if (r > 0)
+    do
+      if (n[t] !== e[t])
+        return !1;
+    while (++t < r);
+  return !0;
+}
 export {
-  i as VectorAssembler
+  D as compareArrayLike,
+  T as joinUint8Arrays,
+  A as memcpy,
+  v as rebaseValueOffsets,
+  u as toArrayBufferView,
+  w as toArrayBufferViewAsyncIterator,
+  S as toArrayBufferViewIterator,
+  R as toBigInt64Array,
+  P as toInt32Array,
+  j as toUint8Array,
+  Y as toUint8ArrayAsyncIterator,
+  F as toUint8ArrayIterator
 };
 //# sourceMappingURL=cori.data.api501.js.map

@@ -1,17 +1,14 @@
-import { footer as i } from "./cori.data.api362.js";
-import { createState as s } from "./cori.data.api363.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(o, c) {
-  const e = s(o, c), t = e.one(o, void 0), r = i(e), n = Array.isArray(t) ? { type: "root", children: t } : t || { type: "root", children: [] };
-  return r && n.children.push({ type: "text", value: `
-` }, r), n;
+const n = /^[$_\p{ID_Start}][$_\u{200C}\u{200D}\p{ID_Continue}]*$/u, e = /^[$_\p{ID_Start}][-$_\u{200C}\u{200D}\p{ID_Continue}]*$/u, s = {};
+function _(t, o) {
+  return (s.jsx ? e : n).test(t);
 }
 export {
-  p as toHast
+  _ as name
 };
 //# sourceMappingURL=cori.data.api238.js.map

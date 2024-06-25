@@ -4,12 +4,20 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function* n() {
-  for (var r = this._groups, t = 0, l = r.length; t < l; ++t)
-    for (var a = r[t], e = 0, i = a.length, f; e < i; ++e)
-      (f = a[e]) && (yield f);
+function a(e, t) {
+  switch (arguments.length) {
+    case 0:
+      break;
+    case 1:
+      this.range(e);
+      break;
+    default:
+      this.range(t).domain(e);
+      break;
+  }
+  return this;
 }
 export {
-  n as default
+  a as initRange
 };
 //# sourceMappingURL=cori.data.api158.js.map

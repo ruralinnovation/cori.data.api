@@ -1,35 +1,20 @@
-import f from "./cori.data.api63.js";
-import s from "./cori.data.api68.js";
+import i from "./cori.data.api60.js";
+import m from "./cori.data.api64.js";
+import s from "./cori.data.api74.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const l = (t, c) => {
-  let u = new AbortController(), i;
-  const n = function(e) {
-    if (!i) {
-      i = !0, a();
-      const o = e instanceof Error ? e : this.reason;
-      u.abort(o instanceof s ? o : new f(o instanceof Error ? o.message : o));
-    }
-  };
-  let r = c && setTimeout(() => {
-    n(new s(`timeout ${c} of ms exceeded`, s.ETIMEDOUT));
-  }, c);
-  const a = () => {
-    t && (r && clearTimeout(r), r = null, t.forEach((e) => {
-      e && (e.removeEventListener ? e.removeEventListener("abort", n) : e.unsubscribe(n));
-    }), t = null);
-  };
-  t.forEach((e) => e && e.addEventListener && e.addEventListener("abort", n));
-  const { signal: b } = u;
-  return b.unsubscribe = a, [b, () => {
-    r && clearTimeout(r), r = null;
-  }];
-};
+function h(f, t) {
+  const o = this || m, r = t || o, n = s.from(r.headers);
+  let a = r.data;
+  return i.forEach(f, function(e) {
+    a = e.call(o, a, n.normalize(), t ? t.status : void 0);
+  }), n.normalize(), a;
+}
 export {
-  l as default
+  h as default
 };
 //# sourceMappingURL=cori.data.api376.js.map

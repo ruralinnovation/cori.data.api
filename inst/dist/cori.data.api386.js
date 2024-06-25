@@ -1,35 +1,45 @@
-import { formatUTCDate as f, formatDate as n } from "./cori.data.api384.js";
-import m from "./cori.data.api378.js";
-import s from "./cori.data.api270.js";
-import u from "./cori.data.api388.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function x(t, r = {}) {
-  if (s(r))
-    return r(t) + "";
-  const o = typeof t;
-  if (o === "object") {
-    if (m(t))
-      return r.utc ? f(t) : n(t);
-    {
-      const e = JSON.stringify(
-        t,
-        (l, i) => u(i) ? Array.from(i) : i
-      ), a = r.maxlen || 30;
-      return e.length > a ? e.slice(0, 28) + "…" + (e[0] === "[" ? "]" : "}") : e;
+const u = function* (t, n) {
+  let r = t.byteLength;
+  if (!n || r < n) {
+    yield t;
+    return;
+  }
+  let e = 0, a;
+  for (; e < r; )
+    a = e + n, yield t.slice(e, a), e = a;
+}, f = async function* (t, n, r) {
+  for await (const e of t)
+    yield* u(ArrayBuffer.isView(e) ? e : await r(String(e)), n);
+}, d = (t, n, r, e, a) => {
+  const i = f(t, n, a);
+  let y = 0;
+  return new ReadableStream({
+    type: "bytes",
+    async pull(l) {
+      const { done: c, value: s } = await i.next();
+      if (c) {
+        l.close(), e();
+        return;
+      }
+      let o = s.byteLength;
+      r && r(y += o), l.enqueue(new Uint8Array(s));
+    },
+    cancel(l) {
+      return e(l), i.return();
     }
-  } else if (o === "number") {
-    const e = r.digits || 0;
-    let a;
-    return t !== 0 && ((a = Math.abs(t)) >= 1e18 || a < Math.pow(10, -e)) ? t.toExponential(e) : t.toFixed(e);
-  } else
-    return t + "";
-}
+  }, {
+    highWaterMark: 2
+  });
+};
 export {
-  x as default
+  f as readBytes,
+  u as streamChunk,
+  d as trackStream
 };
 //# sourceMappingURL=cori.data.api386.js.map

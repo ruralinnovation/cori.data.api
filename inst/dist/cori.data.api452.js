@@ -1,47 +1,31 @@
+import { reduceGroups as A, reduceFlat as E } from "./cori.data.api540.js";
+import _ from "./cori.data.api280.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const u = /[\0\t\n\r]/g;
-function x() {
-  let s = 1, c = "", f = !0, r;
-  return p;
-  function p(e, l, a) {
-    const t = [];
-    let d, o, n, i, h;
-    for (e = c + (typeof e == "string" ? e.toString() : new TextDecoder(l || void 0).decode(e)), n = 0, c = "", f && (e.charCodeAt(0) === 65279 && n++, f = void 0); n < e.length; ) {
-      if (u.lastIndex = n, d = u.exec(e), i = d && d.index !== void 0 ? d.index : e.length, h = e.charCodeAt(i), !d) {
-        c = e.slice(n);
-        break;
-      }
-      if (h === 10 && n === i && r)
-        t.push(-3), r = void 0;
-      else
-        switch (r && (t.push(-5), r = void 0), n < i && (t.push(e.slice(n, i)), s += i - n), h) {
-          case 0: {
-            t.push(65533), s++;
-            break;
-          }
-          case 9: {
-            for (o = Math.ceil(s / 4) * 4, t.push(-2); s++ < o; )
-              t.push(-1);
-            break;
-          }
-          case 10: {
-            t.push(-4), s = 1;
-            break;
-          }
-          default:
-            r = !0, s = 1;
-        }
-      n = i + 1;
-    }
-    return a && (r && t.push(-5), c && t.push(c), t.push(null)), t;
+function z(o, s) {
+  const n = _(), r = o.groups(), { get: i, names: e = [], rows: d, size: l = 1 } = r || {}, c = new Uint32Array(l + 1);
+  e.forEach((t) => n.add(t, null));
+  const m = r ? A(o, s, r) : [E(o, s)];
+  s.outputs().map((t) => n.add(t, []));
+  const p = c.length - 1;
+  let u = 0;
+  for (let t = 0; t < p; ++t)
+    u += c[t + 1] = s.write(m[t], n.data, c[t]);
+  if (r) {
+    const t = o.data();
+    e.forEach((g, w) => {
+      const h = n.data[g] = Array(u), y = i[w];
+      for (let a = 0, f = 0; a < l; ++a)
+        h.fill(y(d[a], t), f, f += c[a + 1]);
+    });
   }
+  return o.create(n.new());
 }
 export {
-  x as preprocess
+  z as default
 };
 //# sourceMappingURL=cori.data.api452.js.map

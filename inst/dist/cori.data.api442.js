@@ -1,26 +1,16 @@
-import d from "./cori.data.api273.js";
-import i from "./cori.data.api418.js";
+import n from "./cori.data.api533.js";
+import t from "./cori.data.api288.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function g(o, n) {
-  const t = o.numRows(), s = t + n.reduce((c, r) => c + r.numRows(), 0);
-  if (t === s)
-    return o;
-  const e = [o, ...n], u = d();
-  return o.columnNames().forEach((c) => {
-    const r = Array(s);
-    let f = 0;
-    e.forEach((m) => {
-      const a = m.column(c) || { get: () => i };
-      m.scan((w) => r[f++] = a.get(w));
-    }), u.add(c, r);
-  }), o.create(u.new());
+function a(e, m) {
+  const o = /* @__PURE__ */ new Map();
+  return e.columnNames((r) => (o.set(r, r), 0)), n(e, t(e, m, o));
 }
 export {
-  g as default
+  a as default
 };
 //# sourceMappingURL=cori.data.api442.js.map

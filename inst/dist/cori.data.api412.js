@@ -1,18 +1,26 @@
+import e from "./cori.data.api427.js";
+import l from "./cori.data.api405.js";
+import r from "./cori.data.api320.js";
+import c from "./cori.data.api403.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function h(e, l, u) {
-  let n = arguments.length;
-  e = +e, l = +l, u = n < 2 ? (l = e, e = 0, 1) : n < 3 ? 1 : +u, n = Math.max(0, Math.ceil((l - e) / u)) | 0;
-  const f = new Array(n);
-  for (let c = 0; c < n; ++c)
-    f[c] = e + c * u;
-  return f;
-}
+const n = (i) => l(i) || r(i), a = {
+  compact: (i) => l(i) ? i.filter((o) => c(o)) : i,
+  concat: (...i) => [].concat(...i),
+  includes: (i, o, t) => n(i) ? i.includes(o, t) : !1,
+  indexof: (i, o) => n(i) ? i.indexOf(o) : -1,
+  join: (i, o) => l(i) ? i.join(o) : e,
+  lastindexof: (i, o) => n(i) ? i.lastIndexOf(o) : -1,
+  length: (i) => n(i) ? i.length : 0,
+  pluck: (i, o) => l(i) ? i.map((t) => c(t) ? t[o] : e) : e,
+  reverse: (i) => l(i) ? i.slice().reverse() : r(i) ? i.split("").reverse().join("") : e,
+  slice: (i, o, t) => n(i) ? i.slice(o, t) : e
+};
 export {
-  h as default
+  a as default
 };
 //# sourceMappingURL=cori.data.api412.js.map

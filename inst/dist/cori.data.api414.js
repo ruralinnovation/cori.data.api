@@ -1,288 +1,85 @@
-import u from "./cori.data.api415.js";
-import o from "./cori.data.api416.js";
-import c from "./cori.data.api403.js";
-import v from "./cori.data.api417.js";
-import i from "./cori.data.api418.js";
-import p from "./cori.data.api419.js";
+import { formatDate as f, formatUTCDate as D } from "./cori.data.api393.js";
+import l from "./cori.data.api519.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function r(a) {
-  return a.init = a.init || v, a.add = a.add || v, a.rem = a.rem || v, a;
+const m = 6e4, T = 864e5, g = 6048e5, e = /* @__PURE__ */ new Date(), o = /* @__PURE__ */ new Date(), s = (t) => (e.setTime(typeof t == "string" ? l(t) : t), e);
+function C(t, n, a, r, u, c, i) {
+  return arguments.length ? new Date(
+    t,
+    n || 0,
+    a ?? 1,
+    r || 0,
+    u || 0,
+    c || 0,
+    i || 0
+  ) : new Date(Date.now());
 }
-function l(a, e) {
-  return a.product_v = !1, a.product = e;
+function U(t, n, a, r, u, c, i) {
+  return arguments.length ? new Date(Date.UTC(
+    t,
+    n || 0,
+    a ?? 1,
+    r || 0,
+    u || 0,
+    c || 0,
+    i || 0
+  )) : new Date(Date.now());
 }
-const N = {
-  /** @type {AggregateDef} */
-  count: {
-    create: () => r({
-      value: (a) => a.count
-    }),
-    param: []
-  },
-  /** @type {AggregateDef} */
-  array_agg: {
-    create: () => r({
-      init: (a) => a.values = !0,
-      value: (a) => a.list.values(a.stream)
-    }),
-    param: [1]
-  },
-  /** @type {AggregateDef} */
-  object_agg: {
-    create: () => r({
-      init: (a) => a.values = !0,
-      value: (a) => Object.fromEntries(a.list.values())
-    }),
-    param: [2]
-  },
-  /** @type {AggregateDef} */
-  map_agg: {
-    create: () => r({
-      init: (a) => a.values = !0,
-      value: (a) => new Map(a.list.values())
-    }),
-    param: [2]
-  },
-  /** @type {AggregateDef} */
-  entries_agg: {
-    create: () => r({
-      init: (a) => a.values = !0,
-      value: (a) => a.list.values(a.stream)
-    }),
-    param: [2]
-  },
-  /** @type {AggregateDef} */
-  any: {
-    create: () => r({
-      add: (a, e) => {
-        a.any == null && (a.any = e);
-      },
-      value: (a) => a.valid ? a.any : i
-    }),
-    param: [1]
-  },
-  /** @type {AggregateDef} */
-  valid: {
-    create: () => r({
-      value: (a) => a.valid
-    }),
-    param: [1]
-  },
-  /** @type {AggregateDef} */
-  invalid: {
-    create: () => r({
-      value: (a) => a.count - a.valid
-    }),
-    param: [1]
-  },
-  /** @type {AggregateDef} */
-  distinct: {
-    create: () => ({
-      init: (a) => a.distinct = o(),
-      value: (a) => a.distinct.count() + (a.valid === a.count ? 0 : 1),
-      add: (a, e) => a.distinct.increment(e),
-      rem: (a, e) => a.distinct.decrement(e)
-    }),
-    param: [1]
-  },
-  /** @type {AggregateDef} */
-  array_agg_distinct: {
-    create: () => r({
-      value: (a) => a.distinct.values()
-    }),
-    param: [1],
-    req: ["distinct"]
-  },
-  /** @type {AggregateDef} */
-  mode: {
-    create: () => r({
-      value: (a) => {
-        let e = i, n = 0;
-        return a.distinct.forEach((t, m) => {
-          m > n && (n = m, e = t);
-        }), e;
-      }
-    }),
-    param: [1],
-    req: ["distinct"]
-  },
-  /** @type {AggregateDef} */
-  sum: {
-    create: () => ({
-      init: (a) => a.sum = 0,
-      value: (a) => a.valid ? a.sum : i,
-      add: (a, e) => c(e) ? a.sum === 0 ? a.sum = e : a.sum += e : a.sum += +e,
-      rem: (a, e) => a.sum -= e
-    }),
-    param: [1]
-  },
-  /** @type {AggregateDef} */
-  product: {
-    create: () => ({
-      init: (a) => l(a, 1),
-      value: (a) => a.valid ? a.product_v ? l(a, p(a.list.values())) : a.product : void 0,
-      add: (a, e) => c(e) && a.product === 1 ? a.product = e : a.product *= e,
-      rem: (a, e) => e == 0 || e === 1 / 0 || e === -1 / 0 ? a.product_v = !0 : a.product /= e
-    }),
-    param: [1],
-    stream: ["array_agg"]
-  },
-  /** @type {AggregateDef} */
-  mean: {
-    create: () => ({
-      init: (a) => a.mean = 0,
-      value: (a) => a.valid ? a.mean : i,
-      add: (a, e) => {
-        a.mean_d = e - a.mean, a.mean += a.mean_d / a.valid;
-      },
-      rem: (a, e) => {
-        a.mean_d = e - a.mean, a.mean -= a.valid ? a.mean_d / a.valid : a.mean;
-      }
-    }),
-    param: [1]
-  },
-  /** @type {AggregateDef} */
-  average: {
-    create: () => r({
-      value: (a) => a.valid ? a.mean : i
-    }),
-    param: [1],
-    req: ["mean"]
-  },
-  /** @type {AggregateDef} */
-  variance: {
-    create: () => ({
-      init: (a) => a.dev = 0,
-      value: (a) => a.valid > 1 ? a.dev / (a.valid - 1) : i,
-      add: (a, e) => a.dev += a.mean_d * (e - a.mean),
-      rem: (a, e) => a.dev -= a.mean_d * (e - a.mean)
-    }),
-    param: [1],
-    req: ["mean"]
-  },
-  /** @type {AggregateDef} */
-  variancep: {
-    create: () => r({
-      value: (a) => a.valid > 1 ? a.dev / a.valid : i
-    }),
-    param: [1],
-    req: ["variance"]
-  },
-  /** @type {AggregateDef} */
-  stdev: {
-    create: () => r({
-      value: (a) => a.valid > 1 ? Math.sqrt(a.dev / (a.valid - 1)) : i
-    }),
-    param: [1],
-    req: ["variance"]
-  },
-  /** @type {AggregateDef} */
-  stdevp: {
-    create: () => r({
-      value: (a) => a.valid > 1 ? Math.sqrt(a.dev / a.valid) : i
-    }),
-    param: [1],
-    req: ["variance"]
-  },
-  /** @type {AggregateDef} */
-  min: {
-    create: () => ({
-      init: (a) => a.min = i,
-      value: (a) => a.min = Number.isNaN(a.min) ? a.list.min() : a.min,
-      add: (a, e) => {
-        (e < a.min || a.min === i) && (a.min = e);
-      },
-      rem: (a, e) => {
-        e <= a.min && (a.min = NaN);
-      }
-    }),
-    param: [1],
-    stream: ["array_agg"]
-  },
-  /** @type {AggregateDef} */
-  max: {
-    create: () => ({
-      init: (a) => a.max = i,
-      value: (a) => a.max = Number.isNaN(a.max) ? a.list.max() : a.max,
-      add: (a, e) => {
-        (e > a.max || a.max === i) && (a.max = e);
-      },
-      rem: (a, e) => {
-        e >= a.max && (a.max = NaN);
-      }
-    }),
-    param: [1],
-    stream: ["array_agg"]
-  },
-  /** @type {AggregateDef} */
-  quantile: {
-    create: (a) => r({
-      value: (e) => e.list.quantile(a)
-    }),
-    param: [1, 1],
-    req: ["array_agg"]
-  },
-  /** @type {AggregateDef} */
-  median: {
-    create: () => r({
-      value: (a) => a.list.quantile(0.5)
-    }),
-    param: [1],
-    req: ["array_agg"]
-  },
-  /** @type {AggregateDef} */
-  covariance: {
-    create: () => ({
-      init: (a) => {
-        a.cov = a.mean_x = a.mean_y = a.dev_x = a.dev_y = 0;
-      },
-      value: (a) => a.valid > 1 ? a.cov / (a.valid - 1) : i,
-      add: (a, e, n) => {
-        const t = e - a.mean_x, m = n - a.mean_y;
-        a.mean_x += t / a.valid, a.mean_y += m / a.valid;
-        const d = n - a.mean_y;
-        a.dev_x += t * (e - a.mean_x), a.dev_y += m * d, a.cov += t * d;
-      },
-      rem: (a, e, n) => {
-        const t = e - a.mean_x, m = n - a.mean_y;
-        a.mean_x -= a.valid ? t / a.valid : a.mean_x, a.mean_y -= a.valid ? m / a.valid : a.mean_y;
-        const d = n - a.mean_y;
-        a.dev_x -= t * (e - a.mean_x), a.dev_y -= m * d, a.cov -= t * d;
-      }
-    }),
-    param: [2]
-  },
-  /** @type {AggregateDef} */
-  covariancep: {
-    create: () => r({
-      value: (a) => a.valid > 1 ? a.cov / a.valid : i
-    }),
-    param: [2],
-    req: ["covariance"]
-  },
-  /** @type {AggregateDef} */
-  corr: {
-    create: () => r({
-      value: (a) => a.valid > 1 ? a.cov / (Math.sqrt(a.dev_x) * Math.sqrt(a.dev_y)) : i
-    }),
-    param: [2],
-    req: ["covariance"]
-  },
-  /** @type {AggregateDef} */
-  bins: {
-    create: (a, e, n, t) => r({
-      value: (m) => u(m.min, m.max, a, e, n, t)
-    }),
-    param: [1, 4],
-    req: ["min", "max"]
-  }
+function h(t) {
+  o.setTime(+t), o.setHours(0, 0, 0, 0), e.setTime(+o), e.setMonth(0), e.setDate(1);
+  const n = (o.getTimezoneOffset() - e.getTimezoneOffset()) * m;
+  return Math.floor(1 + (o - e - n) / T);
+}
+function M(t) {
+  o.setTime(+t), o.setUTCHours(0, 0, 0, 0);
+  const n = Date.UTC(o.getUTCFullYear(), 0, 1);
+  return Math.floor(1 + (o - n) / T);
+}
+function y(t, n) {
+  const a = n || 0;
+  o.setTime(+t), o.setDate(o.getDate() - (o.getDay() + 7 - a) % 7), o.setHours(0, 0, 0, 0), e.setTime(+t), e.setMonth(0), e.setDate(1), e.setDate(1 - (e.getDay() + 7 - a) % 7), e.setHours(0, 0, 0, 0);
+  const r = (o.getTimezoneOffset() - e.getTimezoneOffset()) * m;
+  return Math.floor((1 + (o - e) - r) / g);
+}
+function d(t, n) {
+  const a = n || 0;
+  return o.setTime(+t), o.setUTCDate(o.getUTCDate() - (o.getUTCDay() + 7 - a) % 7), o.setUTCHours(0, 0, 0, 0), e.setTime(+t), e.setUTCMonth(0), e.setUTCDate(1), e.setUTCDate(1 - (e.getUTCDay() + 7 - a) % 7), e.setUTCHours(0, 0, 0, 0), Math.floor((1 + (o - e)) / g);
+}
+const p = {
+  format_date: (t, n) => f(s(t), !n),
+  format_utcdate: (t, n) => D(s(t), !n),
+  timestamp: (t) => +s(t),
+  year: (t) => s(t).getFullYear(),
+  quarter: (t) => Math.floor(s(t).getMonth() / 3),
+  month: (t) => s(t).getMonth(),
+  date: (t) => s(t).getDate(),
+  dayofweek: (t) => s(t).getDay(),
+  hours: (t) => s(t).getHours(),
+  minutes: (t) => s(t).getMinutes(),
+  seconds: (t) => s(t).getSeconds(),
+  milliseconds: (t) => s(t).getMilliseconds(),
+  utcyear: (t) => s(t).getUTCFullYear(),
+  utcquarter: (t) => Math.floor(s(t).getUTCMonth() / 3),
+  utcmonth: (t) => s(t).getUTCMonth(),
+  utcdate: (t) => s(t).getUTCDate(),
+  utcdayofweek: (t) => s(t).getUTCDay(),
+  utchours: (t) => s(t).getUTCHours(),
+  utcminutes: (t) => s(t).getUTCMinutes(),
+  utcseconds: (t) => s(t).getUTCSeconds(),
+  utcmilliseconds: (t) => s(t).getUTCMilliseconds(),
+  datetime: C,
+  dayofyear: h,
+  week: y,
+  utcdatetime: U,
+  utcdayofyear: M,
+  utcweek: d,
+  now: Date.now
 };
 export {
-  N as default
+  p as default
 };
 //# sourceMappingURL=cori.data.api414.js.map

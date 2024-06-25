@@ -1,15 +1,23 @@
+import { makeBuilder as n } from "./cori.data.api574.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(t) {
-  if (typeof t == "bigint" && (t < Number.MIN_SAFE_INTEGER || t > Number.MAX_SAFE_INTEGER))
-    throw new TypeError(`${t} is not safe to convert to a number.`);
-  return Number(t);
+function d(u) {
+  const e = n({
+    type: u,
+    nullValues: [null, void 0]
+  });
+  return {
+    set(l, t) {
+      e.set(t, l);
+    },
+    data: () => e.finish().flush()
+  };
 }
 export {
-  o as bigIntToNumber
+  d as default
 };
 //# sourceMappingURL=cori.data.api549.js.map

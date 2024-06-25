@@ -1,30 +1,52 @@
-import d from "./cori.data.api378.js";
-import "./cori.data.api30.js";
-import { formatUTCDate as g } from "./cori.data.api384.js";
-import "./cori.data.api31.js";
-import { columns as h } from "./cori.data.api385.js";
-import p from "./cori.data.api387.js";
+import s from "./cori.data.api273.js";
+import m from "./cori.data.api313.js";
+import g from "./cori.data.api387.js";
+import h from "./cori.data.api277.js";
+import u from "./cori.data.api302.js";
+import b from "./cori.data.api388.js";
+import d from "./cori.data.api320.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const J = (t) => d(t) ? g(t, !0) : t;
-function T(t, r = {}) {
-  const f = p(r.schema), e = r.format || {}, c = h(t, r.columns);
-  let m = "{";
-  return f && (m += '"schema":{"fields":' + JSON.stringify(c.map((o) => ({ name: o }))) + '},"data":{'), c.forEach((o, s) => {
-    m += (s ? "," : "") + JSON.stringify(o) + ":[";
-    const a = t.column(o), i = e[o] || J;
-    let n = -1;
-    t.scan((u) => {
-      const l = a.get(u);
-      m += (++n ? "," : "") + JSON.stringify(i(l));
-    }, !0, r.limit, r.offset), m += "]";
-  }), m + "}" + (f ? "}" : "");
+function I(t, o) {
+  const r = (c) => s(`Illegal argument type: ${c || typeof t}`);
+  return t instanceof Map ? l(t.entries(), o) : g(t) ? r("Date") : b(t) ? r("RegExp") : d(t) ? r() : m(t) ? k(t, o) : h(t[Symbol.iterator]) ? j(t, o) : u(t) ? l(Object.entries(t), o) : r();
+}
+function l(t, o = ["key", "value"]) {
+  const r = [], c = [];
+  for (const [f, e] of t)
+    r.push(f), c.push(e);
+  const i = {};
+  return o[0] && (i[o[0]] = r), o[1] && (i[o[1]] = c), i;
+}
+function k(t, o) {
+  const r = t.length, c = {}, i = (f) => c[f] = Array(r);
+  if (r) {
+    o = o || Object.keys(t[0]);
+    const f = o.map(i), e = f.length;
+    for (let n = 0; n < r; ++n) {
+      const y = t[n];
+      for (let p = 0; p < e; ++p)
+        f[p][n] = y[o[p]];
+    }
+  } else
+    o && o.forEach(i);
+  return c;
+}
+function j(t, o) {
+  const r = {}, c = (e) => r[e] = [];
+  let i, f;
+  for (const e of t) {
+    i || (o = o || Object.keys(e), i = o.map(c), f = i.length);
+    for (let n = 0; n < f; ++n)
+      i[n].push(e[o[n]]);
+  }
+  return !i && o && o.forEach(c), r;
 }
 export {
-  T as default
+  I as default
 };
 //# sourceMappingURL=cori.data.api279.js.map

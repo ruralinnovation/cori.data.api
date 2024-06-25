@@ -1,23 +1,48 @@
-import i from "./cori.data.api273.js";
-import f from "./cori.data.api266.js";
-import s from "./cori.data.api313.js";
+import { window as d } from "./cori.data.api625.js";
+import { aggregate as w } from "./cori.data.api540.js";
+import { hasWindow as l } from "./cori.data.api402.js";
+import h from "./cori.data.api280.js";
+import O from "./cori.data.api275.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(t, e) {
-  const n = i();
-  return e.forEach((r, o) => {
-    const c = s(r) ? r : o;
-    if (c) {
-      const m = t.column(o) || f(`Unrecognized column: ${o}`);
-      n.add(c, m);
+function y(t) {
+  return l(t.name) || t.frame && (Number.isFinite(t.frame[0]) || Number.isFinite(t.frame[1]));
+}
+function W(t, { names: e, exprs: i, ops: c }, n = {}) {
+  const r = t.totalRows(), f = h(n.drop ? null : t), u = e.map((s) => f.add(s, Array(r))), [p, o] = k(c), m = t.isGrouped() ? t.groups().size : 1, a = w(
+    t,
+    p,
+    O(c.length, () => Array(m))
+  );
+  return o.length ? d(t, u, i, a, o) : x(t, u, i, a), t.create(f);
+}
+function k(t) {
+  const e = [], i = [], c = t.length;
+  for (let n = 0; n < c; ++n) {
+    const r = t[n];
+    r.id = n, (y(r) ? i : e).push(r);
+  }
+  return [e, i];
+}
+function x(t, e, i, c) {
+  const n = t.mask(), r = t.data(), { keys: f } = t.groups() || {}, u = f ? (o, m) => c[o][f[m]] : (o) => c[o][0], p = e.length;
+  for (let o = 0; o < p; ++o) {
+    const m = i[o], a = e[o];
+    if (n)
+      for (let s = n.next(0); s >= 0; s = n.next(s + 1))
+        a[s] = m(s, r, u);
+    else {
+      const s = t.totalRows();
+      for (let g = 0; g < s; ++g)
+        a[g] = m(g, r, u);
     }
-  }), t.create(n);
+  }
 }
 export {
-  a as default
+  W as default
 };
 //# sourceMappingURL=cori.data.api521.js.map

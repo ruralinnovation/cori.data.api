@@ -1,81 +1,56 @@
-import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api628.js";
-import "./cori.data.api556.js";
-import "./cori.data.api557.js";
-import { DictionaryKind as n } from "./cori.data.api671.js";
-import { Int as e } from "./cori.data.api562.js";
+import p from "./cori.data.api654.js";
+import i from "./cori.data.api655.js";
+import { random as e } from "./cori.data.api308.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
+function U(r, l, o, c) {
+  return (l ? c ? f : u : c ? h : g)(r.length, r, o, c);
+}
+function u(r, l, o) {
+  const c = o.length;
+  for (let t = 0; t < r; ++t)
+    l[t] = o[c * e() | 0];
+  return l;
+}
+function f(r, l, o, c) {
+  const t = o.length, a = new Float64Array(t);
+  let m = 0;
+  for (let s = 0; s < t; ++s)
+    a[s] = m += c(o[s]);
+  const n = i(p).right;
+  for (let s = 0; s < r; ++s)
+    l[s] = o[n(a, m * e())];
+  return l;
+}
+function g(r, l, o) {
+  const c = o.length;
+  if (r >= c)
+    return o;
+  for (let t = 0; t < r; ++t)
+    l[t] = o[t];
+  for (let t = r; t < c; ++t) {
+    const a = t * e();
+    a < r && (l[a | 0] = o[t]);
   }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
-  }
-  static getRootAsDictionaryEncoding(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsDictionaryEncoding(t, i) {
-    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  /**
-   * The known dictionary id in the application where this data is used. In
-   * the file or streaming formats, the dictionary ids are found in the
-   * DictionaryBatch messages
-   */
-  id() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt64(this.bb_pos + t) : BigInt("0");
-  }
-  /**
-   * The dictionary indices are constrained to be non-negative integers. If
-   * this field is null, the indices must be signed int32. To maximize
-   * cross-language compatibility and performance, implementations are
-   * recommended to prefer signed integer types over unsigned integer types
-   * and to avoid uint64 indices unless they are required by an application.
-   */
-  indexType(t) {
-    const i = this.bb.__offset(this.bb_pos, 6);
-    return i ? (t || new e()).__init(this.bb.__indirect(this.bb_pos + i), this.bb) : null;
-  }
-  /**
-   * By default, dictionaries are not ordered, or the order does not have
-   * semantic meaning. In some statistical, applications, dictionary-encoding
-   * is used to represent ordered categorical data, and we provide a way to
-   * preserve that metadata here
-   */
-  isOrdered() {
-    const t = this.bb.__offset(this.bb_pos, 8);
-    return t ? !!this.bb.readInt8(this.bb_pos + t) : !1;
-  }
-  dictionaryKind() {
-    const t = this.bb.__offset(this.bb_pos, 10);
-    return t ? this.bb.readInt16(this.bb_pos + t) : n.DenseArray;
-  }
-  static startDictionaryEncoding(t) {
-    t.startObject(4);
-  }
-  static addId(t, i) {
-    t.addFieldInt64(0, i, BigInt("0"));
-  }
-  static addIndexType(t, i) {
-    t.addFieldOffset(1, i, 0);
-  }
-  static addIsOrdered(t, i) {
-    t.addFieldInt8(2, +i, 0);
-  }
-  static addDictionaryKind(t, i) {
-    t.addFieldInt16(3, i, n.DenseArray);
-  }
-  static endDictionaryEncoding(t) {
-    return t.endObject();
-  }
+  return l;
+}
+function h(r, l, o, c) {
+  const t = o.length;
+  if (r >= t)
+    return o;
+  const a = new Float32Array(t), m = new Uint32Array(t);
+  for (let n = 0; n < t; ++n)
+    m[n] = n, a[n] = -Math.log(e()) / c(o[n]);
+  m.sort((n, s) => a[n] - a[s]);
+  for (let n = 0; n < r; ++n)
+    l[n] = o[m[n]];
+  return l;
 }
 export {
-  s as DictionaryEncoding
+  U as default
 };
 //# sourceMappingURL=cori.data.api630.js.map

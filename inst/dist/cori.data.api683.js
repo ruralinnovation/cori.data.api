@@ -4,8 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var e = { exports: {} };
+var n;
+(function(F) {
+  F[F.BUFFER = 0] = "BUFFER";
+})(n || (n = {}));
 export {
-  e as __module
+  n as BodyCompressionMethod
 };
-//# sourceMappingURL=cori.data.api27.js.map
+//# sourceMappingURL=cori.data.api683.js.map
