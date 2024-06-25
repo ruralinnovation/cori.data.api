@@ -1,146 +1,78 @@
-import D from "./cori.data.api42.js";
-import s from "./cori.data.api18.js";
-import p from "./cori.data.api29.js";
-import v from "./cori.data.api57.js";
-import { trackStream as F } from "./cori.data.api58.js";
-import k from "./cori.data.api32.js";
-import O from "./cori.data.api55.js";
-import H from "./cori.data.api56.js";
-import K from "./cori.data.api53.js";
+import R from "./cori.data.api19.js";
+import x from "./cori.data.api54.js";
+import b from "./cori.data.api41.js";
+import n from "./cori.data.api30.js";
+import y from "./cori.data.api25.js";
+import H from "./cori.data.api55.js";
+import q from "./cori.data.api43.js";
+import T from "./cori.data.api33.js";
+import g from "./cori.data.api56.js";
+import A from "./cori.data.api57.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const A = (e, r) => {
-  const o = e != null;
-  return (n) => setTimeout(() => r({
-    lengthComputable: o,
-    total: e,
-    loaded: n
-  }));
-}, l = typeof fetch == "function" && typeof Request == "function" && typeof Response == "function", N = l && typeof ReadableStream == "function", y = l && (typeof TextEncoder == "function" ? /* @__PURE__ */ ((e) => (r) => e.encode(r))(new TextEncoder()) : async (e) => new Uint8Array(await new Response(e).arrayBuffer())), z = N && (() => {
-  let e = !1;
-  const r = new Request(D.origin, {
-    body: new ReadableStream(),
-    method: "POST",
-    get duplex() {
-      return e = !0, "half";
+const C = typeof XMLHttpRequest < "u", X = C && function(l) {
+  return new Promise(function(h, r) {
+    const t = A(l);
+    let p = t.data;
+    const m = T.from(t.headers).normalize();
+    let { responseType: i } = t, s;
+    function c() {
+      t.cancelToken && t.cancelToken.unsubscribe(s), t.signal && t.signal.removeEventListener("abort", s);
     }
-  }).headers.has("Content-Type");
-  return e && !r;
-})(), B = 64 * 1024, T = N && !!(() => {
-  try {
-    return s.isReadableStream(new Response("").body);
-  } catch {
-  }
-})(), f = {
-  stream: T && ((e) => e.body)
-};
-l && ((e) => {
-  ["text", "arrayBuffer", "blob", "formData", "stream"].forEach((r) => {
-    !f[r] && (f[r] = s.isFunction(e[r]) ? (o) => o[r]() : (o, n) => {
-      throw new p(`Response type '${r}' is not supported`, p.ERR_NOT_SUPPORT, n);
-    });
+    let e = new XMLHttpRequest();
+    e.open(t.method.toUpperCase(), t.url, !0), e.timeout = t.timeout;
+    function E() {
+      if (!e)
+        return;
+      const o = T.from(
+        "getAllResponseHeaders" in e && e.getAllResponseHeaders()
+      ), u = {
+        data: !i || i === "text" || i === "json" ? e.responseText : e.response,
+        status: e.status,
+        statusText: e.statusText,
+        headers: o,
+        config: l,
+        request: e
+      };
+      x(function(f) {
+        h(f), c();
+      }, function(f) {
+        r(f), c();
+      }, u), e = null;
+    }
+    "onloadend" in e ? e.onloadend = E : e.onreadystatechange = function() {
+      !e || e.readyState !== 4 || e.status === 0 && !(e.responseURL && e.responseURL.indexOf("file:") === 0) || setTimeout(E);
+    }, e.onabort = function() {
+      e && (r(new n("Request aborted", n.ECONNABORTED, t, e)), e = null);
+    }, e.onerror = function() {
+      r(new n("Network Error", n.ERR_NETWORK, t, e)), e = null;
+    }, e.ontimeout = function() {
+      let a = t.timeout ? "timeout of " + t.timeout + "ms exceeded" : "timeout exceeded";
+      const u = t.transitional || b;
+      t.timeoutErrorMessage && (a = t.timeoutErrorMessage), r(new n(
+        a,
+        u.clarifyTimeoutError ? n.ETIMEDOUT : n.ECONNABORTED,
+        t,
+        e
+      )), e = null;
+    }, p === void 0 && m.setContentType(null), "setRequestHeader" in e && R.forEach(m.toJSON(), function(a, u) {
+      e.setRequestHeader(u, a);
+    }), R.isUndefined(t.withCredentials) || (e.withCredentials = !!t.withCredentials), i && i !== "json" && (e.responseType = t.responseType), typeof t.onDownloadProgress == "function" && e.addEventListener("progress", g(t.onDownloadProgress, !0)), typeof t.onUploadProgress == "function" && e.upload && e.upload.addEventListener("progress", g(t.onUploadProgress)), (t.cancelToken || t.signal) && (s = (o) => {
+      e && (r(!o || o.type ? new y(null, l, e) : o), e.abort(), e = null);
+    }, t.cancelToken && t.cancelToken.subscribe(s), t.signal && (t.signal.aborted ? s() : t.signal.addEventListener("abort", s)));
+    const d = H(t.url);
+    if (d && q.protocols.indexOf(d) === -1) {
+      r(new n("Unsupported protocol " + d + ":", n.ERR_BAD_REQUEST, l));
+      return;
+    }
+    e.send(p || null);
   });
-})(new Response());
-const j = async (e) => {
-  if (e == null)
-    return 0;
-  if (s.isBlob(e))
-    return e.size;
-  if (s.isSpecCompliantForm(e))
-    return (await new Request(e).arrayBuffer()).byteLength;
-  if (s.isArrayBufferView(e))
-    return e.byteLength;
-  if (s.isURLSearchParams(e) && (e = e + ""), s.isString(e))
-    return (await y(e)).byteLength;
-}, I = async (e, r) => {
-  const o = s.toFiniteNumber(e.getContentLength());
-  return o ?? j(r);
-}, Y = l && (async (e) => {
-  let {
-    url: r,
-    method: o,
-    data: n,
-    signal: S,
-    cancelToken: x,
-    timeout: b,
-    onDownloadProgress: h,
-    onUploadProgress: C,
-    responseType: a,
-    headers: d,
-    withCredentials: m = "same-origin",
-    fetchOptions: U
-  } = H(e);
-  a = a ? (a + "").toLowerCase() : "text";
-  let [w, E] = S || x || b ? v([S, x], b) : [], L, c;
-  const g = () => {
-    !L && setTimeout(() => {
-      w && w.unsubscribe();
-    }), L = !0;
-  };
-  let q;
-  try {
-    if (C && z && o !== "get" && o !== "head" && (q = await I(d, n)) !== 0) {
-      let i = new Request(r, {
-        method: "POST",
-        body: n,
-        duplex: "half"
-      }), u;
-      s.isFormData(n) && (u = i.headers.get("content-type")) && d.setContentType(u), i.body && (n = F(i.body, B, A(
-        q,
-        O(C)
-      ), null, y));
-    }
-    s.isString(m) || (m = m ? "cors" : "omit"), c = new Request(r, {
-      ...U,
-      signal: w,
-      method: o.toUpperCase(),
-      headers: d.normalize().toJSON(),
-      body: n,
-      duplex: "half",
-      withCredentials: m
-    });
-    let t = await fetch(c);
-    const R = T && (a === "stream" || a === "response");
-    if (T && (h || R)) {
-      const i = {};
-      ["status", "statusText", "headers"].forEach((P) => {
-        i[P] = t[P];
-      });
-      const u = s.toFiniteNumber(t.headers.get("content-length"));
-      t = new Response(
-        F(t.body, B, h && A(
-          u,
-          O(h, !0)
-        ), R && g, y),
-        i
-      );
-    }
-    a = a || "text";
-    let _ = await f[s.findKey(f, a) || "text"](t, e);
-    return !R && g(), E && E(), await new Promise((i, u) => {
-      K(i, u, {
-        data: _,
-        headers: k.from(t.headers),
-        status: t.status,
-        statusText: t.statusText,
-        config: e,
-        request: c
-      });
-    });
-  } catch (t) {
-    throw g(), t && t.name === "TypeError" && /fetch/i.test(t.message) ? Object.assign(
-      new p("Network Error", p.ERR_NETWORK, e, c),
-      {
-        cause: t.cause || t
-      }
-    ) : p.from(t, t && t.code, e, c);
-  }
-});
+};
 export {
-  Y as default
+  X as default
 };
 //# sourceMappingURL=cori.data.api46.js.map

@@ -1,0 +1,76 @@
+.chart-wrapper {
+    margin-bottom: 50px;
+    max-width: 900px;
+}
+
+.chart-wrapper .no-data {
+
+    max-width: 900px;
+    background-color: #FECEB8;
+    
+    width: 100%;
+}
+
+.chart-wrapper .no-data p {
+    padding: 20px;
+}
+
+.chart {
+    position: relative;
+}
+
+.chart h3 {
+    color: black;
+    font-weight: normal;
+    margin: .5rem 0rem .5rem 0rem;
+}
+
+.chart p {
+    margin: 0rem 0rem 1.5rem 0rem;
+}
+
+.chart text {
+    color: dimgray;
+}
+
+.chart .caption {
+    color: black;
+    margin: 1rem 0rem 1rem 0rem;
+}
+
+.chart .tick .line {
+    stroke: #d0d2ce;
+}
+
+.chart foreignObject {
+    text-align: right;
+    font-family: "Lato", monospace;
+    font-size: 1rem;
+}
+
+.cori-logo {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 50px;
+}
+
+.download-chart {
+
+    /* remove default button styles */
+    padding: 0;
+    border: none;
+    background: none;
+    font: inherit;
+    cursor: pointer;
+
+    /* apply my own */
+    margin: 0px 0px 50px 0px;
+    float: right;
+    color: dimgray;
+    font-size: .8rem;
+}
+
+.download-chart:hover {
+    color: blue;
+}

@@ -1,0 +1,15 @@
+.key-takeaways {
+    background-color: #ECF5EF;
+    padding: 20px;
+    border: 1px solid #26535C;
+
+    border-radius: 2px;
+}
+
+.key-takeaways h2 {
+    margin: 0rem;
+}
+
+.key-takeaways li {
+    margin-bottom: 10px;
+}

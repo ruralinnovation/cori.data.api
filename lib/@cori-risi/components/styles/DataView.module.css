@@ -1,0 +1,10 @@
+.content-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.dataview {
+
+    max-width: 900px;
+    margin: 0 auto;
+}

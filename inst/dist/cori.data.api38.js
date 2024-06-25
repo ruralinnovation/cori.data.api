@@ -1,15 +1,38 @@
 import r from "./cori.data.api49.js";
-import t from "./cori.data.api50.js";
+import p from "./cori.data.api27.js";
+import o from "./cori.data.api23.js";
+import l from "./cori.data.api25.js";
+import a from "./cori.data.api33.js";
+import m from "./cori.data.api34.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function m(i, o) {
-  return i && !r(o) ? t(i, o) : o;
+function d(e) {
+  if (e.cancelToken && e.cancelToken.throwIfRequested(), e.signal && e.signal.aborted)
+    throw new l(null, e);
+}
+function q(e) {
+  return d(e), e.headers = a.from(e.headers), e.data = r.call(
+    e,
+    e.transformRequest
+  ), ["post", "put", "patch"].indexOf(e.method) !== -1 && e.headers.setContentType("application/x-www-form-urlencoded", !1), m.getAdapter(e.adapter || o.adapter)(e).then(function(t) {
+    return d(e), t.data = r.call(
+      e,
+      e.transformResponse,
+      t
+    ), t.headers = a.from(t.headers), t;
+  }, function(t) {
+    return p(t) || (d(e), t && t.response && (t.response.data = r.call(
+      e,
+      e.transformResponse,
+      t.response
+    ), t.response.headers = a.from(t.response.headers))), Promise.reject(t);
+  });
 }
 export {
-  m as default
+  q as default
 };
 //# sourceMappingURL=cori.data.api38.js.map

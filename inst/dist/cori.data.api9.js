@@ -1,5 +1,5 @@
-import { __exports as t } from "./cori.data.api14.js";
-import { r as y } from "./cori.data.api5.js";
+import { __exports as t } from "./cori.data.api15.js";
+import { __require as d } from "./cori.data.api11.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
@@ -16,16 +16,16 @@ import { r as y } from "./cori.data.api5.js";
  * LICENSE file in the root directory of this source tree.
  */
 var p;
-function O() {
+function v() {
   if (p)
     return t;
   p = 1;
-  var s = y, m = Symbol.for("react.element"), c = Symbol.for("react.fragment"), l = Object.prototype.hasOwnProperty, a = s.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner, d = { key: !0, ref: !0, __self: !0, __source: !0 };
+  var s = d(), m = Symbol.for("react.element"), c = Symbol.for("react.fragment"), l = Object.prototype.hasOwnProperty, a = s.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner, R = { key: !0, ref: !0, __self: !0, __source: !0 };
   function i(o, r, u) {
     var e, n = {}, _ = null, f = null;
     u !== void 0 && (_ = "" + u), r.key !== void 0 && (_ = "" + r.key), r.ref !== void 0 && (f = r.ref);
     for (e in r)
-      l.call(r, e) && !d.hasOwnProperty(e) && (n[e] = r[e]);
+      l.call(r, e) && !R.hasOwnProperty(e) && (n[e] = r[e]);
     if (o && o.defaultProps)
       for (e in r = o.defaultProps, r)
         n[e] === void 0 && (n[e] = r[e]);
@@ -34,6 +34,6 @@ function O() {
   return t.Fragment = c, t.jsx = i, t.jsxs = i, t;
 }
 export {
-  O as __require
+  v as __require
 };
 //# sourceMappingURL=cori.data.api9.js.map

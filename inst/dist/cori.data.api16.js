@@ -4,8 +4,8 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var r = {};
+var e = {};
 export {
-  r as __exports
+  e as __exports
 };
 //# sourceMappingURL=cori.data.api16.js.map

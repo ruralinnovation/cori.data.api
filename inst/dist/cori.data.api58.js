@@ -1,45 +1,35 @@
+import f from "./cori.data.api25.js";
+import s from "./cori.data.api30.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const u = function* (t, n) {
-  let r = t.byteLength;
-  if (!n || r < n) {
-    yield t;
-    return;
-  }
-  let e = 0, a;
-  for (; e < r; )
-    a = e + n, yield t.slice(e, a), e = a;
-}, f = async function* (t, n, r) {
-  for await (const e of t)
-    yield* u(ArrayBuffer.isView(e) ? e : await r(String(e)), n);
-}, d = (t, n, r, e, a) => {
-  const i = f(t, n, a);
-  let y = 0;
-  return new ReadableStream({
-    type: "bytes",
-    async pull(l) {
-      const { done: c, value: s } = await i.next();
-      if (c) {
-        l.close(), e();
-        return;
-      }
-      let o = s.byteLength;
-      r && r(y += o), l.enqueue(new Uint8Array(s));
-    },
-    cancel(l) {
-      return e(l), i.return();
+const l = (t, c) => {
+  let u = new AbortController(), i;
+  const n = function(e) {
+    if (!i) {
+      i = !0, a();
+      const o = e instanceof Error ? e : this.reason;
+      u.abort(o instanceof s ? o : new f(o instanceof Error ? o.message : o));
     }
-  }, {
-    highWaterMark: 2
-  });
+  };
+  let r = c && setTimeout(() => {
+    n(new s(`timeout ${c} of ms exceeded`, s.ETIMEDOUT));
+  }, c);
+  const a = () => {
+    t && (r && clearTimeout(r), r = null, t.forEach((e) => {
+      e && (e.removeEventListener ? e.removeEventListener("abort", n) : e.unsubscribe(n));
+    }), t = null);
+  };
+  t.forEach((e) => e && e.addEventListener && e.addEventListener("abort", n));
+  const { signal: b } = u;
+  return b.unsubscribe = a, [b, () => {
+    r && clearTimeout(r), r = null;
+  }];
 };
 export {
-  f as readBytes,
-  u as streamChunk,
-  d as trackStream
+  l as default
 };
 //# sourceMappingURL=cori.data.api58.js.map
