@@ -1,28 +1,26 @@
+import { normalizeUri as f } from "./cori.data.api382.js";
+import { revert as o } from "./cori.data.api483.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function f(e, l, n) {
-  const h = n ? n.children : void 0, p = (h ? h.indexOf(l) : 1) === 0 ? "th" : "td", c = n && n.type === "table" ? n.align : void 0, g = c ? c.length : l.children.length;
-  let r = -1;
-  const d = [];
-  for (; ++r < g; ) {
-    const i = l.children[r], s = {}, a = c ? c[r] : void 0;
-    a && (s.align = a);
-    let t = { type: "element", tagName: p, properties: s, children: [] };
-    i && (t.children = e.all(i), e.patch(i, t), t = e.applyData(i, t)), d.push(t);
-  }
-  const o = {
+function m(i, e) {
+  const l = String(e.identifier).toUpperCase(), t = i.definitionById.get(l);
+  if (!t)
+    return o(i, e);
+  const r = { href: f(t.url || "") };
+  t.title !== null && t.title !== void 0 && (r.title = t.title);
+  const n = {
     type: "element",
-    tagName: "tr",
-    properties: {},
-    children: e.wrap(d, !0)
+    tagName: "a",
+    properties: r,
+    children: i.all(e)
   };
-  return e.patch(l, o), e.applyData(l, o);
+  return i.patch(e, n), i.applyData(e, n);
 }
 export {
-  f as tableRow
+  m as linkReference
 };
 //# sourceMappingURL=cori.data.api367.js.map

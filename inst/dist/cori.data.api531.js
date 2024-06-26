@@ -1,30 +1,48 @@
-import { rowLookup as g } from "./cori.data.api636.js";
-import { aggregateGet as _ } from "./cori.data.api541.js";
-import $ from "./cori.data.api267.js";
-import k from "./cori.data.api413.js";
-import w from "./cori.data.api637.js";
-import h from "./cori.data.api495.js";
+import { window as d } from "./cori.data.api636.js";
+import { aggregate as w } from "./cori.data.api550.js";
+import { hasWindow as l } from "./cori.data.api413.js";
+import h from "./cori.data.api290.js";
+import O from "./cori.data.api285.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function S(r, a, [n, p], { names: c, exprs: s, ops: d }) {
-  const m = $(r), i = r.totalRows();
-  c.forEach((o) => m.add(o, Array(i).fill(k)));
-  const u = g(a, p), l = h(
-    ["lr", "rr", "data"],
-    "{" + w(c, (o, t) => `_[${t}][lr] = $[${t}](rr, data);`) + "}",
-    c.map((o) => m.data[o]),
-    _(a, d, s)
-  ), e = a.data();
-  return r.scan((o, t) => {
-    const f = u.get(n(o, t));
-    f >= 0 && l(o, f, e);
-  }), r.create(m);
+function y(t) {
+  return l(t.name) || t.frame && (Number.isFinite(t.frame[0]) || Number.isFinite(t.frame[1]));
+}
+function W(t, { names: e, exprs: i, ops: c }, n = {}) {
+  const r = t.totalRows(), f = h(n.drop ? null : t), u = e.map((s) => f.add(s, Array(r))), [p, o] = k(c), m = t.isGrouped() ? t.groups().size : 1, a = w(
+    t,
+    p,
+    O(c.length, () => Array(m))
+  );
+  return o.length ? d(t, u, i, a, o) : x(t, u, i, a), t.create(f);
+}
+function k(t) {
+  const e = [], i = [], c = t.length;
+  for (let n = 0; n < c; ++n) {
+    const r = t[n];
+    r.id = n, (y(r) ? i : e).push(r);
+  }
+  return [e, i];
+}
+function x(t, e, i, c) {
+  const n = t.mask(), r = t.data(), { keys: f } = t.groups() || {}, u = f ? (o, m) => c[o][f[m]] : (o) => c[o][0], p = e.length;
+  for (let o = 0; o < p; ++o) {
+    const m = i[o], a = e[o];
+    if (n)
+      for (let s = n.next(0); s >= 0; s = n.next(s + 1))
+        a[s] = m(s, r, u);
+    else {
+      const s = t.totalRows();
+      for (let g = 0; g < s; ++g)
+        a[g] = m(g, r, u);
+    }
+  }
 }
 export {
-  S as default
+  W as default
 };
 //# sourceMappingURL=cori.data.api531.js.map

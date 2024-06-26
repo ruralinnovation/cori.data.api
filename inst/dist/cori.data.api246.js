@@ -1,6 +1,6 @@
-import { normalize as s } from "./cori.data.api485.js";
-import { DefinedInfo as p } from "./cori.data.api486.js";
-import { Info as f } from "./cori.data.api487.js";
+import { normalize as s } from "./cori.data.api480.js";
+import { DefinedInfo as p } from "./cori.data.api481.js";
+import { Info as f } from "./cori.data.api482.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

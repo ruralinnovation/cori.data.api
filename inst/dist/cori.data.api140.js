@@ -1,25 +1,34 @@
-import { Selection as e } from "./cori.data.api138.js";
-import h from "./cori.data.api341.js";
-import _ from "./cori.data.api174.js";
+import n from "./cori.data.api343.js";
+import { Selection as o } from "./cori.data.api133.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(r) {
-  return function() {
-    return h(r.apply(this, arguments));
-  };
+function u() {
+  return new o(this._enter || this._groups.map(n), this._parents);
 }
-function s(r) {
-  typeof r == "function" ? r = p(r) : r = _(r);
-  for (var l = this._groups, m = l.length, o = [], i = [], n = 0; n < m; ++n)
-    for (var a = l[n], u = a.length, t, f = 0; f < u; ++f)
-      (t = a[f]) && (o.push(r.call(t, t.__data__, f, a)), i.push(t));
-  return new e(o, i);
+function r(e, t) {
+  this.ownerDocument = e.ownerDocument, this.namespaceURI = e.namespaceURI, this._next = null, this._parent = e, this.__data__ = t;
 }
+r.prototype = {
+  constructor: r,
+  appendChild: function(e) {
+    return this._parent.insertBefore(e, this._next);
+  },
+  insertBefore: function(e, t) {
+    return this._parent.insertBefore(e, t);
+  },
+  querySelector: function(e) {
+    return this._parent.querySelector(e);
+  },
+  querySelectorAll: function(e) {
+    return this._parent.querySelectorAll(e);
+  }
+};
 export {
-  s as default
+  r as EnterNode,
+  u as default
 };
 //# sourceMappingURL=cori.data.api140.js.map

@@ -1,107 +1,129 @@
-import { Block as m } from "./cori.data.api577.js";
-import { Footer as o } from "./cori.data.api578.js";
-import "./cori.data.api579.js";
-import "./cori.data.api580.js";
-import { Builder as u } from "./cori.data.api581.js";
-import { ByteBuffer as B } from "./cori.data.api582.js";
-import { Schema as a } from "./cori.data.api499.js";
-import { toUint8Array as g } from "./cori.data.api502.js";
-import { bigIntToNumber as h } from "./cori.data.api572.js";
-import { MetadataVersion as d } from "./cori.data.api518.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var l = u, y = B;
-class p {
-  /** @nocollapse */
-  static decode(t) {
-    t = new y(g(t));
-    const e = o.getRootAsFooter(t), r = a.decode(e.schema(), /* @__PURE__ */ new Map(), e.version());
-    return new D(r, e);
+function v(n, c, o, r) {
+  function u(t) {
+    return t instanceof o ? t : new o(function(i) {
+      i(t);
+    });
   }
-  /** @nocollapse */
-  static encode(t) {
-    const e = new l(), r = a.encode(e, t.schema);
-    o.startRecordBatchesVector(e, t.numRecordBatches);
-    for (const n of [...t.recordBatches()].slice().reverse())
-      s.encode(e, n);
-    const c = e.endVector();
-    o.startDictionariesVector(e, t.numDictionaries);
-    for (const n of [...t.dictionaryBatches()].slice().reverse())
-      s.encode(e, n);
-    const i = e.endVector();
-    return o.startFooter(e), o.addSchema(e, r), o.addVersion(e, d.V5), o.addRecordBatches(e, c), o.addDictionaries(e, i), o.finishFooterBuffer(e, o.endFooter(e)), e.asUint8Array();
+  return new (o || (o = Promise))(function(t, i) {
+    function a(s) {
+      try {
+        y(r.next(s));
+      } catch (h) {
+        i(h);
+      }
+    }
+    function f(s) {
+      try {
+        y(r.throw(s));
+      } catch (h) {
+        i(h);
+      }
+    }
+    function y(s) {
+      s.done ? t(s.value) : u(s.value).then(a, f);
+    }
+    y((r = r.apply(n, c || [])).next());
+  });
+}
+function d(n) {
+  var c = typeof Symbol == "function" && Symbol.iterator, o = c && n[c], r = 0;
+  if (o)
+    return o.call(n);
+  if (n && typeof n.length == "number")
+    return {
+      next: function() {
+        return n && r >= n.length && (n = void 0), { value: n && n[r++], done: !n };
+      }
+    };
+  throw new TypeError(c ? "Object is not iterable." : "Symbol.iterator is not defined.");
+}
+function m(n) {
+  return this instanceof m ? (this.v = n, this) : new m(n);
+}
+function _(n, c, o) {
+  if (!Symbol.asyncIterator)
+    throw new TypeError("Symbol.asyncIterator is not defined.");
+  var r = o.apply(n, c || []), u, t = [];
+  return u = {}, a("next"), a("throw"), a("return", i), u[Symbol.asyncIterator] = function() {
+    return this;
+  }, u;
+  function i(e) {
+    return function(l) {
+      return Promise.resolve(l).then(e, h);
+    };
   }
-  get numRecordBatches() {
-    return this._recordBatches.length;
+  function a(e, l) {
+    r[e] && (u[e] = function(p) {
+      return new Promise(function(b, S) {
+        t.push([e, p, b, S]) > 1 || f(e, p);
+      });
+    }, l && (u[e] = l(u[e])));
   }
-  get numDictionaries() {
-    return this._dictionaryBatches.length;
+  function f(e, l) {
+    try {
+      y(r[e](l));
+    } catch (p) {
+      w(t[0][3], p);
+    }
   }
-  constructor(t, e = d.V5, r, c) {
-    this.schema = t, this.version = e, r && (this._recordBatches = r), c && (this._dictionaryBatches = c);
+  function y(e) {
+    e.value instanceof m ? Promise.resolve(e.value.v).then(s, h) : w(t[0][2], e);
   }
-  *recordBatches() {
-    for (let t, e = -1, r = this.numRecordBatches; ++e < r; )
-      (t = this.getRecordBatch(e)) && (yield t);
+  function s(e) {
+    f("next", e);
   }
-  *dictionaryBatches() {
-    for (let t, e = -1, r = this.numDictionaries; ++e < r; )
-      (t = this.getDictionaryBatch(e)) && (yield t);
+  function h(e) {
+    f("throw", e);
   }
-  getRecordBatch(t) {
-    return t >= 0 && t < this.numRecordBatches && this._recordBatches[t] || null;
-  }
-  getDictionaryBatch(t) {
-    return t >= 0 && t < this.numDictionaries && this._dictionaryBatches[t] || null;
+  function w(e, l) {
+    e(l), t.shift(), t.length && f(t[0][0], t[0][1]);
   }
 }
-class D extends p {
-  get numRecordBatches() {
-    return this._footer.recordBatchesLength();
-  }
-  get numDictionaries() {
-    return this._footer.dictionariesLength();
-  }
-  constructor(t, e) {
-    super(t, e.version()), this._footer = e;
-  }
-  getRecordBatch(t) {
-    if (t >= 0 && t < this.numRecordBatches) {
-      const e = this._footer.recordBatches(t);
-      if (e)
-        return s.decode(e);
-    }
-    return null;
-  }
-  getDictionaryBatch(t) {
-    if (t >= 0 && t < this.numDictionaries) {
-      const e = this._footer.dictionaries(t);
-      if (e)
-        return s.decode(e);
-    }
-    return null;
+function x(n) {
+  var c, o;
+  return c = {}, r("next"), r("throw", function(u) {
+    throw u;
+  }), r("return"), c[Symbol.iterator] = function() {
+    return this;
+  }, c;
+  function r(u, t) {
+    c[u] = n[u] ? function(i) {
+      return (o = !o) ? { value: m(n[u](i)), done: !1 } : t ? t(i) : i;
+    } : t;
   }
 }
-class s {
-  /** @nocollapse */
-  static decode(t) {
-    return new s(t.metaDataLength(), t.bodyLength(), t.offset());
+function E(n) {
+  if (!Symbol.asyncIterator)
+    throw new TypeError("Symbol.asyncIterator is not defined.");
+  var c = n[Symbol.asyncIterator], o;
+  return c ? c.call(n) : (n = typeof d == "function" ? d(n) : n[Symbol.iterator](), o = {}, r("next"), r("throw"), r("return"), o[Symbol.asyncIterator] = function() {
+    return this;
+  }, o);
+  function r(t) {
+    o[t] = n[t] && function(i) {
+      return new Promise(function(a, f) {
+        i = n[t](i), u(a, f, i.done, i.value);
+      });
+    };
   }
-  /** @nocollapse */
-  static encode(t, e) {
-    const { metaDataLength: r } = e, c = BigInt(e.offset), i = BigInt(e.bodyLength);
-    return m.createBlock(t, c, r, i);
-  }
-  constructor(t, e, r) {
-    this.metaDataLength = t, this.offset = h(r), this.bodyLength = h(e);
+  function u(t, i, a, f) {
+    Promise.resolve(f).then(function(y) {
+      t({ value: y, done: a });
+    }, i);
   }
 }
 export {
-  s as FileBlock,
-  p as Footer
+  x as __asyncDelegator,
+  _ as __asyncGenerator,
+  E as __asyncValues,
+  m as __await,
+  v as __awaiter,
+  d as __values
 };
 //# sourceMappingURL=cori.data.api511.js.map

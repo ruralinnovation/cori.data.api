@@ -1,34 +1,26 @@
-import { Field as i } from "./cori.data.api499.js";
-import { Builder as n } from "./cori.data.api503.js";
-import { Struct as d } from "./cori.data.api407.js";
+import { Field as n } from "./cori.data.api509.js";
+import { Builder as h } from "./cori.data.api513.js";
+import { FixedSizeList as l } from "./cori.data.api422.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class p extends n {
-  setValue(t, r) {
-    const { children: e, type: h } = this;
-    switch (Array.isArray(r) || r.constructor) {
-      case !0:
-        return h.children.forEach((c, s) => e[s].set(t, r[s]));
-      case Map:
-        return h.children.forEach((c, s) => e[s].set(t, r.get(c.name)));
-      default:
-        return h.children.forEach((c, s) => e[s].set(t, r[c.name]));
-    }
+class u extends h {
+  setValue(e, i) {
+    const [t] = this.children, s = e * this.stride;
+    for (let r = -1, d = i.length; ++r < d; )
+      t.set(s + r, i[r]);
   }
-  /** @inheritdoc */
-  setValid(t, r) {
-    return super.setValid(t, r) || this.children.forEach((e) => e.setValid(t, r)), r;
-  }
-  addChild(t, r = `${this.numChildren}`) {
-    const e = this.children.push(t);
-    return this.type = new d([...this.type.children, new i(r, t.type, !0)]), e;
+  addChild(e, i = "0") {
+    if (this.numChildren > 0)
+      throw new Error("FixedSizeListBuilder can only have one child.");
+    const t = this.children.push(e);
+    return this.type = new l(this.type.listSize, new n(i, e.type, !0)), t;
   }
 }
 export {
-  p as StructBuilder
+  u as FixedSizeListBuilder
 };
 //# sourceMappingURL=cori.data.api631.js.map

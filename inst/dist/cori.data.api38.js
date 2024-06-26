@@ -1,6 +1,6 @@
-import { Options as o, ExprObject as b, SelectionList as m, ExprList as a, OrderbyKeys as j, ExprNumber as x, Expr as E, TableRef as y, JoinKeys as l, JoinValues as v, TableRefList as u, Verb as O } from "./cori.data.api292.js";
-import { joinKeys as V, joinValues as g, orderbyKeys as k, fromObject as T, getTable as h, toObject as K } from "./cori.data.api293.js";
-import L from "./cori.data.api294.js";
+import { Options as o, ExprObject as b, SelectionList as m, ExprList as a, OrderbyKeys as j, ExprNumber as x, Expr as E, TableRef as y, JoinKeys as l, JoinValues as v, TableRefList as u, Verb as O } from "./cori.data.api315.js";
+import { joinKeys as V, joinValues as g, orderbyKeys as k, fromObject as T, getTable as h, toObject as K } from "./cori.data.api316.js";
+import L from "./cori.data.api317.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

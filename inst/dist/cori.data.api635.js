@@ -1,130 +1,130 @@
+import { toArrayBufferView as h } from "./cori.data.api512.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class h {
-  /**
-   * Instantiate a new BitSet instance.
-   * @param {number} size The number of bits.
-   */
-  constructor(t) {
-    this._size = t, this._bits = new Uint32Array(Math.ceil(t / 32));
+const w = Symbol.for("isArrowBigNum");
+function o(r, ...t) {
+  return t.length === 0 ? Object.setPrototypeOf(h(this.TypedArray, r), this.constructor.prototype) : Object.setPrototypeOf(new this.TypedArray(r, ...t), this.constructor.prototype);
+}
+o.prototype[w] = !0;
+o.prototype.toJSON = function() {
+  return `"${f(this)}"`;
+};
+o.prototype.valueOf = function() {
+  return d(this);
+};
+o.prototype.toString = function() {
+  return f(this);
+};
+o.prototype[Symbol.toPrimitive] = function(r = "default") {
+  switch (r) {
+    case "number":
+      return d(this);
+    case "string":
+      return f(this);
+    case "default":
+      return B(this);
   }
-  /**
-   * The number of bits.
-   * @return {number}
-   */
-  get length() {
-    return this._size;
+  return f(this);
+};
+function u(...r) {
+  return o.apply(this, r);
+}
+function g(...r) {
+  return o.apply(this, r);
+}
+function a(...r) {
+  return o.apply(this, r);
+}
+Object.setPrototypeOf(u.prototype, Object.create(Int32Array.prototype));
+Object.setPrototypeOf(g.prototype, Object.create(Uint32Array.prototype));
+Object.setPrototypeOf(a.prototype, Object.create(Uint32Array.prototype));
+Object.assign(u.prototype, o.prototype, { constructor: u, signed: !0, TypedArray: Int32Array, BigIntArray: BigInt64Array });
+Object.assign(g.prototype, o.prototype, { constructor: g, signed: !1, TypedArray: Uint32Array, BigIntArray: BigUint64Array });
+Object.assign(a.prototype, o.prototype, { constructor: a, signed: !0, TypedArray: Uint32Array, BigIntArray: BigUint64Array });
+function d(r) {
+  const { buffer: t, byteOffset: e, length: i, signed: s } = r, n = new BigUint64Array(t, e, i), y = s && n.at(-1) & BigInt(1) << BigInt(63);
+  let c = BigInt(y ? 1 : 0), A = BigInt(0);
+  if (y) {
+    for (const p of n)
+      c += ~p * (BigInt(1) << BigInt(32) * A++);
+    c *= BigInt(-1);
+  } else
+    for (const p of n)
+      c += p * (BigInt(1) << BigInt(32) * A++);
+  return c;
+}
+const f = (r) => {
+  if (r.byteLength === 8)
+    return `${new r.BigIntArray(r.buffer, r.byteOffset, 1)[0]}`;
+  if (!r.signed)
+    return b(r);
+  let t = new Uint16Array(r.buffer, r.byteOffset, r.byteLength / 2);
+  if (new Int16Array([t.at(-1)])[0] >= 0)
+    return b(r);
+  t = t.slice();
+  let i = 1;
+  for (let n = 0; n < t.length; n++) {
+    const y = t[n], c = ~y + i;
+    t[n] = c, i &= y === 0 ? 1 : 0;
   }
-  /**
-   * The number of bits set to one.
-   * https://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan
-   * @return {number}
-   */
-  count() {
-    const t = this._bits.length;
-    let s = 0;
-    for (let e = 0; e < t; ++e)
-      for (let n = this._bits[e]; n; ++s)
-        n &= n - 1;
-    return s;
-  }
-  /**
-   * Get the bit at a given index.
-   * @param {number} i The bit index.
-   */
-  get(t) {
-    return this._bits[t >> 5] & 2147483648 >>> t;
-  }
-  /**
-   * Set the bit at a given index to one.
-   * @param {number} i The bit index.
-   */
-  set(t) {
-    this._bits[t >> 5] |= 2147483648 >>> t;
-  }
-  /**
-   * Clear the bit at a given index to zero.
-   * @param {number} i The bit index.
-   */
-  clear(t) {
-    this._bits[t >> 5] &= ~(2147483648 >>> t);
-  }
-  /**
-   * Scan the bits, invoking a callback function with the index of
-   * each non-zero bit.
-   * @param {(i: number) => void} fn A callback function.
-   */
-  scan(t) {
-    for (let s = this.next(0); s >= 0; s = this.next(s + 1))
-      t(s);
-  }
-  /**
-   * Get the next non-zero bit starting from a given index.
-   * @param {number} i The bit index.
-   */
-  next(t) {
-    const s = this._bits, e = s.length;
-    let n = t >> 5, i = s[n] & 4294967295 >>> t;
-    for (; n < e; i = s[++n])
-      if (i !== 0)
-        return (n << 5) + Math.clz32(i);
-    return -1;
-  }
-  /**
-   * Return the index of the nth non-zero bit.
-   * @param {number} n The number of non-zero bits to advance.
-   * @return {number} The index of the nth non-zero bit.
-   */
-  nth(t) {
-    let s = this.next(0);
-    for (; t-- && s >= 0; )
-      s = this.next(s + 1);
-    return s;
-  }
-  /**
-   * Negate all bits in this bitset.
-   * Modifies this BitSet in place.
-   * @return {this}
-   */
-  not() {
-    const t = this._bits, s = t.length;
-    for (let n = 0; n < s; ++n)
-      t[n] = ~t[n];
-    const e = this._size % 32;
-    return e && (t[s - 1] &= 2147483648 >> e - 1), this;
-  }
-  /**
-   * Compute the logical AND of this BitSet and another.
-   * @param {BitSet} bitset The BitSet to combine with.
-   * @return {BitSet} This BitSet updated with the logical AND.
-   */
-  and(t) {
-    if (t) {
-      const s = this._bits, e = t._bits, n = s.length;
-      for (let i = 0; i < n; ++i)
-        s[i] &= e[i];
+  return `-${b(t)}`;
+}, B = (r) => r.byteLength === 8 ? new r.BigIntArray(r.buffer, r.byteOffset, 1)[0] : f(r);
+function b(r) {
+  let t = "";
+  const e = new Uint32Array(2);
+  let i = new Uint16Array(r.buffer, r.byteOffset, r.byteLength / 2);
+  const s = new Uint32Array((i = new Uint16Array(i).reverse()).buffer);
+  let n = -1;
+  const y = i.length - 1;
+  do {
+    for (e[0] = i[n = 0]; n < y; )
+      i[n++] = e[1] = e[0] / 10, e[0] = (e[0] - e[1] * 10 << 16) + i[n];
+    i[n] = e[1] = e[0] / 10, e[0] = e[0] - e[1] * 10, t = `${e[0]}${t}`;
+  } while (s[0] || s[1] || s[2] || s[3]);
+  return t ?? "0";
+}
+class l {
+  /** @nocollapse */
+  static new(t, e) {
+    switch (e) {
+      case !0:
+        return new u(t);
+      case !1:
+        return new g(t);
     }
-    return this;
-  }
-  /**
-   * Compute the logical OR of this BitSet and another.
-   * @param {BitSet} bitset The BitSet to combine with.
-   * @return {BitSet} This BitSet updated with the logical OR.
-   */
-  or(t) {
-    if (t) {
-      const s = this._bits, e = t._bits, n = s.length;
-      for (let i = 0; i < n; ++i)
-        s[i] |= e[i];
+    switch (t.constructor) {
+      case Int8Array:
+      case Int16Array:
+      case Int32Array:
+      case BigInt64Array:
+        return new u(t);
     }
-    return this;
+    return t.byteLength === 16 ? new a(t) : new g(t);
+  }
+  /** @nocollapse */
+  static signed(t) {
+    return new u(t);
+  }
+  /** @nocollapse */
+  static unsigned(t) {
+    return new g(t);
+  }
+  /** @nocollapse */
+  static decimal(t) {
+    return new a(t);
+  }
+  constructor(t, e) {
+    return l.new(t, e);
   }
 }
 export {
-  h as default
+  l as BN,
+  B as bigNumToBigInt,
+  f as bigNumToString,
+  w as isArrowBigNumSymbol
 };
 //# sourceMappingURL=cori.data.api635.js.map

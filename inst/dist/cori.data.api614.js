@@ -1,15 +1,19 @@
-import { FixedWidthBuilder as e } from "./cori.data.api503.js";
-import { setDecimal as t } from "./cori.data.api565.js";
+import { Builder as l } from "./cori.data.api513.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i extends e {
+class s extends l {
+  // @ts-ignore
+  setValue(e, t) {
+  }
+  setValid(e, t) {
+    return this.length = Math.max(e + 1, this.length), t;
+  }
 }
-i.prototype._setValue = t;
 export {
-  i as DecimalBuilder
+  s as NullBuilder
 };
 //# sourceMappingURL=cori.data.api614.js.map

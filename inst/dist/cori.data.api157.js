@@ -1,51 +1,27 @@
-import i from "./cori.data.api135.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(t) {
+function i() {
+  this.innerHTML = "";
+}
+function e(n) {
   return function() {
-    this.removeAttribute(t);
+    this.innerHTML = n;
   };
 }
-function u(t) {
+function o(n) {
   return function() {
-    this.removeAttributeNS(t.space, t.local);
+    var t = n.apply(this, arguments);
+    this.innerHTML = t ?? "";
   };
 }
-function c(t, n) {
-  return function() {
-    this.setAttribute(t, n);
-  };
-}
-function s(t, n) {
-  return function() {
-    this.setAttributeNS(t.space, t.local, n);
-  };
-}
-function a(t, n) {
-  return function() {
-    var e = n.apply(this, arguments);
-    e == null ? this.removeAttribute(t) : this.setAttribute(t, e);
-  };
-}
-function l(t, n) {
-  return function() {
-    var e = n.apply(this, arguments);
-    e == null ? this.removeAttributeNS(t.space, t.local) : this.setAttributeNS(t.space, t.local, e);
-  };
-}
-function h(t, n) {
-  var e = i(t);
-  if (arguments.length < 2) {
-    var r = this.node();
-    return e.local ? r.getAttributeNS(e.space, e.local) : r.getAttribute(e);
-  }
-  return this.each((n == null ? e.local ? u : o : typeof n == "function" ? e.local ? l : a : e.local ? s : c)(e, n));
+function r(n) {
+  return arguments.length ? this.each(n == null ? i : (typeof n == "function" ? o : e)(n)) : this.node().innerHTML;
 }
 export {
-  h as default
+  r as default
 };
 //# sourceMappingURL=cori.data.api157.js.map

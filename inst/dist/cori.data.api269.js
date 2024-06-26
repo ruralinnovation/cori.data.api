@@ -1,40 +1,20 @@
-import { ObjectExpression as m, Property as n, Literal as c } from "./cori.data.api284.js";
-import f from "./cori.data.api287.js";
-import s from "./cori.data.api288.js";
-import u from "./cori.data.api387.js";
-import y from "./cori.data.api277.js";
-import w from "./cori.data.api300.js";
-import O from "./cori.data.api308.js";
+import e from "./cori.data.api62.js";
+import n from "./cori.data.api72.js";
+import r from "./cori.data.api270.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const B = "row_object";
-function a(r, t) {
-  r.type = m;
-  const e = r.properties = [];
-  for (const o of y(t)) {
-    const [p, i] = w(o) ? o : [o, o];
-    e.push({
-      type: n,
-      key: { type: c, raw: O(i) },
-      value: u({ computed: !0 }, p)
-    });
-  }
-  return r;
-}
-function b(r) {
-  return f(a({}, r));
-}
-function C(r) {
-  return s.expr(b(r));
+function c(o, i) {
+  return n(o, new r.classes.URLSearchParams(), Object.assign({
+    visitor: function(t, s, f, a) {
+      return r.isNode && e.isBuffer(t) ? (this.append(s, t.toString("base64")), !1) : a.defaultVisitor.apply(this, arguments);
+    }
+  }, i));
 }
 export {
-  B as ROW_OBJECT,
-  C as rowObjectBuilder,
-  b as rowObjectCode,
-  a as rowObjectExpression
+  c as default
 };
 //# sourceMappingURL=cori.data.api269.js.map

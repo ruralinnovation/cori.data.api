@@ -4,13 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function d(t, r = 0, n = t.length) {
-  let e = t[r++];
-  for (let o = r; o < n; ++o)
-    e *= t[o];
-  return e;
+function t(n) {
+  return n != null && n === n;
 }
 export {
-  d as default
+  t as default
 };
 //# sourceMappingURL=cori.data.api414.js.map

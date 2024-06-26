@@ -1,4 +1,4 @@
-import { __exports as r } from "./cori.data.api57.js";
+import { __exports as r } from "./cori.data.api58.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

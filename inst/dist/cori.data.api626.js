@@ -1,30 +1,30 @@
-import { encodeUtf8 as r } from "./cori.data.api561.js";
-import { BufferBuilder as s } from "./cori.data.api507.js";
-import { VariableWidthBuilder as n } from "./cori.data.api503.js";
-import { LargeBinaryBuilder as i } from "./cori.data.api627.js";
+import { encodeUtf8 as s } from "./cori.data.api563.js";
+import { BinaryBuilder as n } from "./cori.data.api627.js";
+import { BufferBuilder as i } from "./cori.data.api517.js";
+import { VariableWidthBuilder as r } from "./cori.data.api513.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class h extends n {
+class h extends r {
   constructor(e) {
-    super(e), this._values = new s(Uint8Array);
+    super(e), this._values = new i(Uint8Array);
   }
   get byteLength() {
     let e = this._pendingLength + this.length * 4;
     return this._offsets && (e += this._offsets.byteLength), this._values && (e += this._values.byteLength), this._nulls && (e += this._nulls.byteLength), e;
   }
   setValue(e, t) {
-    return super.setValue(e, r(t));
+    return super.setValue(e, s(t));
   }
   // @ts-ignore
   _flushPending(e, t) {
   }
 }
-h.prototype._flushPending = i.prototype._flushPending;
+h.prototype._flushPending = n.prototype._flushPending;
 export {
-  h as LargeUtf8Builder
+  h as Utf8Builder
 };
 //# sourceMappingURL=cori.data.api626.js.map

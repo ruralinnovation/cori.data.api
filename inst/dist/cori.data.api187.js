@@ -1,5 +1,5 @@
 import { Transition as o } from "./cori.data.api180.js";
-import h from "./cori.data.api137.js";
+import h from "./cori.data.api132.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

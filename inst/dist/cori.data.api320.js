@@ -1,54 +1,55 @@
-import { resolveUrl as l } from "./cori.data.api66.js";
-import { getMimeType as i } from "./cori.data.api318.js";
-import { isDataUrl as f, resourceToDataURL as m } from "./cori.data.api319.js";
+import { dataFromArray as p, dataFromScan as A } from "./cori.data.api418.js";
+import { profile as d } from "./cori.data.api419.js";
+import l from "./cori.data.api420.js";
+import F from "./cori.data.api408.js";
+import { Vector as y } from "./cori.data.api421.js";
+import { Float32 as I, Float64 as U, Int8 as T, Int16 as g, Int32 as w, Uint8 as B, Uint16 as V, Uint32 as v, Int64 as x, Uint64 as C } from "./cori.data.api422.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const a = /url\((['"]?)([^'"]+?)\1\)/g, p = /url\([^)]+\)\s*format\((["']?)([^"']+)\1\)/g, R = /src:\s*(?:url\([^)]+\)\s*format\([^)]+\)[,;]\s*)+/g;
-function d(r) {
-  const e = r.replace(/([.*+?^${}()|\[\]\/\\])/g, "\\$1");
-  return new RegExp(`(url\\(['"]?)(${e})(['"]?\\))`, "g");
-}
-function g(r) {
-  const e = [];
-  return r.replace(a, (t, n, o) => (e.push(o), t)), e.filter((t) => !f(t));
-}
-async function E(r, e, t, n, o) {
-  try {
-    const c = t ? l(e, t) : e, s = i(e);
-    let u;
-    return o || (u = await m(c, s, n)), r.replace(d(e), `$1${u}$3`);
-  } catch {
+function E(r, n, i, f, t, e = !0) {
+  t = l(t);
+  const a = r.column(n), s = !(r.isFiltered() || r.isOrdered()), c = O(a);
+  if (c && s && u(c.type, t))
+    return c;
+  const m = a.data;
+  if (F(m)) {
+    const o = S(m);
+    if (s && o && u(o, t))
+      return p(m, o);
+    t = t || o, e = !1;
   }
-  return r;
+  if (!t) {
+    const o = d(f, a);
+    e = o.nulls > 0, t = o.type();
+  }
+  return A(i, f, a, t, e);
 }
-function $(r, { preferredFontFormat: e }) {
-  return e ? r.replace(R, (t) => {
-    for (; ; ) {
-      const [n, , o] = p.exec(t) || [];
-      if (!o)
-        return "";
-      if (o === e)
-        return `src: ${n};`;
-    }
-  }) : r;
+function O(r) {
+  return r instanceof y ? r : r.vector instanceof y ? r.vector : null;
 }
-function h(r) {
-  return r.search(a) !== -1;
+function S(r) {
+  const i = {
+    Float32Array: I,
+    Float64Array: U,
+    Int8Array: T,
+    Int16Array: g,
+    Int32Array: w,
+    Uint8Array: B,
+    Uint16Array: V,
+    Uint32Array: v,
+    BigInt64Array: x,
+    BigUint64Array: C
+  }[r.constructor.name];
+  return i ? new i() : null;
 }
-async function v(r, e, t) {
-  if (!h(r))
-    return r;
-  const n = $(r, t);
-  return g(n).reduce((c, s) => c.then((u) => E(u, s, e, t)), Promise.resolve(n));
+function u(r, n) {
+  return !r || !n ? !0 : r.compareTo(n);
 }
 export {
-  E as embed,
-  v as embedResources,
-  g as parseURLs,
-  h as shouldEmbed
+  E as default
 };
 //# sourceMappingURL=cori.data.api320.js.map

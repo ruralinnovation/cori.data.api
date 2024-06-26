@@ -1,11 +1,11 @@
-import { Schema as T, Field as c } from "./cori.data.api499.js";
-import { Int32 as p, Dictionary as w, Int as g, Struct as d, List as I, Bool as D, LargeUtf8 as J, Utf8 as B, LargeBinary as U, Binary as L, Null as y, Map_ as x, FixedSizeList as z, FixedSizeBinary as A, Union as E, Duration as M, Interval as W, Timestamp as Y, Time as v, Date_ as C, Decimal as P, Float as V } from "./cori.data.api407.js";
-import { RecordBatch as k, DictionaryBatch as R, FieldNode as j, BufferRegion as u } from "./cori.data.api510.js";
-import { UnionMode as $ } from "./cori.data.api570.js";
-import { TimeUnit as l } from "./cori.data.api575.js";
-import { IntervalUnit as q } from "./cori.data.api576.js";
-import { DateUnit as G } from "./cori.data.api574.js";
-import { Precision as H } from "./cori.data.api573.js";
+import { Schema as T, Field as c } from "./cori.data.api509.js";
+import { Int32 as p, Dictionary as w, Int as g, Struct as d, List as I, Bool as D, LargeUtf8 as J, Utf8 as B, LargeBinary as U, Binary as L, Null as y, Map_ as x, FixedSizeList as z, FixedSizeBinary as A, Union as E, Duration as M, Interval as W, Timestamp as Y, Time as v, Date_ as C, Decimal as P, Float as V } from "./cori.data.api422.js";
+import { RecordBatch as k, DictionaryBatch as R, FieldNode as j, BufferRegion as u } from "./cori.data.api520.js";
+import { UnionMode as $ } from "./cori.data.api572.js";
+import { TimeUnit as l } from "./cori.data.api577.js";
+import { IntervalUnit as q } from "./cori.data.api578.js";
+import { DateUnit as G } from "./cori.data.api576.js";
+import { Precision as H } from "./cori.data.api575.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

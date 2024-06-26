@@ -1,29 +1,34 @@
-import { normalize as s } from "./cori.data.api485.js";
-import { Schema as a } from "./cori.data.api480.js";
-import { DefinedInfo as c } from "./cori.data.api486.js";
+import { Info as h } from "./cori.data.api482.js";
+import * as s from "./cori.data.api478.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const u = {}.hasOwnProperty;
-function w(e) {
-  const p = {}, t = {};
-  let r;
-  for (r in e.properties)
-    if (u.call(e.properties, r)) {
-      const m = e.properties[r], o = new c(
-        r,
-        e.transform(e.attributes || {}, r),
-        m,
-        e.space
-      );
-      e.mustUseProperty && e.mustUseProperty.includes(r) && (o.mustUseProperty = !0), p[r] = o, t[s(r)] = r, t[s(o.attribute)] = r;
-    }
-  return new a(p, t, e.space);
+const n = Object.keys(s);
+class d extends h {
+  /**
+   * @constructor
+   * @param {string} property
+   * @param {string} attribute
+   * @param {number|null} [mask]
+   * @param {string} [space]
+   */
+  constructor(t, e, r, p) {
+    let o = -1;
+    if (super(t, e), f(this, "space", p), typeof r == "number")
+      for (; ++o < n.length; ) {
+        const i = n[o];
+        f(this, n[o], (r & s[i]) === s[i]);
+      }
+  }
+}
+d.prototype.defined = !0;
+function f(c, t, e) {
+  e && (c[t] = e);
 }
 export {
-  w as create
+  d as DefinedInfo
 };
 //# sourceMappingURL=cori.data.api481.js.map

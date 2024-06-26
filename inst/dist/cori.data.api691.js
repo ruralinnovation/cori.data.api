@@ -2,7 +2,7 @@ import { factoryDestination as y } from "./cori.data.api702.js";
 import { factoryLabel as d } from "./cori.data.api703.js";
 import { factoryTitle as M } from "./cori.data.api704.js";
 import { factoryWhitespace as f } from "./cori.data.api705.js";
-import { markdownLineEndingOrSpace as m } from "./cori.data.api479.js";
+import { markdownLineEndingOrSpace as m } from "./cori.data.api489.js";
 import { push as k, splice as L } from "./cori.data.api668.js";
 import { normalizeIdentifier as g } from "./cori.data.api468.js";
 import { resolveAll as h } from "./cori.data.api672.js";

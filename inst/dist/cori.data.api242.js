@@ -1,10 +1,10 @@
-import { merge as m } from "./cori.data.api375.js";
-import { xlink as o } from "./cori.data.api376.js";
-import { xml as r } from "./cori.data.api377.js";
-import { xmlns as t } from "./cori.data.api378.js";
-import { aria as i } from "./cori.data.api379.js";
-import { html as s } from "./cori.data.api380.js";
-import { svg as p } from "./cori.data.api381.js";
+import { merge as m } from "./cori.data.api347.js";
+import { xlink as o } from "./cori.data.api348.js";
+import { xml as r } from "./cori.data.api349.js";
+import { xmlns as t } from "./cori.data.api350.js";
+import { aria as i } from "./cori.data.api351.js";
+import { html as s } from "./cori.data.api352.js";
+import { svg as p } from "./cori.data.api353.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

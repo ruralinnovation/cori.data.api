@@ -1,4 +1,4 @@
-import { markdownLineEnding as V } from "./cori.data.api479.js";
+import { markdownLineEnding as V } from "./cori.data.api489.js";
 import { push as W, splice as X } from "./cori.data.api668.js";
 import { resolveAll as Y } from "./cori.data.api672.js";
 /*

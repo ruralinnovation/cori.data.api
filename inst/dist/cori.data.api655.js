@@ -1,6 +1,6 @@
 import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api653.js";
-import "./cori.data.api579.js";
 import "./cori.data.api580.js";
+import "./cori.data.api581.js";
 import { DictionaryKind as n } from "./cori.data.api696.js";
 import { Int as e } from "./cori.data.api585.js";
 /*

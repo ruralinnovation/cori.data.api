@@ -1,35 +1,30 @@
-import { Field as h } from "./cori.data.api499.js";
-import { List as l } from "./cori.data.api407.js";
-import { OffsetsBufferBuilder as u } from "./cori.data.api507.js";
-import { VariableWidthBuilder as c } from "./cori.data.api503.js";
+import { encodeUtf8 as r } from "./cori.data.api563.js";
+import { BufferBuilder as s } from "./cori.data.api517.js";
+import { VariableWidthBuilder as n } from "./cori.data.api513.js";
+import { LargeBinaryBuilder as i } from "./cori.data.api629.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class B extends c {
+class h extends n {
   constructor(e) {
-    super(e), this._offsets = new u(e.type);
+    super(e), this._values = new s(Uint8Array);
   }
-  addChild(e, t = "0") {
-    if (this.numChildren > 0)
-      throw new Error("ListBuilder can only have one child.");
-    return this.children[this.numChildren] = e, this.type = new l(new h(t, e.type, !0)), this.numChildren - 1;
+  get byteLength() {
+    let e = this._pendingLength + this.length * 4;
+    return this._offsets && (e += this._offsets.byteLength), this._values && (e += this._values.byteLength), this._nulls && (e += this._nulls.byteLength), e;
   }
-  _flushPending(e) {
-    const t = this._offsets, [f] = this.children;
-    for (const [i, r] of e)
-      if (typeof r > "u")
-        t.set(i, 0);
-      else {
-        const n = r, o = n.length, d = t.set(i, o).buffer[i];
-        for (let s = -1; ++s < o; )
-          f.set(d + s, n[s]);
-      }
+  setValue(e, t) {
+    return super.setValue(e, r(t));
+  }
+  // @ts-ignore
+  _flushPending(e, t) {
   }
 }
+h.prototype._flushPending = i.prototype._flushPending;
 export {
-  B as ListBuilder
+  h as LargeUtf8Builder
 };
 //# sourceMappingURL=cori.data.api628.js.map

@@ -4,11 +4,12 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var L;
-(function(I) {
-  I[I.DAY = 0] = "DAY", I[I.MILLISECOND = 1] = "MILLISECOND";
-})(L || (L = {}));
+function o(t) {
+  if (typeof t == "bigint" && (t < Number.MIN_SAFE_INTEGER || t > Number.MAX_SAFE_INTEGER))
+    throw new TypeError(`${t} is not safe to convert to a number.`);
+  return Number(t);
+}
 export {
-  L as DateUnit
+  o as bigIntToNumber
 };
 //# sourceMappingURL=cori.data.api574.js.map

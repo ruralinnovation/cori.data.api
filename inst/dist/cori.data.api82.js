@@ -1,39 +1,46 @@
-import u from "./cori.data.api77.js";
+import d from "./cori.data.api81.js";
+import p from "./cori.data.api84.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function f(e) {
-  return u.matchAll(/\w+|\[(\w*)]/g, e).map((o) => o[0] === "[]" ? "" : o[1] || o[0]);
-}
-function y(e) {
-  const o = {}, r = Object.keys(e);
-  let i;
-  const n = r.length;
-  let c;
-  for (i = 0; i < n; i++)
-    c = r[i], o[c] = e[c];
-  return o;
-}
-function m(e) {
-  function o(r, i, n, c) {
-    let s = r[c++];
-    if (s === "__proto__")
-      return !0;
-    const t = Number.isFinite(+s), l = c >= r.length;
-    return s = !s && u.isArray(n) ? n.length : s, l ? (u.hasOwnProp(n, s) ? n[s] = [n[s], i] : n[s] = i, !t) : ((!n[s] || !u.isObject(n[s])) && (n[s] = []), o(r, i, n[s], c) && u.isArray(n[s]) && (n[s] = y(n[s])), !t);
+function b(c) {
+  let u, o, s;
+  c.length !== 2 ? (u = d, o = (n, e) => d(c(n), e), s = (n, e) => c(n) - e) : (u = c === d || c === p ? c : l, o = c, s = c);
+  function f(n, e, t = 0, r = n.length) {
+    if (t < r) {
+      if (u(e, e) !== 0)
+        return r;
+      do {
+        const i = t + r >>> 1;
+        o(n[i], e) < 0 ? t = i + 1 : r = i;
+      } while (t < r);
+    }
+    return t;
   }
-  if (u.isFormData(e) && u.isFunction(e.entries)) {
-    const r = {};
-    return u.forEachEntry(e, (i, n) => {
-      o(f(i), n, r, 0);
-    }), r;
+  function m(n, e, t = 0, r = n.length) {
+    if (t < r) {
+      if (u(e, e) !== 0)
+        return r;
+      do {
+        const i = t + r >>> 1;
+        o(n[i], e) <= 0 ? t = i + 1 : r = i;
+      } while (t < r);
+    }
+    return t;
   }
-  return null;
+  function g(n, e, t = 0, r = n.length) {
+    const i = f(n, e, t, r - 1);
+    return i > t && s(n[i - 1], e) > -s(n[i], e) ? i - 1 : i;
+  }
+  return { left: f, center: g, right: m };
+}
+function l() {
+  return 0;
 }
 export {
-  m as default
+  b as default
 };
 //# sourceMappingURL=cori.data.api82.js.map

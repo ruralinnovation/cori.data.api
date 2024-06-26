@@ -1,186 +1,108 @@
-import { Visitor as i } from "./cori.data.api569.js";
-import { BinaryBuilder as r } from "./cori.data.api625.js";
-import { LargeBinaryBuilder as t } from "./cori.data.api627.js";
-import { BoolBuilder as e } from "./cori.data.api611.js";
-import { DateBuilder as n, DateDayBuilder as o, DateMillisecondBuilder as u } from "./cori.data.api613.js";
-import { DecimalBuilder as s } from "./cori.data.api614.js";
-import { DictionaryBuilder as l } from "./cori.data.api615.js";
-import { FixedSizeBinaryBuilder as d } from "./cori.data.api616.js";
-import { FixedSizeListBuilder as m } from "./cori.data.api629.js";
-import { FloatBuilder as a, Float16Builder as B, Float32Builder as v, Float64Builder as c } from "./cori.data.api617.js";
-import { IntervalBuilder as p, IntervalDayTimeBuilder as f, IntervalYearMonthBuilder as D } from "./cori.data.api622.js";
-import { DurationBuilder as T, DurationSecondBuilder as M, DurationMillisecondBuilder as U, DurationMicrosecondBuilder as I, DurationNanosecondBuilder as S } from "./cori.data.api623.js";
-import { IntBuilder as y, Int8Builder as F, Int16Builder as L, Int32Builder as N, Int64Builder as x, Uint8Builder as g, Uint16Builder as z, Uint32Builder as h, Uint64Builder as Y } from "./cori.data.api619.js";
-import { ListBuilder as w } from "./cori.data.api628.js";
-import { MapBuilder as C } from "./cori.data.api630.js";
-import { NullBuilder as G } from "./cori.data.api612.js";
-import { StructBuilder as V } from "./cori.data.api631.js";
-import { TimestampBuilder as b, TimestampSecondBuilder as j, TimestampMillisecondBuilder as k, TimestampMicrosecondBuilder as q, TimestampNanosecondBuilder as A } from "./cori.data.api621.js";
-import { TimeBuilder as E, TimeSecondBuilder as H, TimeMillisecondBuilder as J, TimeMicrosecondBuilder as K, TimeNanosecondBuilder as O } from "./cori.data.api620.js";
-import { UnionBuilder as P, DenseUnionBuilder as Q, SparseUnionBuilder as R } from "./cori.data.api632.js";
-import { Utf8Builder as W } from "./cori.data.api624.js";
-import { LargeUtf8Builder as X } from "./cori.data.api626.js";
+import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api653.js";
+import "./cori.data.api580.js";
+import "./cori.data.api581.js";
+import { Block as o } from "./cori.data.api608.js";
+import { KeyValue as _ } from "./cori.data.api592.js";
+import { MetadataVersion as r } from "./cori.data.api528.js";
+import { Schema as a } from "./cori.data.api584.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class Z extends i {
-  visitNull() {
-    return G;
+class i {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  visitBool() {
-    return e;
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
   }
-  visitInt() {
-    return y;
+  static getRootAsFooter(t, s) {
+    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  visitInt8() {
-    return F;
+  static getSizePrefixedRootAsFooter(t, s) {
+    return t.setPosition(t.position() + n), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  visitInt16() {
-    return L;
+  version() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt16(this.bb_pos + t) : r.V1;
   }
-  visitInt32() {
-    return N;
+  schema(t) {
+    const s = this.bb.__offset(this.bb_pos, 6);
+    return s ? (t || new a()).__init(this.bb.__indirect(this.bb_pos + s), this.bb) : null;
   }
-  visitInt64() {
-    return x;
+  dictionaries(t, s) {
+    const e = this.bb.__offset(this.bb_pos, 8);
+    return e ? (s || new o()).__init(this.bb.__vector(this.bb_pos + e) + t * 24, this.bb) : null;
   }
-  visitUint8() {
-    return g;
+  dictionariesLength() {
+    const t = this.bb.__offset(this.bb_pos, 8);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
-  visitUint16() {
-    return z;
+  recordBatches(t, s) {
+    const e = this.bb.__offset(this.bb_pos, 10);
+    return e ? (s || new o()).__init(this.bb.__vector(this.bb_pos + e) + t * 24, this.bb) : null;
   }
-  visitUint32() {
-    return h;
+  recordBatchesLength() {
+    const t = this.bb.__offset(this.bb_pos, 10);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
-  visitUint64() {
-    return Y;
+  /**
+   * User-defined metadata
+   */
+  customMetadata(t, s) {
+    const e = this.bb.__offset(this.bb_pos, 12);
+    return e ? (s || new _()).__init(this.bb.__indirect(this.bb.__vector(this.bb_pos + e) + t * 4), this.bb) : null;
   }
-  visitFloat() {
-    return a;
+  customMetadataLength() {
+    const t = this.bb.__offset(this.bb_pos, 12);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
-  visitFloat16() {
-    return B;
+  static startFooter(t) {
+    t.startObject(5);
   }
-  visitFloat32() {
-    return v;
+  static addVersion(t, s) {
+    t.addFieldInt16(0, s, r.V1);
   }
-  visitFloat64() {
-    return c;
+  static addSchema(t, s) {
+    t.addFieldOffset(1, s, 0);
   }
-  visitUtf8() {
-    return W;
+  static addDictionaries(t, s) {
+    t.addFieldOffset(2, s, 0);
   }
-  visitLargeUtf8() {
-    return X;
+  static startDictionariesVector(t, s) {
+    t.startVector(24, s, 8);
   }
-  visitBinary() {
-    return r;
+  static addRecordBatches(t, s) {
+    t.addFieldOffset(3, s, 0);
   }
-  visitLargeBinary() {
-    return t;
+  static startRecordBatchesVector(t, s) {
+    t.startVector(24, s, 8);
   }
-  visitFixedSizeBinary() {
-    return d;
+  static addCustomMetadata(t, s) {
+    t.addFieldOffset(4, s, 0);
   }
-  visitDate() {
-    return n;
+  static createCustomMetadataVector(t, s) {
+    t.startVector(4, s.length, 4);
+    for (let e = s.length - 1; e >= 0; e--)
+      t.addOffset(s[e]);
+    return t.endVector();
   }
-  visitDateDay() {
-    return o;
+  static startCustomMetadataVector(t, s) {
+    t.startVector(4, s, 4);
   }
-  visitDateMillisecond() {
-    return u;
+  static endFooter(t) {
+    return t.endObject();
   }
-  visitTimestamp() {
-    return b;
+  static finishFooterBuffer(t, s) {
+    t.finish(s);
   }
-  visitTimestampSecond() {
-    return j;
-  }
-  visitTimestampMillisecond() {
-    return k;
-  }
-  visitTimestampMicrosecond() {
-    return q;
-  }
-  visitTimestampNanosecond() {
-    return A;
-  }
-  visitTime() {
-    return E;
-  }
-  visitTimeSecond() {
-    return H;
-  }
-  visitTimeMillisecond() {
-    return J;
-  }
-  visitTimeMicrosecond() {
-    return K;
-  }
-  visitTimeNanosecond() {
-    return O;
-  }
-  visitDecimal() {
-    return s;
-  }
-  visitList() {
-    return w;
-  }
-  visitStruct() {
-    return V;
-  }
-  visitUnion() {
-    return P;
-  }
-  visitDenseUnion() {
-    return Q;
-  }
-  visitSparseUnion() {
-    return R;
-  }
-  visitDictionary() {
-    return l;
-  }
-  visitInterval() {
-    return p;
-  }
-  visitIntervalDayTime() {
-    return f;
-  }
-  visitIntervalYearMonth() {
-    return D;
-  }
-  visitDuration() {
-    return T;
-  }
-  visitDurationSecond() {
-    return M;
-  }
-  visitDurationMillisecond() {
-    return U;
-  }
-  visitDurationMicrosecond() {
-    return I;
-  }
-  visitDurationNanosecond() {
-    return S;
-  }
-  visitFixedSizeList() {
-    return m;
-  }
-  visitMap() {
-    return C;
+  static finishSizePrefixedFooterBuffer(t, s) {
+    t.finish(s, void 0, !0);
   }
 }
-const Ii = new Z();
 export {
-  Z as GetBuilderCtor,
-  Ii as instance
+  i as Footer
 };
 //# sourceMappingURL=cori.data.api609.js.map

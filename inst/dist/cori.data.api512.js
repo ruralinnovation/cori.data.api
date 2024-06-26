@@ -1,126 +1,127 @@
-import { Visitor as f } from "./cori.data.api569.js";
+import { __asyncGenerator as d, __await as o, __asyncDelegator as c, __asyncValues as h } from "./cori.data.api511.js";
+import { encodeUtf8 as U } from "./cori.data.api563.js";
+import { isIteratorResult as p, isFlatbuffersByteBuffer as _, isIterable as I, isPromise as B, isAsyncIterable as x } from "./cori.data.api527.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class n extends f {
-  compareSchemas(i, o) {
-    return i === o || o instanceof i.constructor && this.compareManyFields(i.fields, o.fields);
+const m = typeof SharedArrayBuffer < "u" ? SharedArrayBuffer : ArrayBuffer;
+function O(n) {
+  const e = n[0] ? [n[0]] : [];
+  let t, r, l, f;
+  for (let i, y, a = 0, s = 0, b = n.length; ++a < b; ) {
+    if (i = e[s], y = n[a], !i || !y || i.buffer !== y.buffer || y.byteOffset < i.byteOffset) {
+      y && (e[++s] = y);
+      continue;
+    }
+    if ({ byteOffset: t, byteLength: l } = i, { byteOffset: r, byteLength: f } = y, t + l < r || r + f < t) {
+      y && (e[++s] = y);
+      continue;
+    }
+    e[s] = new Uint8Array(i.buffer, t, r - t + f);
   }
-  compareManyFields(i, o) {
-    return i === o || Array.isArray(i) && Array.isArray(o) && i.length === o.length && i.every((u, S) => this.compareFields(u, o[S]));
+  return e;
+}
+function A(n, e, t = 0, r = e.byteLength) {
+  const l = n.byteLength, f = new Uint8Array(n.buffer, n.byteOffset, l), i = new Uint8Array(e.buffer, e.byteOffset, Math.min(r, l));
+  return f.set(i, t), n;
+}
+function T(n, e) {
+  const t = O(n), r = t.reduce((b, L) => b + L.byteLength, 0);
+  let l, f, i, y = 0, a = -1;
+  const s = Math.min(e || Number.POSITIVE_INFINITY, r);
+  for (const b = t.length; ++a < b; ) {
+    if (l = t[a], f = l.subarray(0, Math.min(l.length, s - y)), s <= y + f.length) {
+      f.length < l.length ? t[a] = l.subarray(f.length) : f.length === l.length && a++, i ? A(i, f, y) : i = f;
+      break;
+    }
+    A(i || (i = new Uint8Array(s)), f, y), y += f.length;
   }
-  compareFields(i, o) {
-    return i === o || o instanceof i.constructor && i.name === o.name && i.nullable === o.nullable && this.visit(i.type, o.type);
+  return [i || new Uint8Array(0), t.slice(a), r - (i ? i.byteLength : 0)];
+}
+function u(n, e) {
+  let t = p(e) ? e.value : e;
+  return t instanceof n ? n === Uint8Array ? new n(t.buffer, t.byteOffset, t.byteLength) : t : t ? (typeof t == "string" && (t = U(t)), t instanceof ArrayBuffer ? new n(t) : t instanceof m ? new n(t) : _(t) ? u(n, t.bytes()) : ArrayBuffer.isView(t) ? t.byteLength <= 0 ? new n(0) : new n(t.buffer, t.byteOffset, t.byteLength / n.BYTES_PER_ELEMENT) : n.from(t)) : new n(0);
+}
+const P = (n) => u(Int32Array, n), R = (n) => u(BigInt64Array, n), j = (n) => u(Uint8Array, n), g = (n) => (n.next(), n);
+function* S(n, e) {
+  const t = function* (l) {
+    yield l;
+  }, r = typeof e == "string" || ArrayBuffer.isView(e) || e instanceof ArrayBuffer || e instanceof m ? t(e) : I(e) ? e : t(e);
+  return yield* g(function* (l) {
+    let f = null;
+    do
+      f = l.next(yield u(n, f));
+    while (!f.done);
+  }(r[Symbol.iterator]())), new n();
+}
+const F = (n) => S(Uint8Array, n);
+function w(n, e) {
+  return d(this, arguments, function* () {
+    if (B(e))
+      return yield o(yield o(yield* c(h(w(n, yield o(e))))));
+    const r = function(i) {
+      return d(this, arguments, function* () {
+        yield yield o(yield o(i));
+      });
+    }, l = function(i) {
+      return d(this, arguments, function* () {
+        yield o(yield* c(h(g(function* (y) {
+          let a = null;
+          do
+            a = y.next(yield a == null ? void 0 : a.value);
+          while (!a.done);
+        }(i[Symbol.iterator]())))));
+      });
+    }, f = typeof e == "string" || ArrayBuffer.isView(e) || e instanceof ArrayBuffer || e instanceof m ? r(e) : I(e) ? l(e) : x(e) ? e : r(e);
+    return yield o(
+      // otherwise if AsyncIterable, use it
+      yield* c(h(g(function(i) {
+        return d(this, arguments, function* () {
+          let y = null;
+          do
+            y = yield o(i.next(yield yield o(u(n, y))));
+          while (!y.done);
+        });
+      }(f[Symbol.asyncIterator]()))))
+    ), yield o(new n());
+  });
+}
+const Y = (n) => w(Uint8Array, n);
+function v(n, e, t) {
+  if (n !== 0) {
+    t = t.slice(0, e);
+    for (let r = -1, l = t.length; ++r < l; )
+      t[r] += n;
   }
+  return t.subarray(0, e);
 }
-function r(t, i) {
-  return i instanceof t.constructor;
-}
-function c(t, i) {
-  return t === i || r(t, i);
-}
-function e(t, i) {
-  return t === i || r(t, i) && t.bitWidth === i.bitWidth && t.isSigned === i.isSigned;
-}
-function l(t, i) {
-  return t === i || r(t, i) && t.precision === i.precision;
-}
-function F(t, i) {
-  return t === i || r(t, i) && t.byteWidth === i.byteWidth;
-}
-function v(t, i) {
-  return t === i || r(t, i) && t.unit === i.unit;
-}
-function p(t, i) {
-  return t === i || r(t, i) && t.unit === i.unit && t.timezone === i.timezone;
-}
-function a(t, i) {
-  return t === i || r(t, i) && t.unit === i.unit && t.bitWidth === i.bitWidth;
-}
-function M(t, i) {
-  return t === i || r(t, i) && t.children.length === i.children.length && s.compareManyFields(t.children, i.children);
-}
-function D(t, i) {
-  return t === i || r(t, i) && t.children.length === i.children.length && s.compareManyFields(t.children, i.children);
-}
-function m(t, i) {
-  return t === i || r(t, i) && t.mode === i.mode && t.typeIds.every((o, u) => o === i.typeIds[u]) && s.compareManyFields(t.children, i.children);
-}
-function g(t, i) {
-  return t === i || r(t, i) && t.id === i.id && t.isOrdered === i.isOrdered && s.visit(t.indices, i.indices) && s.visit(t.dictionary, i.dictionary);
-}
-function y(t, i) {
-  return t === i || r(t, i) && t.unit === i.unit;
-}
-function d(t, i) {
-  return t === i || r(t, i) && t.unit === i.unit;
-}
-function T(t, i) {
-  return t === i || r(t, i) && t.listSize === i.listSize && t.children.length === i.children.length && s.compareManyFields(t.children, i.children);
-}
-function I(t, i) {
-  return t === i || r(t, i) && t.keysSorted === i.keysSorted && t.children.length === i.children.length && s.compareManyFields(t.children, i.children);
-}
-n.prototype.visitNull = c;
-n.prototype.visitBool = c;
-n.prototype.visitInt = e;
-n.prototype.visitInt8 = e;
-n.prototype.visitInt16 = e;
-n.prototype.visitInt32 = e;
-n.prototype.visitInt64 = e;
-n.prototype.visitUint8 = e;
-n.prototype.visitUint16 = e;
-n.prototype.visitUint32 = e;
-n.prototype.visitUint64 = e;
-n.prototype.visitFloat = l;
-n.prototype.visitFloat16 = l;
-n.prototype.visitFloat32 = l;
-n.prototype.visitFloat64 = l;
-n.prototype.visitUtf8 = c;
-n.prototype.visitLargeUtf8 = c;
-n.prototype.visitBinary = c;
-n.prototype.visitLargeBinary = c;
-n.prototype.visitFixedSizeBinary = F;
-n.prototype.visitDate = v;
-n.prototype.visitDateDay = v;
-n.prototype.visitDateMillisecond = v;
-n.prototype.visitTimestamp = p;
-n.prototype.visitTimestampSecond = p;
-n.prototype.visitTimestampMillisecond = p;
-n.prototype.visitTimestampMicrosecond = p;
-n.prototype.visitTimestampNanosecond = p;
-n.prototype.visitTime = a;
-n.prototype.visitTimeSecond = a;
-n.prototype.visitTimeMillisecond = a;
-n.prototype.visitTimeMicrosecond = a;
-n.prototype.visitTimeNanosecond = a;
-n.prototype.visitDecimal = c;
-n.prototype.visitList = M;
-n.prototype.visitStruct = D;
-n.prototype.visitUnion = m;
-n.prototype.visitDenseUnion = m;
-n.prototype.visitSparseUnion = m;
-n.prototype.visitDictionary = g;
-n.prototype.visitInterval = y;
-n.prototype.visitIntervalDayTime = y;
-n.prototype.visitIntervalYearMonth = y;
-n.prototype.visitDuration = d;
-n.prototype.visitDurationSecond = d;
-n.prototype.visitDurationMillisecond = d;
-n.prototype.visitDurationMicrosecond = d;
-n.prototype.visitDurationNanosecond = d;
-n.prototype.visitFixedSizeList = T;
-n.prototype.visitMap = I;
-const s = new n();
-function b(t, i) {
-  return s.compareSchemas(t, i);
+function D(n, e) {
+  let t = 0;
+  const r = n.length;
+  if (r !== e.length)
+    return !1;
+  if (r > 0)
+    do
+      if (n[t] !== e[t])
+        return !1;
+    while (++t < r);
+  return !0;
 }
 export {
-  n as TypeComparator,
-  b as compareSchemas,
-  s as instance
+  D as compareArrayLike,
+  T as joinUint8Arrays,
+  A as memcpy,
+  v as rebaseValueOffsets,
+  u as toArrayBufferView,
+  w as toArrayBufferViewAsyncIterator,
+  S as toArrayBufferViewIterator,
+  R as toBigInt64Array,
+  P as toInt32Array,
+  j as toUint8Array,
+  Y as toUint8ArrayAsyncIterator,
+  F as toUint8ArrayIterator
 };
 //# sourceMappingURL=cori.data.api512.js.map

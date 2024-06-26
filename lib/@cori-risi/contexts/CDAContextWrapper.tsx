@@ -15,7 +15,7 @@ const defaultCDAContext: CDAContextType = {
 export const CDAContext = createContext<CDAContextType>(defaultCDAContext);
 
 export default function CDAContextWrapper({ children }: any) {
-    const [context, setContext] = useState<CDAContextType>(defaultCDAContext);
+    const [ context, setContext ] = useState<CDAContextType>(defaultCDAContext);
 
     useEffect(() => {
         if (!context.root) {

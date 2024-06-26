@@ -1,35 +1,29 @@
+import { normalize as s } from "./cori.data.api480.js";
+import { Schema as a } from "./cori.data.api475.js";
+import { DefinedInfo as c } from "./cori.data.api481.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function r(c) {
-  const i = String(c), o = /\r?\n|\r/g;
-  let e = o.exec(i), t = 0;
-  const n = [];
-  for (; e; )
-    n.push(
-      s(i.slice(t, e.index), t > 0, !0),
-      e[0]
-    ), t = e.index + e[0].length, e = o.exec(i);
-  return n.push(s(i.slice(t), t > 0, !1)), n.join("");
-}
-function s(c, i, o) {
-  let e = 0, t = c.length;
-  if (i) {
-    let n = c.codePointAt(e);
-    for (; n === 9 || n === 32; )
-      e++, n = c.codePointAt(e);
-  }
-  if (o) {
-    let n = c.codePointAt(t - 1);
-    for (; n === 9 || n === 32; )
-      t--, n = c.codePointAt(t - 1);
-  }
-  return t > e ? c.slice(e, t) : "";
+const u = {}.hasOwnProperty;
+function w(e) {
+  const p = {}, t = {};
+  let r;
+  for (r in e.properties)
+    if (u.call(e.properties, r)) {
+      const m = e.properties[r], o = new c(
+        r,
+        e.transform(e.attributes || {}, r),
+        m,
+        e.space
+      );
+      e.mustUseProperty && e.mustUseProperty.includes(r) && (o.mustUseProperty = !0), p[r] = o, t[s(r)] = r, t[s(o.attribute)] = r;
+    }
+  return new a(p, t, e.space);
 }
 export {
-  r as trimLines
+  w as create
 };
 //# sourceMappingURL=cori.data.api476.js.map

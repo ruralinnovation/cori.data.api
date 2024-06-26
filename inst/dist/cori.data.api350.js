@@ -1,22 +1,18 @@
+import { create as n } from "./cori.data.api476.js";
+import { caseInsensitiveTransform as s } from "./cori.data.api477.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function r(t, e) {
-  const p = e.value ? e.value + `
-` : "", l = {};
-  e.lang && (l.className = ["language-" + e.lang]);
-  let a = {
-    type: "element",
-    tagName: "code",
-    properties: l,
-    children: [{ type: "text", value: p }]
-  };
-  return e.meta && (a.data = { meta: e.meta }), t.patch(e, a), a = t.applyData(e, a), a = { type: "element", tagName: "pre", properties: {}, children: [a] }, t.patch(e, a), a;
-}
+const m = n({
+  space: "xmlns",
+  attributes: { xmlnsxlink: "xmlns:xlink" },
+  transform: s,
+  properties: { xmlns: null, xmlnsXLink: null }
+});
 export {
-  r as code
+  m as xmlns
 };
 //# sourceMappingURL=cori.data.api350.js.map

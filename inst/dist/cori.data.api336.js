@@ -4,20 +4,28 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(e) {
-  return Math.abs(e = Math.round(e)) >= 1e21 ? e.toLocaleString("en").replace(/,/g, "") : e.toString(10);
+const n = "application/font-woff", o = "image/jpeg", i = {
+  woff: n,
+  woff2: n,
+  ttf: "application/font-truetype",
+  eot: "application/vnd.ms-fontobject",
+  png: "image/png",
+  jpg: o,
+  jpeg: o,
+  gif: "image/gif",
+  tiff: "image/tiff",
+  svg: "image/svg+xml",
+  webp: "image/webp"
+};
+function f(e) {
+  const t = /\.([^./]*?)$/g.exec(e);
+  return t ? t[1] : "";
 }
-function r(e, i) {
-  if ((n = (e = i ? e.toExponential(i - 1) : e.toExponential()).indexOf("e")) < 0)
-    return null;
-  var n, t = e.slice(0, n);
-  return [
-    t.length > 1 ? t[0] + t.slice(2) : t,
-    +e.slice(n + 1)
-  ];
+function g(e) {
+  const t = f(e).toLowerCase();
+  return i[t] || "";
 }
 export {
-  a as default,
-  r as formatDecimalParts
+  g as getMimeType
 };
 //# sourceMappingURL=cori.data.api336.js.map

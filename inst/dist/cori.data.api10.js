@@ -1,4 +1,4 @@
-import { getDefaultExportFromCjs as r } from "./cori.data.api99.js";
+import { getDefaultExportFromCjs as r } from "./cori.data.api105.js";
 import { __require as t } from "./cori.data.api44.js";
 /*
  * CORI Data API component library

@@ -1,26 +1,36 @@
-import { Field as n } from "./cori.data.api499.js";
-import { Builder as h } from "./cori.data.api503.js";
-import { FixedSizeList as l } from "./cori.data.api407.js";
+import { toUint8Array as h } from "./cori.data.api512.js";
+import { BufferBuilder as o } from "./cori.data.api517.js";
+import { VariableWidthBuilder as u } from "./cori.data.api513.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class u extends h {
-  setValue(e, i) {
-    const [t] = this.children, s = e * this.stride;
-    for (let r = -1, d = i.length; ++r < d; )
-      t.set(s + r, i[r]);
+class c extends u {
+  constructor(e) {
+    super(e), this._values = new o(Uint8Array);
   }
-  addChild(e, i = "0") {
-    if (this.numChildren > 0)
-      throw new Error("FixedSizeListBuilder can only have one child.");
-    const t = this.children.push(e);
-    return this.type = new l(this.type.listSize, new n(i, e.type, !0)), t;
+  get byteLength() {
+    let e = this._pendingLength + this.length * 4;
+    return this._offsets && (e += this._offsets.byteLength), this._values && (e += this._values.byteLength), this._nulls && (e += this._nulls.byteLength), e;
+  }
+  setValue(e, t) {
+    return super.setValue(e, h(t));
+  }
+  _flushPending(e, t) {
+    const n = this._offsets, f = this._values.reserve(t).buffer;
+    let i = 0;
+    for (const [r, s] of e)
+      if (s === void 0)
+        n.set(r, BigInt(0));
+      else {
+        const l = s.length;
+        f.set(s, i), n.set(r, BigInt(l)), i += l;
+      }
   }
 }
 export {
-  u as FixedSizeListBuilder
+  c as LargeBinaryBuilder
 };
 //# sourceMappingURL=cori.data.api629.js.map

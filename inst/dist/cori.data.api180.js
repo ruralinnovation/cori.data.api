@@ -18,7 +18,7 @@ import v from "./cori.data.api197.js";
 import C from "./cori.data.api198.js";
 import b from "./cori.data.api199.js";
 import z from "./cori.data.api200.js";
-import A from "./cori.data.api138.js";
+import A from "./cori.data.api133.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

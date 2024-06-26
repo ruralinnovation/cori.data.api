@@ -1,47 +1,26 @@
-import e from "./cori.data.api264.js";
+import f from "./cori.data.api62.js";
+import d from "./cori.data.api383.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class n {
-  /**
-   * Create a new column instance.
-   * @param {Array} data The backing array (or array-like object)
-   *  containing the column data.
-   */
-  constructor(r) {
-    this.data = r;
-  }
-  /**
-   * Get the length (number of rows) of the column.
-   * @return {number} The length of the column array.
-   */
-  get length() {
-    return this.data.length;
-  }
-  /**
-   * Get the column value at the given row index.
-   * @param {number} row The row index of the value to retrieve.
-   * @return {import('./table').DataValue} The column value.
-   */
-  get(r) {
-    return this.data[r];
-  }
-  /**
-   * Returns an iterator over the column values.
-   * @return {Iterator<object>} An iterator over column values.
-   */
-  [Symbol.iterator]() {
-    return this.data[Symbol.iterator]();
-  }
+function l(e) {
+  return encodeURIComponent(e).replace(/%3A/gi, ":").replace(/%24/g, "$").replace(/%2C/gi, ",").replace(/%20/g, "+").replace(/%5B/gi, "[").replace(/%5D/gi, "]");
 }
-let u = function(t) {
-  return t && e(t.get) ? t : new n(t);
-};
+function s(e, c, i) {
+  if (!c)
+    return e;
+  const a = i && i.encode || l, r = i && i.serialize;
+  let n;
+  if (r ? n = r(c, i) : n = f.isURLSearchParams(c) ? c.toString() : new d(c, i).toString(a), n) {
+    const t = e.indexOf("#");
+    t !== -1 && (e = e.slice(0, t)), e += (e.indexOf("?") === -1 ? "?" : "&") + n;
+  }
+  return e;
+}
 export {
-  n as default,
-  u as defaultColumnFactory
+  s as default
 };
 //# sourceMappingURL=cori.data.api263.js.map

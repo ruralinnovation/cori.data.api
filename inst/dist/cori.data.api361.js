@@ -1,49 +1,35 @@
+import { normalizeUri as s } from "./cori.data.api382.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function f(l, e, s) {
-  const n = l.all(e), a = s ? m(s) : o(e), r = {}, p = [];
-  if (typeof e.checked == "boolean") {
-    const t = n[0];
-    let i;
-    t && t.type === "element" && t.tagName === "p" ? i = t : (i = { type: "element", tagName: "p", properties: {}, children: [] }, n.unshift(i)), i.children.length > 0 && i.children.unshift({ type: "text", value: " " }), i.children.unshift({
-      type: "element",
-      tagName: "input",
-      properties: { type: "checkbox", checked: e.checked, disabled: !0 },
-      children: []
-    }), r.className = ["task-list-item"];
-  }
-  let c = -1;
-  for (; ++c < n.length; ) {
-    const t = n[c];
-    (a || c !== 0 || t.type !== "element" || t.tagName !== "p") && p.push({ type: "text", value: `
-` }), t.type === "element" && t.tagName === "p" && !a ? p.push(...t.children) : p.push(t);
-  }
-  const h = n[n.length - 1];
-  h && (a || h.type !== "element" || h.tagName !== "p") && p.push({ type: "text", value: `
-` });
-  const u = { type: "element", tagName: "li", properties: r, children: p };
-  return l.patch(e, u), l.applyData(e, u);
-}
-function m(l) {
-  let e = !1;
-  if (l.type === "list") {
-    e = l.spread || !1;
-    const s = l.children;
-    let n = -1;
-    for (; !e && ++n < s.length; )
-      e = o(s[n]);
-  }
-  return e;
-}
-function o(l) {
-  const e = l.spread;
-  return e ?? l.children.length > 1;
+function d(e, r) {
+  const i = typeof e.options.clobberPrefix == "string" ? e.options.clobberPrefix : "user-content-", t = String(r.identifier).toUpperCase(), f = s(t.toLowerCase()), l = e.footnoteOrder.indexOf(t);
+  let n, o = e.footnoteCounts.get(t);
+  o === void 0 ? (o = 0, e.footnoteOrder.push(t), n = e.footnoteOrder.length) : n = l + 1, o += 1, e.footnoteCounts.set(t, o);
+  const p = {
+    type: "element",
+    tagName: "a",
+    properties: {
+      href: "#" + i + "fn-" + f,
+      id: i + "fnref-" + f + (o > 1 ? "-" + o : ""),
+      dataFootnoteRef: !0,
+      ariaDescribedBy: ["footnote-label"]
+    },
+    children: [{ type: "text", value: String(n) }]
+  };
+  e.patch(r, p);
+  const c = {
+    type: "element",
+    tagName: "sup",
+    properties: {},
+    children: [p]
+  };
+  return e.patch(r, c), e.applyData(r, c);
 }
 export {
-  f as listItem
+  d as footnoteReference
 };
 //# sourceMappingURL=cori.data.api361.js.map

@@ -1,17 +1,15 @@
-import { normalizeUri as e } from "./cori.data.api374.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(i, t) {
-  const l = { src: e(t.url) };
-  t.alt !== null && t.alt !== void 0 && (l.alt = t.alt), t.title !== null && t.title !== void 0 && (l.title = t.title);
-  const r = { type: "element", tagName: "img", properties: l, children: [] };
-  return i.patch(t, r), i.applyData(t, r);
+function a(e, t) {
+  const r = { type: "element", tagName: "br", properties: {}, children: [] };
+  return e.patch(t, r), [e.applyData(t, r), { type: "text", value: `
+` }];
 }
 export {
-  p as image
+  a as hardBreak
 };
 //# sourceMappingURL=cori.data.api357.js.map

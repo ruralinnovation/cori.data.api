@@ -1,15 +1,24 @@
-import t from "./cori.data.api524.js";
-import d from "./cori.data.api525.js";
+import a from "./cori.data.api438.js";
+import l from "./cori.data.api400.js";
+import n from "./cori.data.api409.js";
+import r from "./cori.data.api502.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(o, r, f) {
-  return t(o, d("fold", o, r), f);
+function t(e) {
+  return Array.from(e);
 }
+const c = {
+  has: (e, s) => r(e) ? e.has(s) : e != null ? l(e, s) : !1,
+  keys: (e) => n(e) ? t(e.keys()) : e != null ? Object.keys(e) : [],
+  values: (e) => r(e) ? t(e.values()) : e != null ? Object.values(e) : [],
+  entries: (e) => r(e) ? t(e.entries()) : e != null ? Object.entries(e) : [],
+  object: (e) => e ? Object.fromEntries(e) : a
+};
 export {
-  e as default
+  c as default
 };
 //# sourceMappingURL=cori.data.api430.js.map

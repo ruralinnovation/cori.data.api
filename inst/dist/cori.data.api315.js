@@ -4,29 +4,23 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const r = (
-  /**
-   * @type {new <Parameters extends Array<unknown>, Result>(property: string | symbol) => (...parameters: Parameters) => Result}
-   */
-  /** @type {unknown} */
-  /**
-   * @this {Function}
-   * @param {string | symbol} property
-   * @returns {(...parameters: Array<unknown>) => unknown}
-   */
-  function(n) {
-    const o = (
-      /** @type {Record<string | symbol, Function>} */
-      // Prototypes do exist.
-      // type-coverage:ignore-next-line
-      this.constructor.prototype
-    ), s = o[n], t = function() {
-      return s.apply(t, arguments);
-    };
-    return Object.setPrototypeOf(t, o), t;
-  }
-);
+const e = "Expr", s = "ExprList", n = "ExprNumber", t = "ExprObject", o = "JoinKeys", c = "JoinValues", r = "Options", i = "OrderKeys", b = "SelectionList", p = "TableRef", l = "TableRefList", x = "Descending", a = "Query", y = "Selection", E = "Verb", u = "Window";
 export {
-  r as CallableInstance
+  x as Descending,
+  e as Expr,
+  s as ExprList,
+  n as ExprNumber,
+  t as ExprObject,
+  o as JoinKeys,
+  c as JoinValues,
+  r as Options,
+  i as OrderbyKeys,
+  a as Query,
+  y as Selection,
+  b as SelectionList,
+  p as TableRef,
+  l as TableRefList,
+  E as Verb,
+  u as Window
 };
 //# sourceMappingURL=cori.data.api315.js.map

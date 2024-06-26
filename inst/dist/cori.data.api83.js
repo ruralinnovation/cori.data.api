@@ -1,18 +1,13 @@
-import r from "./cori.data.api88.js";
-import i from "./cori.data.api77.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function l(o, t, e) {
-  r.call(this, o ?? "canceled", r.ERR_CANCELED, t, e), this.name = "CanceledError";
+function u(n) {
+  return n === null ? NaN : +n;
 }
-i.inherits(l, r, {
-  __CANCEL__: !0
-});
 export {
-  l as default
+  u as default
 };
 //# sourceMappingURL=cori.data.api83.js.map

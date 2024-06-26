@@ -1,30 +1,39 @@
-import { asciiAlphanumeric as f } from "./cori.data.api479.js";
+import { pointStart as a, pointEnd as h } from "./cori.data.api250.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function h(t) {
-  const s = [];
-  let r = -1, n = 0, i = 0;
-  for (; ++r < t.length; ) {
-    const e = t.charCodeAt(r);
-    let o = "";
-    if (e === 37 && f(t.charCodeAt(r + 1)) && f(t.charCodeAt(r + 2)))
-      i = 2;
-    else if (e < 128)
-      /[!#$&-;=?-Z_a-z~]/.test(String.fromCharCode(e)) || (o = String.fromCharCode(e));
-    else if (e > 55295 && e < 57344) {
-      const c = t.charCodeAt(r + 1);
-      e < 56320 && c > 56319 && c < 57344 ? (o = String.fromCharCode(e, c), i = 1) : o = "�";
-    } else
-      o = String.fromCharCode(e);
-    o && (s.push(t.slice(n, r), encodeURIComponent(o)), n = r + i + 1, o = ""), i && (r += i, i = 0);
+function m(t, e) {
+  const n = t.all(e), i = n.shift(), p = [];
+  if (i) {
+    const r = {
+      type: "element",
+      tagName: "thead",
+      properties: {},
+      children: t.wrap([i], !0)
+    };
+    t.patch(e.children[0], r), p.push(r);
   }
-  return s.join("") + t.slice(n);
+  if (n.length > 0) {
+    const r = {
+      type: "element",
+      tagName: "tbody",
+      properties: {},
+      children: t.wrap(n, !0)
+    }, c = a(e.children[1]), o = h(e.children[e.children.length - 1]);
+    c && o && (r.position = { start: c, end: o }), p.push(r);
+  }
+  const l = {
+    type: "element",
+    tagName: "table",
+    properties: {},
+    children: t.wrap(p, !0)
+  };
+  return t.patch(e, l), t.applyData(e, l);
 }
 export {
-  h as normalizeUri
+  m as table
 };
 //# sourceMappingURL=cori.data.api374.js.map

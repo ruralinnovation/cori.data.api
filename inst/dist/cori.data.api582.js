@@ -1,220 +1,370 @@
-import { SIZEOF_INT as h, FILE_IDENTIFIER_LENGTH as _ } from "./cori.data.api653.js";
-import { int32 as e, float32 as I, isLittleEndian as a, float64 as d } from "./cori.data.api579.js";
-import { Encoding as o } from "./cori.data.api580.js";
+import { ByteBuffer as c } from "./cori.data.api583.js";
+import { SIZEOF_INT as a, SIZEOF_SHORT as o, FILE_IDENTIFIER_LENGTH as f, SIZE_PREFIX_LENGTH as p } from "./cori.data.api653.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class u {
+class b {
   /**
-   * Create a new ByteBuffer with a given array of bytes (`Uint8Array`)
+   * Create a FlatBufferBuilder.
    */
   constructor(t) {
-    this.bytes_ = t, this.position_ = 0, this.text_decoder_ = new TextDecoder();
-  }
-  /**
-   * Create and allocate a new ByteBuffer with a given size.
-   */
-  static allocate(t) {
-    return new u(new Uint8Array(t));
+    this.minalign = 1, this.vtable = null, this.vtable_in_use = 0, this.isNested = !1, this.object_start = 0, this.vtables = [], this.vector_num_elems = 0, this.force_defaults = !1, this.string_maps = null, this.text_encoder = new TextEncoder();
+    let s;
+    t ? s = t : s = 1024, this.bb = c.allocate(s), this.space = s;
   }
   clear() {
-    this.position_ = 0;
+    this.bb.clear(), this.space = this.bb.capacity(), this.minalign = 1, this.vtable = null, this.vtable_in_use = 0, this.isNested = !1, this.object_start = 0, this.vtables = [], this.vector_num_elems = 0, this.force_defaults = !1, this.string_maps = null;
   }
   /**
-   * Get the underlying `Uint8Array`.
-   */
-  bytes() {
-    return this.bytes_;
-  }
-  /**
-   * Get the buffer's position.
-   */
-  position() {
-    return this.position_;
-  }
-  /**
-   * Set the buffer's position.
-   */
-  setPosition(t) {
-    this.position_ = t;
-  }
-  /**
-   * Get the buffer's capacity.
-   */
-  capacity() {
-    return this.bytes_.length;
-  }
-  readInt8(t) {
-    return this.readUint8(t) << 24 >> 24;
-  }
-  readUint8(t) {
-    return this.bytes_[t];
-  }
-  readInt16(t) {
-    return this.readUint16(t) << 16 >> 16;
-  }
-  readUint16(t) {
-    return this.bytes_[t] | this.bytes_[t + 1] << 8;
-  }
-  readInt32(t) {
-    return this.bytes_[t] | this.bytes_[t + 1] << 8 | this.bytes_[t + 2] << 16 | this.bytes_[t + 3] << 24;
-  }
-  readUint32(t) {
-    return this.readInt32(t) >>> 0;
-  }
-  readInt64(t) {
-    return BigInt.asIntN(64, BigInt(this.readUint32(t)) + (BigInt(this.readUint32(t + 4)) << BigInt(32)));
-  }
-  readUint64(t) {
-    return BigInt.asUintN(64, BigInt(this.readUint32(t)) + (BigInt(this.readUint32(t + 4)) << BigInt(32)));
-  }
-  readFloat32(t) {
-    return e[0] = this.readInt32(t), I[0];
-  }
-  readFloat64(t) {
-    return e[a ? 0 : 1] = this.readInt32(t), e[a ? 1 : 0] = this.readInt32(t + 4), d[0];
-  }
-  writeInt8(t, i) {
-    this.bytes_[t] = i;
-  }
-  writeUint8(t, i) {
-    this.bytes_[t] = i;
-  }
-  writeInt16(t, i) {
-    this.bytes_[t] = i, this.bytes_[t + 1] = i >> 8;
-  }
-  writeUint16(t, i) {
-    this.bytes_[t] = i, this.bytes_[t + 1] = i >> 8;
-  }
-  writeInt32(t, i) {
-    this.bytes_[t] = i, this.bytes_[t + 1] = i >> 8, this.bytes_[t + 2] = i >> 16, this.bytes_[t + 3] = i >> 24;
-  }
-  writeUint32(t, i) {
-    this.bytes_[t] = i, this.bytes_[t + 1] = i >> 8, this.bytes_[t + 2] = i >> 16, this.bytes_[t + 3] = i >> 24;
-  }
-  writeInt64(t, i) {
-    this.writeInt32(t, Number(BigInt.asIntN(32, i))), this.writeInt32(t + 4, Number(BigInt.asIntN(32, i >> BigInt(32))));
-  }
-  writeUint64(t, i) {
-    this.writeUint32(t, Number(BigInt.asUintN(32, i))), this.writeUint32(t + 4, Number(BigInt.asUintN(32, i >> BigInt(32))));
-  }
-  writeFloat32(t, i) {
-    I[0] = i, this.writeInt32(t, e[0]);
-  }
-  writeFloat64(t, i) {
-    d[0] = i, this.writeInt32(t, e[a ? 0 : 1]), this.writeInt32(t + 4, e[a ? 1 : 0]);
-  }
-  /**
-   * Return the file identifier.   Behavior is undefined for FlatBuffers whose
-   * schema does not include a file_identifier (likely points at padding or the
-   * start of a the root vtable).
-   */
-  getBufferIdentifier() {
-    if (this.bytes_.length < this.position_ + h + _)
-      throw new Error("FlatBuffers: ByteBuffer is too short to contain an identifier.");
-    let t = "";
-    for (let i = 0; i < _; i++)
-      t += String.fromCharCode(this.readInt8(this.position_ + h + i));
-    return t;
-  }
-  /**
-   * Look up a field in the vtable, return an offset into the object, or 0 if the
-   * field is not present.
-   */
-  __offset(t, i) {
-    const r = t - this.readInt32(t);
-    return i < this.readInt16(r) ? this.readInt16(r + i) : 0;
-  }
-  /**
-   * Initialize any Table-derived type to point to the union at the given offset.
-   */
-  __union(t, i) {
-    return t.bb_pos = i + this.readInt32(i), t.bb = this, t;
-  }
-  /**
-   * Create a JavaScript string from UTF-8 data stored inside the FlatBuffer.
-   * This allocates a new string and converts to wide chars upon each access.
+   * In order to save space, fields that are set to their default value
+   * don't get serialized into the buffer. Forcing defaults provides a
+   * way to manually disable this optimization.
    *
-   * To avoid the conversion to string, pass Encoding.UTF8_BYTES as the
-   * "optionalEncoding" argument. This is useful for avoiding conversion when
-   * the data will just be packaged back up in another FlatBuffer later on.
+   * @param forceDefaults true always serializes default values
+   */
+  forceDefaults(t) {
+    this.force_defaults = t;
+  }
+  /**
+   * Get the ByteBuffer representing the FlatBuffer. Only call this after you've
+   * called finish(). The actual data starts at the ByteBuffer's current position,
+   * not necessarily at 0.
+   */
+  dataBuffer() {
+    return this.bb;
+  }
+  /**
+   * Get the bytes representing the FlatBuffer. Only call this after you've
+   * called finish().
+   */
+  asUint8Array() {
+    return this.bb.bytes().subarray(this.bb.position(), this.bb.position() + this.offset());
+  }
+  /**
+   * Prepare to write an element of `size` after `additional_bytes` have been
+   * written, e.g. if you write a string, you need to align such the int length
+   * field is aligned to 4 bytes, and the string data follows it directly. If all
+   * you need to do is alignment, `additional_bytes` will be 0.
    *
-   * @param offset
-   * @param opt_encoding Defaults to UTF16_STRING
+   * @param size This is the of the new element to write
+   * @param additional_bytes The padding size
    */
-  __string(t, i) {
-    t += this.readInt32(t);
-    const r = this.readInt32(t);
-    t += h;
-    const n = this.bytes_.subarray(t, t + r);
-    return i === o.UTF8_BYTES ? n : this.text_decoder_.decode(n);
-  }
-  /**
-   * Handle unions that can contain string as its member, if a Table-derived type then initialize it,
-   * if a string then return a new one
-   *
-   * WARNING: strings are immutable in JS so we can't change the string that the user gave us, this
-   * makes the behaviour of __union_with_string different compared to __union
-   */
-  __union_with_string(t, i) {
-    return typeof t == "string" ? this.__string(i) : this.__union(t, i);
-  }
-  /**
-   * Retrieve the relative offset stored at "offset"
-   */
-  __indirect(t) {
-    return t + this.readInt32(t);
-  }
-  /**
-   * Get the start of data of a vector whose offset is stored at "offset" in this object.
-   */
-  __vector(t) {
-    return t + this.readInt32(t) + h;
-  }
-  /**
-   * Get the length of a vector whose offset is stored at "offset" in this object.
-   */
-  __vector_len(t) {
-    return this.readInt32(t + this.readInt32(t));
-  }
-  __has_identifier(t) {
-    if (t.length != _)
-      throw new Error("FlatBuffers: file identifier must be length " + _);
-    for (let i = 0; i < _; i++)
-      if (t.charCodeAt(i) != this.readInt8(this.position() + h + i))
-        return !1;
-    return !0;
-  }
-  /**
-   * A helper function for generating list for obj api
-   */
-  createScalarList(t, i) {
-    const r = [];
-    for (let n = 0; n < i; ++n) {
-      const s = t(n);
-      s !== null && r.push(s);
+  prep(t, s) {
+    t > this.minalign && (this.minalign = t);
+    const e = ~(this.bb.capacity() - this.space + s) + 1 & t - 1;
+    for (; this.space < e + t + s; ) {
+      const i = this.bb.capacity();
+      this.bb = b.growByteBuffer(this.bb), this.space += this.bb.capacity() - i;
     }
-    return r;
+    this.pad(e);
+  }
+  pad(t) {
+    for (let s = 0; s < t; s++)
+      this.bb.writeInt8(--this.space, 0);
+  }
+  writeInt8(t) {
+    this.bb.writeInt8(this.space -= 1, t);
+  }
+  writeInt16(t) {
+    this.bb.writeInt16(this.space -= 2, t);
+  }
+  writeInt32(t) {
+    this.bb.writeInt32(this.space -= 4, t);
+  }
+  writeInt64(t) {
+    this.bb.writeInt64(this.space -= 8, t);
+  }
+  writeFloat32(t) {
+    this.bb.writeFloat32(this.space -= 4, t);
+  }
+  writeFloat64(t) {
+    this.bb.writeFloat64(this.space -= 8, t);
   }
   /**
-   * A helper function for generating list for obj api
-   * @param listAccessor function that accepts an index and return data at that index
-   * @param listLength listLength
-   * @param res result list
+   * Add an `int8` to the buffer, properly aligned, and grows the buffer (if necessary).
+   * @param value The `int8` to add the buffer.
    */
-  createObjList(t, i) {
-    const r = [];
-    for (let n = 0; n < i; ++n) {
-      const s = t(n);
-      s !== null && r.push(s.unpack());
+  addInt8(t) {
+    this.prep(1, 0), this.writeInt8(t);
+  }
+  /**
+   * Add an `int16` to the buffer, properly aligned, and grows the buffer (if necessary).
+   * @param value The `int16` to add the buffer.
+   */
+  addInt16(t) {
+    this.prep(2, 0), this.writeInt16(t);
+  }
+  /**
+   * Add an `int32` to the buffer, properly aligned, and grows the buffer (if necessary).
+   * @param value The `int32` to add the buffer.
+   */
+  addInt32(t) {
+    this.prep(4, 0), this.writeInt32(t);
+  }
+  /**
+   * Add an `int64` to the buffer, properly aligned, and grows the buffer (if necessary).
+   * @param value The `int64` to add the buffer.
+   */
+  addInt64(t) {
+    this.prep(8, 0), this.writeInt64(t);
+  }
+  /**
+   * Add a `float32` to the buffer, properly aligned, and grows the buffer (if necessary).
+   * @param value The `float32` to add the buffer.
+   */
+  addFloat32(t) {
+    this.prep(4, 0), this.writeFloat32(t);
+  }
+  /**
+   * Add a `float64` to the buffer, properly aligned, and grows the buffer (if necessary).
+   * @param value The `float64` to add the buffer.
+   */
+  addFloat64(t) {
+    this.prep(8, 0), this.writeFloat64(t);
+  }
+  addFieldInt8(t, s, e) {
+    (this.force_defaults || s != e) && (this.addInt8(s), this.slot(t));
+  }
+  addFieldInt16(t, s, e) {
+    (this.force_defaults || s != e) && (this.addInt16(s), this.slot(t));
+  }
+  addFieldInt32(t, s, e) {
+    (this.force_defaults || s != e) && (this.addInt32(s), this.slot(t));
+  }
+  addFieldInt64(t, s, e) {
+    (this.force_defaults || s !== e) && (this.addInt64(s), this.slot(t));
+  }
+  addFieldFloat32(t, s, e) {
+    (this.force_defaults || s != e) && (this.addFloat32(s), this.slot(t));
+  }
+  addFieldFloat64(t, s, e) {
+    (this.force_defaults || s != e) && (this.addFloat64(s), this.slot(t));
+  }
+  addFieldOffset(t, s, e) {
+    (this.force_defaults || s != e) && (this.addOffset(s), this.slot(t));
+  }
+  /**
+   * Structs are stored inline, so nothing additional is being added. `d` is always 0.
+   */
+  addFieldStruct(t, s, e) {
+    s != e && (this.nested(s), this.slot(t));
+  }
+  /**
+   * Structures are always stored inline, they need to be created right
+   * where they're used.  You'll get this assertion failure if you
+   * created it elsewhere.
+   */
+  nested(t) {
+    if (t != this.offset())
+      throw new TypeError("FlatBuffers: struct must be serialized inline.");
+  }
+  /**
+   * Should not be creating any other object, string or vector
+   * while an object is being constructed
+   */
+  notNested() {
+    if (this.isNested)
+      throw new TypeError("FlatBuffers: object serialization must not be nested.");
+  }
+  /**
+   * Set the current vtable at `voffset` to the current location in the buffer.
+   */
+  slot(t) {
+    this.vtable !== null && (this.vtable[t] = this.offset());
+  }
+  /**
+   * @returns Offset relative to the end of the buffer.
+   */
+  offset() {
+    return this.bb.capacity() - this.space;
+  }
+  /**
+   * Doubles the size of the backing ByteBuffer and copies the old data towards
+   * the end of the new buffer (since we build the buffer backwards).
+   *
+   * @param bb The current buffer with the existing data
+   * @returns A new byte buffer with the old data copied
+   * to it. The data is located at the end of the buffer.
+   *
+   * uint8Array.set() formally takes {Array<number>|ArrayBufferView}, so to pass
+   * it a uint8Array we need to suppress the type check:
+   * @suppress {checkTypes}
+   */
+  static growByteBuffer(t) {
+    const s = t.capacity();
+    if (s & 3221225472)
+      throw new Error("FlatBuffers: cannot grow buffer beyond 2 gigabytes.");
+    const e = s << 1, i = c.allocate(e);
+    return i.setPosition(e - s), i.bytes().set(t.bytes(), e - s), i;
+  }
+  /**
+   * Adds on offset, relative to where it will be written.
+   *
+   * @param offset The offset to add.
+   */
+  addOffset(t) {
+    this.prep(a, 0), this.writeInt32(this.offset() - t + a);
+  }
+  /**
+   * Start encoding a new object in the buffer.  Users will not usually need to
+   * call this directly. The FlatBuffers compiler will generate helper methods
+   * that call this method internally.
+   */
+  startObject(t) {
+    this.notNested(), this.vtable == null && (this.vtable = []), this.vtable_in_use = t;
+    for (let s = 0; s < t; s++)
+      this.vtable[s] = 0;
+    this.isNested = !0, this.object_start = this.offset();
+  }
+  /**
+   * Finish off writing the object that is under construction.
+   *
+   * @returns The offset to the object inside `dataBuffer`
+   */
+  endObject() {
+    if (this.vtable == null || !this.isNested)
+      throw new Error("FlatBuffers: endObject called without startObject");
+    this.addInt32(0);
+    const t = this.offset();
+    let s = this.vtable_in_use - 1;
+    for (; s >= 0 && this.vtable[s] == 0; s--)
+      ;
+    const e = s + 1;
+    for (; s >= 0; s--)
+      this.addInt16(this.vtable[s] != 0 ? t - this.vtable[s] : 0);
+    const i = 2;
+    this.addInt16(t - this.object_start);
+    const r = (e + i) * o;
+    this.addInt16(r);
+    let h = 0;
+    const d = this.space;
+    t:
+      for (s = 0; s < this.vtables.length; s++) {
+        const l = this.bb.capacity() - this.vtables[s];
+        if (r == this.bb.readInt16(l)) {
+          for (let n = o; n < r; n += o)
+            if (this.bb.readInt16(d + n) != this.bb.readInt16(l + n))
+              continue t;
+          h = this.vtables[s];
+          break;
+        }
+      }
+    return h ? (this.space = this.bb.capacity() - t, this.bb.writeInt32(this.space, h - t)) : (this.vtables.push(this.offset()), this.bb.writeInt32(this.bb.capacity() - t, this.offset() - t)), this.isNested = !1, t;
+  }
+  /**
+   * Finalize a buffer, poiting to the given `root_table`.
+   */
+  finish(t, s, e) {
+    const i = e ? p : 0;
+    if (s) {
+      const r = s;
+      if (this.prep(this.minalign, a + f + i), r.length != f)
+        throw new TypeError("FlatBuffers: file identifier must be length " + f);
+      for (let h = f - 1; h >= 0; h--)
+        this.writeInt8(r.charCodeAt(h));
     }
-    return r;
+    this.prep(this.minalign, a + i), this.addOffset(t), i && this.addInt32(this.bb.capacity() - this.space), this.bb.setPosition(this.space);
+  }
+  /**
+   * Finalize a size prefixed buffer, pointing to the given `root_table`.
+   */
+  finishSizePrefixed(t, s) {
+    this.finish(t, s, !0);
+  }
+  /**
+   * This checks a required field has been set in a given table that has
+   * just been constructed.
+   */
+  requiredField(t, s) {
+    const e = this.bb.capacity() - t, i = e - this.bb.readInt32(e);
+    if (!(s < this.bb.readInt16(i) && this.bb.readInt16(i + s) != 0))
+      throw new TypeError("FlatBuffers: field " + s + " must be set");
+  }
+  /**
+   * Start a new array/vector of objects.  Users usually will not call
+   * this directly. The FlatBuffers compiler will create a start/end
+   * method for vector types in generated code.
+   *
+   * @param elem_size The size of each element in the array
+   * @param num_elems The number of elements in the array
+   * @param alignment The alignment of the array
+   */
+  startVector(t, s, e) {
+    this.notNested(), this.vector_num_elems = s, this.prep(a, t * s), this.prep(e, t * s);
+  }
+  /**
+   * Finish off the creation of an array and all its elements. The array must be
+   * created with `startVector`.
+   *
+   * @returns The offset at which the newly created array
+   * starts.
+   */
+  endVector() {
+    return this.writeInt32(this.vector_num_elems), this.offset();
+  }
+  /**
+   * Encode the string `s` in the buffer using UTF-8. If the string passed has
+   * already been seen, we return the offset of the already written string
+   *
+   * @param s The string to encode
+   * @return The offset in the buffer where the encoded string starts
+   */
+  createSharedString(t) {
+    if (!t)
+      return 0;
+    if (this.string_maps || (this.string_maps = /* @__PURE__ */ new Map()), this.string_maps.has(t))
+      return this.string_maps.get(t);
+    const s = this.createString(t);
+    return this.string_maps.set(t, s), s;
+  }
+  /**
+   * Encode the string `s` in the buffer using UTF-8. If a Uint8Array is passed
+   * instead of a string, it is assumed to contain valid UTF-8 encoded data.
+   *
+   * @param s The string to encode
+   * @return The offset in the buffer where the encoded string starts
+   */
+  createString(t) {
+    if (t == null)
+      return 0;
+    let s;
+    t instanceof Uint8Array ? s = t : s = this.text_encoder.encode(t), this.addInt8(0), this.startVector(1, s.length, 1), this.bb.setPosition(this.space -= s.length);
+    for (let e = 0, i = this.space, r = this.bb.bytes(); e < s.length; e++)
+      r[i++] = s[e];
+    return this.endVector();
+  }
+  /**
+   * A helper function to pack an object
+   *
+   * @returns offset of obj
+   */
+  createObjectOffset(t) {
+    return t === null ? 0 : typeof t == "string" ? this.createString(t) : t.pack(this);
+  }
+  /**
+   * A helper function to pack a list of object
+   *
+   * @returns list of offsets of each non null object
+   */
+  createObjectOffsetList(t) {
+    const s = [];
+    for (let e = 0; e < t.length; ++e) {
+      const i = t[e];
+      if (i !== null)
+        s.push(this.createObjectOffset(i));
+      else
+        throw new TypeError("FlatBuffers: Argument for createObjectOffsetList cannot contain null.");
+    }
+    return s;
+  }
+  createStructOffsetList(t, s) {
+    return s(this, t.length), this.createObjectOffsetList(t.slice().reverse()), this.endVector();
   }
 }
 export {
-  u as ByteBuffer
+  b as Builder
 };
 //# sourceMappingURL=cori.data.api582.js.map

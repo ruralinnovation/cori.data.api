@@ -1,4 +1,4 @@
-import { __module as L } from "./cori.data.api58.js";
+import { __module as L } from "./cori.data.api59.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

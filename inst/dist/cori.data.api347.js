@@ -1,65 +1,18 @@
-import { blockquote as r } from "./cori.data.api348.js";
-import { hardBreak as m } from "./cori.data.api349.js";
-import { code as t } from "./cori.data.api350.js";
-import { strikethrough as e } from "./cori.data.api351.js";
-import { emphasis as i } from "./cori.data.api352.js";
-import { footnoteReference as f } from "./cori.data.api353.js";
-import { heading as p } from "./cori.data.api354.js";
-import { html as n } from "./cori.data.api355.js";
-import { imageReference as a } from "./cori.data.api356.js";
-import { image as l } from "./cori.data.api357.js";
-import { inlineCode as d } from "./cori.data.api358.js";
-import { linkReference as h } from "./cori.data.api359.js";
-import { link as c } from "./cori.data.api360.js";
-import { listItem as s } from "./cori.data.api361.js";
-import { list as g } from "./cori.data.api362.js";
-import { paragraph as k } from "./cori.data.api363.js";
-import { root as b } from "./cori.data.api364.js";
-import { strong as u } from "./cori.data.api365.js";
-import { table as R } from "./cori.data.api366.js";
-import { tableRow as x } from "./cori.data.api367.js";
-import { tableCell as B } from "./cori.data.api368.js";
-import { text as C } from "./cori.data.api369.js";
-import { thematicBreak as q } from "./cori.data.api370.js";
+import { Schema as c } from "./cori.data.api475.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const V = {
-  blockquote: r,
-  break: m,
-  code: t,
-  delete: e,
-  emphasis: i,
-  footnoteReference: f,
-  heading: p,
-  html: n,
-  imageReference: a,
-  image: l,
-  inlineCode: d,
-  linkReference: h,
-  link: c,
-  listItem: s,
-  list: g,
-  paragraph: k,
-  // @ts-expect-error: root is different, but hard to type.
-  root: b,
-  strong: u,
-  table: R,
-  tableCell: B,
-  tableRow: x,
-  text: C,
-  thematicBreak: q,
-  toml: o,
-  yaml: o,
-  definition: o,
-  footnoteDefinition: o
-};
-function o() {
+function p(e, o) {
+  const t = {}, n = {};
+  let r = -1;
+  for (; ++r < e.length; )
+    Object.assign(t, e[r].property), Object.assign(n, e[r].normal);
+  return new c(t, n, o);
 }
 export {
-  V as handlers
+  p as merge
 };
 //# sourceMappingURL=cori.data.api347.js.map

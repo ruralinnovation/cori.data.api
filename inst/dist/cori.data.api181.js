@@ -1,7 +1,7 @@
 import { tweenValue as c } from "./cori.data.api199.js";
 import l from "./cori.data.api344.js";
-import f from "./cori.data.api135.js";
-import { interpolateTransformSvg as g } from "./cori.data.api122.js";
+import f from "./cori.data.api130.js";
+import { interpolateTransformSvg as g } from "./cori.data.api117.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

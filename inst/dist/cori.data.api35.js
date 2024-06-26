@@ -1,5 +1,5 @@
-import { Data as c } from "./cori.data.api504.js";
-import { Vector as u } from "./cori.data.api406.js";
+import { Data as c } from "./cori.data.api514.js";
+import { Vector as u } from "./cori.data.api421.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

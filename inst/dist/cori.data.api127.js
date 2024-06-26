@@ -1,9 +1,9 @@
 import w from "./cori.data.api340.js";
 import y from "./cori.data.api339.js";
-import N from "./cori.data.api116.js";
-import A from "./cori.data.api112.js";
-import k from "./cori.data.api121.js";
-import { bisectRight as M } from "./cori.data.api68.js";
+import N from "./cori.data.api111.js";
+import A from "./cori.data.api107.js";
+import k from "./cori.data.api116.js";
+import { bisectRight as M } from "./cori.data.api80.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

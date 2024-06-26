@@ -4,21 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class t {
-  /**
-   * @constructor
-   * @param {Properties} property
-   * @param {Normal} normal
-   * @param {string} [space]
-   */
-  constructor(p, r, o) {
-    this.property = p, this.normal = r, o && (this.space = o);
-  }
+function o(e) {
+  return e.toLowerCase();
 }
-t.prototype.property = {};
-t.prototype.normal = {};
-t.prototype.space = null;
 export {
-  t as Schema
+  o as normalize
 };
 //# sourceMappingURL=cori.data.api480.js.map

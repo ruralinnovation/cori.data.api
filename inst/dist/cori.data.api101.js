@@ -1,4 +1,3 @@
-import { formatDecimalParts as a } from "./cori.data.api336.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
@@ -6,7 +5,7 @@ import { formatDecimalParts as a } from "./cori.data.api336.js";
  * @license ISC
  */
 function e(t) {
-  return t = a(Math.abs(t)), t ? t[1] : NaN;
+  return t;
 }
 export {
   e as default

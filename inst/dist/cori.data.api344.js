@@ -1,7 +1,7 @@
-import n from "./cori.data.api116.js";
-import o from "./cori.data.api94.js";
-import e from "./cori.data.api113.js";
-import m from "./cori.data.api118.js";
+import n from "./cori.data.api111.js";
+import o from "./cori.data.api89.js";
+import e from "./cori.data.api108.js";
+import m from "./cori.data.api113.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

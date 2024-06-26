@@ -1,4 +1,6 @@
-import i from "./cori.data.api136.js";
+import { Selection as e } from "./cori.data.api133.js";
+import h from "./cori.data.api341.js";
+import _ from "./cori.data.api169.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
@@ -6,10 +8,18 @@ import i from "./cori.data.api136.js";
  * @license ISC
  */
 function p(r) {
-  var s = r += "", e = s.indexOf(":");
-  return e >= 0 && (s = r.slice(0, e)) !== "xmlns" && (r = r.slice(e + 1)), i.hasOwnProperty(s) ? { space: i[s], local: r } : r;
+  return function() {
+    return h(r.apply(this, arguments));
+  };
+}
+function s(r) {
+  typeof r == "function" ? r = p(r) : r = _(r);
+  for (var l = this._groups, m = l.length, o = [], i = [], n = 0; n < m; ++n)
+    for (var a = l[n], u = a.length, t, f = 0; f < u; ++f)
+      (t = a[f]) && (o.push(r.call(t, t.__data__, f, a)), i.push(t));
+  return new e(o, i);
 }
 export {
-  p as default
+  s as default
 };
 //# sourceMappingURL=cori.data.api135.js.map

@@ -1,8 +1,8 @@
 import { set as p } from "./cori.data.api202.js";
 import { tweenValue as v } from "./cori.data.api199.js";
 import g from "./cori.data.api344.js";
-import { styleValue as f } from "./cori.data.api158.js";
-import { interpolateTransformCss as d } from "./cori.data.api122.js";
+import { styleValue as f } from "./cori.data.api153.js";
+import { interpolateTransformCss as d } from "./cori.data.api117.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

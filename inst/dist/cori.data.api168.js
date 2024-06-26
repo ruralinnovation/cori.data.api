@@ -5,17 +5,13 @@
  * @license ISC
  */
 function t() {
-  var e = this.cloneNode(!1), n = this.parentNode;
-  return n ? n.insertBefore(e, this.nextSibling) : e;
 }
-function o() {
-  var e = this.cloneNode(!0), n = this.parentNode;
-  return n ? n.insertBefore(e, this.nextSibling) : e;
-}
-function i(e) {
-  return this.select(e ? o : t);
+function e(n) {
+  return n == null ? t : function() {
+    return this.querySelector(n);
+  };
 }
 export {
-  i as default
+  e as default
 };
 //# sourceMappingURL=cori.data.api168.js.map

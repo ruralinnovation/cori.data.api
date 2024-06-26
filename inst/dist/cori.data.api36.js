@@ -1,16 +1,16 @@
-import { parse as k } from "./cori.data.api396.js";
-import { Op as V, Identifier as u, Literal as I, Parameter as G, Constant as B, Function as J, ObjectPattern as T, MemberExpression as w, Property as q, ArrayPattern as Y } from "./cori.data.api284.js";
-import { isFunctionExpression as z, is as l } from "./cori.data.api286.js";
-import R from "./cori.data.api291.js";
-import g from "./cori.data.api397.js";
-import H from "./cori.data.api387.js";
-import { ROW_OBJECT as d, rowObjectExpression as K } from "./cori.data.api269.js";
-import { getAggregate as Q, getWindow as X, hasAggregate as Z, hasWindow as x, hasFunction as U } from "./cori.data.api398.js";
-import ee from "./cori.data.api260.js";
-import c from "./cori.data.api385.js";
-import re from "./cori.data.api300.js";
-import se from "./cori.data.api261.js";
-import ne from "./cori.data.api308.js";
+import { parse as k } from "./cori.data.api411.js";
+import { Op as V, Identifier as u, Literal as I, Parameter as G, Constant as B, Function as J, ObjectPattern as T, MemberExpression as w, Property as q, ArrayPattern as Y } from "./cori.data.api307.js";
+import { isFunctionExpression as z, is as l } from "./cori.data.api309.js";
+import R from "./cori.data.api314.js";
+import g from "./cori.data.api412.js";
+import H from "./cori.data.api402.js";
+import { ROW_OBJECT as d, rowObjectExpression as K } from "./cori.data.api292.js";
+import { getAggregate as Q, getWindow as X, hasAggregate as Z, hasWindow as x, hasFunction as U } from "./cori.data.api413.js";
+import ee from "./cori.data.api283.js";
+import c from "./cori.data.api400.js";
+import re from "./cori.data.api323.js";
+import se from "./cori.data.api284.js";
+import ne from "./cori.data.api331.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

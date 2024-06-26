@@ -1,39 +1,21 @@
-import { pointStart as a, pointEnd as h } from "./cori.data.api250.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function m(t, e) {
-  const n = t.all(e), i = n.shift(), p = [];
-  if (i) {
-    const r = {
-      type: "element",
-      tagName: "thead",
-      properties: {},
-      children: t.wrap([i], !0)
-    };
-    t.patch(e.children[0], r), p.push(r);
-  }
-  if (n.length > 0) {
-    const r = {
-      type: "element",
-      tagName: "tbody",
-      properties: {},
-      children: t.wrap(n, !0)
-    }, c = a(e.children[1]), o = h(e.children[e.children.length - 1]);
-    c && o && (r.position = { start: c, end: o }), p.push(r);
-  }
-  const l = {
+function a(t, e) {
+  const p = { type: "text", value: e.value.replace(/\r?\n|\r/g, " ") };
+  t.patch(e, p);
+  const r = {
     type: "element",
-    tagName: "table",
+    tagName: "code",
     properties: {},
-    children: t.wrap(p, !0)
+    children: [p]
   };
-  return t.patch(e, l), t.applyData(e, l);
+  return t.patch(e, r), t.applyData(e, r);
 }
 export {
-  m as table
+  a as inlineCode
 };
 //# sourceMappingURL=cori.data.api366.js.map

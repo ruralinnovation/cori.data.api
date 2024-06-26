@@ -1,40 +1,26 @@
-import p from "./cori.data.api87.js";
+import p from "./cori.data.api542.js";
+import { any as n } from "./cori.data.api34.js";
+import t from "./cori.data.api534.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function i(n) {
-  const t = {
-    "!": "%21",
-    "'": "%27",
-    "(": "%28",
-    ")": "%29",
-    "~": "%7E",
-    "%20": "+",
-    "%00": "\0"
-  };
-  return encodeURIComponent(n).replace(/[!'()~]|%20|%00/g, function(r) {
-    return t[r];
-  });
+function u(o, r, f, i) {
+  return p(
+    o,
+    t("fold", o, r),
+    t("fold", o, f, { preparse: e, aggronly: !0 }),
+    i
+  );
 }
-function a(n, t) {
-  this._pairs = [], n && p(n, this, t);
+function e(o) {
+  o.forEach(
+    (r, f) => r.field ? o.set(f, n(r + "")) : 0
+  );
 }
-const c = a.prototype;
-c.append = function(t, o) {
-  this._pairs.push([t, o]);
-};
-c.toString = function(t) {
-  const o = t ? function(r) {
-    return t.call(this, r, i);
-  } : i;
-  return this._pairs.map(function(e) {
-    return o(e[0]) + "=" + o(e[1]);
-  }, "").join("&");
-};
 export {
-  a as default
+  u as default
 };
 //# sourceMappingURL=cori.data.api451.js.map

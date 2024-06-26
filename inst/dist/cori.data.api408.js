@@ -4,10 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function i(t) {
-  return typeof t == "bigint";
+const r = Object.getPrototypeOf(Int8Array);
+function e(t) {
+  return t instanceof r;
 }
 export {
-  i as default
+  e as default
 };
 //# sourceMappingURL=cori.data.api408.js.map

@@ -1,7 +1,7 @@
-import { path as n } from "./cori.data.api254.js";
-import { proc as d } from "./cori.data.api255.js";
-import { urlToPath as u } from "./cori.data.api256.js";
-import { isUrl as f } from "./cori.data.api257.js";
+import { path as n } from "./cori.data.api259.js";
+import { proc as d } from "./cori.data.api260.js";
+import { urlToPath as u } from "./cori.data.api261.js";
+import { isUrl as f } from "./cori.data.api262.js";
 import { VFileMessage as c } from "./cori.data.api248.js";
 /*
  * CORI Data API component library

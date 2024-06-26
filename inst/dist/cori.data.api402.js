@@ -1,14 +1,28 @@
+import { Column as u, Literal as l, Dictionary as s } from "./cori.data.api307.js";
+import m from "./cori.data.api287.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const t = /^([-+]\d{2})?\d{4}(-\d{2}(-\d{2})?)?(T\d{2}:\d{2}(:\d{2}(\.\d{3})?)?(Z|[-+]\d{2}:\d{2})?)?$/;
-function a(d) {
-  return d.match(t) && !isNaN(Date.parse(d));
+const c = {
+  "==": 1,
+  "!=": 1,
+  "===": 1,
+  "!==": 1
+};
+function w(t, n, r = 0, a, e) {
+  if (t.type = u, t.name = n, t.table = r, e && a && m(a.keyFor)) {
+    const i = c[e.operator] ? e.left === t ? e.right : e.left : e.callee && e.callee.name === "equal" ? e.arguments[e.arguments[0] === t ? 1 : 0] : null;
+    i && i.type === l && f(e, t, i, a.keyFor(i.value));
+  }
+  return t;
+}
+function f(t, n, r, a) {
+  return a < 0 ? (t.type = l, t.value = !1, t.raw = "false") : (n.type = s, r.value = a, r.raw = a + ""), !0;
 }
 export {
-  a as default
+  w as default
 };
 //# sourceMappingURL=cori.data.api402.js.map

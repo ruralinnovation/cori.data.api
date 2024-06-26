@@ -1,66 +1,56 @@
-import { reducers as w } from "./cori.data.api541.js";
-import { hasAggregate as h, getWindow as O } from "./cori.data.api398.js";
-import $ from "./cori.data.api637.js";
-import x from "./cori.data.api495.js";
-import A from "./cori.data.api664.js";
+import { Field as u } from "./cori.data.api509.js";
+import { DataBufferBuilder as r } from "./cori.data.api517.js";
+import { Builder as p } from "./cori.data.api513.js";
+import { Union as a } from "./cori.data.api422.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const E = (n) => (n.frame || [null, null]).map((e) => Number.isFinite(e) ? Math.abs(e) : null), S = (n) => !!n.peers;
-function V(n) {
-  const { id: e, name: a, fields: t = [], params: i = [] } = n, r = O(a).create(...i);
-  return t.length && (r.get = t[0]), r.id = e, r;
+class l extends p {
+  constructor(e) {
+    super(e), this._typeIds = new r(Int8Array, 0, 1), typeof e.valueToChildTypeId == "function" && (this._valueToChildTypeId = e.valueToChildTypeId);
+  }
+  get typeIdToChildIndex() {
+    return this.type.typeIdToChildIndex;
+  }
+  append(e, s) {
+    return this.set(this.length, e, s);
+  }
+  set(e, s, t) {
+    return t === void 0 && (t = this._valueToChildTypeId(this, s, e)), this.setValue(e, s, t), this;
+  }
+  setValue(e, s, t) {
+    this._typeIds.set(e, t);
+    const n = this.type.typeIdToChildIndex[t], i = this.children[n];
+    i == null || i.set(e, s);
+  }
+  addChild(e, s = `${this.children.length}`) {
+    const t = this.children.push(e), { type: { children: n, mode: i, typeIds: d } } = this, h = [...n, new u(s, e.type)];
+    return this.type = new a(i, [...d, t], h), t;
+  }
+  /** @ignore */
+  // @ts-ignore
+  _valueToChildTypeId(e, s, t) {
+    throw new Error("Cannot map UnionBuilder value to child typeId. Pass the `childTypeId` as the second argument to unionBuilder.append(), or supply a `valueToChildTypeId` function as part of the UnionBuilder constructor options.");
+  }
 }
-function U(n, e, a, t = {}, i) {
-  const r = n.data(), o = j(i, r), c = o.length, f = x(
-    ["r", "d", "op"],
-    "{" + $(e, (p, m) => `_${m}[r] = $${m}(r, d, op);`) + "}",
-    e,
-    a
-  );
-  n.partitions().forEach((p, m) => {
-    const u = p.length, l = y(n, p);
-    for (let s = 0; s < c; ++s)
-      o[s].init(p, l, t, m);
-    const g = (s) => t[s][m];
-    for (let s = 0; s < u; ++s) {
-      for (let d = 0; d < c; ++d)
-        o[d].step(s);
-      f(p[s], r, g);
-    }
-  });
+class T extends l {
 }
-function j(n, e) {
-  const a = {};
-  return n.forEach((t) => {
-    const i = E(t), r = S(t), o = `${i},${r}`, { aggOps: c, winOps: f } = a[o] || (a[o] = {
-      frame: i,
-      peers: r,
-      aggOps: [],
-      winOps: []
-    });
-    h(t.name) ? c.push(t) : f.push(V(t));
-  }), Object.values(a).map((t) => A(
-    e,
-    t.frame,
-    t.peers,
-    t.winOps,
-    w(t.aggOps, t.frame[0] != null ? -1 : 1)
-  ));
-}
-function y(n, e) {
-  if (n.isOrdered()) {
-    const a = n.comparator(), t = n.data(), i = e.length, r = new Uint32Array(i);
-    for (let o = 1, c = 0; o < i; ++o)
-      r[o] = a(e[o - 1], e[o], t) ? ++c : c;
-    return r;
-  } else
-    return e;
+class C extends l {
+  constructor(e) {
+    super(e), this._offsets = new r(Int32Array);
+  }
+  /** @ignore */
+  setValue(e, s, t) {
+    const n = this._typeIds.set(e, t).buffer[e], i = this.getChildAt(this.type.typeIdToChildIndex[n]), d = this._offsets.set(e, i.length).buffer[e];
+    i == null || i.set(d, s);
+  }
 }
 export {
-  U as window
+  C as DenseUnionBuilder,
+  T as SparseUnionBuilder,
+  l as UnionBuilder
 };
 //# sourceMappingURL=cori.data.api634.js.map

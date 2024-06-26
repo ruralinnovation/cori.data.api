@@ -1,33 +1,21 @@
-import l from "./cori.data.api652.js";
-import { array as f, arrowVector as y } from "./cori.data.api35.js";
+import { array as d } from "./cori.data.api35.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(t, r) {
-  const e = [], n = f(t.indices.ArrayType, r), a = /* @__PURE__ */ Object.create(null);
-  let d = -1, c = 0;
+function f(a, t) {
+  const r = d(a.ArrayType, t << 1);
   return {
-    set(s, u) {
-      const i = String(s);
-      let o = a[i];
-      o === void 0 && (c += i.length, a[i] = o = ++d, e.push(i)), n[u] = o;
+    set(i, s) {
+      const o = s << 1;
+      r[o] = i % 4294967296 | 0, r[o + 1] = i / 4294967296 | 0;
     },
-    data: () => ({
-      type: t,
-      length: r,
-      buffers: [null, n],
-      dict: m(t.dictionary, e, c)
-    })
+    data: () => ({ type: a, length: t, buffers: [null, r] })
   };
 }
-function m(t, r, e) {
-  const n = l(t, r.length, e);
-  return r.forEach(n.set), y(n.data());
-}
 export {
-  p as default
+  f as default
 };
 //# sourceMappingURL=cori.data.api559.js.map

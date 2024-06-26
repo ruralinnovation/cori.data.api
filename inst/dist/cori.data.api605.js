@@ -1,9 +1,9 @@
 import { SIZE_PREFIX_LENGTH as f } from "./cori.data.api653.js";
-import "./cori.data.api579.js";
 import "./cori.data.api580.js";
+import "./cori.data.api581.js";
 import { KeyValue as h } from "./cori.data.api592.js";
-import { MessageHeader as o } from "./cori.data.api519.js";
-import { MetadataVersion as a } from "./cori.data.api518.js";
+import { MessageHeader as o } from "./cori.data.api529.js";
+import { MetadataVersion as a } from "./cori.data.api528.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

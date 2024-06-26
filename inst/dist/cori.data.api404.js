@@ -1,112 +1,44 @@
-import a from "./cori.data.api405.js";
-import o from "./cori.data.api260.js";
-import c from "./cori.data.api401.js";
-import l from "./cori.data.api383.js";
-import y from "./cori.data.api497.js";
-import { Type as r } from "./cori.data.api498.js";
-import { Field as m } from "./cori.data.api499.js";
-import { FixedSizeList as u, List as d, Struct as x } from "./cori.data.api407.js";
+import g from "./cori.data.api504.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function U(t, n) {
-  const i = f();
-  return t(n, i.add), i;
+const e = (t) => (t < 10 ? "0" : "") + t, C = (t) => t < 0 ? "-" + g(-t, 6) : t > 9999 ? "+" + g(t, 6) : g(t, 4);
+function s(t, n, T, o, a, i, f, l, u) {
+  const r = l ? "Z" : "";
+  return C(t) + "-" + e(n + 1) + "-" + e(T) + (!u || f ? "T" + e(o) + ":" + e(a) + ":" + e(i) + "." + g(f, 3) + r : i ? "T" + e(o) + ":" + e(a) + ":" + e(i) + r : a || o || !l ? "T" + e(o) + ":" + e(a) + r : "");
 }
-function f() {
-  const t = {
-    count: 0,
-    nulls: 0,
-    bools: 0,
-    nums: 0,
-    ints: 0,
-    bigints: 0,
-    min: 1 / 0,
-    max: -1 / 0,
-    digits: 0,
-    dates: 0,
-    utcdays: 0,
-    strings: 0,
-    strlen: 0,
-    arrays: 0,
-    minlen: 1 / 0,
-    maxlen: 0,
-    structs: 0,
-    add(n) {
-      if (++t.count, n == null) {
-        ++t.nulls;
-        return;
-      }
-      const i = typeof n;
-      if (i === "string")
-        ++t.strings;
-      else if (i === "number")
-        ++t.nums, n < t.min && (t.min = n), n > t.max && (t.max = n), Number.isInteger(n) && ++t.ints;
-      else if (i === "boolean")
-        ++t.bools;
-      else if (i === "object")
-        if (l(n))
-          ++t.dates, y(n) && ++t.utcdays;
-        else if (c(n)) {
-          ++t.arrays, n.length < t.minlen && (t.minlen = n.length), n.length > t.maxlen && (t.maxlen = n.length);
-          const e = t.array_prof || (t.array_prof = f());
-          n.forEach(e.add);
-        } else {
-          ++t.structs;
-          const e = t.struct_prof || (t.struct_prof = {});
-          for (const s in n)
-            (e[s] || (e[s] = f())).add(n[s]);
-        }
-      else
-        i === "bigint" && (++t.bigints, n < t.min && (t.min = n), n > t.max && (t.max = n));
-    },
-    type() {
-      return a(g(t));
-    }
-  };
-  return t;
+function c(t, n) {
+  return isNaN(t) ? "Invalid Date" : s(
+    t.getFullYear(),
+    t.getMonth(),
+    t.getDate(),
+    t.getHours(),
+    t.getMinutes(),
+    t.getSeconds(),
+    t.getMilliseconds(),
+    !1,
+    n
+  );
 }
-function g(t) {
-  const n = t.count - t.nulls;
-  if (n === 0)
-    return r.Null;
-  if (t.ints === n) {
-    const i = Math.max(Math.abs(t.min) - 1, t.max);
-    return t.min < 0 ? i >= 2 ** 31 ? r.Float64 : i < 128 ? r.Int8 : i < 32768 ? r.Int16 : r.Int32 : i >= 2 ** 32 ? r.Float64 : i < 256 ? r.Uint8 : i < 65536 ? r.Uint16 : r.Uint32;
-  } else {
-    if (t.nums === n)
-      return r.Float64;
-    if (t.bigints === n) {
-      const i = -t.min > t.max ? -t.min - 1n : t.max;
-      return t.min < 0 ? i < 2 ** 63 ? r.Int64 : o(`BigInt exceeds 64 bits: ${i}`) : t.max < 2 ** 64 ? r.Uint64 : o(`BigInt exceeds 64 bits: ${t.max}`);
-    } else {
-      if (t.bools === n)
-        return r.Bool;
-      if (t.utcdays === n)
-        return r.DateDay;
-      if (t.dates === n)
-        return r.DateMillisecond;
-      if (t.arrays === n) {
-        const i = m.new("value", t.array_prof.type(), !0);
-        return t.minlen === t.maxlen ? new u(t.minlen, i) : new d(i);
-      } else if (t.structs === n) {
-        const i = t.struct_prof;
-        return new x(
-          Object.keys(i).map((e) => m.new(e, i[e].type(), !0))
-        );
-      } else {
-        if (t.strings > 0)
-          return r.Dictionary;
-        o("Type inference failure");
-      }
-    }
-  }
+function D(t, n) {
+  return isNaN(t) ? "Invalid Date" : s(
+    t.getUTCFullYear(),
+    t.getUTCMonth(),
+    t.getUTCDate(),
+    t.getUTCHours(),
+    t.getUTCMinutes(),
+    t.getUTCSeconds(),
+    t.getUTCMilliseconds(),
+    !0,
+    n
+  );
 }
 export {
-  U as profile,
-  f as profiler
+  c as formatDate,
+  s as formatISO,
+  D as formatUTCDate
 };
 //# sourceMappingURL=cori.data.api404.js.map

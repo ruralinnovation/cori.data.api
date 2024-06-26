@@ -1,39 +1,39 @@
-import r from "./cori.data.api77.js";
-import c from "./cori.data.api328.js";
+import m from "./cori.data.api323.js";
+import e from "./cori.data.api398.js";
+import y from "./cori.data.api399.js";
+import $ from "./cori.data.api408.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const p = c.hasStandardBrowserEnv ? (
-  // Standard browser envs support document.cookie
-  {
-    write(e, t, n, i, s, u) {
-      const o = [e + "=" + encodeURIComponent(t)];
-      r.isNumber(n) && o.push("expires=" + new Date(n).toGMTString()), r.isString(i) && o.push("path=" + i), r.isString(s) && o.push("domain=" + s), u === !0 && o.push("secure"), document.cookie = o.join("; ");
-    },
-    read(e) {
-      const t = document.cookie.match(new RegExp("(^|;\\s*)(" + e + ")=([^;]*)"));
-      return t ? decodeURIComponent(t[3]) : null;
-    },
-    remove(e) {
-      this.write(e, "", Date.now() - 864e5);
+function s(t) {
+  const r = typeof t;
+  return r === "string" ? `"${t}"` : r !== "object" || !t ? t : e(t) ? +t : m(t) || $(t) ? `[${t.map(s)}]` : y(t) ? t + "" : k(t);
+}
+function k(t) {
+  let r = "{", o = -1;
+  for (const n in t)
+    ++o > 0 && (r += ","), r += `"${n}":${s(t[n])}`;
+  return r += "}", r;
+}
+function A(t, r) {
+  const o = t.length;
+  return o === 1 ? (n, c) => s(t[0](n, c)) : (n, c) => {
+    let p = "";
+    for (let i = 0; i < o; ++i) {
+      i > 0 && (p += "|");
+      const f = t[i](n, c);
+      if (r && (f == null || f !== f))
+        return null;
+      p += s(f);
     }
-  }
-) : (
-  // Non-standard browser env (web workers, react-native) lack needed support.
-  {
-    write() {
-    },
-    read() {
-      return null;
-    },
-    remove() {
-    }
-  }
-);
+    return p;
+  };
+}
 export {
-  p as default
+  A as default,
+  s as key
 };
 //# sourceMappingURL=cori.data.api551.js.map

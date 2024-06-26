@@ -1,28 +1,26 @@
-import i from "./cori.data.api336.js";
-import a from "./cori.data.api107.js";
-import r from "./cori.data.api337.js";
+import { __module as r } from "./cori.data.api277.js";
+import { __require as _ } from "./cori.data.api278.js";
+import { __require as t } from "./cori.data.api279.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const d = {
-  "%": (o, t) => (o * 100).toFixed(t),
-  b: (o) => Math.round(o).toString(2),
-  c: (o) => o + "",
-  d: i,
-  e: (o, t) => o.toExponential(t),
-  f: (o, t) => o.toFixed(t),
-  g: (o, t) => o.toPrecision(t),
-  o: (o) => Math.round(o).toString(8),
-  p: (o, t) => r(o * 100, t),
-  r,
-  s: a,
-  X: (o) => Math.round(o).toString(16).toUpperCase(),
-  x: (o) => Math.round(o).toString(16)
-};
+function e() {
+  if (!(typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ > "u" || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE != "function")) {
+    if (process.env.NODE_ENV !== "production")
+      throw new Error("^_^");
+    try {
+      __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(e);
+    } catch (o) {
+      console.error(o);
+    }
+  }
+}
+process.env.NODE_ENV === "production" ? (e(), r.exports = _()) : r.exports = t();
+var n = r.exports;
 export {
-  d as default
+  n as r
 };
 //# sourceMappingURL=cori.data.api106.js.map

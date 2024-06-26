@@ -1,6 +1,6 @@
 import { SIZE_PREFIX_LENGTH as r } from "./cori.data.api653.js";
-import "./cori.data.api579.js";
 import "./cori.data.api580.js";
+import "./cori.data.api581.js";
 import { BodyCompressionMethod as i } from "./cori.data.api694.js";
 import { CompressionType as e } from "./cori.data.api695.js";
 /*

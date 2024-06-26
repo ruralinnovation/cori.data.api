@@ -1,88 +1,109 @@
+import { Type as v } from "./cori.data.api508.js";
+import { Visitor as u } from "./cori.data.api571.js";
+import { instance as l } from "./cori.data.api566.js";
+import { BitIterator as f, getBool as m } from "./cori.data.api570.js";
+import { createElementComparator as c } from "./cori.data.api564.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function b(r, t, n, i) {
-  return (n & 1 << i) !== 0;
+class t extends u {
 }
-function y(r, t, n, i) {
-  return (n & 1 << i) >> i;
+function d(o, e) {
+  return e === null && o.length > 0 ? 0 : -1;
 }
-function f(r, t, n) {
-  const i = n.byteLength + 7 & -8;
-  if (r > 0 || n.byteLength < i) {
-    const e = new Uint8Array(i);
-    return e.set(r % 8 === 0 ? n.subarray(r >> 3) : (
-      // Otherwise iterate each bit from the offset and return a new one
-      x(new h(n, r, t, null, b)).subarray(0, i)
-    )), e;
+function D(o, e) {
+  const { nullBitmap: p } = o;
+  if (!p || o.nullCount <= 0)
+    return -1;
+  let n = 0;
+  for (const s of new f(p, o.offset + (e || 0), o.length, p, m)) {
+    if (!s)
+      return n;
+    ++n;
   }
-  return n;
+  return -1;
 }
-function x(r) {
-  const t = [];
-  let n = 0, i = 0, e = 0;
-  for (const s of r)
-    s && (e |= 1 << i), ++i === 8 && (t[n++] = e, e = i = 0);
-  (n === 0 || i > 0) && (t[n++] = e);
-  const o = new Uint8Array(t.length + 7 & -8);
-  return o.set(t), o;
+function i(o, e, p) {
+  if (e === void 0)
+    return -1;
+  if (e === null)
+    switch (o.typeId) {
+      case v.Union:
+        break;
+      case v.Dictionary:
+        break;
+      default:
+        return D(o, p);
+    }
+  const n = l.getVisitFn(o), s = c(e);
+  for (let r = (p || 0) - 1, y = o.length; ++r < y; )
+    if (s(n(o, r)))
+      return r;
+  return -1;
 }
-class h {
-  constructor(t, n, i, e, o) {
-    this.bytes = t, this.length = i, this.context = e, this.get = o, this.bit = n % 8, this.byteIndex = n >> 3, this.byte = t[this.byteIndex++], this.index = 0;
-  }
-  next() {
-    return this.index < this.length ? (this.bit === 8 && (this.bit = 0, this.byte = this.bytes[this.byteIndex++]), {
-      value: this.get(this.context, this.index++, this.byte, this.bit++)
-    }) : { done: !0, value: null };
-  }
-  [Symbol.iterator]() {
-    return this;
-  }
+function a(o, e, p) {
+  const n = l.getVisitFn(o), s = c(e);
+  for (let r = (p || 0) - 1, y = o.length; ++r < y; )
+    if (s(n(o, r)))
+      return r;
+  return -1;
 }
-function c(r, t, n) {
-  if (n - t <= 0)
-    return 0;
-  if (n - t < 8) {
-    let o = 0;
-    for (const s of new h(r, t, n - t, r, y))
-      o += s;
-    return o;
-  }
-  const i = n >> 3 << 3, e = t + (t % 8 === 0 ? 0 : 8 - t % 8);
-  return (
-    // Get the popcnt of bits between the left hand side, and the next highest multiple of 8
-    c(r, t, e) + // Get the popcnt of bits between the right hand side, and the next lowest multiple of 8
-    c(r, i, n) + // Get the popcnt of all bits between the left and right hand sides' multiples of 8
-    l(r, e >> 3, i - e >> 3)
-  );
-}
-function l(r, t, n) {
-  let i = 0, e = Math.trunc(t);
-  const o = new DataView(r.buffer, r.byteOffset, r.byteLength), s = n === void 0 ? r.byteLength : e + n;
-  for (; s - e >= 4; )
-    i += u(o.getUint32(e)), e += 4;
-  for (; s - e >= 2; )
-    i += u(o.getUint16(e)), e += 2;
-  for (; s - e >= 1; )
-    i += u(o.getUint8(e)), e += 1;
-  return i;
-}
-function u(r) {
-  let t = Math.trunc(r);
-  return t = t - (t >>> 1 & 1431655765), t = (t & 858993459) + (t >>> 2 & 858993459), (t + (t >>> 4) & 252645135) * 16843009 >>> 24;
-}
+t.prototype.visitNull = d;
+t.prototype.visitBool = i;
+t.prototype.visitInt = i;
+t.prototype.visitInt8 = i;
+t.prototype.visitInt16 = i;
+t.prototype.visitInt32 = i;
+t.prototype.visitInt64 = i;
+t.prototype.visitUint8 = i;
+t.prototype.visitUint16 = i;
+t.prototype.visitUint32 = i;
+t.prototype.visitUint64 = i;
+t.prototype.visitFloat = i;
+t.prototype.visitFloat16 = i;
+t.prototype.visitFloat32 = i;
+t.prototype.visitFloat64 = i;
+t.prototype.visitUtf8 = i;
+t.prototype.visitLargeUtf8 = i;
+t.prototype.visitBinary = i;
+t.prototype.visitLargeBinary = i;
+t.prototype.visitFixedSizeBinary = i;
+t.prototype.visitDate = i;
+t.prototype.visitDateDay = i;
+t.prototype.visitDateMillisecond = i;
+t.prototype.visitTimestamp = i;
+t.prototype.visitTimestampSecond = i;
+t.prototype.visitTimestampMillisecond = i;
+t.prototype.visitTimestampMicrosecond = i;
+t.prototype.visitTimestampNanosecond = i;
+t.prototype.visitTime = i;
+t.prototype.visitTimeSecond = i;
+t.prototype.visitTimeMillisecond = i;
+t.prototype.visitTimeMicrosecond = i;
+t.prototype.visitTimeNanosecond = i;
+t.prototype.visitDecimal = i;
+t.prototype.visitList = i;
+t.prototype.visitStruct = i;
+t.prototype.visitUnion = i;
+t.prototype.visitDenseUnion = a;
+t.prototype.visitSparseUnion = a;
+t.prototype.visitDictionary = i;
+t.prototype.visitInterval = i;
+t.prototype.visitIntervalDayTime = i;
+t.prototype.visitIntervalYearMonth = i;
+t.prototype.visitDuration = i;
+t.prototype.visitDurationSecond = i;
+t.prototype.visitDurationMillisecond = i;
+t.prototype.visitDurationMicrosecond = i;
+t.prototype.visitDurationNanosecond = i;
+t.prototype.visitFixedSizeList = i;
+t.prototype.visitMap = i;
+const x = new t();
 export {
-  h as BitIterator,
-  y as getBit,
-  b as getBool,
-  x as packBools,
-  l as popcnt_array,
-  c as popcnt_bit_range,
-  u as popcnt_uint32,
-  f as truncateBitmap
+  t as IndexOfVisitor,
+  x as instance
 };
 //# sourceMappingURL=cori.data.api568.js.map

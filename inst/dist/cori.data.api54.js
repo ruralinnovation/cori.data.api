@@ -1,5 +1,5 @@
-import { visitParents as m } from "./cori.data.api253.js";
-import { CONTINUE as y, EXIT as E, SKIP as N } from "./cori.data.api253.js";
+import { visitParents as m } from "./cori.data.api258.js";
+import { CONTINUE as y, EXIT as E, SKIP as N } from "./cori.data.api258.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

@@ -1,5 +1,5 @@
-import i from "./cori.data.api259.js";
-import { Query as m } from "./cori.data.api292.js";
+import i from "./cori.data.api282.js";
+import { Query as m } from "./cori.data.api315.js";
 import { Verbs as n, Verb as u } from "./cori.data.api38.js";
 /*
  * CORI Data API component library

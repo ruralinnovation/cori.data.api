@@ -1,6 +1,6 @@
 import { Transition as g } from "./cori.data.api180.js";
 import w, { get as x } from "./cori.data.api202.js";
-import y from "./cori.data.api174.js";
+import y from "./cori.data.api169.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

@@ -3,7 +3,7 @@ import { factoryLabel as S } from "./cori.data.api703.js";
 import { factorySpace as s } from "./cori.data.api669.js";
 import { factoryTitle as g } from "./cori.data.api704.js";
 import { factoryWhitespace as d } from "./cori.data.api705.js";
-import { markdownLineEndingOrSpace as k, markdownSpace as h, markdownLineEnding as L } from "./cori.data.api479.js";
+import { markdownLineEndingOrSpace as k, markdownSpace as h, markdownLineEnding as L } from "./cori.data.api489.js";
 import { normalizeIdentifier as w } from "./cori.data.api468.js";
 /*
  * CORI Data API component library

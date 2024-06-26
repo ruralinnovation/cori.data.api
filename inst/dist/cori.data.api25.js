@@ -1,6 +1,6 @@
 import { j as s } from "./cori.data.api9.js";
 import { r as t } from "./cori.data.api10.js";
-import { createRoot as u } from "./cori.data.api59.js";
+import { createRoot as u } from "./cori.data.api57.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

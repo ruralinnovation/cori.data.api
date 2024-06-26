@@ -1,39 +1,35 @@
-import { Field as o } from "./cori.data.api499.js";
-import { Map_ as f } from "./cori.data.api407.js";
-import { VariableWidthBuilder as l } from "./cori.data.api503.js";
+import { Field as h } from "./cori.data.api509.js";
+import { List as l } from "./cori.data.api422.js";
+import { OffsetsBufferBuilder as u } from "./cori.data.api517.js";
+import { VariableWidthBuilder as c } from "./cori.data.api513.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class m extends l {
-  set(t, e) {
-    return super.set(t, e);
+class B extends c {
+  constructor(e) {
+    super(e), this._offsets = new u(e.type);
   }
-  setValue(t, e) {
-    const s = e instanceof Map ? e : new Map(Object.entries(e)), n = this._pending || (this._pending = /* @__PURE__ */ new Map()), i = n.get(t);
-    i && (this._pendingLength -= i.size), this._pendingLength += s.size, n.set(t, s);
-  }
-  addChild(t, e = `${this.numChildren}`) {
+  addChild(e, t = "0") {
     if (this.numChildren > 0)
       throw new Error("ListBuilder can only have one child.");
-    return this.children[this.numChildren] = t, this.type = new f(new o(e, t.type, !0), this.type.keysSorted), this.numChildren - 1;
+    return this.children[this.numChildren] = e, this.type = new l(new h(t, e.type, !0)), this.numChildren - 1;
   }
-  _flushPending(t) {
-    const e = this._offsets, [s] = this.children;
-    for (const [n, i] of t)
-      if (i === void 0)
-        e.set(n, 0);
+  _flushPending(e) {
+    const t = this._offsets, [f] = this.children;
+    for (const [i, r] of e)
+      if (typeof r > "u")
+        t.set(i, 0);
       else {
-        let { [n]: r, [n + 1]: d } = e.set(n, i.size).buffer;
-        for (const h of i.entries())
-          if (s.set(r, h), ++r >= d)
-            break;
+        const n = r, o = n.length, d = t.set(i, o).buffer[i];
+        for (let s = -1; ++s < o; )
+          f.set(d + s, n[s]);
       }
   }
 }
 export {
-  m as MapBuilder
+  B as ListBuilder
 };
 //# sourceMappingURL=cori.data.api630.js.map

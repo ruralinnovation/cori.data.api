@@ -1,173 +1,238 @@
-import { __asyncGenerator as v, __await as a, __awaiter as L } from "./cori.data.api501.js";
-import { toUint8ArrayIterator as _, joinUint8Arrays as c, toUint8ArrayAsyncIterator as z, toUint8Array as b } from "./cori.data.api502.js";
+import { __exports as R } from "./cori.data.api553.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const P = {
-  fromIterable(r) {
-    return w(I(r));
-  },
-  fromAsyncIterable(r) {
-    return w(U(r));
-  },
-  fromDOMStream(r) {
-    return w(x(r));
-  },
-  fromNodeStream(r) {
-    return w(D(r));
-  },
-  // @ts-ignore
-  toDOMStream(r, f) {
-    throw new Error('"toDOMStream" not available in this environment');
-  },
-  // @ts-ignore
-  toNodeStream(r, f) {
-    throw new Error('"toNodeStream" not available in this environment');
-  }
-}, w = (r) => (r.next(), r);
-function* I(r) {
-  let f, t = !1, o = [], i, u, d, e = 0;
-  function l() {
-    return u === "peek" ? c(o, d)[0] : ([i, o, e] = c(o, d), i);
-  }
-  ({ cmd: u, size: d } = (yield null) || { cmd: "read", size: 0 });
-  const s = _(r)[Symbol.iterator]();
-  try {
-    do
-      if ({ done: f, value: i } = Number.isNaN(d - e) ? s.next() : s.next(d - e), !f && i.byteLength > 0 && (o.push(i), e += i.byteLength), f || d <= e)
-        do
-          ({ cmd: u, size: d } = yield l());
-        while (d < e);
-    while (!f);
-  } catch (n) {
-    (t = !0) && typeof s.throw == "function" && s.throw(n);
-  } finally {
-    t === !1 && typeof s.return == "function" && s.return(null);
-  }
-  return null;
-}
-function U(r) {
-  return v(this, arguments, function* () {
-    let t, o = !1, i = [], u, d, e, l = 0;
-    function s() {
-      return d === "peek" ? c(i, e)[0] : ([u, i, l] = c(i, e), u);
-    }
-    ({ cmd: d, size: e } = (yield yield a(null)) || { cmd: "read", size: 0 });
-    const n = z(r)[Symbol.asyncIterator]();
-    try {
-      do
-        if ({ done: t, value: u } = Number.isNaN(e - l) ? yield a(n.next()) : yield a(n.next(e - l)), !t && u.byteLength > 0 && (i.push(u), l += u.byteLength), t || e <= l)
-          do
-            ({ cmd: d, size: e } = yield yield a(s()));
-          while (e < l);
-      while (!t);
-    } catch (m) {
-      (o = !0) && typeof n.throw == "function" && (yield a(n.throw(m)));
-    } finally {
-      o === !1 && typeof n.return == "function" && (yield a(n.return(new Uint8Array(0))));
-    }
-    return yield a(null);
-  });
-}
-function x(r) {
-  return v(this, arguments, function* () {
-    let t = !1, o = !1, i = [], u, d, e, l = 0;
-    function s() {
-      return d === "peek" ? c(i, e)[0] : ([u, i, l] = c(i, e), u);
-    }
-    ({ cmd: d, size: e } = (yield yield a(null)) || { cmd: "read", size: 0 });
-    const n = new R(r);
-    try {
-      do
-        if ({ done: t, value: u } = Number.isNaN(e - l) ? yield a(n.read()) : yield a(n.read(e - l)), !t && u.byteLength > 0 && (i.push(b(u)), l += u.byteLength), t || e <= l)
-          do
-            ({ cmd: d, size: e } = yield yield a(s()));
-          while (e < l);
-      while (!t);
-    } catch (m) {
-      (o = !0) && (yield a(n.cancel(m)));
-    } finally {
-      o === !1 ? yield a(n.cancel()) : r.locked && n.releaseLock();
-    }
-    return yield a(null);
-  });
-}
-class R {
-  constructor(f) {
-    this.source = f, this.reader = null, this.reader = this.source.getReader(), this.reader.closed.catch(() => {
-    });
-  }
-  get closed() {
-    return this.reader ? this.reader.closed.catch(() => {
-    }) : Promise.resolve();
-  }
-  releaseLock() {
-    this.reader && this.reader.releaseLock(), this.reader = null;
-  }
-  cancel(f) {
-    return L(this, void 0, void 0, function* () {
-      const { reader: t, source: o } = this;
-      t && (yield t.cancel(f).catch(() => {
-      })), o && o.locked && this.releaseLock();
-    });
-  }
-  read(f) {
-    return L(this, void 0, void 0, function* () {
-      if (f === 0)
-        return { done: this.reader == null, value: new Uint8Array(0) };
-      const t = yield this.reader.read();
-      return !t.done && (t.value = b(t)), t;
-    });
-  }
-}
-const g = (r, f) => {
-  const t = (i) => o([f, i]);
-  let o;
-  return [f, t, new Promise((i) => (o = i) && r.once(f, t))];
-};
-function D(r) {
-  return v(this, arguments, function* () {
-    const t = [];
-    let o = "error", i = !1, u = null, d, e, l = 0, s = [], n;
-    function m() {
-      return d === "peek" ? c(s, e)[0] : ([n, s, l] = c(s, e), n);
-    }
-    if ({ cmd: d, size: e } = (yield yield a(null)) || { cmd: "read", size: 0 }, r.isTTY)
-      return yield yield a(new Uint8Array(0)), yield a(null);
-    try {
-      t[0] = g(r, "end"), t[1] = g(r, "error");
-      do {
-        if (t[2] = g(r, "readable"), [o, u] = yield a(Promise.race(t.map((p) => p[2]))), o === "error")
-          break;
-        if ((i = o === "end") || (Number.isFinite(e - l) ? (n = b(r.read(e - l)), n.byteLength < e - l && (n = b(r.read()))) : n = b(r.read()), n.byteLength > 0 && (s.push(n), l += n.byteLength)), i || e <= l)
-          do
-            ({ cmd: d, size: e } = yield yield a(m()));
-          while (e < l);
-      } while (!i);
-    } finally {
-      yield a(N(t, o === "error" ? u : null));
-    }
-    return yield a(null);
-    function N(p, y) {
-      return n = s = null, new Promise((A, S) => {
-        for (const [h, k] of p)
-          r.off(h, k);
-        try {
-          const h = r.destroy;
-          h && h.call(r, y), y = void 0;
-        } catch (h) {
-          y = h || y;
-        } finally {
-          y != null ? S(y) : A();
+/**
+ * @license React
+ * scheduler.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+var H;
+function W() {
+  return H ? R : (H = 1, function(i) {
+    function P(n, e) {
+      var t = n.length;
+      n.push(e);
+      n:
+        for (; 0 < t; ) {
+          var l = t - 1 >>> 1, r = n[l];
+          if (0 < g(r, e))
+            n[l] = e, n[t] = r, t = l;
+          else
+            break n;
         }
-      });
     }
-  });
+    function o(n) {
+      return n.length === 0 ? null : n[0];
+    }
+    function m(n) {
+      if (n.length === 0)
+        return null;
+      var e = n[0], t = n.pop();
+      if (t !== e) {
+        n[0] = t;
+        n:
+          for (var l = 0, r = n.length, w = r >>> 1; l < w; ) {
+            var v = 2 * (l + 1) - 1, F = n[v], d = v + 1, I = n[d];
+            if (0 > g(F, t))
+              d < r && 0 > g(I, F) ? (n[l] = I, n[d] = t, l = d) : (n[l] = F, n[v] = t, l = v);
+            else if (d < r && 0 > g(I, t))
+              n[l] = I, n[d] = t, l = d;
+            else
+              break n;
+          }
+      }
+      return e;
+    }
+    function g(n, e) {
+      var t = n.sortIndex - e.sortIndex;
+      return t !== 0 ? t : n.id - e.id;
+    }
+    if (typeof performance == "object" && typeof performance.now == "function") {
+      var J = performance;
+      i.unstable_now = function() {
+        return J.now();
+      };
+    } else {
+      var N = Date, K = N.now();
+      i.unstable_now = function() {
+        return N.now() - K;
+      };
+    }
+    var f = [], c = [], O = 1, a = null, u = 3, h = !1, s = !1, _ = !1, S = typeof setTimeout == "function" ? setTimeout : null, j = typeof clearTimeout == "function" ? clearTimeout : null, B = typeof setImmediate < "u" ? setImmediate : null;
+    typeof navigator < "u" && navigator.scheduling !== void 0 && navigator.scheduling.isInputPending !== void 0 && navigator.scheduling.isInputPending.bind(navigator.scheduling);
+    function T(n) {
+      for (var e = o(c); e !== null; ) {
+        if (e.callback === null)
+          m(c);
+        else if (e.startTime <= n)
+          m(c), e.sortIndex = e.expirationTime, P(f, e);
+        else
+          break;
+        e = o(c);
+      }
+    }
+    function E(n) {
+      if (_ = !1, T(n), !s)
+        if (o(f) !== null)
+          s = !0, M(C);
+        else {
+          var e = o(c);
+          e !== null && q(E, e.startTime - n);
+        }
+    }
+    function C(n, e) {
+      s = !1, _ && (_ = !1, j(b), b = -1), h = !0;
+      var t = u;
+      try {
+        for (T(e), a = o(f); a !== null && (!(a.expirationTime > e) || n && !A()); ) {
+          var l = a.callback;
+          if (typeof l == "function") {
+            a.callback = null, u = a.priorityLevel;
+            var r = l(a.expirationTime <= e);
+            e = i.unstable_now(), typeof r == "function" ? a.callback = r : a === o(f) && m(f), T(e);
+          } else
+            m(f);
+          a = o(f);
+        }
+        if (a !== null)
+          var w = !0;
+        else {
+          var v = o(c);
+          v !== null && q(E, v.startTime - e), w = !1;
+        }
+        return w;
+      } finally {
+        a = null, u = t, h = !1;
+      }
+    }
+    var k = !1, p = null, b = -1, D = 5, z = -1;
+    function A() {
+      return !(i.unstable_now() - z < D);
+    }
+    function L() {
+      if (p !== null) {
+        var n = i.unstable_now();
+        z = n;
+        var e = !0;
+        try {
+          e = p(!0, n);
+        } finally {
+          e ? y() : (k = !1, p = null);
+        }
+      } else
+        k = !1;
+    }
+    var y;
+    if (typeof B == "function")
+      y = function() {
+        B(L);
+      };
+    else if (typeof MessageChannel < "u") {
+      var G = new MessageChannel(), Q = G.port2;
+      G.port1.onmessage = L, y = function() {
+        Q.postMessage(null);
+      };
+    } else
+      y = function() {
+        S(L, 0);
+      };
+    function M(n) {
+      p = n, k || (k = !0, y());
+    }
+    function q(n, e) {
+      b = S(function() {
+        n(i.unstable_now());
+      }, e);
+    }
+    i.unstable_IdlePriority = 5, i.unstable_ImmediatePriority = 1, i.unstable_LowPriority = 4, i.unstable_NormalPriority = 3, i.unstable_Profiling = null, i.unstable_UserBlockingPriority = 2, i.unstable_cancelCallback = function(n) {
+      n.callback = null;
+    }, i.unstable_continueExecution = function() {
+      s || h || (s = !0, M(C));
+    }, i.unstable_forceFrameRate = function(n) {
+      0 > n || 125 < n ? console.error("forceFrameRate takes a positive int between 0 and 125, forcing frame rates higher than 125 fps is not supported") : D = 0 < n ? Math.floor(1e3 / n) : 5;
+    }, i.unstable_getCurrentPriorityLevel = function() {
+      return u;
+    }, i.unstable_getFirstCallbackNode = function() {
+      return o(f);
+    }, i.unstable_next = function(n) {
+      switch (u) {
+        case 1:
+        case 2:
+        case 3:
+          var e = 3;
+          break;
+        default:
+          e = u;
+      }
+      var t = u;
+      u = e;
+      try {
+        return n();
+      } finally {
+        u = t;
+      }
+    }, i.unstable_pauseExecution = function() {
+    }, i.unstable_requestPaint = function() {
+    }, i.unstable_runWithPriority = function(n, e) {
+      switch (n) {
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+          break;
+        default:
+          n = 3;
+      }
+      var t = u;
+      u = n;
+      try {
+        return e();
+      } finally {
+        u = t;
+      }
+    }, i.unstable_scheduleCallback = function(n, e, t) {
+      var l = i.unstable_now();
+      switch (typeof t == "object" && t !== null ? (t = t.delay, t = typeof t == "number" && 0 < t ? l + t : l) : t = l, n) {
+        case 1:
+          var r = -1;
+          break;
+        case 2:
+          r = 250;
+          break;
+        case 5:
+          r = 1073741823;
+          break;
+        case 4:
+          r = 1e4;
+          break;
+        default:
+          r = 5e3;
+      }
+      return r = t + r, n = { id: O++, callback: e, priorityLevel: n, startTime: t, expirationTime: r, sortIndex: -1 }, t > l ? (n.sortIndex = t, P(c, n), o(f) === null && n === o(c) && (_ ? (j(b), b = -1) : _ = !0, q(E, t - l))) : (n.sortIndex = r, P(f, n), s || h || (s = !0, M(C))), n;
+    }, i.unstable_shouldYield = A, i.unstable_wrapCallback = function(n) {
+      var e = u;
+      return function() {
+        var t = u;
+        u = e;
+        try {
+          return n.apply(this, arguments);
+        } finally {
+          u = t;
+        }
+      };
+    };
+  }(R), R);
 }
 export {
-  P as default
+  W as __require
 };
 //# sourceMappingURL=cori.data.api500.js.map

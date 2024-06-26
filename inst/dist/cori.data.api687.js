@@ -1,4 +1,4 @@
-import { asciiAlpha as z, asciiAlphanumeric as a, asciiControl as E, asciiAtext as O } from "./cori.data.api479.js";
+import { asciiAlpha as z, asciiAlphanumeric as a, asciiControl as E, asciiAtext as O } from "./cori.data.api489.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

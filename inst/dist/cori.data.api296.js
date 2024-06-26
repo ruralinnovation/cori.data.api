@@ -1,20 +1,30 @@
-import { dataFromScan as i } from "./cori.data.api403.js";
-import { profile as d } from "./cori.data.api404.js";
-import e from "./cori.data.api405.js";
+import d from "./cori.data.api398.js";
+import "./cori.data.api34.js";
+import { formatUTCDate as g } from "./cori.data.api404.js";
+import "./cori.data.api35.js";
+import { columns as h } from "./cori.data.api405.js";
+import p from "./cori.data.api407.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function n(p, o, a, t, r, f = !0) {
-  if (r = e(r), !r) {
-    const m = d(t, o);
-    f = m.nulls > 0, r = m.type();
-  }
-  return i(a, t, o, r, f);
+const J = (t) => d(t) ? g(t, !0) : t;
+function T(t, r = {}) {
+  const f = p(r.schema), e = r.format || {}, c = h(t, r.columns);
+  let m = "{";
+  return f && (m += '"schema":{"fields":' + JSON.stringify(c.map((o) => ({ name: o }))) + '},"data":{'), c.forEach((o, s) => {
+    m += (s ? "," : "") + JSON.stringify(o) + ":[";
+    const a = t.column(o), i = e[o] || J;
+    let n = -1;
+    t.scan((u) => {
+      const l = a.get(u);
+      m += (++n ? "," : "") + JSON.stringify(i(l));
+    }, !0, r.limit, r.offset), m += "]";
+  }), m + "}" + (f ? "}" : "");
 }
 export {
-  n as default
+  T as default
 };
 //# sourceMappingURL=cori.data.api296.js.map

@@ -1,15 +1,15 @@
-import { FixedWidthBuilder as e } from "./cori.data.api503.js";
-import { setFixedSizeBinary as i } from "./cori.data.api565.js";
+import { FixedWidthBuilder as e } from "./cori.data.api513.js";
+import { setDecimal as t } from "./cori.data.api567.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class r extends e {
+class i extends e {
 }
-r.prototype._setValue = i;
+i.prototype._setValue = t;
 export {
-  r as FixedSizeBinaryBuilder
+  i as DecimalBuilder
 };
 //# sourceMappingURL=cori.data.api616.js.map

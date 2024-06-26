@@ -4,8 +4,13 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
+function n() {
+  return [];
+}
 function e(t) {
-  return arguments.length ? this.property("__data__", t) : this.node().__data__;
+  return t == null ? n : function() {
+    return this.querySelectorAll(t);
+  };
 }
 export {
   e as default

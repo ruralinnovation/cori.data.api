@@ -1,40 +1,29 @@
-import { FixedWidthBuilder as l } from "./cori.data.api503.js";
+import { float64ToUint16 as a } from "./cori.data.api620.js";
+import { FixedWidthBuilder as d } from "./cori.data.api513.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s extends l {
-  setValue(t, d) {
-    this._values.set(t, d);
+class l extends d {
+  setValue(s, t) {
+    this._values.set(s, t);
   }
 }
-class n extends s {
+class r extends l {
+  setValue(s, t) {
+    super.setValue(s, a(t));
+  }
 }
-class r extends s {
+class u extends l {
 }
-class u extends s {
-}
-class a extends s {
-}
-class x extends s {
-}
-class B extends s {
-}
-class c extends s {
-}
-class I extends s {
+class x extends l {
 }
 export {
-  r as Int16Builder,
-  u as Int32Builder,
-  a as Int64Builder,
-  n as Int8Builder,
-  s as IntBuilder,
-  B as Uint16Builder,
-  c as Uint32Builder,
-  I as Uint64Builder,
-  x as Uint8Builder
+  r as Float16Builder,
+  u as Float32Builder,
+  x as Float64Builder,
+  l as FloatBuilder
 };
 //# sourceMappingURL=cori.data.api619.js.map

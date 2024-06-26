@@ -1,91 +1,96 @@
+import t from "./cori.data.api62.js";
+import p from "./cori.data.api73.js";
+import u from "./cori.data.api268.js";
+import S from "./cori.data.api72.js";
+import h from "./cori.data.api269.js";
+import l from "./cori.data.api270.js";
+import O from "./cori.data.api67.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function g(t, e) {
-  if (t.match(/^[a-z]+:\/\//i))
-    return t;
-  if (t.match(/^\/\//))
-    return window.location.protocol + t;
-  if (t.match(/^[a-z]+:/i))
-    return t;
-  const i = document.implementation.createHTMLDocument(), r = i.createElement("base"), o = i.createElement("a");
-  return i.head.appendChild(r), i.body.appendChild(o), e && (r.href = e), o.href = t, o.href;
+function y(i, r, e) {
+  if (t.isString(i))
+    try {
+      return (r || JSON.parse)(i), t.trim(i);
+    } catch (n) {
+      if (n.name !== "SyntaxError")
+        throw n;
+    }
+  return (e || JSON.stringify)(i);
 }
-const f = /* @__PURE__ */ (() => {
-  let t = 0;
-  const e = () => (
-    // eslint-disable-next-line no-bitwise
-    `0000${(Math.random() * 36 ** 4 << 0).toString(36)}`.slice(-4)
-  );
-  return () => (t += 1, `u${e()}${t}`);
-})();
-function m(t) {
-  const e = [];
-  for (let i = 0, r = t.length; i < r; i++)
-    e.push(t[i]);
-  return e;
-}
-function c(t, e) {
-  const r = (t.ownerDocument.defaultView || window).getComputedStyle(t).getPropertyValue(e);
-  return r ? parseFloat(r.replace("px", "")) : 0;
-}
-function d(t) {
-  const e = c(t, "border-left-width"), i = c(t, "border-right-width");
-  return t.clientWidth + e + i;
-}
-function u(t) {
-  const e = c(t, "border-top-width"), i = c(t, "border-bottom-width");
-  return t.clientHeight + e + i;
-}
-function w(t, e = {}) {
-  const i = e.width || d(t), r = e.height || u(t);
-  return { width: i, height: r };
-}
-function a() {
-  let t, e;
-  try {
-    e = process;
-  } catch {
+const a = {
+  transitional: u,
+  adapter: ["xhr", "http", "fetch"],
+  transformRequest: [function(r, e) {
+    const n = e.getContentType() || "", s = n.indexOf("application/json") > -1, f = t.isObject(r);
+    if (f && t.isHTMLForm(r) && (r = new FormData(r)), t.isFormData(r))
+      return s ? JSON.stringify(O(r)) : r;
+    if (t.isArrayBuffer(r) || t.isBuffer(r) || t.isStream(r) || t.isFile(r) || t.isBlob(r) || t.isReadableStream(r))
+      return r;
+    if (t.isArrayBufferView(r))
+      return r.buffer;
+    if (t.isURLSearchParams(r))
+      return e.setContentType("application/x-www-form-urlencoded;charset=utf-8", !1), r.toString();
+    let o;
+    if (f) {
+      if (n.indexOf("application/x-www-form-urlencoded") > -1)
+        return h(r, this.formSerializer).toString();
+      if ((o = t.isFileList(r)) || n.indexOf("multipart/form-data") > -1) {
+        const c = this.env && this.env.FormData;
+        return S(
+          o ? { "files[]": r } : r,
+          c && new c(),
+          this.formSerializer
+        );
+      }
+    }
+    return f || s ? (e.setContentType("application/json", !1), y(r)) : r;
+  }],
+  transformResponse: [function(r) {
+    const e = this.transitional || a.transitional, n = e && e.forcedJSONParsing, s = this.responseType === "json";
+    if (t.isResponse(r) || t.isReadableStream(r))
+      return r;
+    if (r && t.isString(r) && (n && !this.responseType || s)) {
+      const m = !(e && e.silentJSONParsing) && s;
+      try {
+        return JSON.parse(r);
+      } catch (o) {
+        if (m)
+          throw o.name === "SyntaxError" ? p.from(o, p.ERR_BAD_RESPONSE, this, null, this.response) : o;
+      }
+    }
+    return r;
+  }],
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+  xsrfCookieName: "XSRF-TOKEN",
+  xsrfHeaderName: "X-XSRF-TOKEN",
+  maxContentLength: -1,
+  maxBodyLength: -1,
+  env: {
+    FormData: l.classes.FormData,
+    Blob: l.classes.Blob
+  },
+  validateStatus: function(r) {
+    return r >= 200 && r < 300;
+  },
+  headers: {
+    common: {
+      Accept: "application/json, text/plain, */*",
+      "Content-Type": void 0
+    }
   }
-  const i = e && e.env ? e.env.devicePixelRatio : null;
-  return i && (t = parseInt(i, 10), Number.isNaN(t) && (t = 1)), t || window.devicePixelRatio || 1;
-}
-const n = 16384;
-function p(t) {
-  (t.width > n || t.height > n) && (t.width > n && t.height > n ? t.width > t.height ? (t.height *= n / t.width, t.width = n) : (t.width *= n / t.height, t.height = n) : t.width > n ? (t.height *= n / t.width, t.width = n) : (t.width *= n / t.height, t.height = n));
-}
-function b(t) {
-  return new Promise((e, i) => {
-    const r = new Image();
-    r.decode = () => e(r), r.onload = () => e(r), r.onerror = i, r.crossOrigin = "anonymous", r.decoding = "async", r.src = t;
-  });
-}
-async function s(t) {
-  return Promise.resolve().then(() => new XMLSerializer().serializeToString(t)).then(encodeURIComponent).then((e) => `data:image/svg+xml;charset=utf-8,${e}`);
-}
-async function x(t, e, i) {
-  const r = "http://www.w3.org/2000/svg", o = document.createElementNS(r, "svg"), h = document.createElementNS(r, "foreignObject");
-  return o.setAttribute("width", `${e}`), o.setAttribute("height", `${i}`), o.setAttribute("viewBox", `0 0 ${e} ${i}`), h.setAttribute("width", "100%"), h.setAttribute("height", "100%"), h.setAttribute("x", "0"), h.setAttribute("y", "0"), h.setAttribute("externalResourcesRequired", "true"), o.appendChild(h), h.appendChild(t), s(o);
-}
-const l = (t, e) => {
-  if (t instanceof e)
-    return !0;
-  const i = Object.getPrototypeOf(t);
-  return i === null ? !1 : i.constructor.name === e.name || l(i, e);
 };
+t.forEach(["delete", "get", "head", "post", "put", "patch"], (i) => {
+  a.headers[i] = {};
+});
 export {
-  p as checkCanvasDimensions,
-  b as createImage,
-  w as getImageSize,
-  a as getPixelRatio,
-  l as isInstanceOfElement,
-  x as nodeToDataURL,
-  g as resolveUrl,
-  s as svgToDataURL,
-  m as toArray,
-  f as uuid
+  a as default
 };
 //# sourceMappingURL=cori.data.api66.js.map

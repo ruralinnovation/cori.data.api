@@ -1,36 +1,32 @@
-import { aggregateGet as w } from "./cori.data.api541.js";
-import y from "./cori.data.api267.js";
-import M from "./cori.data.api413.js";
-import x from "./cori.data.api280.js";
+import { groupOutput as p, aggregate as s } from "./cori.data.api550.js";
+import a from "./cori.data.api290.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function $(o, { names: c, exprs: f, ops: h = [] }, r = {}) {
-  if (c.length === 0)
-    return o;
-  const s = c.length === 1 && r.as || [], m = r.drop == null ? !0 : !!r.drop, e = r.limit == null ? s.length || 1 / 0 : Math.max(1, +r.limit || 1), i = w(o, h, f), n = y(), u = c.reduce((t, a, d) => t.set(a, d), /* @__PURE__ */ new Map()), g = (t, a) => {
-    const d = A(o, i[t], e), p = d.length;
-    for (let l = 0; l < p; ++l)
-      n.add(s[l] || `${a}_${l + 1}`, d[l]);
-  };
-  return o.columnNames().forEach((t) => {
-    u.has(t) ? (m || n.add(t, o.column(t)), g(u.get(t), t), u.delete(t)) : n.add(t, o.column(t));
-  }), u.forEach(g), o.create(n);
+function j(t, { names: l, exprs: u, ops: f }) {
+  const n = a(), e = t.groups();
+  return e && p(n, e), h(l, u, e, s(t, f), n), t.create(n.new());
 }
-function A(o, c, f) {
-  const h = o.totalRows(), r = [];
-  return o.scan((s, m) => {
-    const e = x(c(s, m)), i = Math.min(e.length, f);
-    for (; r.length < i; )
-      r.push(Array(h).fill(M));
-    for (let n = 0; n < i; ++n)
-      r[n][s] = e[n];
-  }), r;
+function h(t, l, u, f = [], n) {
+  if (!l.length)
+    return;
+  const e = u ? u.size : 1, c = (o, r) => f[o][r], d = t.length;
+  for (let o = 0; o < d; ++o) {
+    const r = l[o];
+    if (r.field != null)
+      n.add(t[o], f[r.field]);
+    else if (e > 1) {
+      const g = n.add(t[o], Array(e));
+      for (let i = 0; i < e; ++i)
+        g[i] = r(i, null, c);
+    } else
+      n.add(t[o], [r(0, null, c)]);
+  }
 }
 export {
-  $ as default
+  j as default
 };
 //# sourceMappingURL=cori.data.api536.js.map

@@ -1,23 +1,20 @@
-import { FixedWidthBuilder as s } from "./cori.data.api503.js";
-import { setDate as a, setDateDay as l, setDateMillisecond as o } from "./cori.data.api565.js";
+import { BitmapBufferBuilder as s } from "./cori.data.api517.js";
+import { Builder as t } from "./cori.data.api513.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class e extends s {
+class l extends t {
+  constructor(e) {
+    super(e), this._values = new s();
+  }
+  setValue(e, r) {
+    this._values.set(e, +r);
+  }
 }
-e.prototype._setValue = a;
-class i extends e {
-}
-i.prototype._setValue = l;
-class r extends e {
-}
-r.prototype._setValue = o;
 export {
-  e as DateBuilder,
-  i as DateDayBuilder,
-  r as DateMillisecondBuilder
+  l as BoolBuilder
 };
 //# sourceMappingURL=cori.data.api613.js.map

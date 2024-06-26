@@ -1,29 +1,39 @@
-import { valueToString as i } from "./cori.data.api571.js";
+import t from "./cori.data.api556.js";
+import a from "./cori.data.api557.js";
+import d from "./cori.data.api558.js";
+import u from "./cori.data.api559.js";
+import m from "./cori.data.api560.js";
+import n from "./cori.data.api561.js";
+import c from "./cori.data.api562.js";
+import { Type as e } from "./cori.data.api508.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(n) {
-  if (!n || n.length <= 0)
-    return function(f) {
-      return !0;
-    };
-  let e = "";
-  const r = n.filter((t) => t === t);
-  return r.length > 0 && (e = `
-    switch (x) {${r.map((t) => `
-        case ${o(t)}:`).join("")}
-            return false;
-    }`), n.length !== r.length && (e = `if (x !== x) return false;
-${e}`), new Function("x", `${e}
-return true;`);
-}
-function o(n) {
-  return typeof n != "bigint" ? i(n) : `${i(n)}n`;
+function D(i, o, l = !0) {
+  let r;
+  switch (i.typeId) {
+    case e.Int:
+      r = i.bitWidth < 64 ? t : null;
+      break;
+    case e.Float:
+      r = i.precision > 0 ? t : null;
+      break;
+    case e.Dictionary:
+      r = i.dictionary.typeId === e.Utf8 && i.indices.typeId === e.Int && i.indices.bitWidth < 64 ? n : null;
+      break;
+    case e.Bool:
+      r = a;
+      break;
+    case e.Date:
+      r = i.unit ? u : d;
+      break;
+  }
+  return r == null ? m(i) : l ? c(r(i, o), o) : r(i, o);
 }
 export {
-  a as createIsValidFunction
+  D as default
 };
 //# sourceMappingURL=cori.data.api506.js.map

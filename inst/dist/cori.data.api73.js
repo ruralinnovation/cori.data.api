@@ -1,44 +1,61 @@
+import n from "./cori.data.api62.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i extends Map {
-  constructor(t, s = f) {
-    if (super(), Object.defineProperties(this, { _intern: { value: /* @__PURE__ */ new Map() }, _key: { value: s } }), t != null)
-      for (const [r, o] of t)
-        this.set(r, o);
-  }
-  get(t) {
-    return super.get(n(this, t));
-  }
-  has(t) {
-    return super.has(n(this, t));
-  }
-  set(t, s) {
-    return super.set(u(this, t), s);
-  }
-  delete(t) {
-    return super.delete(c(this, t));
-  }
+function s(t, r, i, o, E) {
+  Error.call(this), Error.captureStackTrace ? Error.captureStackTrace(this, this.constructor) : this.stack = new Error().stack, this.message = t, this.name = "AxiosError", r && (this.code = r), i && (this.config = i), o && (this.request = o), E && (this.response = E);
 }
-function n({ _intern: e, _key: t }, s) {
-  const r = t(s);
-  return e.has(r) ? e.get(r) : s;
-}
-function u({ _intern: e, _key: t }, s) {
-  const r = t(s);
-  return e.has(r) ? e.get(r) : (e.set(r, s), s);
-}
-function c({ _intern: e, _key: t }, s) {
-  const r = t(s);
-  return e.has(r) && (s = e.get(r), e.delete(r)), s;
-}
-function f(e) {
-  return e !== null && typeof e == "object" ? e.valueOf() : e;
-}
+n.inherits(s, Error, {
+  toJSON: function() {
+    return {
+      // Standard
+      message: this.message,
+      name: this.name,
+      // Microsoft
+      description: this.description,
+      number: this.number,
+      // Mozilla
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      // Axios
+      config: n.toJSONObject(this.config),
+      code: this.code,
+      status: this.response && this.response.status ? this.response.status : null
+    };
+  }
+});
+const R = s.prototype, u = {};
+[
+  "ERR_BAD_OPTION_VALUE",
+  "ERR_BAD_OPTION",
+  "ECONNABORTED",
+  "ETIMEDOUT",
+  "ERR_NETWORK",
+  "ERR_FR_TOO_MANY_REDIRECTS",
+  "ERR_DEPRECATED",
+  "ERR_BAD_RESPONSE",
+  "ERR_BAD_REQUEST",
+  "ERR_CANCELED",
+  "ERR_NOT_SUPPORT",
+  "ERR_INVALID_URL"
+  // eslint-disable-next-line func-names
+].forEach((t) => {
+  u[t] = { value: t };
+});
+Object.defineProperties(s, u);
+Object.defineProperty(R, "isAxiosError", { value: !0 });
+s.from = (t, r, i, o, E, a) => {
+  const e = Object.create(R);
+  return n.toFlatObject(t, e, function(h) {
+    return h !== Error.prototype;
+  }, (c) => c !== "isAxiosError"), s.call(e, t.message, r, i, o, E), e.cause = t, e.name = t.name, a && Object.assign(e, a), e;
+};
 export {
-  i as InternMap
+  s as default
 };
 //# sourceMappingURL=cori.data.api73.js.map

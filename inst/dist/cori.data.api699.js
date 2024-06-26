@@ -1,5 +1,5 @@
-import c from "./cori.data.api408.js";
-import e from "./cori.data.api413.js";
+import c from "./cori.data.api423.js";
+import e from "./cori.data.api438.js";
 import i from "./cori.data.api700.js";
 /*
  * CORI Data API component library

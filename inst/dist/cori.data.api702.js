@@ -1,4 +1,4 @@
-import { asciiControl as h, markdownLineEnding as B, markdownLineEndingOrSpace as C } from "./cori.data.api479.js";
+import { asciiControl as h, markdownLineEnding as B, markdownLineEndingOrSpace as C } from "./cori.data.api489.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

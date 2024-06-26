@@ -1,15 +1,14 @@
-import t from "./cori.data.api343.js";
-import { Selection as e } from "./cori.data.api138.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o() {
-  return new e(this._exit || this._groups.map(t), this._parents);
+function t() {
+  var a = arguments[0];
+  return arguments[0] = this, a.apply(null, arguments), this;
 }
 export {
-  o as default
+  t as default
 };
 //# sourceMappingURL=cori.data.api146.js.map

@@ -1,35 +1,31 @@
-import { formatUTCDate as f, formatDate as n } from "./cori.data.api389.js";
-import m from "./cori.data.api383.js";
-import s from "./cori.data.api264.js";
-import u from "./cori.data.api393.js";
+import c from "./cori.data.api495.js";
+import m from "./cori.data.api496.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function x(t, r = {}) {
-  if (s(r))
-    return r(t) + "";
-  const o = typeof t;
-  if (o === "object") {
-    if (m(t))
-      return r.utc ? f(t) : n(t);
-    {
-      const e = JSON.stringify(
-        t,
-        (l, i) => u(i) ? Array.from(i) : i
-      ), a = r.maxlen || 30;
-      return e.length > a ? e.slice(0, 28) + "…" + (e[0] === "[" ? "]" : "}") : e;
-    }
-  } else if (o === "number") {
-    const e = r.digits || 0;
-    let a;
-    return t !== 0 && ((a = Math.abs(t)) >= 1e18 || a < Math.pow(10, -e)) ? t.toExponential(e) : t.toFixed(e);
-  } else
-    return t + "";
-}
+const b = (a, l, u = 3) => {
+  let d = 0;
+  const p = c(50, 250);
+  return m((o) => {
+    const t = o.loaded, e = o.lengthComputable ? o.total : void 0, s = t - d, n = p(s), i = t <= e;
+    d = t;
+    const r = {
+      loaded: t,
+      total: e,
+      progress: e ? t / e : void 0,
+      bytes: s,
+      rate: n || void 0,
+      estimated: n && e && i ? (e - t) / n : void 0,
+      event: o,
+      lengthComputable: e != null
+    };
+    r[l ? "download" : "upload"] = !0, a(r);
+  }, u);
+};
 export {
-  x as default
+  b as default
 };
 //# sourceMappingURL=cori.data.api391.js.map

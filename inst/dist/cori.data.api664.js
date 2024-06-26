@@ -1,7 +1,7 @@
 import x from "./cori.data.api665.js";
 import y from "./cori.data.api666.js";
-import A from "./cori.data.api637.js";
-import O from "./cori.data.api495.js";
+import A from "./cori.data.api639.js";
+import O from "./cori.data.api505.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

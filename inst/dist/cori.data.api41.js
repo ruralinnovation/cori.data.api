@@ -1,8 +1,8 @@
-import { cloneNode as d } from "./cori.data.api62.js";
-import { embedImages as l } from "./cori.data.api63.js";
-import { applyStyle as w } from "./cori.data.api64.js";
-import { embedWebFonts as u } from "./cori.data.api65.js";
-import { getImageSize as m, createImage as f, getPixelRatio as v, checkCanvasDimensions as y, nodeToDataURL as b } from "./cori.data.api66.js";
+import { cloneNode as d } from "./cori.data.api120.js";
+import { embedImages as l } from "./cori.data.api121.js";
+import { applyStyle as w } from "./cori.data.api122.js";
+import { embedWebFonts as u } from "./cori.data.api123.js";
+import { getImageSize as m, createImage as f, getPixelRatio as v, checkCanvasDimensions as y, nodeToDataURL as b } from "./cori.data.api124.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

@@ -1,35 +1,35 @@
-import f from "./cori.data.api83.js";
-import s from "./cori.data.api88.js";
+import d from "./cori.data.api548.js";
+import p from "./cori.data.api549.js";
+import f from "./cori.data.api326.js";
+import u from "./cori.data.api283.js";
+import s from "./cori.data.api287.js";
+import l from "./cori.data.api312.js";
+import x from "./cori.data.api284.js";
+import y from "./cori.data.api330.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const l = (t, c) => {
-  let u = new AbortController(), i;
-  const n = function(e) {
-    if (!i) {
-      i = !0, a();
-      const o = e instanceof Error ? e : this.reason;
-      u.abort(o instanceof s ? o : new f(o instanceof Error ? o.message : o));
-    }
-  };
-  let r = c && setTimeout(() => {
-    n(new s(`timeout ${c} of ms exceeded`, s.ETIMEDOUT));
-  }, c);
-  const a = () => {
-    t && (r && clearTimeout(r), r = null, t.forEach((e) => {
-      e && (e.removeEventListener ? e.removeEventListener("abort", n) : e.unsubscribe(n));
-    }), t = null);
-  };
-  t.forEach((e) => e && e.addEventListener && e.addEventListener("abort", n));
-  const { signal: b } = u;
-  return b.unsubscribe = a, [b, () => {
-    r && clearTimeout(r), r = null;
-  }];
-};
+function E(e, i) {
+  return d(e, b(e, i));
+}
+function b(e, i) {
+  let m = -1;
+  const t = /* @__PURE__ */ new Map(), n = (r) => t.set(++m + "", r);
+  return i.forEach((r) => {
+    const o = r.expr != null ? r.expr : r;
+    if (l(o) && !s(o))
+      for (const c in o)
+        n(o[c]);
+    else
+      n(
+        x(o) ? f(r, e.columnName(o)) : y(o) ? f(r) : s(o) ? r : u(`Invalid orderby field: ${r + ""}`)
+      );
+  }), p(e, t);
+}
 export {
-  l as default
+  E as default
 };
 //# sourceMappingURL=cori.data.api461.js.map

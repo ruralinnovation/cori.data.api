@@ -1,56 +1,39 @@
-import { Field as u } from "./cori.data.api499.js";
-import { DataBufferBuilder as r } from "./cori.data.api507.js";
-import { Builder as p } from "./cori.data.api503.js";
-import { Union as a } from "./cori.data.api407.js";
+import { Field as o } from "./cori.data.api509.js";
+import { Map_ as f } from "./cori.data.api422.js";
+import { VariableWidthBuilder as l } from "./cori.data.api513.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class l extends p {
-  constructor(e) {
-    super(e), this._typeIds = new r(Int8Array, 0, 1), typeof e.valueToChildTypeId == "function" && (this._valueToChildTypeId = e.valueToChildTypeId);
+class m extends l {
+  set(t, e) {
+    return super.set(t, e);
   }
-  get typeIdToChildIndex() {
-    return this.type.typeIdToChildIndex;
+  setValue(t, e) {
+    const s = e instanceof Map ? e : new Map(Object.entries(e)), n = this._pending || (this._pending = /* @__PURE__ */ new Map()), i = n.get(t);
+    i && (this._pendingLength -= i.size), this._pendingLength += s.size, n.set(t, s);
   }
-  append(e, s) {
-    return this.set(this.length, e, s);
+  addChild(t, e = `${this.numChildren}`) {
+    if (this.numChildren > 0)
+      throw new Error("ListBuilder can only have one child.");
+    return this.children[this.numChildren] = t, this.type = new f(new o(e, t.type, !0), this.type.keysSorted), this.numChildren - 1;
   }
-  set(e, s, t) {
-    return t === void 0 && (t = this._valueToChildTypeId(this, s, e)), this.setValue(e, s, t), this;
-  }
-  setValue(e, s, t) {
-    this._typeIds.set(e, t);
-    const n = this.type.typeIdToChildIndex[t], i = this.children[n];
-    i == null || i.set(e, s);
-  }
-  addChild(e, s = `${this.children.length}`) {
-    const t = this.children.push(e), { type: { children: n, mode: i, typeIds: d } } = this, h = [...n, new u(s, e.type)];
-    return this.type = new a(i, [...d, t], h), t;
-  }
-  /** @ignore */
-  // @ts-ignore
-  _valueToChildTypeId(e, s, t) {
-    throw new Error("Cannot map UnionBuilder value to child typeId. Pass the `childTypeId` as the second argument to unionBuilder.append(), or supply a `valueToChildTypeId` function as part of the UnionBuilder constructor options.");
-  }
-}
-class T extends l {
-}
-class C extends l {
-  constructor(e) {
-    super(e), this._offsets = new r(Int32Array);
-  }
-  /** @ignore */
-  setValue(e, s, t) {
-    const n = this._typeIds.set(e, t).buffer[e], i = this.getChildAt(this.type.typeIdToChildIndex[n]), d = this._offsets.set(e, i.length).buffer[e];
-    i == null || i.set(d, s);
+  _flushPending(t) {
+    const e = this._offsets, [s] = this.children;
+    for (const [n, i] of t)
+      if (i === void 0)
+        e.set(n, 0);
+      else {
+        let { [n]: r, [n + 1]: d } = e.set(n, i.size).buffer;
+        for (const h of i.entries())
+          if (s.set(r, h), ++r >= d)
+            break;
+      }
   }
 }
 export {
-  C as DenseUnionBuilder,
-  T as SparseUnionBuilder,
-  l as UnionBuilder
+  m as MapBuilder
 };
 //# sourceMappingURL=cori.data.api632.js.map

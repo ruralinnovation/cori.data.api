@@ -1,5 +1,5 @@
-import { footer as i } from "./cori.data.api371.js";
-import { createState as s } from "./cori.data.api372.js";
+import { footer as i } from "./cori.data.api379.js";
+import { createState as s } from "./cori.data.api380.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

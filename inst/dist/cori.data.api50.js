@@ -1,8 +1,8 @@
-import { bail as P } from "./cori.data.api312.js";
-import y from "./cori.data.api313.js";
-import z from "./cori.data.api314.js";
-import { CallableInstance as C } from "./cori.data.api315.js";
-import { trough as A } from "./cori.data.api316.js";
+import { bail as P } from "./cori.data.api253.js";
+import y from "./cori.data.api254.js";
+import z from "./cori.data.api255.js";
+import { CallableInstance as C } from "./cori.data.api256.js";
+import { trough as A } from "./cori.data.api257.js";
 import { VFile as S } from "./cori.data.api53.js";
 /*
  * CORI Data API component library

@@ -1,32 +1,20 @@
-import g from "./cori.data.api116.js";
+import o, { identity as i } from "./cori.data.api280.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var x = /[-+]?(?:\d+\.?\d*|\.?\d+)(?:[eE][-+]?\d+)?/g, c = new RegExp(x.source, "g");
-function p(i) {
-  return function() {
-    return i;
-  };
+var n;
+function s(t) {
+  const r = new (typeof DOMMatrix == "function" ? DOMMatrix : WebKitCSSMatrix)(t + "");
+  return r.isIdentity ? i : o(r.a, r.b, r.c, r.d, r.e, r.f);
 }
-function h(i) {
-  return function(n) {
-    return i(n) + "";
-  };
-}
-function v(i, n) {
-  var u = x.lastIndex = c.lastIndex = 0, o, l, t, r = -1, e = [], f = [];
-  for (i = i + "", n = n + ""; (o = x.exec(i)) && (l = c.exec(n)); )
-    (t = l.index) > u && (t = n.slice(u, t), e[r] ? e[r] += t : e[++r] = t), (o = o[0]) === (l = l[0]) ? e[r] ? e[r] += l : e[++r] = l : (e[++r] = null, f.push({ i: r, x: g(o, l) })), u = c.lastIndex;
-  return u < n.length && (t = n.slice(u), e[r] ? e[r] += t : e[++r] = t), e.length < 2 ? f[0] ? h(f[0].x) : p(n) : (n = f.length, function(d) {
-    for (var s = 0, a; s < n; ++s)
-      e[(a = f[s]).i] = a.x(d);
-    return e.join("");
-  });
+function f(t) {
+  return t == null ? i : (n || (n = document.createElementNS("http://www.w3.org/2000/svg", "g")), n.setAttribute("transform", t), (t = n.transform.baseVal.consolidate()) ? (t = t.matrix, o(t.a, t.b, t.c, t.d, t.e, t.f)) : i);
 }
 export {
-  v as default
+  s as parseCss,
+  f as parseSvg
 };
 //# sourceMappingURL=cori.data.api118.js.map
