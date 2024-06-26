@@ -4,22 +4,12 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function t(r) {
-  if (r === null)
-    return "null";
-  if (r === void 0)
-    return "undefined";
-  switch (typeof r) {
-    case "number":
-      return `${r}`;
-    case "bigint":
-      return `${r}`;
-    case "string":
-      return `"${r}"`;
-  }
-  return typeof r[Symbol.toPrimitive] == "function" ? r[Symbol.toPrimitive]("string") : ArrayBuffer.isView(r) ? r instanceof BigInt64Array || r instanceof BigUint64Array ? `[${[...r].map((n) => t(n))}]` : `[${r}]` : ArrayBuffer.isView(r) ? `[${r}]` : JSON.stringify(r, (n, i) => typeof i == "bigint" ? `${i}` : i);
+function o(t) {
+  if (typeof t == "bigint" && (t < Number.MIN_SAFE_INTEGER || t > Number.MAX_SAFE_INTEGER))
+    throw new TypeError(`${t} is not safe to convert to a number.`);
+  return Number(t);
 }
 export {
-  t as valueToString
+  o as bigIntToNumber
 };
 //# sourceMappingURL=cori.data.api562.js.map

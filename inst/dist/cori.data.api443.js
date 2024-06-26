@@ -1,22 +1,35 @@
-import f from "./cori.data.api523.js";
-import m from "./cori.data.api524.js";
-import n from "./cori.data.api319.js";
+import d from "./cori.data.api537.js";
+import p from "./cori.data.api538.js";
+import f from "./cori.data.api323.js";
+import u from "./cori.data.api280.js";
+import s from "./cori.data.api284.js";
+import l from "./cori.data.api309.js";
+import x from "./cori.data.api281.js";
+import y from "./cori.data.api327.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(r, o) {
-  const t = n({ p: o }, { table: r });
-  let e = t.exprs[0];
-  if (t.ops.length) {
-    const { data: p } = f(r, t, { drop: !0 }).column("p");
-    e = (i) => p[i];
-  }
-  return m(r, e);
+function E(e, i) {
+  return d(e, b(e, i));
+}
+function b(e, i) {
+  let m = -1;
+  const t = /* @__PURE__ */ new Map(), n = (r) => t.set(++m + "", r);
+  return i.forEach((r) => {
+    const o = r.expr != null ? r.expr : r;
+    if (l(o) && !s(o))
+      for (const c in o)
+        n(o[c]);
+    else
+      n(
+        x(o) ? f(r, e.columnName(o)) : y(o) ? f(r) : s(o) ? r : u(`Invalid orderby field: ${r + ""}`)
+      );
+  }), p(e, t);
 }
 export {
-  u as default
+  E as default
 };
 //# sourceMappingURL=cori.data.api443.js.map

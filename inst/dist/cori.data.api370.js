@@ -1,21 +1,18 @@
+import { deserialize as t } from "./cori.data.api479.js";
+import { serialize as u } from "./cori.data.api480.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(t, e) {
-  const p = { type: "text", value: e.value.replace(/\r?\n|\r/g, " ") };
-  t.patch(e, p);
-  const r = {
-    type: "element",
-    tagName: "code",
-    properties: {},
-    children: [p]
-  };
-  return t.patch(e, r), t.applyData(e, r);
-}
+const s = typeof structuredClone == "function" ? (
+  /* c8 ignore start */
+  (r, e) => e && ("json" in e || "lossy" in e) ? t(u(r, e)) : structuredClone(r)
+) : (r, e) => t(u(r, e));
 export {
-  a as inlineCode
+  s as default,
+  t as deserialize,
+  u as serialize
 };
 //# sourceMappingURL=cori.data.api370.js.map

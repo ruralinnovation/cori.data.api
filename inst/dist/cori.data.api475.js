@@ -4,93 +4,44 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var p = /\/\*[^*]*\*+([^/*][^*]*\*+)*\//g, N = /\n/g, O = /^\s*/, G = /^(\*?[-#/*\\\w]+(\[[0-9a-z_-]+\])?)\s*/, I = /^:\s*/, P = /^((?:'(?:\\'|.)*?'|"(?:\\"|.)*?"|\([^)]*?\)|[^};])+)/, d = /^[;\s]*/, S = /^\s+|\s+$/g, X = `
-`, R = "/", A = "*", i = "", L = "comment", M = "declaration", C = function(e, c) {
-  if (typeof e != "string")
-    throw new TypeError("First argument must be a string");
-  if (!e)
-    return [];
-  c = c || {};
-  var o = 1, t = 1;
-  function v(n) {
-    var r = n.match(N);
-    r && (o += r.length);
-    var a = n.lastIndexOf(X);
-    t = ~a ? n.length - a : t + n.length;
-  }
-  function E() {
-    var n = { line: o, column: t };
-    return function(r) {
-      return r.position = new f(n), m(), r;
-    };
-  }
-  function f(n) {
-    this.start = n, this.end = { line: o, column: t }, this.source = c.source;
-  }
-  f.prototype.content = e;
-  function h(n) {
-    var r = new Error(
-      c.source + ":" + o + ":" + t + ": " + n
-    );
-    if (r.reason = n, r.filename = c.source, r.line = o, r.column = t, r.source = e, !c.silent)
-      throw r;
-  }
-  function u(n) {
-    var r = n.exec(e);
-    if (r) {
-      var a = r[0];
-      return v(a), e = e.slice(a.length), r;
+const u = /[\0\t\n\r]/g;
+function x() {
+  let s = 1, c = "", f = !0, r;
+  return p;
+  function p(e, l, a) {
+    const t = [];
+    let d, o, n, i, h;
+    for (e = c + (typeof e == "string" ? e.toString() : new TextDecoder(l || void 0).decode(e)), n = 0, c = "", f && (e.charCodeAt(0) === 65279 && n++, f = void 0); n < e.length; ) {
+      if (u.lastIndex = n, d = u.exec(e), i = d && d.index !== void 0 ? d.index : e.length, h = e.charCodeAt(i), !d) {
+        c = e.slice(n);
+        break;
+      }
+      if (h === 10 && n === i && r)
+        t.push(-3), r = void 0;
+      else
+        switch (r && (t.push(-5), r = void 0), n < i && (t.push(e.slice(n, i)), s += i - n), h) {
+          case 0: {
+            t.push(65533), s++;
+            break;
+          }
+          case 9: {
+            for (o = Math.ceil(s / 4) * 4, t.push(-2); s++ < o; )
+              t.push(-1);
+            break;
+          }
+          case 10: {
+            t.push(-4), s = 1;
+            break;
+          }
+          default:
+            r = !0, s = 1;
+        }
+      n = i + 1;
     }
+    return a && (r && t.push(-5), c && t.push(c), t.push(null)), t;
   }
-  function m() {
-    u(O);
-  }
-  function s(n) {
-    var r;
-    for (n = n || []; r = l(); )
-      r !== !1 && n.push(r);
-    return n;
-  }
-  function l() {
-    var n = E();
-    if (!(R != e.charAt(0) || A != e.charAt(1))) {
-      for (var r = 2; i != e.charAt(r) && (A != e.charAt(r) || R != e.charAt(r + 1)); )
-        ++r;
-      if (r += 2, i === e.charAt(r - 1))
-        return h("End of comment missing");
-      var a = e.slice(2, r - 2);
-      return t += 2, v(a), e = e.slice(r), t += 2, n({
-        type: L,
-        comment: a
-      });
-    }
-  }
-  function T() {
-    var n = E(), r = u(G);
-    if (r) {
-      if (l(), !u(I))
-        return h("property missing ':'");
-      var a = u(P), w = n({
-        type: M,
-        property: _(r[0].replace(p, i)),
-        value: a ? _(a[0].replace(p, i)) : i
-      });
-      return u(d), w;
-    }
-  }
-  function g() {
-    var n = [];
-    s(n);
-    for (var r; r = T(); )
-      r !== !1 && (n.push(r), s(n));
-    return n;
-  }
-  return m(), g();
-};
-function _(e) {
-  return e ? e.replace(S, i) : i;
 }
 export {
-  C as i
+  x as preprocess
 };
 //# sourceMappingURL=cori.data.api475.js.map

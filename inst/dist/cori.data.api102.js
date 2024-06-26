@@ -6,7 +6,7 @@ import p from "./cori.data.api107.js";
 import u from "./cori.data.api108.js";
 import c from "./cori.data.api109.js";
 import l, { isNumberArray as s } from "./cori.data.api110.js";
-import n from "./cori.data.api86.js";
+import n from "./cori.data.api87.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

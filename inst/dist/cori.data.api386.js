@@ -1,30 +1,45 @@
-import { asciiAlphanumeric as f } from "./cori.data.api480.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function h(t) {
-  const s = [];
-  let r = -1, n = 0, i = 0;
-  for (; ++r < t.length; ) {
-    const e = t.charCodeAt(r);
-    let o = "";
-    if (e === 37 && f(t.charCodeAt(r + 1)) && f(t.charCodeAt(r + 2)))
-      i = 2;
-    else if (e < 128)
-      /[!#$&-;=?-Z_a-z~]/.test(String.fromCharCode(e)) || (o = String.fromCharCode(e));
-    else if (e > 55295 && e < 57344) {
-      const c = t.charCodeAt(r + 1);
-      e < 56320 && c > 56319 && c < 57344 ? (o = String.fromCharCode(e, c), i = 1) : o = "�";
-    } else
-      o = String.fromCharCode(e);
-    o && (s.push(t.slice(n, r), encodeURIComponent(o)), n = r + i + 1, o = ""), i && (r += i, i = 0);
+const u = function* (t, n) {
+  let r = t.byteLength;
+  if (!n || r < n) {
+    yield t;
+    return;
   }
-  return s.join("") + t.slice(n);
-}
+  let e = 0, a;
+  for (; e < r; )
+    a = e + n, yield t.slice(e, a), e = a;
+}, f = async function* (t, n, r) {
+  for await (const e of t)
+    yield* u(ArrayBuffer.isView(e) ? e : await r(String(e)), n);
+}, d = (t, n, r, e, a) => {
+  const i = f(t, n, a);
+  let y = 0;
+  return new ReadableStream({
+    type: "bytes",
+    async pull(l) {
+      const { done: c, value: s } = await i.next();
+      if (c) {
+        l.close(), e();
+        return;
+      }
+      let o = s.byteLength;
+      r && r(y += o), l.enqueue(new Uint8Array(s));
+    },
+    cancel(l) {
+      return e(l), i.return();
+    }
+  }, {
+    highWaterMark: 2
+  });
+};
 export {
-  h as normalizeUri
+  f as readBytes,
+  u as streamChunk,
+  d as trackStream
 };
 //# sourceMappingURL=cori.data.api386.js.map

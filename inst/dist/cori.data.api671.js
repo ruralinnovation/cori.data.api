@@ -1,5 +1,5 @@
-import { decodeNamedCharacterReference as k } from "./cori.data.api484.js";
-import { asciiAlphanumeric as u, asciiHexDigit as M, asciiDigit as p } from "./cori.data.api480.js";
+import { decodeNamedCharacterReference as k } from "./cori.data.api472.js";
+import { asciiAlphanumeric as u, asciiHexDigit as M, asciiDigit as p } from "./cori.data.api481.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

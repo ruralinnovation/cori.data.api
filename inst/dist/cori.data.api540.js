@@ -1,13 +1,39 @@
+import m from "./cori.data.api320.js";
+import e from "./cori.data.api387.js";
+import y from "./cori.data.api388.js";
+import $ from "./cori.data.api397.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function t(r, e) {
-  return r.create({ order: e });
+function s(t) {
+  const r = typeof t;
+  return r === "string" ? `"${t}"` : r !== "object" || !t ? t : e(t) ? +t : m(t) || $(t) ? `[${t.map(s)}]` : y(t) ? t + "" : k(t);
+}
+function k(t) {
+  let r = "{", o = -1;
+  for (const n in t)
+    ++o > 0 && (r += ","), r += `"${n}":${s(t[n])}`;
+  return r += "}", r;
+}
+function A(t, r) {
+  const o = t.length;
+  return o === 1 ? (n, c) => s(t[0](n, c)) : (n, c) => {
+    let p = "";
+    for (let i = 0; i < o; ++i) {
+      i > 0 && (p += "|");
+      const f = t[i](n, c);
+      if (r && (f == null || f !== f))
+        return null;
+      p += s(f);
+    }
+    return p;
+  };
 }
 export {
-  t as default
+  A as default,
+  s as key
 };
 //# sourceMappingURL=cori.data.api540.js.map

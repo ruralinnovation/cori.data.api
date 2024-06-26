@@ -1,30 +1,23 @@
-import { rowLookup as g } from "./cori.data.api627.js";
-import { aggregateGet as _ } from "./cori.data.api542.js";
-import $ from "./cori.data.api303.js";
-import k from "./cori.data.api427.js";
-import w from "./cori.data.api628.js";
-import h from "./cori.data.api494.js";
+import i from "./cori.data.api287.js";
+import f from "./cori.data.api280.js";
+import s from "./cori.data.api327.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function S(r, a, [n, p], { names: c, exprs: s, ops: d }) {
-  const m = $(r), i = r.totalRows();
-  c.forEach((o) => m.add(o, Array(i).fill(k)));
-  const u = g(a, p), l = h(
-    ["lr", "rr", "data"],
-    "{" + w(c, (o, t) => `_[${t}][lr] = $[${t}](rr, data);`) + "}",
-    c.map((o) => m.data[o]),
-    _(a, d, s)
-  ), e = a.data();
-  return r.scan((o, t) => {
-    const f = u.get(n(o, t));
-    f >= 0 && l(o, f, e);
-  }), r.create(m);
+function a(t, e) {
+  const n = i();
+  return e.forEach((r, o) => {
+    const c = s(r) ? r : o;
+    if (c) {
+      const m = t.column(o) || f(`Unrecognized column: ${o}`);
+      n.add(c, m);
+    }
+  }), t.create(n);
 }
 export {
-  S as default
+  a as default
 };
 //# sourceMappingURL=cori.data.api532.js.map

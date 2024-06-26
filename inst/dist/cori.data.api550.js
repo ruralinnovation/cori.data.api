@@ -1,5 +1,5 @@
 import l from "./cori.data.api641.js";
-import { array as f, arrowVector as y } from "./cori.data.api36.js";
+import { array as f, arrowVector as y } from "./cori.data.api32.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

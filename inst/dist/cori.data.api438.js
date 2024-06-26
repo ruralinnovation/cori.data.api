@@ -1,18 +1,15 @@
+import o from "./cori.data.api532.js";
+import t from "./cori.data.api295.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function h(e, l, u) {
-  let n = arguments.length;
-  e = +e, l = +l, u = n < 2 ? (l = e, e = 0, 1) : n < 3 ? 1 : +u, n = Math.max(0, Math.ceil((l - e) / u)) | 0;
-  const f = new Array(n);
-  for (let c = 0; c < n; ++c)
-    f[c] = e + c * u;
-  return f;
+function s(e, r) {
+  return o(e, t(e, r));
 }
 export {
-  h as default
+  s as default
 };
 //# sourceMappingURL=cori.data.api438.js.map

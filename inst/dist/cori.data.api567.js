@@ -4,11 +4,9 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var N;
-(function(A) {
-  A[A.YEAR_MONTH = 0] = "YEAR_MONTH", A[A.DAY_TIME = 1] = "DAY_TIME", A[A.MONTH_DAY_NANO = 2] = "MONTH_DAY_NANO";
-})(N || (N = {}));
+const o = new TextDecoder("utf-8"), d = (e) => o.decode(e), c = new TextEncoder(), n = (e) => c.encode(e);
 export {
-  N as IntervalUnit
+  d as decodeUtf8,
+  n as encodeUtf8
 };
 //# sourceMappingURL=cori.data.api567.js.map

@@ -1,4 +1,4 @@
-import { array as e } from "./cori.data.api36.js";
+import { array as e } from "./cori.data.api32.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

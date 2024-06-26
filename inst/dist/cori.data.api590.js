@@ -1,7 +1,7 @@
 import { SIZE_PREFIX_LENGTH as r } from "./cori.data.api642.js";
 import "./cori.data.api569.js";
 import "./cori.data.api570.js";
-import { UnionMode as i } from "./cori.data.api561.js";
+import { UnionMode as i } from "./cori.data.api560.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

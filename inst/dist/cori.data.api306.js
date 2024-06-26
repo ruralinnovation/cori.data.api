@@ -1,19 +1,18 @@
-import a from "./cori.data.api315.js";
-import { tableToIPC as f } from "./cori.data.api399.js";
+import { FunctionExpression as o, ArrowFunctionExpression as t } from "./cori.data.api304.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s(r, t = {}) {
-  const { format: o, ...e } = t, m = o || "stream";
-  if (!["stream", "file"].includes(m))
-    throw Error("Unrecognised output format");
-  return f(a(r, e), o);
+function i(n, r) {
+  return r && r.type === n;
+}
+function u(n) {
+  return i(o, n) || i(t, n);
 }
 export {
-  a as default,
-  s as toArrowIPC
+  i as is,
+  u as isFunctionExpression
 };
 //# sourceMappingURL=cori.data.api306.js.map

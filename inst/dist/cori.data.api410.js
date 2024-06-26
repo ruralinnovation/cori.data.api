@@ -1,247 +1,274 @@
-import { Type as y } from "./cori.data.api499.js";
-import { makeData as A, Data as k } from "./cori.data.api505.js";
-import { Vector as w } from "./cori.data.api417.js";
-import { Schema as m, Field as R } from "./cori.data.api500.js";
-import { Null as _, Struct as B } from "./cori.data.api418.js";
-import { compareSchemas as V } from "./cori.data.api513.js";
-import { distributeVectorsIntoRecordBatches as C } from "./cori.data.api568.js";
-import { computeChunkOffsets as T, computeChunkNullCounts as M, sliceChunks as N, wrapChunkedCall1 as S, wrapChunkedCall2 as O, wrapChunkedIndexOf as F, isChunkedValid as I } from "./cori.data.api554.js";
-import { instance as $ } from "./cori.data.api555.js";
-import { instance as E } from "./cori.data.api556.js";
-import { instance as j } from "./cori.data.api557.js";
-import { instance as D } from "./cori.data.api558.js";
-import { clampRange as U } from "./cori.data.api553.js";
-import { RecordBatch as u } from "./cori.data.api516.js";
+import { Type as c } from "./cori.data.api497.js";
+import { clampRange as k } from "./cori.data.api552.js";
+import { strideForType as S, DataType as y } from "./cori.data.api411.js";
+import { Data as V } from "./cori.data.api504.js";
+import { computeChunkOffsets as D, isChunkedValid as v, computeChunkNullable as j, computeChunkNullCounts as N, sliceChunks as x, wrapChunkedCall1 as p, wrapChunkedCall2 as z, wrapChunkedIndexOf as A } from "./cori.data.api553.js";
+import { instance as m } from "./cori.data.api554.js";
+import { instance as g } from "./cori.data.api555.js";
+import { instance as b } from "./cori.data.api556.js";
+import { instance as F } from "./cori.data.api557.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var v;
+var w;
+const I = {}, O = {};
 class o {
-  constructor(...t) {
-    var e, s;
-    if (t.length === 0)
-      return this.batches = [], this.schema = new m([]), this._offsets = [0], this;
-    let i, r;
-    t[0] instanceof m && (i = t.shift()), t.at(-1) instanceof Uint32Array && (r = t.pop());
-    const l = (n) => {
-      if (n) {
-        if (n instanceof u)
-          return [n];
-        if (n instanceof o)
-          return n.batches;
-        if (n instanceof k) {
-          if (n.type instanceof B)
-            return [new u(new m(n.type.children), n)];
-        } else {
-          if (Array.isArray(n))
-            return n.flatMap((c) => l(c));
-          if (typeof n[Symbol.iterator] == "function")
-            return [...n].flatMap((c) => l(c));
-          if (typeof n == "object") {
-            const c = Object.keys(n), f = c.map((p) => new w([n[p]])), g = i ?? new m(c.map((p, b) => new R(String(p), f[b].type, f[b].nullable))), [, d] = C(g, f);
-            return d.length === 0 ? [new u(n)] : d;
-          }
-        }
+  constructor(e) {
+    var t, s, n;
+    const r = e[0] instanceof o ? e.flatMap((a) => a.data) : e;
+    if (r.length === 0 || r.some((a) => !(a instanceof V)))
+      throw new TypeError("Vector constructor expects an Array of Data instances.");
+    const i = (t = r[0]) === null || t === void 0 ? void 0 : t.type;
+    switch (r.length) {
+      case 0:
+        this._offsets = [0];
+        break;
+      case 1: {
+        const { get: a, set: l, indexOf: T } = I[i.typeId], u = r[0];
+        this.isValid = (h) => v(u, h), this.get = (h) => a(u, h), this.set = (h, C) => l(u, h, C), this.indexOf = (h) => T(u, h), this._offsets = [0, u.length];
+        break;
       }
-      return [];
-    }, a = t.flatMap((n) => l(n));
-    if (i = (s = i ?? ((e = a[0]) === null || e === void 0 ? void 0 : e.schema)) !== null && s !== void 0 ? s : new m([]), !(i instanceof m))
-      throw new TypeError("Table constructor expects a [Schema, RecordBatch[]] pair.");
-    for (const n of a) {
-      if (!(n instanceof u))
-        throw new TypeError("Table constructor expects a [Schema, RecordBatch[]] pair.");
-      if (!V(i, n.schema))
-        throw new TypeError("Table and inner RecordBatch schemas must be equivalent.");
+      default:
+        Object.setPrototypeOf(this, O[i.typeId]), this._offsets = D(r);
+        break;
     }
-    this.schema = i, this.batches = a, this._offsets = r ?? T(this.data);
+    this.data = r, this.type = i, this.stride = S(i), this.numChildren = (n = (s = i.children) === null || s === void 0 ? void 0 : s.length) !== null && n !== void 0 ? n : 0, this.length = this._offsets.at(-1);
   }
   /**
-   * The contiguous {@link RecordBatch `RecordBatch`} chunks of the Table rows.
+   * The aggregate size (in bytes) of this Vector's buffers and/or child Vectors.
    */
-  get data() {
-    return this.batches.map(({ data: t }) => t);
+  get byteLength() {
+    return this.data.reduce((e, t) => e + t.byteLength, 0);
   }
   /**
-   * The number of columns in this Table.
+   * Whether this Vector's elements can contain null values.
    */
-  get numCols() {
-    return this.schema.fields.length;
+  get nullable() {
+    return j(this.data);
   }
   /**
-   * The number of rows in this Table.
-   */
-  get numRows() {
-    return this.data.reduce((t, e) => t + e.length, 0);
-  }
-  /**
-   * The number of null rows in this Table.
+   * The number of null elements in this Vector.
    */
   get nullCount() {
-    return this._nullCount === -1 && (this._nullCount = M(this.data)), this._nullCount;
+    return N(this.data);
+  }
+  /**
+   * The Array or TypedArray constructor used for the JS representation
+   *  of the element's values in {@link Vector.prototype.toArray `toArray()`}.
+   */
+  get ArrayType() {
+    return this.type.ArrayType;
+  }
+  /**
+   * The name that should be printed when the Vector is logged in a message.
+   */
+  get [Symbol.toStringTag]() {
+    return `${this.VectorName}<${this.type[Symbol.toStringTag]}>`;
+  }
+  /**
+   * The name of this Vector.
+   */
+  get VectorName() {
+    return `${c[this.type.typeId]}Vector`;
   }
   /**
    * Check whether an element is null.
-   *
    * @param index The index at which to read the validity bitmap.
    */
   // @ts-ignore
-  isValid(t) {
+  isValid(e) {
     return !1;
   }
   /**
    * Get an element value by position.
-   *
    * @param index The index of the element to read.
    */
   // @ts-ignore
-  get(t) {
+  get(e) {
     return null;
   }
   /**
    * Set an element value by position.
-   *
    * @param index The index of the element to write.
    * @param value The value to set.
    */
   // @ts-ignore
-  set(t, e) {
+  set(e, t) {
   }
   /**
    * Retrieve the index of the first occurrence of a value in an Vector.
-   *
    * @param element The value to locate in the Vector.
    * @param offset The index at which to begin the search. If offset is omitted, the search starts at index 0.
    */
   // @ts-ignore
-  indexOf(t, e) {
+  indexOf(e, t) {
     return -1;
   }
-  /**
-   * Iterator for rows in this Table.
-   */
-  [Symbol.iterator]() {
-    return this.batches.length > 0 ? D.visit(new w(this.data)) : new Array(0)[Symbol.iterator]();
+  includes(e, t) {
+    return this.indexOf(e, t) > -1;
   }
   /**
-   * Return a JavaScript Array of the Table rows.
-   *
-   * @returns An Array of Table rows.
+   * Iterator for the Vector's elements.
    */
-  toArray() {
+  [Symbol.iterator]() {
+    return F.visit(this);
+  }
+  /**
+   * Combines two or more Vectors of the same type.
+   * @param others Additional Vectors to add to the end of this Vector.
+   */
+  concat(...e) {
+    return new o(this.data.concat(e.flatMap((t) => t.data).flat(Number.POSITIVE_INFINITY)));
+  }
+  /**
+   * Return a zero-copy sub-section of this Vector.
+   * @param start The beginning of the specified portion of the Vector.
+   * @param end The end of the specified portion of the Vector. This is exclusive of the element at the index 'end'.
+   */
+  slice(e, t) {
+    return new o(k(this, e, t, ({ data: s, _offsets: n }, r, i) => x(s, n, r, i)));
+  }
+  toJSON() {
     return [...this];
   }
   /**
-   * Returns a string representation of the Table rows.
+   * Return a JavaScript Array or TypedArray of the Vector's elements.
    *
-   * @returns A string representation of the Table rows.
+   * @note If this Vector contains a single Data chunk and the Vector's type is a
+   *  primitive numeric type corresponding to one of the JavaScript TypedArrays, this
+   *  method returns a zero-copy slice of the underlying TypedArray values. If there's
+   *  more than one chunk, the resulting TypedArray will be a copy of the data from each
+   *  chunk's underlying TypedArray values.
+   *
+   * @returns An Array or TypedArray of the Vector's elements, based on the Vector's DataType.
+   */
+  toArray() {
+    const { type: e, data: t, length: s, stride: n, ArrayType: r } = this;
+    switch (e.typeId) {
+      case c.Int:
+      case c.Float:
+      case c.Decimal:
+      case c.Time:
+      case c.Timestamp:
+        switch (t.length) {
+          case 0:
+            return new r();
+          case 1:
+            return t[0].values.subarray(0, s * n);
+          default:
+            return t.reduce((i, { values: a, length: l }) => (i.array.set(a.subarray(0, l * n), i.offset), i.offset += l * n, i), { array: new r(s * n), offset: 0 }).array;
+        }
+    }
+    return [...this];
+  }
+  /**
+   * Returns a string representation of the Vector.
+   *
+   * @returns A string representation of the Vector.
    */
   toString() {
-    return `[
-  ${this.toArray().join(`,
-  `)}
-]`;
-  }
-  /**
-   * Combines two or more Tables of the same schema.
-   *
-   * @param others Additional Tables to add to the end of this Tables.
-   */
-  concat(...t) {
-    const e = this.schema, s = this.data.concat(t.flatMap(({ data: i }) => i));
-    return new o(e, s.map((i) => new u(e, i)));
-  }
-  /**
-   * Return a zero-copy sub-section of this Table.
-   *
-   * @param begin The beginning of the specified portion of the Table.
-   * @param end The end of the specified portion of the Table. This is exclusive of the element at the index 'end'.
-   */
-  slice(t, e) {
-    const s = this.schema;
-    [t, e] = U({ length: this.numRows }, t, e);
-    const i = N(this.data, this._offsets, t, e);
-    return new o(s, i.map((r) => new u(s, r)));
+    return `[${[...this].join(",")}]`;
   }
   /**
    * Returns a child Vector by name, or null if this Vector has no child with the given name.
-   *
    * @param name The name of the child to retrieve.
    */
-  getChild(t) {
-    return this.getChildAt(this.schema.fields.findIndex((e) => e.name === t));
+  getChild(e) {
+    var t;
+    return this.getChildAt((t = this.type.children) === null || t === void 0 ? void 0 : t.findIndex((s) => s.name === e));
   }
   /**
    * Returns a child Vector by index, or null if this Vector has no child at the supplied index.
-   *
    * @param index The index of the child to retrieve.
    */
-  getChildAt(t) {
-    if (t > -1 && t < this.schema.fields.length) {
-      const e = this.data.map((s) => s.children[t]);
-      if (e.length === 0) {
-        const { type: s } = this.schema.fields[t], i = A({ type: s, length: 0, nullCount: 0 });
-        e.push(i._changeLengthAndBackfillNullBitmap(this.numRows));
-      }
-      return new w(e);
+  getChildAt(e) {
+    return e > -1 && e < this.numChildren ? new o(this.data.map(({ children: t }) => t[e])) : null;
+  }
+  get isMemoized() {
+    return y.isDictionary(this.type) ? this.data[0].dictionary.isMemoized : !1;
+  }
+  /**
+   * Adds memoization to the Vector's {@link get} method. For dictionary
+   * vectors, this method return a vector that memoizes only the dictionary
+   * values.
+   *
+   * Memoization is very useful when decoding a value is expensive such as
+   * Utf8. The memoization creates a cache of the size of the Vector and
+   * therefore increases memory usage.
+   *
+   * @returns A new vector that memoizes calls to {@link get}.
+   */
+  memoize() {
+    if (y.isDictionary(this.type)) {
+      const e = new f(this.data[0].dictionary), t = this.data.map((s) => {
+        const n = s.clone();
+        return n.dictionary = e, n;
+      });
+      return new o(t);
     }
-    return null;
+    return new f(this);
   }
   /**
-   * Sets a child Vector by name.
+   * Returns a vector without memoization of the {@link get} method. If this
+   * vector is not memoized, this method returns this vector.
    *
-   * @param name The name of the child to overwrite.
-   * @returns A new Table with the supplied child for the specified name.
+   * @returns A new vector without memoization.
    */
-  setChild(t, e) {
-    var s;
-    return this.setChildAt((s = this.schema.fields) === null || s === void 0 ? void 0 : s.findIndex((i) => i.name === t), e);
-  }
-  setChildAt(t, e) {
-    let s = this.schema, i = [...this.batches];
-    if (t > -1 && t < this.numCols) {
-      e || (e = new w([A({ type: new _(), length: this.numRows })]));
-      const r = s.fields.slice(), l = r[t].clone({ type: e.type }), a = this.schema.fields.map((n, c) => this.getChildAt(c));
-      [r[t], a[t]] = [l, e], [s, i] = C(s, a);
+  unmemoize() {
+    if (y.isDictionary(this.type) && this.isMemoized) {
+      const e = this.data[0].dictionary.unmemoize(), t = this.data.map((s) => {
+        const n = s.clone();
+        return n.dictionary = e, n;
+      });
+      return new o(t);
     }
-    return new o(s, i);
-  }
-  /**
-   * Construct a new Table containing only specified columns.
-   *
-   * @param columnNames Names of columns to keep.
-   * @returns A new Table of columns matching the specified names.
-   */
-  select(t) {
-    const e = this.schema.fields.reduce((s, i, r) => s.set(i.name, r), /* @__PURE__ */ new Map());
-    return this.selectAt(t.map((s) => e.get(s)).filter((s) => s > -1));
-  }
-  /**
-   * Construct a new Table containing only columns at the specified indices.
-   *
-   * @param columnIndices Indices of columns to keep.
-   * @returns A new Table of columns at the specified indices.
-   */
-  selectAt(t) {
-    const e = this.schema.selectAt(t), s = this.batches.map((i) => i.selectAt(t));
-    return new o(e, s);
-  }
-  assign(t) {
-    const e = this.schema.fields, [s, i] = t.schema.fields.reduce((a, n, c) => {
-      const [f, g] = a, d = e.findIndex((p) => p.name === n.name);
-      return ~d ? g[d] = c : f.push(c), a;
-    }, [[], []]), r = this.schema.assign(t.schema), l = [
-      ...e.map((a, n) => [n, i[n]]).map(([a, n]) => n === void 0 ? this.getChildAt(a) : t.getChildAt(n)),
-      ...s.map((a) => t.getChildAt(a))
-    ].filter(Boolean);
-    return new o(...C(r, l));
+    return this;
   }
 }
-v = Symbol.toStringTag;
-o[v] = ((h) => (h.schema = null, h.batches = [], h._offsets = new Uint32Array([0]), h._nullCount = -1, h[Symbol.isConcatSpreadable] = !0, h.isValid = S(I), h.get = S($.getVisitFn(y.Struct)), h.set = O(E.getVisitFn(y.Struct)), h.indexOf = F(j.getVisitFn(y.Struct)), "Table"))(o.prototype);
+w = Symbol.toStringTag;
+o[w] = ((d) => {
+  d.type = y.prototype, d.data = [], d.length = 0, d.stride = 1, d.numChildren = 0, d._offsets = new Uint32Array([0]), d[Symbol.isConcatSpreadable] = !0;
+  const e = Object.keys(c).map((t) => c[t]).filter((t) => typeof t == "number" && t !== c.NONE);
+  for (const t of e) {
+    const s = m.getVisitFnByTypeId(t), n = g.getVisitFnByTypeId(t), r = b.getVisitFnByTypeId(t);
+    I[t] = { get: s, set: n, indexOf: r }, O[t] = Object.create(d, {
+      isValid: { value: p(v) },
+      get: { value: p(m.getVisitFnByTypeId(t)) },
+      set: { value: z(g.getVisitFnByTypeId(t)) },
+      indexOf: { value: A(b.getVisitFnByTypeId(t)) }
+    });
+  }
+  return "Vector";
+})(o.prototype);
+class f extends o {
+  constructor(e) {
+    super(e.data);
+    const t = this.get, s = this.set, n = this.slice, r = new Array(this.length);
+    Object.defineProperty(this, "get", {
+      value(i) {
+        const a = r[i];
+        if (a !== void 0)
+          return a;
+        const l = t.call(this, i);
+        return r[i] = l, l;
+      }
+    }), Object.defineProperty(this, "set", {
+      value(i, a) {
+        s.call(this, i, a), r[i] = a;
+      }
+    }), Object.defineProperty(this, "slice", {
+      value: (i, a) => new f(n.call(this, i, a))
+    }), Object.defineProperty(this, "isMemoized", { value: !0 }), Object.defineProperty(this, "unmemoize", {
+      value: () => new o(this.data)
+    }), Object.defineProperty(this, "memoize", {
+      value: () => this
+    });
+  }
+}
 export {
-  o as Table
+  o as Vector
 };
 //# sourceMappingURL=cori.data.api410.js.map

@@ -1,5 +1,5 @@
-import { FixedWidthBuilder as r } from "./cori.data.api504.js";
-import { setIntervalValue as a, setIntervalDayTime as l, setIntervalYearMonth as s } from "./cori.data.api556.js";
+import { FixedWidthBuilder as r } from "./cori.data.api503.js";
+import { setIntervalValue as a, setIntervalDayTime as l, setIntervalYearMonth as s } from "./cori.data.api555.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

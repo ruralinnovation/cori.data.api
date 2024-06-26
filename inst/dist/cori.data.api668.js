@@ -1,5 +1,5 @@
 import { factorySpace as f } from "./cori.data.api658.js";
-import { markdownSpace as d, markdownLineEnding as s } from "./cori.data.api480.js";
+import { markdownSpace as d, markdownLineEnding as s } from "./cori.data.api481.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

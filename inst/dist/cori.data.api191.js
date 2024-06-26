@@ -1,4 +1,4 @@
-import { Selection as o } from "./cori.data.api50.js";
+import { Selection as o } from "./cori.data.api58.js";
 import m from "./cori.data.api222.js";
 /*
  * CORI Data API component library

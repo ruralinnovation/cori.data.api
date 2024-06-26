@@ -1,11 +1,18 @@
+import { Schema as c } from "./cori.data.api455.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const r = Array.isArray;
+function p(e, o) {
+  const t = {}, n = {};
+  let r = -1;
+  for (; ++r < e.length; )
+    Object.assign(t, e[r].property), Object.assign(n, e[r].normal);
+  return new c(t, n, o);
+}
 export {
-  r as default
+  p as merge
 };
 //# sourceMappingURL=cori.data.api336.js.map

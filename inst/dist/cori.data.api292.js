@@ -1,59 +1,39 @@
+import F from "./cori.data.api284.js";
+import "./cori.data.api31.js";
+import "./cori.data.api32.js";
+import { columns as V, formats as j, scan as w } from "./cori.data.api394.js";
+import H from "./cori.data.api395.js";
+import L from "./cori.data.api298.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(t) {
-  return t.split(/,/)[1];
+function C(c, r = {}) {
+  const s = V(c, r.columns), { align: g, format: h } = j(c, s, r), m = M(r), a = r.null, y = (t) => t === "c" ? "center" : t === "r" ? "right" : "left", $ = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"), f = (t, o) => $(H(t, o)), x = a ? (t, o) => t == null ? a(t) : f(t, o) : f;
+  let l = -1, i = -1;
+  const e = (t, o, b) => {
+    const u = b ? y(g[o]) : "", p = m[t] && m[t](o, i, l) || "", d = (u ? `text-align: ${u};` + (p ? " " : "") : "") + p;
+    return `<${t}${d ? ` style="${d}"` : ""}>`;
+  };
+  let n = e("table") + e("thead") + e("tr", l) + s.map((t) => `${e("th", t, 1)}${t}</th>`).join("") + "</tr></thead>" + e("tbody");
+  return w(c, s, r.limit, r.offset, {
+    row(t) {
+      l = t, n += (++i ? "</tr>" : "") + e("tr");
+    },
+    cell(t, o) {
+      n += e("td", o, 1) + x(t, h[o]) + "</td>";
+    }
+  }), n + "</tr></tbody></table>";
 }
-function w(t) {
-  return t.search(/^(data:)/) !== -1;
-}
-function l(t, a) {
-  return `data:${a};base64,${t}`;
-}
-async function h(t, a, r) {
-  const e = await fetch(t, a);
-  if (e.status === 404)
-    throw new Error(`Resource "${e.url}" not found`);
-  const o = await e.blob();
-  return new Promise((n, c) => {
-    const s = new FileReader();
-    s.onerror = c, s.onloadend = () => {
-      try {
-        n(r({ res: e, result: s.result }));
-      } catch (f) {
-        c(f);
-      }
-    }, s.readAsDataURL(o);
-  });
-}
-const i = {};
-function d(t, a, r) {
-  let e = t.replace(/\?.*/, "");
-  return r && (e = t), /ttf|otf|eot|woff2?/i.test(e) && (e = e.replace(/.*\//, "")), a ? `[${a}]${e}` : e;
-}
-async function g(t, a, r) {
-  const e = d(t, a, r.includeQueryParams);
-  if (i[e] != null)
-    return i[e];
-  r.cacheBust && (t += (/\?/.test(t) ? "&" : "?") + (/* @__PURE__ */ new Date()).getTime());
-  let o;
-  try {
-    const n = await h(t, r.fetchRequestInit, ({ res: c, result: s }) => (a || (a = c.headers.get("Content-Type") || ""), u(s)));
-    o = l(n, a);
-  } catch (n) {
-    o = r.imagePlaceholder || "";
-    let c = `Failed to fetch resource: ${t}`;
-    n && (c = typeof n == "string" ? n : n.message), c && console.warn(c);
-  }
-  return i[e] = o, o;
+function M(c) {
+  return L(
+    c.style,
+    (r) => F(r) ? r : () => r
+  );
 }
 export {
-  h as fetchAsDataURL,
-  w as isDataUrl,
-  l as makeDataUrl,
-  g as resourceToDataURL
+  C as default
 };
 //# sourceMappingURL=cori.data.api292.js.map

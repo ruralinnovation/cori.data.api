@@ -1,6 +1,6 @@
-import { valueToString as u } from "./cori.data.api562.js";
-import { instance as o } from "./cori.data.api555.js";
-import { instance as h } from "./cori.data.api556.js";
+import { valueToString as u } from "./cori.data.api561.js";
+import { instance as o } from "./cori.data.api554.js";
+import { instance as h } from "./cori.data.api555.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

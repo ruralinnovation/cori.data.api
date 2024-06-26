@@ -1,4 +1,4 @@
-import { markdownSpace as m } from "./cori.data.api480.js";
+import { markdownSpace as m } from "./cori.data.api481.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

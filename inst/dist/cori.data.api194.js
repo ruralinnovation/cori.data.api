@@ -1,6 +1,6 @@
-import { Selection as B } from "./cori.data.api50.js";
+import { Selection as B } from "./cori.data.api58.js";
 import { EnterNode as a } from "./cori.data.api195.js";
-import E from "./cori.data.api254.js";
+import E from "./cori.data.api276.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

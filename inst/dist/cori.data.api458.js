@@ -1,19 +1,21 @@
-import o from "./cori.data.api538.js";
-import u from "./cori.data.api526.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function n(l, m, r) {
-  return o(
-    l,
-    u("unroll", l, m),
-    r && r.drop ? { ...r, drop: u("unroll", l, r.drop).names } : r
-  );
+let o = 0;
+const n = e(), t = e(), a = e(), c = e(), r = e(), s = e(), p = e();
+function e() {
+  return 2 ** ++o;
 }
 export {
-  n as default
+  n as boolean,
+  t as booleanish,
+  p as commaOrSpaceSeparated,
+  s as commaSeparated,
+  c as number,
+  a as overloadedBoolean,
+  r as spaceSeparated
 };
 //# sourceMappingURL=cori.data.api458.js.map

@@ -1,45 +1,40 @@
+import { ObjectExpression as m, Property as n, Literal as c } from "./cori.data.api304.js";
+import f from "./cori.data.api307.js";
+import s from "./cori.data.api308.js";
+import u from "./cori.data.api391.js";
+import y from "./cori.data.api297.js";
+import w from "./cori.data.api320.js";
+import O from "./cori.data.api328.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const u = function* (t, n) {
-  let r = t.byteLength;
-  if (!n || r < n) {
-    yield t;
-    return;
+const B = "row_object";
+function a(r, t) {
+  r.type = m;
+  const e = r.properties = [];
+  for (const o of y(t)) {
+    const [p, i] = w(o) ? o : [o, o];
+    e.push({
+      type: n,
+      key: { type: c, raw: O(i) },
+      value: u({ computed: !0 }, p)
+    });
   }
-  let e = 0, a;
-  for (; e < r; )
-    a = e + n, yield t.slice(e, a), e = a;
-}, f = async function* (t, n, r) {
-  for await (const e of t)
-    yield* u(ArrayBuffer.isView(e) ? e : await r(String(e)), n);
-}, d = (t, n, r, e, a) => {
-  const i = f(t, n, a);
-  let y = 0;
-  return new ReadableStream({
-    type: "bytes",
-    async pull(l) {
-      const { done: c, value: s } = await i.next();
-      if (c) {
-        l.close(), e();
-        return;
-      }
-      let o = s.byteLength;
-      r && r(y += o), l.enqueue(new Uint8Array(s));
-    },
-    cancel(l) {
-      return e(l), i.return();
-    }
-  }, {
-    highWaterMark: 2
-  });
-};
+  return r;
+}
+function b(r) {
+  return f(a({}, r));
+}
+function C(r) {
+  return s.expr(b(r));
+}
 export {
-  f as readBytes,
-  u as streamChunk,
-  d as trackStream
+  B as ROW_OBJECT,
+  C as rowObjectBuilder,
+  b as rowObjectCode,
+  a as rowObjectExpression
 };
 //# sourceMappingURL=cori.data.api289.js.map

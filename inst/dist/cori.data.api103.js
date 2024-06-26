@@ -1,5 +1,5 @@
 import y, { gamma as e } from "./cori.data.api114.js";
-import { rgb as c } from "./cori.data.api86.js";
+import { rgb as c } from "./cori.data.api87.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

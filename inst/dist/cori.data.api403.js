@@ -4,10 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function f(e, t = !0, u = !1) {
-  return e === void 0 || e ? t : u;
+function t(n) {
+  return n != null && n === n;
 }
 export {
-  f as default
+  t as default
 };
 //# sourceMappingURL=cori.data.api403.js.map

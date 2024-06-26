@@ -1,101 +1,18 @@
-import { __awaiter as t } from "./cori.data.api502.js";
-import i from "./cori.data.api501.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const s = Object.freeze({ done: !0, value: void 0 });
-class n {
-  tee() {
-    return this._getDOMStream().tee();
-  }
-  pipe(e, r) {
-    return this._getNodeStream().pipe(e, r);
-  }
-  pipeTo(e, r) {
-    return this._getDOMStream().pipeTo(e, r);
-  }
-  pipeThrough(e, r) {
-    return this._getDOMStream().pipeThrough(e, r);
-  }
-  _getDOMStream() {
-    return this._DOMStream || (this._DOMStream = this.toDOMStream());
-  }
-  _getNodeStream() {
-    return this._nodeStream || (this._nodeStream = this.toNodeStream());
-  }
-}
-class d extends n {
-  constructor() {
-    super(), this._values = [], this.resolvers = [], this._closedPromise = new Promise((e) => this._closedPromiseResolve = e);
-  }
-  get closed() {
-    return this._closedPromise;
-  }
-  cancel(e) {
-    return t(this, void 0, void 0, function* () {
-      yield this.return(e);
-    });
-  }
-  write(e) {
-    this._ensureOpen() && (this.resolvers.length <= 0 ? this._values.push(e) : this.resolvers.shift().resolve({ done: !1, value: e }));
-  }
-  abort(e) {
-    this._closedPromiseResolve && (this.resolvers.length <= 0 ? this._error = { error: e } : this.resolvers.shift().reject({ done: !0, value: e }));
-  }
-  close() {
-    if (this._closedPromiseResolve) {
-      const { resolvers: e } = this;
-      for (; e.length > 0; )
-        e.shift().resolve(s);
-      this._closedPromiseResolve(), this._closedPromiseResolve = void 0;
-    }
-  }
-  [Symbol.asyncIterator]() {
-    return this;
-  }
-  toDOMStream(e) {
-    return i.toDOMStream(this._closedPromiseResolve || this._error ? this : this._values, e);
-  }
-  toNodeStream(e) {
-    return i.toNodeStream(this._closedPromiseResolve || this._error ? this : this._values, e);
-  }
-  throw(e) {
-    return t(this, void 0, void 0, function* () {
-      return yield this.abort(e), s;
-    });
-  }
-  return(e) {
-    return t(this, void 0, void 0, function* () {
-      return yield this.close(), s;
-    });
-  }
-  read(e) {
-    return t(this, void 0, void 0, function* () {
-      return (yield this.next(e, "read")).value;
-    });
-  }
-  peek(e) {
-    return t(this, void 0, void 0, function* () {
-      return (yield this.next(e, "peek")).value;
-    });
-  }
-  next(...e) {
-    return this._values.length > 0 ? Promise.resolve({ done: !1, value: this._values.shift() }) : this._error ? Promise.reject({ done: !0, value: this._error.error }) : this._closedPromiseResolve ? new Promise((r, h) => {
-      this.resolvers.push({ resolve: r, reject: h });
-    }) : Promise.resolve(s);
-  }
-  _ensureOpen() {
-    if (this._closedPromiseResolve)
-      return !0;
-    throw new Error("AsyncQueue is closed");
-  }
-}
+const o = (t) => typeof t == "boolean", e = (t) => typeof t == "function", r = (t) => t != null && Object(t) === t, i = (t) => r(t) && e(t.then), s = (t) => r(t) && e(t[Symbol.iterator]), a = (t) => r(t) && e(t[Symbol.asyncIterator]), c = (t) => r(t) && "done" in t && "value" in t, n = (t) => "_getDOMStream" in t && "_getNodeStream" in t, l = (t) => r(t) && e(t.abort) && e(t.getWriter) && !n(t), u = (t) => r(t) && e(t.end) && e(t.write) && o(t.writable) && !n(t), b = (t) => r(t) && e(t.clear) && e(t.bytes) && e(t.position) && e(t.setPosition) && e(t.capacity) && e(t.getBufferIdentifier) && e(t.createLong);
 export {
-  d as AsyncQueue,
-  s as ITERATOR_DONE,
-  n as ReadableInterop
+  a as isAsyncIterable,
+  b as isFlatbuffersByteBuffer,
+  s as isIterable,
+  c as isIteratorResult,
+  r as isObject,
+  i as isPromise,
+  l as isWritableDOMStream,
+  u as isWritableNodeStream
 };
 //# sourceMappingURL=cori.data.api517.js.map

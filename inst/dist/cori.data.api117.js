@@ -1,9 +1,9 @@
 import { tickStep as s } from "./cori.data.api83.js";
-import c from "./cori.data.api93.js";
-import e from "./cori.data.api98.js";
-import p from "./cori.data.api100.js";
-import l from "./cori.data.api99.js";
-import { formatPrefix as u, format as h } from "./cori.data.api43.js";
+import c from "./cori.data.api94.js";
+import e from "./cori.data.api99.js";
+import p from "./cori.data.api101.js";
+import l from "./cori.data.api100.js";
+import { formatPrefix as u, format as h } from "./cori.data.api39.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

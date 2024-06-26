@@ -1,47 +1,47 @@
-import e from "./cori.data.api300.js";
+import h from "./cori.data.api316.js";
+import y from "./cori.data.api317.js";
+import { scanArray as b, scanTable as w } from "./cori.data.api318.js";
+import { table as F } from "./cori.data.api319.js";
+import l from "./cori.data.api280.js";
+import f from "./cori.data.api320.js";
+import u from "./cori.data.api284.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class n {
-  /**
-   * Create a new column instance.
-   * @param {Array} data The backing array (or array-like object)
-   *  containing the column data.
-   */
-  constructor(r) {
-    this.data = r;
-  }
-  /**
-   * Get the length (number of rows) of the column.
-   * @return {number} The length of the column array.
-   */
-  get length() {
-    return this.data.length;
-  }
-  /**
-   * Get the column value at the given row index.
-   * @param {number} row The row index of the value to retrieve.
-   * @return {import('./table').DataValue} The column value.
-   */
-  get(r) {
-    return this.data[r];
-  }
-  /**
-   * Returns an iterator over the column values.
-   * @return {Iterator<object>} An iterator over column values.
-   */
-  [Symbol.iterator]() {
-    return this.data[Symbol.iterator]();
-  }
+function E(n, m = {}) {
+  const { types: o = {} } = m, { dataFrom: r, names: t, nrows: s, scan: a } = T(n, m), i = {};
+  t.forEach((e) => {
+    const c = r(n, e, s, a, o[e]);
+    c.length !== s && l("Column length mismatch"), i[e] = c;
+  });
+  const p = F();
+  return new p(i);
 }
-let u = function(t) {
-  return t && e(t.get) ? t : new n(t);
-};
+function T(n, m) {
+  const { columns: o, limit: r = 1 / 0, offset: t = 0 } = m, s = u(o) ? o(n) : f(o) ? o : null;
+  if (f(n))
+    return {
+      dataFrom: h,
+      names: s || Object.keys(n[0]),
+      nrows: Math.min(r, n.length - t),
+      scan: b(n, r, t)
+    };
+  if (g(n))
+    return {
+      dataFrom: y,
+      names: s || n.columnNames(),
+      nrows: Math.min(r, n.numRows() - t),
+      scan: w(n, r, t)
+    };
+  l("Unsupported input data type");
+}
+function g(n) {
+  return n && u(n.reify);
+}
 export {
-  n as default,
-  u as defaultColumnFactory
+  E as default
 };
 //# sourceMappingURL=cori.data.api299.js.map

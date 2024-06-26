@@ -1,9 +1,9 @@
 import t from "./cori.data.api59.js";
 import p from "./cori.data.api70.js";
-import u from "./cori.data.api230.js";
+import u from "./cori.data.api260.js";
 import S from "./cori.data.api69.js";
-import h from "./cori.data.api231.js";
-import l from "./cori.data.api232.js";
+import h from "./cori.data.api261.js";
+import l from "./cori.data.api262.js";
 import O from "./cori.data.api64.js";
 /*
  * CORI Data API component library

@@ -3,7 +3,7 @@ import "./cori.data.api569.js";
 import "./cori.data.api570.js";
 import { Block as o } from "./cori.data.api597.js";
 import { KeyValue as _ } from "./cori.data.api581.js";
-import { MetadataVersion as r } from "./cori.data.api519.js";
+import { MetadataVersion as r } from "./cori.data.api518.js";
 import { Schema as a } from "./cori.data.api573.js";
 /*
  * CORI Data API component library

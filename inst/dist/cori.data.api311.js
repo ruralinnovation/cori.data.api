@@ -1,66 +1,93 @@
-import p from "./cori.data.api341.js";
-import j from "./cori.data.api296.js";
-import N from "./cori.data.api342.js";
-import u from "./cori.data.api336.js";
-import x from "./cori.data.api300.js";
-import c from "./cori.data.api297.js";
-import O from "./cori.data.api325.js";
-import e from "./cori.data.api343.js";
-import h from "./cori.data.api344.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function f(o, r, n = /* @__PURE__ */ new Map()) {
-  return r = c(r) ? o.columnName(r) : r, e(r) ? n.set(r, r) : u(r) ? r.forEach((i) => f(o, i, n)) : x(r) ? f(o, r(o), n) : O(r) ? p(n, r) : j(`Invalid column selection: ${h(r)}`), n;
+function e(a, r, t, i) {
+  const l = t[a.type] || t.Default;
+  if (l && l(a, r, i) === !1)
+    return;
+  const y = n[a.type];
+  y && y(a, r, t);
 }
-function t(o, r) {
-  return o.toObject = r, o;
-}
-function s(o) {
-  return u(o) ? o.map(s) : o && o.toObject ? o.toObject() : o;
-}
-function M() {
-  return t(
-    (o) => o.columnNames(),
-    () => ({ all: [] })
-  );
-}
-function $(...o) {
-  return o = o.flat(), t(
-    (r) => {
-      const n = f(r, o);
-      return r.columnNames((i) => !n.has(i));
-    },
-    () => ({ not: s(o) })
-  );
-}
-function a(o, r) {
-  return t(
-    (n) => {
-      let i = c(o) ? o : n.columnIndex(o), m = c(r) ? r : n.columnIndex(r);
-      if (m < i) {
-        const g = m;
-        m = i, i = g;
-      }
-      return n.columnNames().slice(i, m + 1);
-    },
-    () => ({ range: [o, r] })
-  );
-}
-function b(o) {
-  return e(o) && (o = RegExp(N(o))), t(
-    (r) => r.columnNames((n) => o.test(n)),
-    () => ({ matches: [o.source, o.flags] })
-  );
-}
+const p = (a, r, t) => {
+  e(a.argument, r, t, a);
+}, m = (a, r, t) => {
+  e(a.left, r, t, a), e(a.right, r, t, a);
+}, E = (a, r, t) => {
+  e(a.test, r, t, a), e(a.consequent, r, t, a), a.alternate && e(a.alternate, r, t, a);
+}, u = (a, r, t) => {
+  s(a.params, r, t, a), e(a.body, r, t, a);
+}, c = (a, r, t) => {
+  e(a.callee, r, t, a), s(a.arguments, r, t, a);
+}, s = (a, r, t, i) => {
+  a.forEach((l) => e(l, r, t, i));
+}, n = {
+  TemplateLiteral: (a, r, t) => {
+    s(a.expressions, r, t, a), s(a.quasis, r, t, a);
+  },
+  MemberExpression: (a, r, t) => {
+    e(a.object, r, t, a), e(a.property, r, t, a);
+  },
+  CallExpression: c,
+  NewExpression: c,
+  ArrayExpression: (a, r, t) => {
+    s(a.elements, r, t, a);
+  },
+  AssignmentExpression: m,
+  AwaitExpression: p,
+  BinaryExpression: m,
+  LogicalExpression: m,
+  UnaryExpression: p,
+  UpdateExpression: p,
+  ConditionalExpression: E,
+  ObjectExpression: (a, r, t) => {
+    s(a.properties, r, t, a);
+  },
+  Property: (a, r, t) => {
+    e(a.key, r, t, a), e(a.value, r, t, a);
+  },
+  ArrowFunctionExpression: u,
+  FunctionExpression: u,
+  FunctionDeclaration: u,
+  VariableDeclaration: (a, r, t) => {
+    s(a.declarations, r, t, a);
+  },
+  VariableDeclarator: (a, r, t) => {
+    e(a.id, r, t, a), e(a.init, r, t, a);
+  },
+  SpreadElement: (a, r, t) => {
+    e(a.argument, r, t, a);
+  },
+  BlockStatement: (a, r, t) => {
+    s(a.body, r, t, a);
+  },
+  ExpressionStatement: (a, r, t) => {
+    e(a.expression, r, t, a);
+  },
+  IfStatement: E,
+  ForStatement: (a, r, t) => {
+    e(a.init, r, t, a), e(a.test, r, t, a), e(a.update, r, t, a), e(a.body, r, t, a);
+  },
+  WhileStatement: (a, r, t) => {
+    e(a.test, r, t, a), e(a.body, r, t, a);
+  },
+  DoWhileStatement: (a, r, t) => {
+    e(a.body, r, t, a), e(a.test, r, t, a);
+  },
+  SwitchStatement: (a, r, t) => {
+    e(a.discriminant, r, t, a), s(a.cases, r, t, a);
+  },
+  SwitchCase: (a, r, t) => {
+    a.test && e(a.test, r, t, a), s(a.consequent, r, t, a);
+  },
+  ReturnStatement: p,
+  Program: (a, r, t) => {
+    e(a.body[0], r, t, a);
+  }
+};
 export {
-  M as all,
-  f as default,
-  b as matches,
-  $ as not,
-  a as range
+  e as default
 };
 //# sourceMappingURL=cori.data.api311.js.map

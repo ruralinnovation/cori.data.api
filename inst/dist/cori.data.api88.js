@@ -4,10 +4,17 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(n) {
-  return ((n *= 2) <= 1 ? n * n * n : (n -= 2) * n * n + 2) / 2;
+function p(e, r, t) {
+  e.prototype = r.prototype = t, t.constructor = e;
+}
+function n(e, r) {
+  var t = Object.create(e.prototype);
+  for (var o in r)
+    t[o] = r[o];
+  return t;
 }
 export {
-  u as cubicInOut
+  p as default,
+  n as extend
 };
 //# sourceMappingURL=cori.data.api88.js.map

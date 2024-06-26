@@ -1,15 +1,24 @@
-import o from "./cori.data.api535.js";
-import t from "./cori.data.api311.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s(e, r) {
-  return o(e, t(e, r));
+class t {
+  /**
+   * @constructor
+   * @param {Properties} property
+   * @param {Normal} normal
+   * @param {string} [space]
+   */
+  constructor(p, r, o) {
+    this.property = p, this.normal = r, o && (this.space = o);
+  }
 }
+t.prototype.property = {};
+t.prototype.normal = {};
+t.prototype.space = null;
 export {
-  s as default
+  t as Schema
 };
 //# sourceMappingURL=cori.data.api455.js.map

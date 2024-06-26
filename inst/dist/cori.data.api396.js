@@ -4,11 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const { hasOwnProperty: o } = Object.prototype;
-function r(t, e) {
-  return o.call(t, e);
+function f(e, t = !0, u = !1) {
+  return e === void 0 || e ? t : u;
 }
 export {
-  r as default
+  f as default
 };
 //# sourceMappingURL=cori.data.api396.js.map

@@ -1,14 +1,18 @@
+import n from "./cori.data.api106.js";
+import o from "./cori.data.api87.js";
+import e from "./cori.data.api103.js";
+import m from "./cori.data.api108.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const n = { cwd: c };
-function c() {
-  return "/";
+function u(i, r) {
+  var t;
+  return (typeof r == "number" ? n : r instanceof o ? e : (t = o(r)) ? (r = t, e) : m)(i, r);
 }
 export {
-  n as proc
+  u as default
 };
 //# sourceMappingURL=cori.data.api275.js.map

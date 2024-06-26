@@ -4,12 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(t) {
-  if (typeof t == "bigint" && (t < Number.MIN_SAFE_INTEGER || t > Number.MAX_SAFE_INTEGER))
-    throw new TypeError(`${t} is not safe to convert to a number.`);
-  return Number(t);
-}
+var E;
+(function(L) {
+  L[L.HALF = 0] = "HALF", L[L.SINGLE = 1] = "SINGLE", L[L.DOUBLE = 2] = "DOUBLE";
+})(E || (E = {}));
 export {
-  o as bigIntToNumber
+  E as Precision
 };
 //# sourceMappingURL=cori.data.api563.js.map

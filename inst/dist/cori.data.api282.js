@@ -1,22 +1,20 @@
-import o from "./cori.data.api387.js";
-import r from "./cori.data.api388.js";
-import t from "./cori.data.api389.js";
+import e from "./cori.data.api284.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const l = {
-  isBrowser: !0,
-  classes: {
-    URLSearchParams: o,
-    FormData: r,
-    Blob: t
-  },
-  protocols: ["http", "https", "file", "blob", "url", "data"]
-};
+function n(o, r) {
+  const i = Array(o);
+  if (e(r))
+    for (let t = 0; t < o; ++t)
+      i[t] = r(t);
+  else
+    i.fill(r);
+  return i;
+}
 export {
-  l as default
+  n as default
 };
 //# sourceMappingURL=cori.data.api282.js.map

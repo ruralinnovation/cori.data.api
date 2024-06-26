@@ -1,18 +1,35 @@
-import { deserialize as t } from "./cori.data.api478.js";
-import { serialize as u } from "./cori.data.api479.js";
+import f from "./cori.data.api65.js";
+import s from "./cori.data.api70.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const s = typeof structuredClone == "function" ? (
-  /* c8 ignore start */
-  (r, e) => e && ("json" in e || "lossy" in e) ? t(u(r, e)) : structuredClone(r)
-) : (r, e) => t(u(r, e));
+const l = (t, c) => {
+  let u = new AbortController(), i;
+  const n = function(e) {
+    if (!i) {
+      i = !0, a();
+      const o = e instanceof Error ? e : this.reason;
+      u.abort(o instanceof s ? o : new f(o instanceof Error ? o.message : o));
+    }
+  };
+  let r = c && setTimeout(() => {
+    n(new s(`timeout ${c} of ms exceeded`, s.ETIMEDOUT));
+  }, c);
+  const a = () => {
+    t && (r && clearTimeout(r), r = null, t.forEach((e) => {
+      e && (e.removeEventListener ? e.removeEventListener("abort", n) : e.unsubscribe(n));
+    }), t = null);
+  };
+  t.forEach((e) => e && e.addEventListener && e.addEventListener("abort", n));
+  const { signal: b } = u;
+  return b.unsubscribe = a, [b, () => {
+    r && clearTimeout(r), r = null;
+  }];
+};
 export {
-  s as default,
-  t as deserialize,
-  u as serialize
+  l as default
 };
 //# sourceMappingURL=cori.data.api385.js.map

@@ -1,7 +1,7 @@
 import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api642.js";
 import "./cori.data.api569.js";
 import "./cori.data.api570.js";
-import { TimeUnit as o } from "./cori.data.api566.js";
+import { TimeUnit as o } from "./cori.data.api565.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

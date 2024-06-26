@@ -4,13 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(t) {
-  if (typeof t != "object" || t === null)
-    return !1;
-  const o = Object.getPrototypeOf(t);
-  return (o === null || o === Object.prototype || Object.getPrototypeOf(o) === null) && !(Symbol.toStringTag in t) && !(Symbol.iterator in t);
+function n(e) {
+  return +e;
 }
 export {
-  e as default
+  n as default
 };
 //# sourceMappingURL=cori.data.api270.js.map

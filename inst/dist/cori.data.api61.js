@@ -1,10 +1,10 @@
 import d from "./cori.data.api59.js";
-import R from "./cori.data.api225.js";
-import b from "./cori.data.api226.js";
-import S from "./cori.data.api227.js";
+import R from "./cori.data.api255.js";
+import b from "./cori.data.api256.js";
+import S from "./cori.data.api257.js";
 import m from "./cori.data.api62.js";
-import C from "./cori.data.api228.js";
-import q from "./cori.data.api229.js";
+import C from "./cori.data.api258.js";
+import q from "./cori.data.api259.js";
 import I from "./cori.data.api73.js";
 /*
  * CORI Data API component library

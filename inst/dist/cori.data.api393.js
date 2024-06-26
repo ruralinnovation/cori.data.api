@@ -1,39 +1,44 @@
-import r from "./cori.data.api59.js";
-import c from "./cori.data.api232.js";
+import g from "./cori.data.api493.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const p = c.hasStandardBrowserEnv ? (
-  // Standard browser envs support document.cookie
-  {
-    write(e, t, n, i, s, u) {
-      const o = [e + "=" + encodeURIComponent(t)];
-      r.isNumber(n) && o.push("expires=" + new Date(n).toGMTString()), r.isString(i) && o.push("path=" + i), r.isString(s) && o.push("domain=" + s), u === !0 && o.push("secure"), document.cookie = o.join("; ");
-    },
-    read(e) {
-      const t = document.cookie.match(new RegExp("(^|;\\s*)(" + e + ")=([^;]*)"));
-      return t ? decodeURIComponent(t[3]) : null;
-    },
-    remove(e) {
-      this.write(e, "", Date.now() - 864e5);
-    }
-  }
-) : (
-  // Non-standard browser env (web workers, react-native) lack needed support.
-  {
-    write() {
-    },
-    read() {
-      return null;
-    },
-    remove() {
-    }
-  }
-);
+const e = (t) => (t < 10 ? "0" : "") + t, C = (t) => t < 0 ? "-" + g(-t, 6) : t > 9999 ? "+" + g(t, 6) : g(t, 4);
+function s(t, n, T, o, a, i, f, l, u) {
+  const r = l ? "Z" : "";
+  return C(t) + "-" + e(n + 1) + "-" + e(T) + (!u || f ? "T" + e(o) + ":" + e(a) + ":" + e(i) + "." + g(f, 3) + r : i ? "T" + e(o) + ":" + e(a) + ":" + e(i) + r : a || o || !l ? "T" + e(o) + ":" + e(a) + r : "");
+}
+function c(t, n) {
+  return isNaN(t) ? "Invalid Date" : s(
+    t.getFullYear(),
+    t.getMonth(),
+    t.getDate(),
+    t.getHours(),
+    t.getMinutes(),
+    t.getSeconds(),
+    t.getMilliseconds(),
+    !1,
+    n
+  );
+}
+function D(t, n) {
+  return isNaN(t) ? "Invalid Date" : s(
+    t.getUTCFullYear(),
+    t.getUTCMonth(),
+    t.getUTCDate(),
+    t.getUTCHours(),
+    t.getUTCMinutes(),
+    t.getUTCSeconds(),
+    t.getUTCMilliseconds(),
+    !0,
+    n
+  );
+}
 export {
-  p as default
+  c as formatDate,
+  s as formatISO,
+  D as formatUTCDate
 };
 //# sourceMappingURL=cori.data.api393.js.map

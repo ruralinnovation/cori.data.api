@@ -1,5 +1,5 @@
-import n from "./cori.data.api255.js";
-import { Selection as o } from "./cori.data.api50.js";
+import n from "./cori.data.api277.js";
+import { Selection as o } from "./cori.data.api58.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

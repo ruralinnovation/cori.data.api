@@ -1,13 +1,20 @@
+import f from "./cori.data.api528.js";
+import { inferKeys as e, keyPredicate as t } from "./cori.data.api527.js";
+import s from "./cori.data.api303.js";
+import c from "./cori.data.api320.js";
+import n from "./cori.data.api300.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function r(n, t, f, i, o) {
-  return n == null ? null : n < t ? -1 / 0 : n > f ? 1 / 0 : (n = Math.max(t, Math.min(n, f)), t + i * Math.floor(1e-14 + (n - t) / i + (o || 0)));
+function a(i, o, r, m) {
+  r = e(i, o, r);
+  const p = c(r) ? t(i, o, ...r.map(n)) : s({ on: r }, { join: [i, o] }).exprs[0];
+  return f(i, o, p, m);
 }
 export {
-  r as default
+  a as default
 };
 //# sourceMappingURL=cori.data.api431.js.map

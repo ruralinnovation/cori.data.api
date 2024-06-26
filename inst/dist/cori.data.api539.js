@@ -1,40 +1,88 @@
-import { aggregateGet as h } from "./cori.data.api542.js";
-import k from "./cori.data.api522.js";
+import u from "./cori.data.api632.js";
+import l from "./cori.data.api282.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function x(n, e) {
-  return n.create({
-    groups: m(n, e)
-  });
-}
-function m(n, { names: e = [], exprs: u = [], ops: a = [] }) {
-  const p = e.length;
-  if (p === 0)
-    return null;
-  if (p === 1 && !n.isFiltered() && u[0].field) {
-    const t = n.column(u[0].field);
-    if (t.groups)
-      return t.groups(e);
+function w(n, c, i) {
+  if (c.length) {
+    const r = n.data(), { keys: f } = n.groups() || {}, e = g(n, c), t = f ? (o, s) => e[o][f[s]] : (o) => e[o][0];
+    i = i.map((o) => (s) => o(s, r, t));
   }
-  let s = h(n, a, u);
-  const d = k(s), y = n.totalRows(), l = new Uint32Array(y), c = {}, i = [], f = n.data(), g = n.mask();
-  if (g)
-    for (let t = g.next(0); t >= 0; t = g.next(t + 1)) {
-      const o = d(t, f) + "", r = c[o];
-      l[t] = r ?? (c[o] = i.push(t) - 1);
-    }
+  return i;
+}
+function g(n, c, i) {
+  if (!c.length)
+    return i;
+  const r = p(c), f = n.groups(), e = f ? f.size : 1;
+  return i = i || l(c.length, () => Array(e)), e > 1 ? r.forEach((t) => {
+    const o = h(n, t, f);
+    for (let s = 0; s < e; ++s)
+      t.write(o[s], i, s);
+  }) : r.forEach((t) => {
+    const o = m(n, t);
+    t.write(o, i, 0);
+  }), i;
+}
+function p(n, c) {
+  const i = [], r = {};
+  for (const f of n) {
+    const e = f.fields.map((t) => t + "").join(",");
+    (r[e] || (r[e] = [])).push(f);
+  }
+  for (const f in r)
+    i.push(u(r[f], c));
+  return i;
+}
+function m(n, c) {
+  const i = c.init(), r = n.totalRows(), f = n.data(), e = n.mask();
+  if (n.isOrdered()) {
+    const t = n.indices();
+    for (let o = 0; o < r; ++o)
+      c.add(i, t[o], f);
+  } else if (e)
+    for (let t = e.next(0); t >= 0; t = e.next(t + 1))
+      c.add(i, t, f);
   else
-    for (let t = 0; t < y; ++t) {
-      const o = d(t, f) + "", r = c[o];
-      l[t] = r ?? (c[o] = i.push(t) - 1);
+    for (let t = 0; t < r; ++t)
+      c.add(i, t, f);
+  return i;
+}
+function h(n, c, i) {
+  const { keys: r, size: f } = i, e = l(f, () => c.init()), t = n.data();
+  if (n.isOrdered()) {
+    const o = n.indices(), s = o.length;
+    for (let a = 0; a < s; ++a) {
+      const d = o[a];
+      c.add(e[r[d]], d, t);
     }
-  return a.length || (s = s.map((t) => (o) => t(o, f))), { keys: l, get: s, names: e, rows: i, size: i.length };
+  } else if (n.isFiltered()) {
+    const o = n.mask();
+    for (let s = o.next(0); s >= 0; s = o.next(s + 1))
+      c.add(e[r[s]], s, t);
+  } else {
+    const o = n.totalRows();
+    for (let s = 0; s < o; ++s)
+      c.add(e[r[s]], s, t);
+  }
+  return e;
+}
+function y(n, c) {
+  const { get: i, names: r, rows: f, size: e } = c, t = r.length;
+  for (let o = 0; o < t; ++o) {
+    const s = n.add(r[o], Array(e)), a = i[o];
+    for (let d = 0; d < e; ++d)
+      s[d] = a(f[d]);
+  }
 }
 export {
-  x as default
+  g as aggregate,
+  w as aggregateGet,
+  y as groupOutput,
+  m as reduceFlat,
+  h as reduceGroups,
+  p as reducers
 };
 //# sourceMappingURL=cori.data.api539.js.map

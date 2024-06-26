@@ -1,104 +1,112 @@
-import { Vector as b } from "./cori.data.api417.js";
-import { MapRow as O } from "./cori.data.api506.js";
-import { StructRow as k } from "./cori.data.api601.js";
-import { compareArrayLike as S } from "./cori.data.api503.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-let y;
-function I(e, r, t, n) {
-  const { length: o = 0 } = e;
-  let f = typeof r != "number" ? 0 : r, a = typeof t != "number" ? o : t;
-  return f < 0 && (f = (f % o + o) % o), a < 0 && (a = (a % o + o) % o), a < f && (y = f, f = a, a = y), a > o && (a = o), n ? n(e, f, a) : [f, a];
-}
-const m = (e) => e !== e;
-function l(e) {
-  if (typeof e !== "object" || e === null)
-    return m(e) ? m : (t) => t === e;
-  if (e instanceof Date) {
-    const t = e.valueOf();
-    return (n) => n instanceof Date ? n.valueOf() === t : !1;
+class d {
+  constructor(n = 0, e) {
+    this.numChunks = n, this.getChunkIterator = e, this.chunkIndex = 0, this.chunkIterator = this.getChunkIterator(0);
   }
-  return ArrayBuffer.isView(e) ? (t) => t ? S(e, t) : !1 : e instanceof Map ? x(e) : Array.isArray(e) ? d(e) : e instanceof b ? A(e) : v(e, !0);
-}
-function d(e) {
-  const r = [];
-  for (let t = -1, n = e.length; ++t < n; )
-    r[t] = l(e[t]);
-  return s(r);
-}
-function x(e) {
-  let r = -1;
-  const t = [];
-  for (const n of e.values())
-    t[++r] = l(n);
-  return s(t);
-}
-function A(e) {
-  const r = [];
-  for (let t = -1, n = e.length; ++t < n; )
-    r[t] = l(e.get(t));
-  return s(r);
-}
-function v(e, r = !1) {
-  const t = Object.keys(e);
-  if (!r && t.length === 0)
-    return () => !1;
-  const n = [];
-  for (let o = -1, f = t.length; ++o < f; )
-    n[o] = l(e[t[o]]);
-  return s(n, t);
-}
-function s(e, r) {
-  return (t) => {
-    if (!t || typeof t != "object")
-      return !1;
-    switch (t.constructor) {
-      case Array:
-        return C(e, t);
-      case Map:
-        return g(e, t, t.keys());
-      case O:
-      case k:
-      case Object:
-      case void 0:
-        return g(e, t, r || Object.keys(t));
+  next() {
+    for (; this.chunkIndex < this.numChunks; ) {
+      const n = this.chunkIterator.next();
+      if (!n.done)
+        return n;
+      ++this.chunkIndex < this.numChunks && (this.chunkIterator = this.getChunkIterator(this.chunkIndex));
     }
-    return t instanceof b ? M(e, t) : !1;
+    return { done: !0, value: null };
+  }
+  [Symbol.iterator]() {
+    return this;
+  }
+}
+function k(u) {
+  return u.some((n) => n.nullable);
+}
+function C(u) {
+  return u.reduce((n, e) => n + e.nullCount, 0);
+}
+function m(u) {
+  return u.reduce((n, e, r) => (n[r + 1] = n[r] + e.length, n), new Uint32Array(u.length + 1));
+}
+function I(u, n, e, r) {
+  const t = [];
+  for (let h = -1, i = u.length; ++h < i; ) {
+    const c = u[h], o = n[h], { length: s } = c;
+    if (o >= r)
+      break;
+    if (e >= o + s)
+      continue;
+    if (o >= e && o + s <= r) {
+      t.push(c);
+      continue;
+    }
+    const l = Math.max(0, e - o), a = Math.min(r - o, s);
+    t.push(c.slice(l, a - l));
+  }
+  return t.length === 0 && t.push(u[0].slice(0, 0)), t;
+}
+function f(u, n, e, r) {
+  let t = 0, h = 0, i = n.length - 1;
+  do {
+    if (t >= i - 1)
+      return e < n[i] ? r(u, t, e - n[t]) : null;
+    h = t + Math.trunc((i - t) * 0.5), e < n[h] ? i = h : t = h;
+  } while (t < i);
+}
+function g(u, n) {
+  return u.getValid(n);
+}
+function p(u) {
+  function n(e, r, t) {
+    return u(e[r], t);
+  }
+  return function(e) {
+    const r = this.data;
+    return f(r, this._offsets, e, n);
   };
 }
-function C(e, r) {
-  const t = e.length;
-  if (r.length !== t)
-    return !1;
-  for (let n = -1; ++n < t; )
-    if (!e[n](r[n]))
-      return !1;
-  return !0;
+function x(u) {
+  let n;
+  function e(r, t, h) {
+    return u(r[t], h, n);
+  }
+  return function(r, t) {
+    const h = this.data;
+    n = t;
+    const i = f(h, this._offsets, r, e);
+    return n = void 0, i;
+  };
 }
-function M(e, r) {
-  const t = e.length;
-  if (r.length !== t)
-    return !1;
-  for (let n = -1; ++n < t; )
-    if (!e[n](r.get(n)))
-      return !1;
-  return !0;
-}
-function g(e, r, t) {
-  const n = t[Symbol.iterator](), o = r instanceof Map ? r.keys() : Object.keys(r)[Symbol.iterator](), f = r instanceof Map ? r.values() : Object.values(r)[Symbol.iterator]();
-  let a = 0;
-  const p = e.length;
-  let u = f.next(), i = n.next(), c = o.next();
-  for (; a < p && !i.done && !c.done && !u.done && !(i.value !== c.value || !e[a](u.value)); ++a, i = n.next(), c = o.next(), u = f.next())
-    ;
-  return a === p && i.done && c.done && u.done ? !0 : (n.return && n.return(), o.return && o.return(), f.return && f.return(), !1);
+function w(u) {
+  let n;
+  function e(r, t, h) {
+    let i = h, c = 0, o = 0;
+    for (let s = t - 1, l = r.length; ++s < l; ) {
+      const a = r[s];
+      if (~(c = u(a, n, i)))
+        return o + c;
+      i = 0, o += a.length;
+    }
+    return -1;
+  }
+  return function(r, t) {
+    n = r;
+    const h = this.data, i = typeof t != "number" ? e(h, 0, 0) : f(h, this._offsets, t, e);
+    return n = void 0, i;
+  };
 }
 export {
-  I as clampRange,
-  l as createElementComparator
+  d as ChunkedIterator,
+  f as binarySearch,
+  C as computeChunkNullCounts,
+  k as computeChunkNullable,
+  m as computeChunkOffsets,
+  g as isChunkedValid,
+  I as sliceChunks,
+  p as wrapChunkedCall1,
+  x as wrapChunkedCall2,
+  w as wrapChunkedIndexOf
 };
 //# sourceMappingURL=cori.data.api553.js.map

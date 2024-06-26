@@ -1,5 +1,5 @@
-import { Dictionary as c } from "./cori.data.api418.js";
-import { Builder as d } from "./cori.data.api504.js";
+import { Dictionary as c } from "./cori.data.api411.js";
+import { Builder as d } from "./cori.data.api503.js";
 import { makeBuilder as r } from "./cori.data.api599.js";
 /*
  * CORI Data API component library

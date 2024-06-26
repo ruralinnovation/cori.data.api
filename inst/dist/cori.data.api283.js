@@ -1,15 +1,47 @@
+import e from "./cori.data.api284.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const e = typeof window < "u" && typeof document < "u", n = ((o) => e && ["ReactNative", "NativeScript", "NS"].indexOf(o) < 0)(typeof navigator < "u" && navigator.product), t = typeof WorkerGlobalScope < "u" && // eslint-disable-next-line no-undef
-self instanceof WorkerGlobalScope && typeof self.importScripts == "function", r = e && window.location.href || "http://localhost";
+class n {
+  /**
+   * Create a new column instance.
+   * @param {Array} data The backing array (or array-like object)
+   *  containing the column data.
+   */
+  constructor(r) {
+    this.data = r;
+  }
+  /**
+   * Get the length (number of rows) of the column.
+   * @return {number} The length of the column array.
+   */
+  get length() {
+    return this.data.length;
+  }
+  /**
+   * Get the column value at the given row index.
+   * @param {number} row The row index of the value to retrieve.
+   * @return {import('./table').DataValue} The column value.
+   */
+  get(r) {
+    return this.data[r];
+  }
+  /**
+   * Returns an iterator over the column values.
+   * @return {Iterator<object>} An iterator over column values.
+   */
+  [Symbol.iterator]() {
+    return this.data[Symbol.iterator]();
+  }
+}
+let u = function(t) {
+  return t && e(t.get) ? t : new n(t);
+};
 export {
-  e as hasBrowserEnv,
-  n as hasStandardBrowserEnv,
-  t as hasStandardBrowserWebWorkerEnv,
-  r as origin
+  n as default,
+  u as defaultColumnFactory
 };
 //# sourceMappingURL=cori.data.api283.js.map

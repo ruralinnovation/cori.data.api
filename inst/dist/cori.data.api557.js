@@ -1,57 +1,43 @@
-import { Type as v } from "./cori.data.api499.js";
-import { Visitor as u } from "./cori.data.api560.js";
-import { instance as l } from "./cori.data.api555.js";
-import { BitIterator as f, getBool as m } from "./cori.data.api559.js";
-import { createElementComparator as c } from "./cori.data.api553.js";
+import { Visitor as v } from "./cori.data.api559.js";
+import { Type as l } from "./cori.data.api497.js";
+import { Int as c, Time as m, Float as d } from "./cori.data.api411.js";
+import { ChunkedIterator as a } from "./cori.data.api553.js";
+import { Precision as u } from "./cori.data.api563.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class t extends u {
+class t extends v {
 }
-function d(o, e) {
-  return e === null && o.length > 0 ? 0 : -1;
+function i(o) {
+  const { type: e } = o;
+  if (o.nullCount === 0 && o.stride === 1 && (e.typeId === l.Timestamp || e instanceof c && e.bitWidth !== 64 || e instanceof m && e.bitWidth !== 64 || e instanceof d && e.precision !== u.HALF))
+    return new a(o.data.length, (r) => {
+      const s = o.data[r];
+      return s.values.subarray(0, s.length)[Symbol.iterator]();
+    });
+  let p = 0;
+  return new a(o.data.length, (r) => {
+    const n = o.data[r].length, y = o.slice(p, p + n);
+    return p += n, new h(y);
+  });
 }
-function D(o, e) {
-  const { nullBitmap: p } = o;
-  if (!p || o.nullCount <= 0)
-    return -1;
-  let n = 0;
-  for (const s of new f(p, o.offset + (e || 0), o.length, p, m)) {
-    if (!s)
-      return n;
-    ++n;
+class h {
+  constructor(e) {
+    this.vector = e, this.index = 0;
   }
-  return -1;
+  next() {
+    return this.index < this.vector.length ? {
+      value: this.vector.get(this.index++)
+    } : { done: !0, value: null };
+  }
+  [Symbol.iterator]() {
+    return this;
+  }
 }
-function i(o, e, p) {
-  if (e === void 0)
-    return -1;
-  if (e === null)
-    switch (o.typeId) {
-      case v.Union:
-        break;
-      case v.Dictionary:
-        break;
-      default:
-        return D(o, p);
-    }
-  const n = l.getVisitFn(o), s = c(e);
-  for (let r = (p || 0) - 1, y = o.length; ++r < y; )
-    if (s(n(o, r)))
-      return r;
-  return -1;
-}
-function a(o, e, p) {
-  const n = l.getVisitFn(o), s = c(e);
-  for (let r = (p || 0) - 1, y = o.length; ++r < y; )
-    if (s(n(o, r)))
-      return r;
-  return -1;
-}
-t.prototype.visitNull = d;
+t.prototype.visitNull = i;
 t.prototype.visitBool = i;
 t.prototype.visitInt = i;
 t.prototype.visitInt8 = i;
@@ -88,8 +74,8 @@ t.prototype.visitDecimal = i;
 t.prototype.visitList = i;
 t.prototype.visitStruct = i;
 t.prototype.visitUnion = i;
-t.prototype.visitDenseUnion = a;
-t.prototype.visitSparseUnion = a;
+t.prototype.visitDenseUnion = i;
+t.prototype.visitSparseUnion = i;
 t.prototype.visitDictionary = i;
 t.prototype.visitInterval = i;
 t.prototype.visitIntervalDayTime = i;
@@ -101,9 +87,9 @@ t.prototype.visitDurationMicrosecond = i;
 t.prototype.visitDurationNanosecond = i;
 t.prototype.visitFixedSizeList = i;
 t.prototype.visitMap = i;
-const x = new t();
+const M = new t();
 export {
-  t as IndexOfVisitor,
-  x as instance
+  t as IteratorVisitor,
+  M as instance
 };
 //# sourceMappingURL=cori.data.api557.js.map

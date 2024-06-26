@@ -1,6 +1,6 @@
-import { Field as o } from "./cori.data.api500.js";
-import { Map_ as f } from "./cori.data.api418.js";
-import { VariableWidthBuilder as l } from "./cori.data.api504.js";
+import { Field as o } from "./cori.data.api498.js";
+import { Map_ as f } from "./cori.data.api411.js";
+import { VariableWidthBuilder as l } from "./cori.data.api503.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

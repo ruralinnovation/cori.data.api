@@ -1,10 +1,14 @@
+import t from "./cori.data.api522.js";
+import d from "./cori.data.api523.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const e = void 0;
+function e(o, r, f) {
+  return t(o, d("fold", o, r), f);
+}
 export {
   e as default
 };

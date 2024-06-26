@@ -4,25 +4,33 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function c(r) {
-  e:
-    for (var t = r.length, e = 1, a = -1, f; e < t; ++e)
-      switch (r[e]) {
-        case ".":
-          a = f = e;
-          break;
-        case "0":
-          a === 0 && (a = e), f = e;
-          break;
-        default:
-          if (!+r[e])
-            break e;
-          a > 0 && (a = 0);
-          break;
-      }
-  return a > 0 ? r.slice(0, a) + r.slice(f + 1) : r;
+var o = /^(?:(.)?([<>=^]))?([+\-( ])?([$#])?(0)?(\d+)?(,)?(\.\d+)?(~)?([a-z%])?$/i;
+function d(t) {
+  if (!(n = o.exec(t)))
+    throw new Error("invalid format: " + t);
+  var n;
+  return new i({
+    fill: n[1],
+    align: n[2],
+    sign: n[3],
+    symbol: n[4],
+    zero: n[5],
+    width: n[6],
+    comma: n[7],
+    precision: n[8] && n[8].slice(1),
+    trim: n[9],
+    type: n[10]
+  });
 }
+d.prototype = i.prototype;
+function i(t) {
+  this.fill = t.fill === void 0 ? " " : t.fill + "", this.align = t.align === void 0 ? ">" : t.align + "", this.sign = t.sign === void 0 ? "-" : t.sign + "", this.symbol = t.symbol === void 0 ? "" : t.symbol + "", this.zero = !!t.zero, this.width = t.width === void 0 ? void 0 : +t.width, this.comma = !!t.comma, this.precision = t.precision === void 0 ? void 0 : +t.precision, this.trim = !!t.trim, this.type = t.type === void 0 ? "" : t.type + "";
+}
+i.prototype.toString = function() {
+  return this.fill + this.align + this.sign + this.symbol + (this.zero ? "0" : "") + (this.width === void 0 ? "" : Math.max(1, this.width | 0)) + (this.comma ? "," : "") + (this.precision === void 0 ? "" : "." + Math.max(0, this.precision | 0)) + (this.trim ? "~" : "") + this.type;
+};
 export {
-  c as default
+  i as FormatSpecifier,
+  d as default
 };
 //# sourceMappingURL=cori.data.api94.js.map

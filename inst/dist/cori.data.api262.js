@@ -1,29 +1,16 @@
+import o from "./cori.data.api379.js";
+import * as t from "./cori.data.api380.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const e = {
-  classId: "classID",
-  dataType: "datatype",
-  itemId: "itemID",
-  strokeDashArray: "strokeDasharray",
-  strokeDashOffset: "strokeDashoffset",
-  strokeLineCap: "strokeLinecap",
-  strokeLineJoin: "strokeLinejoin",
-  strokeMiterLimit: "strokeMiterlimit",
-  typeOf: "typeof",
-  xLinkActuate: "xlinkActuate",
-  xLinkArcRole: "xlinkArcrole",
-  xLinkHref: "xlinkHref",
-  xLinkRole: "xlinkRole",
-  xLinkShow: "xlinkShow",
-  xLinkTitle: "xlinkTitle",
-  xLinkType: "xlinkType",
-  xmlnsXLink: "xmlnsXlink"
+const m = {
+  ...t,
+  ...o
 };
 export {
-  e as hastToReact
+  m as default
 };
 //# sourceMappingURL=cori.data.api262.js.map

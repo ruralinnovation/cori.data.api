@@ -1,5 +1,5 @@
-import { FixedWidthBuilder as e } from "./cori.data.api504.js";
-import { setFixedSizeBinary as i } from "./cori.data.api556.js";
+import { FixedWidthBuilder as e } from "./cori.data.api503.js";
+import { setFixedSizeBinary as i } from "./cori.data.api555.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

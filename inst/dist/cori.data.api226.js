@@ -1,65 +1,19 @@
-import n from "./cori.data.api59.js";
+import { merge as m } from "./cori.data.api336.js";
+import { xlink as o } from "./cori.data.api337.js";
+import { xml as r } from "./cori.data.api338.js";
+import { xmlns as t } from "./cori.data.api339.js";
+import { aria as i } from "./cori.data.api340.js";
+import { html as s } from "./cori.data.api341.js";
+import { svg as p } from "./cori.data.api342.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class a {
-  constructor() {
-    this.handlers = [];
-  }
-  /**
-   * Add a new interceptor to the stack
-   *
-   * @param {Function} fulfilled The function to handle `then` for a `Promise`
-   * @param {Function} rejected The function to handle `reject` for a `Promise`
-   *
-   * @return {Number} An ID used to remove interceptor later
-   */
-  use(s, h, r) {
-    return this.handlers.push({
-      fulfilled: s,
-      rejected: h,
-      synchronous: r ? r.synchronous : !1,
-      runWhen: r ? r.runWhen : null
-    }), this.handlers.length - 1;
-  }
-  /**
-   * Remove an interceptor from the stack
-   *
-   * @param {Number} id The ID that was returned by `use`
-   *
-   * @returns {Boolean} `true` if the interceptor was removed, `false` otherwise
-   */
-  eject(s) {
-    this.handlers[s] && (this.handlers[s] = null);
-  }
-  /**
-   * Clear all interceptors from the stack
-   *
-   * @returns {void}
-   */
-  clear() {
-    this.handlers && (this.handlers = []);
-  }
-  /**
-   * Iterate over all the registered interceptors
-   *
-   * This method is particularly useful for skipping over any
-   * interceptors that may have become `null` calling `eject`.
-   *
-   * @param {Function} fn The function to call for each interceptor
-   *
-   * @returns {void}
-   */
-  forEach(s) {
-    n.forEach(this.handlers, function(r) {
-      r !== null && s(r);
-    });
-  }
-}
+const x = m([r, o, t, i, s], "html"), e = m([r, o, t, i, p], "svg");
 export {
-  a as default
+  x as html,
+  e as svg
 };
 //# sourceMappingURL=cori.data.api226.js.map

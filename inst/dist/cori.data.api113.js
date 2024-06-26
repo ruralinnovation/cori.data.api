@@ -1,4 +1,4 @@
-import o, { identity as i } from "./cori.data.api247.js";
+import o, { identity as i } from "./cori.data.api269.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

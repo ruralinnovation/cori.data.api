@@ -1,4 +1,4 @@
-import { asciiAlpha as g, markdownLineEndingOrSpace as V, asciiAlphanumeric as R, markdownSpace as h, markdownLineEnding as p } from "./cori.data.api480.js";
+import { asciiAlpha as g, markdownLineEndingOrSpace as V, asciiAlphanumeric as R, markdownSpace as h, markdownLineEnding as p } from "./cori.data.api481.js";
 import { htmlRawNames as H, htmlBlockNames as _ } from "./cori.data.api695.js";
 import { blankLine as $ } from "./cori.data.api659.js";
 /*

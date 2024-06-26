@@ -1,4 +1,4 @@
-import { Selection as v } from "./cori.data.api50.js";
+import { Selection as v } from "./cori.data.api58.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

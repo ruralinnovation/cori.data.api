@@ -1,31 +1,15 @@
-import o from "./cori.data.api316.js";
-import i from "./cori.data.api344.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function m(s, t = [], r = []) {
-  return new a(s, o(t), o(r));
-}
-class a {
-  constructor(t, r, n) {
-    this.name = t, this.fields = r, this.params = n;
-  }
-  toString() {
-    const t = [
-      ...this.fields.map((r) => `d[${i(r)}]`),
-      ...this.params.map(i)
-    ];
-    return `d => op.${this.name}(${t})`;
-  }
-  toObject() {
-    return { expr: this.toString(), func: !0 };
-  }
+function a(e, t) {
+  const r = { type: "element", tagName: "br", properties: {}, children: [] };
+  return e.patch(t, r), [e.applyData(t, r), { type: "text", value: `
+` }];
 }
 export {
-  a as Op,
-  m as default
+  a as hardBreak
 };
 //# sourceMappingURL=cori.data.api346.js.map

@@ -1,41 +1,26 @@
-import s from "./cori.data.api394.js";
-import u from "./cori.data.api395.js";
-import i from "./cori.data.api325.js";
+import p from "./cori.data.api531.js";
+import { any as n } from "./cori.data.api31.js";
+import t from "./cori.data.api523.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function g(e, t) {
-  return e == null || t == null || e !== e || t !== t ? !1 : e === t ? !0 : s(e) || s(t) ? +e == +t : u(e) && u(t) ? e + "" == t + "" : i(e) && i(t) ? p(e, t) : !1;
+function u(o, r, f, i) {
+  return p(
+    o,
+    t("fold", o, r),
+    t("fold", o, f, { preparse: e, aggronly: !0 }),
+    i
+  );
 }
-function p(e, t) {
-  if (Object.getPrototypeOf(e) !== Object.getPrototypeOf(t))
-    return !1;
-  if (e.length || t.length)
-    return c(e, t);
-  const r = Object.keys(e), n = Object.keys(t);
-  if (r.length !== n.length || (r.sort(), n.sort(), !c(r, n, (l, o) => l === o)))
-    return !1;
-  const f = r.length;
-  for (let l = 0; l < f; ++l) {
-    const o = r[l];
-    if (!g(e[o], t[o]))
-      return !1;
-  }
-  return !0;
-}
-function c(e, t, r = g) {
-  const n = e.length;
-  if (n !== t.length)
-    return !1;
-  for (let f = 0; f < n; ++f)
-    if (!r(e[f], t[f]))
-      return !1;
-  return !0;
+function e(o) {
+  o.forEach(
+    (r, f) => r.field ? o.set(f, n(r + "")) : 0
+  );
 }
 export {
-  g as default
+  u as default
 };
 //# sourceMappingURL=cori.data.api433.js.map

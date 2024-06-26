@@ -1,7 +1,7 @@
 import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api642.js";
 import "./cori.data.api569.js";
 import "./cori.data.api570.js";
-import { Precision as s } from "./cori.data.api564.js";
+import { Precision as s } from "./cori.data.api563.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

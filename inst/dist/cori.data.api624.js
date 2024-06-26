@@ -1,4 +1,4 @@
-import { toArrayBufferView as h } from "./cori.data.api503.js";
+import { toArrayBufferView as h } from "./cori.data.api502.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

@@ -1,26 +1,34 @@
-import d from "./cori.data.api303.js";
-import i from "./cori.data.api427.js";
+import { Info as h } from "./cori.data.api462.js";
+import * as s from "./cori.data.api458.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function g(o, n) {
-  const t = o.numRows(), s = t + n.reduce((c, r) => c + r.numRows(), 0);
-  if (t === s)
-    return o;
-  const e = [o, ...n], u = d();
-  return o.columnNames().forEach((c) => {
-    const r = Array(s);
-    let f = 0;
-    e.forEach((m) => {
-      const a = m.column(c) || { get: () => i };
-      m.scan((w) => r[f++] = a.get(w));
-    }), u.add(c, r);
-  }), o.create(u.new());
+const n = Object.keys(s);
+class d extends h {
+  /**
+   * @constructor
+   * @param {string} property
+   * @param {string} attribute
+   * @param {number|null} [mask]
+   * @param {string} [space]
+   */
+  constructor(t, e, r, p) {
+    let o = -1;
+    if (super(t, e), f(this, "space", p), typeof r == "number")
+      for (; ++o < n.length; ) {
+        const i = n[o];
+        f(this, n[o], (r & s[i]) === s[i]);
+      }
+  }
+}
+d.prototype.defined = !0;
+function f(c, t, e) {
+  e && (c[t] = e);
 }
 export {
-  g as default
+  d as DefinedInfo
 };
 //# sourceMappingURL=cori.data.api461.js.map

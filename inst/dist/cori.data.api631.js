@@ -1,4 +1,4 @@
-import { random as u } from "./cori.data.api331.js";
+import { random as u } from "./cori.data.api315.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

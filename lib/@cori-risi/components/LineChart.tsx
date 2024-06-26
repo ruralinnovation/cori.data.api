@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import * as d3 from 'd3';
 import * as d3textwrap from "d3-textwrap";
 
-import CDAContextWrapper from "../contexts/CDAContextWrapper";
+import CDAContextWrapper, { CDAContext } from "../contexts/CDAContextWrapper";
 import CategoricalLegend from './CategoricalLegend';
 
 import { ERCData, MetricMetadata } from '../interfaces';
@@ -21,6 +21,8 @@ interface LineChartProps {
 }
 
 function LineChart ({ primary_geoid, metric, data, metadata, width, height }: LineChartProps): JSX.Element {
+
+  const contextWrapper = useContext(CDAContext);
 
   const primary_dta = data.filter(d => d.geoid === primary_geoid && d.metric === metric);
   const has_valid_data = !primary_dta.every(d => d.value === null);

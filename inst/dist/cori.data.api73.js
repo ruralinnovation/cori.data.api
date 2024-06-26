@@ -1,5 +1,5 @@
 import i from "./cori.data.api59.js";
-import S from "./cori.data.api233.js";
+import S from "./cori.data.api263.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

@@ -1,7 +1,7 @@
 import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api642.js";
 import "./cori.data.api569.js";
 import "./cori.data.api570.js";
-import { IntervalUnit as n } from "./cori.data.api567.js";
+import { IntervalUnit as n } from "./cori.data.api566.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

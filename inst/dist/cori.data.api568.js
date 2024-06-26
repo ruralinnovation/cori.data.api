@@ -1,6 +1,6 @@
-import { makeData as f } from "./cori.data.api505.js";
-import { Struct as p } from "./cori.data.api418.js";
-import { RecordBatch as B } from "./cori.data.api516.js";
+import { makeData as f } from "./cori.data.api504.js";
+import { Struct as p } from "./cori.data.api411.js";
+import { RecordBatch as B } from "./cori.data.api515.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

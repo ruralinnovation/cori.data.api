@@ -1,4 +1,4 @@
-import { Selection as h } from "./cori.data.api50.js";
+import { Selection as h } from "./cori.data.api58.js";
 import c from "./cori.data.api223.js";
 /*
  * CORI Data API component library

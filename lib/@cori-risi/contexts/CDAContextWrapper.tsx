@@ -1,21 +1,35 @@
 // react-context.js
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState, useRef } from 'react';
 import { createRoot, Root } from 'react-dom/client';
 
-const CDAContext = createContext<Root | null>(null);
+interface CDAContextType {
+    root: Root | null,
+    useRef: typeof useRef
+}
+
+const defaultCDAContext: CDAContextType = {
+    root: null,
+    useRef: useRef
+};
+
+export const CDAContext = createContext<CDAContextType>(defaultCDAContext);
 
 export default function CDAContextWrapper({ children }: any) {
-    const [root, setRoot] = useState<Root | null>(null);
+    const [context, setContext] = useState<CDAContextType>(defaultCDAContext);
 
     useEffect(() => {
-        if (!root) {
+        if (!context.root) {
             console.log("UPDATE CDAContextWrapper root!")
-            setRoot(createRoot(document.getElementById('root')!));
+            setContext({
+                root: createRoot(document.getElementById('root')!),
+                useRef: useRef
+            });
         }
-    }, [root]);
+    // }, [context]);
+    }, []);
 
     return (
-        <CDAContext.Provider value={root}>
+        <CDAContext.Provider value={context}>
             {children}
         </CDAContext.Provider>
     );

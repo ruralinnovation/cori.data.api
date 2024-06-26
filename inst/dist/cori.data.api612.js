@@ -1,5 +1,5 @@
-import { FixedWidthBuilder as t } from "./cori.data.api504.js";
-import { setTimestamp as o, setTimestampSecond as i, setTimestampMillisecond as m, setTimestampMicrosecond as p, setTimestampNanosecond as a } from "./cori.data.api556.js";
+import { FixedWidthBuilder as t } from "./cori.data.api503.js";
+import { setTimestamp as o, setTimestampSecond as i, setTimestampMillisecond as m, setTimestampMicrosecond as p, setTimestampNanosecond as a } from "./cori.data.api555.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

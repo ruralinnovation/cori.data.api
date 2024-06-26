@@ -1,26 +1,14 @@
+import t from "./cori.data.api422.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const e = "Expr", s = "ExprList", n = "ExprNumber", t = "ExprObject", o = "JoinKeys", c = "JoinValues", r = "Options", i = "OrderKeys", b = "SelectionList", p = "TableRef", l = "TableRefList", x = "Descending", a = "Query", y = "Selection", E = "Verb", u = "Window";
+function r(n) {
+  return n === void 0 ? n + "" : t(n) ? n + "n" : JSON.stringify(n);
+}
 export {
-  x as Descending,
-  e as Expr,
-  s as ExprList,
-  n as ExprNumber,
-  t as ExprObject,
-  o as JoinKeys,
-  c as JoinValues,
-  r as Options,
-  i as OrderbyKeys,
-  a as Query,
-  y as Selection,
-  b as SelectionList,
-  p as TableRef,
-  l as TableRefList,
-  E as Verb,
-  u as Window
+  r as default
 };
 //# sourceMappingURL=cori.data.api328.js.map

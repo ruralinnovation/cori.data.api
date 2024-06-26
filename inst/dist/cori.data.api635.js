@@ -1,5 +1,5 @@
 import { factorySpace as I } from "./cori.data.api658.js";
-import { markdownLineEnding as N } from "./cori.data.api480.js";
+import { markdownLineEnding as N } from "./cori.data.api481.js";
 import { splice as F } from "./cori.data.api657.js";
 /*
  * CORI Data API component library

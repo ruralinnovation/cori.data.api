@@ -1,20 +1,27 @@
-import { j as n } from "./cori.data.api9.js";
-import { r as o } from "./cori.data.api10.js";
-import { createRoot as s } from "./cori.data.api46.js";
+import { j as s } from "./cori.data.api9.js";
+import { r as t } from "./cori.data.api10.js";
+import { createRoot as u } from "./cori.data.api44.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const a = o.createContext(null);
-function l({ children: e }) {
-  const [t, r] = o.useState(null);
-  return o.useEffect(() => {
-    t || (console.log("UPDATE CDAContextWrapper root!"), r(s(document.getElementById("root"))));
-  }, [t]), /* @__PURE__ */ n.jsx(a.Provider, { value: t, children: e });
+const o = {
+  root: null,
+  useRef: t.useRef
+}, f = t.createContext(o);
+function p({ children: r }) {
+  const [e, n] = t.useState(o);
+  return t.useEffect(() => {
+    e.root || (console.log("UPDATE CDAContextWrapper root!"), n({
+      root: u(document.getElementById("root")),
+      useRef: t.useRef
+    }));
+  }, []), /* @__PURE__ */ s.jsx(f.Provider, { value: e, children: r });
 }
 export {
-  l as default
+  f as CDAContext,
+  p as default
 };
 //# sourceMappingURL=cori.data.api25.js.map

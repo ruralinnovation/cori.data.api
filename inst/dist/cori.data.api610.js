@@ -1,4 +1,4 @@
-import { FixedWidthBuilder as l } from "./cori.data.api504.js";
+import { FixedWidthBuilder as l } from "./cori.data.api503.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

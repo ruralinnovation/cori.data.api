@@ -1,4 +1,4 @@
-import { markdownLineEnding as g, markdownSpace as p } from "./cori.data.api480.js";
+import { markdownLineEnding as g, markdownSpace as p } from "./cori.data.api481.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

@@ -1,31 +1,52 @@
-import c from "./cori.data.api390.js";
-import m from "./cori.data.api391.js";
+import s from "./cori.data.api280.js";
+import m from "./cori.data.api320.js";
+import g from "./cori.data.api387.js";
+import h from "./cori.data.api284.js";
+import u from "./cori.data.api309.js";
+import b from "./cori.data.api388.js";
+import d from "./cori.data.api327.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const b = (a, l, u = 3) => {
-  let d = 0;
-  const p = c(50, 250);
-  return m((o) => {
-    const t = o.loaded, e = o.lengthComputable ? o.total : void 0, s = t - d, n = p(s), i = t <= e;
-    d = t;
-    const r = {
-      loaded: t,
-      total: e,
-      progress: e ? t / e : void 0,
-      bytes: s,
-      rate: n || void 0,
-      estimated: n && e && i ? (e - t) / n : void 0,
-      event: o,
-      lengthComputable: e != null
-    };
-    r[l ? "download" : "upload"] = !0, a(r);
-  }, u);
-};
+function I(t, o) {
+  const r = (c) => s(`Illegal argument type: ${c || typeof t}`);
+  return t instanceof Map ? l(t.entries(), o) : g(t) ? r("Date") : b(t) ? r("RegExp") : d(t) ? r() : m(t) ? k(t, o) : h(t[Symbol.iterator]) ? j(t, o) : u(t) ? l(Object.entries(t), o) : r();
+}
+function l(t, o = ["key", "value"]) {
+  const r = [], c = [];
+  for (const [f, e] of t)
+    r.push(f), c.push(e);
+  const i = {};
+  return o[0] && (i[o[0]] = r), o[1] && (i[o[1]] = c), i;
+}
+function k(t, o) {
+  const r = t.length, c = {}, i = (f) => c[f] = Array(r);
+  if (r) {
+    o = o || Object.keys(t[0]);
+    const f = o.map(i), e = f.length;
+    for (let n = 0; n < r; ++n) {
+      const y = t[n];
+      for (let p = 0; p < e; ++p)
+        f[p][n] = y[o[p]];
+    }
+  } else
+    o && o.forEach(i);
+  return c;
+}
+function j(t, o) {
+  const r = {}, c = (e) => r[e] = [];
+  let i, f;
+  for (const e of t) {
+    i || (o = o || Object.keys(e), i = o.map(c), f = i.length);
+    for (let n = 0; n < f; ++n)
+      i[n].push(e[o[n]]);
+  }
+  return !i && o && o.forEach(c), r;
+}
 export {
-  b as default
+  I as default
 };
 //# sourceMappingURL=cori.data.api286.js.map

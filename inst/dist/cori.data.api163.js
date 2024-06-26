@@ -1,7 +1,7 @@
 import { Transition as s, newId as h } from "./cori.data.api164.js";
 import c from "./cori.data.api186.js";
 import { now as _ } from "./cori.data.api160.js";
-import { cubicInOut as m } from "./cori.data.api88.js";
+import { cubicInOut as m } from "./cori.data.api89.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

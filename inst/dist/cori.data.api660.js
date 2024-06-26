@@ -1,5 +1,5 @@
 import { factorySpace as a } from "./cori.data.api658.js";
-import { markdownLineEnding as l } from "./cori.data.api480.js";
+import { markdownLineEnding as l } from "./cori.data.api481.js";
 import { subtokenize as p } from "./cori.data.api640.js";
 /*
  * CORI Data API component library

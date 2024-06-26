@@ -1,35 +1,36 @@
-import { formatUTCDate as f, formatDate as n } from "./cori.data.api400.js";
-import m from "./cori.data.api394.js";
-import s from "./cori.data.api300.js";
-import u from "./cori.data.api404.js";
+import o from "./cori.data.api448.js";
+import r from "./cori.data.api454.js";
+import i from "./cori.data.api329.js";
+import n from "./cori.data.api389.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function x(t, r = {}) {
-  if (s(r))
-    return r(t) + "";
-  const o = typeof t;
-  if (o === "object") {
-    if (m(t))
-      return r.utc ? f(t) : n(t);
-    {
-      const e = JSON.stringify(
-        t,
-        (l, i) => u(i) ? Array.from(i) : i
-      ), a = r.maxlen || 30;
-      return e.length > a ? e.slice(0, 28) + "…" + (e[0] === "[" ? "]" : "}") : e;
-    }
-  } else if (o === "number") {
-    const e = r.digits || 0;
-    let a;
-    return t !== 0 && ((a = Math.abs(t)) >= 1e18 || a < Math.pow(10, -e)) ? t.toExponential(e) : t.toFixed(e);
-  } else
-    return t + "";
+function u(t) {
+  return n(o, t);
+}
+function e(t) {
+  return n(r, t);
+}
+function a(t) {
+  return n(i, t) || t === "row_object";
+}
+function m(t) {
+  return u(t) && o[t];
+}
+function p(t) {
+  return e(t) && r[t];
 }
 export {
-  x as default
+  o as aggregateFunctions,
+  i as functions,
+  m as getAggregate,
+  p as getWindow,
+  u as hasAggregate,
+  a as hasFunction,
+  e as hasWindow,
+  r as windowFunctions
 };
 //# sourceMappingURL=cori.data.api402.js.map
