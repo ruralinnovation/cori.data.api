@@ -1,16 +1,22 @@
-import n from "./cori.data.api532.js";
-import t from "./cori.data.api295.js";
+import f from "./cori.data.api531.js";
+import { inferKeys as i } from "./cori.data.api529.js";
+import m from "./cori.data.api532.js";
+import k from "./cori.data.api525.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(e, m) {
-  const o = /* @__PURE__ */ new Map();
-  return e.columnNames((r) => (o.set(r, r), 0)), n(e, t(e, m, o));
+function y(p, o, r, u) {
+  return r = i(p, o, r), f(
+    p,
+    o,
+    [m("lookup", p, r[0]), m("lookup", o, r[1])],
+    k("lookup", o, u)
+  );
 }
 export {
-  a as default
+  y as default
 };
 //# sourceMappingURL=cori.data.api435.js.map

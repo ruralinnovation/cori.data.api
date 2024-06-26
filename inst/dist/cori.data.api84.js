@@ -1,44 +1,79 @@
+import u from "./cori.data.api83.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i extends Map {
-  constructor(t, s = f) {
-    if (super(), Object.defineProperties(this, { _intern: { value: /* @__PURE__ */ new Map() }, _key: { value: s } }), t != null)
-      for (const [r, o] of t)
-        this.set(r, o);
+class c {
+  constructor(e) {
+    if (typeof e != "function")
+      throw new TypeError("executor must be a function.");
+    let r;
+    this.promise = new Promise(function(t) {
+      r = t;
+    });
+    const s = this;
+    this.promise.then((n) => {
+      if (!s._listeners)
+        return;
+      let t = s._listeners.length;
+      for (; t-- > 0; )
+        s._listeners[t](n);
+      s._listeners = null;
+    }), this.promise.then = (n) => {
+      let t;
+      const o = new Promise((i) => {
+        s.subscribe(i), t = i;
+      }).then(n);
+      return o.cancel = function() {
+        s.unsubscribe(t);
+      }, o;
+    }, e(function(t, o, i) {
+      s.reason || (s.reason = new u(t, o, i), r(s.reason));
+    });
   }
-  get(t) {
-    return super.get(n(this, t));
+  /**
+   * Throws a `CanceledError` if cancellation has been requested.
+   */
+  throwIfRequested() {
+    if (this.reason)
+      throw this.reason;
   }
-  has(t) {
-    return super.has(n(this, t));
+  /**
+   * Subscribe to the cancel signal
+   */
+  subscribe(e) {
+    if (this.reason) {
+      e(this.reason);
+      return;
+    }
+    this._listeners ? this._listeners.push(e) : this._listeners = [e];
   }
-  set(t, s) {
-    return super.set(u(this, t), s);
+  /**
+   * Unsubscribe from the cancel signal
+   */
+  unsubscribe(e) {
+    if (!this._listeners)
+      return;
+    const r = this._listeners.indexOf(e);
+    r !== -1 && this._listeners.splice(r, 1);
   }
-  delete(t) {
-    return super.delete(c(this, t));
+  /**
+   * Returns an object that contains a new `CancelToken` and a function that, when called,
+   * cancels the `CancelToken`.
+   */
+  static source() {
+    let e;
+    return {
+      token: new c(function(n) {
+        e = n;
+      }),
+      cancel: e
+    };
   }
-}
-function n({ _intern: e, _key: t }, s) {
-  const r = t(s);
-  return e.has(r) ? e.get(r) : s;
-}
-function u({ _intern: e, _key: t }, s) {
-  const r = t(s);
-  return e.has(r) ? e.get(r) : (e.set(r, s), s);
-}
-function c({ _intern: e, _key: t }, s) {
-  const r = t(s);
-  return e.has(r) && (s = e.get(r), e.delete(r)), s;
-}
-function f(e) {
-  return e !== null && typeof e == "object" ? e.valueOf() : e;
 }
 export {
-  i as InternMap
+  c as default
 };
 //# sourceMappingURL=cori.data.api84.js.map

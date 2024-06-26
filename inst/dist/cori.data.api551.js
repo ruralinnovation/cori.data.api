@@ -1,24 +1,39 @@
-import { array as e } from "./cori.data.api32.js";
+import r from "./cori.data.api77.js";
+import c from "./cori.data.api328.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(l, n) {
-  const s = e(Uint8Array, n / 8);
-  let r = 0;
-  return {
-    set(t, a) {
-      t == null ? ++r : (l.set(t, a), s[a >> 3] |= 1 << a % 8);
+const p = c.hasStandardBrowserEnv ? (
+  // Standard browser envs support document.cookie
+  {
+    write(e, t, n, i, s, u) {
+      const o = [e + "=" + encodeURIComponent(t)];
+      r.isNumber(n) && o.push("expires=" + new Date(n).toGMTString()), r.isString(i) && o.push("path=" + i), r.isString(s) && o.push("domain=" + s), u === !0 && o.push("secure"), document.cookie = o.join("; ");
     },
-    data: () => {
-      const t = l.data();
-      return r && (t.nulls = r, t.buffers[2] = s), t;
+    read(e) {
+      const t = document.cookie.match(new RegExp("(^|;\\s*)(" + e + ")=([^;]*)"));
+      return t ? decodeURIComponent(t[3]) : null;
+    },
+    remove(e) {
+      this.write(e, "", Date.now() - 864e5);
     }
-  };
-}
+  }
+) : (
+  // Non-standard browser env (web workers, react-native) lack needed support.
+  {
+    write() {
+    },
+    read() {
+      return null;
+    },
+    remove() {
+    }
+  }
+);
 export {
-  u as default
+  p as default
 };
 //# sourceMappingURL=cori.data.api551.js.map

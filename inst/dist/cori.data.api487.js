@@ -4,23 +4,27 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function y(t, n) {
-  t = t || 10;
-  const c = new Array(t), o = new Array(t);
-  let e = 0, r = 0, i;
-  return n = n !== void 0 ? n : 1e3, function(h) {
-    const d = Date.now(), a = o[r];
-    i || (i = d), c[e] = h, o[e] = d;
-    let f = r, u = 0;
-    for (; f !== e; )
-      u += c[f++], f = f % t;
-    if (e = (e + 1) % t, e === r && (r = (r + 1) % t), d - i < n)
-      return;
-    const w = a && d - a;
-    return w ? Math.round(u * 1e3 / w) : void 0;
-  };
+class e {
+  /**
+   * @constructor
+   * @param {string} property
+   * @param {string} attribute
+   */
+  constructor(o, t) {
+    this.property = o, this.attribute = t;
+  }
 }
+e.prototype.space = null;
+e.prototype.boolean = !1;
+e.prototype.booleanish = !1;
+e.prototype.overloadedBoolean = !1;
+e.prototype.number = !1;
+e.prototype.commaSeparated = !1;
+e.prototype.spaceSeparated = !1;
+e.prototype.commaOrSpaceSeparated = !1;
+e.prototype.mustUseProperty = !1;
+e.prototype.defined = !1;
 export {
-  y as default
+  e as Info
 };
 //# sourceMappingURL=cori.data.api487.js.map

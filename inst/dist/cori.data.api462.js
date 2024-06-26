@@ -4,27 +4,42 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class e {
-  /**
-   * @constructor
-   * @param {string} property
-   * @param {string} attribute
-   */
-  constructor(o, t) {
-    this.property = o, this.attribute = t;
+const u = function* (t, n) {
+  let r = t.byteLength;
+  if (!n || r < n) {
+    yield t;
+    return;
   }
-}
-e.prototype.space = null;
-e.prototype.boolean = !1;
-e.prototype.booleanish = !1;
-e.prototype.overloadedBoolean = !1;
-e.prototype.number = !1;
-e.prototype.commaSeparated = !1;
-e.prototype.spaceSeparated = !1;
-e.prototype.commaOrSpaceSeparated = !1;
-e.prototype.mustUseProperty = !1;
-e.prototype.defined = !1;
+  let e = 0, a;
+  for (; e < r; )
+    a = e + n, yield t.slice(e, a), e = a;
+}, f = async function* (t, n, r) {
+  for await (const e of t)
+    yield* u(ArrayBuffer.isView(e) ? e : await r(String(e)), n);
+}, d = (t, n, r, e, a) => {
+  const i = f(t, n, a);
+  let y = 0;
+  return new ReadableStream({
+    type: "bytes",
+    async pull(l) {
+      const { done: c, value: s } = await i.next();
+      if (c) {
+        l.close(), e();
+        return;
+      }
+      let o = s.byteLength;
+      r && r(y += o), l.enqueue(new Uint8Array(s));
+    },
+    cancel(l) {
+      return e(l), i.return();
+    }
+  }, {
+    highWaterMark: 2
+  });
+};
 export {
-  e as Info
+  f as readBytes,
+  u as streamChunk,
+  d as trackStream
 };
 //# sourceMappingURL=cori.data.api462.js.map

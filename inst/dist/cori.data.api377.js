@@ -1,13 +1,18 @@
+import { create as e } from "./cori.data.api481.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(t) {
-  return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(t);
-}
+const o = e({
+  space: "xml",
+  transform(r, l) {
+    return "xml:" + l.slice(3).toLowerCase();
+  },
+  properties: { xmlLang: null, xmlBase: null, xmlSpace: null }
+});
 export {
-  e as default
+  o as xml
 };
 //# sourceMappingURL=cori.data.api377.js.map

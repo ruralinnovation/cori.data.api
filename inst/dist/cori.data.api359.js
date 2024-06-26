@@ -1,28 +1,26 @@
+import { normalizeUri as f } from "./cori.data.api374.js";
+import { revert as o } from "./cori.data.api475.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(r, t) {
-  const s = {}, a = r.all(t);
-  let l = -1;
-  for (typeof t.start == "number" && t.start !== 1 && (s.start = t.start); ++l < a.length; ) {
-    const e = a[l];
-    if (e.type === "element" && e.tagName === "li" && e.properties && Array.isArray(e.properties.className) && e.properties.className.includes("task-list-item")) {
-      s.className = ["contains-task-list"];
-      break;
-    }
-  }
-  const i = {
+function m(i, e) {
+  const l = String(e.identifier).toUpperCase(), t = i.definitionById.get(l);
+  if (!t)
+    return o(i, e);
+  const r = { href: f(t.url || "") };
+  t.title !== null && t.title !== void 0 && (r.title = t.title);
+  const n = {
     type: "element",
-    tagName: t.ordered ? "ol" : "ul",
-    properties: s,
-    children: r.wrap(a, !0)
+    tagName: "a",
+    properties: r,
+    children: i.all(e)
   };
-  return r.patch(t, i), r.applyData(t, i);
+  return i.patch(e, n), i.applyData(e, n);
 }
 export {
-  p as list
+  m as linkReference
 };
 //# sourceMappingURL=cori.data.api359.js.map

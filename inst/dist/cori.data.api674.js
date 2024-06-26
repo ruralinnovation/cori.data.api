@@ -1,29 +1,49 @@
-import { labelEnd as u } from "./cori.data.api680.js";
+import { factorySpace as l } from "./cori.data.api669.js";
+import { markdownSpace as a } from "./cori.data.api479.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const g = {
-  name: "labelStartImage",
-  tokenize: m,
-  resolveAll: u.resolveAll
+const k = {
+  name: "blockQuote",
+  tokenize: x,
+  continuation: {
+    tokenize: Q
+  },
+  exit: b
 };
-function m(r, a, t) {
-  const n = this;
-  return l;
-  function l(e) {
-    return r.enter("labelImage"), r.enter("labelImageMarker"), r.consume(e), r.exit("labelImageMarker"), o;
+function x(t, e, r) {
+  const i = this;
+  return u;
+  function u(n) {
+    if (n === 62) {
+      const c = i.containerState;
+      return c.open || (t.enter("blockQuote", {
+        _container: !0
+      }), c.open = !0), t.enter("blockQuotePrefix"), t.enter("blockQuoteMarker"), t.consume(n), t.exit("blockQuoteMarker"), o;
+    }
+    return r(n);
   }
-  function o(e) {
-    return e === 91 ? (r.enter("labelMarker"), r.consume(e), r.exit("labelMarker"), r.exit("labelImage"), i) : t(e);
-  }
-  function i(e) {
-    return e === 94 && "_hiddenFootnoteSupport" in n.parser.constructs ? t(e) : a(e);
+  function o(n) {
+    return a(n) ? (t.enter("blockQuotePrefixWhitespace"), t.consume(n), t.exit("blockQuotePrefixWhitespace"), t.exit("blockQuotePrefix"), e) : (t.exit("blockQuotePrefix"), e(n));
   }
 }
+function Q(t, e, r) {
+  const i = this;
+  return u;
+  function u(n) {
+    return a(n) ? l(t, o, "linePrefix", i.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 4)(n) : o(n);
+  }
+  function o(n) {
+    return t.attempt(k, e, r)(n);
+  }
+}
+function b(t) {
+  t.exit("blockQuote");
+}
 export {
-  g as labelStartImage
+  k as blockQuote
 };
 //# sourceMappingURL=cori.data.api674.js.map

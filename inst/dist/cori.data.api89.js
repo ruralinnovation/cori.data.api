@@ -5,9 +5,11 @@
  * @license ISC
  */
 function u(n) {
-  return ((n *= 2) <= 1 ? n * n * n : (n -= 2) * n * n + 2) / 2;
+  return function(r) {
+    return n.apply(null, r);
+  };
 }
 export {
-  u as cubicInOut
+  u as default
 };
 //# sourceMappingURL=cori.data.api89.js.map

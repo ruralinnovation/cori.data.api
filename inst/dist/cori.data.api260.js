@@ -4,12 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const r = {
-  silentJSONParsing: !0,
-  forcedJSONParsing: !0,
-  clarifyTimeoutError: !1
-};
+function o(r) {
+  throw Error(r);
+}
 export {
-  r as default
+  o as default
 };
 //# sourceMappingURL=cori.data.api260.js.map

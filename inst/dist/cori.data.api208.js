@@ -1,34 +1,19 @@
-import l from "./cori.data.api224.js";
+import { Selection as h } from "./cori.data.api61.js";
+import c from "./cori.data.api239.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s(t) {
-  return function() {
-    this.style.removeProperty(t);
-  };
-}
-function u(t, e, n) {
-  return function() {
-    this.style.setProperty(t, e, n);
-  };
-}
-function o(t, e, n) {
-  return function() {
-    var r = e.apply(this, arguments);
-    r == null ? this.style.removeProperty(t) : this.style.setProperty(t, r, n);
-  };
-}
-function f(t, e, n) {
-  return arguments.length > 1 ? this.each((e == null ? s : typeof e == "function" ? o : u)(t, e, n ?? "")) : i(this.node(), t);
-}
-function i(t, e) {
-  return t.style.getPropertyValue(e) || l(t).getComputedStyle(t, null).getPropertyValue(e);
+function u(t) {
+  typeof t != "function" && (t = c(t));
+  for (var a = this._groups, _ = a.length, i = [], n = [], r = 0; r < _; ++r)
+    for (var o = a[r], e = o.length, f, l = 0; l < e; ++l)
+      (f = o[l]) && (i.push(t.call(f, f.__data__, l, o)), n.push(f));
+  return new h(i, n);
 }
 export {
-  f as default,
-  i as styleValue
+  u as default
 };
 //# sourceMappingURL=cori.data.api208.js.map

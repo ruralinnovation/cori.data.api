@@ -1,50 +1,50 @@
-import { asciiAlpha as z, asciiAlphanumeric as a, asciiControl as E, asciiAtext as O } from "./cori.data.api481.js";
+import { factorySpace as h } from "./cori.data.api669.js";
+import { markdownLineEnding as o } from "./cori.data.api479.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const b = {
-  name: "autolink",
-  tokenize: P
+const P = {
+  name: "codeIndented",
+  tokenize: p
+}, m = {
+  tokenize: d,
+  partial: !0
 };
-function P(r, l, t) {
-  let i = 0;
-  return p;
-  function p(n) {
-    return r.enter("autolink"), r.enter("autolinkMarker"), r.consume(n), r.exit("autolinkMarker"), r.enter("autolinkProtocol"), M;
-  }
-  function M(n) {
-    return z(n) ? (r.consume(n), h) : n === 64 ? t(n) : u(n);
-  }
-  function h(n) {
-    return n === 43 || n === 45 || n === 46 || a(n) ? (i = 1, m(n)) : u(n);
-  }
-  function m(n) {
-    return n === 58 ? (r.consume(n), i = 0, k) : (n === 43 || n === 45 || n === 46 || a(n)) && i++ < 32 ? (r.consume(n), m) : (i = 0, u(n));
-  }
-  function k(n) {
-    return n === 62 ? (r.exit("autolinkProtocol"), r.enter("autolinkMarker"), r.consume(n), r.exit("autolinkMarker"), r.exit("autolink"), l) : n === null || n === 32 || n === 60 || E(n) ? t(n) : (r.consume(n), k);
-  }
+function p(e, f, l) {
+  const r = this;
+  return u;
   function u(n) {
-    return n === 64 ? (r.consume(n), o) : O(n) ? (r.consume(n), u) : t(n);
+    return e.enter("codeIndented"), h(e, s, "linePrefix", 5)(n);
   }
-  function o(n) {
-    return a(n) ? x(n) : t(n);
+  function s(n) {
+    const a = r.events[r.events.length - 1];
+    return a && a[1].type === "linePrefix" && a[2].sliceSerialize(a[1], !0).length >= 4 ? t(n) : l(n);
+  }
+  function t(n) {
+    return n === null ? x(n) : o(n) ? e.attempt(m, t, x)(n) : (e.enter("codeFlowValue"), i(n));
+  }
+  function i(n) {
+    return n === null || o(n) ? (e.exit("codeFlowValue"), t(n)) : (e.consume(n), i);
   }
   function x(n) {
-    return n === 46 ? (r.consume(n), i = 0, o) : n === 62 ? (r.exit("autolinkProtocol").type = "autolinkEmail", r.enter("autolinkMarker"), r.consume(n), r.exit("autolinkMarker"), r.exit("autolink"), l) : A(n);
+    return e.exit("codeIndented"), f(n);
   }
-  function A(n) {
-    if ((n === 45 || a(n)) && i++ < 63) {
-      const e = n === 45 ? A : x;
-      return r.consume(n), e;
-    }
-    return t(n);
+}
+function d(e, f, l) {
+  const r = this;
+  return u;
+  function u(t) {
+    return r.parser.lazy[r.now().line] ? l(t) : o(t) ? (e.enter("lineEnding"), e.consume(t), e.exit("lineEnding"), u) : h(e, s, "linePrefix", 5)(t);
+  }
+  function s(t) {
+    const i = r.events[r.events.length - 1];
+    return i && i[1].type === "linePrefix" && i[2].sliceSerialize(i[1], !0).length >= 4 ? f(t) : o(t) ? u(t) : l(t);
   }
 }
 export {
-  b as autolink
+  P as codeIndented
 };
 //# sourceMappingURL=cori.data.api676.js.map

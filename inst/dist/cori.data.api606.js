@@ -1,61 +1,106 @@
-import { Dictionary as c } from "./cori.data.api411.js";
-import { Builder as d } from "./cori.data.api503.js";
-import { makeBuilder as r } from "./cori.data.api599.js";
+import { Visitor as T } from "./cori.data.api569.js";
+import { Null as v } from "./cori.data.api656.js";
+import { Int as a } from "./cori.data.api585.js";
+import { FloatingPoint as m } from "./cori.data.api594.js";
+import { Binary as B } from "./cori.data.api657.js";
+import { LargeBinary as S } from "./cori.data.api658.js";
+import { Bool as g } from "./cori.data.api659.js";
+import { Utf8 as I } from "./cori.data.api660.js";
+import { LargeUtf8 as L } from "./cori.data.api661.js";
+import { Decimal as n } from "./cori.data.api595.js";
+import { Date as u } from "./cori.data.api596.js";
+import { Time as o } from "./cori.data.api597.js";
+import { Timestamp as s } from "./cori.data.api598.js";
+import { Interval as p } from "./cori.data.api599.js";
+import { Duration as f } from "./cori.data.api600.js";
+import { List as U } from "./cori.data.api662.js";
+import { Struct_ as D } from "./cori.data.api663.js";
+import { Union as e } from "./cori.data.api601.js";
+import { DictionaryEncoding as d } from "./cori.data.api655.js";
+import { FixedSizeBinary as l } from "./cori.data.api602.js";
+import { FixedSizeList as c } from "./cori.data.api603.js";
+import { Map as y } from "./cori.data.api604.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class a extends d {
-  constructor({ type: i, nullValues: e, dictionaryHashFunction: t }) {
-    super({ type: new c(i.dictionary, i.indices, i.id, i.isOrdered) }), this._nulls = null, this._dictionaryOffset = 0, this._keysToIndices = /* @__PURE__ */ Object.create(null), this.indices = r({ type: this.type.indices, nullValues: e }), this.dictionary = r({ type: this.type.dictionary, nullValues: null }), typeof t == "function" && (this.valueToKey = t);
+class z extends T {
+  visit(i, t) {
+    return i == null || t == null ? void 0 : super.visit(i, t);
   }
-  get values() {
-    return this.indices.values;
+  visitNull(i, t) {
+    return v.startNull(t), v.endNull(t);
   }
-  get nullCount() {
-    return this.indices.nullCount;
+  visitInt(i, t) {
+    return a.startInt(t), a.addBitWidth(t, i.bitWidth), a.addIsSigned(t, i.isSigned), a.endInt(t);
   }
-  get nullBitmap() {
-    return this.indices.nullBitmap;
+  visitFloat(i, t) {
+    return m.startFloatingPoint(t), m.addPrecision(t, i.precision), m.endFloatingPoint(t);
   }
-  get byteLength() {
-    return this.indices.byteLength + this.dictionary.byteLength;
+  visitBinary(i, t) {
+    return B.startBinary(t), B.endBinary(t);
   }
-  get reservedLength() {
-    return this.indices.reservedLength + this.dictionary.reservedLength;
+  visitLargeBinary(i, t) {
+    return S.startLargeBinary(t), S.endLargeBinary(t);
   }
-  get reservedByteLength() {
-    return this.indices.reservedByteLength + this.dictionary.reservedByteLength;
+  visitBool(i, t) {
+    return g.startBool(t), g.endBool(t);
   }
-  isValid(i) {
-    return this.indices.isValid(i);
+  visitUtf8(i, t) {
+    return I.startUtf8(t), I.endUtf8(t);
   }
-  setValid(i, e) {
-    const t = this.indices;
-    return e = t.setValid(i, e), this.length = t.length, e;
+  visitLargeUtf8(i, t) {
+    return L.startLargeUtf8(t), L.endLargeUtf8(t);
   }
-  setValue(i, e) {
-    const t = this._keysToIndices, s = this.valueToKey(e);
-    let n = t[s];
-    return n === void 0 && (t[s] = n = this._dictionaryOffset + this.dictionary.append(e).length - 1), this.indices.setValue(i, n);
+  visitDecimal(i, t) {
+    return n.startDecimal(t), n.addScale(t, i.scale), n.addPrecision(t, i.precision), n.addBitWidth(t, i.bitWidth), n.endDecimal(t);
   }
-  flush() {
-    const i = this.type, e = this._dictionary, t = this.dictionary.toVector(), s = this.indices.flush().clone(i);
-    return s.dictionary = e ? e.concat(t) : t, this.finished || (this._dictionaryOffset += t.length), this._dictionary = s.dictionary, this.clear(), s;
+  visitDate(i, t) {
+    return u.startDate(t), u.addUnit(t, i.unit), u.endDate(t);
   }
-  finish() {
-    return this.indices.finish(), this.dictionary.finish(), this._dictionaryOffset = 0, this._keysToIndices = /* @__PURE__ */ Object.create(null), super.finish();
+  visitTime(i, t) {
+    return o.startTime(t), o.addUnit(t, i.unit), o.addBitWidth(t, i.bitWidth), o.endTime(t);
   }
-  clear() {
-    return this.indices.clear(), this.dictionary.clear(), super.clear();
+  visitTimestamp(i, t) {
+    const r = i.timezone && t.createString(i.timezone) || void 0;
+    return s.startTimestamp(t), s.addUnit(t, i.unit), r !== void 0 && s.addTimezone(t, r), s.endTimestamp(t);
   }
-  valueToKey(i) {
-    return typeof i == "string" ? i : `${i}`;
+  visitInterval(i, t) {
+    return p.startInterval(t), p.addUnit(t, i.unit), p.endInterval(t);
+  }
+  visitDuration(i, t) {
+    return f.startDuration(t), f.addUnit(t, i.unit), f.endDuration(t);
+  }
+  visitList(i, t) {
+    return U.startList(t), U.endList(t);
+  }
+  visitStruct(i, t) {
+    return D.startStruct_(t), D.endStruct_(t);
+  }
+  visitUnion(i, t) {
+    e.startTypeIdsVector(t, i.typeIds.length);
+    const r = e.createTypeIdsVector(t, i.typeIds);
+    return e.startUnion(t), e.addMode(t, i.mode), e.addTypeIds(t, r), e.endUnion(t);
+  }
+  visitDictionary(i, t) {
+    const r = this.visit(i.indices, t);
+    return d.startDictionaryEncoding(t), d.addId(t, BigInt(i.id)), d.addIsOrdered(t, i.isOrdered), r !== void 0 && d.addIndexType(t, r), d.endDictionaryEncoding(t);
+  }
+  visitFixedSizeBinary(i, t) {
+    return l.startFixedSizeBinary(t), l.addByteWidth(t, i.byteWidth), l.endFixedSizeBinary(t);
+  }
+  visitFixedSizeList(i, t) {
+    return c.startFixedSizeList(t), c.addListSize(t, i.listSize), c.endFixedSizeList(t);
+  }
+  visitMap(i, t) {
+    return y.startMap(t), y.addKeysSorted(t, i.keysSorted), y.endMap(t);
   }
 }
+const X = new z();
 export {
-  a as DictionaryBuilder
+  z as TypeAssembler,
+  X as instance
 };
 //# sourceMappingURL=cori.data.api606.js.map

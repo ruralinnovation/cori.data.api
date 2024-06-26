@@ -1,44 +1,41 @@
-import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api642.js";
-import "./cori.data.api569.js";
-import "./cori.data.api570.js";
-import { IntervalUnit as n } from "./cori.data.api566.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
+class n {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
   }
-  static getRootAsInterval(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  /**
+   * The relative offset into the shared memory page where the bytes for this
+   * buffer starts
+   */
+  offset() {
+    return this.bb.readInt64(this.bb_pos);
   }
-  static getSizePrefixedRootAsInterval(t, i) {
-    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  /**
+   * The absolute length (in bytes) of the memory buffer. The memory is found
+   * from offset (inclusive) to offset + length (non-inclusive). When building
+   * messages using the encapsulated IPC message, padding bytes may be written
+   * after a buffer, but such padding bytes do not need to be accounted for in
+   * the size here.
+   */
+  length() {
+    return this.bb.readInt64(this.bb_pos + 8);
   }
-  unit() {
-    const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : n.YEAR_MONTH;
+  static sizeOf() {
+    return 16;
   }
-  static startInterval(t) {
-    t.startObject(1);
-  }
-  static addUnit(t, i) {
-    t.addFieldInt16(0, i, n.YEAR_MONTH);
-  }
-  static endInterval(t) {
-    return t.endObject();
-  }
-  static createInterval(t, i) {
-    return s.startInterval(t), s.addUnit(t, i), s.endInterval(t);
+  static createBuffer(t, s, r) {
+    return t.prep(8, 16), t.writeInt64(BigInt(r ?? 0)), t.writeInt64(BigInt(s ?? 0)), t.offset();
   }
 }
 export {
-  s as Interval
+  n as Buffer
 };
 //# sourceMappingURL=cori.data.api588.js.map

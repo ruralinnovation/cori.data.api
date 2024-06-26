@@ -1,5 +1,5 @@
 import { __asyncGenerator as d, __await as o, __asyncDelegator as c, __asyncValues as h } from "./cori.data.api501.js";
-import { encodeUtf8 as U } from "./cori.data.api567.js";
+import { encodeUtf8 as U } from "./cori.data.api561.js";
 import { isIteratorResult as p, isFlatbuffersByteBuffer as _, isIterable as I, isPromise as B, isAsyncIterable as x } from "./cori.data.api517.js";
 /*
  * CORI Data API component library

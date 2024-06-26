@@ -1,43 +1,51 @@
+import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api653.js";
+import "./cori.data.api579.js";
+import "./cori.data.api580.js";
+import { TimeUnit as o } from "./cori.data.api575.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class b {
+class s {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
-  __init(t, s) {
-    return this.bb_pos = t, this.bb = s, this;
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  /**
-   * Index to the start of the RecordBlock (note this is past the Message header)
-   */
-  offset() {
-    return this.bb.readInt64(this.bb_pos);
+  static getRootAsTime(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  /**
-   * Length of the metadata
-   */
-  metaDataLength() {
-    return this.bb.readInt32(this.bb_pos + 8);
+  static getSizePrefixedRootAsTime(t, i) {
+    return t.setPosition(t.position() + e), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  /**
-   * Length of the data (this is aligned so there can be a gap between this and
-   * the metadata).
-   */
-  bodyLength() {
-    return this.bb.readInt64(this.bb_pos + 16);
+  unit() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt16(this.bb_pos + t) : o.MILLISECOND;
   }
-  static sizeOf() {
-    return 24;
+  bitWidth() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? this.bb.readInt32(this.bb_pos + t) : 32;
   }
-  static createBlock(t, s, i, n) {
-    return t.prep(8, 24), t.writeInt64(BigInt(n ?? 0)), t.pad(4), t.writeInt32(i), t.writeInt64(BigInt(s ?? 0)), t.offset();
+  static startTime(t) {
+    t.startObject(2);
+  }
+  static addUnit(t, i) {
+    t.addFieldInt16(0, i, o.MILLISECOND);
+  }
+  static addBitWidth(t, i) {
+    t.addFieldInt32(1, i, 32);
+  }
+  static endTime(t) {
+    return t.endObject();
+  }
+  static createTime(t, i, n) {
+    return s.startTime(t), s.addUnit(t, i), s.addBitWidth(t, n), s.endTime(t);
   }
 }
 export {
-  b as Block
+  s as Time
 };
 //# sourceMappingURL=cori.data.api597.js.map

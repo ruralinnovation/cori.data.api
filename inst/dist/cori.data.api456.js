@@ -1,29 +1,15 @@
-import { normalize as s } from "./cori.data.api460.js";
-import { Schema as a } from "./cori.data.api455.js";
-import { DefinedInfo as c } from "./cori.data.api461.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const u = {}.hasOwnProperty;
-function w(e) {
-  const p = {}, t = {};
-  let r;
-  for (r in e.properties)
-    if (u.call(e.properties, r)) {
-      const m = e.properties[r], o = new c(
-        r,
-        e.transform(e.attributes || {}, r),
-        m,
-        e.space
-      );
-      e.mustUseProperty && e.mustUseProperty.includes(r) && (o.mustUseProperty = !0), p[r] = o, t[s(r)] = r, t[s(o.attribute)] = r;
-    }
-  return new a(p, t, e.space);
-}
+const e = typeof window < "u" && typeof document < "u", n = ((o) => e && ["ReactNative", "NativeScript", "NS"].indexOf(o) < 0)(typeof navigator < "u" && navigator.product), t = typeof WorkerGlobalScope < "u" && // eslint-disable-next-line no-undef
+self instanceof WorkerGlobalScope && typeof self.importScripts == "function", r = e && window.location.href || "http://localhost";
 export {
-  w as create
+  e as hasBrowserEnv,
+  n as hasStandardBrowserEnv,
+  t as hasStandardBrowserWebWorkerEnv,
+  r as origin
 };
 //# sourceMappingURL=cori.data.api456.js.map

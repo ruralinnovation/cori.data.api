@@ -1,4 +1,4 @@
-import { Visitor as f } from "./cori.data.api559.js";
+import { Visitor as f } from "./cori.data.api569.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

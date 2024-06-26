@@ -1,22 +1,68 @@
-import o from "./cori.data.api484.js";
-import r from "./cori.data.api485.js";
-import t from "./cori.data.api486.js";
+import { booleanish as a, number as r, spaceSeparated as i } from "./cori.data.api483.js";
+import { create as l } from "./cori.data.api481.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const l = {
-  isBrowser: !0,
-  classes: {
-    URLSearchParams: o,
-    FormData: r,
-    Blob: t
+const u = l({
+  transform(n, e) {
+    return e === "role" ? e : "aria-" + e.slice(4).toLowerCase();
   },
-  protocols: ["http", "https", "file", "blob", "url", "data"]
-};
+  properties: {
+    ariaActiveDescendant: null,
+    ariaAtomic: a,
+    ariaAutoComplete: null,
+    ariaBusy: a,
+    ariaChecked: a,
+    ariaColCount: r,
+    ariaColIndex: r,
+    ariaColSpan: r,
+    ariaControls: i,
+    ariaCurrent: null,
+    ariaDescribedBy: i,
+    ariaDetails: null,
+    ariaDisabled: a,
+    ariaDropEffect: i,
+    ariaErrorMessage: null,
+    ariaExpanded: a,
+    ariaFlowTo: i,
+    ariaGrabbed: a,
+    ariaHasPopup: null,
+    ariaHidden: a,
+    ariaInvalid: null,
+    ariaKeyShortcuts: null,
+    ariaLabel: null,
+    ariaLabelledBy: i,
+    ariaLevel: r,
+    ariaLive: null,
+    ariaModal: a,
+    ariaMultiLine: a,
+    ariaMultiSelectable: a,
+    ariaOrientation: null,
+    ariaOwns: i,
+    ariaPlaceholder: null,
+    ariaPosInSet: r,
+    ariaPressed: a,
+    ariaReadOnly: a,
+    ariaRelevant: null,
+    ariaRequired: a,
+    ariaRoleDescription: i,
+    ariaRowCount: r,
+    ariaRowIndex: r,
+    ariaRowSpan: r,
+    ariaSelected: a,
+    ariaSetSize: r,
+    ariaSort: null,
+    ariaValueMax: r,
+    ariaValueMin: r,
+    ariaValueNow: r,
+    ariaValueText: null,
+    role: null
+  }
+});
 export {
-  l as default
+  u as aria
 };
 //# sourceMappingURL=cori.data.api379.js.map

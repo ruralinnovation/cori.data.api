@@ -1,49 +1,36 @@
-import { factorySpace as l } from "./cori.data.api658.js";
-import { markdownSpace as a } from "./cori.data.api481.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api653.js";
+import "./cori.data.api579.js";
+import "./cori.data.api580.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const k = {
-  name: "blockQuote",
-  tokenize: x,
-  continuation: {
-    tokenize: Q
-  },
-  exit: b
-};
-function x(t, e, r) {
-  const i = this;
-  return u;
-  function u(n) {
-    if (n === 62) {
-      const c = i.containerState;
-      return c.open || (t.enter("blockQuote", {
-        _container: !0
-      }), c.open = !0), t.enter("blockQuotePrefix"), t.enter("blockQuoteMarker"), t.consume(n), t.exit("blockQuoteMarker"), o;
-    }
-    return r(n);
+class s {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  function o(n) {
-    return a(n) ? (t.enter("blockQuotePrefixWhitespace"), t.consume(n), t.exit("blockQuotePrefixWhitespace"), t.exit("blockQuotePrefix"), e) : (t.exit("blockQuotePrefix"), e(n));
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-}
-function Q(t, e, r) {
-  const i = this;
-  return u;
-  function u(n) {
-    return a(n) ? l(t, o, "linePrefix", i.parser.constructs.disable.null.includes("codeIndented") ? void 0 : 4)(n) : o(n);
+  static getRootAsStruct_(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  function o(n) {
-    return t.attempt(k, e, r)(n);
+  static getSizePrefixedRootAsStruct_(t, i) {
+    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-}
-function b(t) {
-  t.exit("blockQuote");
+  static startStruct_(t) {
+    t.startObject(0);
+  }
+  static endStruct_(t) {
+    return t.endObject();
+  }
+  static createStruct_(t) {
+    return s.startStruct_(t), s.endStruct_(t);
+  }
 }
 export {
-  k as blockQuote
+  s as Struct_
 };
 //# sourceMappingURL=cori.data.api663.js.map

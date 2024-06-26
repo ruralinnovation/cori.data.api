@@ -1,14 +1,16 @@
-import t from "./cori.data.api422.js";
+import o from "./cori.data.api455.js";
+import * as t from "./cori.data.api456.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function r(n) {
-  return n === void 0 ? n + "" : t(n) ? n + "n" : JSON.stringify(n);
-}
+const m = {
+  ...t,
+  ...o
+};
 export {
-  r as default
+  m as default
 };
 //# sourceMappingURL=cori.data.api328.js.map

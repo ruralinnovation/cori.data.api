@@ -1,4 +1,4 @@
-import { valueToString as i } from "./cori.data.api561.js";
+import { valueToString as i } from "./cori.data.api571.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

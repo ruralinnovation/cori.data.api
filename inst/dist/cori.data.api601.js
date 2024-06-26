@@ -1,94 +1,68 @@
-import { valueToString as u } from "./cori.data.api561.js";
-import { instance as o } from "./cori.data.api554.js";
-import { instance as h } from "./cori.data.api555.js";
+import { SIZE_PREFIX_LENGTH as r } from "./cori.data.api653.js";
+import "./cori.data.api579.js";
+import "./cori.data.api580.js";
+import { UnionMode as i } from "./cori.data.api570.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const r = Symbol.for("parent"), s = Symbol.for("rowIndex");
-class d {
-  constructor(e, t) {
-    return this[r] = e, this[s] = t, new Proxy(this, new m());
+class e {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  toArray() {
-    return Object.values(this.toJSON());
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
   }
-  toJSON() {
-    const e = this[s], t = this[r], n = t.type.children, i = {};
-    for (let l = -1, a = n.length; ++l < a; )
-      i[n[l].name] = o.visit(t.children[l], e);
-    return i;
+  static getRootAsUnion(t, s) {
+    return (s || new e()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  toString() {
-    return `{${[...this].map(([e, t]) => `${u(e)}: ${u(t)}`).join(", ")}}`;
+  static getSizePrefixedRootAsUnion(t, s) {
+    return t.setPosition(t.position() + r), (s || new e()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  [Symbol.for("nodejs.util.inspect.custom")]() {
-    return this.toString();
+  mode() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt16(this.bb_pos + t) : i.Sparse;
   }
-  [Symbol.iterator]() {
-    return new f(this[r], this[s]);
+  typeIds(t) {
+    const s = this.bb.__offset(this.bb_pos, 6);
+    return s ? this.bb.readInt32(this.bb.__vector(this.bb_pos + s) + t * 4) : 0;
   }
-}
-class f {
-  constructor(e, t) {
-    this.childIndex = 0, this.children = e.children, this.rowIndex = t, this.childFields = e.type.children, this.numChildren = this.childFields.length;
+  typeIdsLength() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
-  [Symbol.iterator]() {
-    return this;
+  typeIdsArray() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? new Int32Array(this.bb.bytes().buffer, this.bb.bytes().byteOffset + this.bb.__vector(this.bb_pos + t), this.bb.__vector_len(this.bb_pos + t)) : null;
   }
-  next() {
-    const e = this.childIndex;
-    return e < this.numChildren ? (this.childIndex = e + 1, {
-      done: !1,
-      value: [
-        this.childFields[e].name,
-        o.visit(this.children[e], this.rowIndex)
-      ]
-    }) : { done: !0, value: null };
+  static startUnion(t) {
+    t.startObject(2);
   }
-}
-Object.defineProperties(d.prototype, {
-  [Symbol.toStringTag]: { enumerable: !1, configurable: !1, value: "Row" },
-  [r]: { writable: !0, enumerable: !1, configurable: !1, value: null },
-  [s]: { writable: !0, enumerable: !1, configurable: !1, value: -1 }
-});
-class m {
-  isExtensible() {
-    return !1;
+  static addMode(t, s) {
+    t.addFieldInt16(0, s, i.Sparse);
   }
-  deleteProperty() {
-    return !1;
+  static addTypeIds(t, s) {
+    t.addFieldOffset(1, s, 0);
   }
-  preventExtensions() {
-    return !0;
+  static createTypeIdsVector(t, s) {
+    t.startVector(4, s.length, 4);
+    for (let o = s.length - 1; o >= 0; o--)
+      t.addInt32(s[o]);
+    return t.endVector();
   }
-  ownKeys(e) {
-    return e[r].type.children.map((t) => t.name);
+  static startTypeIdsVector(t, s) {
+    t.startVector(4, s, 4);
   }
-  has(e, t) {
-    return e[r].type.children.findIndex((n) => n.name === t) !== -1;
+  static endUnion(t) {
+    return t.endObject();
   }
-  getOwnPropertyDescriptor(e, t) {
-    if (e[r].type.children.findIndex((n) => n.name === t) !== -1)
-      return { writable: !0, enumerable: !0, configurable: !0 };
-  }
-  get(e, t) {
-    if (Reflect.has(e, t))
-      return e[t];
-    const n = e[r].type.children.findIndex((i) => i.name === t);
-    if (n !== -1) {
-      const i = o.visit(e[r].children[n], e[s]);
-      return Reflect.set(e, t, i), i;
-    }
-  }
-  set(e, t, n) {
-    const i = e[r].type.children.findIndex((l) => l.name === t);
-    return i !== -1 ? (h.visit(e[r].children[i], e[s], n), Reflect.set(e, t, n)) : Reflect.has(e, t) || typeof t == "symbol" ? Reflect.set(e, t, n) : !1;
+  static createUnion(t, s, o) {
+    return e.startUnion(t), e.addMode(t, s), e.addTypeIds(t, o), e.endUnion(t);
   }
 }
 export {
-  d as StructRow
+  e as Union
 };
 //# sourceMappingURL=cori.data.api601.js.map

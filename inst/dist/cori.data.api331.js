@@ -1,70 +1,78 @@
-import e from "./cori.data.api423.js";
-import f from "./cori.data.api424.js";
-import u from "./cori.data.api425.js";
-import n from "./cori.data.api426.js";
-import c from "./cori.data.api427.js";
-import l from "./cori.data.api428.js";
-import s from "./cori.data.api429.js";
-import _ from "./cori.data.api430.js";
-import t from "./cori.data.api431.js";
-import a from "./cori.data.api432.js";
-import d from "./cori.data.api433.js";
-import b from "./cori.data.api434.js";
-import g from "./cori.data.api435.js";
-import i from "./cori.data.api436.js";
-import j from "./cori.data.api437.js";
-import v from "./cori.data.api438.js";
-import x from "./cori.data.api439.js";
-import y from "./cori.data.api440.js";
-import h from "./cori.data.api441.js";
-import k from "./cori.data.api442.js";
-import q from "./cori.data.api443.js";
-import w from "./cori.data.api444.js";
-import z from "./cori.data.api445.js";
-import A from "./cori.data.api446.js";
-import B from "./cori.data.api447.js";
-import { count as C } from "./cori.data.api31.js";
+import R from "./cori.data.api77.js";
+import x from "./cori.data.api457.js";
+import b from "./cori.data.api326.js";
+import n from "./cori.data.api88.js";
+import y from "./cori.data.api83.js";
+import H from "./cori.data.api458.js";
+import q from "./cori.data.api328.js";
+import T from "./cori.data.api91.js";
+import g from "./cori.data.api459.js";
+import A from "./cori.data.api460.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const mr = {
-  __antijoin: (r, o, m) => t(r, o, m, { anti: !0 }),
-  __count: (r, o = {}) => i(r, { [o.as || "count"]: C() }),
-  __cross: (r, o, m, p) => _(r, o, () => !0, m, {
-    ...p,
-    left: !0,
-    right: !0
-  }),
-  __concat: w,
-  __dedupe: e,
-  __derive: f,
-  __except: u,
-  __filter: n,
-  __fold: c,
-  __impute: l,
-  __intersect: s,
-  __join: _,
-  __lookup: a,
-  __pivot: d,
-  __relocate: b,
-  __rename: g,
-  __rollup: i,
-  __sample: j,
-  __select: v,
-  __semijoin: t,
-  __spread: x,
-  __union: y,
-  __unroll: h,
-  __groupby: k,
-  __orderby: q,
-  __ungroup: A,
-  __unorder: B,
-  __reduce: z
+const C = typeof XMLHttpRequest < "u", X = C && function(l) {
+  return new Promise(function(h, r) {
+    const t = A(l);
+    let p = t.data;
+    const m = T.from(t.headers).normalize();
+    let { responseType: i } = t, s;
+    function c() {
+      t.cancelToken && t.cancelToken.unsubscribe(s), t.signal && t.signal.removeEventListener("abort", s);
+    }
+    let e = new XMLHttpRequest();
+    e.open(t.method.toUpperCase(), t.url, !0), e.timeout = t.timeout;
+    function E() {
+      if (!e)
+        return;
+      const o = T.from(
+        "getAllResponseHeaders" in e && e.getAllResponseHeaders()
+      ), u = {
+        data: !i || i === "text" || i === "json" ? e.responseText : e.response,
+        status: e.status,
+        statusText: e.statusText,
+        headers: o,
+        config: l,
+        request: e
+      };
+      x(function(f) {
+        h(f), c();
+      }, function(f) {
+        r(f), c();
+      }, u), e = null;
+    }
+    "onloadend" in e ? e.onloadend = E : e.onreadystatechange = function() {
+      !e || e.readyState !== 4 || e.status === 0 && !(e.responseURL && e.responseURL.indexOf("file:") === 0) || setTimeout(E);
+    }, e.onabort = function() {
+      e && (r(new n("Request aborted", n.ECONNABORTED, t, e)), e = null);
+    }, e.onerror = function() {
+      r(new n("Network Error", n.ERR_NETWORK, t, e)), e = null;
+    }, e.ontimeout = function() {
+      let a = t.timeout ? "timeout of " + t.timeout + "ms exceeded" : "timeout exceeded";
+      const u = t.transitional || b;
+      t.timeoutErrorMessage && (a = t.timeoutErrorMessage), r(new n(
+        a,
+        u.clarifyTimeoutError ? n.ETIMEDOUT : n.ECONNABORTED,
+        t,
+        e
+      )), e = null;
+    }, p === void 0 && m.setContentType(null), "setRequestHeader" in e && R.forEach(m.toJSON(), function(a, u) {
+      e.setRequestHeader(u, a);
+    }), R.isUndefined(t.withCredentials) || (e.withCredentials = !!t.withCredentials), i && i !== "json" && (e.responseType = t.responseType), typeof t.onDownloadProgress == "function" && e.addEventListener("progress", g(t.onDownloadProgress, !0)), typeof t.onUploadProgress == "function" && e.upload && e.upload.addEventListener("progress", g(t.onUploadProgress)), (t.cancelToken || t.signal) && (s = (o) => {
+      e && (r(!o || o.type ? new y(null, l, e) : o), e.abort(), e = null);
+    }, t.cancelToken && t.cancelToken.subscribe(s), t.signal && (t.signal.aborted ? s() : t.signal.addEventListener("abort", s)));
+    const d = H(t.url);
+    if (d && q.protocols.indexOf(d) === -1) {
+      r(new n("Unsupported protocol " + d + ":", n.ERR_BAD_REQUEST, l));
+      return;
+    }
+    e.send(p || null);
+  });
 };
 export {
-  mr as default
+  X as default
 };
 //# sourceMappingURL=cori.data.api331.js.map

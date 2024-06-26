@@ -1,7 +1,7 @@
-import { Vector as c } from "./cori.data.api410.js";
-import { valueToString as a } from "./cori.data.api561.js";
-import { instance as l } from "./cori.data.api554.js";
-import { instance as f } from "./cori.data.api555.js";
+import { Vector as c } from "./cori.data.api406.js";
+import { valueToString as a } from "./cori.data.api571.js";
+import { instance as l } from "./cori.data.api564.js";
+import { instance as f } from "./cori.data.api565.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

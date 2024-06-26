@@ -1,25 +1,31 @@
-import { Selection as e } from "./cori.data.api122.js";
-import h from "./cori.data.api272.js";
-import _ from "./cori.data.api158.js";
+import o from "./cori.data.api119.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(r) {
-  return function() {
-    return h(r.apply(this, arguments));
+function e(n, r) {
+  return function(t) {
+    return n + t * r;
   };
 }
-function s(r) {
-  typeof r == "function" ? r = p(r) : r = _(r);
-  for (var l = this._groups, m = l.length, o = [], i = [], n = 0; n < m; ++n)
-    for (var a = l[n], u = a.length, t, f = 0; f < u; ++f)
-      (t = a[f]) && (o.push(r.call(t, t.__data__, f, a)), i.push(t));
-  return new e(o, i);
+function i(n, r, t) {
+  return n = Math.pow(n, t), r = Math.pow(r, t) - n, t = 1 / t, function(u) {
+    return Math.pow(n + u * r, t);
+  };
+}
+function a(n) {
+  return (n = +n) == 1 ? f : function(r, t) {
+    return t - r ? i(r, t, n) : o(isNaN(r) ? t : r);
+  };
+}
+function f(n, r) {
+  var t = r - n;
+  return t ? e(n, t) : o(isNaN(n) ? r : n);
 }
 export {
-  s as default
+  f as default,
+  a as gamma
 };
 //# sourceMappingURL=cori.data.api124.js.map

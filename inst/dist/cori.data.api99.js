@@ -1,14 +1,15 @@
-import e from "./cori.data.api91.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function n(t) {
-  return Math.max(0, -e(Math.abs(t)));
+var o = typeof globalThis < "u" ? globalThis : typeof window < "u" ? window : typeof global < "u" ? global : typeof self < "u" ? self : {};
+function l(e) {
+  return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
 }
 export {
-  n as default
+  o as commonjsGlobal,
+  l as getDefaultExportFromCjs
 };
 //# sourceMappingURL=cori.data.api99.js.map

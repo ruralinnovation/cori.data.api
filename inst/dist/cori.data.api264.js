@@ -4,7 +4,9 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const t = null;
+function t(n) {
+  return typeof n == "function";
+}
 export {
   t as default
 };

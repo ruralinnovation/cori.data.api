@@ -1,22 +1,65 @@
+import { blockquote as r } from "./cori.data.api348.js";
+import { hardBreak as m } from "./cori.data.api349.js";
+import { code as t } from "./cori.data.api350.js";
+import { strikethrough as e } from "./cori.data.api351.js";
+import { emphasis as i } from "./cori.data.api352.js";
+import { footnoteReference as f } from "./cori.data.api353.js";
+import { heading as p } from "./cori.data.api354.js";
+import { html as n } from "./cori.data.api355.js";
+import { imageReference as a } from "./cori.data.api356.js";
+import { image as l } from "./cori.data.api357.js";
+import { inlineCode as d } from "./cori.data.api358.js";
+import { linkReference as h } from "./cori.data.api359.js";
+import { link as c } from "./cori.data.api360.js";
+import { listItem as s } from "./cori.data.api361.js";
+import { list as g } from "./cori.data.api362.js";
+import { paragraph as k } from "./cori.data.api363.js";
+import { root as b } from "./cori.data.api364.js";
+import { strong as u } from "./cori.data.api365.js";
+import { table as R } from "./cori.data.api366.js";
+import { tableRow as x } from "./cori.data.api367.js";
+import { tableCell as B } from "./cori.data.api368.js";
+import { text as C } from "./cori.data.api369.js";
+import { thematicBreak as q } from "./cori.data.api370.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function r(t, e) {
-  const p = e.value ? e.value + `
-` : "", l = {};
-  e.lang && (l.className = ["language-" + e.lang]);
-  let a = {
-    type: "element",
-    tagName: "code",
-    properties: l,
-    children: [{ type: "text", value: p }]
-  };
-  return e.meta && (a.data = { meta: e.meta }), t.patch(e, a), a = t.applyData(e, a), a = { type: "element", tagName: "pre", properties: {}, children: [a] }, t.patch(e, a), a;
+const V = {
+  blockquote: r,
+  break: m,
+  code: t,
+  delete: e,
+  emphasis: i,
+  footnoteReference: f,
+  heading: p,
+  html: n,
+  imageReference: a,
+  image: l,
+  inlineCode: d,
+  linkReference: h,
+  link: c,
+  listItem: s,
+  list: g,
+  paragraph: k,
+  // @ts-expect-error: root is different, but hard to type.
+  root: b,
+  strong: u,
+  table: R,
+  tableCell: B,
+  tableRow: x,
+  text: C,
+  thematicBreak: q,
+  toml: o,
+  yaml: o,
+  definition: o,
+  footnoteDefinition: o
+};
+function o() {
 }
 export {
-  r as code
+  V as handlers
 };
 //# sourceMappingURL=cori.data.api347.js.map

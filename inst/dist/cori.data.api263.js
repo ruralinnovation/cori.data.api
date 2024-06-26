@@ -1,37 +1,47 @@
-import n from "./cori.data.api59.js";
+import e from "./cori.data.api264.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const a = n.toObjectSet([
-  "age",
-  "authorization",
-  "content-length",
-  "content-type",
-  "etag",
-  "expires",
-  "from",
-  "host",
-  "if-modified-since",
-  "if-unmodified-since",
-  "last-modified",
-  "location",
-  "max-forwards",
-  "proxy-authorization",
-  "referer",
-  "retry-after",
-  "user-agent"
-]), u = (s) => {
-  const t = {};
-  let e, r, i;
-  return s && s.split(`
-`).forEach(function(o) {
-    i = o.indexOf(":"), e = o.substring(0, i).trim().toLowerCase(), r = o.substring(i + 1).trim(), !(!e || t[e] && a[e]) && (e === "set-cookie" ? t[e] ? t[e].push(r) : t[e] = [r] : t[e] = t[e] ? t[e] + ", " + r : r);
-  }), t;
+class n {
+  /**
+   * Create a new column instance.
+   * @param {Array} data The backing array (or array-like object)
+   *  containing the column data.
+   */
+  constructor(r) {
+    this.data = r;
+  }
+  /**
+   * Get the length (number of rows) of the column.
+   * @return {number} The length of the column array.
+   */
+  get length() {
+    return this.data.length;
+  }
+  /**
+   * Get the column value at the given row index.
+   * @param {number} row The row index of the value to retrieve.
+   * @return {import('./table').DataValue} The column value.
+   */
+  get(r) {
+    return this.data[r];
+  }
+  /**
+   * Returns an iterator over the column values.
+   * @return {Iterator<object>} An iterator over column values.
+   */
+  [Symbol.iterator]() {
+    return this.data[Symbol.iterator]();
+  }
+}
+let u = function(t) {
+  return t && e(t.get) ? t : new n(t);
 };
 export {
-  u as default
+  n as default,
+  u as defaultColumnFactory
 };
 //# sourceMappingURL=cori.data.api263.js.map

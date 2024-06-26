@@ -1,7 +1,7 @@
-import { Vector as _ } from "./cori.data.api410.js";
+import { Vector as _ } from "./cori.data.api406.js";
 import { makeData as c } from "./cori.data.api504.js";
 import { MapRow as v, kKeys as y } from "./cori.data.api505.js";
-import { strideForType as m } from "./cori.data.api411.js";
+import { strideForType as m } from "./cori.data.api407.js";
 import { createIsValidFunction as V } from "./cori.data.api506.js";
 import { BitmapBufferBuilder as L, DataBufferBuilder as B, OffsetsBufferBuilder as b } from "./cori.data.api507.js";
 /*

@@ -1,30 +1,82 @@
-import d from "./cori.data.api387.js";
-import "./cori.data.api31.js";
-import { formatUTCDate as g } from "./cori.data.api393.js";
-import "./cori.data.api32.js";
-import { columns as h } from "./cori.data.api394.js";
-import p from "./cori.data.api396.js";
+import y from "./cori.data.api301.js";
+import m from "./cori.data.api303.js";
+import g from "./cori.data.api304.js";
+import { all as j, range as O, matches as w, not as E } from "./cori.data.api275.js";
+import S from "./cori.data.api37.js";
+import p from "./cori.data.api260.js";
+import n from "./cori.data.api300.js";
+import f from "./cori.data.api264.js";
+import u from "./cori.data.api261.js";
+import c from "./cori.data.api289.js";
+import h from "./cori.data.api307.js";
+import b from "./cori.data.api278.js";
+import d from "./cori.data.api280.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const J = (t) => d(t) ? g(t, !0) : t;
-function T(t, r = {}) {
-  const f = p(r.schema), e = r.format || {}, c = h(t, r.columns);
-  let m = "{";
-  return f && (m += '"schema":{"fields":' + JSON.stringify(c.map((o) => ({ name: o }))) + '},"data":{'), c.forEach((o, s) => {
-    m += (s ? "," : "") + JSON.stringify(o) + ":[";
-    const a = t.column(o), i = e[o] || J;
-    let n = -1;
-    t.scan((u) => {
-      const l = a.get(u);
-      m += (++n ? "," : "") + JSON.stringify(i(l));
-    }, !0, r.limit, r.offset), m += "]";
-  }), m + "}" + (f ? "}" : "");
+function K(t) {
+  const o = (r) => r;
+  return o.toString = () => t, o;
+}
+function G(t, o) {
+  return o = o && f(o.query) ? o.query() : o, o && f(o.evaluate) ? o.evaluate(null, t) : t(o);
+}
+function H(t) {
+  return c(t) && (n(t.all) || n(t.matches) || n(t.not) || n(t.range));
+}
+function e(t) {
+  return t && f(t.toObject) ? t.toObject() : f(t) ? { expr: String(t), func: !0 } : n(t) ? t.map(e) : c(t) ? b(t, (o) => e(o)) : t;
+}
+function x(t) {
+  return n(t) ? t.map(x) : c(t) ? n(t.verbs) ? S.from(t) : n(t.all) ? j() : n(t.range) ? O(...t.range) : n(t.match) ? w(RegExp(...t.match)) : n(t.not) ? E(t.not.map(e)) : q(t) : t;
+}
+function q(t) {
+  let o = t, r = t.expr;
+  if (r != null) {
+    if (t.field === !0 ? o = r = m(r) : t.func === !0 && (o = r = K(r)), c(t.window)) {
+      const { frame: i, peers: s } = t.window;
+      o = r = g(r, i, s);
+    }
+    t.desc === !0 && (o = y(r));
+  }
+  return t === o ? b(t, (i) => x(i)) : o;
+}
+function L(t) {
+  return n(t) ? t.map(A) : t;
+}
+function A(t) {
+  const o = [];
+  return d(t).forEach((r) => {
+    u(r) ? o.push(r) : h(r) ? o.push(m(r, null)) : c(r) && r.expr || f(r) ? o.push(r) : p(`Invalid key value: ${r + ""}`);
+  }), o;
+}
+function M(t) {
+  return n(t) ? t.map(I) : t;
+}
+function I(t, o) {
+  return o < 2 ? d(t) : t;
+}
+function P(t) {
+  const o = [];
+  return t.forEach((r) => {
+    const i = r.expr != null ? r.expr : r;
+    if (c(i) && !f(i))
+      for (const s in i)
+        o.push(i[s]);
+    else
+      r = u(i) ? i : h(i) ? m(r) : f(i) ? r : p(`Invalid orderby field: ${r + ""}`), o.push(r);
+  }), o;
 }
 export {
-  T as default
+  x as fromObject,
+  G as getTable,
+  H as isSelection,
+  L as joinKeys,
+  M as joinValues,
+  P as orderbyKeys,
+  e as toObject
 };
 //# sourceMappingURL=cori.data.api293.js.map

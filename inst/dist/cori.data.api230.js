@@ -1,40 +1,16 @@
-import { normalize as s } from "./cori.data.api460.js";
-import { DefinedInfo as p } from "./cori.data.api461.js";
-import { Info as f } from "./cori.data.api462.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const l = /^data[-\w.:]+$/i, c = /-[a-z]/g, d = /[A-Z]/g;
-function C(r, t) {
-  const o = s(t);
-  let i = t, a = f;
-  if (o in r.normal)
-    return r.property[r.normal[o]];
-  if (o.length > 4 && o.slice(0, 4) === "data" && l.test(t)) {
-    if (t.charAt(4) === "-") {
-      const e = t.slice(5).replace(c, h);
-      i = "data" + e.charAt(0).toUpperCase() + e.slice(1);
-    } else {
-      const e = t.slice(4);
-      if (!c.test(e)) {
-        let n = e.replace(d, m);
-        n.charAt(0) !== "-" && (n = "-" + n), t = "data" + n;
-      }
-    }
-    a = p;
-  }
-  return new a(i, t);
+function e() {
+  this.previousSibling && this.parentNode.insertBefore(this, this.parentNode.firstChild);
 }
-function m(r) {
-  return "-" + r.toLowerCase();
-}
-function h(r) {
-  return r.charAt(1).toUpperCase();
+function i() {
+  return this.each(e);
 }
 export {
-  C as find
+  i as default
 };
 //# sourceMappingURL=cori.data.api230.js.map

@@ -4,11 +4,14 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const n = /^[$_\p{ID_Start}][$_\u{200C}\u{200D}\p{ID_Continue}]*$/u, e = /^[$_\p{ID_Start}][-$_\u{200C}\u{200D}\p{ID_Continue}]*$/u, s = {};
-function _(t, o) {
-  return (s.jsx ? e : n).test(t);
+function t() {
+  var e = this.parentNode;
+  e && e.removeChild(this);
+}
+function r() {
+  return this.each(t);
 }
 export {
-  _ as name
+  r as default
 };
 //# sourceMappingURL=cori.data.api233.js.map

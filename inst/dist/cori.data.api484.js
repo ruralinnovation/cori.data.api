@@ -1,12 +1,13 @@
-import a from "./cori.data.api375.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const e = typeof URLSearchParams < "u" ? URLSearchParams : a;
+function c(o, n) {
+  return n in o ? o[n] : n;
+}
 export {
-  e as default
+  c as caseSensitiveTransform
 };
 //# sourceMappingURL=cori.data.api484.js.map

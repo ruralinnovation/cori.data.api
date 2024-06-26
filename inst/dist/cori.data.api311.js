@@ -1,93 +1,70 @@
+import e from "./cori.data.api426.js";
+import f from "./cori.data.api427.js";
+import u from "./cori.data.api428.js";
+import n from "./cori.data.api429.js";
+import c from "./cori.data.api430.js";
+import l from "./cori.data.api431.js";
+import s from "./cori.data.api432.js";
+import _ from "./cori.data.api433.js";
+import t from "./cori.data.api434.js";
+import a from "./cori.data.api435.js";
+import d from "./cori.data.api436.js";
+import b from "./cori.data.api437.js";
+import g from "./cori.data.api438.js";
+import i from "./cori.data.api439.js";
+import j from "./cori.data.api440.js";
+import v from "./cori.data.api441.js";
+import x from "./cori.data.api442.js";
+import y from "./cori.data.api443.js";
+import h from "./cori.data.api444.js";
+import k from "./cori.data.api445.js";
+import q from "./cori.data.api446.js";
+import w from "./cori.data.api447.js";
+import z from "./cori.data.api448.js";
+import A from "./cori.data.api449.js";
+import B from "./cori.data.api450.js";
+import { count as C } from "./cori.data.api34.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(a, r, t, i) {
-  const l = t[a.type] || t.Default;
-  if (l && l(a, r, i) === !1)
-    return;
-  const y = n[a.type];
-  y && y(a, r, t);
-}
-const p = (a, r, t) => {
-  e(a.argument, r, t, a);
-}, m = (a, r, t) => {
-  e(a.left, r, t, a), e(a.right, r, t, a);
-}, E = (a, r, t) => {
-  e(a.test, r, t, a), e(a.consequent, r, t, a), a.alternate && e(a.alternate, r, t, a);
-}, u = (a, r, t) => {
-  s(a.params, r, t, a), e(a.body, r, t, a);
-}, c = (a, r, t) => {
-  e(a.callee, r, t, a), s(a.arguments, r, t, a);
-}, s = (a, r, t, i) => {
-  a.forEach((l) => e(l, r, t, i));
-}, n = {
-  TemplateLiteral: (a, r, t) => {
-    s(a.expressions, r, t, a), s(a.quasis, r, t, a);
-  },
-  MemberExpression: (a, r, t) => {
-    e(a.object, r, t, a), e(a.property, r, t, a);
-  },
-  CallExpression: c,
-  NewExpression: c,
-  ArrayExpression: (a, r, t) => {
-    s(a.elements, r, t, a);
-  },
-  AssignmentExpression: m,
-  AwaitExpression: p,
-  BinaryExpression: m,
-  LogicalExpression: m,
-  UnaryExpression: p,
-  UpdateExpression: p,
-  ConditionalExpression: E,
-  ObjectExpression: (a, r, t) => {
-    s(a.properties, r, t, a);
-  },
-  Property: (a, r, t) => {
-    e(a.key, r, t, a), e(a.value, r, t, a);
-  },
-  ArrowFunctionExpression: u,
-  FunctionExpression: u,
-  FunctionDeclaration: u,
-  VariableDeclaration: (a, r, t) => {
-    s(a.declarations, r, t, a);
-  },
-  VariableDeclarator: (a, r, t) => {
-    e(a.id, r, t, a), e(a.init, r, t, a);
-  },
-  SpreadElement: (a, r, t) => {
-    e(a.argument, r, t, a);
-  },
-  BlockStatement: (a, r, t) => {
-    s(a.body, r, t, a);
-  },
-  ExpressionStatement: (a, r, t) => {
-    e(a.expression, r, t, a);
-  },
-  IfStatement: E,
-  ForStatement: (a, r, t) => {
-    e(a.init, r, t, a), e(a.test, r, t, a), e(a.update, r, t, a), e(a.body, r, t, a);
-  },
-  WhileStatement: (a, r, t) => {
-    e(a.test, r, t, a), e(a.body, r, t, a);
-  },
-  DoWhileStatement: (a, r, t) => {
-    e(a.body, r, t, a), e(a.test, r, t, a);
-  },
-  SwitchStatement: (a, r, t) => {
-    e(a.discriminant, r, t, a), s(a.cases, r, t, a);
-  },
-  SwitchCase: (a, r, t) => {
-    a.test && e(a.test, r, t, a), s(a.consequent, r, t, a);
-  },
-  ReturnStatement: p,
-  Program: (a, r, t) => {
-    e(a.body[0], r, t, a);
-  }
+const mr = {
+  __antijoin: (r, o, m) => t(r, o, m, { anti: !0 }),
+  __count: (r, o = {}) => i(r, { [o.as || "count"]: C() }),
+  __cross: (r, o, m, p) => _(r, o, () => !0, m, {
+    ...p,
+    left: !0,
+    right: !0
+  }),
+  __concat: w,
+  __dedupe: e,
+  __derive: f,
+  __except: u,
+  __filter: n,
+  __fold: c,
+  __impute: l,
+  __intersect: s,
+  __join: _,
+  __lookup: a,
+  __pivot: d,
+  __relocate: b,
+  __rename: g,
+  __rollup: i,
+  __sample: j,
+  __select: v,
+  __semijoin: t,
+  __spread: x,
+  __union: y,
+  __unroll: h,
+  __groupby: k,
+  __orderby: q,
+  __ungroup: A,
+  __unorder: B,
+  __reduce: z
 };
 export {
-  e as default
+  mr as default
 };
 //# sourceMappingURL=cori.data.api311.js.map

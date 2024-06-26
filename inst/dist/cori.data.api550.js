@@ -1,33 +1,44 @@
-import l from "./cori.data.api641.js";
-import { array as f, arrowVector as y } from "./cori.data.api32.js";
+import h from "./cori.data.api77.js";
+import c from "./cori.data.api328.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(t, r) {
-  const e = [], n = f(t.indices.ArrayType, r), a = /* @__PURE__ */ Object.create(null);
-  let d = -1, c = 0;
-  return {
-    set(s, u) {
-      const i = String(s);
-      let o = a[i];
-      o === void 0 && (c += i.length, a[i] = o = ++d, e.push(i)), n[u] = o;
-    },
-    data: () => ({
-      type: t,
-      length: r,
-      buffers: [null, n],
-      dict: m(t.dictionary, e, c)
-    })
-  };
-}
-function m(t, r, e) {
-  const n = l(t, r.length, e);
-  return r.forEach(n.set), y(n.data());
-}
+const f = c.hasStandardBrowserEnv ? (
+  // Standard browser envs have full support of the APIs needed to test
+  // whether the request URL is of the same origin as current location.
+  function() {
+    const o = /(msie|trident)/i.test(navigator.userAgent), t = document.createElement("a");
+    let e;
+    function n(a) {
+      let r = a;
+      return o && (t.setAttribute("href", r), r = t.href), t.setAttribute("href", r), {
+        href: t.href,
+        protocol: t.protocol ? t.protocol.replace(/:$/, "") : "",
+        host: t.host,
+        search: t.search ? t.search.replace(/^\?/, "") : "",
+        hash: t.hash ? t.hash.replace(/^#/, "") : "",
+        hostname: t.hostname,
+        port: t.port,
+        pathname: t.pathname.charAt(0) === "/" ? t.pathname : "/" + t.pathname
+      };
+    }
+    return e = n(window.location.href), function(r) {
+      const s = h.isString(r) ? n(r) : r;
+      return s.protocol === e.protocol && s.host === e.host;
+    };
+  }()
+) : (
+  // Non standard browser envs (web workers, react-native) lack needed support.
+  /* @__PURE__ */ function() {
+    return function() {
+      return !0;
+    };
+  }()
+);
 export {
-  p as default
+  f as default
 };
 //# sourceMappingURL=cori.data.api550.js.map

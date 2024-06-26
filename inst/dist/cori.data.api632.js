@@ -1,96 +1,56 @@
-import _ from "./cori.data.api302.js";
-import { getAggregate as p } from "./cori.data.api402.js";
-import v from "./cori.data.api628.js";
-import g from "./cori.data.api280.js";
-import d from "./cori.data.api403.js";
-import x from "./cori.data.api494.js";
-import R from "./cori.data.api656.js";
+import { Field as u } from "./cori.data.api499.js";
+import { DataBufferBuilder as r } from "./cori.data.api507.js";
+import { Builder as p } from "./cori.data.api503.js";
+import { Union as a } from "./cori.data.api407.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const l = (n, t, s) => x(
-  t,
-  "{" + v(n, (r, i) => `_${i}.${s}(${t});`) + "}",
-  n
-);
-function U(n, t) {
-  const { ops: s, output: r } = E(n, t), i = n[0].fields, e = i.length, o = e === 0 ? h : e === 1 ? F : e === 2 ? $ : g("Unsupported field count: " + e);
-  return new o(i, s, r, t);
-}
-function E(n, t) {
-  const s = {}, r = [];
-  function i(o, c = []) {
-    const f = o + ":" + c;
-    if (s[f])
-      return s[f];
-    const u = p(o), a = u.create(...c);
-    return t < 0 && u.stream && u.stream.forEach((m) => i(m, [])), u.req && u.req.forEach((m) => i(m, [])), s[f] = a, r.push(a), a;
+class l extends p {
+  constructor(e) {
+    super(e), this._typeIds = new r(Int8Array, 0, 1), typeof e.valueToChildTypeId == "function" && (this._valueToChildTypeId = e.valueToChildTypeId);
   }
-  const e = n.map((o) => {
-    const c = i(o.name, o.params);
-    return c.output = o.id, c;
-  });
-  return { ops: r, output: e };
-}
-class h extends _ {
-  constructor(t, s, r, i) {
-    super(r), this._op = s, this._fields = t, this._stream = !!i;
+  get typeIdToChildIndex() {
+    return this.type.typeIdToChildIndex;
   }
-  init() {
-    const t = { count: 0, valid: 0, stream: this._stream };
-    return this._op.forEach((s) => s.init(t)), t.values && (t.list = new R()), t;
+  append(e, s) {
+    return this.set(this.length, e, s);
   }
-  write(t, s, r) {
-    const i = this._outputs, e = i.length;
-    for (let o = 0; o < e; ++o)
-      s[i[o].output][r] = i[o].value(t);
-    return 1;
+  set(e, s, t) {
+    return t === void 0 && (t = this._valueToChildTypeId(this, s, e)), this.setValue(e, s, t), this;
   }
-  _add() {
+  setValue(e, s, t) {
+    this._typeIds.set(e, t);
+    const n = this.type.typeIdToChildIndex[t], i = this.children[n];
+    i == null || i.set(e, s);
   }
-  _rem() {
+  addChild(e, s = `${this.children.length}`) {
+    const t = this.children.push(e), { type: { children: n, mode: i, typeIds: d } } = this, h = [...n, new u(s, e.type)];
+    return this.type = new a(i, [...d, t], h), t;
   }
-  add(t) {
-    ++t.count;
-  }
-  rem(t) {
-    --t.count;
+  /** @ignore */
+  // @ts-ignore
+  _valueToChildTypeId(e, s, t) {
+    throw new Error("Cannot map UnionBuilder value to child typeId. Pass the `childTypeId` as the second argument to unionBuilder.append(), or supply a `valueToChildTypeId` function as part of the UnionBuilder constructor options.");
   }
 }
-class F extends h {
-  constructor(t, s, r, i) {
-    super(t, s, r, i);
-    const e = ["state", "v1", "v2"];
-    this._add = l(s, e, "add"), this._rem = l(s, e, "rem");
-  }
-  add(t, s, r) {
-    const i = this._fields[0](s, r);
-    ++t.count, d(i) && (++t.valid, t.list && t.list.add(i), this._add(t, i));
-  }
-  rem(t, s, r) {
-    const i = this._fields[0](s, r);
-    --t.count, d(i) && (--t.valid, t.list && t.list.rem(), this._rem(t, i));
-  }
+class T extends l {
 }
-class $ extends h {
-  constructor(t, s, r, i) {
-    super(t, s, r, i);
-    const e = ["state", "v1", "v2"];
-    this._add = l(s, e, "add"), this._rem = l(s, e, "rem");
+class C extends l {
+  constructor(e) {
+    super(e), this._offsets = new r(Int32Array);
   }
-  add(t, s, r) {
-    const i = this._fields[0](s, r), e = this._fields[1](s, r);
-    ++t.count, d(i) && d(e) && (++t.valid, t.list && t.list.add([i, e]), this._add(t, i, e));
-  }
-  rem(t, s, r) {
-    const i = this._fields[0](s, r), e = this._fields[1](s, r);
-    --t.count, d(i) && d(e) && (--t.valid, t.list && t.list.rem(), this._rem(t, i, e));
+  /** @ignore */
+  setValue(e, s, t) {
+    const n = this._typeIds.set(e, t).buffer[e], i = this.getChildAt(this.type.typeIdToChildIndex[n]), d = this._offsets.set(e, i.length).buffer[e];
+    i == null || i.set(d, s);
   }
 }
 export {
-  U as default
+  C as DenseUnionBuilder,
+  T as SparseUnionBuilder,
+  l as UnionBuilder
 };
 //# sourceMappingURL=cori.data.api632.js.map

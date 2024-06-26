@@ -4,20 +4,14 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function n(r, _) {
-  const e = Number.parseInt(r, _);
-  return (
-    // C0 except for HT, LF, FF, CR, space.
-    e < 9 || e === 11 || e > 13 && e < 32 || // Control character (DEL) of C0, and C1 controls.
-    e > 126 && e < 160 || // Lone high surrogates and low surrogates.
-    e > 55295 && e < 57344 || // Noncharacters.
-    e > 64975 && e < 65008 || /* eslint-disable no-bitwise */
-    (e & 65535) === 65535 || (e & 65535) === 65534 || /* eslint-enable no-bitwise */
-    // Out of range
-    e > 1114111 ? "�" : String.fromCodePoint(e)
-  );
+const r = document.createElement("i");
+function c(t) {
+  const n = "&" + t + ";";
+  r.innerHTML = n;
+  const e = r.textContent;
+  return e.charCodeAt(e.length - 1) === 59 && t !== "semi" || e === n ? !1 : e;
 }
 export {
-  n as decodeNumericCharacterReference
+  c as decodeNamedCharacterReference
 };
 //# sourceMappingURL=cori.data.api469.js.map

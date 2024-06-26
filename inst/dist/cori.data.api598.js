@@ -1,108 +1,51 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api642.js";
-import "./cori.data.api569.js";
-import "./cori.data.api570.js";
-import { Block as o } from "./cori.data.api597.js";
-import { KeyValue as _ } from "./cori.data.api581.js";
-import { MetadataVersion as r } from "./cori.data.api518.js";
-import { Schema as a } from "./cori.data.api573.js";
+import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api653.js";
+import "./cori.data.api579.js";
+import "./cori.data.api580.js";
+import { TimeUnit as o } from "./cori.data.api575.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class i {
+class s {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
-  __init(t, s) {
-    return this.bb_pos = t, this.bb = s, this;
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
   }
-  static getRootAsFooter(t, s) {
-    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getRootAsTimestamp(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsFooter(t, s) {
-    return t.setPosition(t.position() + n), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsTimestamp(t, i) {
+    return t.setPosition(t.position() + n), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  version() {
+  unit() {
     const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : r.V1;
+    return t ? this.bb.readInt16(this.bb_pos + t) : o.SECOND;
   }
-  schema(t) {
-    const s = this.bb.__offset(this.bb_pos, 6);
-    return s ? (t || new a()).__init(this.bb.__indirect(this.bb_pos + s), this.bb) : null;
+  timezone(t) {
+    const i = this.bb.__offset(this.bb_pos, 6);
+    return i ? this.bb.__string(this.bb_pos + i, t) : null;
   }
-  dictionaries(t, s) {
-    const e = this.bb.__offset(this.bb_pos, 8);
-    return e ? (s || new o()).__init(this.bb.__vector(this.bb_pos + e) + t * 24, this.bb) : null;
+  static startTimestamp(t) {
+    t.startObject(2);
   }
-  dictionariesLength() {
-    const t = this.bb.__offset(this.bb_pos, 8);
-    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
+  static addUnit(t, i) {
+    t.addFieldInt16(0, i, o.SECOND);
   }
-  recordBatches(t, s) {
-    const e = this.bb.__offset(this.bb_pos, 10);
-    return e ? (s || new o()).__init(this.bb.__vector(this.bb_pos + e) + t * 24, this.bb) : null;
+  static addTimezone(t, i) {
+    t.addFieldOffset(1, i, 0);
   }
-  recordBatchesLength() {
-    const t = this.bb.__offset(this.bb_pos, 10);
-    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
-  }
-  /**
-   * User-defined metadata
-   */
-  customMetadata(t, s) {
-    const e = this.bb.__offset(this.bb_pos, 12);
-    return e ? (s || new _()).__init(this.bb.__indirect(this.bb.__vector(this.bb_pos + e) + t * 4), this.bb) : null;
-  }
-  customMetadataLength() {
-    const t = this.bb.__offset(this.bb_pos, 12);
-    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
-  }
-  static startFooter(t) {
-    t.startObject(5);
-  }
-  static addVersion(t, s) {
-    t.addFieldInt16(0, s, r.V1);
-  }
-  static addSchema(t, s) {
-    t.addFieldOffset(1, s, 0);
-  }
-  static addDictionaries(t, s) {
-    t.addFieldOffset(2, s, 0);
-  }
-  static startDictionariesVector(t, s) {
-    t.startVector(24, s, 8);
-  }
-  static addRecordBatches(t, s) {
-    t.addFieldOffset(3, s, 0);
-  }
-  static startRecordBatchesVector(t, s) {
-    t.startVector(24, s, 8);
-  }
-  static addCustomMetadata(t, s) {
-    t.addFieldOffset(4, s, 0);
-  }
-  static createCustomMetadataVector(t, s) {
-    t.startVector(4, s.length, 4);
-    for (let e = s.length - 1; e >= 0; e--)
-      t.addOffset(s[e]);
-    return t.endVector();
-  }
-  static startCustomMetadataVector(t, s) {
-    t.startVector(4, s, 4);
-  }
-  static endFooter(t) {
+  static endTimestamp(t) {
     return t.endObject();
   }
-  static finishFooterBuffer(t, s) {
-    t.finish(s);
-  }
-  static finishSizePrefixedFooterBuffer(t, s) {
-    t.finish(s, void 0, !0);
+  static createTimestamp(t, i, e) {
+    return s.startTimestamp(t), s.addUnit(t, i), s.addTimezone(t, e), s.endTimestamp(t);
   }
 }
 export {
-  i as Footer
+  s as Timestamp
 };
 //# sourceMappingURL=cori.data.api598.js.map

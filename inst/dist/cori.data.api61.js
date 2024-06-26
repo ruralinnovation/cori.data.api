@@ -1,140 +1,84 @@
-import d from "./cori.data.api59.js";
-import R from "./cori.data.api255.js";
-import b from "./cori.data.api256.js";
-import S from "./cori.data.api257.js";
-import m from "./cori.data.api62.js";
-import C from "./cori.data.api258.js";
-import q from "./cori.data.api259.js";
-import I from "./cori.data.api73.js";
+import r from "./cori.data.api207.js";
+import i from "./cori.data.api208.js";
+import m from "./cori.data.api209.js";
+import l from "./cori.data.api210.js";
+import n from "./cori.data.api211.js";
+import s from "./cori.data.api212.js";
+import c from "./cori.data.api213.js";
+import p from "./cori.data.api214.js";
+import f from "./cori.data.api215.js";
+import _ from "./cori.data.api216.js";
+import a from "./cori.data.api217.js";
+import d from "./cori.data.api218.js";
+import u from "./cori.data.api219.js";
+import h from "./cori.data.api220.js";
+import y from "./cori.data.api221.js";
+import x from "./cori.data.api222.js";
+import g from "./cori.data.api223.js";
+import v from "./cori.data.api224.js";
+import w from "./cori.data.api225.js";
+import j from "./cori.data.api226.js";
+import z from "./cori.data.api227.js";
+import A from "./cori.data.api228.js";
+import E from "./cori.data.api229.js";
+import S from "./cori.data.api230.js";
+import b from "./cori.data.api231.js";
+import k from "./cori.data.api232.js";
+import q from "./cori.data.api233.js";
+import B from "./cori.data.api234.js";
+import C from "./cori.data.api235.js";
+import D from "./cori.data.api236.js";
+import F from "./cori.data.api237.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const u = q.validators;
-class k {
-  constructor(t) {
-    this.defaults = t, this.interceptors = {
-      request: new b(),
-      response: new b()
-    };
-  }
-  /**
-   * Dispatch a request
-   *
-   * @param {String|Object} configOrUrl The config specific for this request (merged with this.defaults)
-   * @param {?Object} config
-   *
-   * @returns {Promise} The Promise to be fulfilled
-   */
-  async request(t, e) {
-    try {
-      return await this._request(t, e);
-    } catch (s) {
-      if (s instanceof Error) {
-        let n;
-        Error.captureStackTrace ? Error.captureStackTrace(n = {}) : n = new Error();
-        const a = n.stack ? n.stack.replace(/^.+\n/, "") : "";
-        try {
-          s.stack ? a && !String(s.stack).endsWith(a.replace(/^.+\n.+\n/, "")) && (s.stack += `
-` + a) : s.stack = a;
-        } catch {
-        }
-      }
-      throw s;
-    }
-  }
-  _request(t, e) {
-    typeof t == "string" ? (e = e || {}, e.url = t) : e = t || {}, e = m(this.defaults, e);
-    const { transitional: s, paramsSerializer: n, headers: a } = e;
-    s !== void 0 && q.assertOptions(s, {
-      silentJSONParsing: u.transitional(u.boolean),
-      forcedJSONParsing: u.transitional(u.boolean),
-      clarifyTimeoutError: u.transitional(u.boolean)
-    }, !1), n != null && (d.isFunction(n) ? e.paramsSerializer = {
-      serialize: n
-    } : q.assertOptions(n, {
-      encode: u.function,
-      serialize: u.function
-    }, !0)), e.method = (e.method || this.defaults.method || "get").toLowerCase();
-    let f = a && d.merge(
-      a.common,
-      a[e.method]
-    );
-    a && d.forEach(
-      ["delete", "get", "head", "post", "put", "patch", "common"],
-      (r) => {
-        delete a[r];
-      }
-    ), e.headers = I.concat(f, a);
-    const h = [];
-    let y = !0;
-    this.interceptors.request.forEach(function(i) {
-      typeof i.runWhen == "function" && i.runWhen(e) === !1 || (y = y && i.synchronous, h.unshift(i.fulfilled, i.rejected));
-    });
-    const p = [];
-    this.interceptors.response.forEach(function(i) {
-      p.push(i.fulfilled, i.rejected);
-    });
-    let l, o = 0, c;
-    if (!y) {
-      const r = [S.bind(this), void 0];
-      for (r.unshift.apply(r, h), r.push.apply(r, p), c = r.length, l = Promise.resolve(e); o < c; )
-        l = l.then(r[o++], r[o++]);
-      return l;
-    }
-    c = h.length;
-    let E = e;
-    for (o = 0; o < c; ) {
-      const r = h[o++], i = h[o++];
-      try {
-        E = r(E);
-      } catch (P) {
-        i.call(this, P);
-        break;
-      }
-    }
-    try {
-      l = S.call(this, E);
-    } catch (r) {
-      return Promise.reject(r);
-    }
-    for (o = 0, c = p.length; o < c; )
-      l = l.then(p[o++], p[o++]);
-    return l;
-  }
-  getUri(t) {
-    t = m(this.defaults, t);
-    const e = C(t.baseURL, t.url);
-    return R(e, t.params, t.paramsSerializer);
-  }
+var G = [null];
+function e(o, t) {
+  this._groups = o, this._parents = t;
 }
-d.forEach(["delete", "get", "head", "options"], function(t) {
-  k.prototype[t] = function(e, s) {
-    return this.request(m(s || {}, {
-      method: t,
-      url: e,
-      data: (s || {}).data
-    }));
-  };
-});
-d.forEach(["post", "put", "patch"], function(t) {
-  function e(s) {
-    return function(a, f, h) {
-      return this.request(m(h || {}, {
-        method: t,
-        headers: s ? {
-          "Content-Type": "multipart/form-data"
-        } : {},
-        url: a,
-        data: f
-      }));
-    };
-  }
-  k.prototype[t] = e(), k.prototype[t + "Form"] = e(!0);
-});
+function H() {
+  return new e([[document.documentElement]], G);
+}
+e.prototype = H.prototype = {
+  constructor: e,
+  select: r,
+  selectAll: i,
+  filter: m,
+  data: l,
+  enter: n,
+  exit: s,
+  join: c,
+  merge: p,
+  order: f,
+  sort: _,
+  call: a,
+  nodes: d,
+  node: u,
+  size: h,
+  empty: y,
+  each: x,
+  attr: g,
+  style: v,
+  property: w,
+  classed: j,
+  text: z,
+  html: A,
+  raise: E,
+  lower: S,
+  append: b,
+  insert: k,
+  remove: q,
+  clone: B,
+  datum: C,
+  on: D,
+  dispatch: F
+};
 export {
-  k as default
+  e as Selection,
+  H as default,
+  G as root
 };
 //# sourceMappingURL=cori.data.api61.js.map

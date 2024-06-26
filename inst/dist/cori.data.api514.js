@@ -1,12 +1,12 @@
-import { Vector as U } from "./cori.data.api410.js";
-import { Visitor as I } from "./cori.data.api559.js";
+import { Vector as U } from "./cori.data.api406.js";
+import { Visitor as I } from "./cori.data.api569.js";
 import { RecordBatch as V } from "./cori.data.api515.js";
 import { rebaseValueOffsets as _ } from "./cori.data.api502.js";
-import { truncateBitmap as w, packBools as D } from "./cori.data.api558.js";
+import { truncateBitmap as w, packBools as D } from "./cori.data.api568.js";
 import { FieldNode as d, BufferRegion as R } from "./cori.data.api510.js";
-import { DataType as m } from "./cori.data.api411.js";
-import { bigIntToNumber as L } from "./cori.data.api562.js";
-import { UnionMode as B } from "./cori.data.api560.js";
+import { DataType as m } from "./cori.data.api407.js";
+import { bigIntToNumber as L } from "./cori.data.api572.js";
+import { UnionMode as B } from "./cori.data.api570.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

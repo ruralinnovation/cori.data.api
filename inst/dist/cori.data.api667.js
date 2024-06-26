@@ -1,32 +1,37 @@
-import { factorySpace as o } from "./cori.data.api658.js";
-import { markdownSpace as B, markdownLineEnding as c } from "./cori.data.api481.js";
+import s from "./cori.data.api665.js";
+import i from "./cori.data.api697.js";
+import r from "./cori.data.api698.js";
+import e from "./cori.data.api699.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const q = {
-  name: "thematicBreak",
-  tokenize: p
-};
-function p(t, u, m) {
-  let a = 0, e;
-  return k;
-  function k(r) {
-    return t.enter("thematicBreak"), h(r);
+class u {
+  constructor(t) {
+    this._values = t || [], this._sorted = null, this._start = 0;
   }
-  function h(r) {
-    return e = r, n(r);
+  values(t) {
+    return this._start && (this._values = this._values.slice(this._start), this._start = 0), t ? this._values.slice() : this._values;
   }
-  function n(r) {
-    return r === e ? (t.enter("thematicBreakSequence"), i(r)) : a >= 3 && (r === null || c(r)) ? (t.exit("thematicBreak"), u(r)) : m(r);
+  add(t) {
+    this._values.push(t), this._sorted = null;
   }
-  function i(r) {
-    return r === e ? (t.consume(r), a++, i) : (t.exit("thematicBreakSequence"), B(r) ? o(t, n, "whitespace")(r) : n(r));
+  rem() {
+    this._start += 1, this._sorted = null;
+  }
+  min() {
+    return this._sorted && this._sorted.length ? this._sorted[0] : i(this._values, this._start);
+  }
+  max() {
+    return this._sorted && this._sorted.length ? this._sorted[this._sorted.length - 1] : r(this._values, this._start);
+  }
+  quantile(t) {
+    return this._sorted || (this._sorted = this.values(!0), this._sorted.sort(s)), e(this._sorted, t);
   }
 }
 export {
-  q as thematicBreak
+  u as default
 };
 //# sourceMappingURL=cori.data.api667.js.map

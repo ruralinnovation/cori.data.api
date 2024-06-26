@@ -1,20 +1,31 @@
-import a from "./cori.data.api308.js";
-import { rowObjectCode as p } from "./cori.data.api289.js";
-import n from "./cori.data.api280.js";
-import c from "./cori.data.api399.js";
+import o from "./cori.data.api280.js";
+import i from "./cori.data.api308.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const s = "Escaped functions are not valid as rollup or pivot values.";
-function u(o, r, e) {
-  o.aggronly && n(s);
-  const t = "(row,data)=>fn(" + p(o.table.columnNames()) + ",$)";
-  return { escape: a.escape(t, c(r.expr), e) };
+function m(s, t = [], r = []) {
+  return new a(s, o(t), o(r));
+}
+class a {
+  constructor(t, r, n) {
+    this.name = t, this.fields = r, this.params = n;
+  }
+  toString() {
+    const t = [
+      ...this.fields.map((r) => `d[${i(r)}]`),
+      ...this.params.map(i)
+    ];
+    return `d => op.${this.name}(${t})`;
+  }
+  toObject() {
+    return { expr: this.toString(), func: !0 };
+  }
 }
 export {
-  u as default
+  a as Op,
+  m as default
 };
 //# sourceMappingURL=cori.data.api310.js.map

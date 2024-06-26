@@ -1,19 +1,36 @@
+import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api653.js";
+import "./cori.data.api579.js";
+import "./cori.data.api580.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function c(o, e, r) {
-  const i = [];
-  let n = -1;
-  for (; ++n < o.length; ) {
-    const l = o[n].resolveAll;
-    l && !i.includes(l) && (e = l(e, r), i.push(l));
+class s {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  return e;
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
+  }
+  static getRootAsLargeUtf8(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static getSizePrefixedRootAsLargeUtf8(t, i) {
+    return t.setPosition(t.position() + e), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static startLargeUtf8(t) {
+    t.startObject(0);
+  }
+  static endLargeUtf8(t) {
+    return t.endObject();
+  }
+  static createLargeUtf8(t) {
+    return s.startLargeUtf8(t), s.endLargeUtf8(t);
+  }
 }
 export {
-  c as resolveAll
+  s as LargeUtf8
 };
 //# sourceMappingURL=cori.data.api661.js.map

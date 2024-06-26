@@ -5,13 +5,10 @@
  * @license ISC
  */
 function t() {
-  var e = this.parentNode;
-  e && e.removeChild(this);
-}
-function r() {
-  return this.each(t);
+  var a = arguments[0];
+  return arguments[0] = this, a.apply(null, arguments), this;
 }
 export {
-  r as default
+  t as default
 };
 //# sourceMappingURL=cori.data.api217.js.map

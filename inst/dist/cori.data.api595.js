@@ -1,106 +1,67 @@
-import { Visitor as T } from "./cori.data.api559.js";
-import { Null as v } from "./cori.data.api645.js";
-import { Int as a } from "./cori.data.api574.js";
-import { FloatingPoint as m } from "./cori.data.api583.js";
-import { Binary as B } from "./cori.data.api646.js";
-import { LargeBinary as S } from "./cori.data.api647.js";
-import { Bool as g } from "./cori.data.api648.js";
-import { Utf8 as I } from "./cori.data.api649.js";
-import { LargeUtf8 as L } from "./cori.data.api650.js";
-import { Decimal as n } from "./cori.data.api584.js";
-import { Date as u } from "./cori.data.api585.js";
-import { Time as o } from "./cori.data.api586.js";
-import { Timestamp as s } from "./cori.data.api587.js";
-import { Interval as p } from "./cori.data.api588.js";
-import { Duration as f } from "./cori.data.api589.js";
-import { List as U } from "./cori.data.api651.js";
-import { Struct_ as D } from "./cori.data.api652.js";
-import { Union as e } from "./cori.data.api590.js";
-import { DictionaryEncoding as d } from "./cori.data.api644.js";
-import { FixedSizeBinary as l } from "./cori.data.api591.js";
-import { FixedSizeList as c } from "./cori.data.api592.js";
-import { Map as y } from "./cori.data.api593.js";
+import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api653.js";
+import "./cori.data.api579.js";
+import "./cori.data.api580.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class z extends T {
-  visit(i, t) {
-    return i == null || t == null ? void 0 : super.visit(i, t);
+class i {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  visitNull(i, t) {
-    return v.startNull(t), v.endNull(t);
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
   }
-  visitInt(i, t) {
-    return a.startInt(t), a.addBitWidth(t, i.bitWidth), a.addIsSigned(t, i.isSigned), a.endInt(t);
+  static getRootAsDecimal(t, s) {
+    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  visitFloat(i, t) {
-    return m.startFloatingPoint(t), m.addPrecision(t, i.precision), m.endFloatingPoint(t);
+  static getSizePrefixedRootAsDecimal(t, s) {
+    return t.setPosition(t.position() + n), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  visitBinary(i, t) {
-    return B.startBinary(t), B.endBinary(t);
+  /**
+   * Total number of decimal digits
+   */
+  precision() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
   }
-  visitLargeBinary(i, t) {
-    return S.startLargeBinary(t), S.endLargeBinary(t);
+  /**
+   * Number of digits after the decimal point "."
+   */
+  scale() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
   }
-  visitBool(i, t) {
-    return g.startBool(t), g.endBool(t);
+  /**
+   * Number of bits per value. The only accepted widths are 128 and 256.
+   * We use bitWidth for consistency with Int::bitWidth.
+   */
+  bitWidth() {
+    const t = this.bb.__offset(this.bb_pos, 8);
+    return t ? this.bb.readInt32(this.bb_pos + t) : 128;
   }
-  visitUtf8(i, t) {
-    return I.startUtf8(t), I.endUtf8(t);
+  static startDecimal(t) {
+    t.startObject(3);
   }
-  visitLargeUtf8(i, t) {
-    return L.startLargeUtf8(t), L.endLargeUtf8(t);
+  static addPrecision(t, s) {
+    t.addFieldInt32(0, s, 0);
   }
-  visitDecimal(i, t) {
-    return n.startDecimal(t), n.addScale(t, i.scale), n.addPrecision(t, i.precision), n.addBitWidth(t, i.bitWidth), n.endDecimal(t);
+  static addScale(t, s) {
+    t.addFieldInt32(1, s, 0);
   }
-  visitDate(i, t) {
-    return u.startDate(t), u.addUnit(t, i.unit), u.endDate(t);
+  static addBitWidth(t, s) {
+    t.addFieldInt32(2, s, 128);
   }
-  visitTime(i, t) {
-    return o.startTime(t), o.addUnit(t, i.unit), o.addBitWidth(t, i.bitWidth), o.endTime(t);
+  static endDecimal(t) {
+    return t.endObject();
   }
-  visitTimestamp(i, t) {
-    const r = i.timezone && t.createString(i.timezone) || void 0;
-    return s.startTimestamp(t), s.addUnit(t, i.unit), r !== void 0 && s.addTimezone(t, r), s.endTimestamp(t);
-  }
-  visitInterval(i, t) {
-    return p.startInterval(t), p.addUnit(t, i.unit), p.endInterval(t);
-  }
-  visitDuration(i, t) {
-    return f.startDuration(t), f.addUnit(t, i.unit), f.endDuration(t);
-  }
-  visitList(i, t) {
-    return U.startList(t), U.endList(t);
-  }
-  visitStruct(i, t) {
-    return D.startStruct_(t), D.endStruct_(t);
-  }
-  visitUnion(i, t) {
-    e.startTypeIdsVector(t, i.typeIds.length);
-    const r = e.createTypeIdsVector(t, i.typeIds);
-    return e.startUnion(t), e.addMode(t, i.mode), e.addTypeIds(t, r), e.endUnion(t);
-  }
-  visitDictionary(i, t) {
-    const r = this.visit(i.indices, t);
-    return d.startDictionaryEncoding(t), d.addId(t, BigInt(i.id)), d.addIsOrdered(t, i.isOrdered), r !== void 0 && d.addIndexType(t, r), d.endDictionaryEncoding(t);
-  }
-  visitFixedSizeBinary(i, t) {
-    return l.startFixedSizeBinary(t), l.addByteWidth(t, i.byteWidth), l.endFixedSizeBinary(t);
-  }
-  visitFixedSizeList(i, t) {
-    return c.startFixedSizeList(t), c.addListSize(t, i.listSize), c.endFixedSizeList(t);
-  }
-  visitMap(i, t) {
-    return y.startMap(t), y.addKeysSorted(t, i.keysSorted), y.endMap(t);
+  static createDecimal(t, s, o, e) {
+    return i.startDecimal(t), i.addPrecision(t, s), i.addScale(t, o), i.addBitWidth(t, e), i.endDecimal(t);
   }
 }
-const X = new z();
 export {
-  z as TypeAssembler,
-  X as instance
+  i as Decimal
 };
 //# sourceMappingURL=cori.data.api595.js.map

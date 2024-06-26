@@ -1,44 +1,75 @@
-import { embedResources as c } from "./cori.data.api335.js";
-import { isInstanceOfElement as n, toArray as y } from "./cori.data.api239.js";
-import { isDataUrl as u, resourceToDataURL as l } from "./cori.data.api334.js";
-import { getMimeType as w } from "./cori.data.api333.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-async function f(a, r, e) {
-  var t;
-  const i = (t = r.style) === null || t === void 0 ? void 0 : t.getPropertyValue(a);
-  if (i) {
-    const s = await c(i, null, e);
-    return r.style.setProperty(a, s, r.style.getPropertyPriority(a)), !0;
-  }
-  return !1;
+var h = {};
+if (typeof document < "u") {
+  var v = document.documentElement;
+  "onmouseenter" in v || (h = { mouseenter: "mouseover", mouseleave: "mouseout" });
 }
-async function b(a, r) {
-  await f("background", a, r) || await f("background-image", a, r), await f("mask", a, r) || await f("mask-image", a, r);
+function d(t, e, n) {
+  return t = c(t, e, n), function(r) {
+    var s = r.relatedTarget;
+    (!s || s !== this && !(s.compareDocumentPosition(this) & 8)) && t.call(this, r);
+  };
 }
-async function h(a, r) {
-  const e = n(a, HTMLImageElement);
-  if (!(e && !u(a.src)) && !(n(a, SVGImageElement) && !u(a.href.baseVal)))
-    return;
-  const t = e ? a.src : a.href.baseVal, i = await l(t, w(t), r);
-  await new Promise((s, g) => {
-    a.onload = s, a.onerror = g;
-    const m = a;
-    m.decode && (m.decode = s), m.loading === "lazy" && (m.loading = "eager"), e ? (a.srcset = "", a.src = i) : a.href.baseVal = i;
+function c(t, e, n) {
+  return function(r) {
+    try {
+      t.call(this, this.__data__, e, n);
+    } finally {
+    }
+  };
+}
+function p(t) {
+  return t.trim().split(/^|\s+/).map(function(e) {
+    var n = "", r = e.indexOf(".");
+    return r >= 0 && (n = e.slice(r + 1), e = e.slice(0, r)), { type: e, name: n };
   });
 }
-async function P(a, r) {
-  const t = y(a.childNodes).map((i) => I(i, r));
-  await Promise.all(t).then(() => a);
+function _(t) {
+  return function() {
+    var e = this.__on;
+    if (e) {
+      for (var n = 0, r = -1, s = e.length, o; n < s; ++n)
+        o = e[n], (!t.type || o.type === t.type) && o.name === t.name ? this.removeEventListener(o.type, o.listener, o.capture) : e[++r] = o;
+      ++r ? e.length = r : delete this.__on;
+    }
+  };
 }
-async function I(a, r) {
-  n(a, Element) && (await b(a, r), await h(a, r), await P(a, r));
+function y(t, e, n) {
+  var r = h.hasOwnProperty(t.type) ? d : c;
+  return function(s, o, l) {
+    var a = this.__on, i, u = r(e, o, l);
+    if (a) {
+      for (var f = 0, m = a.length; f < m; ++f)
+        if ((i = a[f]).type === t.type && i.name === t.name) {
+          this.removeEventListener(i.type, i.listener, i.capture), this.addEventListener(i.type, i.listener = u, i.capture = n), i.value = e;
+          return;
+        }
+    }
+    this.addEventListener(t.type, u, n), i = { type: t.type, name: t.name, value: e, listener: u, capture: n }, a ? a.push(i) : this.__on = [i];
+  };
+}
+function g(t, e, n) {
+  var r = p(t + ""), s, o = r.length, l;
+  if (arguments.length < 2) {
+    var a = this.node().__on;
+    if (a) {
+      for (var i = 0, u = a.length, f; i < u; ++i)
+        for (s = 0, f = a[i]; s < o; ++s)
+          if ((l = r[s]).type === f.type && l.name === f.name)
+            return f.value;
+    }
+    return;
+  }
+  for (a = e ? y : _, n == null && (n = !1), s = 0; s < o; ++s)
+    this.each(a(r[s], e, n));
+  return this;
 }
 export {
-  I as embedImages
+  g as default
 };
 //# sourceMappingURL=cori.data.api236.js.map

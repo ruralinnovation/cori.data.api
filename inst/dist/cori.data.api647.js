@@ -1,36 +1,52 @@
-import { SIZE_PREFIX_LENGTH as s } from "./cori.data.api642.js";
-import "./cori.data.api569.js";
-import "./cori.data.api570.js";
+import { factorySpace as l } from "./cori.data.api669.js";
+import { blankLine as a } from "./cori.data.api670.js";
+import { content as e } from "./cori.data.api671.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class r {
-  constructor() {
-    this.bb = null, this.bb_pos = 0;
+const d = {
+  tokenize: m
+};
+function m(n) {
+  const o = this, i = n.attempt(
+    // Try to parse a blank line.
+    a,
+    u,
+    // Try to parse initial flow (essentially, only code).
+    n.attempt(
+      this.parser.constructs.flowInitial,
+      r,
+      l(
+        n,
+        n.attempt(
+          this.parser.constructs.flow,
+          r,
+          n.attempt(e, r)
+        ),
+        "linePrefix"
+      )
+    )
+  );
+  return i;
+  function u(t) {
+    if (t === null) {
+      n.consume(t);
+      return;
+    }
+    return n.enter("lineEndingBlank"), n.consume(t), n.exit("lineEndingBlank"), o.currentConstruct = void 0, i;
   }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
-  }
-  static getRootAsLargeBinary(t, i) {
-    return (i || new r()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static getSizePrefixedRootAsLargeBinary(t, i) {
-    return t.setPosition(t.position() + s), (i || new r()).__init(t.readInt32(t.position()) + t.position(), t);
-  }
-  static startLargeBinary(t) {
-    t.startObject(0);
-  }
-  static endLargeBinary(t) {
-    return t.endObject();
-  }
-  static createLargeBinary(t) {
-    return r.startLargeBinary(t), r.endLargeBinary(t);
+  function r(t) {
+    if (t === null) {
+      n.consume(t);
+      return;
+    }
+    return n.enter("lineEnding"), n.consume(t), n.exit("lineEnding"), o.currentConstruct = void 0, i;
   }
 }
 export {
-  r as LargeBinary
+  d as flow
 };
 //# sourceMappingURL=cori.data.api647.js.map

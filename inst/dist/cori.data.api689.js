@@ -1,14 +1,26 @@
-import r from "./cori.data.api422.js";
+import { labelEnd as o } from "./cori.data.api691.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(t) {
-  return r(t) ? t : +t;
+const b = {
+  name: "labelStartLink",
+  tokenize: k,
+  resolveAll: o.resolveAll
+};
+function k(n, r, e) {
+  const l = this;
+  return a;
+  function a(t) {
+    return n.enter("labelLink"), n.enter("labelMarker"), n.consume(t), n.exit("labelMarker"), n.exit("labelLink"), i;
+  }
+  function i(t) {
+    return t === 94 && "_hiddenFootnoteSupport" in l.parser.constructs ? e(t) : r(t);
+  }
 }
 export {
-  o as default
+  b as labelStartLink
 };
 //# sourceMappingURL=cori.data.api689.js.map

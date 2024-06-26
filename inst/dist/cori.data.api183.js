@@ -1,64 +1,25 @@
-import { get as h, set as l } from "./cori.data.api186.js";
+import { get as e, init as i } from "./cori.data.api202.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function s(t, r) {
-  var u, n;
+function o(n, t) {
   return function() {
-    var e = l(this, t), i = e.tween;
-    if (i !== u) {
-      n = u = i;
-      for (var a = 0, o = n.length; a < o; ++a)
-        if (n[a].name === r) {
-          n = n.slice(), n.splice(a, 1);
-          break;
-        }
-    }
-    e.tween = n;
+    i(this, n).delay = +t.apply(this, arguments);
   };
 }
-function w(t, r, u) {
-  var n, e;
-  if (typeof u != "function")
-    throw new Error();
-  return function() {
-    var i = l(this, t), a = i.tween;
-    if (a !== n) {
-      e = (n = a).slice();
-      for (var o = { name: r, value: u }, f = 0, c = e.length; f < c; ++f)
-        if (e[f].name === r) {
-          e[f] = o;
-          break;
-        }
-      f === c && e.push(o);
-    }
-    i.tween = e;
+function r(n, t) {
+  return t = +t, function() {
+    i(this, n).delay = t;
   };
 }
-function d(t, r) {
-  var u = this._id;
-  if (t += "", arguments.length < 2) {
-    for (var n = h(this.node(), u).tween, e = 0, i = n.length, a; e < i; ++e)
-      if ((a = n[e]).name === t)
-        return a.value;
-    return null;
-  }
-  return this.each((r == null ? s : w)(u, t, r));
-}
-function g(t, r, u) {
-  var n = t._id;
-  return t.each(function() {
-    var e = l(this, n);
-    (e.value || (e.value = {}))[r] = u.apply(this, arguments);
-  }), function(e) {
-    return h(e, n).value[r];
-  };
+function s(n) {
+  var t = this._id;
+  return arguments.length ? this.each((typeof n == "function" ? o : r)(t, n)) : e(this.node(), t).delay;
 }
 export {
-  d as default,
-  g as tweenValue
+  s as default
 };
 //# sourceMappingURL=cori.data.api183.js.map

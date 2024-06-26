@@ -4,33 +4,32 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const f = {};
-function l(t, o) {
-  const n = f, i = typeof n.includeImageAlt == "boolean" ? n.includeImageAlt : !0, r = typeof n.includeHtml == "boolean" ? n.includeHtml : !0;
-  return c(t, i, r);
+function r(c) {
+  const i = String(c), o = /\r?\n|\r/g;
+  let e = o.exec(i), t = 0;
+  const n = [];
+  for (; e; )
+    n.push(
+      s(i.slice(t, e.index), t > 0, !0),
+      e[0]
+    ), t = e.index + e[0].length, e = o.exec(i);
+  return n.push(s(i.slice(t), t > 0, !1)), n.join("");
 }
-function c(t, o, n) {
-  if (s(t)) {
-    if ("value" in t)
-      return t.type === "html" && !n ? "" : t.value;
-    if (o && "alt" in t && t.alt)
-      return t.alt;
-    if ("children" in t)
-      return e(t.children, o, n);
+function s(c, i, o) {
+  let e = 0, t = c.length;
+  if (i) {
+    let n = c.codePointAt(e);
+    for (; n === 9 || n === 32; )
+      e++, n = c.codePointAt(e);
   }
-  return Array.isArray(t) ? e(t, o, n) : "";
-}
-function e(t, o, n) {
-  const i = [];
-  let r = -1;
-  for (; ++r < t.length; )
-    i[r] = c(t[r], o, n);
-  return i.join("");
-}
-function s(t) {
-  return !!(t && typeof t == "object");
+  if (o) {
+    let n = c.codePointAt(t - 1);
+    for (; n === 9 || n === 32; )
+      t--, n = c.codePointAt(t - 1);
+  }
+  return t > e ? c.slice(e, t) : "";
 }
 export {
-  l as toString
+  r as trimLines
 };
 //# sourceMappingURL=cori.data.api476.js.map

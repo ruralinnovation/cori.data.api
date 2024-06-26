@@ -4,18 +4,11 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-let o = 0;
-const n = e(), t = e(), a = e(), c = e(), r = e(), s = e(), p = e();
-function e() {
-  return 2 ** ++o;
+function o(e) {
+  const t = /^([-+\w]{1,25})(:?\/\/|:)/.exec(e);
+  return t && t[1] || "";
 }
 export {
-  n as boolean,
-  t as booleanish,
-  p as commaOrSpaceSeparated,
-  s as commaSeparated,
-  c as number,
-  a as overloadedBoolean,
-  r as spaceSeparated
+  o as default
 };
 //# sourceMappingURL=cori.data.api458.js.map

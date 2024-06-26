@@ -4,13 +4,12 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function c(f) {
-  for (var _ = this._groups, a = 0, h = _.length; a < h; ++a)
-    for (var e = _[a], t = 0, r = e.length, l; t < r; ++t)
-      (l = e[t]) && f.call(l, l.__data__, t, e);
-  return this;
+function e(t) {
+  return function() {
+    return this.matches(t);
+  };
 }
 export {
-  c as default
+  e as default
 };
 //# sourceMappingURL=cori.data.api206.js.map

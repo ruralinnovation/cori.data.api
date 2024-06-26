@@ -1,19 +1,26 @@
-import { Selection as v } from "./cori.data.api58.js";
+import { Transition as l, newId as _ } from "./cori.data.api180.js";
+import u, { get as v } from "./cori.data.api202.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function A(i) {
-  for (var e = this._groups, f = i._groups, n = e.length, _ = f.length, c = Math.min(n, _), a = new Array(n), t = 0; t < c; ++t)
-    for (var h = e[t], w = f[t], l = h.length, s = a[t] = new Array(l), o, r = 0; r < l; ++r)
-      (o = h[r] || w[r]) && (s[r] = o);
-  for (; t < n; ++t)
-    a[t] = e[t];
-  return new v(a, this._parents);
+function w() {
+  for (var s = this._name, o = this._id, d = _(), e = this._groups, m = e.length, n = 0; n < m; ++n)
+    for (var r = e[n], f = r.length, i, a = 0; a < f; ++a)
+      if (i = r[a]) {
+        var t = v(i, o);
+        u(i, s, d, a, r, {
+          time: t.time + t.delay + t.duration,
+          delay: 0,
+          duration: t.duration,
+          ease: t.ease
+        });
+      }
+  return new l(e, this._parents, s, d);
 }
 export {
-  A as default
+  w as default
 };
 //# sourceMappingURL=cori.data.api198.js.map

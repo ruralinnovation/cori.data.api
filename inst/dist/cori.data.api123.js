@@ -1,19 +1,20 @@
-import { Selection as o } from "./cori.data.api122.js";
-import m from "./cori.data.api157.js";
+import o, { identity as i } from "./cori.data.api338.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(a) {
-  typeof a != "function" && (a = m(a));
-  for (var n = this._groups, e = n.length, l = new Array(e), r = 0; r < e; ++r)
-    for (var f = n[r], c = f.length, h = l[r] = new Array(c), _, i, t = 0; t < c; ++t)
-      (_ = f[t]) && (i = a.call(_, _.__data__, t, f)) && ("__data__" in _ && (i.__data__ = _.__data__), h[t] = i);
-  return new o(l, this._parents);
+var n;
+function s(t) {
+  const r = new (typeof DOMMatrix == "function" ? DOMMatrix : WebKitCSSMatrix)(t + "");
+  return r.isIdentity ? i : o(r.a, r.b, r.c, r.d, r.e, r.f);
+}
+function f(t) {
+  return t == null ? i : (n || (n = document.createElementNS("http://www.w3.org/2000/svg", "g")), n.setAttribute("transform", t), (t = n.transform.baseVal.consolidate()) ? (t = t.matrix, o(t.a, t.b, t.c, t.d, t.e, t.f)) : i);
 }
 export {
-  p as default
+  s as parseCss,
+  f as parseSvg
 };
 //# sourceMappingURL=cori.data.api123.js.map

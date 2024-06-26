@@ -4,8 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(n, l) {
-  return n == null || l == null ? NaN : n < l ? -1 : n > l ? 1 : n >= l ? 0 : NaN;
+function u(n, r) {
+  return function() {
+    return n.apply(r, arguments);
+  };
 }
 export {
   u as default

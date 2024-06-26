@@ -1,48 +1,63 @@
-import { isUrl as i } from "./cori.data.api254.js";
+import { color as A } from "./cori.data.api490.js";
+import { convert as I } from "./cori.data.api491.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function R(o) {
-  if (typeof o == "string")
-    o = new URL(o);
-  else if (!i(o)) {
-    const e = new TypeError(
-      'The "path" argument must be of type string or an instance of URL. Received `' + o + "`"
+const g = [], j = !0, a = !1, k = "skip";
+function w(t, o, u, s) {
+  let p;
+  typeof o == "function" && typeof u != "function" ? (s = u, u = o) : p = o;
+  const b = I(p), y = s ? -1 : 1;
+  m(t, void 0, [])();
+  function m(n, N, l) {
+    const i = (
+      /** @type {Record<string, unknown>} */
+      n && typeof n == "object" ? n : {}
     );
-    throw e.code = "ERR_INVALID_ARG_TYPE", e;
-  }
-  if (o.protocol !== "file:") {
-    const e = new TypeError("The URL must be of scheme file");
-    throw e.code = "ERR_INVALID_URL_SCHEME", e;
-  }
-  return c(o);
-}
-function c(o) {
-  if (o.hostname !== "") {
-    const r = new TypeError(
-      'File URL host must be "localhost" or empty on darwin'
-    );
-    throw r.code = "ERR_INVALID_FILE_URL_HOST", r;
-  }
-  const e = o.pathname;
-  let t = -1;
-  for (; ++t < e.length; )
-    if (e.codePointAt(t) === 37 && e.codePointAt(t + 1) === 50) {
-      const r = e.codePointAt(t + 2);
-      if (r === 70 || r === 102) {
-        const n = new TypeError(
-          "File URL path must not include encoded / characters"
-        );
-        throw n.code = "ERR_INVALID_FILE_URL_PATH", n;
-      }
+    if (typeof i.type == "string") {
+      const e = (
+        // `hast`
+        typeof i.tagName == "string" ? i.tagName : (
+          // `xast`
+          typeof i.name == "string" ? i.name : void 0
+        )
+      );
+      Object.defineProperty(h, "name", {
+        value: "node (" + A(n.type + (e ? "<" + e + ">" : "")) + ")"
+      });
     }
-  return decodeURIComponent(e);
+    return h;
+    function h() {
+      let e = g, f, r, d;
+      if ((!o || b(n, N, l[l.length - 1] || void 0)) && (e = E(u(n, l)), e[0] === a))
+        return e;
+      if ("children" in n && n.children) {
+        const c = (
+          /** @type {UnistParent} */
+          n
+        );
+        if (c.children && e[0] !== k)
+          for (r = (s ? c.children.length : -1) + y, d = l.concat(c); r > -1 && r < c.children.length; ) {
+            const P = c.children[r];
+            if (f = m(P, r, d)(), f[0] === a)
+              return f;
+            r = typeof f[1] == "number" ? f[1] : r + y;
+          }
+      }
+      return e;
+    }
+  }
+}
+function E(t) {
+  return Array.isArray(t) ? t : typeof t == "number" ? [j, t] : t == null ? g : [t];
 }
 export {
-  i as isUrl,
-  R as urlToPath
+  j as CONTINUE,
+  a as EXIT,
+  k as SKIP,
+  w as visitParents
 };
 //# sourceMappingURL=cori.data.api253.js.map

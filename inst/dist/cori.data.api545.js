@@ -1,20 +1,12 @@
-import { array as f } from "./cori.data.api32.js";
+import a from "./cori.data.api451.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function d(r, a) {
-  const t = f(r.ArrayType, a);
-  return {
-    set(u, e) {
-      t[e] = u;
-    },
-    data: () => ({ type: r, length: a, buffers: [null, t] })
-  };
-}
+const e = typeof URLSearchParams < "u" ? URLSearchParams : a;
 export {
-  d as default
+  e as default
 };
 //# sourceMappingURL=cori.data.api545.js.map

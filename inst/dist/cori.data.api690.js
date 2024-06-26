@@ -1,17 +1,24 @@
-import { markdownLineEndingOrSpace as i, unicodeWhitespace as r, unicodePunctuation as t } from "./cori.data.api481.js";
+import { markdownLineEnding as o } from "./cori.data.api479.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(n) {
-  if (n === null || i(n) || r(n))
-    return 1;
-  if (t(n))
-    return 2;
+const p = {
+  name: "hardBreakEscape",
+  tokenize: k
+};
+function k(e, n, a) {
+  return t;
+  function t(r) {
+    return e.enter("hardBreakEscape"), e.consume(r), i;
+  }
+  function i(r) {
+    return o(r) ? (e.exit("hardBreakEscape"), n(r)) : a(r);
+  }
 }
 export {
-  a as classifyCharacter
+  p as hardBreakEscape
 };
 //# sourceMappingURL=cori.data.api690.js.map

@@ -1,12 +1,12 @@
 import { makeData as h, Data as g } from "./cori.data.api504.js";
-import { Table as C } from "./cori.data.api404.js";
-import { Vector as f } from "./cori.data.api410.js";
-import { Field as b, Schema as p } from "./cori.data.api498.js";
-import { Struct as u, Null as S, DataType as A } from "./cori.data.api411.js";
-import { instance as D } from "./cori.data.api554.js";
-import { instance as B } from "./cori.data.api555.js";
-import { instance as _ } from "./cori.data.api556.js";
-import { instance as R } from "./cori.data.api557.js";
+import { Table as C } from "./cori.data.api400.js";
+import { Vector as f } from "./cori.data.api406.js";
+import { Field as b, Schema as p } from "./cori.data.api499.js";
+import { Struct as u, Null as S, DataType as A } from "./cori.data.api407.js";
+import { instance as D } from "./cori.data.api564.js";
+import { instance as B } from "./cori.data.api565.js";
+import { instance as _ } from "./cori.data.api566.js";
+import { instance as R } from "./cori.data.api567.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

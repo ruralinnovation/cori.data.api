@@ -1,6 +1,9 @@
-import { SIZE_PREFIX_LENGTH as n } from "./cori.data.api642.js";
-import "./cori.data.api569.js";
-import "./cori.data.api570.js";
+import { SIZE_PREFIX_LENGTH as a } from "./cori.data.api653.js";
+import "./cori.data.api579.js";
+import "./cori.data.api580.js";
+import { Endianness as o } from "./cori.data.api593.js";
+import { Field as f } from "./cori.data.api589.js";
+import { KeyValue as c } from "./cori.data.api592.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
@@ -14,54 +17,104 @@ class i {
   __init(t, s) {
     return this.bb_pos = t, this.bb = s, this;
   }
-  static getRootAsDecimal(t, s) {
+  static getRootAsSchema(t, s) {
     return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsDecimal(t, s) {
-    return t.setPosition(t.position() + n), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsSchema(t, s) {
+    return t.setPosition(t.position() + a), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
   /**
-   * Total number of decimal digits
+   * endianness of the buffer
+   * it is Little Endian by default
+   * if endianness doesn't match the underlying system then the vectors need to be converted
    */
-  precision() {
+  endianness() {
     const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
+    return t ? this.bb.readInt16(this.bb_pos + t) : o.Little;
   }
-  /**
-   * Number of digits after the decimal point "."
-   */
-  scale() {
+  fields(t, s) {
+    const e = this.bb.__offset(this.bb_pos, 6);
+    return e ? (s || new f()).__init(this.bb.__indirect(this.bb.__vector(this.bb_pos + e) + t * 4), this.bb) : null;
+  }
+  fieldsLength() {
     const t = this.bb.__offset(this.bb_pos, 6);
-    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
+  }
+  customMetadata(t, s) {
+    const e = this.bb.__offset(this.bb_pos, 8);
+    return e ? (s || new c()).__init(this.bb.__indirect(this.bb.__vector(this.bb_pos + e) + t * 4), this.bb) : null;
+  }
+  customMetadataLength() {
+    const t = this.bb.__offset(this.bb_pos, 8);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
   /**
-   * Number of bits per value. The only accepted widths are 128 and 256.
-   * We use bitWidth for consistency with Int::bitWidth.
+   * Features used in the stream/file.
    */
-  bitWidth() {
-    const t = this.bb.__offset(this.bb_pos, 8);
-    return t ? this.bb.readInt32(this.bb_pos + t) : 128;
+  features(t) {
+    const s = this.bb.__offset(this.bb_pos, 10);
+    return s ? this.bb.readInt64(this.bb.__vector(this.bb_pos + s) + t * 8) : BigInt(0);
   }
-  static startDecimal(t) {
-    t.startObject(3);
+  featuresLength() {
+    const t = this.bb.__offset(this.bb_pos, 10);
+    return t ? this.bb.__vector_len(this.bb_pos + t) : 0;
   }
-  static addPrecision(t, s) {
-    t.addFieldInt32(0, s, 0);
+  static startSchema(t) {
+    t.startObject(4);
   }
-  static addScale(t, s) {
-    t.addFieldInt32(1, s, 0);
+  static addEndianness(t, s) {
+    t.addFieldInt16(0, s, o.Little);
   }
-  static addBitWidth(t, s) {
-    t.addFieldInt32(2, s, 128);
+  static addFields(t, s) {
+    t.addFieldOffset(1, s, 0);
   }
-  static endDecimal(t) {
+  static createFieldsVector(t, s) {
+    t.startVector(4, s.length, 4);
+    for (let e = s.length - 1; e >= 0; e--)
+      t.addOffset(s[e]);
+    return t.endVector();
+  }
+  static startFieldsVector(t, s) {
+    t.startVector(4, s, 4);
+  }
+  static addCustomMetadata(t, s) {
+    t.addFieldOffset(2, s, 0);
+  }
+  static createCustomMetadataVector(t, s) {
+    t.startVector(4, s.length, 4);
+    for (let e = s.length - 1; e >= 0; e--)
+      t.addOffset(s[e]);
+    return t.endVector();
+  }
+  static startCustomMetadataVector(t, s) {
+    t.startVector(4, s, 4);
+  }
+  static addFeatures(t, s) {
+    t.addFieldOffset(3, s, 0);
+  }
+  static createFeaturesVector(t, s) {
+    t.startVector(8, s.length, 8);
+    for (let e = s.length - 1; e >= 0; e--)
+      t.addInt64(s[e]);
+    return t.endVector();
+  }
+  static startFeaturesVector(t, s) {
+    t.startVector(8, s, 8);
+  }
+  static endSchema(t) {
     return t.endObject();
   }
-  static createDecimal(t, s, o, e) {
-    return i.startDecimal(t), i.addPrecision(t, s), i.addScale(t, o), i.addBitWidth(t, e), i.endDecimal(t);
+  static finishSchemaBuffer(t, s) {
+    t.finish(s);
+  }
+  static finishSizePrefixedSchemaBuffer(t, s) {
+    t.finish(s, void 0, !0);
+  }
+  static createSchema(t, s, e, r, n) {
+    return i.startSchema(t), i.addEndianness(t, s), i.addFields(t, e), i.addCustomMetadata(t, r), i.addFeatures(t, n), i.endSchema(t);
   }
 }
 export {
-  i as Decimal
+  i as Schema
 };
 //# sourceMappingURL=cori.data.api584.js.map

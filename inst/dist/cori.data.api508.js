@@ -1,7 +1,7 @@
 import { __awaiter as L, __asyncValues as F } from "./cori.data.api501.js";
-import { Table as _ } from "./cori.data.api404.js";
+import { Table as _ } from "./cori.data.api400.js";
 import { MAGIC as R } from "./cori.data.api509.js";
-import { Vector as O } from "./cori.data.api410.js";
+import { Vector as O } from "./cori.data.api406.js";
 import { Message as f, RecordBatch as y, DictionaryBatch as v } from "./cori.data.api510.js";
 import { Footer as g, FileBlock as b } from "./cori.data.api511.js";
 import { compareSchemas as B } from "./cori.data.api512.js";

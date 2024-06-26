@@ -1,30 +1,40 @@
+import { ObjectExpression as m, Property as n, Literal as c } from "./cori.data.api284.js";
+import f from "./cori.data.api287.js";
+import s from "./cori.data.api288.js";
+import u from "./cori.data.api387.js";
+import y from "./cori.data.api277.js";
+import w from "./cori.data.api300.js";
+import O from "./cori.data.api308.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var X = 180 / Math.PI, o = {
-  translateX: 0,
-  translateY: 0,
-  rotate: 0,
-  skewX: 0,
-  scaleX: 1,
-  scaleY: 1
-};
-function h(t, e, s, r, i, f) {
-  var l, n, a;
-  return (l = Math.sqrt(t * t + e * e)) && (t /= l, e /= l), (a = t * s + e * r) && (s -= t * a, r -= e * a), (n = Math.sqrt(s * s + r * r)) && (s /= n, r /= n, a /= n), t * r < e * s && (t = -t, e = -e, a = -a, l = -l), {
-    translateX: i,
-    translateY: f,
-    rotate: Math.atan2(e, t) * X,
-    skewX: Math.atan(a) * X,
-    scaleX: l,
-    scaleY: n
-  };
+const B = "row_object";
+function a(r, t) {
+  r.type = m;
+  const e = r.properties = [];
+  for (const o of y(t)) {
+    const [p, i] = w(o) ? o : [o, o];
+    e.push({
+      type: n,
+      key: { type: c, raw: O(i) },
+      value: u({ computed: !0 }, p)
+    });
+  }
+  return r;
+}
+function b(r) {
+  return f(a({}, r));
+}
+function C(r) {
+  return s.expr(b(r));
 }
 export {
-  h as default,
-  o as identity
+  B as ROW_OBJECT,
+  C as rowObjectBuilder,
+  b as rowObjectCode,
+  a as rowObjectExpression
 };
 //# sourceMappingURL=cori.data.api269.js.map

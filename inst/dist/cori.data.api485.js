@@ -4,8 +4,10 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const a = typeof FormData < "u" ? FormData : null;
+function o(e) {
+  return e.toLowerCase();
+}
 export {
-  a as default
+  o as normalize
 };
 //# sourceMappingURL=cori.data.api485.js.map

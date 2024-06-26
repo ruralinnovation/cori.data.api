@@ -1,11 +1,20 @@
+import i from "./cori.data.api77.js";
+import m from "./cori.data.api81.js";
+import s from "./cori.data.api91.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const e = void 0;
+function h(f, t) {
+  const o = this || m, r = t || o, n = s.from(r.headers);
+  let a = r.data;
+  return i.forEach(f, function(e) {
+    a = e.call(o, a, n.normalize(), t ? t.status : void 0);
+  }), n.normalize(), a;
+}
 export {
-  e as default
+  h as default
 };
 //# sourceMappingURL=cori.data.api452.js.map

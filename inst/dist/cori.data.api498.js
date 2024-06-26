@@ -1,102 +1,19 @@
-import { DataType as c } from "./cori.data.api411.js";
-import { MetadataVersion as f } from "./cori.data.api518.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class l {
-  constructor(t = [], n, e, i = f.V5) {
-    this.fields = t || [], this.metadata = n || /* @__PURE__ */ new Map(), e || (e = m(t)), this.dictionaries = e, this.metadataVersion = i;
-  }
-  get [Symbol.toStringTag]() {
-    return "Schema";
-  }
-  get names() {
-    return this.fields.map((t) => t.name);
-  }
-  toString() {
-    return `Schema<{ ${this.fields.map((t, n) => `${n}: ${t}`).join(", ")} }>`;
-  }
-  /**
-   * Construct a new Schema containing only specified fields.
-   *
-   * @param fieldNames Names of fields to keep.
-   * @returns A new Schema of fields matching the specified names.
-   */
-  select(t) {
-    const n = new Set(t), e = this.fields.filter((i) => n.has(i.name));
-    return new l(e, this.metadata);
-  }
-  /**
-   * Construct a new Schema containing only fields at the specified indices.
-   *
-   * @param fieldIndices Indices of fields to keep.
-   * @returns A new Schema of fields at the specified indices.
-   */
-  selectAt(t) {
-    const n = t.map((e) => this.fields[e]).filter(Boolean);
-    return new l(n, this.metadata);
-  }
-  assign(...t) {
-    const n = t[0] instanceof l ? t[0] : Array.isArray(t[0]) ? new l(t[0]) : new l(t), e = [...this.fields], i = s(s(/* @__PURE__ */ new Map(), this.metadata), n.metadata), a = n.fields.filter((d) => {
-      const p = e.findIndex((u) => u.name === d.name);
-      return ~p ? (e[p] = d.clone({
-        metadata: s(s(/* @__PURE__ */ new Map(), e[p].metadata), d.metadata)
-      })) && !1 : !0;
-    }), h = m(a, /* @__PURE__ */ new Map());
-    return new l([...e, ...a], i, new Map([...this.dictionaries, ...h]));
-  }
-}
-l.prototype.fields = null;
-l.prototype.metadata = null;
-l.prototype.dictionaries = null;
-class o {
-  /** @nocollapse */
-  static new(...t) {
-    let [n, e, i, a] = t;
-    return t[0] && typeof t[0] == "object" && ({ name: n } = t[0], e === void 0 && (e = t[0].type), i === void 0 && (i = t[0].nullable), a === void 0 && (a = t[0].metadata)), new o(`${n}`, e, i, a);
-  }
-  constructor(t, n, e = !1, i) {
-    this.name = t, this.type = n, this.nullable = e, this.metadata = i || /* @__PURE__ */ new Map();
-  }
-  get typeId() {
-    return this.type.typeId;
-  }
-  get [Symbol.toStringTag]() {
-    return "Field";
-  }
-  toString() {
-    return `${this.name}: ${this.type}`;
-  }
-  clone(...t) {
-    let [n, e, i, a] = t;
-    return !t[0] || typeof t[0] != "object" ? [n = this.name, e = this.type, i = this.nullable, a = this.metadata] = t : { name: n = this.name, type: e = this.type, nullable: i = this.nullable, metadata: a = this.metadata } = t[0], o.new(n, e, i, a);
-  }
-}
-o.prototype.type = null;
-o.prototype.name = null;
-o.prototype.nullable = null;
-o.prototype.metadata = null;
-function s(r, t) {
-  return new Map([...r || /* @__PURE__ */ new Map(), ...t || /* @__PURE__ */ new Map()]);
-}
-function m(r, t = /* @__PURE__ */ new Map()) {
-  for (let n = -1, e = r.length; ++n < e; ) {
-    const a = r[n].type;
-    if (c.isDictionary(a)) {
-      if (!t.has(a.id))
-        t.set(a.id, a.dictionary);
-      else if (t.get(a.id) !== a.dictionary)
-        throw new Error("Cannot create Schema containing two different dictionaries with the same Id");
-    }
-    a.children && a.children.length > 0 && m(a.children, t);
-  }
-  return t;
-}
+var n;
+(function(i) {
+  i[i.NONE = 0] = "NONE", i[i.Null = 1] = "Null", i[i.Int = 2] = "Int", i[i.Float = 3] = "Float", i[i.Binary = 4] = "Binary", i[i.Utf8 = 5] = "Utf8", i[i.Bool = 6] = "Bool", i[i.Decimal = 7] = "Decimal", i[i.Date = 8] = "Date", i[i.Time = 9] = "Time", i[i.Timestamp = 10] = "Timestamp", i[i.Interval = 11] = "Interval", i[i.List = 12] = "List", i[i.Struct = 13] = "Struct", i[i.Union = 14] = "Union", i[i.FixedSizeBinary = 15] = "FixedSizeBinary", i[i.FixedSizeList = 16] = "FixedSizeList", i[i.Map = 17] = "Map", i[i.Duration = 18] = "Duration", i[i.LargeBinary = 19] = "LargeBinary", i[i.LargeUtf8 = 20] = "LargeUtf8", i[i.Dictionary = -1] = "Dictionary", i[i.Int8 = -2] = "Int8", i[i.Int16 = -3] = "Int16", i[i.Int32 = -4] = "Int32", i[i.Int64 = -5] = "Int64", i[i.Uint8 = -6] = "Uint8", i[i.Uint16 = -7] = "Uint16", i[i.Uint32 = -8] = "Uint32", i[i.Uint64 = -9] = "Uint64", i[i.Float16 = -10] = "Float16", i[i.Float32 = -11] = "Float32", i[i.Float64 = -12] = "Float64", i[i.DateDay = -13] = "DateDay", i[i.DateMillisecond = -14] = "DateMillisecond", i[i.TimestampSecond = -15] = "TimestampSecond", i[i.TimestampMillisecond = -16] = "TimestampMillisecond", i[i.TimestampMicrosecond = -17] = "TimestampMicrosecond", i[i.TimestampNanosecond = -18] = "TimestampNanosecond", i[i.TimeSecond = -19] = "TimeSecond", i[i.TimeMillisecond = -20] = "TimeMillisecond", i[i.TimeMicrosecond = -21] = "TimeMicrosecond", i[i.TimeNanosecond = -22] = "TimeNanosecond", i[i.DenseUnion = -23] = "DenseUnion", i[i.SparseUnion = -24] = "SparseUnion", i[i.IntervalDayTime = -25] = "IntervalDayTime", i[i.IntervalYearMonth = -26] = "IntervalYearMonth", i[i.DurationSecond = -27] = "DurationSecond", i[i.DurationMillisecond = -28] = "DurationMillisecond", i[i.DurationMicrosecond = -29] = "DurationMicrosecond", i[i.DurationNanosecond = -30] = "DurationNanosecond";
+})(n || (n = {}));
+var t;
+(function(i) {
+  i[i.OFFSET = 0] = "OFFSET", i[i.DATA = 1] = "DATA", i[i.VALIDITY = 2] = "VALIDITY", i[i.TYPE = 3] = "TYPE";
+})(t || (t = {}));
 export {
-  o as Field,
-  l as Schema
+  t as BufferType,
+  n as Type
 };
 //# sourceMappingURL=cori.data.api498.js.map

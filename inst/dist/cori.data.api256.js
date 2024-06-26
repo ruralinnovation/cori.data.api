@@ -1,65 +1,48 @@
-import n from "./cori.data.api59.js";
+import { isUrl as i } from "./cori.data.api257.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class a {
-  constructor() {
-    this.handlers = [];
+function R(o) {
+  if (typeof o == "string")
+    o = new URL(o);
+  else if (!i(o)) {
+    const e = new TypeError(
+      'The "path" argument must be of type string or an instance of URL. Received `' + o + "`"
+    );
+    throw e.code = "ERR_INVALID_ARG_TYPE", e;
   }
-  /**
-   * Add a new interceptor to the stack
-   *
-   * @param {Function} fulfilled The function to handle `then` for a `Promise`
-   * @param {Function} rejected The function to handle `reject` for a `Promise`
-   *
-   * @return {Number} An ID used to remove interceptor later
-   */
-  use(s, h, r) {
-    return this.handlers.push({
-      fulfilled: s,
-      rejected: h,
-      synchronous: r ? r.synchronous : !1,
-      runWhen: r ? r.runWhen : null
-    }), this.handlers.length - 1;
+  if (o.protocol !== "file:") {
+    const e = new TypeError("The URL must be of scheme file");
+    throw e.code = "ERR_INVALID_URL_SCHEME", e;
   }
-  /**
-   * Remove an interceptor from the stack
-   *
-   * @param {Number} id The ID that was returned by `use`
-   *
-   * @returns {Boolean} `true` if the interceptor was removed, `false` otherwise
-   */
-  eject(s) {
-    this.handlers[s] && (this.handlers[s] = null);
+  return c(o);
+}
+function c(o) {
+  if (o.hostname !== "") {
+    const r = new TypeError(
+      'File URL host must be "localhost" or empty on darwin'
+    );
+    throw r.code = "ERR_INVALID_FILE_URL_HOST", r;
   }
-  /**
-   * Clear all interceptors from the stack
-   *
-   * @returns {void}
-   */
-  clear() {
-    this.handlers && (this.handlers = []);
-  }
-  /**
-   * Iterate over all the registered interceptors
-   *
-   * This method is particularly useful for skipping over any
-   * interceptors that may have become `null` calling `eject`.
-   *
-   * @param {Function} fn The function to call for each interceptor
-   *
-   * @returns {void}
-   */
-  forEach(s) {
-    n.forEach(this.handlers, function(r) {
-      r !== null && s(r);
-    });
-  }
+  const e = o.pathname;
+  let t = -1;
+  for (; ++t < e.length; )
+    if (e.codePointAt(t) === 37 && e.codePointAt(t + 1) === 50) {
+      const r = e.codePointAt(t + 2);
+      if (r === 70 || r === 102) {
+        const n = new TypeError(
+          "File URL path must not include encoded / characters"
+        );
+        throw n.code = "ERR_INVALID_FILE_URL_PATH", n;
+      }
+    }
+  return decodeURIComponent(e);
 }
 export {
-  a as default
+  i as isUrl,
+  R as urlToPath
 };
 //# sourceMappingURL=cori.data.api256.js.map

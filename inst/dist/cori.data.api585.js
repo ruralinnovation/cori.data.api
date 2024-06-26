@@ -1,44 +1,50 @@
-import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api642.js";
-import "./cori.data.api569.js";
-import "./cori.data.api570.js";
-import { DateUnit as o } from "./cori.data.api564.js";
+import { SIZE_PREFIX_LENGTH as e } from "./cori.data.api653.js";
+import "./cori.data.api579.js";
+import "./cori.data.api580.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class s {
+class i {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
-  __init(t, i) {
-    return this.bb_pos = t, this.bb = i, this;
+  __init(t, s) {
+    return this.bb_pos = t, this.bb = s, this;
   }
-  static getRootAsDate(t, i) {
-    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getRootAsInt(t, s) {
+    return (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  static getSizePrefixedRootAsDate(t, i) {
-    return t.setPosition(t.position() + e), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  static getSizePrefixedRootAsInt(t, s) {
+    return t.setPosition(t.position() + e), (s || new i()).__init(t.readInt32(t.position()) + t.position(), t);
   }
-  unit() {
+  bitWidth() {
     const t = this.bb.__offset(this.bb_pos, 4);
-    return t ? this.bb.readInt16(this.bb_pos + t) : o.MILLISECOND;
+    return t ? this.bb.readInt32(this.bb_pos + t) : 0;
   }
-  static startDate(t) {
-    t.startObject(1);
+  isSigned() {
+    const t = this.bb.__offset(this.bb_pos, 6);
+    return t ? !!this.bb.readInt8(this.bb_pos + t) : !1;
   }
-  static addUnit(t, i) {
-    t.addFieldInt16(0, i, o.MILLISECOND);
+  static startInt(t) {
+    t.startObject(2);
   }
-  static endDate(t) {
+  static addBitWidth(t, s) {
+    t.addFieldInt32(0, s, 0);
+  }
+  static addIsSigned(t, s) {
+    t.addFieldInt8(1, +s, 0);
+  }
+  static endInt(t) {
     return t.endObject();
   }
-  static createDate(t, i) {
-    return s.startDate(t), s.addUnit(t, i), s.endDate(t);
+  static createInt(t, s, o) {
+    return i.startInt(t), i.addBitWidth(t, s), i.addIsSigned(t, o), i.endInt(t);
   }
 }
 export {
-  s as Date
+  i as Int
 };
 //# sourceMappingURL=cori.data.api585.js.map

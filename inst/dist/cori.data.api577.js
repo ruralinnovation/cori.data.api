@@ -4,7 +4,7 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class n {
+class b {
   constructor() {
     this.bb = null, this.bb_pos = 0;
   }
@@ -12,30 +12,32 @@ class n {
     return this.bb_pos = t, this.bb = s, this;
   }
   /**
-   * The relative offset into the shared memory page where the bytes for this
-   * buffer starts
+   * Index to the start of the RecordBlock (note this is past the Message header)
    */
   offset() {
     return this.bb.readInt64(this.bb_pos);
   }
   /**
-   * The absolute length (in bytes) of the memory buffer. The memory is found
-   * from offset (inclusive) to offset + length (non-inclusive). When building
-   * messages using the encapsulated IPC message, padding bytes may be written
-   * after a buffer, but such padding bytes do not need to be accounted for in
-   * the size here.
+   * Length of the metadata
    */
-  length() {
-    return this.bb.readInt64(this.bb_pos + 8);
+  metaDataLength() {
+    return this.bb.readInt32(this.bb_pos + 8);
+  }
+  /**
+   * Length of the data (this is aligned so there can be a gap between this and
+   * the metadata).
+   */
+  bodyLength() {
+    return this.bb.readInt64(this.bb_pos + 16);
   }
   static sizeOf() {
-    return 16;
+    return 24;
   }
-  static createBuffer(t, s, r) {
-    return t.prep(8, 16), t.writeInt64(BigInt(r ?? 0)), t.writeInt64(BigInt(s ?? 0)), t.offset();
+  static createBlock(t, s, i, n) {
+    return t.prep(8, 24), t.writeInt64(BigInt(n ?? 0)), t.pad(4), t.writeInt32(i), t.writeInt64(BigInt(s ?? 0)), t.offset();
   }
 }
 export {
-  n as Buffer
+  b as Block
 };
 //# sourceMappingURL=cori.data.api577.js.map

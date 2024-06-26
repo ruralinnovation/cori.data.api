@@ -1,10 +1,10 @@
-import { Vector as A } from "./cori.data.api410.js";
-import { Type as I, BufferType as d } from "./cori.data.api497.js";
-import { DataType as y, strideForType as c } from "./cori.data.api411.js";
-import { popcnt_bit_range as b, truncateBitmap as v } from "./cori.data.api558.js";
-import { Visitor as p } from "./cori.data.api559.js";
+import { Vector as A } from "./cori.data.api406.js";
+import { Type as I, BufferType as d } from "./cori.data.api498.js";
+import { DataType as y, strideForType as c } from "./cori.data.api407.js";
+import { popcnt_bit_range as b, truncateBitmap as v } from "./cori.data.api568.js";
+import { Visitor as p } from "./cori.data.api569.js";
 import { toUint8Array as h, toArrayBufferView as f, toInt32Array as m, toBigInt64Array as T } from "./cori.data.api502.js";
-import { UnionMode as w } from "./cori.data.api560.js";
+import { UnionMode as w } from "./cori.data.api570.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}

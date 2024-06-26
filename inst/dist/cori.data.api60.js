@@ -1,15 +1,14 @@
+import { Selection as t, root as n } from "./cori.data.api61.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(n, r) {
-  return function() {
-    return n.apply(r, arguments);
-  };
+function r(e) {
+  return typeof e == "string" ? new t([[document.querySelector(e)]], [document.documentElement]) : new t([[e]], n);
 }
 export {
-  u as default
+  r as default
 };
 //# sourceMappingURL=cori.data.api60.js.map

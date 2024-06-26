@@ -1,20 +1,26 @@
-import { formatDecimalParts as f } from "./cori.data.api267.js";
+import { __module as r } from "./cori.data.api333.js";
+import { __require as _ } from "./cori.data.api334.js";
+import { __require as t } from "./cori.data.api335.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var m;
-function l(a, i) {
-  var e = f(a, i);
-  if (!e)
-    return a + "";
-  var t = e[0], o = e[1], r = o - (m = Math.max(-8, Math.min(8, Math.floor(o / 3))) * 3) + 1, n = t.length;
-  return r === n ? t : r > n ? t + new Array(r - n + 1).join("0") : r > 0 ? t.slice(0, r) + "." + t.slice(r) : "0." + new Array(1 - r).join("0") + f(a, Math.max(0, i + r - 1))[0];
+function e() {
+  if (!(typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ > "u" || typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE != "function")) {
+    if (process.env.NODE_ENV !== "production")
+      throw new Error("^_^");
+    try {
+      __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(e);
+    } catch (o) {
+      console.error(o);
+    }
+  }
 }
+process.env.NODE_ENV === "production" ? (e(), r.exports = _()) : r.exports = t();
+var n = r.exports;
 export {
-  l as default,
-  m as prefixExponent
+  n as r
 };
 //# sourceMappingURL=cori.data.api97.js.map

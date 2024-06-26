@@ -1,23 +1,14 @@
+import t from "./cori.data.api101.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function f(r, e) {
-  e || (e = []);
-  var u = r ? Math.min(e.length, r.length) : 0, i = e.slice(), n;
-  return function(t) {
-    for (n = 0; n < u; ++n)
-      i[n] = r[n] * (1 - t) + e[n] * t;
-    return i;
-  };
-}
-function a(r) {
-  return ArrayBuffer.isView(r) && !(r instanceof DataView);
+function e(a, o) {
+  return Math.max(0, Math.max(-8, Math.min(8, Math.floor(t(o) / 3))) * 3 - t(Math.abs(a)));
 }
 export {
-  f as default,
-  a as isNumberArray
+  e as default
 };
 //# sourceMappingURL=cori.data.api110.js.map

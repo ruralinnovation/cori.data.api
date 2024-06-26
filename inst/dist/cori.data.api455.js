@@ -1,24 +1,22 @@
+import o from "./cori.data.api545.js";
+import r from "./cori.data.api546.js";
+import t from "./cori.data.api547.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-class t {
-  /**
-   * @constructor
-   * @param {Properties} property
-   * @param {Normal} normal
-   * @param {string} [space]
-   */
-  constructor(p, r, o) {
-    this.property = p, this.normal = r, o && (this.space = o);
-  }
-}
-t.prototype.property = {};
-t.prototype.normal = {};
-t.prototype.space = null;
+const l = {
+  isBrowser: !0,
+  classes: {
+    URLSearchParams: o,
+    FormData: r,
+    Blob: t
+  },
+  protocols: ["http", "https", "file", "blob", "url", "data"]
+};
 export {
-  t as Schema
+  l as default
 };
 //# sourceMappingURL=cori.data.api455.js.map

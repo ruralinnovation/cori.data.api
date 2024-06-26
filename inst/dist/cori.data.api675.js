@@ -1,70 +1,87 @@
-import { push as d, splice as m } from "./cori.data.api657.js";
-import { classifyCharacter as g } from "./cori.data.api690.js";
-import { resolveAll as S } from "./cori.data.api661.js";
+import { factoryDestination as D } from "./cori.data.api702.js";
+import { factoryLabel as S } from "./cori.data.api703.js";
+import { factorySpace as s } from "./cori.data.api669.js";
+import { factoryTitle as g } from "./cori.data.api704.js";
+import { factoryWhitespace as d } from "./cori.data.api705.js";
+import { markdownLineEndingOrSpace as k, markdownSpace as h, markdownLineEnding as L } from "./cori.data.api479.js";
+import { normalizeIdentifier as w } from "./cori.data.api468.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const k = {
-  name: "attention",
-  tokenize: q,
-  resolveAll: b
+const O = {
+  name: "definition",
+  tokenize: M
+}, z = {
+  tokenize: y,
+  partial: !0
 };
-function b(t, r) {
-  let e = -1, i, o, a, c, l, n, s, f;
-  for (; ++e < t.length; )
-    if (t[e][0] === "enter" && t[e][1].type === "attentionSequence" && t[e][1]._close) {
-      for (i = e; i--; )
-        if (t[i][0] === "exit" && t[i][1].type === "attentionSequence" && t[i][1]._open && // If the markers are the same:
-        r.sliceSerialize(t[i][1]).charCodeAt(0) === r.sliceSerialize(t[e][1]).charCodeAt(0)) {
-          if ((t[i][1]._close || t[e][1]._open) && (t[e][1].end.offset - t[e][1].start.offset) % 3 && !((t[i][1].end.offset - t[i][1].start.offset + t[e][1].end.offset - t[e][1].start.offset) % 3))
-            continue;
-          n = t[i][1].end.offset - t[i][1].start.offset > 1 && t[e][1].end.offset - t[e][1].start.offset > 1 ? 2 : 1;
-          const u = Object.assign({}, t[i][1].end), p = Object.assign({}, t[e][1].start);
-          h(u, -n), h(p, n), c = {
-            type: n > 1 ? "strongSequence" : "emphasisSequence",
-            start: u,
-            end: Object.assign({}, t[i][1].end)
-          }, l = {
-            type: n > 1 ? "strongSequence" : "emphasisSequence",
-            start: Object.assign({}, t[e][1].start),
-            end: p
-          }, a = {
-            type: n > 1 ? "strongText" : "emphasisText",
-            start: Object.assign({}, t[i][1].end),
-            end: Object.assign({}, t[e][1].start)
-          }, o = {
-            type: n > 1 ? "strong" : "emphasis",
-            start: Object.assign({}, c.start),
-            end: Object.assign({}, l.end)
-          }, t[i][1].end = Object.assign({}, c.start), t[e][1].start = Object.assign({}, l.end), s = [], t[i][1].end.offset - t[i][1].start.offset && (s = d(s, [["enter", t[i][1], r], ["exit", t[i][1], r]])), s = d(s, [["enter", o, r], ["enter", c, r], ["exit", c, r], ["enter", a, r]]), s = d(s, S(r.parser.constructs.insideSpan.null, t.slice(i + 1, e), r)), s = d(s, [["exit", a, r], ["enter", l, r], ["exit", l, r], ["exit", o, r]]), t[e][1].end.offset - t[e][1].start.offset ? (f = 2, s = d(s, [["enter", t[e][1], r], ["exit", t[e][1], r]])) : f = 0, m(t, i - 1, e - i + 3, s), e = i + s.length - f - 2;
-          break;
-        }
-    }
-  for (e = -1; ++e < t.length; )
-    t[e][1].type === "attentionSequence" && (t[e][1].type = "data");
-  return t;
-}
-function q(t, r) {
-  const e = this.parser.constructs.attentionMarkers.null, i = this.previous, o = g(i);
-  let a;
-  return c;
-  function c(n) {
-    return a = n, t.enter("attentionSequence"), l(n);
+function M(t, f, e) {
+  const r = this;
+  let o;
+  return u;
+  function u(i) {
+    return t.enter("definition"), a(i);
   }
-  function l(n) {
-    if (n === a)
-      return t.consume(n), l;
-    const s = t.exit("attentionSequence"), f = g(n), u = !f || f === 2 && o || e.includes(n), p = !o || o === 2 && f || e.includes(i);
-    return s._open = !!(a === 42 ? u : u && (o || !p)), s._close = !!(a === 42 ? p : p && (f || !u)), r(n);
+  function a(i) {
+    return S.call(
+      r,
+      t,
+      n,
+      // Note: we don’t need to reset the way `markdown-rs` does.
+      e,
+      "definitionLabel",
+      "definitionLabelMarker",
+      "definitionLabelString"
+    )(i);
+  }
+  function n(i) {
+    return o = w(r.sliceSerialize(r.events[r.events.length - 1][1]).slice(1, -1)), i === 58 ? (t.enter("definitionMarker"), t.consume(i), t.exit("definitionMarker"), b) : e(i);
+  }
+  function b(i) {
+    return k(i) ? d(t, l)(i) : l(i);
+  }
+  function l(i) {
+    return D(
+      t,
+      c,
+      // Note: we don’t need to reset the way `markdown-rs` does.
+      e,
+      "definitionDestination",
+      "definitionDestinationLiteral",
+      "definitionDestinationLiteralMarker",
+      "definitionDestinationRaw",
+      "definitionDestinationString"
+    )(i);
+  }
+  function c(i) {
+    return t.attempt(z, m, m)(i);
+  }
+  function m(i) {
+    return h(i) ? s(t, p, "whitespace")(i) : p(i);
+  }
+  function p(i) {
+    return i === null || L(i) ? (t.exit("definition"), r.parser.defined.push(o), f(i)) : e(i);
   }
 }
-function h(t, r) {
-  t.column += r, t.offset += r, t._bufferIndex += r;
+function y(t, f, e) {
+  return r;
+  function r(n) {
+    return k(n) ? d(t, o)(n) : e(n);
+  }
+  function o(n) {
+    return g(t, u, e, "definitionTitle", "definitionTitleMarker", "definitionTitleString")(n);
+  }
+  function u(n) {
+    return h(n) ? s(t, a, "whitespace")(n) : a(n);
+  }
+  function a(n) {
+    return n === null || L(n) ? f(n) : e(n);
+  }
 }
 export {
-  k as attention
+  O as definition
 };
 //# sourceMappingURL=cori.data.api675.js.map

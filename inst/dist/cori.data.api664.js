@@ -1,87 +1,53 @@
-import { factoryDestination as D } from "./cori.data.api691.js";
-import { factoryLabel as S } from "./cori.data.api692.js";
-import { factorySpace as s } from "./cori.data.api658.js";
-import { factoryTitle as g } from "./cori.data.api693.js";
-import { factoryWhitespace as d } from "./cori.data.api694.js";
-import { markdownLineEndingOrSpace as k, markdownSpace as h, markdownLineEnding as L } from "./cori.data.api481.js";
-import { normalizeIdentifier as w } from "./cori.data.api471.js";
+import x from "./cori.data.api665.js";
+import y from "./cori.data.api666.js";
+import A from "./cori.data.api637.js";
+import O from "./cori.data.api495.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const O = {
-  name: "definition",
-  tokenize: M
-}, z = {
-  tokenize: y,
-  partial: !0
-};
-function M(t, f, e) {
-  const r = this;
-  let o;
-  return u;
-  function u(i) {
-    return t.enter("definition"), a(i);
-  }
-  function a(i) {
-    return S.call(
-      r,
-      t,
-      n,
-      // Note: we don’t need to reset the way `markdown-rs` does.
-      e,
-      "definitionLabel",
-      "definitionLabelMarker",
-      "definitionLabelString"
-    )(i);
-  }
-  function n(i) {
-    return o = w(r.sliceSerialize(r.events[r.events.length - 1][1]).slice(1, -1)), i === 58 ? (t.enter("definitionMarker"), t.consume(i), t.exit("definitionMarker"), b) : e(i);
-  }
-  function b(i) {
-    return k(i) ? d(t, l)(i) : l(i);
-  }
-  function l(i) {
-    return D(
-      t,
-      c,
-      // Note: we don’t need to reset the way `markdown-rs` does.
-      e,
-      "definitionDestination",
-      "definitionDestinationLiteral",
-      "definitionDestinationLiteralMarker",
-      "definitionDestinationRaw",
-      "definitionDestinationString"
-    )(i);
-  }
-  function c(i) {
-    return t.attempt(z, m, m)(i);
-  }
-  function m(i) {
-    return h(i) ? s(t, p, "whitespace")(i) : p(i);
-  }
-  function p(i) {
-    return i === null || L(i) ? (t.exit("definition"), r.parser.defined.push(o), f(i)) : e(i);
-  }
-}
-function y(t, f, e) {
-  return r;
-  function r(n) {
-    return k(n) ? d(t, o)(n) : e(n);
-  }
-  function o(n) {
-    return g(t, u, e, "definitionTitle", "definitionTitleMarker", "definitionTitleString")(n);
-  }
-  function u(n) {
-    return h(n) ? s(t, a, "whitespace")(n) : a(n);
-  }
-  function a(n) {
-    return n === null || L(n) ? f(n) : e(n);
-  }
+const M = y(x);
+function C(h, _, k, o, s) {
+  let f, n, d, u, p;
+  const w = (i) => n[i - 1] === n[i], v = o.length, z = s.length, $ = o.length ? O(
+    ["w", "r", "k"],
+    "{" + A(o, (i, e) => `r[_${e}.id][k]=_${e}.value(w,_${e}.get);`) + "}",
+    o
+  ) : () => {
+  }, t = {
+    i0: 0,
+    i1: 0,
+    index: 0,
+    size: 0,
+    peer: w,
+    init(i, e, m, c) {
+      t.index = t.i0 = t.i1 = 0, t.size = e.length, f = i, n = e, u = m, p = c, d = s ? s.map((r) => r.init()) : null;
+      for (let r = 0; r < v; ++r)
+        o[r].init();
+      return t;
+    },
+    value(i, e) {
+      return e(f[i], h);
+    },
+    step(i) {
+      const [e, m] = _, c = t.size, r = t.i0, j = t.i1;
+      t.i0 = e != null ? Math.max(0, i - Math.abs(e)) : 0, t.i1 = m != null ? Math.min(c, i + Math.abs(m) + 1) : c, t.index = i, k && (t.i0 > 0 && w(t.i0) && (t.i0 = M.left(n, n[t.i0])), t.i1 < c && w(t.i1) && (t.i1 = M.right(n, n[t.i1 - 1])));
+      for (let a = 0; a < z; ++a) {
+        const g = s[a], b = d[a];
+        for (let l = r; l < t.i0; ++l)
+          g.rem(b, f[l], h);
+        for (let l = j; l < t.i1; ++l)
+          g.add(b, f[l], h);
+        g.write(b, u, p);
+      }
+      return $(t, u, p), u;
+    }
+  };
+  return t;
 }
 export {
-  O as definition
+  C as default
 };
 //# sourceMappingURL=cori.data.api664.js.map

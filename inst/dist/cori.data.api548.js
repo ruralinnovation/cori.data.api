@@ -1,21 +1,26 @@
-import { array as d } from "./cori.data.api32.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function f(a, t) {
-  const r = d(a.ArrayType, t << 1);
-  return {
-    set(i, s) {
-      const o = s << 1;
-      r[o] = i % 4294967296 | 0, r[o + 1] = i / 4294967296 | 0;
-    },
-    data: () => ({ type: a, length: t, buffers: [null, r] })
+function y(t, n) {
+  t = t || 10;
+  const c = new Array(t), o = new Array(t);
+  let e = 0, r = 0, i;
+  return n = n !== void 0 ? n : 1e3, function(h) {
+    const d = Date.now(), a = o[r];
+    i || (i = d), c[e] = h, o[e] = d;
+    let f = r, u = 0;
+    for (; f !== e; )
+      u += c[f++], f = f % t;
+    if (e = (e + 1) % t, e === r && (r = (r + 1) % t), d - i < n)
+      return;
+    const w = a && d - a;
+    return w ? Math.round(u * 1e3 / w) : void 0;
   };
 }
 export {
-  f as default
+  y as default
 };
 //# sourceMappingURL=cori.data.api548.js.map

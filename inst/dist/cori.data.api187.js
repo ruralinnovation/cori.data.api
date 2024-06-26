@@ -1,27 +1,19 @@
-import c from "./cori.data.api188.js";
-import { xhtml as n } from "./cori.data.api189.js";
+import { Transition as o } from "./cori.data.api180.js";
+import h from "./cori.data.api137.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function o(e) {
-  return function() {
-    var t = this.ownerDocument, r = this.namespaceURI;
-    return r === n && t.documentElement.namespaceURI === n ? t.createElement(e) : t.createElementNS(r, e);
-  };
-}
-function a(e) {
-  return function() {
-    return this.ownerDocument.createElementNS(e.space, e.local);
-  };
-}
-function i(e) {
-  var t = c(e);
-  return (t.local ? a : o)(t);
+function v(t) {
+  typeof t != "function" && (t = h(t));
+  for (var a = this._groups, e = a.length, _ = new Array(e), r = 0; r < e; ++r)
+    for (var f = a[r], s = f.length, l = _[r] = [], i, n = 0; n < s; ++n)
+      (i = f[n]) && t.call(i, i.__data__, n, f) && l.push(i);
+  return new o(_, this._parents, this._name, this._id);
 }
 export {
-  i as default
+  v as default
 };
 //# sourceMappingURL=cori.data.api187.js.map

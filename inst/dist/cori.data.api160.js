@@ -4,67 +4,62 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var r = 0, a = 0, l = 0, p = 1e3, s, f, u = 0, i = 0, w = 0, c = typeof performance == "object" && performance.now ? performance : Date, y = typeof window == "object" && window.requestAnimationFrame ? window.requestAnimationFrame.bind(window) : function(t) {
-  setTimeout(t, 17);
-};
-function k() {
-  return i || (y(d), i = c.now() + w);
+function a(t) {
+  return t.trim().split(/^|\s+/);
 }
-function d() {
-  i = 0;
+function r(t) {
+  return t.classList || new c(t);
 }
-function _() {
-  this._call = this._time = this._next = null;
+function c(t) {
+  this._node = t, this._names = a(t.getAttribute("class") || "");
 }
-_.prototype = v.prototype = {
-  constructor: _,
-  restart: function(t, n, e) {
-    if (typeof t != "function")
-      throw new TypeError("callback is not a function");
-    e = (e == null ? k() : +e) + (n == null ? 0 : +n), !this._next && f !== this && (f ? f._next = this : s = this, f = this), this._call = t, this._time = e, m();
+c.prototype = {
+  add: function(t) {
+    var n = this._names.indexOf(t);
+    n < 0 && (this._names.push(t), this._node.setAttribute("class", this._names.join(" ")));
   },
-  stop: function() {
-    this._call && (this._call = null, this._time = 1 / 0, m());
+  remove: function(t) {
+    var n = this._names.indexOf(t);
+    n >= 0 && (this._names.splice(n, 1), this._node.setAttribute("class", this._names.join(" ")));
+  },
+  contains: function(t) {
+    return this._names.indexOf(t) >= 0;
   }
 };
-function v(t, n, e) {
-  var o = new _();
-  return o.restart(t, n, e), o;
+function u(t, n) {
+  for (var s = r(t), i = -1, e = n.length; ++i < e; )
+    s.add(n[i]);
 }
-function x() {
-  k(), ++r;
-  for (var t = s, n; t; )
-    (n = i - t._time) >= 0 && t._call.call(void 0, n), t = t._next;
-  --r;
+function o(t, n) {
+  for (var s = r(t), i = -1, e = n.length; ++i < e; )
+    s.remove(n[i]);
 }
-function h() {
-  i = (u = c.now()) + w, r = a = 0;
-  try {
-    x();
-  } finally {
-    r = 0, I(), i = 0;
+function f(t) {
+  return function() {
+    u(this, t);
+  };
+}
+function h(t) {
+  return function() {
+    o(this, t);
+  };
+}
+function d(t, n) {
+  return function() {
+    (n.apply(this, arguments) ? u : o)(this, t);
+  };
+}
+function m(t, n) {
+  var s = a(t + "");
+  if (arguments.length < 2) {
+    for (var i = r(this.node()), e = -1, l = s.length; ++e < l; )
+      if (!i.contains(s[e]))
+        return !1;
+    return !0;
   }
-}
-function T() {
-  var t = c.now(), n = t - u;
-  n > p && (w -= n, u = t);
-}
-function I() {
-  for (var t, n = s, e, o = 1 / 0; n; )
-    n._call ? (o > n._time && (o = n._time), t = n, n = n._next) : (e = n._next, n._next = null, n = t ? t._next = e : s = e);
-  f = t, m(o);
-}
-function m(t) {
-  if (!r) {
-    a && (a = clearTimeout(a));
-    var n = t - i;
-    n > 24 ? (t < 1 / 0 && (a = setTimeout(h, t - c.now() - w)), l && (l = clearInterval(l))) : (l || (u = c.now(), l = setInterval(T, p)), r = 1, y(h));
-  }
+  return this.each((typeof n == "function" ? d : n ? f : h)(s, n));
 }
 export {
-  _ as Timer,
-  k as now,
-  v as timer,
-  x as timerFlush
+  m as default
 };
 //# sourceMappingURL=cori.data.api160.js.map

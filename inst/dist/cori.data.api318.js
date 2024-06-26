@@ -1,31 +1,31 @@
-import o from "./cori.data.api405.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function u(r, a, e) {
-  const s = Math.min(r.length, e + a);
-  return (t, c) => {
-    for (let n = e; n < s; ++n)
-      c(r[n][t], n);
-  };
+const n = "application/font-woff", o = "image/jpeg", i = {
+  woff: n,
+  woff2: n,
+  ttf: "application/font-truetype",
+  eot: "application/vnd.ms-fontobject",
+  png: "image/png",
+  jpg: o,
+  jpeg: o,
+  gif: "image/gif",
+  tiff: "image/tiff",
+  svg: "image/svg+xml",
+  webp: "image/webp"
+};
+function f(e) {
+  const t = /\.([^./]*?)$/g.exec(e);
+  return t ? t[1] : "";
 }
-function h(r, a, e) {
-  const s = e === 0 && r.numRows() <= a && !r.isFiltered() && !r.isOrdered();
-  return (t, c) => {
-    let n = -1;
-    s && o(t.data) ? t.data.forEach(c) : r.scan(
-      (i) => c(t.get(i), ++n),
-      !0,
-      a,
-      e
-    );
-  };
+function g(e) {
+  const t = f(e).toLowerCase();
+  return i[t] || "";
 }
 export {
-  u as scanArray,
-  h as scanTable
+  g as getMimeType
 };
 //# sourceMappingURL=cori.data.api318.js.map

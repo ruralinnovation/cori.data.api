@@ -1,26 +1,32 @@
-import { labelEnd as o } from "./cori.data.api680.js";
+import { factorySpace as o } from "./cori.data.api669.js";
+import { markdownSpace as B, markdownLineEnding as c } from "./cori.data.api479.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const b = {
-  name: "labelStartLink",
-  tokenize: k,
-  resolveAll: o.resolveAll
+const q = {
+  name: "thematicBreak",
+  tokenize: p
 };
-function k(n, r, e) {
-  const l = this;
-  return a;
-  function a(t) {
-    return n.enter("labelLink"), n.enter("labelMarker"), n.consume(t), n.exit("labelMarker"), n.exit("labelLink"), i;
+function p(t, u, m) {
+  let a = 0, e;
+  return k;
+  function k(r) {
+    return t.enter("thematicBreak"), h(r);
   }
-  function i(t) {
-    return t === 94 && "_hiddenFootnoteSupport" in l.parser.constructs ? e(t) : r(t);
+  function h(r) {
+    return e = r, n(r);
+  }
+  function n(r) {
+    return r === e ? (t.enter("thematicBreakSequence"), i(r)) : a >= 3 && (r === null || c(r)) ? (t.exit("thematicBreak"), u(r)) : m(r);
+  }
+  function i(r) {
+    return r === e ? (t.consume(r), a++, i) : (t.exit("thematicBreakSequence"), B(r) ? o(t, n, "whitespace")(r) : n(r));
   }
 }
 export {
-  b as labelStartLink
+  q as thematicBreak
 };
 //# sourceMappingURL=cori.data.api678.js.map

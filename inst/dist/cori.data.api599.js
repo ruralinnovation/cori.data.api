@@ -1,22 +1,44 @@
-import { instance as u } from "./cori.data.api600.js";
+import { SIZE_PREFIX_LENGTH as o } from "./cori.data.api653.js";
+import "./cori.data.api579.js";
+import "./cori.data.api580.js";
+import { IntervalUnit as n } from "./cori.data.api576.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function a(e) {
-  const n = e.type, s = new (u.getVisitFn(n)())(e);
-  if (n.children && n.children.length > 0) {
-    const r = e.children || [], c = { nullValues: e.nullValues }, l = Array.isArray(r) ? (t, i) => r[i] || c : ({ name: t }) => r[t] || c;
-    for (const [t, i] of n.children.entries()) {
-      const { type: d } = i, o = l(i, t);
-      s.children.push(a(Object.assign(Object.assign({}, o), { type: d })));
-    }
+class s {
+  constructor() {
+    this.bb = null, this.bb_pos = 0;
   }
-  return s;
+  __init(t, i) {
+    return this.bb_pos = t, this.bb = i, this;
+  }
+  static getRootAsInterval(t, i) {
+    return (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  static getSizePrefixedRootAsInterval(t, i) {
+    return t.setPosition(t.position() + o), (i || new s()).__init(t.readInt32(t.position()) + t.position(), t);
+  }
+  unit() {
+    const t = this.bb.__offset(this.bb_pos, 4);
+    return t ? this.bb.readInt16(this.bb_pos + t) : n.YEAR_MONTH;
+  }
+  static startInterval(t) {
+    t.startObject(1);
+  }
+  static addUnit(t, i) {
+    t.addFieldInt16(0, i, n.YEAR_MONTH);
+  }
+  static endInterval(t) {
+    return t.endObject();
+  }
+  static createInterval(t, i) {
+    return s.startInterval(t), s.addUnit(t, i), s.endInterval(t);
+  }
 }
 export {
-  a as makeBuilder
+  s as Interval
 };
 //# sourceMappingURL=cori.data.api599.js.map

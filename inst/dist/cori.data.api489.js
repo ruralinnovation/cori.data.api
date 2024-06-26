@@ -1,44 +1,96 @@
-import h from "./cori.data.api59.js";
-import c from "./cori.data.api262.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-const f = c.hasStandardBrowserEnv ? (
-  // Standard browser envs have full support of the APIs needed to test
-  // whether the request URL is of the same origin as current location.
-  function() {
-    const o = /(msie|trident)/i.test(navigator.userAgent), t = document.createElement("a");
-    let e;
-    function n(a) {
-      let r = a;
-      return o && (t.setAttribute("href", r), r = t.href), t.setAttribute("href", r), {
-        href: t.href,
-        protocol: t.protocol ? t.protocol.replace(/:$/, "") : "",
-        host: t.host,
-        search: t.search ? t.search.replace(/^\?/, "") : "",
-        hash: t.hash ? t.hash.replace(/^#/, "") : "",
-        hostname: t.hostname,
-        port: t.port,
-        pathname: t.pathname.charAt(0) === "/" ? t.pathname : "/" + t.pathname
-      };
+var p = /\/\*[^*]*\*+([^/*][^*]*\*+)*\//g, N = /\n/g, O = /^\s*/, G = /^(\*?[-#/*\\\w]+(\[[0-9a-z_-]+\])?)\s*/, I = /^:\s*/, P = /^((?:'(?:\\'|.)*?'|"(?:\\"|.)*?"|\([^)]*?\)|[^};])+)/, d = /^[;\s]*/, S = /^\s+|\s+$/g, X = `
+`, R = "/", A = "*", i = "", L = "comment", M = "declaration", C = function(e, c) {
+  if (typeof e != "string")
+    throw new TypeError("First argument must be a string");
+  if (!e)
+    return [];
+  c = c || {};
+  var o = 1, t = 1;
+  function v(n) {
+    var r = n.match(N);
+    r && (o += r.length);
+    var a = n.lastIndexOf(X);
+    t = ~a ? n.length - a : t + n.length;
+  }
+  function E() {
+    var n = { line: o, column: t };
+    return function(r) {
+      return r.position = new f(n), m(), r;
+    };
+  }
+  function f(n) {
+    this.start = n, this.end = { line: o, column: t }, this.source = c.source;
+  }
+  f.prototype.content = e;
+  function h(n) {
+    var r = new Error(
+      c.source + ":" + o + ":" + t + ": " + n
+    );
+    if (r.reason = n, r.filename = c.source, r.line = o, r.column = t, r.source = e, !c.silent)
+      throw r;
+  }
+  function u(n) {
+    var r = n.exec(e);
+    if (r) {
+      var a = r[0];
+      return v(a), e = e.slice(a.length), r;
     }
-    return e = n(window.location.href), function(r) {
-      const s = h.isString(r) ? n(r) : r;
-      return s.protocol === e.protocol && s.host === e.host;
-    };
-  }()
-) : (
-  // Non standard browser envs (web workers, react-native) lack needed support.
-  /* @__PURE__ */ function() {
-    return function() {
-      return !0;
-    };
-  }()
-);
+  }
+  function m() {
+    u(O);
+  }
+  function s(n) {
+    var r;
+    for (n = n || []; r = l(); )
+      r !== !1 && n.push(r);
+    return n;
+  }
+  function l() {
+    var n = E();
+    if (!(R != e.charAt(0) || A != e.charAt(1))) {
+      for (var r = 2; i != e.charAt(r) && (A != e.charAt(r) || R != e.charAt(r + 1)); )
+        ++r;
+      if (r += 2, i === e.charAt(r - 1))
+        return h("End of comment missing");
+      var a = e.slice(2, r - 2);
+      return t += 2, v(a), e = e.slice(r), t += 2, n({
+        type: L,
+        comment: a
+      });
+    }
+  }
+  function T() {
+    var n = E(), r = u(G);
+    if (r) {
+      if (l(), !u(I))
+        return h("property missing ':'");
+      var a = u(P), w = n({
+        type: M,
+        property: _(r[0].replace(p, i)),
+        value: a ? _(a[0].replace(p, i)) : i
+      });
+      return u(d), w;
+    }
+  }
+  function g() {
+    var n = [];
+    s(n);
+    for (var r; r = T(); )
+      r !== !1 && (n.push(r), s(n));
+    return n;
+  }
+  return m(), g();
+};
+function _(e) {
+  return e ? e.replace(S, i) : i;
+}
 export {
-  f as default
+  C as i
 };
 //# sourceMappingURL=cori.data.api489.js.map

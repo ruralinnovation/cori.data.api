@@ -1,5 +1,5 @@
 import { __awaiter as h, __asyncValues as m } from "./cori.data.api501.js";
-import { decodeUtf8 as l } from "./cori.data.api567.js";
+import { decodeUtf8 as l } from "./cori.data.api561.js";
 import { AsyncQueue as p } from "./cori.data.api516.js";
 import { toUint8Array as A, joinUint8Arrays as c } from "./cori.data.api502.js";
 /*

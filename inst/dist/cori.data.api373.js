@@ -1,17 +1,18 @@
-import { __module as e } from "./cori.data.api463.js";
-import { __require as o } from "./cori.data.api464.js";
-import { __require as u } from "./cori.data.api465.js";
+import { deserialize as t } from "./cori.data.api477.js";
+import { serialize as u } from "./cori.data.api478.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var r;
-function p() {
-  return r ? e.exports : (r = 1, process.env.NODE_ENV === "production" ? e.exports = o() : e.exports = u(), e.exports);
-}
+const s = typeof structuredClone == "function" ? (
+  /* c8 ignore start */
+  (r, e) => e && ("json" in e || "lossy" in e) ? t(u(r, e)) : structuredClone(r)
+) : (r, e) => t(u(r, e));
 export {
-  p as __require
+  s as default,
+  t as deserialize,
+  u as serialize
 };
 //# sourceMappingURL=cori.data.api373.js.map

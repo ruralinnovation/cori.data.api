@@ -1,26 +1,15 @@
-import { fromMarkdown as a } from "./cori.data.api240.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(s) {
-  const r = this;
-  r.parser = t;
-  function t(n) {
-    return a(n, {
-      ...r.data("settings"),
-      ...s,
-      // Note: these options are not in the readme.
-      // The goal is for them to be set by plugins on `data` instead of being
-      // passed by users.
-      extensions: r.data("micromarkExtensions") || [],
-      mdastExtensions: r.data("fromMarkdownExtensions") || []
-    });
-  }
+function n() {
+}
+function o() {
 }
 export {
-  e as default
+  n as ok,
+  o as unreachable
 };
 //# sourceMappingURL=cori.data.api49.js.map

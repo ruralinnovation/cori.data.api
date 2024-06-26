@@ -5,9 +5,7 @@
  * @license ISC
  */
 function u(n) {
-  return function(r) {
-    return n.apply(null, r);
-  };
+  return n === null ? NaN : +n;
 }
 export {
   u as default

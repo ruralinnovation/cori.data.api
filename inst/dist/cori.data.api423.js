@@ -1,13 +1,19 @@
+import t from "./cori.data.api385.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(r, u = []) {
-  return r.groupby(u.length ? u : r.columnNames()).filter("row_number() === 1").ungroup().reify();
+function i(r, e, n) {
+  if (e instanceof Map) {
+    if (e.has(r))
+      return e.get(r);
+  } else if (t(e, r))
+    return e[r];
+  return n !== void 0 ? n : r;
 }
 export {
-  e as default
+  i as default
 };
 //# sourceMappingURL=cori.data.api423.js.map

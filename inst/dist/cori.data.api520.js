@@ -1,48 +1,39 @@
-import { window as d } from "./cori.data.api625.js";
-import { aggregate as w } from "./cori.data.api539.js";
-import { hasWindow as l } from "./cori.data.api402.js";
-import h from "./cori.data.api287.js";
-import O from "./cori.data.api282.js";
+import m from "./cori.data.api300.js";
+import e from "./cori.data.api383.js";
+import y from "./cori.data.api384.js";
+import $ from "./cori.data.api393.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function y(t) {
-  return l(t.name) || t.frame && (Number.isFinite(t.frame[0]) || Number.isFinite(t.frame[1]));
-}
-function W(t, { names: e, exprs: i, ops: c }, n = {}) {
-  const r = t.totalRows(), f = h(n.drop ? null : t), u = e.map((s) => f.add(s, Array(r))), [p, o] = k(c), m = t.isGrouped() ? t.groups().size : 1, a = w(
-    t,
-    p,
-    O(c.length, () => Array(m))
-  );
-  return o.length ? d(t, u, i, a, o) : x(t, u, i, a), t.create(f);
+function s(t) {
+  const r = typeof t;
+  return r === "string" ? `"${t}"` : r !== "object" || !t ? t : e(t) ? +t : m(t) || $(t) ? `[${t.map(s)}]` : y(t) ? t + "" : k(t);
 }
 function k(t) {
-  const e = [], i = [], c = t.length;
-  for (let n = 0; n < c; ++n) {
-    const r = t[n];
-    r.id = n, (y(r) ? i : e).push(r);
-  }
-  return [e, i];
+  let r = "{", o = -1;
+  for (const n in t)
+    ++o > 0 && (r += ","), r += `"${n}":${s(t[n])}`;
+  return r += "}", r;
 }
-function x(t, e, i, c) {
-  const n = t.mask(), r = t.data(), { keys: f } = t.groups() || {}, u = f ? (o, m) => c[o][f[m]] : (o) => c[o][0], p = e.length;
-  for (let o = 0; o < p; ++o) {
-    const m = i[o], a = e[o];
-    if (n)
-      for (let s = n.next(0); s >= 0; s = n.next(s + 1))
-        a[s] = m(s, r, u);
-    else {
-      const s = t.totalRows();
-      for (let g = 0; g < s; ++g)
-        a[g] = m(g, r, u);
+function A(t, r) {
+  const o = t.length;
+  return o === 1 ? (n, c) => s(t[0](n, c)) : (n, c) => {
+    let p = "";
+    for (let i = 0; i < o; ++i) {
+      i > 0 && (p += "|");
+      const f = t[i](n, c);
+      if (r && (f == null || f !== f))
+        return null;
+      p += s(f);
     }
-  }
+    return p;
+  };
 }
 export {
-  W as default
+  A as default,
+  s as key
 };
 //# sourceMappingURL=cori.data.api520.js.map

@@ -1,31 +1,23 @@
-import o from "./cori.data.api109.js";
+import c from "./cori.data.api112.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function e(n, r) {
-  return function(t) {
-    return n + t * r;
+function g(e, n) {
+  var t = n ? n.length : 0, o = e ? Math.min(t, e.length) : 0, f = new Array(o), i = new Array(t), r;
+  for (r = 0; r < o; ++r)
+    f[r] = c(e[r], n[r]);
+  for (; r < t; ++r)
+    i[r] = n[r];
+  return function(a) {
+    for (r = 0; r < o; ++r)
+      i[r] = f[r](a);
+    return i;
   };
-}
-function i(n, r, t) {
-  return n = Math.pow(n, t), r = Math.pow(r, t) - n, t = 1 / t, function(u) {
-    return Math.pow(n + u * r, t);
-  };
-}
-function a(n) {
-  return (n = +n) == 1 ? f : function(r, t) {
-    return t - r ? i(r, t, n) : o(isNaN(r) ? t : r);
-  };
-}
-function f(n, r) {
-  var t = r - n;
-  return t ? e(n, t) : o(isNaN(n) ? r : n);
 }
 export {
-  f as default,
-  a as gamma
+  g as genericArray
 };
 //# sourceMappingURL=cori.data.api114.js.map

@@ -1,19 +1,27 @@
-import { Selection as y } from "./cori.data.api122.js";
+import { Path as e } from "./cori.data.api125.js";
 /*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-function p(t) {
-  for (var s = t.selection ? t.selection() : t, n = this._groups, f = s._groups, a = n.length, c = f.length, _ = Math.min(a, c), l = new Array(a), e = 0; e < _; ++e)
-    for (var i = n[e], v = f[e], o = i.length, w = l[e] = new Array(o), h, r = 0; r < o; ++r)
-      (h = i[r] || v[r]) && (w[r] = h);
-  for (; e < a; ++e)
-    l[e] = n[e];
-  return new y(l, this._parents);
+function l(i) {
+  let t = 3;
+  return i.digits = function(n) {
+    if (!arguments.length)
+      return t;
+    if (n == null)
+      t = null;
+    else {
+      const r = Math.floor(n);
+      if (!(r >= 0))
+        throw new RangeError(`invalid digits: ${n}`);
+      t = r;
+    }
+    return i;
+  }, () => new e(t);
 }
 export {
-  p as default
+  l as withPath
 };
 //# sourceMappingURL=cori.data.api132.js.map

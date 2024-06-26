@@ -1,12 +1,12 @@
-import { Block as m } from "./cori.data.api597.js";
-import { Footer as o } from "./cori.data.api598.js";
-import "./cori.data.api569.js";
-import "./cori.data.api570.js";
-import { Builder as u } from "./cori.data.api571.js";
-import { ByteBuffer as B } from "./cori.data.api572.js";
-import { Schema as a } from "./cori.data.api498.js";
+import { Block as m } from "./cori.data.api577.js";
+import { Footer as o } from "./cori.data.api578.js";
+import "./cori.data.api579.js";
+import "./cori.data.api580.js";
+import { Builder as u } from "./cori.data.api581.js";
+import { ByteBuffer as B } from "./cori.data.api582.js";
+import { Schema as a } from "./cori.data.api499.js";
 import { toUint8Array as g } from "./cori.data.api502.js";
-import { bigIntToNumber as h } from "./cori.data.api562.js";
+import { bigIntToNumber as h } from "./cori.data.api572.js";
 import { MetadataVersion as d } from "./cori.data.api518.js";
 /*
  * CORI Data API component library
