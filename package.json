@@ -27,24 +27,97 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/d3": "^7.4.3",
     "@types/react": "^18.3.3",
+    "path": "^0.12.7",
     "rollup": "^4.18.0",
     "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-import-css": "^3.5.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "tslib": "^2.6.3",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "typescript-plugin-css-modules": "^5.1.0"
   },
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^9.0.1"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,vue}",
+      "!src/modules/*.js",
+      "!src/plugins/*.js",
+      "!src/renv/*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/build",
+      "<rootDir>/dist",
+      "<rootDir>/node_modules",
+      "<rootDir>/src/modules",
+      "<rootDir>/src/renv",
+      "<rootDir>\\build",
+      "<rootDir>\\dist",
+      "<rootDir>\\node_modules",
+      "<rootDir>\\src\\modules",
+      "<rootDir>\\src\\renv"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "modulePathIgnorePatterns": [
+      "build",
+      "dist",
+      "node_modules",
+      "modules",
+      "renv",
+      "/build/",
+      "/dist/",
+      "/node_modules/",
+      "/modules/",
+      "/renv/",
+      "<rootDir>/build",
+      "<rootDir>/dist",
+      "<rootDir>/node_modules",
+      "<rootDir>/src/modules",
+      "<rootDir>/src/renv",
+      "<rootDir>\\build",
+      "<rootDir>\\dist",
+      "<rootDir>\\node_modules",
+      "<rootDir>\\src\\modules",
+      "<rootDir>\\src\\renv"
+    ],
+    "testPathIgnorePatterns": [
+      "build",
+      "dist",
+      "node_modules",
+      "modules",
+      "renv",
+      "/build/",
+      "/dist/",
+      "/node_modules/",
+      "/modules/",
+      "/renv/",
+      "<rootDir>/build",
+      "<rootDir>/dist",
+      "<rootDir>/node_modules",
+      "<rootDir>/src/modules",
+      "<rootDir>/src/renv",
+      "<rootDir>\\build",
+      "<rootDir>\\dist",
+      "<rootDir>\\node_modules",
+      "<rootDir>\\src\\modules",
+      "<rootDir>\\src\\renv"
+    ],
+    "verbose": true
+  },
   "scripts": {
     "dev": "vite",
     "build": "rollup -c",
     "tsc": "tsc --jsx react",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "prepublishOnly": "npm run build"
+    "type:check": "tsc --noEmit",
+    "test": "vitest",
+    "test:ui": "vitest --ui"
   }
 }

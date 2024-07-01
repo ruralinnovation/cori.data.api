@@ -5,13 +5,11 @@
  * @license ISC
  */
 export { Button, Input, Label } from './@cori-risi/components/basic.js';
+export { default as BarChart } from './@cori-risi/components/CategoricalLegend.js';
 
 // Testy stuff
 function helloAnything(thing) {
     return `Hello ${thing}!`;
 }
-// Actual API
-// export { default as BarChart } from './@cori-risi/components/BarChart';
 
 export { helloAnything };
-//# sourceMappingURL=cori.data.api.js.map

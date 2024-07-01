@@ -5,6 +5,7 @@
  * @license ISC
  */
 export { Button, Input, Label } from './@cori-risi/components/basic.js';
+export { default as BarChart } from './@cori-risi/components/CategoricalLegend.js';
 
 declare function helloAnything(thing: string): string;
 

@@ -17,4 +17,3 @@ function Label(props) {
 }
 
 export { Button, Input, Label };
-//# sourceMappingURL=basic.js.map

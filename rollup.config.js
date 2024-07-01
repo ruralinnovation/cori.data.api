@@ -1,10 +1,12 @@
 // import { resolve as path_resolve } from "path";
+import path from 'path';
 import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
-import typescript from '@rollup/plugin-typescript';
+import css from "rollup-plugin-import-css";
 import { dts } from "rollup-plugin-dts";
+import commonjs from '@rollup/plugin-commonjs';
 import external from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
+import typescript from '@rollup/plugin-typescript';
 
 export default [{
     input: "./lib/cori.data.api.ts",
@@ -16,20 +18,31 @@ export default [{
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */`,
-            dir: "inst/dist",
+            // dir: "inst/dist",
+            dir: path.resolve('./inst/dist'),
+            // entryFileNames: 'cori.data.api.js',
             format: "es",
             exports: 'named',
             preserveModules: true,
-            sourcemap: true,
+            sourcemap: false,
         }
     ],
     plugins: [
+        // css({
+        //     // dir: ".",
+        //     // output: "styles.css"
+        // }),
         external(),
+        postcss({
+            extract: 'styles.css',
+            modules: true
+        }),
         // resolve({ extensions: ['.js', '.jsx'] }),
         resolve(),
         commonjs(),
-        typescript({ tsconfig: './tsconfig.json' }),
-        postcss()
+        typescript({
+            tsconfig: './tsconfig.json'
+        })
     ]
 }, {
     input: "./lib/cori.data.api.ts",
@@ -50,9 +63,12 @@ export default [{
     ],
     plugins: [
         external(),
-        // resolve({ extensions: ['.js', '.jsx'] }),
         resolve(),
         commonjs(),
+        postcss({
+            extract: 'styles.css',
+            modules: true
+        }),
         dts({
             include: [ "lib" ],
             outDir: "inst/dist",

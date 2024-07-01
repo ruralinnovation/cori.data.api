@@ -1,3 +1,5 @@
+import * as global_types from './globals';
+
 // Testy stuff
 export function helloAnything(thing: string): string {
     return `Hello ${thing}!`
@@ -11,3 +13,4 @@ export {
 
 // Actual API
 // export { default as BarChart } from './@cori-risi/components/BarChart';
+export { default as BarChart } from './@cori-risi/components/CategoricalLegend';

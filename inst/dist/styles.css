@@ -1,0 +1,23 @@
+.CategoricalLegend-module_categorical-legend__KiFcS {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 1.5rem 0px;
+}
+
+.CategoricalLegend-module_categorical-legend__KiFcS .CategoricalLegend-module_entry__4zxZU {
+	display: flex;
+	justify-content: space-around;
+	margin: 0px 20px 5px 0px;
+}
+
+.CategoricalLegend-module_categorical-legend__KiFcS .CategoricalLegend-module_entry__4zxZU .CategoricalLegend-module_key__1Hgb- {
+	height: 1rem;
+	width: 1rem;
+	opacity: 0.9;
+}
+
+.CategoricalLegend-module_categorical-legend__KiFcS .CategoricalLegend-module_entry__4zxZU p {
+	line-height: 1rem;
+	font-size: 1rem;
+	margin: 0px 0px 0px 6px;
+}
