@@ -1,1 +1,1 @@
-{"version":3,"file":"basic.d.ts","sources":[],"sourcesContent":[],"names":[],"mappings":""}
+{"version":3,"file":"basic.d.ts","sourceRoot":"","sources":["../../../../lib/@cori-risi/components/basic.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,EACZ,YAAY,EAIb,MAAM,OAAO,CAAC;AAEf,wBAAgB,MAAM,CAAC,KAAK,EAAE;IAAE,QAAQ,CAAC,EAAE,YAAY,CAAC;IAAC,OAAO,EAAE,MAAM,IAAI,CAAA;CAAE,qBAE7E;AAED,wBAAgB,KAAK,CAAC,KAAK,EAAE;IAAE,QAAQ,CAAC,EAAE,YAAY,CAAA;CAAE,qBAEvD;AAED,wBAAgB,KAAK,CAAC,KAAK,EAAE;IAAE,QAAQ,CAAC,EAAE,YAAY,CAAA;CAAE,qBAEvD"}

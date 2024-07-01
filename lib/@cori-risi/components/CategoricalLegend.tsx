@@ -1,5 +1,5 @@
 import React from 'react';
-import "./styles/CategoricalLegend.module.css";
+import style from "./styles/CategoricalLegend.module.css";
 
 interface CategoricalLegendProps {
     domain_names: string[];
@@ -9,6 +9,7 @@ interface CategoricalLegendProps {
 
 function CategoricalLegend ({ domain_names, domain, range }: CategoricalLegendProps) {
 
+    const test = "test";
     const rows = [];
 
     // alert(data_names);
@@ -22,9 +23,9 @@ function CategoricalLegend ({ domain_names, domain, range }: CategoricalLegendPr
                 const color: string = range[i] as string;
                 if (!!domain_names) {
                     rows.push(
-                        <div className={"entry"} key={i}>
+                        <div className={style["entry"]} key={i}>
                             <div
-                                className={"key"}
+                                className={style["key"]}
                                 style={{
                                     backgroundColor: color
                                 }}>
@@ -40,7 +41,7 @@ function CategoricalLegend ({ domain_names, domain, range }: CategoricalLegendPr
     }
 
     return (
-        <div className={"categorical-legend"}>
+        <div className={style["categorical-legend"]}>
             {rows}
         </div>
     )

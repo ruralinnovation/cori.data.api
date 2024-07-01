@@ -5,6 +5,7 @@
  * @license ISC
  */
 import React from 'react';
+import style from './styles/CategoricalLegend.module.css.js';
 
 function CategoricalLegend({ domain_names, domain, range }) {
     const rows = [];
@@ -14,8 +15,8 @@ function CategoricalLegend({ domain_names, domain, range }) {
             if (typeof range[i] === "string") {
                 const color = range[i];
                 if (!!domain_names) {
-                    rows.push(React.createElement("div", { className: "entry", key: i },
-                        React.createElement("div", { className: "key", style: {
+                    rows.push(React.createElement("div", { className: style["entry"], key: i },
+                        React.createElement("div", { className: style["key"], style: {
                                 backgroundColor: color
                             } }),
                         React.createElement("p", null, domain_names[i])));
@@ -23,7 +24,8 @@ function CategoricalLegend({ domain_names, domain, range }) {
             }
         }
     }
-    return (React.createElement("div", { className: "categorical-legend" }, rows));
+    return (React.createElement("div", { className: style["categorical-legend"] }, rows));
 }
 
 export { CategoricalLegend as default };
+//# sourceMappingURL=CategoricalLegend.js.map

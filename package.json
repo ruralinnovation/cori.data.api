@@ -27,12 +27,14 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/d3": "^7.4.3",
     "@types/react": "^18.3.3",
+    "autoprefixer": "^10.4.19",
     "path": "^0.12.7",
     "rollup": "^4.18.0",
     "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-import-css": "^3.5.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-postcss-modules": "^2.1.1",
     "tslib": "^2.6.3",
     "typescript": "^5.2.2",
     "typescript-plugin-css-modules": "^5.1.0"
@@ -112,7 +114,6 @@
     "verbose": true
   },
   "scripts": {
-    "dev": "vite",
     "build": "rollup -c",
     "tsc": "tsc --jsx react",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",

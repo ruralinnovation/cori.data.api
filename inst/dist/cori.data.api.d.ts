@@ -1,13 +1,4 @@
-/*
- * CORI Data API component library
- * {@link https://github.com/ruralinnovation/cori.data.api}
- * @copyright Rural Innovation Strategies, Inc.
- * @license ISC
- */
-export { Button, Input, Label } from './@cori-risi/components/basic.js';
-export { default as CategoricalLegend } from './@cori-risi/components/CategoricalLegend.js';
-
-declare function helloAnything(thing: string): string;
-
-export { helloAnything };
+export declare function helloAnything(thing: string): string;
+export { Button, Input, Label } from './@cori-risi/components/basic';
+export { default as CategoricalLegend } from './@cori-risi/components/CategoricalLegend';
 //# sourceMappingURL=cori.data.api.d.ts.map
