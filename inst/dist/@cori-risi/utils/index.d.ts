@@ -1,5 +1,5 @@
-import { ERCData, GEOIDToNameLookup, KeyStatsData, KeyStatsMetadata, MetricMetadata } from '../interfaces';
 import * as d3 from 'd3';
+import { ERCData, GEOIDToNameLookup, KeyStatsData, KeyStatsMetadata, MetricMetadata } from '../interfaces';
 export declare const formatPercent: (n: number | {
     valueOf(): number;
 }) => string;
@@ -31,3 +31,4 @@ export declare const getMetricText: (data: d3.DSVRowArray<string>, metric: strin
     whyItMatters: string;
     howToInterpret: string;
 };
+//# sourceMappingURL=index.d.ts.map

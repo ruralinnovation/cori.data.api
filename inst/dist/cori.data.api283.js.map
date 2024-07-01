@@ -1,1 +1,0 @@
-{"version":3,"file":"cori.data.api283.js","sources":["../../node_modules/arquero/src/util/error.js"],"sourcesContent":["export default function(message) {\n  throw Error(message);\n}"],"names":["error","message"],"mappings":";;;;;;AAAe,SAAQA,EAACC,GAAS;AAC/B,QAAM,MAAMA,CAAO;AACrB;","x_google_ignoreList":[0]}

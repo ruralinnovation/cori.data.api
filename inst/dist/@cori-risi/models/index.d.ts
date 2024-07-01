@@ -1,3 +1,3 @@
-import { default as User } from './User';
-
+import User from './User';
 export type { User };
+//# sourceMappingURL=index.d.ts.map

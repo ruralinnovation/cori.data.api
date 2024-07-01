@@ -1,12 +1,21 @@
-import { ReactElement } from 'react';
+/*
+ * CORI Data API component library
+ * {@link https://github.com/ruralinnovation/cori.data.api}
+ * @copyright Rural Innovation Strategies, Inc.
+ * @license ISC
+ */
+import React, { ReactElement } from 'react';
 
-export declare function Button(props: {
+declare function Button(props: {
     children?: ReactElement;
     onClick: () => void;
-}): import("react/jsx-runtime").JSX.Element;
-export declare function Input(props: {
+}): React.JSX.Element;
+declare function Input(props: {
     children?: ReactElement;
-}): import("react/jsx-runtime").JSX.Element;
-export declare function Label(props: {
+}): React.JSX.Element;
+declare function Label(props: {
     children?: ReactElement;
-}): import("react/jsx-runtime").JSX.Element;
+}): React.JSX.Element;
+
+export { Button, Input, Label };
+//# sourceMappingURL=basic.d.ts.map

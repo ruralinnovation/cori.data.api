@@ -1,1 +1,0 @@
-{"version":3,"file":"cori.data.api399.js","sources":["../../node_modules/arquero/src/util/is-regexp.js"],"sourcesContent":["export default function(value) {\n  return value instanceof RegExp;\n}"],"names":["isRegExp","value"],"mappings":";;;;;;AAAe,SAAQA,EAACC,GAAO;AAC7B,SAAOA,aAAiB;AAC1B;","x_google_ignoreList":[0]}

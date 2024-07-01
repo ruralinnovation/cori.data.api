@@ -1,1 +1,0 @@
-{"version":3,"file":"cori.data.api329.js","sources":["../../node_modules/arquero/src/util/escape-regexp.js"],"sourcesContent":["export default function(str) {\n  return str.replace(/[.*+\\-?^${}()|[\\]\\\\]/g, '\\\\$&');\n}"],"names":["escapeRegExp","str"],"mappings":";;;;;;AAAe,SAAQA,EAACC,GAAK;AAC3B,SAAOA,EAAI,QAAQ,yBAAyB,MAAM;AACpD;","x_google_ignoreList":[0]}

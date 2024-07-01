@@ -1,5 +1,4 @@
-import { AuthUser, GetCurrentUserOutput } from '@aws-amplify/auth/cognito';
-
+import { AuthUser, GetCurrentUserOutput } from "@aws-amplify/auth/cognito";
 export default interface User extends AuthUser, GetCurrentUserOutput {
     userId: string;
     username: string;
@@ -15,3 +14,4 @@ export default interface User extends AuthUser, GetCurrentUserOutput {
         };
     };
 }
+//# sourceMappingURL=User.d.ts.map

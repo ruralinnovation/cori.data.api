@@ -1,1 +1,0 @@
-{"version":3,"file":"cori.data.api114.js","sources":["../../node_modules/d3-interpolate/src/constant.js"],"sourcesContent":["export default x => () => x;\n"],"names":["constant","x"],"mappings":";;;;;;AAAA,MAAeA,IAAA,CAAAC,MAAK,MAAMA;","x_google_ignoreList":[0]}

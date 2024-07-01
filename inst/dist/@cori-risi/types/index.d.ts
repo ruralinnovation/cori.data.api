@@ -18,3 +18,4 @@ export interface BlockLevelFeature {
         "geoid_bl": string;
     };
 }
+//# sourceMappingURL=index.d.ts.map
