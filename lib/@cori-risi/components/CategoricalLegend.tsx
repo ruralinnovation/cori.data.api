@@ -7,7 +7,7 @@ interface CategoricalLegendProps {
     range: unknown[]
 }
 
-function CategoricalLegend ({ domain_names, domain, range }: CategoricalLegendProps) {
+export default function CategoricalLegend ({ domain_names, domain, range }: CategoricalLegendProps) {
 
     const rows = [];
 
@@ -51,5 +51,3 @@ function CategoricalLegend ({ domain_names, domain, range }: CategoricalLegendPr
     )
 
 }
-
-export default CategoricalLegend;

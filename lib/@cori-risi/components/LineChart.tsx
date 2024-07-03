@@ -19,7 +19,7 @@ interface LineChartProps {
   height: number;
 }
 
-function LineChart ({ primary_geoid, metric, data, metadata, width, height }: LineChartProps) {
+export default function LineChart ({ primary_geoid, metric, data, metadata, width, height }: LineChartProps) {
 
   const primary_dta = data.filter(d => d.geoid === primary_geoid && d.metric === metric);
   const has_valid_data = !primary_dta.every(d => d.value === null);
@@ -236,5 +236,3 @@ function LineChart ({ primary_geoid, metric, data, metadata, width, height }: Li
     </div>
   );
 };
-
-export default LineChart;

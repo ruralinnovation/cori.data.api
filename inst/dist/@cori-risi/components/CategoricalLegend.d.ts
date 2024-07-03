@@ -4,6 +4,6 @@ interface CategoricalLegendProps {
     domain: string[];
     range: unknown[];
 }
-declare function CategoricalLegend({ domain_names, domain, range }: CategoricalLegendProps): React.JSX.Element;
-export default CategoricalLegend;
+export default function CategoricalLegend({ domain_names, domain, range }: CategoricalLegendProps): React.JSX.Element;
+export {};
 //# sourceMappingURL=CategoricalLegend.d.ts.map

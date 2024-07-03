@@ -8,6 +8,6 @@ interface LineChartProps {
     width: number;
     height: number;
 }
-declare function LineChart({ primary_geoid, metric, data, metadata, width, height }: LineChartProps): React.JSX.Element;
-export default LineChart;
+export default function LineChart({ primary_geoid, metric, data, metadata, width, height }: LineChartProps): React.JSX.Element;
+export {};
 //# sourceMappingURL=LineChart.d.ts.map
