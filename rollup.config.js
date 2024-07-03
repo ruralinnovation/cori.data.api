@@ -33,7 +33,7 @@ export default [{
         // nodeResolve({ extensions: [".js", ".jsx"] }),
         nodeResolve(),
         commonjs(),
-        json(),
+        // json(),
         postcss({
             // extract: "styles.css",
             // modules: false

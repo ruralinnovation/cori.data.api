@@ -1,1 +1,1 @@
-{"version":3,"file":"cori.data.api.js","sources":["../../../lib/cori.data.api.ts"],"sourcesContent":[null],"names":[],"mappings":";;;;;;;;;AAEA;AACM,SAAU,aAAa,CAAC,KAAa,EAAA;IACvC,OAAO,CAAA,MAAA,EAAS,KAAK,CAAA,CAAA,CAAG,CAAA;AAC5B,CAAC;AAWD;;;;"}
+{"version":3,"file":"cori.data.api.js","sources":["../../../lib/cori.data.api.ts"],"sourcesContent":[null],"names":[],"mappings":";;;;;;;;;;AAEA;AACM,SAAU,aAAa,CAAC,KAAa,EAAA;IACvC,OAAO,CAAA,MAAA,EAAS,KAAK,CAAA,CAAA,CAAG,CAAA;AAC5B;;;;"}

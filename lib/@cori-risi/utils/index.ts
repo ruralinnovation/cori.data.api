@@ -1,4 +1,20 @@
-import * as aq from "arquero";
+// TODO: Fix problems with "arquero" import...
+// [!] RollupError: node_modules/arquero/package.json (2:8): Expected ';', '}' or <eof> (Note that you need @rollup/plugin-json to import JSON files)
+// node_modules/arquero/package.json (2:8)
+// 1: {
+// 2:   "name": "arquero",
+//            ^
+// 3:   "version": "5.4.1",
+// 4:   "description": "Query processing and transformation of array-backed data tables.",
+// RollupError: Expected ';', '}' or <eof>
+//     at Object.getRollupError (/Users/johnhall/Documents/CORI/cdk/amplify/cori.data.api/node_modules/rollup/dist/shared/parseAst.js:282:41)
+//     at ParseError.initialise (/Users/johnhall/Documents/CORI/cdk/amplify/cori.data.api/node_modules/rollup/dist/shared/rollup.js:12774:40)
+//     at convertNode (/Users/johnhall/Documents/CORI/cdk/amplify/cori.data.api/node_modules/rollup/dist/shared/rollup.js:14524:10)
+//     at convertProgram (/Users/johnhall/Documents/CORI/cdk/amplify/cori.data.api/node_modules/rollup/dist/shared/rollup.js:13841:12)
+//     at Module.setSource (/Users/johnhall/Documents/CORI/cdk/amplify/cori.data.api/node_modules/rollup/dist/shared/rollup.js:15681:24)
+//     at async ModuleLoader.addModuleSource (/Users/johnhall/Documents/CORI/cdk/amplify/cori.data.api/node_modules/rollup/dist/shared/rollup.js:19983:13)
+//   [cause] RollupError: Expected ';', '}' or <eof>
+// import * as aq from "arquero";
 import * as d3 from 'd3';
 import { toPng } from 'html-to-image';
 import { chartStyle } from './constants';
@@ -158,30 +174,30 @@ export const getGEOIDColorRange = (geoid: string, i: number): string => {
 
 }
 
-export const aggregateCountyData = (
-    data: ERCData[],
-    counties: string[],
-    metric: string
-): ERCData[] => {
-
-
-  const filtered_dta = data
-      .filter(d => d.metric === metric)
-      .filter(d => counties.includes(d.geoid));
-
-  if (filtered_dta.length === 0) {
-    return [];
-  }
-
-  const agg_dta = aq.from(filtered_dta)
-      .groupby("metric", "year", "variable")
-      .rollup({value: d => aq.op.mean(d!.value)})
-      .derive({geoid: () => "COMPARISON"})
-      .objects() as ERCData[];
-
-  return agg_dta;
-
-}
+// export const aggregateCountyData = (
+//     data: ERCData[],
+//     counties: string[],
+//     metric: string
+// ): ERCData[] => {
+//
+//
+//   const filtered_dta = data
+//       .filter(d => d.metric === metric)
+//       .filter(d => counties.includes(d.geoid));
+//
+//   if (filtered_dta.length === 0) {
+//     return [];
+//   }
+//
+//   const agg_dta = aq.from(filtered_dta)
+//       .groupby("metric", "year", "variable")
+//       .rollup({value: d => aq.op.mean(d!.value)})
+//       .derive({geoid: () => "COMPARISON"})
+//       .objects() as ERCData[];
+//
+//   return agg_dta;
+//
+// }
 
 export const getChartData = (
     data: ERCData[],
@@ -209,12 +225,12 @@ export const getChartData = (
       .filter(d => d.metric === metric);
 
   let sort_order = [primary_geoid, geoid_st, "00"];
-  if (comparison_geoids.length > 0 && show_multiple_geos) {
-    // Check if there is comparison county data before proceeding with aggregation
-    const comparison_dta = aggregateCountyData(data, comparison_geoids, metric);
-    filtered_dta.push(...comparison_dta);
-    sort_order = [primary_geoid, "COMPARISON", geoid_st, "00"];
-  }
+  // if (comparison_geoids.length > 0 && show_multiple_geos) {
+  //   // Check if there is comparison county data before proceeding with aggregation
+  //   const comparison_dta = aggregateCountyData(data, comparison_geoids, metric);
+  //   filtered_dta.push(...comparison_dta);
+  //   sort_order = [primary_geoid, "COMPARISON", geoid_st, "00"];
+  // }
 
   if (metric_metadata.indexedData) {
     filtered_dta = indexToFirstYear(filtered_dta);
@@ -315,30 +331,31 @@ export const saveChartAsPNG = (ref: React.RefObject<HTMLDivElement>, filename: s
       })
 }
 
-// Returns variable with the largest value in the most recent year
-export const getLatestTopVariable = (data: ERCData[], geoid: string, metric: string): string => {
-
-  const metric_dta = data
-      .filter(d => d.geoid === geoid)
-      .filter(d => d.metric === metric);
-
-  const max_year = d3.max(metric_dta, d => +d.year);
-
-  const metric_filtered_dta = metric_dta
-      .filter(d => d.year === max_year)
-      .sort((a, b) => {
-        if (a.value === null && b.value === null) return 0;
-        if (a.value === null) return 1; // Treat null values as greater (will move to end)
-        if (b.value === null) return -1; // Treat null values as greater (will move to end)
-        return +b.value - +a.value;
-      }); // Sorting by value in descending order
-
-  if (metric_filtered_dta.length > 0) {
-    return metric_filtered_dta[0].variable;
-  } else {
-    throw new Error("getLatestTopValue: variable/year not found: " + metric + " and " + geoid);
-  }
-}
+// // TODO: WHY DOES getLatestTopVariable and other utility functions BREAK the library build????
+// // Returns variable with the largest value in the most recent year
+// export const getLatestTopVariable = (data: ERCData[], geoid: string, metric: string): string => {
+//
+//   const metric_dta = data
+//       .filter(d => d.geoid === geoid)
+//       .filter(d => d.metric === metric);
+//
+//   const max_year = d3.max(metric_dta, d => +d.year);
+//
+//   const metric_filtered_dta = metric_dta
+//       .filter(d => d.year === max_year)
+//       .sort((a, b) => {
+//         if (a.value === null && b.value === null) return 0;
+//         if (a.value === null) return 1; // Treat null values as greater (will move to end)
+//         if (b.value === null) return -1; // Treat null values as greater (will move to end)
+//         return +b.value - +a.value;
+//       }); // Sorting by value in descending order
+//
+//   if (metric_filtered_dta.length > 0) {
+//     return metric_filtered_dta[0].variable;
+//   } else {
+//     throw new Error("getLatestTopValue: variable/year not found: " + metric + " and " + geoid);
+//   }
+// }
 
 
 export const getLatestValue = (data: ERCData[], geoid: string, variable: string, metric?: string): number | null => {
@@ -596,41 +613,41 @@ export const getBusinessGrowthKeyTakeaway = (primary_geoid: string, data: ERCDat
 
 }
 
-export const getKeyStatsData = (category: string, primary_geoid: string, data: ERCData[], key_stats_metadata: KeyStatsMetadata): KeyStatsData[] => {
-
-  const ret_dta: KeyStatsData[] = [];
-  key_stats_metadata[category].map(stat => {
-
-    if (stat.operation === "top_latest") {
-      const latest_top_variable = getLatestTopVariable(data, primary_geoid, stat.metric);
-      ret_dta.push({name: stat.label, value: latest_top_variable});
-    }
-
-    if (stat.operation === "change") {
-      const latest_value = getLatestValue(data, primary_geoid, stat.variable);
-      const oldest_value = getOldestValue(data, primary_geoid, stat.variable);
-
-      if (latest_value === null || oldest_value === null) {
-        return null;
-      }
-
-      const change = latest_value - oldest_value;
-      if (change && !isNaN(change)) {
-        ret_dta.push({name: stat.label, value: d3.format(stat.format)(change)});
-      }
-    }
-
-    if (stat.operation === "latest") {
-      const latest_value = getLatestValue(data, primary_geoid, stat.variable);
-      if (latest_value && !isNaN(latest_value)) {
-        ret_dta.push({name: stat.label, value: d3.format(stat.format)(latest_value)});
-      }
-    }
-  });
-
-  return ret_dta;
-
-}
+// export const getKeyStatsData = (category: string, primary_geoid: string, data: ERCData[], key_stats_metadata: KeyStatsMetadata): KeyStatsData[] => {
+//
+//   const ret_dta: KeyStatsData[] = [];
+//   key_stats_metadata[category].map(stat => {
+//
+//     if (stat.operation === "top_latest") {
+//       const latest_top_variable = getLatestTopVariable(data, primary_geoid, stat.metric);
+//       ret_dta.push({name: stat.label, value: latest_top_variable});
+//     }
+//
+//     if (stat.operation === "change") {
+//       const latest_value = getLatestValue(data, primary_geoid, stat.variable);
+//       const oldest_value = getOldestValue(data, primary_geoid, stat.variable);
+//
+//       if (latest_value === null || oldest_value === null) {
+//         return null;
+//       }
+//
+//       const change = latest_value - oldest_value;
+//       if (change && !isNaN(change)) {
+//         ret_dta.push({name: stat.label, value: d3.format(stat.format)(change)});
+//       }
+//     }
+//
+//     if (stat.operation === "latest") {
+//       const latest_value = getLatestValue(data, primary_geoid, stat.variable);
+//       if (latest_value && !isNaN(latest_value)) {
+//         ret_dta.push({name: stat.label, value: d3.format(stat.format)(latest_value)});
+//       }
+//     }
+//   });
+//
+//   return ret_dta;
+//
+// }
 
 // Indexes data to percentage of first year
 export const indexToFirstYear = (data: ERCData[]): ERCData[] => {
