@@ -14,3 +14,4 @@ export {
 // Actual API
 // export { default as BarChart } from './@cori-risi/components/BarChart';
 export { default as CategoricalLegend } from './@cori-risi/components/CategoricalLegend';
+export { default as LineChart } from './@cori-risi/components/LineChart';

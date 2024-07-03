@@ -4,6 +4,7 @@ import autoprefixer from "autoprefixer";
 import commonjs from "@rollup/plugin-commonjs";
 import { dts } from "rollup-plugin-dts";
 import external from "rollup-plugin-peer-deps-external";
+import json from "@rollup/plugin-json";
 // import postcss from "rollup-plugin-postcss";
 import postcss from "rollup-plugin-postcss-modules";
 import typescript from "@rollup/plugin-typescript";
@@ -32,6 +33,7 @@ export default [{
         // nodeResolve({ extensions: [".js", ".jsx"] }),
         nodeResolve(),
         commonjs(),
+        json(),
         postcss({
             // extract: "styles.css",
             // modules: false
