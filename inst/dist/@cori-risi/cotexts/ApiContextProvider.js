@@ -50,5 +50,5 @@ function ApiContextProvider(props) {
         React.createElement(ApiContext.Provider, { value: state }, props.children)));
 }
 
-export { ApiContextProvider as default };
+export { ApiContext, ApiContextProvider as default };
 //# sourceMappingURL=ApiContextProvider.js.map

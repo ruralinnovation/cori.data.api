@@ -50,7 +50,7 @@ const initState: ApiContextType = {
     setData: null
 };
 
-const ApiContext = createContext<ApiContextType | null>(initState);
+export const ApiContext = createContext<ApiContextType | null>(initState);
 
 // let hasAuthSession = false;
 // let hasAuthUser = false;
