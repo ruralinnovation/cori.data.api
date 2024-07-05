@@ -5,6 +5,7 @@
  * @license ISC
  */
 import React, { useRef, useState, useCallback, useEffect } from 'react';
+import CategoricalLegend from './CategoricalLegend.js';
 import style from './styles/Chart.module.css.js';
 
 // TODO: Basically any thing with useRef<SVGSVGElement> is unusable atm
@@ -13,8 +14,8 @@ function LineChart({ primary_geoid, metric, data, metadata, width, height }) {
     !primary_dta.every(d => d.value === null);
     const ref = useRef(null);
     const svgRef = useRef(null);
-    useState([]);
-    useState([]);
+    const [colorScaleDomain, setColorScaleDomain] = useState([]);
+    const [colorScaleRange, setColorScaleRange] = useState([]);
     // TODO: WHY DOES saveChartAsPNG and other utility functions BREAK the library build????
     useCallback(() => {
         console.log(`saveChartAsPNG(${ref}, ${metric + ".png"})`);
@@ -184,7 +185,8 @@ function LineChart({ primary_geoid, metric, data, metadata, width, height }) {
         // });
         // svg.call(applyCORIStyles);
     }, [data, width, height, metadata]);
-    return (React.createElement("div", { className: style["chart-wrapper"] }, "TEST EXPORT"));
+    return (React.createElement("div", { className: style["chart-wrapper"] },
+        React.createElement(CategoricalLegend, { domain_names: colorScaleDomain.map(c => data.filter(d => d.geoid === c).map(d => d.name)[0]), domain: colorScaleDomain, range: colorScaleRange })));
 }
 
 export { LineChart as default };

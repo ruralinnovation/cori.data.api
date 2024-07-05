@@ -3,8 +3,6 @@ import React, { useRef, useEffect, useCallback, useState } from 'react';
 import * as d3 from 'd3';
 import * as d3textwrap from "d3-textwrap";
 
-import CategoricalLegend from './CategoricalLegend';
-
 import { ERCData, MetricMetadata } from '../interfaces';
 // import {
 //   applyCORIStyles,
@@ -13,6 +11,8 @@ import { ERCData, MetricMetadata } from '../interfaces';
 //   getGEOIDColorRange
 // } from '../utils';
 // import { chartStyle } from '../utils/constants';
+
+import CategoricalLegend from './CategoricalLegend';
 
 import style from "./styles/Chart.module.css";
 
@@ -217,7 +217,6 @@ export default function LineChart ({ primary_geoid, metric, data, metadata, widt
 
   return (
     <div className={style["chart-wrapper"]}>
-      TEST EXPORT
     {/*  {data.length > 0 && (*/}
     {/*    <>*/}
     {/*      <div ref={ref} className={style["chart"]} style={{maxWidth: "900px", margin: "0 auto", padding: "5px 20px"}}>*/}
@@ -230,7 +229,7 @@ export default function LineChart ({ primary_geoid, metric, data, metadata, widt
     {/*        }*/}
     {/*        <h3>{metadata.title}</h3>*/}
     {/*        {metadata.subtitle.length > 0? <p><em>{metadata.subtitle}</em></p>: <></>}*/}
-    {/*        <CategoricalLegend domain_names={colorScaleDomain.map(c => data.filter(d => d.geoid === c).map(d => d.name)[0])} domain={colorScaleDomain} range={colorScaleRange} />*/}
+            <CategoricalLegend domain_names={colorScaleDomain.map(c => data.filter(d => d.geoid === c).map(d => d.name)[0])} domain={colorScaleDomain} range={colorScaleRange} />
     {/*        <svg ref={svgRef} style={{width: "100%"}}>*/}
     {/*          <g className="x-axis" />*/}
     {/*          <g className="y-axis" />*/}

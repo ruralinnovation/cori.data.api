@@ -7,9 +7,47 @@ import external from "rollup-plugin-peer-deps-external";
 import json from "@rollup/plugin-json";
 // import postcss from "rollup-plugin-postcss";
 import postcss from "rollup-plugin-postcss-modules";
-import typescript from "@rollup/plugin-typescript";
+// import typescript from "@rollup/plugin-typescript";
+
+//This plugin prevents packages listed in peerDependencies from being bundled with our component library
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
+
+// //efficiently bundles third party dependencies we've installed and use in node_modules
+// import resolve from "@rollup/plugin-node-resolve";
+//
+// // //enables transpilation into CommonJS (CJS) format
+// import commonjs from "@rollup/plugin-commonjs";
+
+//transpiled our TypeScript code into JavaScript. This plugin will use all the settings we have set in tsconfig.json.
+//We set "useTsconfigDeclarationDir": true so that it outputs the .d.ts files in the directory specified by in tsconfig.json
+import typescript from "rollup-plugin-typescript2";
+
+// // transforms our Sass into CSS. In order to get this plugin working with Sass, we've installed sass
+// import postcss from "rollup-plugin-postcss";
+
+// const packageJson = require("./package.json");
+
+// export default {
+//     input: "src/index.tsx",
+//     output: [
+//         {
+//             file: packageJson.module,
+//             format: "esm", // import '' from  '...
+//             sourcemap: true,
+//         },
+//     ],
+//     plugins: [
+//         peerDepsExternal(),
+//         resolve(),
+//         commonjs(),
+//         typescript({ useTsconfigDeclarationDir: true }),
+//         postcss(),
+//     ],
+//     external: ["react", "react-dom"],
+// }
 
 export default [{
+    external: ["axios", "react", "react-dom"],
     input: "./lib/cori.data.api.ts",
     output: [
         {
@@ -30,10 +68,11 @@ export default [{
     ],
     plugins: [
         external(),
+        peerDepsExternal(),
         // nodeResolve({ extensions: [".js", ".jsx"] }),
         nodeResolve(),
         commonjs(),
-        // json(),
+        json(),
         postcss({
             // extract: "styles.css",
             // modules: false
@@ -43,8 +82,9 @@ export default [{
             // modules: { ... }
         }),
         typescript({
-            tsconfig: "./tsconfig.json"
-        })
+            tsconfig: "./tsconfig.json",
+            // useTsconfigDeclarationDir: true
+        }),
     ]
 // }, {
 //     input: "./lib/cori.data.api.ts",
@@ -73,3 +113,4 @@ export default [{
 //         })
 //     ]
 }];
+
