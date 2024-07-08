@@ -5,7 +5,7 @@
  * @license ISC
  */
 export { Button, Input, Label } from './@cori-risi/components/basic.js';
-export { default as ApiContextProvider } from './@cori-risi/cotexts/ApiContextProvider.js';
+export { ApiContext, default as ApiContextProvider } from './@cori-risi/cotexts/ApiContextProvider.js';
 export { default as CategoricalLegend } from './@cori-risi/components/CategoricalLegend.js';
 export { default as LineChart } from './@cori-risi/components/LineChart.js';
 
