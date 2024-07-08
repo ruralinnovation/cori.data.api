@@ -34,10 +34,10 @@ function ApiContextProvider(props) {
     // const dispatch = useDispatch();
     // const [ authenticated_user, setAuthenticatedUser ] = useState<User>(userState);
     const [state, setState] = useState(initState);
-    const setData = (newData) => {
+    function setData(newData) {
         const currentState = state;
-        setState(Object.assign(Object.assign({}, currentState), { data: Object.assign(Object.assign({}, currentState.data), newData) }));
-    };
+        setState(Object.assign(Object.assign({}, currentState), { data: Object.assign(Object.assign({}, currentState.data), newData), setData: setData }));
+    }
     useEffect(() => {
         setState({
             apiClient: apiClient,

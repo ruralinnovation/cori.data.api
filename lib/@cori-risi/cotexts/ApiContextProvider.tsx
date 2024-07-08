@@ -66,16 +66,17 @@ export default function ApiContextProvider (props: { children?: ReactElement }) 
 
     const [ state, setState ] = useState<ApiContextType | null>(initState);
 
-    const setData = (newData: any) => {
+    function setData(newData: any) {
         const currentState:  ApiContextType = state!;
         setState({
             ...currentState,
             data: {
                 ...currentState.data,
                 ...newData
-            }
+            },
+            setData: setData
         });
-    };
+    }
 
     useEffect(() => {
 
