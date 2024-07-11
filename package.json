@@ -123,7 +123,7 @@
     "build:r": "Rscript -e 'pkgbuild::clean_dll(); pkgbuild::compile_dll(); devtools::document(); devtools::check(); devtools::install();'",
     "tsc": "tsc --jsx react --resolveJsonModule",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "render:readme": "quarto render README.qmd --to gfm --output README.md",
+    "render:readme": "quarto render R/README.qmd --to gfm --output README.md",
     "type:check": "tsc --noEmit",
     "test": "vitest",
     "test:ui": "vitest --ui"
