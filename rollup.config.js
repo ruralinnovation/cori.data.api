@@ -47,7 +47,7 @@ import typescript from "rollup-plugin-typescript2";
 // }
 
 export default [{
-    external: ["axios", "react", "react-dom"],
+    external: [ "axios", "react", "react-dom", "react-map-gl" ],
     input: "./lib/cori.data.api.ts",
     output: [
         {
@@ -68,11 +68,11 @@ export default [{
     ],
     plugins: [
         external(),
+        json(),
         peerDepsExternal(),
         // nodeResolve({ extensions: [".js", ".jsx"] }),
         nodeResolve(),
         commonjs(),
-        json(),
         postcss({
             // extract: "styles.css",
             // modules: false
