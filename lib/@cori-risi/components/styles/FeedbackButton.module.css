@@ -1,0 +1,30 @@
+.feedback-button {
+    
+    background-color: #FFE473;
+
+    padding: 5px 10px;
+    margin: 0px;
+
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+
+    /* border-radius: 5px 0 0 0; */
+    box-shadow: -3px -3px 10px rgba(0, 0, 0, 0.1); 
+
+}
+
+.feedback-button:hover {
+    cursor: pointer;
+}
+
+.feedback-button a,
+.feedback-button a:visited {
+    color: #16343E;
+    text-decoration: none;
+    font-size: .9em;
+    font-weight: normal;
+
+    padding: 0px;
+    margin: 0px;
+}

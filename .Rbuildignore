@@ -9,6 +9,7 @@
 ^config$
 ^docs$
 ^man$
+^lib$
 ^node_modules$
 ^packages$
 ^postgresql
@@ -21,6 +22,7 @@
 ^package\.json$
 ^package-lock\.json$
 ^postman\.collection\.json$
+^rollup\.config\.js$
 ^tsconfig\.json$
 ^\.eslintignore$
 ^\.eslintrc\.js$
@@ -29,5 +31,6 @@
 ^\.prettierrc$
 ^LICENSE\.md$
 ^LOCAL\.md$
+^inst/dist\/\@cori-risi\/mapbox\/styles\/ruralinno\/cl010e7b7001p15pe3l0306hv\/style\.json\.js\.map$
 ^src\/pm\.mjs$
 ^src\/pre-request-script\.js$

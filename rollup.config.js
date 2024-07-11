@@ -1,91 +1,116 @@
-import alias from "@rollup/plugin-alias";
-import babel from "@rollup/plugin-babel";
-import commonjs from "@rollup/plugin-commonjs";
-import image from "@rollup/plugin-image";
-import json from "@rollup/plugin-json";
+import path from "path";
 import nodeResolve from "@rollup/plugin-node-resolve";
-import css from "rollup-plugin-import-css";
-import { fileURLToPath } from 'node:url';
-import { readFileSync } from "fs";
+import autoprefixer from "autoprefixer";
+import commonjs from "@rollup/plugin-commonjs";
+import { dts } from "rollup-plugin-dts";
+import external from "rollup-plugin-peer-deps-external";
+import json from "@rollup/plugin-json";
+// import postcss from "rollup-plugin-postcss";
+import postcss from "rollup-plugin-postcss-modules";
+// import typescript from "@rollup/plugin-typescript";
 
-// const pkg = require('./package.json');
-const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8'));
-console.log(`running version ${pkg.version}`);
+//This plugin prevents packages listed in peerDependencies from being bundled with our component library
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
 
-// Most of the config below is explained/borrowed from:
-// https://www.misha.wtf/blog/rollup-library-starter
+// //efficiently bundles third party dependencies we've installed and use in node_modules
+// import resolve from "@rollup/plugin-node-resolve";
+//
+// // //enables transpilation into CommonJS (CJS) format
+// import commonjs from "@rollup/plugin-commonjs";
 
-const babelRuntimeVersion = pkg.devDependencies['@babel/runtime'].replace(/[^0-9]*/, '');
+//transpiled our TypeScript code into JavaScript. This plugin will use all the settings we have set in tsconfig.json.
+//We set "useTsconfigDeclarationDir": true so that it outputs the .d.ts files in the directory specified by in tsconfig.json
+import typescript from "rollup-plugin-typescript2";
 
-const outputOptions = {
-  exports: 'named',
-  preserveModules: true,
-  banner: `/*
+// // transforms our Sass into CSS. In order to get this plugin working with Sass, we've installed sass
+// import postcss from "rollup-plugin-postcss";
+
+// const packageJson = require("./package.json");
+
+// export default {
+//     input: "src/index.tsx",
+//     output: [
+//         {
+//             file: packageJson.module,
+//             format: "esm", // import '' from  '...
+//             sourcemap: true,
+//         },
+//     ],
+//     plugins: [
+//         peerDepsExternal(),
+//         resolve(),
+//         commonjs(),
+//         typescript({ useTsconfigDeclarationDir: true }),
+//         postcss(),
+//     ],
+//     external: ["react", "react-dom"],
+// }
+
+export default [{
+    external: [ "axios", "react", "react-dom", "react-map-gl" ],
+    input: "./lib/cori.data.api.ts",
+    output: [
+        {
+            banner: `/*
  * CORI Data API component library
  * {@link https://github.com/ruralinnovation/cori.data.api}
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */`,
-  sourcemap: false,
-};
-
-const makeExternalPredicate = (externalArr) => {
-  if (externalArr.length === 0) {
-    return () => false;
-  }
-  const pattern = new RegExp(`^(${externalArr.join('|')})($|/)`);
-  return (id) => pattern.test(id);
-};
-
-export default [
-  {
-    input: "./src/index.js",
-    external: makeExternalPredicate([
-      ...Object.keys(pkg.dependencies || {}),
-      ...Object.keys(pkg.peerDependencies || {}),
-    ]),
-    output: [
-      {
-        dir: "inst/dist/cjs",
-        format: "cjs",
-        ...outputOptions
-      },
-      {
-        dir: "inst/dist/esm",
-        format: "esm",
-        ...outputOptions
-      }
+            // dir: "inst/dist",
+            dir: path.resolve('./inst/dist'),
+            // entryFileNames: "cori.data.api.js",
+            format: "es",
+            exports: "named",
+            preserveModules: true,
+            sourcemap: true,
+        }
     ],
     plugins: [
-      // alias({
-      //   entries: {
-      //     src: fileURLToPath(new URL('src', import.meta.url)),
-      //   },
-      // }),
-
-      nodeResolve({
-        extensions: ['.js', '.jsx']
-      }),
-
-      babel({
-        // babelHelpers: 'bundled',
-        babelHelpers: 'runtime',
-        extensions: ['.js', 'jsx'],
-        exclude: 'node_modules/**',
-        presets: [
-          ['@babel/preset-env', { targets: 'defaults' }],
-          ['@babel/preset-react', { runtime: 'automatic' }],
-        ],
-        plugins: [['@babel/plugin-transform-runtime', { version: babelRuntimeVersion }]]
-      }),
-
-      commonjs({ include: ['node_modules/**'] }),
-
-      css({ output: "styles.css"}),
-
-      image(),
-
-      json(),
+        external(),
+        json(),
+        peerDepsExternal(),
+        // nodeResolve({ extensions: [".js", ".jsx"] }),
+        nodeResolve(),
+        commonjs(),
+        postcss({
+            // extract: "styles.css",
+            // modules: false
+            extract: true,  // extracts to `${basename(dest)}.css`
+            plugins: [autoprefixer()],
+            writeDefinitions: true,
+            // modules: { ... }
+        }),
+        typescript({
+            tsconfig: "./tsconfig.json",
+            // useTsconfigDeclarationDir: true
+        }),
     ]
-  }
-]
+// }, {
+//     input: "./lib/cori.data.api.ts",
+//     output: [
+//         {
+//             banner: `/*
+//  * CORI Data API component library
+//  * {@link https://github.com/ruralinnovation/cori.data.api}
+//  * @copyright Rural Innovation Strategies, Inc.
+//  * @license ISC
+//  */`,
+//             // dir: "inst/dist",
+//             dir: path.resolve('./inst/dist'),
+//             // entryFileNames: "cori.data.api.js",
+//             format: "es",
+//             exports: "named",
+//             preserveModules: true,
+//             sourcemap: false,
+//         }
+//     ],
+//     plugins: [
+//         dts({
+//             include: [ "lib" ],
+//             outDir: path.resolve('./inst/dist'),
+//
+//         })
+//     ]
+}];
+
