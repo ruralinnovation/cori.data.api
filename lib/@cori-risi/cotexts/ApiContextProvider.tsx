@@ -19,7 +19,10 @@ import axios, { AxiosInstance } from 'axios';
 
 import "./styles/ApiContextProvider.css";
 
-const BASE_URL = `${import.meta.env.VITE_CORI_DATA_API}`;
+const BASE_URL = ""; // `${import.meta.env.VITE_CORI_DATA_API}`;
+// TODO: From now on will pass API url in as param to ApiContextProvider because:
+// cori.data.api/lib/@cori-risi/cotexts/ApiContextProvider.tsx:22
+//     const BASE_URL = `${import.meta.env.VITE_CORI_DATA_API}`;
 
 const apiClient: AxiosInstance = axios.create({
     baseURL: BASE_URL,
@@ -56,7 +59,7 @@ export const ApiContext = createContext<ApiContextType | null>(initState);
 // let hasAuthUser = false;
 // let hasAuthClient = false;
 
-export default function ApiContextProvider (props: { children?: ReactElement }) {
+export default function ApiContextProvider (props: { children?: ReactElement, base_url?: string }) {
 
     // const authenticator: UseAuthenticator = useAuthenticator();
     // const userState: User = useSelector(selectUser);
