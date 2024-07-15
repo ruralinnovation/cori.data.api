@@ -47,7 +47,7 @@ import typescript from "rollup-plugin-typescript2";
 // }
 
 export default [{
-    external: [ "axios", "react", "react-dom", "react-map-gl" ],
+    external: [ "arquero", "axios", "aws-amplify", "d3", "d3-textwrap", "html-to-image", "react", "react-dom", "react-map-gl" ],
     input: "./lib/cori.data.api.ts",
     output: [
         {

@@ -59,7 +59,7 @@ export const ApiContext = createContext<ApiContextType | null>(initState);
 // let hasAuthUser = false;
 // let hasAuthClient = false;
 
-export default function ApiContextProvider (props: { children?: ReactElement, base_url?: string }) {
+export default function ApiContextProvider (props: { children?: ReactElement, baseURL?: string }) {
 
     // const authenticator: UseAuthenticator = useAuthenticator();
     // const userState: User = useSelector(selectUser);
@@ -83,9 +83,23 @@ export default function ApiContextProvider (props: { children?: ReactElement, ba
 
     useEffect(() => {
 
+        apiClient.interceptors.request.use(
+            (config) => {
+                // const accessToken = tokens.idToken!.toString();
+                // if (!!accessToken) {
+                //     config.headers.Authorization = `Bearer ${accessToken}`;
+                // }
+                if (!!props.baseURL) {
+                    config.baseURL = props.baseURL;
+                }
+                return config;
+            },
+            (error) => Promise.reject(error)
+        );
+
         setState({
             apiClient: apiClient,
-            baseURL: BASE_URL,
+            baseURL: props.baseURL || BASE_URL,
             data: {},
             setData
         });

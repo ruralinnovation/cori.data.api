@@ -10,7 +10,7 @@ interface ApiContextType {
 export declare const ApiContext: React.Context<ApiContextType | null>;
 export default function ApiContextProvider(props: {
     children?: ReactElement;
-    base_url?: string;
+    baseURL?: string;
 }): React.JSX.Element;
 export {};
 //# sourceMappingURL=ApiContextProvider.d.ts.map

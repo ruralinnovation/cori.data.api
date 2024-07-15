@@ -42,9 +42,19 @@ function ApiContextProvider(props) {
         setState(Object.assign(Object.assign({}, currentState), { data: Object.assign(Object.assign({}, currentState.data), newData), setData: setData }));
     }
     useEffect(() => {
+        apiClient.interceptors.request.use((config) => {
+            // const accessToken = tokens.idToken!.toString();
+            // if (!!accessToken) {
+            //     config.headers.Authorization = `Bearer ${accessToken}`;
+            // }
+            if (!!props.baseURL) {
+                config.baseURL = props.baseURL;
+            }
+            return config;
+        }, (error) => Promise.reject(error));
         setState({
             apiClient: apiClient,
-            baseURL: BASE_URL,
+            baseURL: props.baseURL || BASE_URL,
             data: {},
             setData
         });
