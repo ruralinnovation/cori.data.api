@@ -1,9 +1,12 @@
 import React, { ReactElement } from "react";
 import { AxiosInstance } from 'axios';
+import { JWT } from "@aws-amplify/auth";
 import "./styles/ApiContextProvider.css";
 interface ApiContextType {
     apiClient: AxiosInstance;
+    authenticated: boolean;
     baseURL: string;
+    token: JWT | null;
     data: any;
     setData: ((newData: any) => void) | null;
 }

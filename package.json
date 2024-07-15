@@ -14,6 +14,8 @@
   },
   "type": "module",
   "devDependencies": {
+    "@aws-amplify/auth": "^6.0.2",
+    "@aws-amplify/ui-react": "^6.1.2",
     "@babel/preset-env": "^7.24.8",
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
