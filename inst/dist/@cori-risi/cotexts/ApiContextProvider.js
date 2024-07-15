@@ -7,10 +7,13 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
-const BASE_URL = ""; // `${import.meta.env.VITE_CORI_DATA_API}`;
-// TODO: From now on will pass API url in as param to ApiContextProvider because:
+const BASE_URL = "http://localhost:8000"; // `${import.meta.env.VITE_CORI_DATA_API}`;
+// TODO: From now on must pass dev/prod API url in as param to ApiContextProvider because:
 // cori.data.api/lib/@cori-risi/cotexts/ApiContextProvider.tsx:22
 //     const BASE_URL = `${import.meta.env.VITE_CORI_DATA_API}`;
+//                               ^^^^
+//     SyntaxError: Cannot use 'import.meta' outside a module
+//
 const apiClient = axios.create({
     baseURL: BASE_URL,
     headers: {
