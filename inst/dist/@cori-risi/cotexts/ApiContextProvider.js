@@ -35,15 +35,10 @@ const ApiContext = createContext(initState);
 // let hasAuthUser = false;
 // let hasAuthClient = false;
 function ApiContextProvider(props) {
-    // const amplifyContext = useContext(AmplifyContext);
-    // const authenticator = useAuthenticator();
-    // const userState = useSelector(selectUser);
-    // const dispatch = useDispatch();
-    // const [ authenticated_user, setAuthenticatedUser ] = useState<User>(userState);
     const [state, setState] = useState(initState);
     function setData(newData) {
         const currentState = state;
-        setState(Object.assign(Object.assign({}, currentState), { data: Object.assign(Object.assign({}, currentState.data), newData), setData: setData }));
+        setState(Object.assign(Object.assign({}, currentState), { token: props.token || null, data: Object.assign(Object.assign({}, currentState.data), newData), setData: setData }));
     }
     useEffect(() => {
         // if (
@@ -97,21 +92,16 @@ function ApiContextProvider(props) {
         //                     // };
         //
         //                     try {
-        //
-        //                         apiClient.interceptors.request.use(
-        //                             (config) => {
-        //                                 const accessToken = tokens.idToken!.toString();
-        //                                 if (!!accessToken) {
-        //                                     config.headers.Authorization = `Bearer ${accessToken}`;
-        //                                 }
-        //                                 if (!!props.baseURL) {
-        //                                     config.baseURL = props.baseURL;
-        //                                 }
-        //                                 return config;
-        //                             },
-        //                             (error) => Promise.reject(error)
-        //                         );
-        //
+        apiClient.interceptors.request.use((config) => {
+            const accessToken = props.token || null;
+            if (!!accessToken && accessToken !== null) {
+                config.headers.Authorization = `Bearer ${accessToken}`;
+            }
+            if (!!props.baseURL) {
+                config.baseURL = props.baseURL;
+            }
+            return config;
+        }, (error) => Promise.reject(error));
         //                         setState({
         //                             apiClient: apiClient,
         //                             authenticated: true,
@@ -153,61 +143,6 @@ function ApiContextProvider(props) {
         //                         console.log("Axios Error:", e);
         //                     }
         //
-        //                     user.then((u) => {
-        //                         if (!hasAuthUser) {
-        //
-        //                             // console.log("Initial userState:", userState);
-        //                             // console.log("user type:", u.constructor.name);
-        //
-        //                             hasAuthUser = true;
-        //
-        //                             console.log("API User is authenticated:", hasAuthSession);
-        //                             console.log("API User:", u);
-        //
-        //                             // function updateUser (u: User) {
-        //                             //     try {
-        //                             //         if (!!u.userId) {
-        //                             //             console.log("Update userId:", u.userId);
-        //                             //             dispatch(updateUserId(u.userId));
-        //                             //         }
-        //                             //         if (!!u.userId && !!u.username) {
-        //                             //             console.log("Update username:", u.username);
-        //                             //             dispatch(updateUserName(u.username));
-        //                             //         }
-        //                             //
-        //                             //         if (!!tokens.idToken) {
-        //                             //             console.log("Update user tokens:", tokens);
-        //                             //             dispatch(updateUserTokens(JSON.stringify(tokens)));
-        //                             //         }
-        //                             //
-        //                             //     } catch (e: any) {
-        //                             //         console.error(e);
-        //                             //     }
-        //                             //
-        //                             //     // setState({
-        //                             //     //     apiClient: (!!hasAuthClient) ? apiClient : axios.create({
-        //                             //     //         baseURL: props.baseURL || BASE_URL,
-        //                             //     //         headers: {
-        //                             //     //             'Content-Type': 'application/json',
-        //                             //     //             'Authorization': `Bearer ${accessToken}`,
-        //                             //     //         },
-        //                             //     //     }),
-        //                             //     //     authenticated: true,
-        //                             //     //     authenticated_user: u,
-        //                             //     //     baseURL: props.baseURL || BASE_URL,
-        //                             //     //     autoSignOut: signOut,
-        //                             //     //     token: tokens.idToken,
-        //                             //     //     data: {
-        //                             //     //         ...state.data,
-        //                             //     //     }
-        //                             //     // });
-        //                             //
-        //                             //     setAuthenticatedUser(u);
-        //                             // }
-        //
-        //                             // updateUser(u);
-        //                         }
-        //                     });
         //                 }
         //             }
         //         })
@@ -228,7 +163,7 @@ function ApiContextProvider(props) {
             // authenticated_user: authenticated_user,
             // autoSignOut: autoSignOut,
             baseURL: props.baseURL || BASE_URL,
-            token: null,
+            token: props.token || null,
             data: {},
             setData
         });

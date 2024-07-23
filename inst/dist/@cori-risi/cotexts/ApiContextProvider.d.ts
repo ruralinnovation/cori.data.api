@@ -14,7 +14,7 @@ export declare const ApiContext: React.Context<ApiContextType | null>;
 export default function ApiContextProvider(props: {
     children?: ReactElement;
     baseURL?: string;
-    token?: string;
+    token?: JWT;
     signOut?: Function;
 }): React.JSX.Element;
 export {};
