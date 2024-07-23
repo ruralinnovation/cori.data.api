@@ -7,35 +7,24 @@ import React, {
 import {Amplify, ResourcesConfig} from "aws-amplify";
 
 import amplifyconfig from './amplifyconfiguration.json';
-import { AuthTokens, JWT } from "@aws-amplify/auth";
+
 import { User } from "../models";
-import {ApiContext} from "./ApiContextProvider";
 
 Amplify.configure(amplifyconfig);
 
-type AWSCredentials = {
-    accessKeyId: string;
-    secretAccessKey: string;
-    sessionToken?: string;
-    expiration?: Date;
-};
+// let hasAuthSession = false;
+// let hasAuthUser = false;
+// let hasAuthClient = false;
 
-type AuthSession = {
-    tokens?: AuthTokens;
-    credentials?: AWSCredentials;
-    identityId?: string;
-    userSub?: string;
-};
-
-
-type  AmplifyContextType = {
+type AmplifyContextType = {
     // authenticated_user: User | null;
-    domain?: string,
-    region?: string,
-    identityPoolId?: string,
-    userPoolId?: string,
-    userPoolClientId?: string,
-    token: JWT | null;
+    domain?: string;
+    region?: string;
+    identityPoolId?: string;
+    userPoolId?: string;
+    userPoolClientId?: string;
+    // TODO:
+    // updateUser: Function
 };
 
 const initAmplifyContext: AmplifyContextType = {
@@ -45,14 +34,9 @@ const initAmplifyContext: AmplifyContextType = {
     identityPoolId: undefined,
     userPoolId: undefined,
     userPoolClientId: undefined,
-    token: null
 };
 
 export const AmplifyContext = createContext<AmplifyContextType | null>(initAmplifyContext);
-
-let hasAuthSession = false;
-let hasAuthUser = false;
-let hasAuthClient = false;
 
 export default function AmplifyContextProvider(props: {
     children?: ReactElement,
@@ -60,9 +44,7 @@ export default function AmplifyContextProvider(props: {
     region?: string,
     identityPoolId?: string,
     userPoolId?: string,
-    userPoolClientId?: string,
-    fetchAuthSession: Function,
-    getCurrentUser: Function
+    userPoolClientId?: string
 }) {
 
     // const userState = useSelector(selectUser);
@@ -78,8 +60,7 @@ export default function AmplifyContextProvider(props: {
     ) ?
         {
             // authenticated_user: null,
-            ...props,
-            token: null
+            ...props
         } :
         initAmplifyContext);
 
@@ -96,9 +77,7 @@ export default function AmplifyContextProvider(props: {
                 region,
                 identityPoolId,
                 userPoolId,
-                userPoolClientId,
-                fetchAuthSession,
-                getCurrentUser
+                userPoolClientId
             } = props;
 
             console.log("Configuring Amplify context with props:", {
@@ -200,91 +179,90 @@ export default function AmplifyContextProvider(props: {
                 }
             }) as ResourcesConfig);
 
-            const session: Promise<AuthSession> = fetchAuthSession();
-
-
-            session
-                .then((sess) => {
-
-                    if (!hasAuthSession) {
-
-                        const tokens = sess.tokens!;
-
-                        console.log("API tokens:", tokens);
-
-                        if (!!tokens && tokens.hasOwnProperty("idToken")) {
-
-                            hasAuthSession = true;
-
-                            console.log("API Session is authenticated:", hasAuthSession);
-                            console.log("API Session config:", sess);
-
-                            console.log("idToken:", tokens.idToken!);
-                            setState({
-                                // authenticated_user: authenticated_user,
-                                domain,
-                                region,
-                                identityPoolId,
-                                userPoolId,
-                                userPoolClientId,
-                                token: tokens.idToken!
-                            });
-
-                            const user: Promise<User> = getCurrentUser();
-
-
-
-
-                            user.then((u) => {
-                                if (!hasAuthUser) {
-
-                                    // console.log("Initial userState:", userState);
-
-                                    hasAuthUser = true;
-
-                                    console.log("API User is authenticated:", hasAuthSession);
-                                    console.log("API User:", u);
-                                    console.log("API User type:", u.constructor.name);
-
-                                    // function updateUser (u: User) {
-                                    //     try {
-                                    //         if (!!u.userId) {
-                                    //             console.log("Update userId:", u.userId);
-                                    //             dispatch(updateUserId(u.userId));
-                                    //         }
-                                    //         if (!!u.userId && !!u.username) {
-                                    //             console.log("Update username:", u.username);
-                                    //             dispatch(updateUserName(u.username));
-                                    //         }
-                                    //
-                                    //         if (!!tokens.idToken) {
-                                    //             console.log("Update user tokens:", tokens);
-                                    //             dispatch(updateUserTokens(JSON.stringify(tokens)));
-                                    //         }
-                                    //
-                                    //     } catch (e: any) {
-                                    //         console.error(e);
-                                    //     }
-                                    //
-                                    //     setState({
-                                    //         authenticated_user: u,
-                                    //         domain,
-                                    //         region,
-                                    //         identityPoolId,
-                                    //         userPoolId,
-                                    //         userPoolClientId,
-                                    //         token: tokens.idToken!
-                                    //     });
-                                    //
-                                    //     setAuthenticatedUser(u);
-                                    // }
-
-                                    // updateUser(u);
-                                }
-                            });
-                        }
-                    }
-                });
+            // const session: Promise<AuthSession> = fetchAuthSession();
+            //
+            // session
+            //     .then((sess) => {
+            //
+            //         if (!hasAuthSession) {
+            //
+            //             const tokens = sess.tokens!;
+            //
+            //             console.log("API tokens:", tokens);
+            //
+            //             if (!!tokens && tokens.hasOwnProperty("idToken")) {
+            //
+            //                 hasAuthSession = true;
+            //
+            //                 console.log("API Session is authenticated:", hasAuthSession);
+            //                 console.log("API Session config:", sess);
+            //
+            //                 console.log("idToken:", tokens.idToken!);
+            //                 setState({
+            //                     // authenticated_user: authenticated_user,
+            //                     domain,
+            //                     region,
+            //                     identityPoolId,
+            //                     userPoolId,
+            //                     userPoolClientId,
+            //                     token: tokens.idToken!
+            //                 });
+            //
+            //                 const user: Promise<User> = getCurrentUser();
+            //
+            //
+            //
+            //
+            //                 user.then((u) => {
+            //                     if (!hasAuthUser) {
+            //
+            //                         // console.log("Initial userState:", userState);
+            //
+            //                         hasAuthUser = true;
+            //
+            //                         console.log("API User is authenticated:", hasAuthSession);
+            //                         console.log("API User:", u);
+            //                         console.log("API User type:", u.constructor.name);
+            //
+            //                         // function updateUser (u: User) {
+            //                         //     try {
+            //                         //         if (!!u.userId) {
+            //                         //             console.log("Update userId:", u.userId);
+            //                         //             dispatch(updateUserId(u.userId));
+            //                         //         }
+            //                         //         if (!!u.userId && !!u.username) {
+            //                         //             console.log("Update username:", u.username);
+            //                         //             dispatch(updateUserName(u.username));
+            //                         //         }
+            //                         //
+            //                         //         if (!!tokens.idToken) {
+            //                         //             console.log("Update user tokens:", tokens);
+            //                         //             dispatch(updateUserTokens(JSON.stringify(tokens)));
+            //                         //         }
+            //                         //
+            //                         //     } catch (e: any) {
+            //                         //         console.error(e);
+            //                         //     }
+            //                         //
+            //                         //     setState({
+            //                         //         authenticated_user: u,
+            //                         //         domain,
+            //                         //         region,
+            //                         //         identityPoolId,
+            //                         //         userPoolId,
+            //                         //         userPoolClientId,
+            //                         //         token: tokens.idToken!
+            //                         //     });
+            //                         //
+            //                         //     setAuthenticatedUser(u);
+            //                         // }
+            //
+            //                         // updateUser(u);
+            //                     }
+            //                 });
+            //             }
+            //         }
+            //     });
 
             setState({
                 // authenticated_user: authenticated_user,
@@ -292,8 +270,7 @@ export default function AmplifyContextProvider(props: {
                 region,
                 identityPoolId,
                 userPoolId,
-                userPoolClientId,
-                token: null
+                userPoolClientId
             });
         }
 
