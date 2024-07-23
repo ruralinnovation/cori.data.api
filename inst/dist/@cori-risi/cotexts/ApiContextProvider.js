@@ -18,7 +18,7 @@ const initState = {
     apiClient: apiClient,
     authenticated: false,
     authenticated_user: null,
-    // autoSignOut: null,
+    autoSignOut: null,
     baseURL: BASE_URL,
     token: null,
     data: {},
@@ -43,7 +43,12 @@ function ApiContextProvider(props) {
             }
             return config;
         }, (error) => Promise.reject(error));
-        setState(Object.assign(Object.assign({}, state), { baseURL: (!!props.baseURL) ? props.baseURL : BASE_URL, setData }));
+        setState(Object.assign(Object.assign({}, state), { autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
+                const { signOut } = props;
+                (signOut)();
+                window.alert("Please refresh this session by clicking the browser's reload button!");
+                window.location = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            } : null, baseURL: (!!props.baseURL) ? props.baseURL : BASE_URL, setData }));
         if (!!props.fetchAuthSession) {
             const { fetchAuthSession } = props;
             const session = fetchAuthSession();
@@ -67,7 +72,12 @@ function ApiContextProvider(props) {
                             }
                             return config;
                         }, (error) => Promise.reject(error));
-                        setState(Object.assign(Object.assign({}, state), { authenticated: true, baseURL: props.baseURL || BASE_URL, setData, token: tokens.idToken }));
+                        setState(Object.assign(Object.assign({}, state), { authenticated: true, autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
+                                const { signOut } = props;
+                                (signOut)();
+                                window.alert("Please refresh this session by clicking the browser's reload button!");
+                                window.location = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                            } : null, baseURL: props.baseURL || BASE_URL, setData, token: tokens.idToken }));
                         // TODO: Use autoSignOut to prompt user to refresh session on API error
                         // const remoteAPIStartTime = performance.now();
                         // apiClient.get(...)
@@ -122,7 +132,12 @@ function ApiContextProvider(props) {
                                     //     } catch (e: any) {
                                     //         console.error(e);
                                     //     }
-                                    setState(Object.assign(Object.assign({}, state), { authenticated: true, authenticated_user: u, baseURL: props.baseURL || BASE_URL, setData, token: tokens.idToken }));
+                                    setState(Object.assign(Object.assign({}, state), { authenticated: true, authenticated_user: u, autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
+                                            const { signOut } = props;
+                                            (signOut)();
+                                            window.alert("Please refresh this session by clicking the browser's reload button!");
+                                            window.location = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                                        } : null, baseURL: props.baseURL || BASE_URL, setData, token: tokens.idToken }));
                                     //     setAuthenticatedUser(u);
                                     // }
                                     // updateUser(u);

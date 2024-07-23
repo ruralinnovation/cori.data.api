@@ -22,7 +22,8 @@ import { AuthTokens, JWT } from "@aws-amplify/auth";
 // import { AmplifyContext } from "./AmplifyContextProvider";
 
 import "./styles/ApiContextProvider.css";
-import {User} from "../models";
+import { User } from "../models";
+import { autoSignOut } from "../utils";
 
 const BASE_URL = "http://localhost:8000"; // `${import.meta.env.VITE_CORI_DATA_API}`;
 // TODO: From now on must pass dev/prod API url in as param to ApiContextProvider because:
@@ -50,7 +51,7 @@ interface ApiContextType {
     apiClient: AxiosInstance;
     authenticated: boolean;
     authenticated_user: User | null;
-    // autoSignOut: (() => void) | null;
+    autoSignOut: (() => void) | null;
     baseURL: string;
     token: JWT | null;
     data: any;
@@ -68,7 +69,7 @@ const initState: ApiContextType = {
     apiClient: apiClient,
     authenticated: false,
     authenticated_user: null,
-    // autoSignOut: null,
+    autoSignOut: null,
     baseURL: BASE_URL,
     token: null,
     data: {},
@@ -121,6 +122,12 @@ export default function ApiContextProvider (props: {
 
         setState({
             ...state,
+            autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
+                const { signOut } = props;
+                (signOut!)();
+                window.alert("Please refresh this session by clicking the browser's reload button!");
+                (window as any).location = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            } : null,
             baseURL: (!!props.baseURL) ? props.baseURL : BASE_URL,
             setData
         });
@@ -168,6 +175,12 @@ export default function ApiContextProvider (props: {
                             setState({
                                 ...state,
                                 authenticated: true,
+                                autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
+                                    const { signOut } = props;
+                                    (signOut!)();
+                                    window.alert("Please refresh this session by clicking the browser's reload button!");
+                                    (window as any).location = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                                } : null,
                                 baseURL: props.baseURL || BASE_URL,
                                 setData,
                                 token: tokens.idToken!
@@ -240,6 +253,12 @@ export default function ApiContextProvider (props: {
                                                 ...state,
                                                 authenticated: true,
                                                 authenticated_user: u,
+                                                autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
+                                                    const { signOut } = props;
+                                                    (signOut!)();
+                                                    window.alert("Please refresh this session by clicking the browser's reload button!");
+                                                    (window as any).location = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                                                } : null,
                                                 baseURL: props.baseURL || BASE_URL,
                                                 setData,
                                                 token: tokens.idToken!

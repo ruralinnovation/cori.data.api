@@ -7,6 +7,7 @@ interface ApiContextType {
     apiClient: AxiosInstance;
     authenticated: boolean;
     authenticated_user: User | null;
+    autoSignOut: (() => void) | null;
     baseURL: string;
     token: JWT | null;
     data: any;
