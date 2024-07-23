@@ -9,6 +9,7 @@ import {Amplify, ResourcesConfig} from "aws-amplify";
 import amplifyconfig from './amplifyconfiguration.json';
 import { AuthTokens, JWT } from "@aws-amplify/auth";
 import { User } from "../models";
+import {ApiContext} from "./ApiContextProvider";
 
 Amplify.configure(amplifyconfig);
 
@@ -38,7 +39,7 @@ type  AmplifyContextType = {
 };
 
 const initAmplifyContext: AmplifyContextType = {
-    // authenticated_user: User | null;
+    // authenticated_user: null,
     domain: undefined,
     region: undefined,
     identityPoolId: undefined,
@@ -69,7 +70,18 @@ export default function AmplifyContextProvider(props: {
 
     // const [ authenticated_user, setAuthenticatedUser ] = useState<User>(userState);
 
-    const [ state, setState ] = useState<AmplifyContextType | null>(initAmplifyContext);
+    const [ state, setState ] = useState<AmplifyContextType | null>((!!props.domain
+        && !!props.region
+        && !!props.identityPoolId
+        && !!props.userPoolId
+        && !!props.userPoolClientId
+    ) ?
+        {
+            // authenticated_user: null,
+            ...props,
+            token: null
+        } :
+        initAmplifyContext);
 
     useEffect(() => {
         if (!!props.domain
@@ -88,6 +100,14 @@ export default function AmplifyContextProvider(props: {
                 fetchAuthSession,
                 getCurrentUser
             } = props;
+
+            console.log("Configuring Amplify context with props:", {
+                domain,
+                region,
+                identityPoolId,
+                userPoolId,
+                userPoolClientId
+            });
 
             // Ex. Auth data structure:
             //     Auth: {
@@ -199,8 +219,7 @@ export default function AmplifyContextProvider(props: {
                             console.log("API Session is authenticated:", hasAuthSession);
                             console.log("API Session config:", sess);
 
-                            const user: Promise<User> = getCurrentUser();
-
+                            console.log("idToken:", tokens.idToken!);
                             setState({
                                 // authenticated_user: authenticated_user,
                                 domain,
@@ -211,16 +230,21 @@ export default function AmplifyContextProvider(props: {
                                 token: tokens.idToken!
                             });
 
+                            const user: Promise<User> = getCurrentUser();
+
+
+
+
                             user.then((u) => {
                                 if (!hasAuthUser) {
 
                                     // console.log("Initial userState:", userState);
-                                    // console.log("user type:", u.constructor.name);
 
                                     hasAuthUser = true;
 
                                     console.log("API User is authenticated:", hasAuthSession);
                                     console.log("API User:", u);
+                                    console.log("API User type:", u.constructor.name);
 
                                     // function updateUser (u: User) {
                                     //     try {
@@ -276,10 +300,10 @@ export default function AmplifyContextProvider(props: {
     }, []);
 
 
-    return (
-        <div className={"amplify-context"}>
+    return (<>
+        <AmplifyContext.Provider value={state}>
             {props.children}
-        </div>
-    )
+        </AmplifyContext.Provider>
+    </>);
 
 }
