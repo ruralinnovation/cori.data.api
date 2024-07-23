@@ -66,7 +66,12 @@ export const ApiContext = createContext<ApiContextType | null>(initState);
 // let hasAuthUser = false;
 // let hasAuthClient = false;
 
-export default function ApiContextProvider (props: { children?: ReactElement, baseURL?: string, token?: string }) {
+export default function ApiContextProvider (props: {
+    children?: ReactElement,
+    baseURL?: string,
+    token?: string,
+    signOut?: Function
+}) {
 
     // const amplifyContext = useContext(AmplifyContext);
     // const authenticator = useAuthenticator();

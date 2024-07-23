@@ -27,7 +27,7 @@ function AmplifyContextProvider(props) {
             && !!props.identityPoolId
             && !!props.userPoolId
             && !!props.userPoolClientId) {
-            const { domain, region, identityPoolId, userPoolId, userPoolClientId, fetchAuthSession, getCurrentUser, signOut } = props;
+            const { domain, region, identityPoolId, userPoolId, userPoolClientId, fetchAuthSession, getCurrentUser } = props;
             // Ex. Auth data structure:
             //     Auth: {
             //         Cognito: {

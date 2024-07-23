@@ -59,8 +59,7 @@ export default function AmplifyContextProvider(props: {
     userPoolId?: string,
     userPoolClientId?: string,
     fetchAuthSession: Function,
-    getCurrentUser: Function,
-    signOut?: Function
+    getCurrentUser: Function
 }) {
 
     const [ state, setState ] = useState<AmplifyContextType | null>(initAmplifyContext);
@@ -80,8 +79,7 @@ export default function AmplifyContextProvider(props: {
                 userPoolId,
                 userPoolClientId,
                 fetchAuthSession,
-                getCurrentUser,
-                signOut
+                getCurrentUser
             } = props;
 
             // Ex. Auth data structure:

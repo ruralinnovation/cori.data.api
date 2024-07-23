@@ -18,7 +18,6 @@ export default function AmplifyContextProvider(props: {
     userPoolClientId?: string;
     fetchAuthSession: Function;
     getCurrentUser: Function;
-    signOut?: Function;
 }): React.JSX.Element;
 export {};
 //# sourceMappingURL=AmplifyContextProvider.d.ts.map

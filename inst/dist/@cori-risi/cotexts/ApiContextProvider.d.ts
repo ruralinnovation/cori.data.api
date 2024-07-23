@@ -15,6 +15,7 @@ export default function ApiContextProvider(props: {
     children?: ReactElement;
     baseURL?: string;
     token?: string;
+    signOut?: Function;
 }): React.JSX.Element;
 export {};
 //# sourceMappingURL=ApiContextProvider.d.ts.map
