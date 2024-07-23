@@ -90,6 +90,10 @@ export default function ApiContextProvider (props: {
 
     useEffect(() => {
 
+        if (props.token !== null) {
+            console.log("token was provided to Api Context:", props.token);
+        }
+
         // if (
         //     amplifyContext !== null
         //     && !!amplifyContext .domain

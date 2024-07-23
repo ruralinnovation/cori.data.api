@@ -41,6 +41,9 @@ function ApiContextProvider(props) {
         setState(Object.assign(Object.assign({}, currentState), { token: props.token || null, data: Object.assign(Object.assign({}, currentState.data), newData), setData: setData }));
     }
     useEffect(() => {
+        if (props.token !== null) {
+            console.log("token was provided to Api Context:", props.token);
+        }
         // if (
         //     amplifyContext !== null
         //     && !!amplifyContext .domain
