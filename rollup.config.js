@@ -47,7 +47,11 @@ import typescript from "rollup-plugin-typescript2";
 // }
 
 export default [{
-    external: [ "arquero", "axios", "aws-amplify", "d3", "d3-textwrap", "html-to-image", "react", "react-dom", "react-map-gl" ],
+    external: [
+        "arquero", "axios", "aws-amplify",
+        "d3", "d3-textwrap", "html-to-image",
+        "fetchAuthSession", "getCurrentUser",
+        "react", "react-dom", "react-map-gl" ],
     input: "./lib/cori.data.api.ts",
     output: [
         {
@@ -71,7 +75,9 @@ export default [{
         json(),
         peerDepsExternal(),
         // nodeResolve({ extensions: [".js", ".jsx"] }),
-        nodeResolve(),
+        nodeResolve({
+            "preferBuiltins": false
+        }),
         commonjs(),
         postcss({
             // extract: "styles.css",

@@ -4,11 +4,28 @@ import React, {
     useEffect,
     useState
 } from "react";
-import { Amplify } from "aws-amplify";
+import {Amplify, ResourcesConfig} from "aws-amplify";
 
 import amplifyconfig from './amplifyconfiguration.json';
+import { AuthTokens, JWT } from "@aws-amplify/auth";
+import { User } from "../models";
 
 Amplify.configure(amplifyconfig);
+
+type AWSCredentials = {
+    accessKeyId: string;
+    secretAccessKey: string;
+    sessionToken?: string;
+    expiration?: Date;
+};
+
+type AuthSession = {
+    tokens?: AuthTokens;
+    credentials?: AWSCredentials;
+    identityId?: string;
+    userSub?: string;
+};
+
 
 type  AmplifyContextType = {
     domain?: string,
@@ -16,6 +33,7 @@ type  AmplifyContextType = {
     identityPoolId?: string,
     userPoolId?: string,
     userPoolClientId?: string,
+    token: JWT | null;
 };
 
 const initAmplifyContext: AmplifyContextType = {
@@ -24,18 +42,25 @@ const initAmplifyContext: AmplifyContextType = {
     identityPoolId: undefined,
     userPoolId: undefined,
     userPoolClientId: undefined,
+    token: null
 };
 
 export const AmplifyContext = createContext<AmplifyContextType | null>(initAmplifyContext);
+
+let hasAuthSession = false;
+let hasAuthUser = false;
+let hasAuthClient = false;
 
 export default function AmplifyContextProvider(props: {
     children?: ReactElement,
     domain?: string,
     region?: string,
+    identityPoolId?: string,
     userPoolId?: string,
     userPoolClientId?: string,
-    identityPoolId?: string,
-
+    fetchAuthSession: Function,
+    getCurrentUser: Function,
+    signOut?: Function
 }) {
 
     const [ state, setState ] = useState<AmplifyContextType | null>(initAmplifyContext);
@@ -53,8 +78,46 @@ export default function AmplifyContextProvider(props: {
                 region,
                 identityPoolId,
                 userPoolId,
-                userPoolClientId
+                userPoolClientId,
+                fetchAuthSession,
+                getCurrentUser,
+                signOut
             } = props;
+
+            // Ex. Auth data structure:
+            //     Auth: {
+            //         Cognito: {
+            //             userPoolClientId: "5eusi16g0o2q1g1rr5ehgudodm",
+            //             userPoolId: "us-east-1_QeA4600FA",
+            //             userPoolEndpoint: "authcori.auth.us-east-1.amazoncognito.com",
+            //             identityPoolId: "us-east-1:2194a76a-fa3d-4c33-999e-e3c4b2b049ee",
+            //             loginWith: { // Optional
+            //                 oauth: {
+            //                     domain: 'authcori.auth.us-east-1.amazoncognito.com',
+            //                         scopes: ['email', 'openid', 'profile'],
+            //                         redirectSignIn: ["http://localhost:3000", "http://localhost:5173", "http://localhost:5174"],
+            //                         redirectSignOut: ["http://localhost:3000/", "http://localhost:5173/", "http://localhost:5174/"],
+            //                         responseType: 'code',
+            //                 },
+            //                 username: true,
+            //                     email: true, // Optional
+            //                     phone: false, // Optional
+            //
+            //             },
+            //             // signUpVerificationMethod: "",
+            //             // userAttributes: "",
+            //             // mfa: "",
+            //             // passwordFormat: "",
+            //         },
+            //         region: config.region,
+            //         oauth: {
+            //             scope: ['email', 'openid', 'profile'],
+            //                 redirectSignIn: '',
+            //                 redirectSignOut: '',
+            //                 responseType: 'code',
+            //                 mandatorySignIn: true,
+            //         },
+            //     },
 
             const aws_original_auth_config = {
                 "Auth": {
@@ -80,7 +143,7 @@ export default function AmplifyContextProvider(props: {
                 }
             };
 
-            Amplify.configure({
+            Amplify.configure(({
                 // TODO: Why is this so ridiculous and how can these options be
                 //       specified exclusively in amplifyconfiguration.json ???
                 ...Amplify.getConfig(),
@@ -110,14 +173,43 @@ export default function AmplifyContextProvider(props: {
                         userPoolClientId: aws_original_auth_config.Auth.clientId
                     }
                 }
-            });
+            }) as ResourcesConfig);
+
+            const session: Promise<AuthSession> = fetchAuthSession();
+            const user: Promise<User> = getCurrentUser();
+
+            session
+                .then((sess) => {
+
+                    if (!hasAuthSession) {
+
+                        hasAuthSession = true;
+
+                        console.log("API Session is authenticated:", hasAuthSession);
+                        console.log("API Session config:", sess);
+
+                        const tokens = sess.tokens!;
+
+                        console.log("API tokens:", tokens);
+
+                        setState({
+                            domain,
+                            region,
+                            identityPoolId,
+                            userPoolId,
+                            userPoolClientId,
+                            token: tokens.idToken!
+                        });
+                    }
+                });
 
             setState({
                 domain,
                 region,
                 identityPoolId,
                 userPoolId,
-                userPoolClientId
+                userPoolClientId,
+                token: null
             });
         }
 

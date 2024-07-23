@@ -1,7 +1,7 @@
 import React, {
     createContext,
     ReactElement,
-    useContext,
+    // useContext,
     useEffect,
     useState
 } from "react";
@@ -18,6 +18,7 @@ import { fetchAuthSession, JWT } from "@aws-amplify/auth";
 // } from "../features";
 // import { User } from '../models';
 
+// TODO: (maybe?) move the token retrieval code & state prop to AmplifyContextProvider
 // import { AmplifyContext } from "./AmplifyContextProvider";
 
 import "./styles/ApiContextProvider.css";
@@ -65,7 +66,7 @@ export const ApiContext = createContext<ApiContextType | null>(initState);
 // let hasAuthUser = false;
 // let hasAuthClient = false;
 
-export default function ApiContextProvider (props: { children?: ReactElement, baseURL?: string }) {
+export default function ApiContextProvider (props: { children?: ReactElement, baseURL?: string, token?: string }) {
 
     // const amplifyContext = useContext(AmplifyContext);
     // const authenticator = useAuthenticator();

@@ -14,6 +14,7 @@ export declare const ApiContext: React.Context<ApiContextType | null>;
 export default function ApiContextProvider(props: {
     children?: ReactElement;
     baseURL?: string;
+    token?: string;
 }): React.JSX.Element;
 export {};
 //# sourceMappingURL=ApiContextProvider.d.ts.map
