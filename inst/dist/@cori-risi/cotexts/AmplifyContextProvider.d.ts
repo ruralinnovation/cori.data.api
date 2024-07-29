@@ -11,9 +11,9 @@ export default function AmplifyContextProvider(props: {
     children?: ReactElement;
     domain?: string;
     region?: string;
+    identityPoolId?: string;
     userPoolId?: string;
     userPoolClientId?: string;
-    identityPoolId?: string;
 }): React.JSX.Element;
 export {};
 //# sourceMappingURL=AmplifyContextProvider.d.ts.map

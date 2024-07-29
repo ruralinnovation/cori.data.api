@@ -4,21 +4,31 @@ import React, {
     useEffect,
     useState
 } from "react";
-import { Amplify } from "aws-amplify";
+import {Amplify, ResourcesConfig} from "aws-amplify";
 
 import amplifyconfig from './amplifyconfiguration.json';
 
+import { User } from "../models";
+
 Amplify.configure(amplifyconfig);
 
-type  AmplifyContextType = {
-    domain?: string,
-    region?: string,
-    identityPoolId?: string,
-    userPoolId?: string,
-    userPoolClientId?: string,
+// let hasAuthSession = false;
+// let hasAuthUser = false;
+// let hasAuthClient = false;
+
+type AmplifyContextType = {
+    // authenticated_user: User | null;
+    domain?: string;
+    region?: string;
+    identityPoolId?: string;
+    userPoolId?: string;
+    userPoolClientId?: string;
+    // TODO:
+    // updateUser: Function
 };
 
 const initAmplifyContext: AmplifyContextType = {
+    // authenticated_user: null,
     domain: undefined,
     region: undefined,
     identityPoolId: undefined,
@@ -32,13 +42,27 @@ export default function AmplifyContextProvider(props: {
     children?: ReactElement,
     domain?: string,
     region?: string,
-    userPoolId?: string,
-    userPoolClientId?: string,
     identityPoolId?: string,
-
+    userPoolId?: string,
+    userPoolClientId?: string
 }) {
 
-    const [ state, setState ] = useState<AmplifyContextType | null>(initAmplifyContext);
+    // const userState = useSelector(selectUser);
+    // const dispatch = useDispatch();
+
+    // const [ authenticated_user, setAuthenticatedUser ] = useState<User>(userState);
+
+    const [ state, setState ] = useState<AmplifyContextType | null>((!!props.domain
+        && !!props.region
+        && !!props.identityPoolId
+        && !!props.userPoolId
+        && !!props.userPoolClientId
+    ) ?
+        {
+            // authenticated_user: null,
+            ...props
+        } :
+        initAmplifyContext);
 
     useEffect(() => {
         if (!!props.domain
@@ -55,6 +79,49 @@ export default function AmplifyContextProvider(props: {
                 userPoolId,
                 userPoolClientId
             } = props;
+
+            console.log("Configuring Amplify context with props:", {
+                domain,
+                region,
+                identityPoolId,
+                userPoolId,
+                userPoolClientId
+            });
+
+            // Ex. Auth data structure:
+            //     Auth: {
+            //         Cognito: {
+            //             userPoolClientId: "5eusi16g0o2q1g1rr5ehgudodm",
+            //             userPoolId: "us-east-1_QeA4600FA",
+            //             userPoolEndpoint: "authcori.auth.us-east-1.amazoncognito.com",
+            //             identityPoolId: "us-east-1:2194a76a-fa3d-4c33-999e-e3c4b2b049ee",
+            //             loginWith: { // Optional
+            //                 oauth: {
+            //                     domain: 'authcori.auth.us-east-1.amazoncognito.com',
+            //                         scopes: ['email', 'openid', 'profile'],
+            //                         redirectSignIn: ["http://localhost:3000", "http://localhost:5173", "http://localhost:5174"],
+            //                         redirectSignOut: ["http://localhost:3000/", "http://localhost:5173/", "http://localhost:5174/"],
+            //                         responseType: 'code',
+            //                 },
+            //                 username: true,
+            //                     email: true, // Optional
+            //                     phone: false, // Optional
+            //
+            //             },
+            //             // signUpVerificationMethod: "",
+            //             // userAttributes: "",
+            //             // mfa: "",
+            //             // passwordFormat: "",
+            //         },
+            //         region: config.region,
+            //         oauth: {
+            //             scope: ['email', 'openid', 'profile'],
+            //                 redirectSignIn: '',
+            //                 redirectSignOut: '',
+            //                 responseType: 'code',
+            //                 mandatorySignIn: true,
+            //         },
+            //     },
 
             const aws_original_auth_config = {
                 "Auth": {
@@ -80,7 +147,7 @@ export default function AmplifyContextProvider(props: {
                 }
             };
 
-            Amplify.configure({
+            Amplify.configure(({
                 // TODO: Why is this so ridiculous and how can these options be
                 //       specified exclusively in amplifyconfiguration.json ???
                 ...Amplify.getConfig(),
@@ -110,9 +177,95 @@ export default function AmplifyContextProvider(props: {
                         userPoolClientId: aws_original_auth_config.Auth.clientId
                     }
                 }
-            });
+            }) as ResourcesConfig);
+
+            // const session: Promise<AuthSession> = fetchAuthSession();
+            //
+            // session
+            //     .then((sess) => {
+            //
+            //         if (!hasAuthSession) {
+            //
+            //             const tokens = sess.tokens!;
+            //
+            //             console.log("API tokens:", tokens);
+            //
+            //             if (!!tokens && tokens.hasOwnProperty("idToken")) {
+            //
+            //                 hasAuthSession = true;
+            //
+            //                 console.log("API Session is authenticated:", hasAuthSession);
+            //                 console.log("API Session config:", sess);
+            //
+            //                 console.log("idToken:", tokens.idToken!);
+            //                 setState({
+            //                     // authenticated_user: authenticated_user,
+            //                     domain,
+            //                     region,
+            //                     identityPoolId,
+            //                     userPoolId,
+            //                     userPoolClientId,
+            //                     token: tokens.idToken!
+            //                 });
+            //
+            //                 const user: Promise<User> = getCurrentUser();
+            //
+            //
+            //
+            //
+            //                 user.then((u) => {
+            //                     if (!hasAuthUser) {
+            //
+            //                         // console.log("Initial userState:", userState);
+            //
+            //                         hasAuthUser = true;
+            //
+            //                         console.log("API User is authenticated:", hasAuthSession);
+            //                         console.log("API User:", u);
+            //                         console.log("API User type:", u.constructor.name);
+            //
+            //                         // function updateUser (u: User) {
+            //                         //     try {
+            //                         //         if (!!u.userId) {
+            //                         //             console.log("Update userId:", u.userId);
+            //                         //             dispatch(updateUserId(u.userId));
+            //                         //         }
+            //                         //         if (!!u.userId && !!u.username) {
+            //                         //             console.log("Update username:", u.username);
+            //                         //             dispatch(updateUserName(u.username));
+            //                         //         }
+            //                         //
+            //                         //         if (!!tokens.idToken) {
+            //                         //             console.log("Update user tokens:", tokens);
+            //                         //             dispatch(updateUserTokens(JSON.stringify(tokens)));
+            //                         //         }
+            //                         //
+            //                         //     } catch (e: any) {
+            //                         //         console.error(e);
+            //                         //     }
+            //                         //
+            //                         //     setState({
+            //                         //         authenticated_user: u,
+            //                         //         domain,
+            //                         //         region,
+            //                         //         identityPoolId,
+            //                         //         userPoolId,
+            //                         //         userPoolClientId,
+            //                         //         token: tokens.idToken!
+            //                         //     });
+            //                         //
+            //                         //     setAuthenticatedUser(u);
+            //                         // }
+            //
+            //                         // updateUser(u);
+            //                     }
+            //                 });
+            //             }
+            //         }
+            //     });
 
             setState({
+                // authenticated_user: authenticated_user,
                 domain,
                 region,
                 identityPoolId,
@@ -124,10 +277,10 @@ export default function AmplifyContextProvider(props: {
     }, []);
 
 
-    return (
-        <div className={"amplify-context"}>
+    return (<>
+        <AmplifyContext.Provider value={state}>
             {props.children}
-        </div>
-    )
+        </AmplifyContext.Provider>
+    </>);
 
 }
