@@ -4,14 +4,14 @@
     "href": "index.html",
     "title": "Frontend UI library for CORI Data API",
     "section": "",
-    "text": "@cori-risi/cori.data.api • Docs\n\n\n\nTip\nNote: This README file is generated from README.qmd in the “R” directory of this repo with the command npm run render:readme.\n\n\nThis is a set of components, contexts, and general functions for any web application that is intended to interact with the CORI Data API backend."
+    "text": "Tip\nNote: This README file is generated from README.qmd in the “R” directory of this repo with the command npm run render:readme.\n\n\nThis is a set of components, contexts, and general functions for any web application that is intended to interact with the CORI Data API backend (including GraphQL, Rest, and S3 resources)."
   },
   {
     "objectID": "docs/functions/Label.html",
     "href": "docs/functions/Label.html",
     "title": "Function: Label()",
     "section": "",
-    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / Label"
+    "text": "@cori-risi/cori.data.api / Label"
   },
   {
     "objectID": "docs/functions/Label.html#parameters",
@@ -39,7 +39,7 @@
     "href": "docs/functions/LineChart.html",
     "title": "Function: LineChart()",
     "section": "",
-    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / LineChart"
+    "text": "@cori-risi/cori.data.api / LineChart"
   },
   {
     "objectID": "docs/functions/LineChart.html#parameters",
@@ -67,7 +67,7 @@
     "href": "docs/functions/Input.html",
     "title": "Function: Input()",
     "section": "",
-    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / Input"
+    "text": "@cori-risi/cori.data.api / Input"
   },
   {
     "objectID": "docs/functions/Input.html#parameters",
@@ -95,7 +95,7 @@
     "href": "docs/functions/Button.html",
     "title": "Function: Button()",
     "section": "",
-    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / Button",
+    "text": "@cori-risi/cori.data.api / Button",
     "crumbs": [
       "Home",
       "React components",
@@ -143,7 +143,7 @@
     "href": "docs/variables/ApiContext.html",
     "title": "Variable: ApiContext",
     "section": "",
-    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / ApiContext"
+    "text": "@cori-risi/cori.data.api / ApiContext"
   },
   {
     "objectID": "docs/variables/ApiContext.html#defined-in",
@@ -157,7 +157,7 @@
     "href": "docs/variables/AmplifyContext.html",
     "title": "Variable: AmplifyContext",
     "section": "",
-    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / AmplifyContext"
+    "text": "@cori-risi/cori.data.api / AmplifyContext"
   },
   {
     "objectID": "docs/variables/AmplifyContext.html#defined-in",
@@ -171,7 +171,7 @@
     "href": "docs/variables/coriLightMapStyle.html",
     "title": "Variable: coriLightMapStyle",
     "section": "",
-    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / coriLightMapStyle",
+    "text": "@cori-risi/cori.data.api / coriLightMapStyle",
     "crumbs": [
       "Home",
       "Mapbox styles",
@@ -189,13 +189,6 @@
       "Mapbox styles",
       "Variable: coriLightMapStyle"
     ]
-  },
-  {
-    "objectID": "docs/globals.html",
-    "href": "docs/globals.html",
-    "title": "@cori-risi/cori.data.api",
-    "section": "",
-    "text": "@cori-risi/cori.data.api • Docs"
   },
   {
     "objectID": "docs/globals.html#variables",
@@ -216,7 +209,7 @@
     "href": "docs/functions/ApiContextProvider.html",
     "title": "Function: ApiContextProvider()",
     "section": "",
-    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / ApiContextProvider",
+    "text": "@cori-risi/cori.data.api / ApiContextProvider",
     "crumbs": [
       "Home",
       "React contexts",
@@ -264,7 +257,7 @@
     "href": "docs/functions/AmplifyContextProvider.html",
     "title": "Function: AmplifyContextProvider()",
     "section": "",
-    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / AmplifyContextProvider",
+    "text": "@cori-risi/cori.data.api / AmplifyContextProvider",
     "crumbs": [
       "Home",
       "React contexts",
@@ -312,7 +305,7 @@
     "href": "docs/functions/helloAnything.html",
     "title": "Function: helloAnything()",
     "section": "",
-    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / helloAnything"
+    "text": "@cori-risi/cori.data.api / helloAnything"
   },
   {
     "objectID": "docs/functions/helloAnything.html#parameters",
@@ -340,7 +333,7 @@
     "href": "docs/functions/CategoricalLegend.html",
     "title": "Function: CategoricalLegend()",
     "section": "",
-    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / CategoricalLegend",
+    "text": "@cori-risi/cori.data.api / CategoricalLegend",
     "crumbs": [
       "Home",
       "React components",
