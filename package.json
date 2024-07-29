@@ -13,14 +13,10 @@
     "url": "git+https://github.com/ruralinnovation/cori.data.api.git"
   },
   "type": "module",
-  "dependencies": {
-    "arquero": "^5.4.1",
-    "d3": "^7.9.0",
-    "d3-textwrap": "^3.0.0",
-    "html-to-image": "^1.11.11"
-  },
   "devDependencies": {
+    "@babel/preset-env": "^7.24.8",
     "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
@@ -28,9 +24,12 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/axios": "^0.14.0",
     "@types/d3": "^7.4.3",
+    "@types/jest": "^29.5.12",
     "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.19",
-    "axios": "^1.7.2",
+    "identity-obj-proxy": "^3.0.0",
+    "jest-environment-jsdom": "^29.7.0",
     "path": "^0.12.7",
     "rollup": "^4.18.0",
     "rollup-plugin-dts": "^6.1.1",
@@ -39,93 +38,36 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-postcss-modules": "^2.1.1",
     "rollup-plugin-typescript2": "^0.36.0",
+    "ts-jest": "~29.2.2",
     "tslib": "^2.6.3",
+    "typedoc": "^0.26.5",
+    "typedoc-plugin-markdown": "^4.2.3",
     "typescript": "^5.2.2",
     "typescript-plugin-css-modules": "^5.1.0"
   },
   "peerDependencies": {
+    "@aws-amplify/auth": "^6.0.2",
+    "@aws-amplify/ui-react": "^6.1.2",
+    "arquero": "^5.4.1",
+    "aws-amplify": "^6.0.2",
+    "axios": "^1.7.2",
+    "d3": "^7.9.0",
+    "d3-textwrap": "^3.0.0",
+    "html-to-image": "^1.11.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-markdown": "^9.0.1",
-    "react-map-gl": "^7.1.7"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{js,vue}",
-      "!src/modules/*.js",
-      "!src/plugins/*.js",
-      "!src/renv/*.js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/build",
-      "<rootDir>/dist",
-      "<rootDir>/node_modules",
-      "<rootDir>/src/modules",
-      "<rootDir>/src/renv",
-      "<rootDir>\\build",
-      "<rootDir>\\dist",
-      "<rootDir>\\node_modules",
-      "<rootDir>\\src\\modules",
-      "<rootDir>\\src\\renv"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ],
-    "modulePathIgnorePatterns": [
-      "build",
-      "dist",
-      "node_modules",
-      "modules",
-      "renv",
-      "/build/",
-      "/dist/",
-      "/node_modules/",
-      "/modules/",
-      "/renv/",
-      "<rootDir>/build",
-      "<rootDir>/dist",
-      "<rootDir>/node_modules",
-      "<rootDir>/src/modules",
-      "<rootDir>/src/renv",
-      "<rootDir>\\build",
-      "<rootDir>\\dist",
-      "<rootDir>\\node_modules",
-      "<rootDir>\\src\\modules",
-      "<rootDir>\\src\\renv"
-    ],
-    "testPathIgnorePatterns": [
-      "build",
-      "dist",
-      "node_modules",
-      "modules",
-      "renv",
-      "/build/",
-      "/dist/",
-      "/node_modules/",
-      "/modules/",
-      "/renv/",
-      "<rootDir>/build",
-      "<rootDir>/dist",
-      "<rootDir>/node_modules",
-      "<rootDir>/src/modules",
-      "<rootDir>/src/renv",
-      "<rootDir>\\build",
-      "<rootDir>\\dist",
-      "<rootDir>\\node_modules",
-      "<rootDir>\\src\\modules",
-      "<rootDir>\\src\\renv"
-    ],
-    "verbose": true
+    "react-map-gl": "^7.1.7",
+    "react-markdown": "^9.0.1"
   },
   "scripts": {
     "build": "rollup -c",
+    "build:docs": "typedoc --plugin typedoc-plugin-markdown --out ./docs lib/cori.data.api.ts",
     "build:r": "Rscript -e 'pkgbuild::clean_dll(); pkgbuild::compile_dll(); devtools::document(); devtools::check(); devtools::install();'",
     "tsc": "tsc --jsx react --resolveJsonModule",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "render:readme": "quarto render R/README.qmd --to gfm --output README.md",
     "type:check": "tsc --noEmit",
-    "test": "vitest",
-    "test:ui": "vitest --ui"
+    "test": "jest --no-cache",
+    "test:clean": "jest --clearCache"
   }
 }

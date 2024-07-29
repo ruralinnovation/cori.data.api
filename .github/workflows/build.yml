@@ -1,0 +1,45 @@
+name: Build library
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - 'dev/**'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Print GITHUB_TOKEN
+        run: echo ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Print GITHUB_WORKSPACE
+        run: echo ${GITHUB_WORKSPACE}
+
+      - name: Setup Node.js
+        uses: ./.github/workflows/node.js
+
+      - name: Build and test
+        run: |
+          npm install
+          npm run build
+          npm run test
+
+      - name: List outputs after build
+        run: |
+          ls -l "${GITHUB_WORKSPACE}/inst/dist"

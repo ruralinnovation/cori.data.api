@@ -1,0 +1,5 @@
+---
+title: "Frontend UI library for CORI Data API"
+---
+
+{{< include docs/README.md >}}
