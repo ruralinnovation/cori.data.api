@@ -1,0 +1,590 @@
+[
+  {
+    "objectID": "docs.bak/globals.html",
+    "href": "docs.bak/globals.html",
+    "title": "@cori-risi/cori.data.api",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs"
+  },
+  {
+    "objectID": "docs.bak/globals.html#variables",
+    "href": "docs.bak/globals.html#variables",
+    "title": "@cori-risi/cori.data.api",
+    "section": "Variables",
+    "text": "Variables\n\nAmplifyContext\nApiContext\ncoriLightMapStyle"
+  },
+  {
+    "objectID": "docs.bak/globals.html#functions",
+    "href": "docs.bak/globals.html#functions",
+    "title": "@cori-risi/cori.data.api",
+    "section": "Functions",
+    "text": "Functions\n\nAmplifyContextProvider\nApiContextProvider\nButton\nCategoricalLegend\nInput\nLabel\nLineChart\nhelloAnything"
+  },
+  {
+    "objectID": "docs.bak/functions/CategoricalLegend.html",
+    "href": "docs.bak/functions/CategoricalLegend.html",
+    "title": "Function: CategoricalLegend()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / CategoricalLegend"
+  },
+  {
+    "objectID": "docs.bak/functions/CategoricalLegend.html#parameters",
+    "href": "docs.bak/functions/CategoricalLegend.html#parameters",
+    "title": "Function: CategoricalLegend()",
+    "section": "Parameters",
+    "text": "Parameters\n• __namedParameters: CategoricalLegendProps"
+  },
+  {
+    "objectID": "docs.bak/functions/CategoricalLegend.html#returns",
+    "href": "docs.bak/functions/CategoricalLegend.html#returns",
+    "title": "Function: CategoricalLegend()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs.bak/functions/CategoricalLegend.html#defined-in",
+    "href": "docs.bak/functions/CategoricalLegend.html#defined-in",
+    "title": "Function: CategoricalLegend()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/components/CategoricalLegend.tsx:13"
+  },
+  {
+    "objectID": "docs.bak/functions/Button.html",
+    "href": "docs.bak/functions/Button.html",
+    "title": "Function: Button()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / Button"
+  },
+  {
+    "objectID": "docs.bak/functions/Button.html#parameters",
+    "href": "docs.bak/functions/Button.html#parameters",
+    "title": "Function: Button()",
+    "section": "Parameters",
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.onClick"
+  },
+  {
+    "objectID": "docs.bak/functions/Button.html#returns",
+    "href": "docs.bak/functions/Button.html#returns",
+    "title": "Function: Button()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs.bak/functions/Button.html#defined-in",
+    "href": "docs.bak/functions/Button.html#defined-in",
+    "title": "Function: Button()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/components/basic.tsx:8"
+  },
+  {
+    "objectID": "docs.bak/functions/AmplifyContextProvider.html",
+    "href": "docs.bak/functions/AmplifyContextProvider.html",
+    "title": "Function: AmplifyContextProvider()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / AmplifyContextProvider"
+  },
+  {
+    "objectID": "docs.bak/functions/AmplifyContextProvider.html#parameters",
+    "href": "docs.bak/functions/AmplifyContextProvider.html#parameters",
+    "title": "Function: AmplifyContextProvider()",
+    "section": "Parameters",
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.domain?: string\n• props.identityPoolId?: string\n• props.region?: string\n• props.userPoolClientId?: string\n• props.userPoolId?: string"
+  },
+  {
+    "objectID": "docs.bak/functions/AmplifyContextProvider.html#returns",
+    "href": "docs.bak/functions/AmplifyContextProvider.html#returns",
+    "title": "Function: AmplifyContextProvider()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs.bak/functions/AmplifyContextProvider.html#defined-in",
+    "href": "docs.bak/functions/AmplifyContextProvider.html#defined-in",
+    "title": "Function: AmplifyContextProvider()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/cotexts/AmplifyContextProvider.tsx:41"
+  },
+  {
+    "objectID": "docs.bak/functions/Label.html",
+    "href": "docs.bak/functions/Label.html",
+    "title": "Function: Label()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / Label"
+  },
+  {
+    "objectID": "docs.bak/functions/Label.html#parameters",
+    "href": "docs.bak/functions/Label.html#parameters",
+    "title": "Function: Label()",
+    "section": "Parameters",
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;"
+  },
+  {
+    "objectID": "docs.bak/functions/Label.html#returns",
+    "href": "docs.bak/functions/Label.html#returns",
+    "title": "Function: Label()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs.bak/functions/Label.html#defined-in",
+    "href": "docs.bak/functions/Label.html#defined-in",
+    "title": "Function: Label()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/components/basic.tsx:16"
+  },
+  {
+    "objectID": "docs.bak/variables/AmplifyContext.html",
+    "href": "docs.bak/variables/AmplifyContext.html",
+    "title": "Variable: AmplifyContext",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / AmplifyContext"
+  },
+  {
+    "objectID": "docs.bak/variables/AmplifyContext.html#defined-in",
+    "href": "docs.bak/variables/AmplifyContext.html#defined-in",
+    "title": "Variable: AmplifyContext",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/cotexts/AmplifyContextProvider.tsx:39"
+  },
+  {
+    "objectID": "docs.bak/index.html",
+    "href": "docs.bak/index.html",
+    "title": "Frontend UI library for CORI Data API",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n\n\n\nTip\nNote: This README file is generated from README.qmd in the “R” directory of this repo with the command npm run render:readme.\n\n\nThis is a set of components, contexts, and general functions for any web application that is intended to interact with the CORI Data API backend."
+  },
+  {
+    "objectID": "docs/globals.html",
+    "href": "docs/globals.html",
+    "title": "@cori-risi/cori.data.api",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs"
+  },
+  {
+    "objectID": "docs/globals.html#variables",
+    "href": "docs/globals.html#variables",
+    "title": "@cori-risi/cori.data.api",
+    "section": "Variables",
+    "text": "Variables\n\nAmplifyContext\nApiContext\ncoriLightMapStyle"
+  },
+  {
+    "objectID": "docs/globals.html#functions",
+    "href": "docs/globals.html#functions",
+    "title": "@cori-risi/cori.data.api",
+    "section": "Functions",
+    "text": "Functions\n\nAmplifyContextProvider\nApiContextProvider\nButton\nCategoricalLegend\nInput\nLabel\nLineChart\nhelloAnything"
+  },
+  {
+    "objectID": "docs/functions/CategoricalLegend.html",
+    "href": "docs/functions/CategoricalLegend.html",
+    "title": "Function: CategoricalLegend()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / CategoricalLegend"
+  },
+  {
+    "objectID": "docs/functions/CategoricalLegend.html#parameters",
+    "href": "docs/functions/CategoricalLegend.html#parameters",
+    "title": "Function: CategoricalLegend()",
+    "section": "Parameters",
+    "text": "Parameters\n• __namedParameters: CategoricalLegendProps"
+  },
+  {
+    "objectID": "docs/functions/CategoricalLegend.html#returns",
+    "href": "docs/functions/CategoricalLegend.html#returns",
+    "title": "Function: CategoricalLegend()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs/functions/CategoricalLegend.html#defined-in",
+    "href": "docs/functions/CategoricalLegend.html#defined-in",
+    "title": "Function: CategoricalLegend()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/components/CategoricalLegend.tsx:13"
+  },
+  {
+    "objectID": "docs/functions/Button.html",
+    "href": "docs/functions/Button.html",
+    "title": "Function: Button()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / Button"
+  },
+  {
+    "objectID": "docs/functions/Button.html#parameters",
+    "href": "docs/functions/Button.html#parameters",
+    "title": "Function: Button()",
+    "section": "Parameters",
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.onClick"
+  },
+  {
+    "objectID": "docs/functions/Button.html#returns",
+    "href": "docs/functions/Button.html#returns",
+    "title": "Function: Button()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs/functions/Button.html#defined-in",
+    "href": "docs/functions/Button.html#defined-in",
+    "title": "Function: Button()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/components/basic.tsx:8"
+  },
+  {
+    "objectID": "docs/functions/AmplifyContextProvider.html",
+    "href": "docs/functions/AmplifyContextProvider.html",
+    "title": "Function: AmplifyContextProvider()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / AmplifyContextProvider"
+  },
+  {
+    "objectID": "docs/functions/AmplifyContextProvider.html#parameters",
+    "href": "docs/functions/AmplifyContextProvider.html#parameters",
+    "title": "Function: AmplifyContextProvider()",
+    "section": "Parameters",
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.domain?: string\n• props.identityPoolId?: string\n• props.region?: string\n• props.userPoolClientId?: string\n• props.userPoolId?: string"
+  },
+  {
+    "objectID": "docs/functions/AmplifyContextProvider.html#returns",
+    "href": "docs/functions/AmplifyContextProvider.html#returns",
+    "title": "Function: AmplifyContextProvider()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs/functions/AmplifyContextProvider.html#defined-in",
+    "href": "docs/functions/AmplifyContextProvider.html#defined-in",
+    "title": "Function: AmplifyContextProvider()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/cotexts/AmplifyContextProvider.tsx:41"
+  },
+  {
+    "objectID": "docs/functions/Label.html",
+    "href": "docs/functions/Label.html",
+    "title": "Function: Label()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / Label"
+  },
+  {
+    "objectID": "docs/functions/Label.html#parameters",
+    "href": "docs/functions/Label.html#parameters",
+    "title": "Function: Label()",
+    "section": "Parameters",
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;"
+  },
+  {
+    "objectID": "docs/functions/Label.html#returns",
+    "href": "docs/functions/Label.html#returns",
+    "title": "Function: Label()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs/functions/Label.html#defined-in",
+    "href": "docs/functions/Label.html#defined-in",
+    "title": "Function: Label()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/components/basic.tsx:16"
+  },
+  {
+    "objectID": "docs/variables/AmplifyContext.html",
+    "href": "docs/variables/AmplifyContext.html",
+    "title": "Variable: AmplifyContext",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / AmplifyContext"
+  },
+  {
+    "objectID": "docs/variables/AmplifyContext.html#defined-in",
+    "href": "docs/variables/AmplifyContext.html#defined-in",
+    "title": "Variable: AmplifyContext",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/cotexts/AmplifyContextProvider.tsx:39"
+  },
+  {
+    "objectID": "docs/variables/ApiContext.html",
+    "href": "docs/variables/ApiContext.html",
+    "title": "Variable: ApiContext",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / ApiContext"
+  },
+  {
+    "objectID": "docs/variables/ApiContext.html#defined-in",
+    "href": "docs/variables/ApiContext.html#defined-in",
+    "title": "Variable: ApiContext",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:79"
+  },
+  {
+    "objectID": "docs/variables/coriLightMapStyle.html",
+    "href": "docs/variables/coriLightMapStyle.html",
+    "title": "Variable: coriLightMapStyle",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / coriLightMapStyle"
+  },
+  {
+    "objectID": "docs/variables/coriLightMapStyle.html#defined-in",
+    "href": "docs/variables/coriLightMapStyle.html#defined-in",
+    "title": "Variable: coriLightMapStyle",
+    "section": "Defined in",
+    "text": "Defined in\ncori.data.api.ts:25"
+  },
+  {
+    "objectID": "docs/functions/Input.html",
+    "href": "docs/functions/Input.html",
+    "title": "Function: Input()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / Input"
+  },
+  {
+    "objectID": "docs/functions/Input.html#parameters",
+    "href": "docs/functions/Input.html#parameters",
+    "title": "Function: Input()",
+    "section": "Parameters",
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;"
+  },
+  {
+    "objectID": "docs/functions/Input.html#returns",
+    "href": "docs/functions/Input.html#returns",
+    "title": "Function: Input()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs/functions/Input.html#defined-in",
+    "href": "docs/functions/Input.html#defined-in",
+    "title": "Function: Input()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/components/basic.tsx:12"
+  },
+  {
+    "objectID": "docs/functions/helloAnything.html",
+    "href": "docs/functions/helloAnything.html",
+    "title": "Function: helloAnything()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / helloAnything"
+  },
+  {
+    "objectID": "docs/functions/helloAnything.html#parameters",
+    "href": "docs/functions/helloAnything.html#parameters",
+    "title": "Function: helloAnything()",
+    "section": "Parameters",
+    "text": "Parameters\n• thing: string"
+  },
+  {
+    "objectID": "docs/functions/helloAnything.html#returns",
+    "href": "docs/functions/helloAnything.html#returns",
+    "title": "Function: helloAnything()",
+    "section": "Returns",
+    "text": "Returns\nstring"
+  },
+  {
+    "objectID": "docs/functions/helloAnything.html#defined-in",
+    "href": "docs/functions/helloAnything.html#defined-in",
+    "title": "Function: helloAnything()",
+    "section": "Defined in",
+    "text": "Defined in\ncori.data.api.ts:5"
+  },
+  {
+    "objectID": "docs/functions/ApiContextProvider.html",
+    "href": "docs/functions/ApiContextProvider.html",
+    "title": "Function: ApiContextProvider()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / ApiContextProvider"
+  },
+  {
+    "objectID": "docs/functions/ApiContextProvider.html#parameters",
+    "href": "docs/functions/ApiContextProvider.html#parameters",
+    "title": "Function: ApiContextProvider()",
+    "section": "Parameters",
+    "text": "Parameters\n• props\n• props.baseURL?: string\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.fetchAuthSession?: Function\n• props.getCurrentUser?: Function\n• props.signOut?: Function"
+  },
+  {
+    "objectID": "docs/functions/ApiContextProvider.html#returns",
+    "href": "docs/functions/ApiContextProvider.html#returns",
+    "title": "Function: ApiContextProvider()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs/functions/ApiContextProvider.html#defined-in",
+    "href": "docs/functions/ApiContextProvider.html#defined-in",
+    "title": "Function: ApiContextProvider()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:85"
+  },
+  {
+    "objectID": "docs/functions/LineChart.html",
+    "href": "docs/functions/LineChart.html",
+    "title": "Function: LineChart()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / LineChart"
+  },
+  {
+    "objectID": "docs/functions/LineChart.html#parameters",
+    "href": "docs/functions/LineChart.html#parameters",
+    "title": "Function: LineChart()",
+    "section": "Parameters",
+    "text": "Parameters\n• __namedParameters: LineChartProps"
+  },
+  {
+    "objectID": "docs/functions/LineChart.html#returns",
+    "href": "docs/functions/LineChart.html#returns",
+    "title": "Function: LineChart()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs/functions/LineChart.html#defined-in",
+    "href": "docs/functions/LineChart.html#defined-in",
+    "title": "Function: LineChart()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/components/LineChart.tsx:28"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Frontend UI library for CORI Data API",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n\n\n\nTip\nNote: This README file is generated from README.qmd in the “R” directory of this repo with the command npm run render:readme.\n\n\nThis is a set of components, contexts, and general functions for any web application that is intended to interact with the CORI Data API backend (including GraphQL, Rest, and S3 resources)."
+  },
+  {
+    "objectID": "docs.bak/variables/ApiContext.html",
+    "href": "docs.bak/variables/ApiContext.html",
+    "title": "Variable: ApiContext",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / ApiContext"
+  },
+  {
+    "objectID": "docs.bak/variables/ApiContext.html#defined-in",
+    "href": "docs.bak/variables/ApiContext.html#defined-in",
+    "title": "Variable: ApiContext",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:79"
+  },
+  {
+    "objectID": "docs.bak/variables/coriLightMapStyle.html",
+    "href": "docs.bak/variables/coriLightMapStyle.html",
+    "title": "Variable: coriLightMapStyle",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / coriLightMapStyle"
+  },
+  {
+    "objectID": "docs.bak/variables/coriLightMapStyle.html#defined-in",
+    "href": "docs.bak/variables/coriLightMapStyle.html#defined-in",
+    "title": "Variable: coriLightMapStyle",
+    "section": "Defined in",
+    "text": "Defined in\ncori.data.api.ts:25"
+  },
+  {
+    "objectID": "docs.bak/functions/Input.html",
+    "href": "docs.bak/functions/Input.html",
+    "title": "Function: Input()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / Input"
+  },
+  {
+    "objectID": "docs.bak/functions/Input.html#parameters",
+    "href": "docs.bak/functions/Input.html#parameters",
+    "title": "Function: Input()",
+    "section": "Parameters",
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;"
+  },
+  {
+    "objectID": "docs.bak/functions/Input.html#returns",
+    "href": "docs.bak/functions/Input.html#returns",
+    "title": "Function: Input()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs.bak/functions/Input.html#defined-in",
+    "href": "docs.bak/functions/Input.html#defined-in",
+    "title": "Function: Input()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/components/basic.tsx:12"
+  },
+  {
+    "objectID": "docs.bak/functions/helloAnything.html",
+    "href": "docs.bak/functions/helloAnything.html",
+    "title": "Function: helloAnything()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / helloAnything"
+  },
+  {
+    "objectID": "docs.bak/functions/helloAnything.html#parameters",
+    "href": "docs.bak/functions/helloAnything.html#parameters",
+    "title": "Function: helloAnything()",
+    "section": "Parameters",
+    "text": "Parameters\n• thing: string"
+  },
+  {
+    "objectID": "docs.bak/functions/helloAnything.html#returns",
+    "href": "docs.bak/functions/helloAnything.html#returns",
+    "title": "Function: helloAnything()",
+    "section": "Returns",
+    "text": "Returns\nstring"
+  },
+  {
+    "objectID": "docs.bak/functions/helloAnything.html#defined-in",
+    "href": "docs.bak/functions/helloAnything.html#defined-in",
+    "title": "Function: helloAnything()",
+    "section": "Defined in",
+    "text": "Defined in\ncori.data.api.ts:5"
+  },
+  {
+    "objectID": "docs.bak/functions/ApiContextProvider.html",
+    "href": "docs.bak/functions/ApiContextProvider.html",
+    "title": "Function: ApiContextProvider()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / ApiContextProvider"
+  },
+  {
+    "objectID": "docs.bak/functions/ApiContextProvider.html#parameters",
+    "href": "docs.bak/functions/ApiContextProvider.html#parameters",
+    "title": "Function: ApiContextProvider()",
+    "section": "Parameters",
+    "text": "Parameters\n• props\n• props.baseURL?: string\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.fetchAuthSession?: Function\n• props.getCurrentUser?: Function\n• props.signOut?: Function"
+  },
+  {
+    "objectID": "docs.bak/functions/ApiContextProvider.html#returns",
+    "href": "docs.bak/functions/ApiContextProvider.html#returns",
+    "title": "Function: ApiContextProvider()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs.bak/functions/ApiContextProvider.html#defined-in",
+    "href": "docs.bak/functions/ApiContextProvider.html#defined-in",
+    "title": "Function: ApiContextProvider()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:85"
+  },
+  {
+    "objectID": "docs.bak/functions/LineChart.html",
+    "href": "docs.bak/functions/LineChart.html",
+    "title": "Function: LineChart()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api • Docs\n@cori-risi/cori.data.api / LineChart"
+  },
+  {
+    "objectID": "docs.bak/functions/LineChart.html#parameters",
+    "href": "docs.bak/functions/LineChart.html#parameters",
+    "title": "Function: LineChart()",
+    "section": "Parameters",
+    "text": "Parameters\n• __namedParameters: LineChartProps"
+  },
+  {
+    "objectID": "docs.bak/functions/LineChart.html#returns",
+    "href": "docs.bak/functions/LineChart.html#returns",
+    "title": "Function: LineChart()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs.bak/functions/LineChart.html#defined-in",
+    "href": "docs.bak/functions/LineChart.html#defined-in",
+    "title": "Function: LineChart()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/components/LineChart.tsx:28"
+  }
+]
