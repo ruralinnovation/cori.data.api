@@ -2,11 +2,10 @@
  * @jest-environment jsdom
  */
 import * as React from "react";
-import { helloAnything } from "../lib/cori.data.api";
 import { createRoot } from "react-dom/client";
 
-let container = null;
-let root = null;
+let container: HTMLElement | null = null;
+// let root = null;
 
 beforeEach(() => {
     // setup a DOM element as a render target
@@ -19,8 +18,10 @@ beforeEach(() => {
 afterEach(() => {
     // cleanup on exiting
     // root.unmount();
-    container.remove();
-    container = null;
+    if (container !== null) {
+        container.remove();
+        container = null;
+    }
 });
 
 describe("jsdom ", () => {

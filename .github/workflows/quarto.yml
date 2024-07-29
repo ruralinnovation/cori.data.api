@@ -1,4 +1,4 @@
-name: Quarto Publish
+name: Quarto publish docs
 
 on:
   workflow_dispatch:
@@ -41,13 +41,25 @@ jobs:
       - name: Print GITHUB_WORKSPACE
         run: echo ${GITHUB_WORKSPACE}
 
-#      - name: Render and Publish
-#        uses: quarto-dev/quarto-actions/publish@v2
-#        with:
-#          target: gh-pages
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Node.js
+        uses: ./.github/workflows/node.js
 
-#      - name: List outputs after quarto render
-#        run: |
-#          ls -l "${GITHUB_WORKSPACE}/_site"
+      - name: Build and test
+        run: |
+          npm install
+          npm run build:docs
+
+      - name: List outputs after build docs
+        run: |
+          ls -l "${GITHUB_WORKSPACE}/docs"
+
+      - name: Render and Publish
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: List outputs after quarto render
+        run: |
+          ls -l "${GITHUB_WORKSPACE}/_site"

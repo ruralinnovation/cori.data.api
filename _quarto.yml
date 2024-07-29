@@ -1,0 +1,34 @@
+project:
+  type: website
+
+website:
+  title: "@cori-risi/cori.data.api"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: docs/globals.md
+        text: Reference
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "React components"
+        contents:
+          - docs/functions/Button.md
+          - docs/functions/CategoricalLegend.md
+      - section: "React contexts"
+        contents:
+          - docs/functions/AmplifyContextProvider.md
+          - docs/functions/ApiContextProvider.md
+      - section: "Mapbox styles"
+        contents:
+          - docs/variables/coriLightMapStyle.md
+
+format:
+  html:
+    theme:
+      - cosmo
+#      - src/custom.scss
+#    css: src/styles.css
+#    toc: true

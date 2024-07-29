@@ -26,6 +26,7 @@
     "@types/d3": "^7.4.3",
     "@types/jest": "^29.5.12",
     "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.19",
     "identity-obj-proxy": "^3.0.0",
     "jest-environment-jsdom": "^29.7.0",
@@ -39,6 +40,8 @@
     "rollup-plugin-typescript2": "^0.36.0",
     "ts-jest": "~29.2.2",
     "tslib": "^2.6.3",
+    "typedoc": "^0.26.5",
+    "typedoc-plugin-markdown": "^4.2.3",
     "typescript": "^5.2.2",
     "typescript-plugin-css-modules": "^5.1.0"
   },
@@ -58,6 +61,7 @@
   },
   "scripts": {
     "build": "rollup -c",
+    "build:docs": "typedoc --plugin typedoc-plugin-markdown --out ./docs lib/cori.data.api.ts",
     "build:r": "Rscript -e 'pkgbuild::clean_dll(); pkgbuild::compile_dll(); devtools::document(); devtools::check(); devtools::install();'",
     "tsc": "tsc --jsx react --resolveJsonModule",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",

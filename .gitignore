@@ -19,6 +19,7 @@ node_modules/
 !.vscode/extensions.json
 .idea
 .DS_Store
+*.bak
 *.suo
 *.ntvs*
 *.njsproj
@@ -28,3 +29,7 @@ graphql.config.yml
 
 inst/dist/_virtual/
 inst/dist/lib/
+
+/.obsidian/
+/.quarto/
+/_site/
