@@ -1,0 +1,6 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./lib/cori.data.api.ts"],
+  "out": "docs",
+  "plugin": ["typedoc-plugin-markdown"]
+}

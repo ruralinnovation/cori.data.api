@@ -1,7 +1,14 @@
 project:
   type: website
+  pre-render:
+    - 'echo "TODO: use cli tools to remove lines containing @cori-risi... from every markdown in docs"'
+    - sed -i.bak "/@cori-risi/d" ./docs/README.md
+    - sed -i.bak "/@cori-risi/d" ./docs/globals.md
+    - sed -i.bak "/@cori-risi/d" ./docs/functions/*.md
+    - sed -i.bak "/@cori-risi/d" ./docs/variables/*.md
 
 website:
+  site-url: https://ruralinnovation.github.io/cori.data.api
   title: "@cori-risi/cori.data.api"
   navbar:
     left:
