@@ -62,7 +62,7 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "build:docs": "typedoc && sed -i.bak \"/@cori-risi/d\" ./docs/README.md && sed -i.bak '/**@cori-risi/d' ./docs/**.md && sed -i.bak '/**@cori-risi/d' ./docs/**/*.md",
+    "build:docs": "typedoc && sed -i.bak \"/@cori-risi/d\" ./docs/README.md && sed -i.bak '/\\*\\*@cori-risi/d' ./docs/**.md && sed -i.bak '/\\*\\*@cori-risi/d' ./docs/**/*.md",
     "build:r": "Rscript -e 'pkgbuild::clean_dll(); pkgbuild::compile_dll(); devtools::document(); devtools::check(); devtools::install();'",
     "tsc": "tsc --jsx react --resolveJsonModule",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -71,6 +71,6 @@
     "type:check": "tsc --noEmit",
     "test": "jest --no-cache",
     "test:clean": "jest --clearCache",
-    "view:docs": "quarto render && python -m http.server -d _site 3000"
+    "view:docs": "npm run render:docs && python -m http.server -d _site 3000"
   }
 }
