@@ -15,7 +15,8 @@ format:
 > **Tip**
 >
 > *Note: This README file is generated from [`README.qmd`](R/README.qmd)
-> in the “R” directory of this repo.*
+> in the “R” directory of this repo with the command
+> `npm run render:readme`.*
 
 </div>
 
