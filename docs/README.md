@@ -14,4 +14,4 @@
 This is a set of components, contexts, and general functions for any web
 application that is intended to interact with the
 <a href="https://github.com/ruralinnovation/cori-data-api"
-target="_blank">CORI Data API</a> backend (including GraphQL, Rest, and S3 resources).
+target="_blank">CORI Data API</a> backend.
