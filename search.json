@@ -55,51 +55,51 @@
     ]
   },
   {
-    "objectID": "docs/functions/LineChart.html",
-    "href": "docs/functions/LineChart.html",
-    "title": "Function: LineChart()",
+    "objectID": "docs/functions/AmplifyContextProvider.html",
+    "href": "docs/functions/AmplifyContextProvider.html",
+    "title": "Function: AmplifyContextProvider()",
     "section": "",
-    "text": "@cori-risi/cori.data.api / LineChart",
+    "text": "@cori-risi/cori.data.api / AmplifyContextProvider",
     "crumbs": [
       "Home",
-      "React components",
-      "Function: LineChart()"
+      "React contexts",
+      "Function: AmplifyContextProvider()"
     ]
   },
   {
-    "objectID": "docs/functions/LineChart.html#parameters",
-    "href": "docs/functions/LineChart.html#parameters",
-    "title": "Function: LineChart()",
+    "objectID": "docs/functions/AmplifyContextProvider.html#parameters",
+    "href": "docs/functions/AmplifyContextProvider.html#parameters",
+    "title": "Function: AmplifyContextProvider()",
     "section": "Parameters",
-    "text": "Parameters\n• __namedParameters: LineChartProps",
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.domain?: string\ndomain for the Cognito Hosted UI and/or OAuth 2.0 endpoints\n• props.identityPoolId?: string\nCognito Identity pool ID\n• props.region?: string\nAWS region where Cognito service is hosted\n• props.userPoolClientId?: string\nACognito User pool App client ID (App clients are the user pool authentication resources attached to your app).\n• props.userPoolId?: string\nCognito User pool ID",
     "crumbs": [
       "Home",
-      "React components",
-      "Function: LineChart()"
+      "React contexts",
+      "Function: AmplifyContextProvider()"
     ]
   },
   {
-    "objectID": "docs/functions/LineChart.html#returns",
-    "href": "docs/functions/LineChart.html#returns",
-    "title": "Function: LineChart()",
+    "objectID": "docs/functions/AmplifyContextProvider.html#returns",
+    "href": "docs/functions/AmplifyContextProvider.html#returns",
+    "title": "Function: AmplifyContextProvider()",
     "section": "Returns",
     "text": "Returns\nElement",
     "crumbs": [
       "Home",
-      "React components",
-      "Function: LineChart()"
+      "React contexts",
+      "Function: AmplifyContextProvider()"
     ]
   },
   {
-    "objectID": "docs/functions/LineChart.html#defined-in",
-    "href": "docs/functions/LineChart.html#defined-in",
-    "title": "Function: LineChart()",
+    "objectID": "docs/functions/AmplifyContextProvider.html#defined-in",
+    "href": "docs/functions/AmplifyContextProvider.html#defined-in",
+    "title": "Function: AmplifyContextProvider()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/LineChart.tsx:28",
+    "text": "Defined in\n@cori-risi/cotexts/AmplifyContextProvider.tsx:65",
     "crumbs": [
       "Home",
-      "React components",
-      "Function: LineChart()"
+      "React contexts",
+      "Function: AmplifyContextProvider()"
     ]
   },
   {
@@ -243,7 +243,7 @@
     "href": "docs/variables/coriLightMapStyle.html#defined-in",
     "title": "Variable: coriLightMapStyle",
     "section": "Defined in",
-    "text": "Defined in\ncori.data.api.ts:25",
+    "text": "Defined in\ncori.data.api.ts:27",
     "crumbs": [
       "Home",
       "Mapbox styles",
@@ -262,7 +262,7 @@
     "href": "docs/globals.html#functions",
     "title": "@cori-risi/cori.data.api",
     "section": "Functions",
-    "text": "Functions\n\nAmplifyContextProvider\nApiContextProvider\nButton\nCategoricalLegend\nInput\nLabel\nLineChart\nhelloAnything"
+    "text": "Functions\n\nAmplifyContextProvider\nApiContextProvider\nButton\nCategoricalLegend\nGeocoderControl\nInput\nLabel\nhelloAnything"
   },
   {
     "objectID": "docs/functions/ApiContextProvider.html",
@@ -313,52 +313,32 @@
     ]
   },
   {
-    "objectID": "docs/functions/AmplifyContextProvider.html",
-    "href": "docs/functions/AmplifyContextProvider.html",
-    "title": "Function: AmplifyContextProvider()",
+    "objectID": "docs/functions/GeocoderControl.html",
+    "href": "docs/functions/GeocoderControl.html",
+    "title": "Function: GeocoderControl()",
     "section": "",
-    "text": "@cori-risi/cori.data.api / AmplifyContextProvider",
-    "crumbs": [
-      "Home",
-      "React contexts",
-      "Function: AmplifyContextProvider()"
-    ]
+    "text": "@cori-risi/cori.data.api / GeocoderControl"
   },
   {
-    "objectID": "docs/functions/AmplifyContextProvider.html#parameters",
-    "href": "docs/functions/AmplifyContextProvider.html#parameters",
-    "title": "Function: AmplifyContextProvider()",
+    "objectID": "docs/functions/GeocoderControl.html#parameters",
+    "href": "docs/functions/GeocoderControl.html#parameters",
+    "title": "Function: GeocoderControl()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.domain?: string\ndomain for the Cognito Hosted UI and/or OAuth 2.0 endpoints\n• props.identityPoolId?: string\nCognito Identity pool ID\n• props.region?: string\nAWS region where Cognito service is hosted\n• props.userPoolClientId?: string\nACognito User pool App client ID (App clients are the user pool authentication resources attached to your app).\n• props.userPoolId?: string\nCognito User pool ID",
-    "crumbs": [
-      "Home",
-      "React contexts",
-      "Function: AmplifyContextProvider()"
-    ]
+    "text": "Parameters\n• props: GeocoderControlProps"
   },
   {
-    "objectID": "docs/functions/AmplifyContextProvider.html#returns",
-    "href": "docs/functions/AmplifyContextProvider.html#returns",
-    "title": "Function: AmplifyContextProvider()",
+    "objectID": "docs/functions/GeocoderControl.html#returns",
+    "href": "docs/functions/GeocoderControl.html#returns",
+    "title": "Function: GeocoderControl()",
     "section": "Returns",
-    "text": "Returns\nElement",
-    "crumbs": [
-      "Home",
-      "React contexts",
-      "Function: AmplifyContextProvider()"
-    ]
+    "text": "Returns\nnull"
   },
   {
-    "objectID": "docs/functions/AmplifyContextProvider.html#defined-in",
-    "href": "docs/functions/AmplifyContextProvider.html#defined-in",
-    "title": "Function: AmplifyContextProvider()",
+    "objectID": "docs/functions/GeocoderControl.html#defined-in",
+    "href": "docs/functions/GeocoderControl.html#defined-in",
+    "title": "Function: GeocoderControl()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/cotexts/AmplifyContextProvider.tsx:65",
-    "crumbs": [
-      "Home",
-      "React contexts",
-      "Function: AmplifyContextProvider()"
-    ]
+    "text": "Defined in\n@cori-risi/components/GeocoderControl.tsx:19"
   },
   {
     "objectID": "docs/functions/helloAnything.html",
