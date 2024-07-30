@@ -4,7 +4,7 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-import React from 'react';
+import React__default from 'react';
 import style from './styles/CategoricalLegend.module.css.js';
 
 function CategoricalLegend({ domain, domain_names, range, title, scale, na_message = "N/A" }) {
@@ -17,22 +17,22 @@ function CategoricalLegend({ domain, domain_names, range, title, scale, na_messa
                 if (typeof range[i] === "string") {
                     const color = range[i];
                     if (!!domain_names) {
-                        rows.push(React.createElement("div", { className: style["entry"], key: i },
-                            React.createElement("div", { className: style["key"], style: {
+                        rows.push(React__default.createElement("div", { className: style["entry"], key: i },
+                            React__default.createElement("div", { className: style["key"], style: {
                                     backgroundColor: color
                                 } }),
                             (!!domain_names) ?
-                                React.createElement("p", null, domain_names[i] || domain[i]) :
-                                React.createElement("p", null)));
+                                React__default.createElement("p", null, domain_names[i] || domain[i]) :
+                                React__default.createElement("p", null)));
                     }
                 }
             }
         }
-        return (React.createElement("div", { className: style["categorical-legend"] }, rows));
+        return (React__default.createElement("div", { className: style["categorical-legend"] }, rows));
     }
     else {
-        return (React.createElement("div", { className: style["categorical-legend"] },
-            React.createElement("span", null, "CategoricalLegend")));
+        return (React__default.createElement("div", { className: style["categorical-legend"] },
+            React__default.createElement("span", null, "CategoricalLegend")));
     }
 }
 

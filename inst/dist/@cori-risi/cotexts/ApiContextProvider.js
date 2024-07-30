@@ -4,7 +4,7 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-import React, { createContext, useState, useEffect } from 'react';
+import React__default, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 const BASE_URL = "http://localhost:8000"; // `${import.meta.env.VITE_CORI_DATA_API}`;
@@ -149,8 +149,8 @@ function ApiContextProvider(props) {
             });
         }
     }, []);
-    return (React.createElement(React.Fragment, null,
-        React.createElement(ApiContext.Provider, { value: state }, props.children)));
+    return (React__default.createElement(React__default.Fragment, null,
+        React__default.createElement(ApiContext.Provider, { value: state }, props.children)));
 }
 
 export { ApiContext, ApiContextProvider as default };
