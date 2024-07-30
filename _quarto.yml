@@ -19,7 +19,10 @@ website:
       - section: "React components"
         contents:
           - docs/functions/Button.md
+          - docs/functions/Input.md
+          - docs/functions/Label.md
           - docs/functions/CategoricalLegend.md
+          - docs/functions/LineChart.md
       - section: "React contexts"
         contents:
           - docs/functions/AmplifyContextProvider.md
