@@ -11,84 +11,144 @@
     "href": "docs/functions/Label.html",
     "title": "Function: Label()",
     "section": "",
-    "text": "@cori-risi/cori.data.api / Label"
+    "text": "@cori-risi/cori.data.api / Label",
+    "crumbs": [
+      "Home",
+      "React components",
+      "Function: Label()"
+    ]
   },
   {
     "objectID": "docs/functions/Label.html#parameters",
     "href": "docs/functions/Label.html#parameters",
     "title": "Function: Label()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;"
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;",
+    "crumbs": [
+      "Home",
+      "React components",
+      "Function: Label()"
+    ]
   },
   {
     "objectID": "docs/functions/Label.html#returns",
     "href": "docs/functions/Label.html#returns",
     "title": "Function: Label()",
     "section": "Returns",
-    "text": "Returns\nElement"
+    "text": "Returns\nElement",
+    "crumbs": [
+      "Home",
+      "React components",
+      "Function: Label()"
+    ]
   },
   {
     "objectID": "docs/functions/Label.html#defined-in",
     "href": "docs/functions/Label.html#defined-in",
     "title": "Function: Label()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/basic.tsx:16"
+    "text": "Defined in\n@cori-risi/components/basic.tsx:43",
+    "crumbs": [
+      "Home",
+      "React components",
+      "Function: Label()"
+    ]
   },
   {
     "objectID": "docs/functions/LineChart.html",
     "href": "docs/functions/LineChart.html",
     "title": "Function: LineChart()",
     "section": "",
-    "text": "@cori-risi/cori.data.api / LineChart"
+    "text": "@cori-risi/cori.data.api / LineChart",
+    "crumbs": [
+      "Home",
+      "React components",
+      "Function: LineChart()"
+    ]
   },
   {
     "objectID": "docs/functions/LineChart.html#parameters",
     "href": "docs/functions/LineChart.html#parameters",
     "title": "Function: LineChart()",
     "section": "Parameters",
-    "text": "Parameters\n• __namedParameters: LineChartProps"
+    "text": "Parameters\n• __namedParameters: LineChartProps",
+    "crumbs": [
+      "Home",
+      "React components",
+      "Function: LineChart()"
+    ]
   },
   {
     "objectID": "docs/functions/LineChart.html#returns",
     "href": "docs/functions/LineChart.html#returns",
     "title": "Function: LineChart()",
     "section": "Returns",
-    "text": "Returns\nElement"
+    "text": "Returns\nElement",
+    "crumbs": [
+      "Home",
+      "React components",
+      "Function: LineChart()"
+    ]
   },
   {
     "objectID": "docs/functions/LineChart.html#defined-in",
     "href": "docs/functions/LineChart.html#defined-in",
     "title": "Function: LineChart()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/LineChart.tsx:28"
+    "text": "Defined in\n@cori-risi/components/LineChart.tsx:28",
+    "crumbs": [
+      "Home",
+      "React components",
+      "Function: LineChart()"
+    ]
   },
   {
     "objectID": "docs/functions/Input.html",
     "href": "docs/functions/Input.html",
     "title": "Function: Input()",
     "section": "",
-    "text": "@cori-risi/cori.data.api / Input"
+    "text": "@cori-risi/cori.data.api / Input",
+    "crumbs": [
+      "Home",
+      "React components",
+      "Function: Input()"
+    ]
   },
   {
     "objectID": "docs/functions/Input.html#parameters",
     "href": "docs/functions/Input.html#parameters",
     "title": "Function: Input()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;"
+    "text": "Parameters\n• props\n• props.checked: boolean\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.onChange?: ChangeEventHandler&lt;HTMLInputElement&gt;\n• props.type: string",
+    "crumbs": [
+      "Home",
+      "React components",
+      "Function: Input()"
+    ]
   },
   {
     "objectID": "docs/functions/Input.html#returns",
     "href": "docs/functions/Input.html#returns",
     "title": "Function: Input()",
     "section": "Returns",
-    "text": "Returns\nElement"
+    "text": "Returns\nElement",
+    "crumbs": [
+      "Home",
+      "React components",
+      "Function: Input()"
+    ]
   },
   {
     "objectID": "docs/functions/Input.html#defined-in",
     "href": "docs/functions/Input.html#defined-in",
     "title": "Function: Input()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/basic.tsx:12"
+    "text": "Defined in\n@cori-risi/components/basic.tsx:31",
+    "crumbs": [
+      "Home",
+      "React components",
+      "Function: Input()"
+    ]
   },
   {
     "objectID": "docs/functions/Button.html",
@@ -131,7 +191,7 @@
     "href": "docs/functions/Button.html#defined-in",
     "title": "Function: Button()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/basic.tsx:8",
+    "text": "Defined in\n@cori-risi/components/basic.tsx:18",
     "crumbs": [
       "Home",
       "React components",
@@ -269,7 +329,7 @@
     "href": "docs/functions/AmplifyContextProvider.html#parameters",
     "title": "Function: AmplifyContextProvider()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.domain?: string\n• props.identityPoolId?: string\n• props.region?: string\n• props.userPoolClientId?: string\n• props.userPoolId?: string",
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.domain?: string\ndomain for the Cognito Hosted UI and/or OAuth 2.0 endpoints\n• props.identityPoolId?: string\nCognito Identity pool ID\n• props.region?: string\nAWS region where Cognito service is hosted\n• props.userPoolClientId?: string\nACognito User pool App client ID (App clients are the user pool authentication resources attached to your app).\n• props.userPoolId?: string\nCognito User pool ID",
     "crumbs": [
       "Home",
       "React contexts",
@@ -293,7 +353,7 @@
     "href": "docs/functions/AmplifyContextProvider.html#defined-in",
     "title": "Function: AmplifyContextProvider()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/cotexts/AmplifyContextProvider.tsx:41",
+    "text": "Defined in\n@cori-risi/cotexts/AmplifyContextProvider.tsx:65",
     "crumbs": [
       "Home",
       "React contexts",

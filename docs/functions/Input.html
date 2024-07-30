@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -106,7 +140,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../docs/functions/Button.html">React components</a></li><li class="breadcrumb-item"><a href="../../docs/functions/Input.html">Function: Input()</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -143,8 +177,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../docs/functions/Input.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Function: Input()</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../docs/functions/Label.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Function: Label()</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../docs/functions/CategoricalLegend.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Function: CategoricalLegend()</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../docs/functions/LineChart.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Function: LineChart()</span></a>
   </div>
 </li>
       </ul>
@@ -208,10 +260,17 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p><strong>Input</strong>(<code>props</code>): <code>Element</code></p>
 </blockquote>
+<p>This comment <em>supports</em> <a href="https://www.markdownguide.org/">Markdown</a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ts code-with-copy"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>Input checked<span class="op">=</span>{served}</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>       onChange<span class="op">=</span>{() <span class="kw">=&gt;</span> <span class="fu">checkServed</span>(<span class="op">!</span>served)}</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>       <span class="kw">type</span><span class="op">=</span><span class="st">"checkbox"</span> <span class="op">/&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="parameters" class="level2">
 <h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
 <p>• <strong>props</strong></p>
+<p>• <strong>props.checked</strong>: <code>boolean</code></p>
 <p>• <strong>props.children?</strong>: <code>ReactElement</code>&lt;<code>any</code>, <code>string</code> | <code>JSXElementConstructor</code>&lt;<code>any</code>&gt;&gt;</p>
+<p>• <strong>props.onChange?</strong>: <code>ChangeEventHandler</code>&lt;<code>HTMLInputElement</code>&gt;</p>
+<p>• <strong>props.type</strong>: <code>string</code></p>
 </section>
 <section id="returns" class="level2">
 <h2 class="anchored" data-anchor-id="returns">Returns</h2>
@@ -219,7 +278,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="defined-in" class="level2">
 <h2 class="anchored" data-anchor-id="defined-in">Defined in</h2>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/caf1fda2558fbe36d4408303541f4c51d21c6225/lib/@cori-risi/components/basic.tsx#L12"><span class="citation" data-cites="cori-risi/components/basic.tsx:12">@cori-risi/components/basic.tsx:12</span></a></p>
+<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/848b89f8063a8d0ce737f61fd1125ae73daac5d8/lib/@cori-risi/components/basic.tsx#L31"><span class="citation" data-cites="cori-risi/components/basic.tsx:31">@cori-risi/components/basic.tsx:31</span></a></p>
 
 
 </section>

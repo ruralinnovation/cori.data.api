@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -143,8 +177,26 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../docs/functions/Input.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Function: Input()</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../docs/functions/Label.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Function: Label()</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../docs/functions/CategoricalLegend.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Function: CategoricalLegend()</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../docs/functions/LineChart.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Function: LineChart()</span></a>
   </div>
 </li>
       </ul>
@@ -208,15 +260,28 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p><strong>AmplifyContextProvider</strong>(<code>props</code>): <code>Element</code></p>
 </blockquote>
+<p>This component provides the Amplify configuration context to an Amplify app, which is particularly useful to one that requires authentication in order to access the CORI Data API. Other than the children prop, the parameters are <a href="https://us-east-1.console.aws.amazon.com/cognito/v2/home?region=us-east-1" target="_blank">AWS Cognito</a> values, passed so that the Amplify configuration method can use the specified User pool and Identity pool to authenticate users (including the <code>cori-risi-public</code> user).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ts code-with-copy"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>AmplifyContextProvider domain<span class="op">=</span>{import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">env</span><span class="op">.</span><span class="at">VITE_COGNITO_DOMAIN</span>}</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                        region<span class="op">=</span>{import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">env</span><span class="op">.</span><span class="at">VITE_REGION</span>}</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                        identityPoolId<span class="op">=</span>{import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">env</span><span class="op">.</span><span class="at">VITE_IDENTITY_POOL_ID</span>}</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                        userPoolId<span class="op">=</span>{import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">env</span><span class="op">.</span><span class="at">VITE_USER_POOL_ID</span>}</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                        userPoolClientId<span class="op">=</span>{import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">env</span><span class="op">.</span><span class="at">VITE_USER_POOL_CLIENT_ID</span>} <span class="op">&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>App <span class="op">/&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>AmplifyContextProvider<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="parameters" class="level2">
 <h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
 <p>• <strong>props</strong></p>
 <p>• <strong>props.children?</strong>: <code>ReactElement</code>&lt;<code>any</code>, <code>string</code> | <code>JSXElementConstructor</code>&lt;<code>any</code>&gt;&gt;</p>
 <p>• <strong>props.domain?</strong>: <code>string</code></p>
+<p>domain for the Cognito Hosted UI and/or OAuth 2.0 endpoints</p>
 <p>• <strong>props.identityPoolId?</strong>: <code>string</code></p>
+<p>Cognito Identity pool ID</p>
 <p>• <strong>props.region?</strong>: <code>string</code></p>
+<p>AWS region where Cognito service is hosted</p>
 <p>• <strong>props.userPoolClientId?</strong>: <code>string</code></p>
+<p>ACognito User pool App client ID (App clients are the user pool authentication resources attached to your app).</p>
 <p>• <strong>props.userPoolId?</strong>: <code>string</code></p>
+<p>Cognito User pool ID</p>
 </section>
 <section id="returns" class="level2">
 <h2 class="anchored" data-anchor-id="returns">Returns</h2>
@@ -224,7 +289,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="defined-in" class="level2">
 <h2 class="anchored" data-anchor-id="defined-in">Defined in</h2>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/caf1fda2558fbe36d4408303541f4c51d21c6225/lib/@cori-risi/cotexts/AmplifyContextProvider.tsx#L41"><span class="citation" data-cites="cori-risi/cotexts/AmplifyContextProvider.tsx:41">@cori-risi/cotexts/AmplifyContextProvider.tsx:41</span></a></p>
+<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/848b89f8063a8d0ce737f61fd1125ae73daac5d8/lib/@cori-risi/cotexts/AmplifyContextProvider.tsx#L65"><span class="citation" data-cites="cori-risi/cotexts/AmplifyContextProvider.tsx:65">@cori-risi/cotexts/AmplifyContextProvider.tsx:65</span></a></p>
 
 
 </section>
