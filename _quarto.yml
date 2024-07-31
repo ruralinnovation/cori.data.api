@@ -12,6 +12,8 @@ website:
         text: Home
       - href: docs/globals.md
         text: Reference
+      - icon: github
+        href: https://github.com/ruralinnovation/cori.data.api
   sidebar:
     style: "docked"
     search: true
@@ -22,7 +24,8 @@ website:
           - docs/functions/Input.md
           - docs/functions/Label.md
           - docs/functions/CategoricalLegend.md
-          - docs/functions/LineChart.md
+          - docs/functions/GeocoderControl.md
+#          - docs/functions/LineChart.md
       - section: "React contexts"
         contents:
           - docs/functions/AmplifyContextProvider.md
@@ -34,7 +37,13 @@ website:
 format:
   html:
     theme:
-      - cosmo
-#      - src/custom.scss
-#    css: src/styles.css
-#    toc: true
+      - minty
+    css: assets/fonts.css
+    fontcolor: "#121E22"
+    linkcolor: "#00835D"
+    mainfont: "Bitter"
+    grid:
+      sidebar-width: 250px
+      body-width: 1100px
+      margin-width: 250px
+    toc: true

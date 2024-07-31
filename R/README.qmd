@@ -1,5 +1,5 @@
 ---
-title: "Frontend React UI library for CORI Data API"
+title: "Frontend UI library for the CORI Data API"
 execute:
   echo: true
   output: true
