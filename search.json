@@ -2,7 +2,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Frontend UI library for CORI Data API",
+    "title": "Frontend UI library for the CORI Data API",
     "section": "",
     "text": "Tip\nNote: This README file is generated from README.qmd in the “R” directory of this repo with the command npm run render:readme.\n\n\nThis is a set of components, contexts, and general functions for any web application that is intended to interact with the CORI Data API backend (including GraphQL, Rest, and S3 resources)."
   },
@@ -317,28 +317,48 @@
     "href": "docs/functions/GeocoderControl.html",
     "title": "Function: GeocoderControl()",
     "section": "",
-    "text": "@cori-risi/cori.data.api / GeocoderControl"
+    "text": "@cori-risi/cori.data.api / GeocoderControl",
+    "crumbs": [
+      "Home",
+      "React components",
+      "Function: GeocoderControl()"
+    ]
   },
   {
     "objectID": "docs/functions/GeocoderControl.html#parameters",
     "href": "docs/functions/GeocoderControl.html#parameters",
     "title": "Function: GeocoderControl()",
     "section": "Parameters",
-    "text": "Parameters\n• props: GeocoderControlProps"
+    "text": "Parameters\n• props: GeocoderControlProps",
+    "crumbs": [
+      "Home",
+      "React components",
+      "Function: GeocoderControl()"
+    ]
   },
   {
     "objectID": "docs/functions/GeocoderControl.html#returns",
     "href": "docs/functions/GeocoderControl.html#returns",
     "title": "Function: GeocoderControl()",
     "section": "Returns",
-    "text": "Returns\nnull"
+    "text": "Returns\nnull",
+    "crumbs": [
+      "Home",
+      "React components",
+      "Function: GeocoderControl()"
+    ]
   },
   {
     "objectID": "docs/functions/GeocoderControl.html#defined-in",
     "href": "docs/functions/GeocoderControl.html#defined-in",
     "title": "Function: GeocoderControl()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/GeocoderControl.tsx:19"
+    "text": "Defined in\n@cori-risi/components/GeocoderControl.tsx:26",
+    "crumbs": [
+      "Home",
+      "React components",
+      "Function: GeocoderControl()"
+    ]
   },
   {
     "objectID": "docs/functions/helloAnything.html",
