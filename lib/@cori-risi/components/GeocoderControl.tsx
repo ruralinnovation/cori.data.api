@@ -15,7 +15,14 @@ type GeocoderControlProps = Omit<GeocoderOptions, 'accessToken' | 'mapboxgl' | '
   onError?: (e: object) => void;
 };
 
-/* eslint-disable complexity,max-statements */
+
+/**
+ * This comment _supports_ [Markdown](https://www.markdownguide.org/)
+ *
+ * ```ts
+ * <GeocoderControl mapboxAccessToken={MAPBOX_TOKEN} position="top-left" />
+ * ```
+ */
 export default function GeocoderControl(props: GeocoderControlProps) {
   const [marker, setMarker] = useState(null);
 
