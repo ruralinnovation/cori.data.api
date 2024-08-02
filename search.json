@@ -4,96 +4,56 @@
     "href": "docs/functions/ApiContextProvider.html",
     "title": "ApiContextProvider()",
     "section": "",
-    "text": "@cori-risi/cori.data.api / ApiContextProvider",
-    "crumbs": [
-      "Frontend UI library",
-      "React contexts",
-      "ApiContextProvider()"
-    ]
+    "text": "@cori-risi/cori.data.api / ApiContextProvider"
   },
   {
     "objectID": "docs/functions/ApiContextProvider.html#parameters",
     "href": "docs/functions/ApiContextProvider.html#parameters",
     "title": "ApiContextProvider()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.baseURL?: string\nBase URL for the RESTful API endpoint, e.g., https://d6q5pgqgx5oy5.cloudfront.net.\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.fetchAuthSession?: Function\nAn optional function from the Amplify Auth package to start an authenticated session\n• props.getCurrentUser?: Function\nAn optional function from the Amplify Cognito package to fetch the current authenticated user (if any)\n• props.signOut?: Function\nAn optional function that is one of many destructured props contained in the Amplify authenticator context (returned by the useAuthenticator() hoook), used to sign out the current user.",
-    "crumbs": [
-      "Frontend UI library",
-      "React contexts",
-      "ApiContextProvider()"
-    ]
+    "text": "Parameters\n• props\n• props.baseURL?: string\nBase URL for the RESTful API endpoint, e.g., https://d6q5pgqgx5oy5.cloudfront.net.\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.fetchAuthSession?: Function\nAn optional function from the Amplify Auth package to start an authenticated session\n• props.getCurrentUser?: Function\nAn optional function from the Amplify Cognito package to fetch the current authenticated user (if any)\n• props.signOut?: Function\nAn optional function that is one of many destructured props contained in the Amplify authenticator context (returned by the useAuthenticator() hoook), used to sign out the current user."
   },
   {
     "objectID": "docs/functions/ApiContextProvider.html#returns",
     "href": "docs/functions/ApiContextProvider.html#returns",
     "title": "ApiContextProvider()",
     "section": "Returns",
-    "text": "Returns\nElement",
-    "crumbs": [
-      "Frontend UI library",
-      "React contexts",
-      "ApiContextProvider()"
-    ]
+    "text": "Returns\nElement"
   },
   {
     "objectID": "docs/functions/ApiContextProvider.html#defined-in",
     "href": "docs/functions/ApiContextProvider.html#defined-in",
     "title": "ApiContextProvider()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:137",
-    "crumbs": [
-      "Frontend UI library",
-      "React contexts",
-      "ApiContextProvider()"
-    ]
+    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:137"
   },
   {
     "objectID": "docs/functions/CategoricalLegend.html",
     "href": "docs/functions/CategoricalLegend.html",
     "title": "CategoricalLegend()",
     "section": "",
-    "text": "@cori-risi/cori.data.api / CategoricalLegend",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "CategoricalLegend()"
-    ]
+    "text": "@cori-risi/cori.data.api / CategoricalLegend"
   },
   {
     "objectID": "docs/functions/CategoricalLegend.html#parameters",
     "href": "docs/functions/CategoricalLegend.html#parameters",
     "title": "CategoricalLegend()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.domain?: string[]\nd3 color scale domain\n• props.domain_names?: string[]\nan (array) of names, each one mapped to a category in the color scale domain\n• props.na_message?: string\n• props.range?: unknown[]\nd3 color scale range\n• props.scale?: any\n• props.title?: string",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "CategoricalLegend()"
-    ]
+    "text": "Parameters\n• props\n• props.domain?: string[]\nd3 color scale domain\n• props.domain_names?: string[]\nan (array) of names, each one mapped to a category in the color scale domain\n• props.na_message?: string\n• props.range?: unknown[]\nd3 color scale range\n• props.scale?: any\n• props.title?: string"
   },
   {
     "objectID": "docs/functions/CategoricalLegend.html#returns",
     "href": "docs/functions/CategoricalLegend.html#returns",
     "title": "CategoricalLegend()",
     "section": "Returns",
-    "text": "Returns\nElement",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "CategoricalLegend()"
-    ]
+    "text": "Returns\nElement"
   },
   {
     "objectID": "docs/functions/CategoricalLegend.html#defined-in",
     "href": "docs/functions/CategoricalLegend.html#defined-in",
     "title": "CategoricalLegend()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/CategoricalLegend.tsx:42",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "CategoricalLegend()"
-    ]
+    "text": "Defined in\n@cori-risi/components/CategoricalLegend.tsx:42"
   },
   {
     "objectID": "docs/functions/helloAnything.html",
@@ -128,48 +88,28 @@
     "href": "docs/functions/AmplifyContextProvider.html",
     "title": "AmplifyContextProvider()",
     "section": "",
-    "text": "@cori-risi/cori.data.api / AmplifyContextProvider",
-    "crumbs": [
-      "Frontend UI library",
-      "React contexts",
-      "AmplifyContextProvider()"
-    ]
+    "text": "@cori-risi/cori.data.api / AmplifyContextProvider"
   },
   {
     "objectID": "docs/functions/AmplifyContextProvider.html#parameters",
     "href": "docs/functions/AmplifyContextProvider.html#parameters",
     "title": "AmplifyContextProvider()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.domain?: string\ns- domain for the Cognito Hosted UI and/or OAuth 2.0 endpoints\n• props.identityPoolId?: string\nCognito Identity pool ID\n• props.region?: string\nAWS region where Cognito service is hosted\n• props.userPoolClientId?: string\nACognito User pool App client ID (App clients are the user pool authentication resources attached to your app).\n• props.userPoolId?: string\nCognito User pool ID",
-    "crumbs": [
-      "Frontend UI library",
-      "React contexts",
-      "AmplifyContextProvider()"
-    ]
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.domain?: string\ns- domain for the Cognito Hosted UI and/or OAuth 2.0 endpoints\n• props.identityPoolId?: string\nCognito Identity pool ID\n• props.region?: string\nAWS region where Cognito service is hosted\n• props.userPoolClientId?: string\nACognito User pool App client ID (App clients are the user pool authentication resources attached to your app).\n• props.userPoolId?: string\nCognito User pool ID"
   },
   {
     "objectID": "docs/functions/AmplifyContextProvider.html#returns",
     "href": "docs/functions/AmplifyContextProvider.html#returns",
     "title": "AmplifyContextProvider()",
     "section": "Returns",
-    "text": "Returns\nElement",
-    "crumbs": [
-      "Frontend UI library",
-      "React contexts",
-      "AmplifyContextProvider()"
-    ]
+    "text": "Returns\nElement"
   },
   {
     "objectID": "docs/functions/AmplifyContextProvider.html#defined-in",
     "href": "docs/functions/AmplifyContextProvider.html#defined-in",
     "title": "AmplifyContextProvider()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/cotexts/AmplifyContextProvider.tsx:73",
-    "crumbs": [
-      "Frontend UI library",
-      "React contexts",
-      "AmplifyContextProvider()"
-    ]
+    "text": "Defined in\n@cori-risi/cotexts/AmplifyContextProvider.tsx:73"
   },
   {
     "objectID": "docs/variables/AmplifyContext.html",
@@ -190,31 +130,28 @@
     "href": "docs/variables/coriLightMapStyle.html",
     "title": "coriLightMapStyle",
     "section": "",
-    "text": "@cori-risi/cori.data.api / coriLightMapStyle",
-    "crumbs": [
-      "Frontend UI library",
-      "Mapbox styles",
-      "coriLightMapStyle"
-    ]
+    "text": "@cori-risi/cori.data.api / coriLightMapStyle"
   },
   {
     "objectID": "docs/variables/coriLightMapStyle.html#defined-in",
     "href": "docs/variables/coriLightMapStyle.html#defined-in",
     "title": "coriLightMapStyle",
     "section": "Defined in",
-    "text": "Defined in\ncori.data.api.ts:27",
-    "crumbs": [
-      "Frontend UI library",
-      "Mapbox styles",
-      "coriLightMapStyle"
-    ]
+    "text": "Defined in\ncori.data.api.ts:27"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Frontend UI library for the CORI Data API",
+    "section": "",
+    "text": "Tip\nNote: This README file is generated from README.qmd in the “R” directory of this repo with the command npm run render:readme.\n\n\nThis is a set of components, contexts, and general functions for any web application that is intended to interact with the CORI Data API backend (including GraphQL, Rest, and S3 resources).\n\nInstallation\nnpm install --save git+https://github.com/ruralinnovation/cori.data.api"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "@cori-risi/cori.data.api",
     "section": "",
-    "text": "The Center on Rural Innovation (CORI) is a 501(c)(3) nonprofit organization partnering with rural leaders across the country to build tech economies that support scalable entrepreneurship and lead to more tech jobs in rural America.\nThese repositories are maintained by the Mapping and Data Analytics (MDA) team at CORI/RISI. Our team provides data, analytics and visualizations to support rural participation in the digital economy through scalable entrepreneurship and tech job growth in rural America. We aim to provide a better understanding of the forces and trends affecting rural America as we help communities chart a path to opportunity and prosperity through the tech economy.\nWe strive towards serving as the primary center of excellence advancing sustainable, economic opportunity and equity in rural America. We do this by providing expert spatial and statistical analysis, modernized visualization and tool development, credible technical subject matter expertise, and transparent documentation.\nFollow our work by reading our blog and reviewing the following list of past projects:\n\n\n\n\n\nBroadband - Broadband Equity Access and Deployment (BEAD) tool - Climate Risk Mapping\n\n\nResearch - Rural Aperture Project (RWJF) - Defining rural America - Who lives in rural America? Part 1 Part 2 - The equity of economic opportunity in rural America\n\n\n\n\nRural Innovation Network - Ascendium reports and data viz - Economic Development (ERC) tool\n\n\nRural Innovation Initiative - Tech Economy Diagnostic (TED)  (i.e., community assessment → ERC tool)\n\n\n\n\nTech Entrepreneurship  - Feasibility studies - Tech Talent Tracker → ERC tool\n\n\nAdditional work - Economic Development Administration (EDA) reports - Economic impact analysis - Multistate Workforce Analysis - example - Who Is Missing Analysis\n\n\n\nLearn more about the MDA approach to Knowledge here: Research, mapping, and data analytics"
+    "text": "The Center on Rural Innovation (CORI) is a 501(c)(3) nonprofit organization partnering with rural leaders across the country to build tech economies that support scalable entrepreneurship and lead to more tech jobs in rural America.\nThese repositories are maintained by the Mapping and Data Analytics (MDA) team at CORI/RISI. Our team provides data, analytics and visualizations to support rural participation in the digital economy through scalable entrepreneurship and tech job growth in rural America. We aim to provide a better understanding of the forces and trends affecting rural America as we help communities chart a path to opportunity and prosperity through the tech economy.\nWe strive towards serving as the primary center of excellence advancing sustainable, economic opportunity and equity in rural America. We do this by providing expert spatial and statistical analysis, modernized visualization and tool development, credible technical subject matter expertise, and transparent documentation.\nFollow our work by reading our blog and reviewing the following list of past projects:\n\n\n\nBroadband - Broadband Equity Access and Deployment (BEAD) tool - Climate Risk Mapping\n\n\nResearch - Rural Aperture Project (RWJF) - Defining rural America - Who lives in rural America? Part 1 Part 2 - The equity of economic opportunity in rural America\n\n\n\n\nRural Innovation Network - Ascendium reports and data viz - Economic Development (ERC) tool\n\n\nRural Innovation Initiative - Tech Economy Diagnostic (TED)  (i.e., community assessment → ERC tool)\n\n\n\n\nTech Entrepreneurship  - Feasibility studies - Tech Talent Tracker → ERC tool\n\n\nAdditional work - Economic Development Administration (EDA) reports - Economic impact analysis - Multistate Workforce Analysis - example - Who Is Missing Analysis\n\n\n\nLearn more about the MDA approach to Knowledge here: Research, mapping, and data analytics"
   },
   {
     "objectID": "docs/globals.html#variables",
@@ -249,48 +186,28 @@
     "href": "docs/functions/GeocoderControl.html",
     "title": "GeocoderControl()",
     "section": "",
-    "text": "@cori-risi/cori.data.api / GeocoderControl",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "GeocoderControl()"
-    ]
+    "text": "@cori-risi/cori.data.api / GeocoderControl"
   },
   {
     "objectID": "docs/functions/GeocoderControl.html#parameters",
     "href": "docs/functions/GeocoderControl.html#parameters",
     "title": "GeocoderControl()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.mapboxAccessToken: string\nMapbox API token\n• props.marker?: boolean | Omit&lt;MarkerProps, \"longitude\" | \"latitude\"&gt;\ntrue or false to place marker on result once selected (default: false)\n• props.position: ControlPosition\nCSS class to position control in “top-left”, “top-right”, “bottom-left” or “bottom-right” of the map pane",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "GeocoderControl()"
-    ]
+    "text": "Parameters\n• props\n• props.mapboxAccessToken: string\nMapbox API token\n• props.marker?: boolean | Omit&lt;MarkerProps, \"longitude\" | \"latitude\"&gt;\ntrue or false to place marker on result once selected (default: false)\n• props.position: ControlPosition\nCSS class to position control in “top-left”, “top-right”, “bottom-left” or “bottom-right” of the map pane"
   },
   {
     "objectID": "docs/functions/GeocoderControl.html#returns",
     "href": "docs/functions/GeocoderControl.html#returns",
     "title": "GeocoderControl()",
     "section": "Returns",
-    "text": "Returns\nnull",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "GeocoderControl()"
-    ]
+    "text": "Returns\nnull"
   },
   {
     "objectID": "docs/functions/GeocoderControl.html#defined-in",
     "href": "docs/functions/GeocoderControl.html#defined-in",
     "title": "GeocoderControl()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/GeocoderControl.tsx:47",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "GeocoderControl()"
-    ]
+    "text": "Defined in\n@cori-risi/components/GeocoderControl.tsx:47"
   },
   {
     "objectID": "docs/functions/Label.html",
