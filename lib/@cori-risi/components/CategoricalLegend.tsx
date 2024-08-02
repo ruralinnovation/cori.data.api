@@ -10,6 +10,10 @@ interface CategoricalLegendProps {
     title?: string;
 }
 
+/**
+ * This comment _supports_ [Markdown](https://www.markdownguide.org/)
+ *
+ */
 function CategoricalLegend ({ domain, domain_names, range, title, scale, na_message = "N/A" }: CategoricalLegendProps) {
 
     const rows = [];
