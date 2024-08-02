@@ -39,7 +39,6 @@ jobs:
           npm install
           npm run build
           npm run test
-          npm run build:docs
 
       - name: List outputs after build
         run: |
