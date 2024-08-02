@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {SetStateAction, useState} from 'react';
+import {ReactElement, SetStateAction, useState} from 'react';
 import {useControl, Marker, MarkerProps, ControlPosition} from 'react-map-gl';
 import MapboxGeocoder, {GeocoderOptions} from '@mapbox/mapbox-gl-geocoder';
 
@@ -17,98 +17,126 @@ type GeocoderControlProps = Omit<GeocoderOptions, 'accessToken' | 'mapboxgl' | '
 
 
 /**
- * This comment _supports_ [Markdown](https://www.markdownguide.org/)
+ * This is a Geocoder search component that can be added to any `react-map-gl` Map component.
  *
  * ```ts
- * <GeocoderControl mapboxAccessToken={MAPBOX_TOKEN} position="top-left" />
+ * import mapboxgl from 'mapbox-gl';
+ * import Map, { Source, Layer } from 'react-map-gl';
+ *
+ * import { GeocoderControl } from "@cori-risi/cori.data.api";
+ *
+ * import "mapbox-gl/dist/mapbox-gl.css";
+ *
+ * mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
+ *
+ * // ...
+ *
+ * <Map mapboxAccessToken={MAPBOX_TOKEN}
+ *      {...} >
+ *    <Source {...} >
+ *        <Layer {...} /> :
+ *    </Source>
+ *    <GeocoderControl mapboxAccessToken={MAPBOX_TOKEN} position="top-left" />
+ * </Map>
  * ```
+ *
+ *  @param props.mapboxAccessToken - Mapbox API token
+ *  @param props.marker - `true` or `false` to place marker on result once selected (default: `false`)
+ *  @param props.position - CSS class to position control in "top-left", "top-right", "bottom-left" or "bottom-right" of the map pane
  */
-export default function GeocoderControl(props: GeocoderControlProps) {
+export default function GeocoderControl(props: {
+  mapboxAccessToken: string,
+  marker?: boolean | Omit<MarkerProps, 'longitude' | 'latitude'>,
+  position: ControlPosition
+}) {
+// } & GeocoderControlProps) {
   const [marker, setMarker] = useState(null);
+  
+  const geocoder_props = { ...props } as unknown as GeocoderControlProps;
 
   const geocoder = useControl<MapboxGeocoder>(
     () => {
       const ctrl = new MapboxGeocoder({
-        ...props,
-        marker: false,
-        accessToken: props.mapboxAccessToken
+        ...geocoder_props,
+        marker: marker || false,
+        accessToken: geocoder_props.mapboxAccessToken
       });
-      if (!!props.onLoading) ctrl.on('loading', props.onLoading);
-      if (!!props.onResults) ctrl.on('results', props.onResults);
-      if (!!props.onResult) ctrl.on('result', evt => {
-        if (props.onResult !== undefined) props.onResult(evt);
+      if (!!geocoder_props.onLoading) ctrl.on('loading', geocoder_props.onLoading);
+      if (!!geocoder_props.onResults) ctrl.on('results', geocoder_props.onResults);
+      if (!!geocoder_props.onResult) ctrl.on('result', evt => {
+        if (geocoder_props.onResult !== undefined) geocoder_props.onResult(evt);
 
         const {result} = evt;
         const location =
             result &&
             (result.center || (result.geometry?.type === 'Point' && result.geometry.coordinates));
-        if (location && props.marker) {
-          const markerProps = typeof props.marker === 'object' ? props.marker : {};
+        if (location && geocoder_props.marker) {
+          const markerProps = typeof geocoder_props.marker === 'object' ? geocoder_props.marker : {};
           setMarker(<Marker {...markerProps} longitude={location[0]} latitude={location[1]}/> as unknown as SetStateAction<null>);
         } else {
           setMarker(null);
         }
       });
-      if (!!props.onError) ctrl.on('error', props.onError);
+      if (!!geocoder_props.onError) ctrl.on('error', geocoder_props.onError);
       return ctrl;
     },
     {
-      position: props.position
+      position: geocoder_props.position
     }
   );
 
   // @ts-ignore (TS2339) private member
-  if (geocoder._map) {
-    if (geocoder.getProximity() !== props.proximity && props.proximity !== undefined) {
-      geocoder.setProximity(props.proximity);
+  if (geocoder.hasOwnProperty("_map") && geocoder["_map"]) {
+    if (geocoder.getProximity() !== geocoder_props.proximity && geocoder_props.proximity !== undefined) {
+      geocoder.setProximity(geocoder_props.proximity);
     }
-    if (geocoder.getRenderFunction() !== props.render && props.render !== undefined) {
-      geocoder.setRenderFunction(props.render);
+    if (geocoder.getRenderFunction() !== geocoder_props.render && geocoder_props.render !== undefined) {
+      geocoder.setRenderFunction(geocoder_props.render);
     }
-    if (geocoder.getLanguage() !== props.language && props.language !== undefined) {
-      geocoder.setLanguage(props.language);
+    if (geocoder.getLanguage() !== geocoder_props.language && geocoder_props.language !== undefined) {
+      geocoder.setLanguage(geocoder_props.language);
     }
-    if (geocoder.getZoom() !== props.zoom && props.zoom !== undefined) {
-      geocoder.setZoom(props.zoom);
+    if (geocoder.getZoom() !== geocoder_props.zoom && geocoder_props.zoom !== undefined) {
+      geocoder.setZoom(geocoder_props.zoom);
     }
-    if (geocoder.getFlyTo() !== props.flyTo && props.flyTo !== undefined) {
-      geocoder.setFlyTo(props.flyTo);
+    if (geocoder.getFlyTo() !== geocoder_props.flyTo && geocoder_props.flyTo !== undefined) {
+      geocoder.setFlyTo(geocoder_props.flyTo);
     }
-    if (geocoder.getPlaceholder() !== props.placeholder && props.placeholder !== undefined) {
-      geocoder.setPlaceholder(props.placeholder);
+    if (geocoder.getPlaceholder() !== geocoder_props.placeholder && geocoder_props.placeholder !== undefined) {
+      geocoder.setPlaceholder(geocoder_props.placeholder);
     }
-    if (geocoder.getCountries() !== props.countries && props.countries !== undefined) {
-      geocoder.setCountries(props.countries);
+    if (geocoder.getCountries() !== geocoder_props.countries && geocoder_props.countries !== undefined) {
+      geocoder.setCountries(geocoder_props.countries);
     }
-    if (geocoder.getTypes() !== props.types && props.types !== undefined) {
-      geocoder.setTypes(props.types);
+    if (geocoder.getTypes() !== geocoder_props.types && geocoder_props.types !== undefined) {
+      geocoder.setTypes(geocoder_props.types);
     }
-    if (geocoder.getMinLength() !== props.minLength && props.minLength !== undefined) {
-      geocoder.setMinLength(props.minLength);
+    if (geocoder.getMinLength() !== geocoder_props.minLength && geocoder_props.minLength !== undefined) {
+      geocoder.setMinLength(geocoder_props.minLength);
     }
-    if (geocoder.getLimit() !== props.limit && props.limit !== undefined) {
-      geocoder.setLimit(props.limit);
+    if (geocoder.getLimit() !== geocoder_props.limit && geocoder_props.limit !== undefined) {
+      geocoder.setLimit(geocoder_props.limit);
     }
-    if (geocoder.getFilter() !== props.filter && props.filter !== undefined) {
-      geocoder.setFilter(props.filter);
+    if (geocoder.getFilter() !== geocoder_props.filter && geocoder_props.filter !== undefined) {
+      geocoder.setFilter(geocoder_props.filter);
     }
-    if (geocoder.getOrigin() !== props.origin && props.origin !== undefined) {
-      geocoder.setOrigin(props.origin);
+    if (geocoder.getOrigin() !== geocoder_props.origin && geocoder_props.origin !== undefined) {
+      geocoder.setOrigin(geocoder_props.origin);
     }
-    // Types missing from @types/mapbox__mapbox-gl-geocoder
-    // if (geocoder.getAutocomplete() !== props.autocomplete && props.autocomplete !== undefined) {
-    //   geocoder.setAutocomplete(props.autocomplete);
-    // }
-    // if (geocoder.getFuzzyMatch() !== props.fuzzyMatch && props.fuzzyMatch !== undefined) {
-    //   geocoder.setFuzzyMatch(props.fuzzyMatch);
-    // }
-    // if (geocoder.getRouting() !== props.routing && props.routing !== undefined) {
-    //   geocoder.setRouting(props.routing);
-    // }
-    // if (geocoder.getWorldview() !== props.worldview && props.worldview !== undefined) {
-    //   geocoder.setWorldview(props.worldview);
-    // }
+    if (geocoder.getAutocomplete() !== geocoder_props.autocomplete && geocoder_props.autocomplete !== undefined) {
+      geocoder.setAutocomplete(geocoder_props.autocomplete);
+    }
+    if (geocoder.getFuzzyMatch() !== geocoder_props.fuzzyMatch && geocoder_props.fuzzyMatch !== undefined) {
+      geocoder.setFuzzyMatch(geocoder_props.fuzzyMatch);
+    }
+    if (geocoder.getRouting() !== geocoder_props.routing && geocoder_props.routing !== undefined) {
+      geocoder.setRouting(geocoder_props.routing);
+    }
+    if (geocoder.getWorldview() !== geocoder_props.worldview && geocoder_props.worldview !== undefined) {
+      geocoder.setWorldview(geocoder_props.worldview);
+    }
   }
+
   return marker;
 }
 

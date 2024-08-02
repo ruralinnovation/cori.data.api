@@ -9,7 +9,7 @@ website:
   navbar:
     left:
       - href: index.qmd
-        text: Home
+        text: Frontend UI library
       - href: docs/globals.md
         text: Reference
       - icon: github
@@ -38,6 +38,7 @@ format:
   html:
     theme:
       - minty
+      - src/custom.scss
     css: assets/fonts.css
     fontcolor: "#121E22"
     linkcolor: "#00835D"
