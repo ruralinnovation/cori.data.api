@@ -7,6 +7,7 @@ website:
   site-url: https://ruralinnovation.github.io/cori.data.api
   title: "@cori-risi/cori.data.api"
   navbar:
+    logo-href: https://ruralinnovation.us/our-work/research_mapping/
     left:
       - href: index.qmd
         text: Frontend UI library
@@ -22,9 +23,9 @@ website:
     contents:
       - section: "React components"
         contents:
-          - docs/functions/Button.md
-          - docs/functions/Input.md
-          - docs/functions/Label.md
+#          - docs/functions/Button.md
+#          - docs/functions/Input.md
+#          - docs/functions/Label.md
           - docs/functions/CategoricalLegend.md
           - docs/functions/GeocoderControl.md
 #          - docs/functions/LineChart.md
