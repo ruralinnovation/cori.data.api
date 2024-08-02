@@ -72,6 +72,7 @@ export default function GeocoderControl(props: {
             (result.center || (result.geometry?.type === 'Point' && result.geometry.coordinates));
         if (location && geocoder_props.marker) {
           const markerProps = typeof geocoder_props.marker === 'object' ? geocoder_props.marker : {};
+          // noinspection TypeScriptValidateTypes
           setMarker(<Marker {...markerProps} longitude={location[0]} latitude={location[1]}/> as unknown as SetStateAction<null>);
         } else {
           setMarker(null);

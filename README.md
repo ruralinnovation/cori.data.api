@@ -1,5 +1,5 @@
 ---
-title: "Frontend React UI library for CORI Data API"
+title: "Frontend UI library for the CORI Data API"
 execute:
   echo: true
   output: true
@@ -24,3 +24,9 @@ application that is intended to interact with the
 <a href="https://github.com/ruralinnovation/cori-data-api"
 target="_blank">CORI Data API</a> backend (including GraphQL, Rest, and
 S3 resources).
+
+### Installation
+
+``` bash
+npm install --save git+https://github.com/ruralinnovation/cori.data.api
+```

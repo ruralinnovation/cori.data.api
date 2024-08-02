@@ -10,6 +10,8 @@ website:
     left:
       - href: index.qmd
         text: Frontend UI library
+      - href: about.qmd
+        text: About
       - href: docs/globals.md
         text: Reference
       - icon: github
@@ -48,3 +50,9 @@ format:
       body-width: 1100px
       margin-width: 250px
     toc: true
+
+resources:
+- "assets/*"
+
+execute:
+  freeze: auto
