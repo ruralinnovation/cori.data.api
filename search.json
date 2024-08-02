@@ -16,7 +16,7 @@
     "href": "docs/functions/ApiContextProvider.html#parameters",
     "title": "ApiContextProvider()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.baseURL?: string\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.fetchAuthSession?: Function\n• props.getCurrentUser?: Function\n• props.signOut?: Function",
+    "text": "Parameters\n• props\n• props.baseURL?: string\nBase URL for the RESTful API endpoint, e.g., https://d6q5pgqgx5oy5.cloudfront.net.\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.fetchAuthSession?: Function\nAn optional function from the Amplify Auth package to start an authenticated session\n• props.getCurrentUser?: Function\nAn optional function from the Amplify Cognito package to fetch the current authenticated user (if any)\n• props.signOut?: Function\nAn optional function that is one of many destructured props contained in the Amplify authenticator context (returned by the useAuthenticator() hoook), used to sign out the current user.",
     "crumbs": [
       "Frontend UI library",
       "React contexts",
@@ -40,7 +40,7 @@
     "href": "docs/functions/ApiContextProvider.html#defined-in",
     "title": "ApiContextProvider()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:85",
+    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:137",
     "crumbs": [
       "Frontend UI library",
       "React contexts",
@@ -64,7 +64,7 @@
     "href": "docs/functions/CategoricalLegend.html#parameters",
     "title": "CategoricalLegend()",
     "section": "Parameters",
-    "text": "Parameters\n• __namedParameters: CategoricalLegendProps",
+    "text": "Parameters\n• props\n• props.domain?: string[]\nd3 color scale domain\n• props.domain_names?: string[]\nan (array) of names, each one mapped to a category in the color scale domain\n• props.na_message?: string\n• props.range?: unknown[]\nd3 color scale range\n• props.scale?: any\n• props.title?: string",
     "crumbs": [
       "Frontend UI library",
       "React components",
@@ -88,7 +88,7 @@
     "href": "docs/functions/CategoricalLegend.html#defined-in",
     "title": "CategoricalLegend()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/CategoricalLegend.tsx:17",
+    "text": "Defined in\n@cori-risi/components/CategoricalLegend.tsx:42",
     "crumbs": [
       "Frontend UI library",
       "React components",
@@ -210,11 +210,11 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Frontend UI library for the CORI Data API",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "@cori-risi/cori.data.api",
     "section": "",
-    "text": "Tip\nNote: This README file is generated from README.qmd in the “R” directory of this repo with the command npm run render:readme.\n\n\nThis is a set of components, contexts, and general functions for any web application that is intended to interact with the CORI Data API backend (including GraphQL, Rest, and S3 resources)."
+    "text": "The Center on Rural Innovation (CORI) is a 501(c)(3) nonprofit organization partnering with rural leaders across the country to build tech economies that support scalable entrepreneurship and lead to more tech jobs in rural America.\nThese repositories are maintained by the Mapping and Data Analytics (MDA) team at CORI/RISI. Our team provides data, analytics and visualizations to support rural participation in the digital economy through scalable entrepreneurship and tech job growth in rural America. We aim to provide a better understanding of the forces and trends affecting rural America as we help communities chart a path to opportunity and prosperity through the tech economy.\nWe strive towards serving as the primary center of excellence advancing sustainable, economic opportunity and equity in rural America. We do this by providing expert spatial and statistical analysis, modernized visualization and tool development, credible technical subject matter expertise, and transparent documentation.\nFollow our work by reading our blog and reviewing the following list of past projects:\n\n\n\n\n\nBroadband - Broadband Equity Access and Deployment (BEAD) tool - Climate Risk Mapping\n\n\nResearch - Rural Aperture Project (RWJF) - Defining rural America - Who lives in rural America? Part 1 Part 2 - The equity of economic opportunity in rural America\n\n\n\n\nRural Innovation Network - Ascendium reports and data viz - Economic Development (ERC) tool\n\n\nRural Innovation Initiative - Tech Economy Diagnostic (TED)  (i.e., community assessment → ERC tool)\n\n\n\n\nTech Entrepreneurship  - Feasibility studies - Tech Talent Tracker → ERC tool\n\n\nAdditional work - Economic Development Administration (EDA) reports - Economic impact analysis - Multistate Workforce Analysis - example - Who Is Missing Analysis\n\n\n\nLearn more about the MDA approach to Knowledge here: Research, mapping, and data analytics"
   },
   {
     "objectID": "docs/globals.html#variables",
@@ -242,7 +242,7 @@
     "href": "docs/variables/ApiContext.html#defined-in",
     "title": "ApiContext",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:79"
+    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:88"
   },
   {
     "objectID": "docs/functions/GeocoderControl.html",
@@ -297,143 +297,83 @@
     "href": "docs/functions/Label.html",
     "title": "Label()",
     "section": "",
-    "text": "@cori-risi/cori.data.api / Label",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "Label()"
-    ]
+    "text": "@cori-risi/cori.data.api / Label"
   },
   {
     "objectID": "docs/functions/Label.html#parameters",
     "href": "docs/functions/Label.html#parameters",
     "title": "Label()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "Label()"
-    ]
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;"
   },
   {
     "objectID": "docs/functions/Label.html#returns",
     "href": "docs/functions/Label.html#returns",
     "title": "Label()",
     "section": "Returns",
-    "text": "Returns\nElement",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "Label()"
-    ]
+    "text": "Returns\nElement"
   },
   {
     "objectID": "docs/functions/Label.html#defined-in",
     "href": "docs/functions/Label.html#defined-in",
     "title": "Label()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/basic.tsx:43",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "Label()"
-    ]
+    "text": "Defined in\n@cori-risi/components/basic.tsx:43"
   },
   {
     "objectID": "docs/functions/Input.html",
     "href": "docs/functions/Input.html",
     "title": "Input()",
     "section": "",
-    "text": "@cori-risi/cori.data.api / Input",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "Input()"
-    ]
+    "text": "@cori-risi/cori.data.api / Input"
   },
   {
     "objectID": "docs/functions/Input.html#parameters",
     "href": "docs/functions/Input.html#parameters",
     "title": "Input()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.checked: boolean\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.onChange?: ChangeEventHandler&lt;HTMLInputElement&gt;\n• props.type: string",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "Input()"
-    ]
+    "text": "Parameters\n• props\n• props.checked: boolean\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.onChange?: ChangeEventHandler&lt;HTMLInputElement&gt;\n• props.type: string"
   },
   {
     "objectID": "docs/functions/Input.html#returns",
     "href": "docs/functions/Input.html#returns",
     "title": "Input()",
     "section": "Returns",
-    "text": "Returns\nElement",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "Input()"
-    ]
+    "text": "Returns\nElement"
   },
   {
     "objectID": "docs/functions/Input.html#defined-in",
     "href": "docs/functions/Input.html#defined-in",
     "title": "Input()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/basic.tsx:31",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "Input()"
-    ]
+    "text": "Defined in\n@cori-risi/components/basic.tsx:31"
   },
   {
     "objectID": "docs/functions/Button.html",
     "href": "docs/functions/Button.html",
     "title": "Button()",
     "section": "",
-    "text": "@cori-risi/cori.data.api / Button",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "Button()"
-    ]
+    "text": "@cori-risi/cori.data.api / Button"
   },
   {
     "objectID": "docs/functions/Button.html#parameters",
     "href": "docs/functions/Button.html#parameters",
     "title": "Button()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.onClick",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "Button()"
-    ]
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.onClick"
   },
   {
     "objectID": "docs/functions/Button.html#returns",
     "href": "docs/functions/Button.html#returns",
     "title": "Button()",
     "section": "Returns",
-    "text": "Returns\nElement",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "Button()"
-    ]
+    "text": "Returns\nElement"
   },
   {
     "objectID": "docs/functions/Button.html#defined-in",
     "href": "docs/functions/Button.html#defined-in",
     "title": "Button()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/basic.tsx:18",
-    "crumbs": [
-      "Frontend UI library",
-      "React components",
-      "Button()"
-    ]
+    "text": "Defined in\n@cori-risi/components/basic.tsx:18"
   }
 ]

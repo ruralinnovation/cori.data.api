@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -78,7 +112,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="https://ruralinnovation.us/our-work/research_mapping/">
     <span class="navbar-title"><span class="citation" data-cites="cori-risi/cori.data.api">@cori-risi/cori.data.api</span></span>
     </a>
   </div>
@@ -89,8 +123,12 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../../index.md"> 
 <span class="menu-text">Frontend UI library</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../docs/globals.html"> 
@@ -141,24 +179,6 @@ ul.task-list li input[type="checkbox"] {
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../docs/functions/Button.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Button()</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../docs/functions/Input.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Input()</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../docs/functions/Label.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Label()</span></a>
-  </div>
-</li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../docs/functions/CategoricalLegend.html" class="sidebar-item-text sidebar-link">
@@ -245,14 +265,50 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p><strong>ApiContextProvider</strong>(<code>props</code>): <code>Element</code></p>
 </blockquote>
+<p>This component provides the data/api context to an Amplify app. The following example assumes that a configuration context is provided by AmplifyContext to allow for authentication with AWS Cognito:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ts code-with-copy"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    withAuthenticator<span class="op">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    useAuthenticator<span class="op">,</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    UseAuthenticator<span class="op">,</span> useTheme<span class="op">,</span> Heading</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>} <span class="im">from</span> <span class="st">'@aws-amplify/ui-react'</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { fetchAuthSession } <span class="im">from</span> <span class="st">"@aws-amplify/auth"</span><span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { getCurrentUser } <span class="im">from</span> <span class="st">"@aws-amplify/auth/cognito"</span><span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { AmplifyContext<span class="op">,</span> ApiContextProvider } <span class="im">from</span> <span class="st">"@cori-risi/cori.data.api"</span><span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">// ...</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> App <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> amplifyContext <span class="op">=</span> <span class="fu">useContext</span>(AmplifyContext)<span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> authenticator<span class="op">:</span> UseAuthenticator <span class="op">=</span> <span class="fu">useAuthenticator</span>()<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>ApiContextProvider baseURL<span class="op">=</span>{import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">env</span><span class="op">.</span><span class="at">VITE_CORI_DATA_API</span>}</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                          fetchAuthSession<span class="op">=</span>{fetchAuthSession}</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                          getCurrentUser<span class="op">=</span>{getCurrentUser}</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                          signOut<span class="op">=</span>{authenticator<span class="op">.</span><span class="at">signOut</span>} <span class="op">&gt;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>AppComponentsThatNeedAccessToAPI <span class="op">/&gt;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;/</span>ApiContextProvider<span class="op">&gt;</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="im">default</span> <span class="fu">withAuthenticator</span>(App<span class="op">,</span> {</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="parameters" class="level2">
 <h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
 <p>• <strong>props</strong></p>
 <p>• <strong>props.baseURL?</strong>: <code>string</code></p>
+<p>Base URL for the RESTful API endpoint, e.g., https://d6q5pgqgx5oy5.cloudfront.net.</p>
 <p>• <strong>props.children?</strong>: <code>ReactElement</code>&lt;<code>any</code>, <code>string</code> | <code>JSXElementConstructor</code>&lt;<code>any</code>&gt;&gt;</p>
 <p>• <strong>props.fetchAuthSession?</strong>: <code>Function</code></p>
+<p>An optional function from the Amplify Auth package to start an authenticated session</p>
 <p>• <strong>props.getCurrentUser?</strong>: <code>Function</code></p>
+<p>An optional function from the Amplify Cognito package to fetch the current authenticated user (if any)</p>
 <p>• <strong>props.signOut?</strong>: <code>Function</code></p>
+<p>An optional function that is one of many destructured props contained in the Amplify authenticator context (returned by the useAuthenticator() hoook), used to sign out the current user.</p>
 </section>
 <section id="returns" class="level2">
 <h2 class="anchored" data-anchor-id="returns">Returns</h2>
@@ -260,7 +316,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="defined-in" class="level2">
 <h2 class="anchored" data-anchor-id="defined-in">Defined in</h2>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/1cccf80fc5f5336b698ba3149cc3469fe2acf2dc/lib/@cori-risi/cotexts/ApiContextProvider.tsx#L85"><span class="citation" data-cites="cori-risi/cotexts/ApiContextProvider.tsx:85">@cori-risi/cotexts/ApiContextProvider.tsx:85</span></a></p>
+<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/1ccbd809e5c07ca688a00bd4942f155662864970/lib/@cori-risi/cotexts/ApiContextProvider.tsx#L137"><span class="citation" data-cites="cori-risi/cotexts/ApiContextProvider.tsx:137">@cori-risi/cotexts/ApiContextProvider.tsx:137</span></a></p>
 
 
 </section>
