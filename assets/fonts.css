@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:400,600,700');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500;600;700&display=swap');
 
 @font-face {
   font-family: 'TT Hoves';
@@ -61,28 +61,26 @@
 
 /* default */
 html, body {
-  font-family: "Bitter", serif;
+  font-family: "Montserrat", "Bitter", serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
-  font-family: "TT Hoves", Montserrat, sans-serif;
-  /*color: #121E22;*/
-  color: #7a7a7a !important;
+  font-family: "Montserrat", "TT Hoves", sans-serif;
 }
 
 h1, h2, h6 {
-  font-family: "TT Hoves Bold", "TT Hoves", "Montserrat", sans-serif;
+  font-family: "Montserrat", "TT Hoves Bold", "TT Hoves", sans-serif;
   font-weight: 700;
 }
 
 h3 {
-  font-family: "Bitter", "Montserrat", serif;
+  font-family: "Montserrat", "TT Hoves Medium", "TT Hoves", "Bitter", serif;
   font-weight: 400;
 }
 
 h4, h5 {
-  font-family: "TT Hoves Medium", "TT Hoves", "Montserrat", sans-serif;
+  font-family: "Montserrat", "TT Hoves Medium", "TT Hoves", sans-serif;
   font-weight: 500;
 }
 
@@ -107,14 +105,13 @@ p {
   font-family: "Bitter", serif;
   font-size: 1em;
   line-height: 1.7;
-  color: #121E22;
 }
 
 a {
   font-family: "Bitter", serif;
   font-size: 1em;
+  font-weight: normal;
   line-height: 1.7;
-  color: #00835D;
   text-decoration: underline;
 }
 
@@ -123,5 +120,7 @@ a:hover {
     cursor: pointer;
 }
 
-
-
+.nav-item a, .sidebar-item a {
+  font-family: "Montserrat", "TT Hoves", sans-serif;
+  font-weight: normal;
+}

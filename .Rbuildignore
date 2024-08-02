@@ -32,5 +32,13 @@
 ^LICENSE\.md$
 ^LOCAL\.md$
 ^inst/dist\/\@cori-risi\/mapbox\/styles\/ruralinno\/cl010e7b7001p15pe3l0306hv\/style\.json\.js\.map$
+^src\/custom\.scss$
 ^src\/pm\.mjs$
 ^src\/pre-request-script\.js$
+
+^_quarto$
+^_site$
+^assets$
+^lib$
+^\.obsidian$
+^\.quarto$
