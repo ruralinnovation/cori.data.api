@@ -6,7 +6,7 @@ import React, {
     useState
 } from "react";
 import axios, { AxiosInstance } from 'axios';
-import { AuthTokens, JWT } from "@aws-amplify/auth";
+import {AuthTokens, fetchAuthSession, JWT} from "@aws-amplify/auth";
 // import { getCurrentUser } from "@aws-amplify/auth/cognito";
 // import { useAuthenticator, UseAuthenticator } from "@aws-amplify/ui-react";
 // import { useDispatch, useSelector } from "react-redux";
@@ -24,6 +24,8 @@ import { AuthTokens, JWT } from "@aws-amplify/auth";
 import "./styles/ApiContextProvider.css";
 import { User } from "../models";
 import { autoSignOut } from "../utils";
+import {getCurrentUser} from "@aws-amplify/auth/src/providers/cognito";
+import {withAuthenticator} from "@aws-amplify/ui-react";
 
 const BASE_URL = "http://localhost:8000"; // `${import.meta.env.VITE_CORI_DATA_API}`;
 // TODO: From now on must pass dev/prod API url in as param to ApiContextProvider because:
@@ -76,12 +78,62 @@ const initState: ApiContextType = {
     setData: null
 };
 
+/**
+ * This is the data/api context for an Amplify app that uses network requests to fetch data from either
+ *  a RESTful service backend (like the [CORI Data API](https://d6q5pgqgx5oy5.cloudfront.net/){target=_blank})
+ *  or a GraphQL service backend (like [AWS AppSync](https://aws.amazon.com/appsync/){target=_blank}).
+ *  GraphQL queries require a special client can be instantiated by an additional context provider,
+     *  i.e. [ApolloGraphQLProvider](https://github.com/ruralinnovation/amplify-bcat/tree/main/src/%40cori-risi/bcat/contexts){target=_blank}.
+ */
 export const ApiContext = createContext<ApiContextType | null>(initState);
 
 let hasAuthSession = false;
 let hasAuthUser = false;
 let hasAuthClient = false;
 
+/**
+ * This component provides the data/api context to an Amplify app. The following example assumes that a
+ * configuration context is provided by AmplifyContext to allow for authentication with AWS Cognito:
+ *
+ * ```ts
+ * import {
+ *     withAuthenticator,
+ *     useAuthenticator,
+ *     UseAuthenticator, useTheme, Heading
+ * } from '@aws-amplify/ui-react';
+ * import { fetchAuthSession } from "@aws-amplify/auth";
+ * import { getCurrentUser } from "@aws-amplify/auth/cognito";
+ * import { AmplifyContext, ApiContextProvider } from "@cori-risi/cori.data.api";
+ *
+ * // ...
+ *
+ * const App = () => {
+ *
+ *   const amplifyContext = useContext(AmplifyContext);
+ *   const authenticator: UseAuthenticator = useAuthenticator();
+ *
+ *   // ...
+ *
+ *     return (
+ *       <ApiContextProvider baseURL={import.meta.env.VITE_CORI_DATA_API}
+ *                           fetchAuthSession={fetchAuthSession}
+ *                           getCurrentUser={getCurrentUser}
+ *                           signOut={authenticator.signOut} >
+ *         <AppComponentsThatNeedAccessToAPI />
+ *       </ApiContextProvider>
+ *     );
+ * }
+ *
+ * export default withAuthenticator(App, {
+ *     ...
+ * });
+ * ```
+ *
+ *  @param props.baseURL - Base URL for the RESTful API endpoint, e.g., https://d6q5pgqgx5oy5.cloudfront.net.
+ *  @param props.fetchAuthSession - An optional function from the Amplify Auth package to start an authenticated session
+ *  @param props.getCurrentUser - An optional function from the Amplify Cognito package to fetch the current authenticated user (if any)
+ *  @param props.signOut - An optional function that is one of many destructured props contained in the Amplify authenticator context (returned by the useAuthenticator() hoook), used to sign out the current user.
+ */
 export default function ApiContextProvider (props: {
     children?: ReactElement,
     baseURL?: string,
