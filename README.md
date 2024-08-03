@@ -1,14 +1,4 @@
----
-title: "Frontend UI library for the CORI Data API"
-execute:
-  echo: true
-  output: true
-  message: false
-  warning: false
-format:
-  gfm:
-    variant: +yaml_metadata_block
----
+# Frontend UI library for the CORI Data API
 
 <div>
 

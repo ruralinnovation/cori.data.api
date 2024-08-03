@@ -6,9 +6,7 @@ import React, {
     useState
 } from "react";
 import axios, { AxiosInstance } from 'axios';
-import {AuthTokens, fetchAuthSession, JWT} from "@aws-amplify/auth";
-// import { getCurrentUser } from "@aws-amplify/auth/cognito";
-// import { useAuthenticator, UseAuthenticator } from "@aws-amplify/ui-react";
+import { AuthTokens, JWT } from "@aws-amplify/auth";
 // import { useDispatch, useSelector } from "react-redux";
 // import {
 //     updateUserId,
@@ -18,16 +16,10 @@ import {AuthTokens, fetchAuthSession, JWT} from "@aws-amplify/auth";
 // } from "../features";
 // import { User } from '../models';
 
-// TODO: (maybe?) move the token retrieval code & state prop to AmplifyContextProvider
-// import { AmplifyContext } from "./AmplifyContextProvider";
-
 import "./styles/ApiContextProvider.css";
 import { User } from "../models";
-import { autoSignOut } from "../utils";
-import {getCurrentUser} from "@aws-amplify/auth/src/providers/cognito";
-import {withAuthenticator} from "@aws-amplify/ui-react";
 
-const BASE_URL = "http://localhost:8000"; // `${import.meta.env.VITE_CORI_DATA_API}`;
+const BASE_URL = "https://d6q5pgqgx5oy5.cloudfront.net/"; // `${import.meta.env.VITE_CORI_DATA_API}`;
 // TODO: From now on must pass dev/prod API url in as param to ApiContextProvider because:
 // cori.data.api/lib/@cori-risi/cotexts/ApiContextProvider.tsx:22
 //     const BASE_URL = `${import.meta.env.VITE_CORI_DATA_API}`;
@@ -49,7 +41,20 @@ type AuthSession = {
     userSub?: string;
 };
 
-interface ApiContextType {
+/**
+ * This is the interface/type of the [`ApiContext`](../variables/ApiContext.md).
+ *
+ * @property apiClient Axios client for RESTful services
+ * @property authenticated `true` if the ApiContextProvider has established an authenticated session
+ * @property authenticated_user the current user state if the ApiContextProvider has established an authenticated session
+ * @property autoSignOut a function that can be called to terminate the current session (if using authentication)
+ * @property baseURL Base URL for RESTful service
+ * @property token id token retrieved from Cognito which is used in requests made by the `apiClient`  (if using authentication)
+ * @property data read-only data store
+ * @property setData setter to update data store
+ * @interface
+ */
+export interface ApiContextType {
     apiClient: AxiosInstance;
     authenticated: boolean;
     authenticated_user: User | null;
@@ -79,11 +84,14 @@ const initState: ApiContextType = {
 };
 
 /**
- * This is the data/api context for an Amplify app that uses network requests to fetch data from either
- *  a RESTful service backend (like the [CORI Data API](https://d6q5pgqgx5oy5.cloudfront.net/){target=_blank})
- *  or a GraphQL service backend (like [AWS AppSync](https://aws.amazon.com/appsync/){target=_blank}).
- *  GraphQL queries require a special client can be instantiated by an additional context provider,
-     *  i.e. [ApolloGraphQLProvider](https://github.com/ruralinnovation/amplify-bcat/tree/main/src/%40cori-risi/bcat/contexts){target=_blank}.
+ * This is the data/api context for a React app that uses network requests to fetch data from either a RESTful
+ * service backend or a GraphQL service backend (both are available in the
+ * [CORI Data API](https://d6q5pgqgx5oy5.cloudfront.net/){target=_blank}). See
+ * [`ApiContextType`](../interfaces/ApiContextType.md) for a list of props offered by this context.
+ *
+ * Note that GraphQL queries require a special client that can be instantiated by an additional context provider component
+ * (i.e. [ApolloGraphQLProvider](https://github.com/ruralinnovation/amplify-bcat/tree/main/src/%40cori-risi/bcat/contexts){target=_blank}).
+ *
  */
 export const ApiContext = createContext<ApiContextType | null>(initState);
 
@@ -92,8 +100,11 @@ let hasAuthUser = false;
 let hasAuthClient = false;
 
 /**
- * This component provides the data/api context to an Amplify app. The following example assumes that a
- * configuration context is provided by AmplifyContext to allow for authentication with AWS Cognito:
+ * This component provides the API/data service context ([`ApiContext`](../variables/ApiContext.md)) to a React
+ * application. The following example assumes that the `App` component  has been configured by the
+ * [`AmplifyContextProvider`](../functions/AmplifyContextProvider.md) to allow for authentication
+ * with AWS Cognito, but this provider can also be used to setup an ApiContext with no authentication (by only using
+ * the `baseURL` param/prop and disregarding the other props):
  *
  * ```ts
  * import {

@@ -14,7 +14,7 @@ export {
 
 // Actual API
 export { default as AmplifyContextProvider, AmplifyContext }  from "./@cori-risi/cotexts/AmplifyContextProvider";
-export { default as ApiContextProvider, ApiContext } from "./@cori-risi/cotexts/ApiContextProvider";
+export { default as ApiContextProvider, ApiContext, ApiContextType } from "./@cori-risi/cotexts/ApiContextProvider";
 // export { default as BarChart } from "./@cori-risi/components/BarChart";
 export { default as CategoricalLegend } from "./@cori-risi/components/CategoricalLegend";
 // export { default as ControlPanel } from "./@cori-risi/components/ControlPanel"
