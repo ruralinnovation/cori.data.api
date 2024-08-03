@@ -219,12 +219,13 @@ ul.task-list li input[type="checkbox"] {
 <section id="apicontext" class="level1">
 <h1>ApiContext</h1>
 <blockquote class="blockquote">
-<p><code>const</code> <strong>ApiContext</strong>: <code>Context</code>&lt;<code>null</code> | <code>ApiContextType</code>&gt;</p>
+<p><code>const</code> <strong>ApiContext</strong>: <code>Context</code>&lt;<code>null</code> | <a href="../../docs/interfaces/ApiContextType.html"><code>ApiContextType</code></a>&gt;</p>
 </blockquote>
-<p>This is the data/api context for an Amplify app that uses network requests to fetch data from either a RESTful service backend (like the <a href="https://d6q5pgqgx5oy5.cloudfront.net/" target="_blank">CORI Data API</a>) or a GraphQL service backend (like <a href="https://aws.amazon.com/appsync/" target="_blank">AWS AppSync</a>). GraphQL queries require a special client can be instantiated by an additional context provider, * i.e.&nbsp;<a href="https://github.com/ruralinnovation/amplify-bcat/tree/main/src/%40cori-risi/bcat/contexts" target="_blank">ApolloGraphQLProvider</a>.</p>
+<p>This is the data/api context for a React app that uses network requests to fetch data from either a RESTful service backend or a GraphQL service backend (both are available in the <a href="https://d6q5pgqgx5oy5.cloudfront.net/" target="_blank">CORI Data API</a>). See <a href="../../docs/interfaces/ApiContextType.html"><code>ApiContextType</code></a> for a list of props offered by this context.</p>
+<p>Note that GraphQL queries require a special client that can be instantiated by an additional context provider component (i.e.&nbsp;<a href="https://github.com/ruralinnovation/amplify-bcat/tree/main/src/%40cori-risi/bcat/contexts" target="_blank">ApolloGraphQLProvider</a>).</p>
 <section id="defined-in" class="level2">
 <h2 class="anchored" data-anchor-id="defined-in">Defined in</h2>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/f4430f2bd40857698f0a42f8a43477d72a8c7b19/lib/@cori-risi/cotexts/ApiContextProvider.tsx#L88"><span class="citation" data-cites="cori-risi/cotexts/ApiContextProvider.tsx:88">@cori-risi/cotexts/ApiContextProvider.tsx:88</span></a></p>
+<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/7b635fb85efca6806de2e494a46e8fc4c973b876/lib/@cori-risi/cotexts/ApiContextProvider.tsx#L96"><span class="citation" data-cites="cori-risi/cotexts/ApiContextProvider.tsx:96">@cori-risi/cotexts/ApiContextProvider.tsx:96</span></a></p>
 
 
 </section>

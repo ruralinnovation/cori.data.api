@@ -25,7 +25,7 @@
     "href": "docs/functions/ApiContextProvider.html#defined-in",
     "title": "ApiContextProvider()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:137"
+    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:148"
   },
   {
     "objectID": "docs/functions/CategoricalLegend.html",
@@ -112,46 +112,39 @@
     "text": "Defined in\n@cori-risi/cotexts/AmplifyContextProvider.tsx:73"
   },
   {
-    "objectID": "docs/variables/AmplifyContext.html",
-    "href": "docs/variables/AmplifyContext.html",
-    "title": "AmplifyContext",
+    "objectID": "docs/interfaces/ApiContextType.html",
+    "href": "docs/interfaces/ApiContextType.html",
+    "title": "Interface: ApiContextType",
     "section": "",
-    "text": "@cori-risi/cori.data.api / AmplifyContext"
+    "text": "@cori-risi/cori.data.api / ApiContextType"
   },
   {
-    "objectID": "docs/variables/AmplifyContext.html#defined-in",
-    "href": "docs/variables/AmplifyContext.html#defined-in",
-    "title": "AmplifyContext",
+    "objectID": "docs/interfaces/ApiContextType.html#properties",
+    "href": "docs/interfaces/ApiContextType.html#properties",
+    "title": "Interface: ApiContextType",
+    "section": "Properties",
+    "text": "Properties\n\napiClient\n\napiClient: AxiosInstance\n\nAxios client for RESTful services\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:58\n\n\n\n\nauthenticated\n\nauthenticated: boolean\n\ntrue if the ApiContextProvider has established an authenticated session\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:59\n\n\n\n\nauthenticated_user\n\nauthenticated_user: null | User\n\nthe current user state if the ApiContextProvider has established an authenticated session\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:60\n\n\n\n\nautoSignOut\n\nautoSignOut: null | () =&gt; void\n\na function that can be called to terminate the current session (if using authentication)\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:61\n\n\n\n\nbaseURL\n\nbaseURL: string\n\nBase URL for RESTful service\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:62\n\n\n\n\ndata\n\ndata: any\n\nread-only data store\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:64\n\n\n\n\nsetData\n\nsetData: null | (newData) =&gt; void\n\nsetter to update data store\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:65\n\n\n\n\ntoken\n\ntoken: null | JWT\n\nid token retrieved from Cognito which is used in requests made by the apiClient (if using authentication)\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:63"
+  },
+  {
+    "objectID": "docs/variables/ApiContext.html",
+    "href": "docs/variables/ApiContext.html",
+    "title": "ApiContext",
+    "section": "",
+    "text": "@cori-risi/cori.data.api / ApiContext"
+  },
+  {
+    "objectID": "docs/variables/ApiContext.html#defined-in",
+    "href": "docs/variables/ApiContext.html#defined-in",
+    "title": "ApiContext",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/cotexts/AmplifyContextProvider.tsx:43"
+    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:96"
   },
   {
-    "objectID": "docs/variables/coriLightMapStyle.html",
-    "href": "docs/variables/coriLightMapStyle.html",
-    "title": "coriLightMapStyle",
-    "section": "",
-    "text": "@cori-risi/cori.data.api / coriLightMapStyle"
-  },
-  {
-    "objectID": "docs/variables/coriLightMapStyle.html#defined-in",
-    "href": "docs/variables/coriLightMapStyle.html#defined-in",
-    "title": "coriLightMapStyle",
-    "section": "Defined in",
-    "text": "Defined in\ncori.data.api.ts:27"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Frontend UI library for the CORI Data API",
-    "section": "",
-    "text": "Tip\nNote: This README file is generated from README.qmd in the “R” directory of this repo with the command npm run render:readme.\n\n\nThis is a set of components, contexts, and general functions for any web application that is intended to interact with the CORI Data API backend (including GraphQL, Rest, and S3 resources).\n\nInstallation\nnpm install --save git+https://github.com/ruralinnovation/cori.data.api"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
+    "objectID": "docs/globals.html#interfaces",
+    "href": "docs/globals.html#interfaces",
     "title": "@cori-risi/cori.data.api",
-    "section": "",
-    "text": "The Center on Rural Innovation (CORI) is a 501(c)(3) nonprofit organization partnering with rural leaders across the country to build tech economies that support scalable entrepreneurship and lead to more tech jobs in rural America.\nThese repositories are maintained by the Mapping and Data Analytics (MDA) team at CORI/RISI. Our team provides data, analytics and visualizations to support rural participation in the digital economy through scalable entrepreneurship and tech job growth in rural America. We aim to provide a better understanding of the forces and trends affecting rural America as we help communities chart a path to opportunity and prosperity through the tech economy.\nWe strive towards serving as the primary center of excellence advancing sustainable, economic opportunity and equity in rural America. We do this by providing expert spatial and statistical analysis, modernized visualization and tool development, credible technical subject matter expertise, and transparent documentation.\nFollow our work by reading our blog and reviewing the following list of past projects:\n\n\n\nBroadband - Broadband Equity Access and Deployment (BEAD) tool - Climate Risk Mapping\n\n\nResearch - Rural Aperture Project (RWJF) - Defining rural America - Who lives in rural America? Part 1 Part 2 - The equity of economic opportunity in rural America\n\n\n\n\nRural Innovation Network - Ascendium reports and data viz - Economic Development (ERC) tool\n\n\nRural Innovation Initiative - Tech Economy Diagnostic (TED)  (i.e., community assessment → ERC tool)\n\n\n\n\nTech Entrepreneurship  - Feasibility studies - Tech Talent Tracker → ERC tool\n\n\nAdditional work - Economic Development Administration (EDA) reports - Economic impact analysis - Multistate Workforce Analysis - example - Who Is Missing Analysis\n\n\n\nLearn more about the MDA approach to Knowledge here: Research, mapping, and data analytics"
+    "section": "Interfaces",
+    "text": "Interfaces\n\nApiContextType"
   },
   {
     "objectID": "docs/globals.html#variables",
@@ -168,18 +161,46 @@
     "text": "Functions\n\nAmplifyContextProvider\nApiContextProvider\nButton\nCategoricalLegend\nGeocoderControl\nInput\nLabel\nhelloAnything"
   },
   {
-    "objectID": "docs/variables/ApiContext.html",
-    "href": "docs/variables/ApiContext.html",
-    "title": "ApiContext",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "@cori-risi/cori.data.api",
     "section": "",
-    "text": "@cori-risi/cori.data.api / ApiContext"
+    "text": "The Center on Rural Innovation (CORI) is a 501(c)(3) nonprofit organization partnering with rural leaders across the country to build tech economies that support scalable entrepreneurship and lead to more tech jobs in rural America.\nThese repositories are maintained by the Mapping and Data Analytics (MDA) team at CORI/RISI. Our team provides data, analytics and visualizations to support rural participation in the digital economy through scalable entrepreneurship and tech job growth in rural America. We aim to provide a better understanding of the forces and trends affecting rural America as we help communities chart a path to opportunity and prosperity through the tech economy.\nWe strive towards serving as the primary center of excellence advancing sustainable, economic opportunity and equity in rural America. We do this by providing expert spatial and statistical analysis, modernized visualization and tool development, credible technical subject matter expertise, and transparent documentation.\nFollow our work by reading our blog and reviewing the following list of past projects:\n\n\n\nBroadband - Broadband Equity Access and Deployment (BEAD) tool - Climate Risk Mapping\n\n\nResearch - Rural Aperture Project (RWJF) - Defining rural America - Who lives in rural America? Part 1 Part 2 - The equity of economic opportunity in rural America\n\n\n\n\nRural Innovation Network - Ascendium reports and data viz - Economic Development (ERC) tool\n\n\nRural Innovation Initiative - Tech Economy Diagnostic (TED)  (i.e., community assessment → ERC tool)\n\n\n\n\nTech Entrepreneurship  - Feasibility studies - Tech Talent Tracker → ERC tool\n\n\nAdditional work - Economic Development Administration (EDA) reports - Economic impact analysis - Multistate Workforce Analysis - example - Who Is Missing Analysis\n\n\n\nLearn more about the MDA approach to Knowledge here: Research, mapping, and data analytics"
   },
   {
-    "objectID": "docs/variables/ApiContext.html#defined-in",
-    "href": "docs/variables/ApiContext.html#defined-in",
-    "title": "ApiContext",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Frontend UI library for the CORI Data API",
+    "section": "",
+    "text": "Frontend UI library for the CORI Data API\n\n\nTip\nNote: This README file is generated from README.qmd in the “R” directory of this repo with the command npm run render:readme.\n\n\nThis is a set of components, contexts, and general functions for any web application that is intended to interact with the CORI Data API backend (including GraphQL, Rest, and S3 resources).\n\nInstallation\nnpm install --save git+https://github.com/ruralinnovation/cori.data.api"
+  },
+  {
+    "objectID": "docs/variables/coriLightMapStyle.html",
+    "href": "docs/variables/coriLightMapStyle.html",
+    "title": "coriLightMapStyle",
+    "section": "",
+    "text": "@cori-risi/cori.data.api / coriLightMapStyle"
+  },
+  {
+    "objectID": "docs/variables/coriLightMapStyle.html#defined-in",
+    "href": "docs/variables/coriLightMapStyle.html#defined-in",
+    "title": "coriLightMapStyle",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:88"
+    "text": "Defined in\ncori.data.api.ts:27"
+  },
+  {
+    "objectID": "docs/variables/AmplifyContext.html",
+    "href": "docs/variables/AmplifyContext.html",
+    "title": "AmplifyContext",
+    "section": "",
+    "text": "@cori-risi/cori.data.api / AmplifyContext"
+  },
+  {
+    "objectID": "docs/variables/AmplifyContext.html#defined-in",
+    "href": "docs/variables/AmplifyContext.html#defined-in",
+    "title": "AmplifyContext",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/cotexts/AmplifyContextProvider.tsx:43"
   },
   {
     "objectID": "docs/functions/GeocoderControl.html",
