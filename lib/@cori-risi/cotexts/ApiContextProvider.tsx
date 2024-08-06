@@ -72,6 +72,8 @@ const apiClient: AxiosInstance = axios.create({
     },
 });
 
+const apiData: any = {};
+
 const initState: ApiContextType = {
     apiClient: apiClient,
     authenticated: false,
@@ -79,12 +81,13 @@ const initState: ApiContextType = {
     autoSignOut: null,
     baseURL: BASE_URL,
     token: null,
-    data: {},
-    setData: function (newData: any) {
-        this.data =  {
-            ...this.data,
-            ...newData
-        };
+    data: apiData,
+    setData: (newData: any) => {
+        for (const d in newData) {
+            if (newData.hasOwnProperty[d]) {
+                apiData[d] = newData;
+            }
+        }
     }
 };
 
@@ -158,23 +161,23 @@ export default function ApiContextProvider (props: {
     signOut?: Function
 }) {
 
-    const [ authenticated_user, setAuthenticatedUser ] = useState<User | null>(null);
+    // const [ authenticated_user, setAuthenticatedUser ] = useState<User | null>(null);
     // const userState = useSelector(selectUser);
     // const dispatch = useDispatch();
 
     const [ state, setState ] = useState<ApiContextType>(initState);
 
-    function setData(newData: any) {
-        const currentState:  ApiContextType = state!;
-        setState({
-            ...currentState,
-            data: {
-                ...currentState.data,
-                ...newData
-            },
-            setData: setData
-        });
-    }
+    // function setData(newData: any) {
+    //     const currentState: ApiContextType = state!;
+    //     setState({
+    //         ...currentState,
+    //         data: {
+    //             ...currentState.data,
+    //             ...newData
+    //         },
+    //         setData: setData
+    //     });
+    // }
 
     if (!!props.baseURL) {
         apiClient.interceptors.request.use(
@@ -198,7 +201,7 @@ export default function ApiContextProvider (props: {
                 (window as any).location = window.location.protocol + "//" + window.location.host + window.location.pathname;
             } : null,
             baseURL: (!!props.baseURL) ? props.baseURL : BASE_URL,
-            setData
+            // setData
         });
 
         if (!!props.fetchAuthSession) {
@@ -251,7 +254,7 @@ export default function ApiContextProvider (props: {
                                     (window as any).location = window.location.protocol + "//" + window.location.host + window.location.pathname;
                                 } : null,
                                 baseURL: props.baseURL || BASE_URL,
-                                setData,
+                                // setData,
                                 token: tokens.idToken!
                             });
 
@@ -329,7 +332,7 @@ export default function ApiContextProvider (props: {
                                                     (window as any).location = window.location.protocol + "//" + window.location.host + window.location.pathname;
                                                 } : null,
                                                 baseURL: props.baseURL || BASE_URL,
-                                                setData,
+                                                // setData,
                                                 token: tokens.idToken!
                                             });
 

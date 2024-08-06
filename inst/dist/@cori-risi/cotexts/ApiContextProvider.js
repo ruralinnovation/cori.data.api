@@ -14,6 +14,7 @@ const apiClient = axios.create({
         'Content-Type': 'application/json'
     },
 });
+const apiData = {};
 const initState = {
     apiClient: apiClient,
     authenticated: false,
@@ -21,9 +22,13 @@ const initState = {
     autoSignOut: null,
     baseURL: BASE_URL,
     token: null,
-    data: {},
-    setData: function (newData) {
-        this.data = Object.assign(Object.assign({}, this.data), newData);
+    data: apiData,
+    setData: (newData) => {
+        for (const d in newData) {
+            if (newData.hasOwnProperty[d]) {
+                apiData[d] = newData;
+            }
+        }
     }
 };
 /**
@@ -86,14 +91,21 @@ let hasAuthUser = false;
  *  @param props.signOut - An optional function that is one of many destructured props contained in the Amplify authenticator context (returned by the useAuthenticator() hoook), used to sign out the current user.
  */
 function ApiContextProvider(props) {
-    useState(null);
+    // const [ authenticated_user, setAuthenticatedUser ] = useState<User | null>(null);
     // const userState = useSelector(selectUser);
     // const dispatch = useDispatch();
     const [state, setState] = useState(initState);
-    function setData(newData) {
-        const currentState = state;
-        setState(Object.assign(Object.assign({}, currentState), { data: Object.assign(Object.assign({}, currentState.data), newData), setData: setData }));
-    }
+    // function setData(newData: any) {
+    //     const currentState: ApiContextType = state!;
+    //     setState({
+    //         ...currentState,
+    //         data: {
+    //             ...currentState.data,
+    //             ...newData
+    //         },
+    //         setData: setData
+    //     });
+    // }
     if (!!props.baseURL) {
         apiClient.interceptors.request.use((config) => {
             config.baseURL = props.baseURL;
@@ -107,7 +119,7 @@ function ApiContextProvider(props) {
                 (signOut)();
                 window.alert("Please refresh this session by clicking the browser's reload button!");
                 window.location = window.location.protocol + "//" + window.location.host + window.location.pathname;
-            } : null, baseURL: (!!props.baseURL) ? props.baseURL : BASE_URL, setData }));
+            } : null, baseURL: (!!props.baseURL) ? props.baseURL : BASE_URL }));
         if (!!props.fetchAuthSession) {
             const { fetchAuthSession } = props;
             const session = fetchAuthSession();
@@ -136,7 +148,9 @@ function ApiContextProvider(props) {
                                 (signOut)();
                                 window.alert("Please refresh this session by clicking the browser's reload button!");
                                 window.location = window.location.protocol + "//" + window.location.host + window.location.pathname;
-                            } : null, baseURL: props.baseURL || BASE_URL, setData, token: tokens.idToken }));
+                            } : null, baseURL: props.baseURL || BASE_URL, 
+                            // setData,
+                            token: tokens.idToken }));
                         // TODO: Use autoSignOut to prompt user to refresh session on API error
                         // const remoteAPIStartTime = performance.now();
                         // apiClient.get(...)
@@ -196,7 +210,9 @@ function ApiContextProvider(props) {
                                             (signOut)();
                                             window.alert("Please refresh this session by clicking the browser's reload button!");
                                             window.location = window.location.protocol + "//" + window.location.host + window.location.pathname;
-                                        } : null, baseURL: props.baseURL || BASE_URL, setData, token: tokens.idToken }));
+                                        } : null, baseURL: props.baseURL || BASE_URL, 
+                                        // setData,
+                                        token: tokens.idToken }));
                                     //     setAuthenticatedUser(u);
                                     // }
                                     // updateUser(u);
