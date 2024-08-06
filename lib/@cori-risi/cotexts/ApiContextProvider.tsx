@@ -81,7 +81,16 @@ const initState: ApiContextType = {
     autoSignOut: null,
     baseURL: BASE_URL,
     token: null,
-    data: apiData,
+    data: {
+        get: () => apiData,
+        set: (newData: any) => {
+            for (const d in newData) {
+                if (newData.hasOwnProperty[d]) {
+                    apiData[d] = newData;
+                }
+            }
+        }
+    },
     setData: (newData: any) => {
         for (const d in newData) {
             if (newData.hasOwnProperty[d]) {
