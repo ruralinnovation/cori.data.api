@@ -19,7 +19,7 @@ import { AuthTokens, JWT } from "@aws-amplify/auth";
 import "./styles/ApiContextProvider.css";
 import { User } from "../models";
 
-const BASE_URL = "https://d6q5pgqgx5oy5.cloudfront.net/"; // `${import.meta.env.VITE_CORI_DATA_API}`;
+const BASE_URL = "https://cori-data-api.ruralinnovation.us/"; // `${import.meta.env.VITE_CORI_DATA_API}`;
 // TODO: From now on must pass dev/prod API url in as param to ApiContextProvider because:
 // cori.data.api/lib/@cori-risi/cotexts/ApiContextProvider.tsx:22
 //     const BASE_URL = `${import.meta.env.VITE_CORI_DATA_API}`;
@@ -86,7 +86,7 @@ const initState: ApiContextType = {
 /**
  * This is the data/api context for a React app that uses network requests to fetch data from either a RESTful
  * service backend or a GraphQL service backend (both are available in the
- * [CORI Data API](https://d6q5pgqgx5oy5.cloudfront.net/){target=_blank}). See
+ * [CORI Data API](https://cori-data-api.ruralinnovation.us/){target=_blank}). See
  * [`ApiContextType`](../interfaces/ApiContextType.md) for a list of props offered by this context.
  *
  * Note that GraphQL queries require a special client that can be instantiated by an additional context provider component
@@ -140,7 +140,7 @@ let hasAuthClient = false;
  * });
  * ```
  *
- *  @param props.baseURL - Base URL for the RESTful API endpoint, e.g., https://d6q5pgqgx5oy5.cloudfront.net.
+ *  @param props.baseURL - Base URL for the RESTful API endpoint, e.g., https://cori-data-api.ruralinnovation.us.
  *  @param props.fetchAuthSession - An optional function from the Amplify Auth package to start an authenticated session
  *  @param props.getCurrentUser - An optional function from the Amplify Cognito package to fetch the current authenticated user (if any)
  *  @param props.signOut - An optional function that is one of many destructured props contained in the Amplify authenticator context (returned by the useAuthenticator() hoook), used to sign out the current user.

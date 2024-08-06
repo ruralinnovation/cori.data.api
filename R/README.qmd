@@ -6,7 +6,7 @@ title: "Frontend UI library for the CORI Data API"
 _Note: This README file is generated from `README.qmd` in the "R" directory of this repo with the command `npm run render:readme`._
 :::
 
-This is a set of components, contexts, and general functions for any web application that is intended to interact with the [CORI Data API](https://d6q5pgqgx5oy5.cloudfront.net){.external target="_blank"} backend (including GraphQL, Rest, and S3 resources).
+This is a set of components, contexts, and general functions for any web application that is intended to interact with the [CORI Data API](https://cori-data-api.ruralinnovation.us/){.external target="_blank"} backend (including GraphQL, Rest, and S3 resources).
 
 ### Installation
 

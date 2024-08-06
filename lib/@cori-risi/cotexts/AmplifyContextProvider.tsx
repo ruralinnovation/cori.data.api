@@ -38,13 +38,13 @@ const initAmplifyContext: AmplifyContextType = {
 
 /**
  * This is the configuration context for an Amplify app that uses authentication to connect
- * to the [CORI Data API](https://d6q5pgqgx5oy5.cloudfront.net/){target=_blank}.
+ * to the [CORI Data API](https://cori-data-api.ruralinnovation.us/){target=_blank}.
  */
 export const AmplifyContext = createContext<AmplifyContextType | null>(initAmplifyContext);
 
 /**
  * This component provides the configuration context to an Amplify/React app, which is particularly useful to one that requires
- * authentication in order to access the [CORI Data API](https://d6q5pgqgx5oy5.cloudfront.net/){target=_blank}.
+ * authentication in order to access the [CORI Data API](https://cori-data-api.ruralinnovation.us/){target=_blank}.
  * Other than the `children` prop, the parameters are
  * [AWS Cognito](https://us-east-1.console.aws.amazon.com/cognito/v2/home?region=us-east-1){target=_blank}
  * values that are passed so that the Amplify configuration method can use the specified User pool
