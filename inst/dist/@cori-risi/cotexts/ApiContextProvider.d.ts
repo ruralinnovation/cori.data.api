@@ -24,7 +24,7 @@ export interface ApiContextType {
     baseURL: string;
     token: JWT | null;
     data: any;
-    setData: ((newData: any) => void) | null;
+    setData: ((newData: any) => void);
 }
 /**
  * This is the data/api context for a React app that uses network requests to fetch data from either a RESTful

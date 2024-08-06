@@ -22,7 +22,9 @@ const initState = {
     baseURL: BASE_URL,
     token: null,
     data: {},
-    setData: null
+    setData: function (newData) {
+        this.data = Object.assign(Object.assign({}, this.data), newData);
+    }
 };
 /**
  * This is the data/api context for a React app that uses network requests to fetch data from either a RESTful
