@@ -22,7 +22,16 @@ const initState = {
     autoSignOut: null,
     baseURL: BASE_URL,
     token: null,
-    data: apiData,
+    data: {
+        get: () => apiData,
+        set: (newData) => {
+            for (const d in newData) {
+                if (newData.hasOwnProperty[d]) {
+                    apiData[d] = newData;
+                }
+            }
+        }
+    },
     setData: (newData) => {
         for (const d in newData) {
             if (newData.hasOwnProperty[d]) {
