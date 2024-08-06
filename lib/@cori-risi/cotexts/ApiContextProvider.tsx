@@ -62,7 +62,7 @@ export interface ApiContextType {
     baseURL: string;
     token: JWT | null;
     data: any;
-    setData: ((newData: any) => void) | null;
+    setData: ((newData: any) => void);
 }
 
 const apiClient: AxiosInstance = axios.create({
@@ -80,7 +80,12 @@ const initState: ApiContextType = {
     baseURL: BASE_URL,
     token: null,
     data: {},
-    setData: null
+    setData: function (newData: any) {
+        this.data =  {
+            ...this.data,
+            ...newData
+        };
+    }
 };
 
 /**
