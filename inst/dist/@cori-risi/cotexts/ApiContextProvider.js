@@ -92,13 +92,14 @@ function ApiContextProvider(props) {
         const currentState = state;
         setState(Object.assign(Object.assign({}, currentState), { data: Object.assign(Object.assign({}, currentState.data), newData), setData: setData }));
     }
-    useEffect(() => {
+    if (!!props.baseURL) {
         apiClient.interceptors.request.use((config) => {
-            if (!!props.baseURL) {
-                config.baseURL = props.baseURL;
-            }
+            config.baseURL = props.baseURL;
+            console.log("API baseURL updated:", config.baseURL);
             return config;
         }, (error) => Promise.reject(error));
+    }
+    useEffect(() => {
         setState(Object.assign(Object.assign({}, state), { autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
                 const { signOut } = props;
                 (signOut)();
