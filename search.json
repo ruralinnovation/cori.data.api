@@ -25,7 +25,7 @@
     "href": "docs/functions/ApiContextProvider.html#defined-in",
     "title": "ApiContextProvider()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:148"
+    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:153"
   },
   {
     "objectID": "docs/functions/CategoricalLegend.html",
@@ -123,7 +123,7 @@
     "href": "docs/interfaces/ApiContextType.html#properties",
     "title": "Interface: ApiContextType",
     "section": "Properties",
-    "text": "Properties\n\napiClient\n\napiClient: AxiosInstance\n\nAxios client for RESTful services\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:58\n\n\n\n\nauthenticated\n\nauthenticated: boolean\n\ntrue if the ApiContextProvider has established an authenticated session\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:59\n\n\n\n\nauthenticated_user\n\nauthenticated_user: null | User\n\nthe current user state if the ApiContextProvider has established an authenticated session\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:60\n\n\n\n\nautoSignOut\n\nautoSignOut: null | () =&gt; void\n\na function that can be called to terminate the current session (if using authentication)\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:61\n\n\n\n\nbaseURL\n\nbaseURL: string\n\nBase URL for RESTful service\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:62\n\n\n\n\ndata\n\ndata: any\n\nread-only data store\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:64\n\n\n\n\nsetData\n\nsetData: null | (newData) =&gt; void\n\nsetter to update data store\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:65\n\n\n\n\ntoken\n\ntoken: null | JWT\n\nid token retrieved from Cognito which is used in requests made by the apiClient (if using authentication)\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:63"
+    "text": "Properties\n\napiClient\n\napiClient: AxiosInstance\n\nAxios client for RESTful services\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:58\n\n\n\n\nauthenticated\n\nauthenticated: boolean\n\ntrue if the ApiContextProvider has established an authenticated session\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:59\n\n\n\n\nauthenticated_user\n\nauthenticated_user: null | User\n\nthe current user state if the ApiContextProvider has established an authenticated session\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:60\n\n\n\n\nautoSignOut\n\nautoSignOut: null | () =&gt; void\n\na function that can be called to terminate the current session (if using authentication)\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:61\n\n\n\n\nbaseURL\n\nbaseURL: string\n\nBase URL for RESTful service\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:62\n\n\n\n\ndata\n\ndata: any\n\nread-only data store\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:64\n\n\n\n\nsetData()\n\nsetData: (newData) =&gt; void\n\nsetter to update data store\n\nParameters\n• newData: any\n\n\nReturns\nvoid\n\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:65\n\n\n\n\ntoken\n\ntoken: null | JWT\n\nid token retrieved from Cognito which is used in requests made by the apiClient (if using authentication)\n\nDefined in\n@cori-risi/cotexts/ApiContextProvider.tsx:63"
   },
   {
     "objectID": "docs/variables/ApiContext.html",
@@ -137,7 +137,7 @@
     "href": "docs/variables/ApiContext.html#defined-in",
     "title": "ApiContext",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:96"
+    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:101"
   },
   {
     "objectID": "docs/globals.html#interfaces",
