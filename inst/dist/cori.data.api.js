@@ -15,7 +15,33 @@ import MAP_STYLE from './@cori-risi/mapbox/styles/ruralinno/cl010e7b7001p15pe3l0
 function helloAnything(thing) {
     return `Hello ${thing}!`;
 }
-// Make a copy of the main basemap style
+/**
+ * This is the primary Mapbox basemap style used in CORI/RISI frontend mapping applications
+ *
+ * <link href="https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.css" rel="stylesheet">
+ * <script src="https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.js"></script>
+ * <div id="map" style="position: relative; top: 0; bottom: 0; width: 720px; height: 480px"></div>
+ * <script>
+ * mapboxgl.accessToken = 'pk.eyJ1IjoicnVyYWxpbm5vIiwiYSI6ImNqeHl0cW0xODBlMm0zY2x0dXltYzRuazUifQ.zZBovoCHzLIW0wCZveEKzA';
+ * const map = new mapboxgl.Map({
+ *     container: 'map', // container ID
+ *     // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+ *     style: 'mapbox://styles/ruralinno/cl010e7b7001p15pe3l0306hv', // style URL
+ *     center: [-80, 40], // starting position [lng, lat]
+ *     zoom: 3.5 // starting zoom
+ * });
+ * </script>
+ *
+ * ```ts
+ * import { coriLightMapStyle } from "@cori-risi/cori.data.api";
+ *
+ * // ...
+ *
+ * <Map mapboxAccessToken={MAPBOX_TOKEN}
+ *      mapStyle={{...coriLightMapStyle}} >
+ *
+ * ```
+ * */
 const coriLightMapStyle = (Object.assign({}, MAP_STYLE));
 
 export { coriLightMapStyle, helloAnything };

@@ -17,16 +17,24 @@ const initAmplifyContext = {
     userPoolId: undefined,
     userPoolClientId: undefined,
 };
+/**
+ * This is the configuration context for an Amplify app that uses authentication to connect
+ * to the [CORI Data API](https://cori-data-api.ruralinnovation.us/){target=_blank}.
+ */
 const AmplifyContext = createContext(initAmplifyContext);
 /**
- * This component provides the Amplify configuration context to an Amplify app,
- * which is particularly useful to one that requires authentication in order to
- * access the CORI Data API. Other than the children prop, the parameters are
+ * This component provides the configuration context to an Amplify/React app, which is particularly useful to one that requires
+ * authentication in order to access the [CORI Data API](https://cori-data-api.ruralinnovation.us/){target=_blank}.
+ * Other than the `children` prop, the parameters are
  * [AWS Cognito](https://us-east-1.console.aws.amazon.com/cognito/v2/home?region=us-east-1){target=_blank}
- * values, passed so that the Amplify configuration method can use the specified User pool
+ * values that are passed so that the Amplify configuration method can use the specified User pool
  * and Identity pool to authenticate users (including the `cori-risi-public` user).
  *
  * ```ts
+ * import { AmplifyContextProvider } from "@cori-risi/cori.data.api";
+ *
+ * // ...
+ *
  * <AmplifyContextProvider domain={import.meta.env.VITE_COGNITO_DOMAIN}
  *                         region={import.meta.env.VITE_REGION}
  *                         identityPoolId={import.meta.env.VITE_IDENTITY_POOL_ID}
@@ -36,7 +44,7 @@ const AmplifyContext = createContext(initAmplifyContext);
  * </AmplifyContextProvider>
  * ```
  *
- *  @param props.domain - domain for the Cognito Hosted UI and/or OAuth 2.0 endpoints
+ *  @param props.domain s- domain for the Cognito Hosted UI and/or OAuth 2.0 endpoints
  *  @param props.region - AWS region where Cognito service is hosted
  *  @param props.identityPoolId - Cognito Identity pool ID
  *  @param props.userPoolId - Cognito User pool ID
