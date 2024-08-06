@@ -174,19 +174,22 @@ export default function ApiContextProvider (props: {
     // const userState = useSelector(selectUser);
     // const dispatch = useDispatch();
 
-    const [ state, setState ] = useState<ApiContextType>(initState);
+    const [ state, setState ] = useState<ApiContextType>({
+        ...initState,
+        setData
+    });
 
-    // function setData(newData: any) {
-    //     const currentState: ApiContextType = state!;
-    //     setState({
-    //         ...currentState,
-    //         data: {
-    //             ...currentState.data,
-    //             ...newData
-    //         },
-    //         setData: setData
-    //     });
-    // }
+    function setData(newData: any) {
+        const currentState: ApiContextType = state!;
+        setState({
+            ...currentState,
+            data: {
+                ...currentState.data,
+                ...newData
+            },
+            setData: setData
+        });
+    }
 
     if (!!props.baseURL) {
         apiClient.interceptors.request.use(
