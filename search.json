@@ -11,7 +11,7 @@
     "href": "docs/functions/ApiContextProvider.html#parameters",
     "title": "ApiContextProvider()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.baseURL?: string\nBase URL for the RESTful API endpoint, e.g., https://d6q5pgqgx5oy5.cloudfront.net.\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.fetchAuthSession?: Function\nAn optional function from the Amplify Auth package to start an authenticated session\n• props.getCurrentUser?: Function\nAn optional function from the Amplify Cognito package to fetch the current authenticated user (if any)\n• props.signOut?: Function\nAn optional function that is one of many destructured props contained in the Amplify authenticator context (returned by the useAuthenticator() hoook), used to sign out the current user."
+    "text": "Parameters\n• props\n• props.baseURL?: string\nBase URL for the RESTful API endpoint, e.g., https://cori-data-api.ruralinnovation.us.\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.fetchAuthSession?: Function\nAn optional function from the Amplify Auth package to start an authenticated session\n• props.getCurrentUser?: Function\nAn optional function from the Amplify Cognito package to fetch the current authenticated user (if any)\n• props.signOut?: Function\nAn optional function that is one of many destructured props contained in the Amplify authenticator context (returned by the useAuthenticator() hoook), used to sign out the current user."
   },
   {
     "objectID": "docs/functions/ApiContextProvider.html#returns",
