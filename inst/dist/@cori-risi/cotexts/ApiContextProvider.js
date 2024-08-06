@@ -103,18 +103,11 @@ function ApiContextProvider(props) {
     // const [ authenticated_user, setAuthenticatedUser ] = useState<User | null>(null);
     // const userState = useSelector(selectUser);
     // const dispatch = useDispatch();
-    const [state, setState] = useState(initState);
-    // function setData(newData: any) {
-    //     const currentState: ApiContextType = state!;
-    //     setState({
-    //         ...currentState,
-    //         data: {
-    //             ...currentState.data,
-    //             ...newData
-    //         },
-    //         setData: setData
-    //     });
-    // }
+    const [state, setState] = useState(Object.assign(Object.assign({}, initState), { setData }));
+    function setData(newData) {
+        const currentState = state;
+        setState(Object.assign(Object.assign({}, currentState), { data: Object.assign(Object.assign({}, currentState.data), newData), setData: setData }));
+    }
     if (!!props.baseURL) {
         apiClient.interceptors.request.use((config) => {
             config.baseURL = props.baseURL;
