@@ -25,7 +25,7 @@
     "href": "docs/functions/ApiContextProvider.html#defined-in",
     "title": "ApiContextProvider()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:156"
+    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:165"
   },
   {
     "objectID": "docs/functions/CategoricalLegend.html",
@@ -137,7 +137,7 @@
     "href": "docs/variables/ApiContext.html#defined-in",
     "title": "ApiContext",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:104"
+    "text": "Defined in\n@cori-risi/cotexts/ApiContextProvider.tsx:113"
   },
   {
     "objectID": "docs/globals.html#interfaces",
