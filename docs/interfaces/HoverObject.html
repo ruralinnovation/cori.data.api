@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>@cori-risi/cori.data.api – apicontext</title>
+<title>@cori-risi/cori.data.api – hoverobject</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -208,9 +208,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#apicontext" id="toc-apicontext" class="nav-link active" data-scroll-target="#apicontext">ApiContext</a>
+  <li><a href="#interface-hoverobject" id="toc-interface-hoverobject" class="nav-link active" data-scroll-target="#interface-hoverobject">Interface: HoverObject</a>
   <ul class="collapse">
-  <li><a href="#defined-in" id="toc-defined-in" class="nav-link" data-scroll-target="#defined-in">Defined in</a></li>
+  <li><a href="#indexable" id="toc-indexable" class="nav-link" data-scroll-target="#indexable">Indexable</a></li>
+  <li><a href="#properties" id="toc-properties" class="nav-link" data-scroll-target="#properties">Properties</a>
+  <ul class="collapse">
+  <li><a href="#x" id="toc-x" class="nav-link" data-scroll-target="#x">x</a></li>
+  <li><a href="#y" id="toc-y" class="nav-link" data-scroll-target="#y">y</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -221,19 +226,38 @@ ul.task-list li input[type="checkbox"] {
 
 
 <hr>
-<p><a href="../../docs/globals.html"><span class="citation" data-cites="cori-risi/cori.data.api">@cori-risi/cori.data.api</span></a> / ApiContext</p>
-<section id="apicontext" class="level1">
-<h1>ApiContext</h1>
+<p><a href="../../docs/globals.html"><span class="citation" data-cites="cori-risi/cori.data.api">@cori-risi/cori.data.api</span></a> / HoverObject</p>
+<section id="interface-hoverobject" class="level1">
+<h1>Interface: HoverObject</h1>
+<section id="indexable" class="level2">
+<h2 class="anchored" data-anchor-id="indexable">Indexable</h2>
+<p>[<code>key</code>: <code>number</code> | <code>string</code>]: <code>any</code></p>
+</section>
+<section id="properties" class="level2">
+<h2 class="anchored" data-anchor-id="properties">Properties</h2>
+<section id="x" class="level3">
+<h3 class="anchored" data-anchor-id="x">x</h3>
 <blockquote class="blockquote">
-<p><code>const</code> <strong>ApiContext</strong>: <code>Context</code>&lt;<code>null</code> | <a href="../../docs/interfaces/ApiContextType.html"><code>ApiContextType</code></a>&gt;</p>
+<p><strong>x</strong>: <code>number</code></p>
 </blockquote>
-<p>This is the data/api context for a React app that uses network requests to fetch data from either a RESTful service backend or a GraphQL service backend (both are available in the <a href="https://cori-data-api.ruralinnovation.us/" target="_blank">CORI Data API</a>). See <a href="../../docs/interfaces/ApiContextType.html"><code>ApiContextType</code></a> for a list of props offered by this context.</p>
-<p>Note that GraphQL queries require a special client that can be instantiated by an additional context provider component (i.e.&nbsp;<a href="https://github.com/ruralinnovation/amplify-bcat/tree/main/src/%40cori-risi/bcat/contexts" target="_blank">ApolloGraphQLProvider</a>).</p>
-<section id="defined-in" class="level2">
-<h2 class="anchored" data-anchor-id="defined-in">Defined in</h2>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/a8ad65914809d58943b409277564943bf74b78ba/lib/@cori-risi/contexts/ApiContextProvider.tsx#L113"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:113">@cori-risi/contexts/ApiContextProvider.tsx:113</span></a></p>
+<section id="defined-in" class="level4">
+<h4 class="anchored" data-anchor-id="defined-in">Defined in</h4>
+<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/a8ad65914809d58943b409277564943bf74b78ba/lib/@cori-risi/components/HoverInfo.tsx#L10"><span class="citation" data-cites="cori-risi/components/HoverInfo.tsx:10">@cori-risi/components/HoverInfo.tsx:10</span></a></p>
+<hr>
+</section>
+</section>
+<section id="y" class="level3">
+<h3 class="anchored" data-anchor-id="y">y</h3>
+<blockquote class="blockquote">
+<p><strong>y</strong>: <code>number</code></p>
+</blockquote>
+<section id="defined-in-1" class="level4">
+<h4 class="anchored" data-anchor-id="defined-in-1">Defined in</h4>
+<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/a8ad65914809d58943b409277564943bf74b78ba/lib/@cori-risi/components/HoverInfo.tsx#L11"><span class="citation" data-cites="cori-risi/components/HoverInfo.tsx:11">@cori-risi/components/HoverInfo.tsx:11</span></a></p>
 
 
+</section>
+</section>
 </section>
 </section>
 

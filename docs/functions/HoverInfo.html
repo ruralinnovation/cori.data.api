@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>@cori-risi/cori.data.api – apicontext</title>
+<title>@cori-risi/cori.data.api – hoverinfo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -109,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../docs/functions/CategoricalLegend.html">React components</a></li><li class="breadcrumb-item"><a href="../../docs/functions/HoverInfo.html">HoverInfo()</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -152,7 +186,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../docs/functions/HoverInfo.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/functions/HoverInfo.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">HoverInfo()</span></a>
   </div>
 </li>
@@ -208,8 +242,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#apicontext" id="toc-apicontext" class="nav-link active" data-scroll-target="#apicontext">ApiContext</a>
+  <li><a href="#hoverinfo" id="toc-hoverinfo" class="nav-link active" data-scroll-target="#hoverinfo">HoverInfo()</a>
   <ul class="collapse">
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#returns" id="toc-returns" class="nav-link" data-scroll-target="#returns">Returns</a></li>
   <li><a href="#defined-in" id="toc-defined-in" class="nav-link" data-scroll-target="#defined-in">Defined in</a></li>
   </ul></li>
   </ul>
@@ -221,17 +257,45 @@ ul.task-list li input[type="checkbox"] {
 
 
 <hr>
-<p><a href="../../docs/globals.html"><span class="citation" data-cites="cori-risi/cori.data.api">@cori-risi/cori.data.api</span></a> / ApiContext</p>
-<section id="apicontext" class="level1">
-<h1>ApiContext</h1>
+<p><a href="../../docs/globals.html"><span class="citation" data-cites="cori-risi/cori.data.api">@cori-risi/cori.data.api</span></a> / HoverInfo</p>
+<section id="hoverinfo" class="level1">
+<h1>HoverInfo()</h1>
 <blockquote class="blockquote">
-<p><code>const</code> <strong>ApiContext</strong>: <code>Context</code>&lt;<code>null</code> | <a href="../../docs/interfaces/ApiContextType.html"><code>ApiContextType</code></a>&gt;</p>
+<p><strong>HoverInfo</strong>(<code>props</code>): <code>Element</code></p>
 </blockquote>
-<p>This is the data/api context for a React app that uses network requests to fetch data from either a RESTful service backend or a GraphQL service backend (both are available in the <a href="https://cori-data-api.ruralinnovation.us/" target="_blank">CORI Data API</a>). See <a href="../../docs/interfaces/ApiContextType.html"><code>ApiContextType</code></a> for a list of props offered by this context.</p>
-<p>Note that GraphQL queries require a special client that can be instantiated by an additional context provider component (i.e.&nbsp;<a href="https://github.com/ruralinnovation/amplify-bcat/tree/main/src/%40cori-risi/bcat/contexts" target="_blank">ApolloGraphQLProvider</a>).</p>
+<p>This is a prototype generalization of the HoverInfo component used in the <a href="https://github.com/ruralinnovation/who-wins-b2s/tree/main/src/components" target="_blank">Who Wins B2S app</a></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ts code-with-copy"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { HoverInfo } <span class="im">from</span> <span class="st">'@cori-risi/cori.data.api'</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="st">"@cori-risi/cori.data.api/inst/dist/cori.data.api.css"</span><span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">// ...</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> [ hoverInfo<span class="op">,</span> setHoverInfo ] <span class="op">=</span> <span class="fu">useState</span><span class="op">&lt;</span>HoverObject <span class="op">|</span> <span class="dt">null</span><span class="op">&gt;</span>(<span class="kw">null</span>)<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">// ...</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>HoverInfo hoverInfo<span class="op">=</span>{hoverInfo}<span class="op">&gt;</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>h3<span class="op">&gt;</span>{ hoverInfo<span class="op">.</span><span class="at">name</span> }<span class="op">&lt;/</span>h3<span class="op">&gt;</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">&lt;</span>p className<span class="op">=</span>{style[<span class="st">'details'</span>]}<span class="op">&gt;...&lt;/</span>p<span class="op">&gt;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>HoverInfo<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="parameters" class="level2">
+<h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
+<p>• <strong>props</strong></p>
+<p>• <strong>props.children?</strong>: <code>ReactElement</code>&lt;<code>any</code>, <code>string</code> | <code>JSXElementConstructor</code>&lt;<code>any</code>&gt;&gt;[]</p>
+<p>• <strong>props.hoverInfo</strong>: <a href="../../docs/interfaces/HoverObject.html"><code>HoverObject</code></a></p>
+<p>an object that should, at minimum, contain x and y values (screen coordinates in pixels); “name” is also a userful prop</p>
+<p>• <strong>props.xOffset?</strong>: <code>number</code></p>
+<p>the HoverInfo box will be rendered at this offset from the event’s x coordinate</p>
+<p>• <strong>props.yOffset?</strong>: <code>number</code></p>
+<p>the HoverInfo box will be rendered at this offset from the event’s y coordinate</p>
+</section>
+<section id="returns" class="level2">
+<h2 class="anchored" data-anchor-id="returns">Returns</h2>
+<p><code>Element</code></p>
+</section>
 <section id="defined-in" class="level2">
 <h2 class="anchored" data-anchor-id="defined-in">Defined in</h2>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/a8ad65914809d58943b409277564943bf74b78ba/lib/@cori-risi/contexts/ApiContextProvider.tsx#L113"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:113">@cori-risi/contexts/ApiContextProvider.tsx:113</span></a></p>
+<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/a8ad65914809d58943b409277564943bf74b78ba/lib/@cori-risi/components/HoverInfo.tsx#L40"><span class="citation" data-cites="cori-risi/components/HoverInfo.tsx:40">@cori-risi/components/HoverInfo.tsx:40</span></a></p>
 
 
 </section>
