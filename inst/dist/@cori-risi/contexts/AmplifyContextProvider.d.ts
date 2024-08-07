@@ -40,7 +40,7 @@ export declare const AmplifyContext: React.Context<AmplifyContextType | null>;
  *  @param props.userPoolClientId - ACognito User pool App client ID (App clients are the user pool authentication resources attached to your app).
  */
 export default function AmplifyContextProvider(props: {
-    children?: ReactElement[];
+    children?: ReactElement<any, any> | ReactElement<any, any>[];
     domain?: string;
     region?: string;
     identityPoolId?: string;

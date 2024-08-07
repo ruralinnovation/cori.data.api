@@ -40,15 +40,11 @@ export default [{
     ],
     plugins: [
         external(),
+        // nodeResolve({ extensions: [".js", ".jsx"] }),
         nodeResolve(),
         peerDepsExternal(),
         commonjs(),
         json(),
-        // // nodeResolve({ extensions: [".js", ".jsx"] }),
-        typescript({
-            tsconfig: "./tsconfig.json",
-            useTsconfigDeclarationDir: true
-        }),
         postcss({
             // extract: "styles.css",
             // modules: false
@@ -56,6 +52,9 @@ export default [{
             plugins: [ autoprefixer() ],
             writeDefinitions: true,
             // modules: { ... }
+        }),
+        typescript({
+            tsconfig: "./tsconfig.json",
         }),
     ]
 }];
