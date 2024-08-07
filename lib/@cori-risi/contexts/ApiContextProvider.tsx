@@ -163,7 +163,7 @@ let hasAuthClient = false;
  *  @param props.signOut - An optional function that is one of many destructured props contained in the Amplify authenticator context (returned by the useAuthenticator() hoook), used to sign out the current user.
  */
 export default function ApiContextProvider (props: {
-    children?: ReactElement | ReactElement[],
+    children?: ReactElement<any, any> | ReactElement<any, any>[],
     baseURL?: string,
     fetchAuthSession?: Function,
     getCurrentUser?: Function,
