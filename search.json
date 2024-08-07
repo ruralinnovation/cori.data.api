@@ -347,7 +347,7 @@
     "href": "docs/functions/HoverInfo.html#parameters",
     "title": "HoverInfo()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.hoverInfo: HoverObject\nan object that should, at minimum, contain x and y values (screen coordinates in pixels); “name” is also a userful prop\n• props.xOffset?: number\nthe HoverInfo box will be rendered at this offset from the event’s x coordinate\n• props.yOffset?: number\nthe HoverInfo box will be rendered at this offset from the event’s y coordinate"
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.hoverInfo: HoverObject\nan object that should, at minimum, contain x and y values (screen coordinates in pixels); “name” is also a userful prop\n• props.xOffset?: number\nthe HoverInfo box will be rendered at this offset from the event’s x coordinate\n• props.yOffset?: number\nthe HoverInfo box will be rendered at this offset from the event’s y coordinate\n• props.zIndex?: number"
   },
   {
     "objectID": "docs/functions/HoverInfo.html#returns",
