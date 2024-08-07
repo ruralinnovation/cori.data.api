@@ -40,7 +40,7 @@ function HoverInfo(props) {
             position: "fixed",
             minWidth: "320px",
             minHeight: "240px",
-            zIndex: 1
+            zIndex: props.zIndex || 3
         } }, props.children)) : React.createElement(React.Fragment, null);
 }
 

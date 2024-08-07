@@ -35,5 +35,6 @@ export default function HoverInfo(props: {
     hoverInfo: HoverObject;
     xOffset?: number;
     yOffset?: number;
+    zIndex?: number;
 }): React.JSX.Element;
 //# sourceMappingURL=HoverInfo.d.ts.map
