@@ -9,7 +9,7 @@ import React, { ChangeEventHandler, ReactElement } from "react";
  * ```
  */
 export declare function Button(props: {
-    children?: ReactElement;
+    children?: ReactElement<any, any> | ReactElement<any, any>[];
     onClick: () => void;
 }): React.JSX.Element;
 /**
@@ -22,7 +22,7 @@ export declare function Button(props: {
  * ```
  */
 export declare function Input(props: {
-    children?: ReactElement;
+    children?: ReactElement<any, any> | ReactElement<any, any>[];
     type: string;
     checked?: boolean;
     min?: number;
@@ -34,6 +34,6 @@ export declare function Input(props: {
  * This comment _supports_ [Markdown](https://www.markdownguide.org/)
  */
 export declare function Label(props: {
-    children?: ReactElement;
+    children?: ReactElement<any, any> | ReactElement<any, any>[];
 }): React.JSX.Element;
 //# sourceMappingURL=basic.d.ts.map

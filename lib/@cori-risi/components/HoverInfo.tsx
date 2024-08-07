@@ -38,7 +38,7 @@ export interface HoverObject {
  *  @param props.yOffset - the HoverInfo box will be rendered at this offset from the event's y coordinate
  */
 export default function HoverInfo (props: {
-    children?: ReactElement | ReactElement[],
+    children?: ReactElement<any, any> | ReactElement<any, any>[],
     hoverInfo: HoverObject,
     xOffset?: number, yOffset?: number
 }) {
