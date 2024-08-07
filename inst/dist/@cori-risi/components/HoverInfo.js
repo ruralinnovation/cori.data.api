@@ -34,7 +34,14 @@ import style from './styles/HoverInfo.module.css.js';
  */
 function HoverInfo(props) {
     const { hoverInfo, xOffset, yOffset } = props;
-    return (!!hoverInfo) ? (React.createElement("div", { className: style["tooltip"], style: { left: hoverInfo.x + (xOffset || 0), top: hoverInfo.y + (yOffset || 0) } })) : React.createElement(React.Fragment, null);
+    return (!!hoverInfo) ? (React.createElement("div", { className: style["tooltip"], style: {
+            left: hoverInfo.x + (xOffset || 0),
+            top: hoverInfo.y + (yOffset || 0),
+            position: "fixed",
+            minWidth: "320px",
+            minHeight: "240px",
+            zIndex: 1
+        } }, props.children)) : React.createElement(React.Fragment, null);
 }
 
 export { HoverInfo as default };
