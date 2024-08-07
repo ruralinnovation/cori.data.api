@@ -23,8 +23,10 @@ import style from './styles/HoverInfo.module.css.js';
  * // ...
  *
  * <HoverInfo hoverInfo={hoverInfo}>
- *     <h3>{ hoverInfo.name }</h3>
- *     <p className={style['details']}>...</p>
+ *     <div style={{pointerEvents: "none"}}>
+ *         <h3>{ hoverInfo.name }</h3>
+ *         <p>...</p>
+ *     </div>
  * </HoverInfo>
  * ```
  *
@@ -40,6 +42,7 @@ function HoverInfo(props) {
             position: "fixed",
             minWidth: "320px",
             minHeight: "240px",
+            pointerEvents: "none",
             zIndex: props.zIndex || 3
         } }, props.children)) : React.createElement(React.Fragment, null);
 }

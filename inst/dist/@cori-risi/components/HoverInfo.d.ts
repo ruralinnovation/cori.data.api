@@ -21,8 +21,10 @@ export interface HoverObject {
  * // ...
  *
  * <HoverInfo hoverInfo={hoverInfo}>
- *     <h3>{ hoverInfo.name }</h3>
- *     <p className={style['details']}>...</p>
+ *     <div style={{pointerEvents: "none"}}>
+ *         <h3>{ hoverInfo.name }</h3>
+ *         <p>...</p>
+ *     </div>
  * </HoverInfo>
  * ```
  *
