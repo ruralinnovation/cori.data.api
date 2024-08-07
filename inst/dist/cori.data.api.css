@@ -62,7 +62,7 @@
     border-color: transparent;
 }
 
-.ApiContextProvider_amplify-button--primary__FA0kk {
+.ApiContextProvider_amplify-button--primary__x3TB9 {
     border-width: var(--amplify-components-button-primary-border-width);
     background-color: var(--amplify-components-button-primary-background-color);
     border-color: var(--amplify-components-button-primary-border-color);
@@ -86,29 +86,29 @@
             --amplify-components-button-primary-loading-color
     );
 }
-.ApiContextProvider_amplify-button--primary__FA0kk:hover {
+.ApiContextProvider_amplify-button--primary__x3TB9:hover {
     background-color: var(--amplify-components-button-primary-hover-background-color);
     border-color: var(--amplify-components-button-primary-hover-border-color);
     color: var(--amplify-components-button-primary-hover-color);
 }
-.ApiContextProvider_amplify-button--primary__FA0kk:focus {
+.ApiContextProvider_amplify-button--primary__x3TB9:focus {
     background-color: var(--amplify-components-button-primary-focus-background-color);
     border-color: var(--amplify-components-button-primary-focus-border-color);
     color: var(--amplify-components-button-primary-focus-color);
     box-shadow: var(--amplify-components-button-primary-focus-box-shadow);
 }
-.ApiContextProvider_amplify-button--primary__FA0kk:active {
+.ApiContextProvider_amplify-button--primary__x3TB9:active {
     background-color: var(--amplify-components-button-primary-active-background-color);
     border-color: var(--amplify-components-button-primary-active-border-color);
     color: var(--amplify-components-button-primary-active-color);
 }
-.ApiContextProvider_amplify-tabs-item__mpAxO[data-state="active"] {
+.ApiContextProvider_amplify-tabs-item__-6nTX[data-state="active"] {
     color: var(--amplify-components-tabs-item-active-color);
     border-color: var(--amplify-components-tabs-item-active-border-color);
     background-color: var(--amplify-components-tabs-item-active-background-color);
     transition-property: none;
 }
-.ApiContextProvider_amplify-input__7exPv.ApiContextProvider_amplify-field-group__control__n9Xtv {
+.ApiContextProvider_amplify-input__ycAUW.ApiContextProvider_amplify-field-group__control__cRTcr {
     text-align: left;
 }
 
@@ -134,4 +134,30 @@
 	line-height: 1rem;
 	font-size: 1rem;
 	margin: 0px 0px 0px 6px;
+}
+.HoverInfo-module_tooltip__3wVpX {
+    width: 320px;
+
+    border: 1px solid black;
+    background-color: white;
+
+    padding: 10px;
+
+    position: absolute;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.HoverInfo-module_tooltip__3wVpX h3 {
+    margin: 0.5rem 0rem;
+}
+
+.HoverInfo-module_tooltip__3wVpX .HoverInfo-module_details__4eyQ7 {
+    margin: 0.1rem 0rem;
+    line-height: 1.6;
+}
+
+.HoverInfo-module_tooltip__3wVpX .HoverInfo-module_prop-score__DKjwo {
+    font-weight: 400;
+    margin: 0px;
 }

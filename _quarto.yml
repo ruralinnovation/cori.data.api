@@ -28,6 +28,7 @@ website:
 #          - docs/functions/Label.md
           - docs/functions/CategoricalLegend.md
           - docs/functions/GeocoderControl.md
+          - docs/functions/HoverInfo.md
 #          - docs/functions/LineChart.md
       - section: "React contexts"
         contents:

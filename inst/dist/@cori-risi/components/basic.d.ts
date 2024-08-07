@@ -24,7 +24,10 @@ export declare function Button(props: {
 export declare function Input(props: {
     children?: ReactElement;
     type: string;
-    checked: boolean;
+    checked?: boolean;
+    min?: number;
+    max?: number;
+    value?: number;
     onChange?: ChangeEventHandler<HTMLInputElement> | undefined;
 }): React.JSX.Element;
 /**
