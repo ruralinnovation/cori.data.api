@@ -1,5 +1,7 @@
 import React from 'react';
-import style from "./styles/CategoricalLegend.module.css";
+
+// import "./styles/CategoricalLegend.module.css";          // <= DO THIS FIRST...
+import style from "./styles/CategoricalLegend.module.css";  // <= THEN THIS..
 
 interface CategoricalLegendProps {
     domain_names?: string[] | undefined;

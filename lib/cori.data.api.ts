@@ -13,13 +13,14 @@ export {
 } from "./@cori-risi/components/basic";
 
 // Actual API
-export { default as AmplifyContextProvider, AmplifyContext }  from "./@cori-risi/cotexts/AmplifyContextProvider";
-export { default as ApiContextProvider, ApiContext, ApiContextType } from "./@cori-risi/cotexts/ApiContextProvider";
+export { default as AmplifyContextProvider, AmplifyContext }  from "./@cori-risi/contexts/AmplifyContextProvider";
+export { default as ApiContextProvider, ApiContext, ApiContextType } from "./@cori-risi/contexts/ApiContextProvider";
 // export { default as BarChart } from "./@cori-risi/components/BarChart";
 export { default as CategoricalLegend } from "./@cori-risi/components/CategoricalLegend";
 // export { default as ControlPanel } from "./@cori-risi/components/ControlPanel"
 // export { default as LineChart } from "./@cori-risi/components/LineChart";
 export { default as GeocoderControl } from "./@cori-risi/components/GeocoderControl";
+export { default as HoverInfo, HoverObject } from "./@cori-risi/components/HoverInfo";
 
 import MAP_STYLE from "./@cori-risi/mapbox/styles/ruralinno/cl010e7b7001p15pe3l0306hv/style.json";
 

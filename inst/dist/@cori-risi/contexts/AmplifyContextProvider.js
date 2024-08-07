@@ -1,33 +1,15 @@
-import React, {
-    createContext,
-    ReactElement,
-    useEffect,
-    useState
-} from "react";
-import {Amplify, ResourcesConfig} from "aws-amplify";
-
-import amplifyconfig from './amplifyconfiguration.json';
-
-import { User } from "../models";
+/*
+ * Frontend UI component library for the CORI Data API 
+ * {@link https://github.com/ruralinnovation/cori.data.api}
+ * @copyright Rural Innovation Strategies, Inc.
+ * @license ISC
+ */
+import React__default, { createContext, useState, useEffect } from 'react';
+import { Amplify } from 'aws-amplify';
+import amplifyconfig from './amplifyconfiguration.json.js';
 
 Amplify.configure(amplifyconfig);
-
-// let hasAuthSession = false;
-// let hasAuthUser = false;
-// let hasAuthClient = false;
-
-type AmplifyContextType = {
-    // authenticated_user: User | null;
-    domain?: string;
-    region?: string;
-    identityPoolId?: string;
-    userPoolId?: string;
-    userPoolClientId?: string;
-    // TODO:
-    // updateUser: Function
-};
-
-const initAmplifyContext: AmplifyContextType = {
+const initAmplifyContext = {
     // authenticated_user: null,
     domain: undefined,
     region: undefined,
@@ -35,13 +17,11 @@ const initAmplifyContext: AmplifyContextType = {
     userPoolId: undefined,
     userPoolClientId: undefined,
 };
-
 /**
  * This is the configuration context for an Amplify app that uses authentication to connect
  * to the [CORI Data API](https://cori-data-api.ruralinnovation.us/){target=_blank}.
  */
-export const AmplifyContext = createContext<AmplifyContextType | null>(initAmplifyContext);
-
+const AmplifyContext = createContext(initAmplifyContext);
 /**
  * This component provides the configuration context to an Amplify/React app, which is particularly useful to one that requires
  * authentication in order to access the [CORI Data API](https://cori-data-api.ruralinnovation.us/){target=_blank}.
@@ -70,48 +50,23 @@ export const AmplifyContext = createContext<AmplifyContextType | null>(initAmpli
  *  @param props.userPoolId - Cognito User pool ID
  *  @param props.userPoolClientId - ACognito User pool App client ID (App clients are the user pool authentication resources attached to your app).
  */
-export default function AmplifyContextProvider (props: {
-    children?: ReactElement,
-    domain?: string,
-    region?: string,
-    identityPoolId?: string,
-    userPoolId?: string,
-    userPoolClientId?: string
-}) {
-
+function AmplifyContextProvider(props) {
     // const userState = useSelector(selectUser);
     // const dispatch = useDispatch();
-
     // const [ authenticated_user, setAuthenticatedUser ] = useState<User>(userState);
-
-    const [ state, setState ] = useState<AmplifyContextType | null>((!!props.domain
+    const [state, setState] = useState((!!props.domain
         && !!props.region
         && !!props.identityPoolId
         && !!props.userPoolId
-        && !!props.userPoolClientId
-    ) ?
-        {
-            // authenticated_user: null,
-            ...props
-        } :
+        && !!props.userPoolClientId) ? Object.assign({}, props) :
         initAmplifyContext);
-
     useEffect(() => {
         if (!!props.domain
             && !!props.region
             && !!props.identityPoolId
             && !!props.userPoolId
-            && !!props.userPoolClientId
-        ) {
-
-            const {
-                domain,
-                region,
-                identityPoolId,
-                userPoolId,
-                userPoolClientId
-            } = props;
-
+            && !!props.userPoolClientId) {
+            const { domain, region, identityPoolId, userPoolId, userPoolClientId } = props;
             console.log("Configuring Amplify context with props:", {
                 domain,
                 region,
@@ -119,7 +74,6 @@ export default function AmplifyContextProvider (props: {
                 userPoolId,
                 userPoolClientId
             });
-
             // Ex. Auth data structure:
             //     Auth: {
             //         Cognito: {
@@ -154,7 +108,6 @@ export default function AmplifyContextProvider (props: {
             //                 mandatorySignIn: true,
             //         },
             //     },
-
             const aws_original_auth_config = {
                 "Auth": {
                     "domain": domain,
@@ -173,44 +126,18 @@ export default function AmplifyContextProvider (props: {
                         "scope": ["openid"],
                         "redirectSignIn": window.location.protocol + "//" + window.location.hostname + ((!!window.location.port) ? ":" + window.location.port : ""),
                         "redirectSignOut": window.location.protocol + "//" + window.location.hostname + ((!!window.location.port) ? ":" + window.location.port : "") + "/",
-                        "responseType": ("code" as "code")  // ... or "token", note that REFRESH token will only
-                                                            // be generated when the responseType is "code"
+                        "responseType": "code" // ... or "token", note that REFRESH token will only
+                        // be generated when the responseType is "code"
                     }
                 }
             };
-
-            Amplify.configure(({
-                // TODO: Why is this so ridiculous and how can these options be
-                //       specified exclusively in amplifyconfiguration.json ???
-                ...Amplify.getConfig(),
-                Auth: {
-                    ...Amplify.getConfig().Auth!,
-                    Cognito: {
-                        ...Amplify.getConfig().Auth!.Cognito!,
-                        ...aws_original_auth_config.Auth,
-                        loginWith: {
-                            ...Amplify.getConfig().Auth!.Cognito!.loginWith!,
-                            oauth: {
-                                ...Amplify.getConfig().Auth!.Cognito!.loginWith!.oauth!,
-                                ...aws_original_auth_config.Auth.oauth,
-                                redirectSignIn: [
+            Amplify.configure((Object.assign(Object.assign({}, Amplify.getConfig()), { Auth: Object.assign(Object.assign({}, Amplify.getConfig().Auth), { Cognito: Object.assign(Object.assign(Object.assign({}, Amplify.getConfig().Auth.Cognito), aws_original_auth_config.Auth), { loginWith: Object.assign(Object.assign({}, Amplify.getConfig().Auth.Cognito.loginWith), { oauth: Object.assign(Object.assign(Object.assign({}, Amplify.getConfig().Auth.Cognito.loginWith.oauth), aws_original_auth_config.Auth.oauth), { redirectSignIn: [
                                     aws_original_auth_config.Auth.oauth.redirectSignIn
-                                ],
-                                redirectSignOut: [
+                                ], redirectSignOut: [
                                     aws_original_auth_config.Auth.oauth.redirectSignOut
-                                ],
-                                responseType: (aws_original_auth_config.Auth.oauth.responseType as "code"),
-                                scopes: [
+                                ], responseType: aws_original_auth_config.Auth.oauth.responseType, scopes: [
                                     ...aws_original_auth_config.Auth.oauth.scope
-                                ]
-                            },
-                            username: true,
-                        },
-                        userPoolClientId: aws_original_auth_config.Auth.clientId
-                    }
-                }
-            }) as ResourcesConfig);
-
+                                ] }), username: true }), userPoolClientId: aws_original_auth_config.Auth.clientId }) }) })));
             // const session: Promise<AuthSession> = fetchAuthSession();
             //
             // session
@@ -295,7 +222,6 @@ export default function AmplifyContextProvider (props: {
             //             }
             //         }
             //     });
-
             setState({
                 // authenticated_user: authenticated_user,
                 domain,
@@ -305,14 +231,10 @@ export default function AmplifyContextProvider (props: {
                 userPoolClientId
             });
         }
-
     }, []);
-
-
-    return (<>
-        <AmplifyContext.Provider value={state}>
-            {props.children}
-        </AmplifyContext.Provider>
-    </>);
-
+    return (React__default.createElement(React__default.Fragment, null,
+        React__default.createElement(AmplifyContext.Provider, { value: state }, props.children)));
 }
+
+export { AmplifyContext, AmplifyContextProvider as default };
+//# sourceMappingURL=AmplifyContextProvider.js.map
