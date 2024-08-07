@@ -40,7 +40,9 @@ export interface HoverObject {
 export default function HoverInfo (props: {
     children?: ReactElement<any, any> | ReactElement<any, any>[],
     hoverInfo: HoverObject,
-    xOffset?: number, yOffset?: number
+    xOffset?: number,
+    yOffset?: number,
+    zIndex?: number
 }) {
     const { hoverInfo, xOffset, yOffset } = props;
 
@@ -52,7 +54,7 @@ export default function HoverInfo (props: {
                  position: "fixed",
                  minWidth: "320px",
                  minHeight: "240px",
-                 zIndex: 1
+                 zIndex: props.zIndex || 3
 
              }}>
             {props.children}
