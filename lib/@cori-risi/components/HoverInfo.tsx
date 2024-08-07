@@ -37,7 +37,11 @@ export interface HoverObject {
  *  @param props.xOffset - the HoverInfo box will be rendered at this offset from the event's x coordinate
  *  @param props.yOffset - the HoverInfo box will be rendered at this offset from the event's y coordinate
  */
-export default function HoverInfo (props: { children?: ReactElement[], hoverInfo: HoverObject, xOffset?: number, yOffset?: number }) {
+export default function HoverInfo (props: {
+    children?: ReactElement | ReactElement[],
+    hoverInfo: HoverObject,
+    xOffset?: number, yOffset?: number
+}) {
     const { hoverInfo, xOffset, yOffset } = props;
 
     return (!!hoverInfo) ? (

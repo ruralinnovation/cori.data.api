@@ -29,7 +29,7 @@ export function Button(props: { children?: ReactElement, onClick: () => void }) 
  * ```
  */
 export function Input(props: {
-    children?: ReactElement,
+    children?: ReactElement | ReactElement[],
     type: string,
     checked?: boolean,
     min?: number,
@@ -43,6 +43,6 @@ export function Input(props: {
 /**
  * This comment _supports_ [Markdown](https://www.markdownguide.org/)
  */
-export function Label(props: { children?: ReactElement }) {
+export function Label(props: { children?: ReactElement | ReactElement[] }) {
     return <label {...props} />
 }
