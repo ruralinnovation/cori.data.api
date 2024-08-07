@@ -39,7 +39,7 @@
     "href": "docs/functions/Button.html#parameters",
     "title": "Button()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n• props.onClick"
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.onClick"
   },
   {
     "objectID": "docs/functions/Button.html#returns",
@@ -67,7 +67,7 @@
     "href": "docs/functions/Input.html#parameters",
     "title": "Input()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.checked?: boolean\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt; | ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;[]\n• props.max?: number\n• props.min?: number\n• props.onChange?: ChangeEventHandler&lt;HTMLInputElement&gt;\n• props.type: string\n• props.value?: number"
+    "text": "Parameters\n• props\n• props.checked?: boolean\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.max?: number\n• props.min?: number\n• props.onChange?: ChangeEventHandler&lt;HTMLInputElement&gt;\n• props.type: string\n• props.value?: number"
   },
   {
     "objectID": "docs/functions/Input.html#returns",
@@ -95,7 +95,7 @@
     "href": "docs/functions/Label.html#parameters",
     "title": "Label()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt; | ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;[]"
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]"
   },
   {
     "objectID": "docs/functions/Label.html#returns",
@@ -263,7 +263,7 @@
     "href": "docs/functions/AmplifyContextProvider.html#parameters",
     "title": "AmplifyContextProvider()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt; | ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;[]\n• props.domain?: string\ns- domain for the Cognito Hosted UI and/or OAuth 2.0 endpoints\n• props.identityPoolId?: string\nCognito Identity pool ID\n• props.region?: string\nAWS region where Cognito service is hosted\n• props.userPoolClientId?: string\nACognito User pool App client ID (App clients are the user pool authentication resources attached to your app).\n• props.userPoolId?: string\nCognito User pool ID"
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.domain?: string\ns- domain for the Cognito Hosted UI and/or OAuth 2.0 endpoints\n• props.identityPoolId?: string\nCognito Identity pool ID\n• props.region?: string\nAWS region where Cognito service is hosted\n• props.userPoolClientId?: string\nACognito User pool App client ID (App clients are the user pool authentication resources attached to your app).\n• props.userPoolId?: string\nCognito User pool ID"
   },
   {
     "objectID": "docs/functions/AmplifyContextProvider.html#returns",
@@ -347,7 +347,7 @@
     "href": "docs/functions/HoverInfo.html#parameters",
     "title": "HoverInfo()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt; | ReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;[]\n• props.hoverInfo: HoverObject\nan object that should, at minimum, contain x and y values (screen coordinates in pixels); “name” is also a userful prop\n• props.xOffset?: number\nthe HoverInfo box will be rendered at this offset from the event’s x coordinate\n• props.yOffset?: number\nthe HoverInfo box will be rendered at this offset from the event’s y coordinate"
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.hoverInfo: HoverObject\nan object that should, at minimum, contain x and y values (screen coordinates in pixels); “name” is also a userful prop\n• props.xOffset?: number\nthe HoverInfo box will be rendered at this offset from the event’s x coordinate\n• props.yOffset?: number\nthe HoverInfo box will be rendered at this offset from the event’s y coordinate"
   },
   {
     "objectID": "docs/functions/HoverInfo.html#returns",
