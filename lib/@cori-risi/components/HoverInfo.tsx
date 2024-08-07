@@ -45,7 +45,17 @@ export default function HoverInfo (props: {
     const { hoverInfo, xOffset, yOffset } = props;
 
     return (!!hoverInfo) ? (
-        <div className={style["tooltip"]} style={{left: hoverInfo.x + (xOffset || 0), top: hoverInfo.y + (yOffset || 0)}}>
+        <div className={style["tooltip"]}
+             style={{
+                 left: hoverInfo.x + (xOffset || 0),
+                 top: hoverInfo.y + (yOffset || 0),
+                 position: "fixed",
+                 minWidth: "320px",
+                 minHeight: "240px",
+                 zIndex: 1
+
+             }}>
+            {props.children}
             {/*<h3>{ hoverInfo.name }</h3>*/}
             {/*<p className={style['prop-score']}>*/}
             {/*    Propensity score: {hoverInfo.prop_score*100 < 1? "<1": format(".2")(hoverInfo.prop_score * 100)} | Matching: {hoverInfo.prop_score_knearest_match? "Yes": "No"}<br/>*/}
