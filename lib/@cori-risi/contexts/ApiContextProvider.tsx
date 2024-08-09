@@ -191,7 +191,7 @@ export default function ApiContextProvider (props: {
         });
     }
 
-    if (!!props.baseURL) {
+    if (!!props.baseURL && props.baseURL.length > 0) {
         apiClient.interceptors.request.use(
             (config) => {
                 config.baseURL = props.baseURL;
@@ -200,6 +200,11 @@ export default function ApiContextProvider (props: {
             },
             (error) => Promise.reject(error)
         );
+        setState({
+            ...state!,
+            baseURL: props.baseURL,
+            setData: setData
+        });
     }
 
     useEffect(() => {
