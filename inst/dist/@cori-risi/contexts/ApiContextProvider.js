@@ -106,7 +106,7 @@ function ApiContextProvider(props) {
     const [state, setState] = useState(Object.assign(Object.assign({}, initState), { setData }));
     function setData(newData) {
         const currentState = state;
-        setState(Object.assign(Object.assign({}, currentState), { data: Object.assign(Object.assign({}, currentState.data), newData), setData: setData }));
+        setState(Object.assign(Object.assign({}, currentState), { baseURL: (!!props.baseURL) ? props.baseURL : BASE_URL, data: Object.assign(Object.assign({}, currentState.data), newData), setData: setData }));
     }
     if (!!props.baseURL && props.baseURL.length > 0) {
         apiClient.interceptors.request.use((config) => {
@@ -114,7 +114,6 @@ function ApiContextProvider(props) {
             console.log("API baseURL updated:", config.baseURL);
             return config;
         }, (error) => Promise.reject(error));
-        setState(Object.assign(Object.assign({}, state), { baseURL: props.baseURL, setData: setData }));
     }
     useEffect(() => {
         setState(Object.assign(Object.assign({}, state), { autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
