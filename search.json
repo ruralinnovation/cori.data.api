@@ -53,7 +53,7 @@
     "href": "docs/functions/Input.html#parameters",
     "title": "Input()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.checked?: boolean\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.max?: number\n• props.min?: number\n• props.onChange?: ChangeEventHandler&lt;HTMLInputElement&gt;\n• props.type: string\n• props.value?: number"
+    "text": "Parameters\n• props\n• props.checked?: boolean\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.id?: string\n• props.max?: number\n• props.min?: number\n• props.name?: string\n• props.onChange?: ChangeEventHandler&lt;HTMLInputElement&gt;\n• props.type: string\n• props.value?: string | number"
   },
   {
     "objectID": "docs/functions/Input.html#returns",
@@ -151,7 +151,7 @@
     "href": "docs/functions/Label.html#defined-in",
     "title": "Label()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/basic.tsx:46"
+    "text": "Defined in\n@cori-risi/components/basic.tsx:48"
   },
   {
     "objectID": "docs/functions/GeocoderControl.html",
