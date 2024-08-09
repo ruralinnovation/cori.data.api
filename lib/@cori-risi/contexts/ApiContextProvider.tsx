@@ -183,6 +183,7 @@ export default function ApiContextProvider (props: {
         const currentState: ApiContextType = state!;
         setState({
             ...currentState,
+            baseURL: (!!props.baseURL) ? props.baseURL : BASE_URL,
             data: {
                 ...currentState.data,
                 ...newData
@@ -200,11 +201,6 @@ export default function ApiContextProvider (props: {
             },
             (error) => Promise.reject(error)
         );
-        setState({
-            ...state!,
-            baseURL: props.baseURL,
-            setData: setData
-        });
     }
 
     useEffect(() => {
