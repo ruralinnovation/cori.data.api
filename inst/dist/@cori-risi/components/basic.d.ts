@@ -23,11 +23,13 @@ export declare function Button(props: {
  */
 export declare function Input(props: {
     children?: ReactElement<any, any> | ReactElement<any, any>[];
+    id?: string;
+    name?: string;
     type: string;
     checked?: boolean;
     min?: number;
     max?: number;
-    value?: number;
+    value?: number | string;
     onChange?: ChangeEventHandler<HTMLInputElement> | undefined;
 }): React.JSX.Element;
 /**
