@@ -176,6 +176,7 @@ export default function ApiContextProvider (props: {
 
     const [ state, setState ] = useState<ApiContextType>({
         ...initState,
+        baseURL: (!!props.baseURL) ? props.baseURL : BASE_URL,
         setData
     });
 
@@ -183,7 +184,6 @@ export default function ApiContextProvider (props: {
         const currentState: ApiContextType = state!;
         setState({
             ...currentState,
-            baseURL: (!!props.baseURL) ? props.baseURL : BASE_URL,
             data: {
                 ...currentState.data,
                 ...newData

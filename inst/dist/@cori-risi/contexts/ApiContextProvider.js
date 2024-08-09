@@ -103,10 +103,10 @@ function ApiContextProvider(props) {
     // const [ authenticated_user, setAuthenticatedUser ] = useState<User | null>(null);
     // const userState = useSelector(selectUser);
     // const dispatch = useDispatch();
-    const [state, setState] = useState(Object.assign(Object.assign({}, initState), { setData }));
+    const [state, setState] = useState(Object.assign(Object.assign({}, initState), { baseURL: (!!props.baseURL) ? props.baseURL : BASE_URL, setData }));
     function setData(newData) {
         const currentState = state;
-        setState(Object.assign(Object.assign({}, currentState), { baseURL: (!!props.baseURL) ? props.baseURL : BASE_URL, data: Object.assign(Object.assign({}, currentState.data), newData), setData: setData }));
+        setState(Object.assign(Object.assign({}, currentState), { data: Object.assign(Object.assign({}, currentState.data), newData), setData: setData }));
     }
     if (!!props.baseURL && props.baseURL.length > 0) {
         apiClient.interceptors.request.use((config) => {
