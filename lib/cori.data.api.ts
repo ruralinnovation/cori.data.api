@@ -54,3 +54,5 @@ import MAP_STYLE from "./@cori-risi/mapbox/styles/ruralinno/cl010e7b7001p15pe3l0
 export const coriLightMapStyle: MapStyle = ({
     ...MAP_STYLE
 }) as MapStyle;
+
+export { default as PM } from "./@cori-risi/utils/PM";
