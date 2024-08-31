@@ -252,6 +252,7 @@ export default function ApiContextProvider (props: {
                                     if (!!props.baseURL) {
                                         config.baseURL = props.baseURL;
                                     }
+                                    config.headers['Content-Type'] = 'application/json';
                                     return config;
                                 },
                                 (error) => Promise.reject(error)
