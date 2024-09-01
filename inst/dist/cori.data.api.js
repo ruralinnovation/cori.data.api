@@ -582,6 +582,7 @@
                                 if (!!props.baseURL) {
                                     config.baseURL = props.baseURL;
                                 }
+                                config.headers['Content-Type'] = 'application/json';
                                 return config;
                             }, (error) => Promise.reject(error));
                             setState(Object.assign(Object.assign({}, state), { authenticated: true, autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
