@@ -6,7 +6,7 @@
   "homepage": "https://github.com/ruralinnovation/cori.data.api#readme",
   "license": "ISC",
   "main": "inst/dist/cori.data.api.js",
-  "module": "inst/dist/cori.data.api.js",
+  "module": "inst/dist/index.js",
   "private": true,
   "repository": {
     "type": "git",
@@ -77,5 +77,8 @@
     "test": "jest --no-cache",
     "test:clean": "jest --clearCache",
     "view:docs": "npm run render:docs && python -m http.server -d _site 3000"
+  },
+  "dependencies": {
+    "@cori-risi/cori.data.api": "file:"
   }
 }
