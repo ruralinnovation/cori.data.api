@@ -7,7 +7,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('aws-amplify'), require('axios'), require('react-map-gl'), require('@mapbox/mapbox-gl-geocoder'), require('stream'), require('http'), require('url'), require('punycode'), require('https'), require('zlib')) :
     typeof define === 'function' && define.amd ? define(['exports', 'react', 'aws-amplify', 'axios', 'react-map-gl', '@mapbox/mapbox-gl-geocoder', 'stream', 'http', 'url', 'punycode', 'https', 'zlib'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.cori = global.cori || {}, global.cori.data = global.cori.data || {}, global.cori.data.api = {}), global.React, global.awsAmplify, global.axios, global.reactMapGl, global.MapboxGeocoder, global.Stream, global.http, global.Url, global.require$$0, global.https, global.zlib));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory((global.cori = global.cori || {}, global.cori.data = global.cori.data || {}, global.cori.data.api = {}), global.react, global["aws-amplify"], global.axios, global["react-map-gl"], global.MapboxGeocoder, global.Stream, global.http, global.Url, global.require$$0, global.https, global.zlib));
 })(this, (function (exports, React, awsAmplify, axios, reactMapGl, MapboxGeocoder, Stream, http, Url, require$$0, https, zlib) { 'use strict';
 
     function _interopNamespaceDefault(e) {
@@ -582,6 +582,7 @@
                                 if (!!props.baseURL) {
                                     config.baseURL = props.baseURL;
                                 }
+                                config.headers['Content-Type'] = 'application/json';
                                 return config;
                             }, (error) => Promise.reject(error));
                             setState(Object.assign(Object.assign({}, state), { authenticated: true, autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
