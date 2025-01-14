@@ -6,6 +6,7 @@
  */
 import React__default, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { autoSignOut } from '../utils/index.js';
 
 const BASE_URL = "https://cori-data-api.ruralinnovation.us/"; // `${import.meta.env.VITE_CORI_DATA_API}`;
 const apiClient = axios.create({
@@ -117,10 +118,8 @@ function ApiContextProvider(props) {
     }
     useEffect(() => {
         setState(Object.assign(Object.assign({}, state), { autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
-                const { signOut } = props;
-                (signOut)();
-                window.alert("Please refresh this session by clicking the browser's reload button!");
-                window.location = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                if (!!props.signOut && typeof props.signOut === "function")
+                    autoSignOut(props.signOut);
             } : null, baseURL: (!!props.baseURL) ? props.baseURL : BASE_URL }));
         if (!!props.fetchAuthSession) {
             const { fetchAuthSession } = props;
@@ -146,10 +145,8 @@ function ApiContextProvider(props) {
                             return config;
                         }, (error) => Promise.reject(error));
                         setState(Object.assign(Object.assign({}, state), { authenticated: true, autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
-                                const { signOut } = props;
-                                (signOut)();
-                                window.alert("Please refresh this session by clicking the browser's reload button!");
-                                window.location = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                                if (!!props.signOut && typeof props.signOut === "function")
+                                    autoSignOut(props.signOut);
                             } : null, baseURL: props.baseURL || BASE_URL, 
                             // setData,
                             token: tokens.idToken }));
@@ -208,10 +205,8 @@ function ApiContextProvider(props) {
                                     //         console.error(e);
                                     //     }
                                     setState(Object.assign(Object.assign({}, state), { authenticated: true, authenticated_user: u, autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
-                                            const { signOut } = props;
-                                            (signOut)();
-                                            window.alert("Please refresh this session by clicking the browser's reload button!");
-                                            window.location = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                                            if (!!props.signOut && typeof props.signOut === "function")
+                                                autoSignOut(props.signOut);
                                         } : null, baseURL: props.baseURL || BASE_URL, 
                                         // setData,
                                         token: tokens.idToken }));

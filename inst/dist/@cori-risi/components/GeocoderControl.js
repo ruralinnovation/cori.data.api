@@ -54,7 +54,7 @@ function GeocoderControl(props) {
                     geocoder_props.onResult(evt);
                 const { result } = evt;
                 const location = result &&
-                    (result.center || (((_a = result.geometry) === null || _a === void 0 ? void 0 : _a.type) === 'Point' && result.geometry.coordinates));
+                    (result.center || (((_a = result.geometry) === null || _a === undefined ? undefined : _a.type) === 'Point' && result.geometry.coordinates));
                 if (location && geocoder_props.marker) {
                     const markerProps = typeof geocoder_props.marker === 'object' ? geocoder_props.marker : {};
                     // noinspection TypeScriptValidateTypes

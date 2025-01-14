@@ -1,3 +1,4 @@
+/// <reference types="mapbox-gl" />
 import { MapStyle } from "react-map-gl";
 export declare function helloAnything(thing: string): string;
 export { Button, Input, Label } from "./@cori-risi/components/basic";
