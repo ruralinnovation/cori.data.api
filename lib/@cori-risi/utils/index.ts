@@ -701,5 +701,5 @@ export const getMetricText = (data: d3.DSVRowArray<string>, metric: string): {wh
 export function autoSignOut (signOut: Function){
   signOut();
   window.alert("Please refresh this session by clicking the browser's reload button!");
-  (window as any).location = window.location.protocol + "//" + window.location.host + window.location.pathname;
+  // (window as any).location = window.location.protocol + "//" + window.location.host + window.location.pathname;
 }

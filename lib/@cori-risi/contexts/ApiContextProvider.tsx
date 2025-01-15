@@ -18,6 +18,7 @@ import { AuthTokens, JWT } from "@aws-amplify/auth";
 
 import "./styles/ApiContextProvider.css";
 import { User } from "../models";
+import { autoSignOut } from "../utils";
 
 const BASE_URL = "https://cori-data-api.ruralinnovation.us/"; // `${import.meta.env.VITE_CORI_DATA_API}`;
 // TODO: From now on must pass dev/prod API url in as param to ApiContextProvider because:
@@ -208,10 +209,8 @@ export default function ApiContextProvider (props: {
         setState({
             ...state,
             autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
-                const { signOut } = props;
-                (signOut!)();
-                window.alert("Please refresh this session by clicking the browser's reload button!");
-                (window as any).location = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                console.log("autoSignOut defined in ApiContextProvider line 212");
+                if (!!props.signOut && typeof props.signOut === "function") autoSignOut(props.signOut);
             } : null,
             baseURL: (!!props.baseURL) ? props.baseURL : BASE_URL,
             // setData
@@ -261,10 +260,8 @@ export default function ApiContextProvider (props: {
                                 ...state,
                                 authenticated: true,
                                 autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
-                                    const { signOut } = props;
-                                    (signOut!)();
-                                    window.alert("Please refresh this session by clicking the browser's reload button!");
-                                    (window as any).location = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                                    console.log("autoSignOut defined in ApiContextProvider line 263");
+                                    if (!!props.signOut && typeof props.signOut === "function") autoSignOut(props.signOut);
                                 } : null,
                                 baseURL: props.baseURL || BASE_URL,
                                 // setData,
@@ -339,10 +336,8 @@ export default function ApiContextProvider (props: {
                                                 authenticated: true,
                                                 authenticated_user: u,
                                                 autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
-                                                    const { signOut } = props;
-                                                    (signOut!)();
-                                                    window.alert("Please refresh this session by clicking the browser's reload button!");
-                                                    (window as any).location = window.location.protocol + "//" + window.location.host + window.location.pathname;
+                                                    console.log("autoSignOut defined in ApiContextProvider line 339");
+                                                    if (!!props.signOut && typeof props.signOut === "function") autoSignOut(props.signOut);
                                                 } : null,
                                                 baseURL: props.baseURL || BASE_URL,
                                                 // setData,
