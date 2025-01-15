@@ -209,6 +209,7 @@ export default function ApiContextProvider (props: {
         setState({
             ...state,
             autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
+                console.log("autoSignOut defined in ApiContextProvider line 212");
                 if (!!props.signOut && typeof props.signOut === "function") autoSignOut(props.signOut);
             } : null,
             baseURL: (!!props.baseURL) ? props.baseURL : BASE_URL,
@@ -259,6 +260,7 @@ export default function ApiContextProvider (props: {
                                 ...state,
                                 authenticated: true,
                                 autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
+                                    console.log("autoSignOut defined in ApiContextProvider line 263");
                                     if (!!props.signOut && typeof props.signOut === "function") autoSignOut(props.signOut);
                                 } : null,
                                 baseURL: props.baseURL || BASE_URL,
@@ -334,6 +336,7 @@ export default function ApiContextProvider (props: {
                                                 authenticated: true,
                                                 authenticated_user: u,
                                                 autoSignOut: (!!props.signOut && typeof props.signOut === "function") ? () => {
+                                                    console.log("autoSignOut defined in ApiContextProvider line 339");
                                                     if (!!props.signOut && typeof props.signOut === "function") autoSignOut(props.signOut);
                                                 } : null,
                                                 baseURL: props.baseURL || BASE_URL,
