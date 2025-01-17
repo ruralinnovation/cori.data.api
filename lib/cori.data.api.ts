@@ -22,6 +22,7 @@ export { default as CategoricalLegend } from "./@cori-risi/components/Categorica
 export { default as GeocoderControl } from "./@cori-risi/components/GeocoderControl";
 export { default as HoverInfo, HoverObject } from "./@cori-risi/components/HoverInfo";
 
+export { mapboxGeocode } from "./@cori-risi/mapbox";
 import MAP_STYLE from "./@cori-risi/mapbox/styles/ruralinno/cl010e7b7001p15pe3l0306hv/style.json";
 
 /**

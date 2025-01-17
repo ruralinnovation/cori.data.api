@@ -18,7 +18,6 @@ import { AuthTokens, JWT } from "@aws-amplify/auth";
 
 import "./styles/ApiContextProvider.css";
 import { User } from "../models";
-import { autoSignOut } from "../utils";
 
 const BASE_URL = "https://cori-data-api.ruralinnovation.us/"; // `${import.meta.env.VITE_CORI_DATA_API}`;
 // TODO: From now on must pass dev/prod API url in as param to ApiContextProvider because:
@@ -41,6 +40,12 @@ type AuthSession = {
     identityId?: string;
     userSub?: string;
 };
+
+function autoSignOut (signOut: Function){
+    signOut();
+    window.alert("Please refresh this session by clicking the browser's reload button!");
+    (window as any).location = window.location.protocol + "//" + window.location.host + window.location.pathname;
+}
 
 /**
  * This is the interface/type of the [`ApiContext`](../variables/ApiContext.md).
