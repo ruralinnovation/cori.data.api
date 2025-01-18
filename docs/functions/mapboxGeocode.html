@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>@cori-risi/cori.data.api -</title>
+<title>@cori-risi/cori.data.api – mapboxgeocode</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,24 +20,59 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -60,10 +95,10 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="../../assets/fonts.css">
 </head>
 
-<body class="nav-sidebar docked nav-fixed fullcontent">
+<body class="nav-sidebar docked nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -81,15 +116,15 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
+    <a class="nav-link" href="../../index.html" rel="" target="">
  <span class="menu-text">Frontend UI library</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" rel="" target="" aria-current="page">
+    <a class="nav-link" href="../../about.html" rel="" target="">
  <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./docs/globals.html" rel="" target="">
+    <a class="nav-link" href="../../docs/globals.html" rel="" target="">
  <span class="menu-text">Reference</span></a>
   </li>  
   <li class="nav-item compact">
@@ -108,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../docs/functions/mapboxGeocode.html">Mapbox</a></li><li class="breadcrumb-item"><a href="../../docs/functions/mapboxGeocode.html">mapboxGeocode()</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -139,19 +174,19 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./docs/functions/CategoricalLegend.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/functions/CategoricalLegend.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">CategoricalLegend()</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./docs/functions/GeocoderControl.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/functions/GeocoderControl.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">GeocoderControl()</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./docs/functions/HoverInfo.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/functions/HoverInfo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">HoverInfo()</span></a>
   </div>
 </li>
@@ -168,13 +203,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./docs/functions/AmplifyContextProvider.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/functions/AmplifyContextProvider.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">AmplifyContextProvider()</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./docs/functions/ApiContextProvider.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/functions/ApiContextProvider.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ApiContextProvider()</span></a>
   </div>
 </li>
@@ -191,13 +226,13 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./docs/functions/mapboxGeocode.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/functions/mapboxGeocode.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">mapboxGeocode()</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./docs/variables/coriLightMapStyle.html" class="sidebar-item-text sidebar-link">
+  <a href="../../docs/variables/coriLightMapStyle.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">coriLightMapStyle</span></a>
   </div>
 </li>
@@ -208,66 +243,58 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#mapboxgeocode" id="toc-mapboxgeocode" class="nav-link active" data-scroll-target="#mapboxgeocode">mapboxGeocode()</a>
+  <ul class="collapse">
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#returns" id="toc-returns" class="nav-link" data-scroll-target="#returns">Returns</a></li>
+  <li><a href="#defined-in" id="toc-defined-in" class="nav-link" data-scroll-target="#defined-in">Defined in</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<div class="quarto-about-jolla">
-  <img src="assets/images/Full-Logo_CORI_Black.svg" class="about-image
-  round " style="height: 15em; width: 15em;">
- <main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
+
+
+
 <hr>
-<p><a id="github-profile-logo" href="https://ruralinnovation.us/" target="_blank"><img src="assets/images/Full-Logo_CORI_Cream.svg" alt="The Center on Rural Innovation" width="12%" align="left"></a> <br></p>
-<p>The Center on Rural Innovation (<a href="https://ruralinnovation.us/">CORI</a>) is a 501(c)(3) nonprofit organization partnering with rural leaders across the country to build tech economies that support scalable entrepreneurship and lead to more tech jobs in rural America.</p>
-<p>These repositories are maintained by the <em>Mapping and Data Analytics</em> (MDA) team at CORI/RISI. Our team provides data, analytics and visualizations to support rural participation in the digital economy through scalable entrepreneurship and tech job growth in rural America. We aim to provide a better understanding of the forces and trends affecting rural America as we help communities chart a path to opportunity and prosperity through the tech economy.</p>
-<p>We strive towards serving as the primary center of excellence advancing sustainable, economic opportunity and equity in rural America. We do this by providing expert spatial and statistical analysis, modernized visualization and tool development, credible technical subject matter expertise, and transparent documentation.</p>
-<p>Follow our work by reading <a href="https://ruralinnovation.github.io/blog/" class="external" target="_blank">our blog</a> and reviewing the following list of past projects:</p>
-<div class="quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><strong>Broadband</strong><br> - <a href="https://rural-broadband-map.ruralinnovation.us/" class="external" target="_blank">Broadband Equity Access and Deployment (BEAD) tool</a><br> - <a href="https://broadband-risk.ruralinnovation.us/" class="external" target="_blank">Climate Risk Mapping</a></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><strong>Research</strong><br> - <a href="https://ruralinnovation.us/resources/reports/the-rural-aperture-project/" class="external" target="_blank">Rural Aperture Project</a> (RWJF)<br> - <a href="https://ruralinnovation.us/blog/defining-rural-america/" class="external" target="_blank">Defining rural America</a><br> - Who lives in rural America? <a href="https://ruralinnovation.us/blog/who-lives-in-rural-america-part-i/" class="external" target="_blank">Part 1</a> <a href="https://ruralinnovation.us/blog/who-lives-in-rural-america-part-2/" class="external" target="_blank">Part 2</a><br> - <a href="https://ruralinnovation.us/blog/equity-economic-opportunity-rural-america/" class="external" target="_blank">The equity of economic opportunity in rural America</a></p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><strong>Rural Innovation Network</strong><br> - <a href="https://ruralinnovation.us/resources/reports/report-rural-americas-tech-employment-landscape/" class="external" target="_blank">Ascendium reports and data viz</a><br> - <a href="https://erc-tool.ruralinnovation.us/" class="external" target="_blank">Economic Development (ERC) tool</a></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><strong>Rural Innovation Initiative</strong><br> - Tech Economy Diagnostic (TED) <br> (i.e., community assessment → <a href="https://erc-tool.ruralinnovation.us/" class="external" target="_blank">ERC tool</a>)</p>
-</div>
-</div>
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><strong>Tech Entrepreneurship</strong> <br> - <a href="https://docs.google.com/document/d/1XcIts0l7weC1Kccw-hDSAQ1pj9FUyuaswAOZQP26UJM/edit#heading=h.ldyanhes5kq4" class="external" target="_blank">Feasibility studies</a><br> - Tech Talent Tracker → <a href="https://erc-tool.ruralinnovation.us/" class="external" target="_blank">ERC tool</a><br></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><strong>Additional work</strong><br> - Economic Development Administration (EDA) reports<br> - Economic impact analysis<br> - <a href="https://drive.google.com/drive/folders/1hb6t9j9FDCxTCKikHqRKzuVPjUI3NCaQ" class="external" target="_blank">Multistate Workforce Analysis</a> - <a href="https://docs.google.com/document/d/1-ikRrZv-zxDaKkM9lScsY5BMSZvTV7Fn/edit" class="external" target="_blank">example</a><br> - <a href="https://drive.google.com/file/d/115CbNaxueucskWevb3BmWqz0Oe4gfrX2" class="external" target="_blank">Who Is Missing Analysis</a></p>
-</div>
-</div>
-</div>
-<p>Learn more about the MDA approach to Knowledge here: <a href="https://ruralinnovation.us/our-work/research_mapping/">Research, mapping, and data analytics</a></p>
-<!--
-🏗️ This page is under construction! 🏗️
-**Here are some ideas to get you started:**
-🙋‍ A short introduction - what is your organization all about?
-🌈 Contribution guidelines - how can the community get involved?
-👩‍💻 Useful resources - where can the community find your docs? Is there anything else the community should know?
-🍿 Fun facts - what does your team eat for breakfast?
-🧙 Remember, you can do mighty things with the power of [Markdown](https://docs.github.com/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
--->
+<p><a href="../../docs/globals.html"><span class="citation" data-cites="cori-risi/cori.data.api">@cori-risi/cori.data.api</span></a> / mapboxGeocode</p>
+<section id="mapboxgeocode" class="level1">
+<h1>mapboxGeocode()</h1>
+<blockquote class="blockquote">
+<p><strong>mapboxGeocode</strong>(<code>api_key</code>, <code>text</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
+</blockquote>
+<p>This function is a simple wrapper around the <a href="https://docs.mapbox.com/api/search/geocoding/">Mapbox Geocoding API</a></p>
+<section id="parameters" class="level2">
+<h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
+<p>• <strong>api_key</strong>: <code>string</code></p>
+<p>The Mapbox API (public) token (string)</p>
+<p>• <strong>text</strong>: <code>string</code></p>
+<p>The search terms (string) that will be passed at the query to the API request</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode ts code-with-copy"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { mapboxGeocode } <span class="im">from</span> <span class="st">"@cori-risi/cori.data.api"</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">// ...</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> relevant_features <span class="op">=</span> <span class="cf">await</span> <span class="fu">mapboxGeocode</span>(mapbox_access_token<span class="op">,</span> text)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="returns" class="level2">
+<h2 class="anchored" data-anchor-id="returns">Returns</h2>
+<p><code>Promise</code>&lt;<code>any</code>&gt;</p>
+</section>
+<section id="defined-in" class="level2">
+<h2 class="anchored" data-anchor-id="defined-in">Defined in</h2>
+<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/7f751123707900c5a9f0aa85b9cd51f175c7dafa/lib/@cori-risi/mapbox/index.ts#L18"><span class="citation" data-cites="cori-risi/mapbox/index.ts:18">@cori-risi/mapbox/index.ts:18</span></a></p>
 
 
-</main> 
-  <hr class="about-sep">
-   <div class="about-links">
-  <a href="https://github.com/ruralinnovation/" class="about-link" rel="" target="">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text">Github</span>
-  </a>
-</div>
-</div>
- <!-- /main -->
+</section>
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -288,6 +315,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
