@@ -28,5 +28,4 @@ export declare const getMetricText: (data: d3.DSVRowArray<string>, metric: strin
     whyItMatters: string;
     howToInterpret: string;
 };
-export declare function autoSignOut(signOut: Function): void;
 //# sourceMappingURL=index.d.ts.map

@@ -34,8 +34,9 @@ website:
         contents:
           - docs/functions/AmplifyContextProvider.md
           - docs/functions/ApiContextProvider.md
-      - section: "Mapbox styles"
+      - section: "Mapbox"
         contents:
+          - docs/functions/mapboxGeocode.md
           - docs/variables/coriLightMapStyle.md
 
 format:

@@ -1,22 +1,35 @@
 import axios from "axios";
 
+/**
+ * This function is a simple wrapper around the [Mapbox Geocoding API](https://docs.mapbox.com/api/search/geocoding/)
+ *
+ * @param api_key - The Mapbox API (public) token (string)
+ * @param text - The search terms (string) that will be passed at the query to the API request
+ *
+ * ```ts
+ * import { mapboxGeocode } from "@cori-risi/cori.data.api";
+ *
+ * // ...
+ *
+ * const relevant_features = await mapboxGeocode(mapbox_access_token, text);
+ *
+ * ```
+ * */
 export async function mapboxGeocode (api_key: string, text: string) {
 
     const search_request = 'https://api.mapbox.com/search/geocode/v6/forward'
 
-    // console.log("GEOCODE EARTH API: ", import.meta.env.VITE_GEOCODE_TOKEN);
     console.log("MAPBOX API TOKEN: ", api_key);
 
-    const res = await axios.get(search_request, //auto_request,
+    const res = await axios.get(search_request,
         {
             params: {
-                access_token: api_key, // api_key
-                q: text // text
+                access_token: api_key,
+                q: text
             }
         }
     )
 
-    // console.log("GEOCODE EARTH API: ", res);
     console.log("MAPBOX API: ", res);
 
     const found_features = res.data.features

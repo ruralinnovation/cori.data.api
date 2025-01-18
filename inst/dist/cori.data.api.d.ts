@@ -1,4 +1,3 @@
-/// <reference types="mapbox-gl" />
 import { MapStyle } from "react-map-gl";
 export declare function helloAnything(thing: string): string;
 export { Button, Input, Label } from "./@cori-risi/components/basic";
@@ -7,6 +6,7 @@ export { default as ApiContextProvider, ApiContext, ApiContextType } from "./@co
 export { default as CategoricalLegend } from "./@cori-risi/components/CategoricalLegend";
 export { default as GeocoderControl } from "./@cori-risi/components/GeocoderControl";
 export { default as HoverInfo, HoverObject } from "./@cori-risi/components/HoverInfo";
+export { mapboxGeocode } from "./@cori-risi/mapbox";
 /**
  * This is the primary Mapbox basemap style used in CORI/RISI frontend mapping applications
  *
