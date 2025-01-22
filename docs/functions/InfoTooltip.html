@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>@cori-risi/cori.data.api – apicontextprovider</title>
+<title>@cori-risi/cori.data.api – infotooltip</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -143,7 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../docs/functions/AmplifyContextProvider.html">React contexts</a></li><li class="breadcrumb-item"><a href="../../docs/functions/ApiContextProvider.html">ApiContextProvider()</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -209,7 +175,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../docs/functions/ApiContextProvider.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../docs/functions/ApiContextProvider.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">ApiContextProvider()</span></a>
   </div>
 </li>
@@ -248,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#apicontextprovider" id="toc-apicontextprovider" class="nav-link active" data-scroll-target="#apicontextprovider">ApiContextProvider()</a>
+  <li><a href="#infotooltip" id="toc-infotooltip" class="nav-link active" data-scroll-target="#infotooltip">InfoTooltip()</a>
   <ul class="collapse">
   <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
   <li><a href="#returns" id="toc-returns" class="nav-link" data-scroll-target="#returns">Returns</a></li>
@@ -263,56 +229,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <hr>
-<p><a href="../../docs/globals.html"><span class="citation" data-cites="cori-risi/cori.data.api">@cori-risi/cori.data.api</span></a> / ApiContextProvider</p>
-<section id="apicontextprovider" class="level1">
-<h1>ApiContextProvider()</h1>
+<p><a href="../../docs/globals.html"><span class="citation" data-cites="cori-risi/cori.data.api">@cori-risi/cori.data.api</span></a> / InfoTooltip</p>
+<section id="infotooltip" class="level1">
+<h1>InfoTooltip()</h1>
 <blockquote class="blockquote">
-<p><strong>ApiContextProvider</strong>(<code>props</code>): <code>Element</code></p>
+<p><strong>InfoTooltip</strong>(<code>__namedParameters</code>): <code>Element</code></p>
 </blockquote>
-<p>This component provides the API/data service context (<a href="../../docs/variables/ApiContext.html"><code>ApiContext</code></a>) to a React application. The following example assumes that the <code>App</code> component has been configured by the <a href="../../docs/functions/AmplifyContextProvider.html"><code>AmplifyContextProvider</code></a> to allow for authentication with AWS Cognito, but this provider can also be used to setup an ApiContext with no authentication (by only using the <code>baseURL</code> param/prop and disregarding the other props):</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode ts code-with-copy"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    withAuthenticator<span class="op">,</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    useAuthenticator<span class="op">,</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    UseAuthenticator<span class="op">,</span> useTheme<span class="op">,</span> Heading</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>} <span class="im">from</span> <span class="st">'@aws-amplify/ui-react'</span><span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { fetchAuthSession } <span class="im">from</span> <span class="st">"@aws-amplify/auth"</span><span class="op">;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { getCurrentUser } <span class="im">from</span> <span class="st">"@aws-amplify/auth/cognito"</span><span class="op">;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { AmplifyContext<span class="op">,</span> ApiContextProvider } <span class="im">from</span> <span class="st">"@cori-risi/cori.data.api"</span><span class="op">;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">// ...</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> App <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> amplifyContext <span class="op">=</span> <span class="fu">useContext</span>(AmplifyContext)<span class="op">;</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> authenticator<span class="op">:</span> UseAuthenticator <span class="op">=</span> <span class="fu">useAuthenticator</span>()<span class="op">;</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">// ...</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;</span>ApiContextProvider baseURL<span class="op">=</span>{import<span class="op">.</span><span class="at">meta</span><span class="op">.</span><span class="at">env</span><span class="op">.</span><span class="at">VITE_CORI_DATA_API</span>}</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>                          fetchAuthSession<span class="op">=</span>{fetchAuthSession}</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                          getCurrentUser<span class="op">=</span>{getCurrentUser}</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                          signOut<span class="op">=</span>{authenticator<span class="op">.</span><span class="at">signOut</span>} <span class="op">&gt;</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="op">&lt;</span>AppComponentsThatNeedAccessToAPI <span class="op">/&gt;</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>      <span class="op">&lt;/</span>ApiContextProvider<span class="op">&gt;</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    )<span class="op">;</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="im">default</span> <span class="fu">withAuthenticator</span>(App<span class="op">,</span> {</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="parameters" class="level2">
 <h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
-<p>• <strong>props</strong></p>
-<p>• <strong>props.baseURL?</strong>: <code>string</code></p>
-<p>Base URL for the RESTful API endpoint, e.g., https://cori-data-api.ruralinnovation.us.</p>
-<p>• <strong>props.children?</strong>: <code>ReactElement</code>&lt;<code>any</code>, <code>any</code>&gt; | <code>ReactElement</code>&lt;<code>any</code>, <code>any</code>&gt;[]</p>
-<p>• <strong>props.fetchAuthSession?</strong>: <code>Function</code></p>
-<p>An optional function from the Amplify Auth package to start an authenticated session</p>
-<p>• <strong>props.getCurrentUser?</strong>: <code>Function</code></p>
-<p>An optional function from the Amplify Cognito package to fetch the current authenticated user (if any)</p>
-<p>• <strong>props.signOut?</strong>: <code>Function</code></p>
-<p>An optional function that is one of many destructured props contained in the Amplify authenticator context (returned by the useAuthenticator() hoook), used to sign out the current user.</p>
+<p>• <strong>__namedParameters</strong></p>
+<p>• <strong>__namedParameters.text</strong>: <code>string</code></p>
 </section>
 <section id="returns" class="level2">
 <h2 class="anchored" data-anchor-id="returns">Returns</h2>
@@ -320,7 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="defined-in" class="level2">
 <h2 class="anchored" data-anchor-id="defined-in">Defined in</h2>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/74e67d2849d73166e59a4900a485a29460425b1f/lib/@cori-risi/contexts/ApiContextProvider.tsx#L171"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:171">@cori-risi/contexts/ApiContextProvider.tsx:171</span></a></p>
+<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/74e67d2849d73166e59a4900a485a29460425b1f/lib/@cori-risi/components/InfoTooltip.tsx#L5"><span class="citation" data-cites="cori-risi/components/InfoTooltip.tsx:5">@cori-risi/components/InfoTooltip.tsx:5</span></a></p>
 
 
 </section>

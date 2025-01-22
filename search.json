@@ -46,245 +46,63 @@
     "href": "docs/globals.html#functions",
     "title": "@cori-risi/cori.data.api",
     "section": "Functions",
-    "text": "Functions\n\nAmplifyContextProvider\nApiContextProvider\nButton\nCategoricalLegend\nGeocoderControl\nHoverInfo\nInput\nLabel\nhelloAnything\nmapboxGeocode"
+    "text": "Functions\n\nAmplifyContextProvider\nApiContextProvider\nButton\nCategoricalLegend\nGeocoderControl\nHoverInfo\nInfoTooltip\nInput\nLabel\nhelloAnything\nmapboxGeocode"
   },
   {
-    "objectID": "docs/functions/Label.html",
-    "href": "docs/functions/Label.html",
-    "title": "Label()",
+    "objectID": "docs/functions/InfoTooltip.html",
+    "href": "docs/functions/InfoTooltip.html",
+    "title": "InfoTooltip()",
     "section": "",
-    "text": "@cori-risi/cori.data.api / Label"
+    "text": "@cori-risi/cori.data.api / InfoTooltip"
   },
   {
-    "objectID": "docs/functions/Label.html#parameters",
-    "href": "docs/functions/Label.html#parameters",
-    "title": "Label()",
+    "objectID": "docs/functions/InfoTooltip.html#parameters",
+    "href": "docs/functions/InfoTooltip.html#parameters",
+    "title": "InfoTooltip()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]"
+    "text": "Parameters\n• __namedParameters\n• __namedParameters.text: string"
   },
   {
-    "objectID": "docs/functions/Label.html#returns",
-    "href": "docs/functions/Label.html#returns",
-    "title": "Label()",
+    "objectID": "docs/functions/InfoTooltip.html#returns",
+    "href": "docs/functions/InfoTooltip.html#returns",
+    "title": "InfoTooltip()",
     "section": "Returns",
     "text": "Returns\nElement"
   },
   {
-    "objectID": "docs/functions/Label.html#defined-in",
-    "href": "docs/functions/Label.html#defined-in",
-    "title": "Label()",
+    "objectID": "docs/functions/InfoTooltip.html#defined-in",
+    "href": "docs/functions/InfoTooltip.html#defined-in",
+    "title": "InfoTooltip()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/basic.tsx:48"
+    "text": "Defined in\n@cori-risi/components/InfoTooltip.tsx:5"
   },
   {
-    "objectID": "docs/functions/helloAnything.html",
-    "href": "docs/functions/helloAnything.html",
-    "title": "helloAnything()",
+    "objectID": "docs/functions/AmplifyContextProvider.html",
+    "href": "docs/functions/AmplifyContextProvider.html",
+    "title": "AmplifyContextProvider()",
     "section": "",
-    "text": "@cori-risi/cori.data.api / helloAnything"
+    "text": "@cori-risi/cori.data.api / AmplifyContextProvider"
   },
   {
-    "objectID": "docs/functions/helloAnything.html#parameters",
-    "href": "docs/functions/helloAnything.html#parameters",
-    "title": "helloAnything()",
+    "objectID": "docs/functions/AmplifyContextProvider.html#parameters",
+    "href": "docs/functions/AmplifyContextProvider.html#parameters",
+    "title": "AmplifyContextProvider()",
     "section": "Parameters",
-    "text": "Parameters\n• thing: string"
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.domain?: string\ns- domain for the Cognito Hosted UI and/or OAuth 2.0 endpoints\n• props.identityPoolId?: string\nCognito Identity pool ID\n• props.region?: string\nAWS region where Cognito service is hosted\n• props.userPoolClientId?: string\nACognito User pool App client ID (App clients are the user pool authentication resources attached to your app).\n• props.userPoolId?: string\nCognito User pool ID"
   },
   {
-    "objectID": "docs/functions/helloAnything.html#returns",
-    "href": "docs/functions/helloAnything.html#returns",
-    "title": "helloAnything()",
-    "section": "Returns",
-    "text": "Returns\nstring"
-  },
-  {
-    "objectID": "docs/functions/helloAnything.html#defined-in",
-    "href": "docs/functions/helloAnything.html#defined-in",
-    "title": "helloAnything()",
-    "section": "Defined in",
-    "text": "Defined in\ncori.data.api.ts:5"
-  },
-  {
-    "objectID": "docs/functions/CategoricalLegend.html",
-    "href": "docs/functions/CategoricalLegend.html",
-    "title": "CategoricalLegend()",
-    "section": "",
-    "text": "@cori-risi/cori.data.api / CategoricalLegend"
-  },
-  {
-    "objectID": "docs/functions/CategoricalLegend.html#parameters",
-    "href": "docs/functions/CategoricalLegend.html#parameters",
-    "title": "CategoricalLegend()",
-    "section": "Parameters",
-    "text": "Parameters\n• props\n• props.domain?: string[]\nd3 color scale domain\n• props.domain_names?: string[]\nan (array) of names, each one mapped to a category in the color scale domain\n• props.na_message?: string\n• props.range?: unknown[]\nd3 color scale range\n• props.scale?: any\n• props.title?: string"
-  },
-  {
-    "objectID": "docs/functions/CategoricalLegend.html#returns",
-    "href": "docs/functions/CategoricalLegend.html#returns",
-    "title": "CategoricalLegend()",
+    "objectID": "docs/functions/AmplifyContextProvider.html#returns",
+    "href": "docs/functions/AmplifyContextProvider.html#returns",
+    "title": "AmplifyContextProvider()",
     "section": "Returns",
     "text": "Returns\nElement"
   },
   {
-    "objectID": "docs/functions/CategoricalLegend.html#defined-in",
-    "href": "docs/functions/CategoricalLegend.html#defined-in",
-    "title": "CategoricalLegend()",
+    "objectID": "docs/functions/AmplifyContextProvider.html#defined-in",
+    "href": "docs/functions/AmplifyContextProvider.html#defined-in",
+    "title": "AmplifyContextProvider()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/CategoricalLegend.tsx:44"
-  },
-  {
-    "objectID": "docs/functions/Button.html",
-    "href": "docs/functions/Button.html",
-    "title": "Button()",
-    "section": "",
-    "text": "@cori-risi/cori.data.api / Button"
-  },
-  {
-    "objectID": "docs/functions/Button.html#parameters",
-    "href": "docs/functions/Button.html#parameters",
-    "title": "Button()",
-    "section": "Parameters",
-    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.onClick"
-  },
-  {
-    "objectID": "docs/functions/Button.html#returns",
-    "href": "docs/functions/Button.html#returns",
-    "title": "Button()",
-    "section": "Returns",
-    "text": "Returns\nElement"
-  },
-  {
-    "objectID": "docs/functions/Button.html#defined-in",
-    "href": "docs/functions/Button.html#defined-in",
-    "title": "Button()",
-    "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/basic.tsx:18"
-  },
-  {
-    "objectID": "docs/functions/Input.html",
-    "href": "docs/functions/Input.html",
-    "title": "Input()",
-    "section": "",
-    "text": "@cori-risi/cori.data.api / Input"
-  },
-  {
-    "objectID": "docs/functions/Input.html#parameters",
-    "href": "docs/functions/Input.html#parameters",
-    "title": "Input()",
-    "section": "Parameters",
-    "text": "Parameters\n• props\n• props.checked?: boolean\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.id?: string\n• props.max?: number\n• props.min?: number\n• props.name?: string\n• props.onChange?: ChangeEventHandler&lt;HTMLInputElement&gt;\n• props.type: string\n• props.value?: string | number"
-  },
-  {
-    "objectID": "docs/functions/Input.html#returns",
-    "href": "docs/functions/Input.html#returns",
-    "title": "Input()",
-    "section": "Returns",
-    "text": "Returns\nElement"
-  },
-  {
-    "objectID": "docs/functions/Input.html#defined-in",
-    "href": "docs/functions/Input.html#defined-in",
-    "title": "Input()",
-    "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/basic.tsx:31"
-  },
-  {
-    "objectID": "docs/variables/coriLightMapStyle.html",
-    "href": "docs/variables/coriLightMapStyle.html",
-    "title": "coriLightMapStyle",
-    "section": "",
-    "text": "@cori-risi/cori.data.api / coriLightMapStyle"
-  },
-  {
-    "objectID": "docs/variables/coriLightMapStyle.html#defined-in",
-    "href": "docs/variables/coriLightMapStyle.html#defined-in",
-    "title": "coriLightMapStyle",
-    "section": "Defined in",
-    "text": "Defined in\ncori.data.api.ts:55"
-  },
-  {
-    "objectID": "docs/variables/AmplifyContext.html",
-    "href": "docs/variables/AmplifyContext.html",
-    "title": "AmplifyContext",
-    "section": "",
-    "text": "@cori-risi/cori.data.api / AmplifyContext"
-  },
-  {
-    "objectID": "docs/variables/AmplifyContext.html#defined-in",
-    "href": "docs/variables/AmplifyContext.html#defined-in",
-    "title": "AmplifyContext",
-    "section": "Defined in",
-    "text": "Defined in\n@cori-risi/contexts/AmplifyContextProvider.tsx:43"
-  },
-  {
-    "objectID": "docs/variables/ApiContext.html",
-    "href": "docs/variables/ApiContext.html",
-    "title": "ApiContext",
-    "section": "",
-    "text": "@cori-risi/cori.data.api / ApiContext"
-  },
-  {
-    "objectID": "docs/variables/ApiContext.html#defined-in",
-    "href": "docs/variables/ApiContext.html#defined-in",
-    "title": "ApiContext",
-    "section": "Defined in",
-    "text": "Defined in\n@cori-risi/contexts/ApiContextProvider.tsx:119"
-  },
-  {
-    "objectID": "docs/functions/HoverInfo.html",
-    "href": "docs/functions/HoverInfo.html",
-    "title": "HoverInfo()",
-    "section": "",
-    "text": "@cori-risi/cori.data.api / HoverInfo"
-  },
-  {
-    "objectID": "docs/functions/HoverInfo.html#parameters",
-    "href": "docs/functions/HoverInfo.html#parameters",
-    "title": "HoverInfo()",
-    "section": "Parameters",
-    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.hoverInfo: HoverObject\nan object that should, at minimum, contain x and y values (screen coordinates in pixels); “name” is also a userful prop\n• props.xOffset?: number\nthe HoverInfo box will be rendered at this offset from the event’s x coordinate\n• props.yOffset?: number\nthe HoverInfo box will be rendered at this offset from the event’s y coordinate\n• props.zIndex?: number"
-  },
-  {
-    "objectID": "docs/functions/HoverInfo.html#returns",
-    "href": "docs/functions/HoverInfo.html#returns",
-    "title": "HoverInfo()",
-    "section": "Returns",
-    "text": "Returns\nElement"
-  },
-  {
-    "objectID": "docs/functions/HoverInfo.html#defined-in",
-    "href": "docs/functions/HoverInfo.html#defined-in",
-    "title": "HoverInfo()",
-    "section": "Defined in",
-    "text": "Defined in\n@cori-risi/components/HoverInfo.tsx:42"
-  },
-  {
-    "objectID": "docs/functions/ApiContextProvider.html",
-    "href": "docs/functions/ApiContextProvider.html",
-    "title": "ApiContextProvider()",
-    "section": "",
-    "text": "@cori-risi/cori.data.api / ApiContextProvider"
-  },
-  {
-    "objectID": "docs/functions/ApiContextProvider.html#parameters",
-    "href": "docs/functions/ApiContextProvider.html#parameters",
-    "title": "ApiContextProvider()",
-    "section": "Parameters",
-    "text": "Parameters\n• props\n• props.baseURL?: string\nBase URL for the RESTful API endpoint, e.g., https://cori-data-api.ruralinnovation.us.\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.fetchAuthSession?: Function\nAn optional function from the Amplify Auth package to start an authenticated session\n• props.getCurrentUser?: Function\nAn optional function from the Amplify Cognito package to fetch the current authenticated user (if any)\n• props.signOut?: Function\nAn optional function that is one of many destructured props contained in the Amplify authenticator context (returned by the useAuthenticator() hoook), used to sign out the current user."
-  },
-  {
-    "objectID": "docs/functions/ApiContextProvider.html#returns",
-    "href": "docs/functions/ApiContextProvider.html#returns",
-    "title": "ApiContextProvider()",
-    "section": "Returns",
-    "text": "Returns\nElement"
-  },
-  {
-    "objectID": "docs/functions/ApiContextProvider.html#defined-in",
-    "href": "docs/functions/ApiContextProvider.html#defined-in",
-    "title": "ApiContextProvider()",
-    "section": "Defined in",
-    "text": "Defined in\n@cori-risi/contexts/ApiContextProvider.tsx:171"
+    "text": "Defined in\n@cori-risi/contexts/AmplifyContextProvider.tsx:73"
   },
   {
     "objectID": "docs/functions/GeocoderControl.html",
@@ -315,32 +133,242 @@
     "text": "Defined in\n@cori-risi/components/GeocoderControl.tsx:47"
   },
   {
-    "objectID": "docs/functions/AmplifyContextProvider.html",
-    "href": "docs/functions/AmplifyContextProvider.html",
-    "title": "AmplifyContextProvider()",
+    "objectID": "docs/functions/ApiContextProvider.html",
+    "href": "docs/functions/ApiContextProvider.html",
+    "title": "ApiContextProvider()",
     "section": "",
-    "text": "@cori-risi/cori.data.api / AmplifyContextProvider"
+    "text": "@cori-risi/cori.data.api / ApiContextProvider"
   },
   {
-    "objectID": "docs/functions/AmplifyContextProvider.html#parameters",
-    "href": "docs/functions/AmplifyContextProvider.html#parameters",
-    "title": "AmplifyContextProvider()",
+    "objectID": "docs/functions/ApiContextProvider.html#parameters",
+    "href": "docs/functions/ApiContextProvider.html#parameters",
+    "title": "ApiContextProvider()",
     "section": "Parameters",
-    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.domain?: string\ns- domain for the Cognito Hosted UI and/or OAuth 2.0 endpoints\n• props.identityPoolId?: string\nCognito Identity pool ID\n• props.region?: string\nAWS region where Cognito service is hosted\n• props.userPoolClientId?: string\nACognito User pool App client ID (App clients are the user pool authentication resources attached to your app).\n• props.userPoolId?: string\nCognito User pool ID"
+    "text": "Parameters\n• props\n• props.baseURL?: string\nBase URL for the RESTful API endpoint, e.g., https://cori-data-api.ruralinnovation.us.\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.fetchAuthSession?: Function\nAn optional function from the Amplify Auth package to start an authenticated session\n• props.getCurrentUser?: Function\nAn optional function from the Amplify Cognito package to fetch the current authenticated user (if any)\n• props.signOut?: Function\nAn optional function that is one of many destructured props contained in the Amplify authenticator context (returned by the useAuthenticator() hoook), used to sign out the current user."
   },
   {
-    "objectID": "docs/functions/AmplifyContextProvider.html#returns",
-    "href": "docs/functions/AmplifyContextProvider.html#returns",
-    "title": "AmplifyContextProvider()",
+    "objectID": "docs/functions/ApiContextProvider.html#returns",
+    "href": "docs/functions/ApiContextProvider.html#returns",
+    "title": "ApiContextProvider()",
     "section": "Returns",
     "text": "Returns\nElement"
   },
   {
-    "objectID": "docs/functions/AmplifyContextProvider.html#defined-in",
-    "href": "docs/functions/AmplifyContextProvider.html#defined-in",
-    "title": "AmplifyContextProvider()",
+    "objectID": "docs/functions/ApiContextProvider.html#defined-in",
+    "href": "docs/functions/ApiContextProvider.html#defined-in",
+    "title": "ApiContextProvider()",
     "section": "Defined in",
-    "text": "Defined in\n@cori-risi/contexts/AmplifyContextProvider.tsx:73"
+    "text": "Defined in\n@cori-risi/contexts/ApiContextProvider.tsx:171"
+  },
+  {
+    "objectID": "docs/functions/HoverInfo.html",
+    "href": "docs/functions/HoverInfo.html",
+    "title": "HoverInfo()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api / HoverInfo"
+  },
+  {
+    "objectID": "docs/functions/HoverInfo.html#parameters",
+    "href": "docs/functions/HoverInfo.html#parameters",
+    "title": "HoverInfo()",
+    "section": "Parameters",
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.hoverInfo: HoverObject\nan object that should, at minimum, contain x and y values (screen coordinates in pixels); “name” is also a userful prop\n• props.xOffset?: number\nthe HoverInfo box will be rendered at this offset from the event’s x coordinate\n• props.yOffset?: number\nthe HoverInfo box will be rendered at this offset from the event’s y coordinate\n• props.zIndex?: number"
+  },
+  {
+    "objectID": "docs/functions/HoverInfo.html#returns",
+    "href": "docs/functions/HoverInfo.html#returns",
+    "title": "HoverInfo()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs/functions/HoverInfo.html#defined-in",
+    "href": "docs/functions/HoverInfo.html#defined-in",
+    "title": "HoverInfo()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/components/HoverInfo.tsx:42"
+  },
+  {
+    "objectID": "docs/variables/ApiContext.html",
+    "href": "docs/variables/ApiContext.html",
+    "title": "ApiContext",
+    "section": "",
+    "text": "@cori-risi/cori.data.api / ApiContext"
+  },
+  {
+    "objectID": "docs/variables/ApiContext.html#defined-in",
+    "href": "docs/variables/ApiContext.html#defined-in",
+    "title": "ApiContext",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/contexts/ApiContextProvider.tsx:119"
+  },
+  {
+    "objectID": "docs/variables/AmplifyContext.html",
+    "href": "docs/variables/AmplifyContext.html",
+    "title": "AmplifyContext",
+    "section": "",
+    "text": "@cori-risi/cori.data.api / AmplifyContext"
+  },
+  {
+    "objectID": "docs/variables/AmplifyContext.html#defined-in",
+    "href": "docs/variables/AmplifyContext.html#defined-in",
+    "title": "AmplifyContext",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/contexts/AmplifyContextProvider.tsx:43"
+  },
+  {
+    "objectID": "docs/variables/coriLightMapStyle.html",
+    "href": "docs/variables/coriLightMapStyle.html",
+    "title": "coriLightMapStyle",
+    "section": "",
+    "text": "@cori-risi/cori.data.api / coriLightMapStyle"
+  },
+  {
+    "objectID": "docs/variables/coriLightMapStyle.html#defined-in",
+    "href": "docs/variables/coriLightMapStyle.html#defined-in",
+    "title": "coriLightMapStyle",
+    "section": "Defined in",
+    "text": "Defined in\ncori.data.api.ts:56"
+  },
+  {
+    "objectID": "docs/functions/Input.html",
+    "href": "docs/functions/Input.html",
+    "title": "Input()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api / Input"
+  },
+  {
+    "objectID": "docs/functions/Input.html#parameters",
+    "href": "docs/functions/Input.html#parameters",
+    "title": "Input()",
+    "section": "Parameters",
+    "text": "Parameters\n• props\n• props.checked?: boolean\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.id?: string\n• props.max?: number\n• props.min?: number\n• props.name?: string\n• props.onChange?: ChangeEventHandler&lt;HTMLInputElement&gt;\n• props.type: string\n• props.value?: string | number"
+  },
+  {
+    "objectID": "docs/functions/Input.html#returns",
+    "href": "docs/functions/Input.html#returns",
+    "title": "Input()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs/functions/Input.html#defined-in",
+    "href": "docs/functions/Input.html#defined-in",
+    "title": "Input()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/components/basic.tsx:31"
+  },
+  {
+    "objectID": "docs/functions/Button.html",
+    "href": "docs/functions/Button.html",
+    "title": "Button()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api / Button"
+  },
+  {
+    "objectID": "docs/functions/Button.html#parameters",
+    "href": "docs/functions/Button.html#parameters",
+    "title": "Button()",
+    "section": "Parameters",
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n• props.onClick"
+  },
+  {
+    "objectID": "docs/functions/Button.html#returns",
+    "href": "docs/functions/Button.html#returns",
+    "title": "Button()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs/functions/Button.html#defined-in",
+    "href": "docs/functions/Button.html#defined-in",
+    "title": "Button()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/components/basic.tsx:18"
+  },
+  {
+    "objectID": "docs/functions/CategoricalLegend.html",
+    "href": "docs/functions/CategoricalLegend.html",
+    "title": "CategoricalLegend()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api / CategoricalLegend"
+  },
+  {
+    "objectID": "docs/functions/CategoricalLegend.html#parameters",
+    "href": "docs/functions/CategoricalLegend.html#parameters",
+    "title": "CategoricalLegend()",
+    "section": "Parameters",
+    "text": "Parameters\n• props\n• props.domain?: string[]\nd3 color scale domain\n• props.domain_names?: string[]\nan (array) of names, each one mapped to a category in the color scale domain\n• props.na_message?: string\n• props.range?: unknown[]\nd3 color scale range\n• props.scale?: any\n• props.title?: string"
+  },
+  {
+    "objectID": "docs/functions/CategoricalLegend.html#returns",
+    "href": "docs/functions/CategoricalLegend.html#returns",
+    "title": "CategoricalLegend()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs/functions/CategoricalLegend.html#defined-in",
+    "href": "docs/functions/CategoricalLegend.html#defined-in",
+    "title": "CategoricalLegend()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/components/CategoricalLegend.tsx:44"
+  },
+  {
+    "objectID": "docs/functions/helloAnything.html",
+    "href": "docs/functions/helloAnything.html",
+    "title": "helloAnything()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api / helloAnything"
+  },
+  {
+    "objectID": "docs/functions/helloAnything.html#parameters",
+    "href": "docs/functions/helloAnything.html#parameters",
+    "title": "helloAnything()",
+    "section": "Parameters",
+    "text": "Parameters\n• thing: string"
+  },
+  {
+    "objectID": "docs/functions/helloAnything.html#returns",
+    "href": "docs/functions/helloAnything.html#returns",
+    "title": "helloAnything()",
+    "section": "Returns",
+    "text": "Returns\nstring"
+  },
+  {
+    "objectID": "docs/functions/helloAnything.html#defined-in",
+    "href": "docs/functions/helloAnything.html#defined-in",
+    "title": "helloAnything()",
+    "section": "Defined in",
+    "text": "Defined in\ncori.data.api.ts:5"
+  },
+  {
+    "objectID": "docs/functions/Label.html",
+    "href": "docs/functions/Label.html",
+    "title": "Label()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api / Label"
+  },
+  {
+    "objectID": "docs/functions/Label.html#parameters",
+    "href": "docs/functions/Label.html#parameters",
+    "title": "Label()",
+    "section": "Parameters",
+    "text": "Parameters\n• props\n• props.children?: ReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]"
+  },
+  {
+    "objectID": "docs/functions/Label.html#returns",
+    "href": "docs/functions/Label.html#returns",
+    "title": "Label()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "docs/functions/Label.html#defined-in",
+    "href": "docs/functions/Label.html#defined-in",
+    "title": "Label()",
+    "section": "Defined in",
+    "text": "Defined in\n@cori-risi/components/basic.tsx:48"
   },
   {
     "objectID": "docs/functions/mapboxGeocode.html",
