@@ -1,0 +1,20 @@
+
+.cont-legend {
+	display: flex;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	max-width: 500px;
+}
+
+.cont-legend div {
+	height: 27px;
+	width: 100%;
+}
+
+.cont-legend .start-label {
+	margin-right: 5px;
+}
+
+.cont-legend .end-label {
+	margin-left: 5px;
+}

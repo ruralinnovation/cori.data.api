@@ -1,0 +1,93 @@
+.block-slippy-map {
+	margin: 100px 0px 100px 0px;
+	page-break-after: always;
+	page-break-before: always;
+}
+
+.slippy-map {
+	position: relative;
+	margin-bottom: 100px;
+	page-break-before: always;
+	page-break-after: always;
+}
+
+.slippy-map h2 {
+	color: black;
+	line-height: 1.2;
+}
+
+.slippy-map .subtitle {
+	margin: 15px 0px 10px 0px;
+	line-height: 1.2;
+	font-style: italic;
+}
+
+.slippy-map .tooltip {
+	font-family: "Bitter", serif;
+	position: absolute;
+	margin: 0px;
+	padding: 15px;
+	color: black;
+	background: white;
+	min-width: 252px;
+	max-width: 300px;
+	border: 1px solid black;
+	z-index: 9;
+	pointer-events: none;
+	line-height: 1.5;
+	border-radius: 5px;
+}
+
+.slippy-map .caption {
+	margin-top: 10px;
+	font-size: .8em;
+	color: dimgray;
+}
+
+.slippy-map .caption .download-link {
+	margin-left: 2.5px;
+
+}
+
+@media (min-width: 500px) {
+	.slippy-map .caption .download-link {
+		float: right;
+	}
+}
+
+.slippy-map #map {
+	width: 1000px;
+	height: 500px;
+}
+
+@media print {
+	.slippy-map #map .mapboxgl-canvas-container {
+		display: none !important;
+	}
+}
+
+@media print {
+	.slippy-map #map * .maplibregl-export-control {
+		display: none !important;
+	}
+}
+
+@media print {
+	.slippy-map #map * .mapboxgl-ctrl-attrib-inner {
+		display: block !important;
+	}
+}
+
+.slippy-map .cont-legend {
+	display: flex;
+	margin: 10px 0px 15px 0px;
+	font-family: "Bitter", serif;
+}
+
+.slippy-map .cont-legend svg {
+	margin: 0px 5px 0px 5px;
+}
+
+.slippy-map .cont-legend p {
+	margin: 0px;
+}
