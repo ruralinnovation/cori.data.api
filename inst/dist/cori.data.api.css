@@ -161,3 +161,56 @@
     font-weight: 400;
     margin: 0px;
 }
+
+.InfoTooltip-module_info-tooltip__FVdl3 {
+	margin-top: 0px;
+    margin-inline-end: 0px;
+    margin-bottom: 0px;
+    margin-inline-start: 3px;
+
+    position: relative;
+    display: inline;
+}
+
+.InfoTooltip-module_info-tooltip__FVdl3 svg {
+	margin-bottom: 4px;
+}
+
+.InfoTooltip-module_info-tooltip__FVdl3 .InfoTooltip-module_info-tooltip-text__qrp7D {
+
+	font-family: "Bitter", sans-serif;
+	font-size: 16px;
+	line-height: 1.5;
+
+	display: none;
+	width: 250px;
+	background-color: #16343E;
+	color: white;
+
+	text-align: left;
+	border-radius: 6px;
+	padding: 10px;
+
+	pointer-events: none;
+
+	position: absolute;
+	z-index: 1;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -125px;
+}
+
+.InfoTooltip-module_info-tooltip__FVdl3 .InfoTooltip-module_info-tooltip-text__qrp7D::after {
+  content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #16343E transparent transparent transparent;
+}
+
+.InfoTooltip-module_info-tooltip__FVdl3:hover .InfoTooltip-module_info-tooltip-text__qrp7D {
+  display: block;
+}

@@ -6,6 +6,7 @@ export { default as ApiContextProvider, ApiContext, ApiContextType } from "./@co
 export { default as CategoricalLegend } from "./@cori-risi/components/CategoricalLegend";
 export { default as GeocoderControl } from "./@cori-risi/components/GeocoderControl";
 export { default as HoverInfo, HoverObject } from "./@cori-risi/components/HoverInfo";
+export { default as InfoTooltip } from "./@cori-risi/components/InfoTooltip";
 export { mapboxGeocode } from "./@cori-risi/mapbox";
 /**
  * This is the primary Mapbox basemap style used in CORI/RISI frontend mapping applications

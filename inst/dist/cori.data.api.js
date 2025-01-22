@@ -10,6 +10,7 @@ export { ApiContext, default as ApiContextProvider } from './@cori-risi/contexts
 export { default as CategoricalLegend } from './@cori-risi/components/CategoricalLegend.js';
 export { default as GeocoderControl } from './@cori-risi/components/GeocoderControl.js';
 export { default as HoverInfo } from './@cori-risi/components/HoverInfo.js';
+export { default as InfoTooltip } from './@cori-risi/components/InfoTooltip.js';
 export { mapboxGeocode } from './@cori-risi/mapbox/index.js';
 import MAP_STYLE from './@cori-risi/mapbox/styles/ruralinno/cl010e7b7001p15pe3l0306hv/style.json.js';
 
