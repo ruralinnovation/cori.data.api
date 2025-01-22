@@ -1,7 +1,6 @@
-import style from "./styles/InfoTooltip.module.css"
-
-import * as d3 from "d3";
 import React, { useState, useEffect } from 'react';
+
+import style from "./styles/InfoTooltip.module.css";
 
 export default function InfoTooltip ({ text } : { text: string }) {
 
