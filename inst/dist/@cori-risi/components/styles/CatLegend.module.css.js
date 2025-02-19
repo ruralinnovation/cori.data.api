@@ -4,7 +4,7 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-var style = {"tooltip":"HoverInfo-module_tooltip__3wVpX"};
+var style = {"legend":"CatLegend-module_legend__DvzKQ","entry":"CatLegend-module_entry__BXVNI","key":"CatLegend-module_key__Uf4nt"};
 
 export { style as default };
-//# sourceMappingURL=HoverInfo.module.css.js.map
+//# sourceMappingURL=CatLegend.module.css.js.map

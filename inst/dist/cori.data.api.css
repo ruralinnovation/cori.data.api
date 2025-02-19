@@ -214,3 +214,26 @@
 .InfoTooltip-module_info-tooltip__FVdl3:hover .InfoTooltip-module_info-tooltip-text__qrp7D {
   display: block;
 }
+.CatLegend-module_legend__DvzKQ {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.CatLegend-module_legend__DvzKQ .CatLegend-module_entry__BXVNI {
+	display: flex;
+	justify-content: space-around;
+	margin-right: 10px;
+	margin-bottom: 15px;
+	margin-top: 10px;
+}
+
+.CatLegend-module_legend__DvzKQ .CatLegend-module_entry__BXVNI .CatLegend-module_key__Uf4nt {
+	height: 1.6em;
+	width: 1.6em;
+	opacity: .7;
+}
+
+.CatLegend-module_legend__DvzKQ .CatLegend-module_entry__BXVNI p {
+	margin: 0px 0px 0px 6px;
+	font-family: "Bitter", serif;
+}

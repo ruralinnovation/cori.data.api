@@ -23,7 +23,7 @@ import axios from 'axios';
  * ```
  * */
 function mapboxGeocode(api_key, text) {
-    return __awaiter(this, undefined, undefined, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
         const search_request = 'https://api.mapbox.com/search/geocode/v6/forward';
         console.log("MAPBOX API TOKEN: ", api_key);
         const res = yield axios.get(search_request, {
