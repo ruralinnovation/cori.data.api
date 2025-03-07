@@ -250,9 +250,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#geocodercontrol" id="toc-geocodercontrol" class="nav-link active" data-scroll-target="#geocodercontrol">GeocoderControl()</a>
   <ul class="collapse">
-  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a>
+  <ul class="collapse">
+  <li><a href="#props" id="toc-props" class="nav-link" data-scroll-target="#props">props</a></li>
+  </ul></li>
   <li><a href="#returns" id="toc-returns" class="nav-link" data-scroll-target="#returns">Returns</a></li>
-  <li><a href="#defined-in" id="toc-defined-in" class="nav-link" data-scroll-target="#defined-in">Defined in</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -269,6 +271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p><strong>GeocoderControl</strong>(<code>props</code>): <code>null</code></p>
 </blockquote>
+<p>Defined in: <a href="https://github.com/ruralinnovation/cori.data.api/blob/cf84e892bbfe368eed12f011eaa9568ea5748619/lib/@cori-risi/components/GeocoderControl.tsx#L47"><span class="citation" data-cites="cori-risi/components/GeocoderControl.tsx:47">@cori-risi/components/GeocoderControl.tsx:47</span></a></p>
 <p>This is a Geocoder search component that can be added to any <code>react-map-gl</code> Map component.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode ts code-with-copy"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mapboxgl <span class="im">from</span> <span class="st">'mapbox-gl'</span><span class="op">;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> <span class="bu">Map</span><span class="op">,</span> { Source<span class="op">,</span> Layer } <span class="im">from</span> <span class="st">'react-map-gl'</span><span class="op">;</span></span>
@@ -290,21 +293,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span><span class="bu">Map</span><span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="parameters" class="level2">
 <h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
-<p>• <strong>props</strong></p>
-<p>• <strong>props.mapboxAccessToken</strong>: <code>string</code></p>
+<section id="props" class="level3">
+<h3 class="anchored" data-anchor-id="props">props</h3>
+<section id="mapboxaccesstoken" class="level4">
+<h4 class="anchored" data-anchor-id="mapboxaccesstoken">mapboxAccessToken</h4>
+<p><code>string</code></p>
 <p>Mapbox API token</p>
-<p>• <strong>props.marker?</strong>: <code>boolean</code> | <code>Omit</code>&lt;<code>MarkerProps</code>, <code>"longitude"</code> | <code>"latitude"</code>&gt;</p>
+</section>
+<section id="marker" class="level4">
+<h4 class="anchored" data-anchor-id="marker">marker?</h4>
+<p><code>boolean</code> | <code>Omit</code>&lt;<code>MarkerProps</code>, <code>"longitude"</code> | <code>"latitude"</code>&gt;</p>
 <p><code>true</code> or <code>false</code> to place marker on result once selected (default: <code>false</code>)</p>
-<p>• <strong>props.position</strong>: <code>ControlPosition</code></p>
+</section>
+<section id="position" class="level4">
+<h4 class="anchored" data-anchor-id="position">position</h4>
+<p><code>ControlPosition</code></p>
 <p>CSS class to position control in “top-left”, “top-right”, “bottom-left” or “bottom-right” of the map pane</p>
+</section>
+</section>
 </section>
 <section id="returns" class="level2">
 <h2 class="anchored" data-anchor-id="returns">Returns</h2>
 <p><code>null</code></p>
-</section>
-<section id="defined-in" class="level2">
-<h2 class="anchored" data-anchor-id="defined-in">Defined in</h2>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/74e67d2849d73166e59a4900a485a29460425b1f/lib/@cori-risi/components/GeocoderControl.tsx#L47"><span class="citation" data-cites="cori-risi/components/GeocoderControl.tsx:47">@cori-risi/components/GeocoderControl.tsx:47</span></a></p>
 
 
 </section>

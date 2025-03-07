@@ -240,6 +240,7 @@ ul.task-list li input[type="checkbox"] {
 <p><a href="../../docs/globals.html"><span class="citation" data-cites="cori-risi/cori.data.api">@cori-risi/cori.data.api</span></a> / ApiContextType</p>
 <section id="interface-apicontexttype" class="level1">
 <h1>Interface: ApiContextType</h1>
+<p>Defined in: <a href="https://github.com/ruralinnovation/cori.data.api/blob/cf84e892bbfe368eed12f011eaa9568ea5748619/lib/@cori-risi/contexts/ApiContextProvider.tsx#L63"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:63">@cori-risi/contexts/ApiContextProvider.tsx:63</span></a></p>
 <p>This is the interface/type of the <a href="../../docs/variables/ApiContext.html"><code>ApiContext</code></a>.</p>
 <section id="properties" class="level2">
 <h2 class="anchored" data-anchor-id="properties">Properties</h2>
@@ -248,90 +249,72 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p><strong>apiClient</strong>: <code>AxiosInstance</code></p>
 </blockquote>
+<p>Defined in: <a href="https://github.com/ruralinnovation/cori.data.api/blob/cf84e892bbfe368eed12f011eaa9568ea5748619/lib/@cori-risi/contexts/ApiContextProvider.tsx#L64"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:64">@cori-risi/contexts/ApiContextProvider.tsx:64</span></a></p>
 <p>Axios client for RESTful services</p>
-<section id="defined-in" class="level4">
-<h4 class="anchored" data-anchor-id="defined-in">Defined in</h4>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/74e67d2849d73166e59a4900a485a29460425b1f/lib/@cori-risi/contexts/ApiContextProvider.tsx#L64"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:64">@cori-risi/contexts/ApiContextProvider.tsx:64</span></a></p>
 <hr>
-</section>
 </section>
 <section id="authenticated" class="level3">
 <h3 class="anchored" data-anchor-id="authenticated">authenticated</h3>
 <blockquote class="blockquote">
 <p><strong>authenticated</strong>: <code>boolean</code></p>
 </blockquote>
+<p>Defined in: <a href="https://github.com/ruralinnovation/cori.data.api/blob/cf84e892bbfe368eed12f011eaa9568ea5748619/lib/@cori-risi/contexts/ApiContextProvider.tsx#L65"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:65">@cori-risi/contexts/ApiContextProvider.tsx:65</span></a></p>
 <p><code>true</code> if the ApiContextProvider has established an authenticated session</p>
-<section id="defined-in-1" class="level4">
-<h4 class="anchored" data-anchor-id="defined-in-1">Defined in</h4>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/74e67d2849d73166e59a4900a485a29460425b1f/lib/@cori-risi/contexts/ApiContextProvider.tsx#L65"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:65">@cori-risi/contexts/ApiContextProvider.tsx:65</span></a></p>
 <hr>
-</section>
 </section>
 <section id="authenticated_user" class="level3">
 <h3 class="anchored" data-anchor-id="authenticated_user">authenticated_user</h3>
 <blockquote class="blockquote">
 <p><strong>authenticated_user</strong>: <code>null</code> | <code>User</code></p>
 </blockquote>
+<p>Defined in: <a href="https://github.com/ruralinnovation/cori.data.api/blob/cf84e892bbfe368eed12f011eaa9568ea5748619/lib/@cori-risi/contexts/ApiContextProvider.tsx#L66"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:66">@cori-risi/contexts/ApiContextProvider.tsx:66</span></a></p>
 <p>the current user state if the ApiContextProvider has established an authenticated session</p>
-<section id="defined-in-2" class="level4">
-<h4 class="anchored" data-anchor-id="defined-in-2">Defined in</h4>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/74e67d2849d73166e59a4900a485a29460425b1f/lib/@cori-risi/contexts/ApiContextProvider.tsx#L66"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:66">@cori-risi/contexts/ApiContextProvider.tsx:66</span></a></p>
 <hr>
-</section>
 </section>
 <section id="autosignout" class="level3">
 <h3 class="anchored" data-anchor-id="autosignout">autoSignOut</h3>
 <blockquote class="blockquote">
 <p><strong>autoSignOut</strong>: <code>null</code> | () =&gt; <code>void</code></p>
 </blockquote>
+<p>Defined in: <a href="https://github.com/ruralinnovation/cori.data.api/blob/cf84e892bbfe368eed12f011eaa9568ea5748619/lib/@cori-risi/contexts/ApiContextProvider.tsx#L67"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:67">@cori-risi/contexts/ApiContextProvider.tsx:67</span></a></p>
 <p>a function that can be called to terminate the current session (if using authentication)</p>
-<section id="defined-in-3" class="level4">
-<h4 class="anchored" data-anchor-id="defined-in-3">Defined in</h4>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/74e67d2849d73166e59a4900a485a29460425b1f/lib/@cori-risi/contexts/ApiContextProvider.tsx#L67"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:67">@cori-risi/contexts/ApiContextProvider.tsx:67</span></a></p>
 <hr>
-</section>
 </section>
 <section id="baseurl" class="level3">
 <h3 class="anchored" data-anchor-id="baseurl">baseURL</h3>
 <blockquote class="blockquote">
 <p><strong>baseURL</strong>: <code>string</code></p>
 </blockquote>
+<p>Defined in: <a href="https://github.com/ruralinnovation/cori.data.api/blob/cf84e892bbfe368eed12f011eaa9568ea5748619/lib/@cori-risi/contexts/ApiContextProvider.tsx#L68"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:68">@cori-risi/contexts/ApiContextProvider.tsx:68</span></a></p>
 <p>Base URL for RESTful service</p>
-<section id="defined-in-4" class="level4">
-<h4 class="anchored" data-anchor-id="defined-in-4">Defined in</h4>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/74e67d2849d73166e59a4900a485a29460425b1f/lib/@cori-risi/contexts/ApiContextProvider.tsx#L68"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:68">@cori-risi/contexts/ApiContextProvider.tsx:68</span></a></p>
 <hr>
-</section>
 </section>
 <section id="data" class="level3">
 <h3 class="anchored" data-anchor-id="data">data</h3>
 <blockquote class="blockquote">
 <p><strong>data</strong>: <code>any</code></p>
 </blockquote>
+<p>Defined in: <a href="https://github.com/ruralinnovation/cori.data.api/blob/cf84e892bbfe368eed12f011eaa9568ea5748619/lib/@cori-risi/contexts/ApiContextProvider.tsx#L70"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:70">@cori-risi/contexts/ApiContextProvider.tsx:70</span></a></p>
 <p>read-only data store</p>
-<section id="defined-in-5" class="level4">
-<h4 class="anchored" data-anchor-id="defined-in-5">Defined in</h4>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/74e67d2849d73166e59a4900a485a29460425b1f/lib/@cori-risi/contexts/ApiContextProvider.tsx#L70"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:70">@cori-risi/contexts/ApiContextProvider.tsx:70</span></a></p>
 <hr>
-</section>
 </section>
 <section id="setdata" class="level3">
 <h3 class="anchored" data-anchor-id="setdata">setData()</h3>
 <blockquote class="blockquote">
 <p><strong>setData</strong>: (<code>newData</code>) =&gt; <code>void</code></p>
 </blockquote>
+<p>Defined in: <a href="https://github.com/ruralinnovation/cori.data.api/blob/cf84e892bbfe368eed12f011eaa9568ea5748619/lib/@cori-risi/contexts/ApiContextProvider.tsx#L71"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:71">@cori-risi/contexts/ApiContextProvider.tsx:71</span></a></p>
 <p>setter to update data store</p>
 <section id="parameters" class="level4">
 <h4 class="anchored" data-anchor-id="parameters">Parameters</h4>
-<p>• <strong>newData</strong>: <code>any</code></p>
+<section id="newdata" class="level5">
+<h5 class="anchored" data-anchor-id="newdata">newData</h5>
+<p><code>any</code></p>
+</section>
 </section>
 <section id="returns" class="level4">
 <h4 class="anchored" data-anchor-id="returns">Returns</h4>
 <p><code>void</code></p>
-</section>
-<section id="defined-in-6" class="level4">
-<h4 class="anchored" data-anchor-id="defined-in-6">Defined in</h4>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/74e67d2849d73166e59a4900a485a29460425b1f/lib/@cori-risi/contexts/ApiContextProvider.tsx#L71"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:71">@cori-risi/contexts/ApiContextProvider.tsx:71</span></a></p>
 <hr>
 </section>
 </section>
@@ -340,13 +323,10 @@ ul.task-list li input[type="checkbox"] {
 <blockquote class="blockquote">
 <p><strong>token</strong>: <code>null</code> | <code>JWT</code></p>
 </blockquote>
+<p>Defined in: <a href="https://github.com/ruralinnovation/cori.data.api/blob/cf84e892bbfe368eed12f011eaa9568ea5748619/lib/@cori-risi/contexts/ApiContextProvider.tsx#L69"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:69">@cori-risi/contexts/ApiContextProvider.tsx:69</span></a></p>
 <p>id token retrieved from Cognito which is used in requests made by the <code>apiClient</code> (if using authentication)</p>
-<section id="defined-in-7" class="level4">
-<h4 class="anchored" data-anchor-id="defined-in-7">Defined in</h4>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/74e67d2849d73166e59a4900a485a29460425b1f/lib/@cori-risi/contexts/ApiContextProvider.tsx#L69"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:69">@cori-risi/contexts/ApiContextProvider.tsx:69</span></a></p>
 
 
-</section>
 </section>
 </section>
 </section>

@@ -250,9 +250,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#apicontextprovider" id="toc-apicontextprovider" class="nav-link active" data-scroll-target="#apicontextprovider">ApiContextProvider()</a>
   <ul class="collapse">
-  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a>
+  <ul class="collapse">
+  <li><a href="#props" id="toc-props" class="nav-link" data-scroll-target="#props">props</a></li>
+  </ul></li>
   <li><a href="#returns" id="toc-returns" class="nav-link" data-scroll-target="#returns">Returns</a></li>
-  <li><a href="#defined-in" id="toc-defined-in" class="nav-link" data-scroll-target="#defined-in">Defined in</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -269,6 +271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p><strong>ApiContextProvider</strong>(<code>props</code>): <code>Element</code></p>
 </blockquote>
+<p>Defined in: <a href="https://github.com/ruralinnovation/cori.data.api/blob/cf84e892bbfe368eed12f011eaa9568ea5748619/lib/@cori-risi/contexts/ApiContextProvider.tsx#L171"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:171">@cori-risi/contexts/ApiContextProvider.tsx:171</span></a></p>
 <p>This component provides the API/data service context (<a href="../../docs/variables/ApiContext.html"><code>ApiContext</code></a>) to a React application. The following example assumes that the <code>App</code> component has been configured by the <a href="../../docs/functions/AmplifyContextProvider.html"><code>AmplifyContextProvider</code></a> to allow for authentication with AWS Cognito, but this provider can also be used to setup an ApiContext with no authentication (by only using the <code>baseURL</code> param/prop and disregarding the other props):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode ts code-with-copy"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> {</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    withAuthenticator<span class="op">,</span></span>
@@ -303,24 +306,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="parameters" class="level2">
 <h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
-<p>• <strong>props</strong></p>
-<p>• <strong>props.baseURL?</strong>: <code>string</code></p>
+<section id="props" class="level3">
+<h3 class="anchored" data-anchor-id="props">props</h3>
+<section id="baseurl" class="level4">
+<h4 class="anchored" data-anchor-id="baseurl">baseURL?</h4>
+<p><code>string</code></p>
 <p>Base URL for the RESTful API endpoint, e.g., https://cori-data-api.ruralinnovation.us.</p>
-<p>• <strong>props.children?</strong>: <code>ReactElement</code>&lt;<code>any</code>, <code>any</code>&gt; | <code>ReactElement</code>&lt;<code>any</code>, <code>any</code>&gt;[]</p>
-<p>• <strong>props.fetchAuthSession?</strong>: <code>Function</code></p>
+</section>
+<section id="children" class="level4">
+<h4 class="anchored" data-anchor-id="children">children?</h4>
+<p><code>ReactElement</code>&lt;<code>any</code>, <code>any</code>&gt; | <code>ReactElement</code>&lt;<code>any</code>, <code>any</code>&gt;[]</p>
+</section>
+<section id="fetchauthsession" class="level4">
+<h4 class="anchored" data-anchor-id="fetchauthsession">fetchAuthSession?</h4>
+<p><code>Function</code></p>
 <p>An optional function from the Amplify Auth package to start an authenticated session</p>
-<p>• <strong>props.getCurrentUser?</strong>: <code>Function</code></p>
+</section>
+<section id="getcurrentuser" class="level4">
+<h4 class="anchored" data-anchor-id="getcurrentuser">getCurrentUser?</h4>
+<p><code>Function</code></p>
 <p>An optional function from the Amplify Cognito package to fetch the current authenticated user (if any)</p>
-<p>• <strong>props.signOut?</strong>: <code>Function</code></p>
+</section>
+<section id="signout" class="level4">
+<h4 class="anchored" data-anchor-id="signout">signOut?</h4>
+<p><code>Function</code></p>
 <p>An optional function that is one of many destructured props contained in the Amplify authenticator context (returned by the useAuthenticator() hoook), used to sign out the current user.</p>
+</section>
+</section>
 </section>
 <section id="returns" class="level2">
 <h2 class="anchored" data-anchor-id="returns">Returns</h2>
 <p><code>Element</code></p>
-</section>
-<section id="defined-in" class="level2">
-<h2 class="anchored" data-anchor-id="defined-in">Defined in</h2>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/74e67d2849d73166e59a4900a485a29460425b1f/lib/@cori-risi/contexts/ApiContextProvider.tsx#L171"><span class="citation" data-cites="cori-risi/contexts/ApiContextProvider.tsx:171">@cori-risi/contexts/ApiContextProvider.tsx:171</span></a></p>
 
 
 </section>

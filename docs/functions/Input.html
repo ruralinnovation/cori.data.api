@@ -250,9 +250,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#input" id="toc-input" class="nav-link active" data-scroll-target="#input">Input()</a>
   <ul class="collapse">
-  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a>
+  <ul class="collapse">
+  <li><a href="#props" id="toc-props" class="nav-link" data-scroll-target="#props">props</a></li>
+  </ul></li>
   <li><a href="#returns" id="toc-returns" class="nav-link" data-scroll-target="#returns">Returns</a></li>
-  <li><a href="#defined-in" id="toc-defined-in" class="nav-link" data-scroll-target="#defined-in">Defined in</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -269,30 +271,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p><strong>Input</strong>(<code>props</code>): <code>Element</code></p>
 </blockquote>
+<p>Defined in: <a href="https://github.com/ruralinnovation/cori.data.api/blob/cf84e892bbfe368eed12f011eaa9568ea5748619/lib/@cori-risi/components/basic.tsx#L31"><span class="citation" data-cites="cori-risi/components/basic.tsx:31">@cori-risi/components/basic.tsx:31</span></a></p>
 <p>This comment <em>supports</em> <a href="https://www.markdownguide.org/">Markdown</a></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode ts code-with-copy"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>Input checked<span class="op">=</span>{served}</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>       onChange<span class="op">=</span>{() <span class="kw">=&gt;</span> <span class="fu">checkServed</span>(<span class="op">!</span>served)}</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>       <span class="kw">type</span><span class="op">=</span><span class="st">"checkbox"</span> <span class="op">/&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="parameters" class="level2">
 <h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
-<p>• <strong>props</strong></p>
-<p>• <strong>props.checked?</strong>: <code>boolean</code></p>
-<p>• <strong>props.children?</strong>: <code>ReactElement</code>&lt;<code>any</code>, <code>any</code>&gt; | <code>ReactElement</code>&lt;<code>any</code>, <code>any</code>&gt;[]</p>
-<p>• <strong>props.id?</strong>: <code>string</code></p>
-<p>• <strong>props.max?</strong>: <code>number</code></p>
-<p>• <strong>props.min?</strong>: <code>number</code></p>
-<p>• <strong>props.name?</strong>: <code>string</code></p>
-<p>• <strong>props.onChange?</strong>: <code>ChangeEventHandler</code>&lt;<code>HTMLInputElement</code>&gt;</p>
-<p>• <strong>props.type</strong>: <code>string</code></p>
-<p>• <strong>props.value?</strong>: <code>string</code> | <code>number</code></p>
+<section id="props" class="level3">
+<h3 class="anchored" data-anchor-id="props">props</h3>
+<section id="checked" class="level4">
+<h4 class="anchored" data-anchor-id="checked">checked?</h4>
+<p><code>boolean</code></p>
+</section>
+<section id="children" class="level4">
+<h4 class="anchored" data-anchor-id="children">children?</h4>
+<p><code>ReactElement</code>&lt;<code>any</code>, <code>any</code>&gt; | <code>ReactElement</code>&lt;<code>any</code>, <code>any</code>&gt;[]</p>
+</section>
+<section id="id" class="level4">
+<h4 class="anchored" data-anchor-id="id">id?</h4>
+<p><code>string</code></p>
+</section>
+<section id="max" class="level4">
+<h4 class="anchored" data-anchor-id="max">max?</h4>
+<p><code>number</code></p>
+</section>
+<section id="min" class="level4">
+<h4 class="anchored" data-anchor-id="min">min?</h4>
+<p><code>number</code></p>
+</section>
+<section id="name" class="level4">
+<h4 class="anchored" data-anchor-id="name">name?</h4>
+<p><code>string</code></p>
+</section>
+<section id="onchange" class="level4">
+<h4 class="anchored" data-anchor-id="onchange">onChange?</h4>
+<p><code>ChangeEventHandler</code>&lt;<code>HTMLInputElement</code>&gt;</p>
+</section>
+<section id="type" class="level4">
+<h4 class="anchored" data-anchor-id="type">type</h4>
+<p><code>string</code></p>
+</section>
+<section id="value" class="level4">
+<h4 class="anchored" data-anchor-id="value">value?</h4>
+<p><code>string</code> | <code>number</code></p>
+</section>
+</section>
 </section>
 <section id="returns" class="level2">
 <h2 class="anchored" data-anchor-id="returns">Returns</h2>
 <p><code>Element</code></p>
-</section>
-<section id="defined-in" class="level2">
-<h2 class="anchored" data-anchor-id="defined-in">Defined in</h2>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/74e67d2849d73166e59a4900a485a29460425b1f/lib/@cori-risi/components/basic.tsx#L31"><span class="citation" data-cites="cori-risi/components/basic.tsx:31">@cori-risi/components/basic.tsx:31</span></a></p>
 
 
 </section>

@@ -250,9 +250,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#hoverinfo" id="toc-hoverinfo" class="nav-link active" data-scroll-target="#hoverinfo">HoverInfo()</a>
   <ul class="collapse">
-  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a>
+  <ul class="collapse">
+  <li><a href="#props" id="toc-props" class="nav-link" data-scroll-target="#props">props</a></li>
+  </ul></li>
   <li><a href="#returns" id="toc-returns" class="nav-link" data-scroll-target="#returns">Returns</a></li>
-  <li><a href="#defined-in" id="toc-defined-in" class="nav-link" data-scroll-target="#defined-in">Defined in</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -269,6 +271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p><strong>HoverInfo</strong>(<code>props</code>): <code>Element</code></p>
 </blockquote>
+<p>Defined in: <a href="https://github.com/ruralinnovation/cori.data.api/blob/cf84e892bbfe368eed12f011eaa9568ea5748619/lib/@cori-risi/components/HoverInfo.tsx#L42"><span class="citation" data-cites="cori-risi/components/HoverInfo.tsx:42">@cori-risi/components/HoverInfo.tsx:42</span></a></p>
 <p>This is a prototype generalization of the HoverInfo component used in the <a href="https://github.com/ruralinnovation/who-wins-b2s/tree/main/src/components" target="_blank">Who Wins B2S app</a></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode ts code-with-copy"><code class="sourceCode typescript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { HoverInfo } <span class="im">from</span> <span class="st">'@cori-risi/cori.data.api'</span><span class="op">;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -288,23 +291,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;/</span>HoverInfo<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="parameters" class="level2">
 <h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
-<p>• <strong>props</strong></p>
-<p>• <strong>props.children?</strong>: <code>ReactElement</code>&lt;<code>any</code>, <code>any</code>&gt; | <code>ReactElement</code>&lt;<code>any</code>, <code>any</code>&gt;[]</p>
-<p>• <strong>props.hoverInfo</strong>: <a href="../../docs/interfaces/HoverObject.html"><code>HoverObject</code></a></p>
+<section id="props" class="level3">
+<h3 class="anchored" data-anchor-id="props">props</h3>
+<section id="children" class="level4">
+<h4 class="anchored" data-anchor-id="children">children?</h4>
+<p><code>ReactElement</code>&lt;<code>any</code>, <code>any</code>&gt; | <code>ReactElement</code>&lt;<code>any</code>, <code>any</code>&gt;[]</p>
+</section>
+<section id="hoverinfo-1" class="level4">
+<h4 class="anchored" data-anchor-id="hoverinfo-1">hoverInfo</h4>
+<p><a href="../../docs/interfaces/HoverObject.html"><code>HoverObject</code></a></p>
 <p>an object that should, at minimum, contain x and y values (screen coordinates in pixels); “name” is also a userful prop</p>
-<p>• <strong>props.xOffset?</strong>: <code>number</code></p>
+</section>
+<section id="xoffset" class="level4">
+<h4 class="anchored" data-anchor-id="xoffset">xOffset?</h4>
+<p><code>number</code></p>
 <p>the HoverInfo box will be rendered at this offset from the event’s x coordinate</p>
-<p>• <strong>props.yOffset?</strong>: <code>number</code></p>
+</section>
+<section id="yoffset" class="level4">
+<h4 class="anchored" data-anchor-id="yoffset">yOffset?</h4>
+<p><code>number</code></p>
 <p>the HoverInfo box will be rendered at this offset from the event’s y coordinate</p>
-<p>• <strong>props.zIndex?</strong>: <code>number</code></p>
+</section>
+<section id="zindex" class="level4">
+<h4 class="anchored" data-anchor-id="zindex">zIndex?</h4>
+<p><code>number</code></p>
+</section>
+</section>
 </section>
 <section id="returns" class="level2">
 <h2 class="anchored" data-anchor-id="returns">Returns</h2>
 <p><code>Element</code></p>
-</section>
-<section id="defined-in" class="level2">
-<h2 class="anchored" data-anchor-id="defined-in">Defined in</h2>
-<p><a href="https://github.com/ruralinnovation/cori.data.api/blob/74e67d2849d73166e59a4900a485a29460425b1f/lib/@cori-risi/components/HoverInfo.tsx#L42"><span class="citation" data-cites="cori-risi/components/HoverInfo.tsx:42">@cori-risi/components/HoverInfo.tsx:42</span></a></p>
 
 
 </section>
