@@ -7,9 +7,9 @@
 import React__default from 'react';
 import style from './styles/FeedbackButton.module.css.js';
 
-const FeedbackButton = () => {
+const FeedbackButton = (props) => {
     return (React__default.createElement("div", { className: style["feedback-button"] },
-        React__default.createElement("a", { href: "https://www.surveymonkey.com/r/3LFZLXK", target: "_blank" }, "Provide feedback or get in touch")));
+        React__default.createElement("a", { href: props.link, target: "_blank" }, "Provide feedback or get in touch")));
 };
 
 export { FeedbackButton as default };
