@@ -19,6 +19,7 @@ export { default as ApiContextProvider, ApiContext, ApiContextType } from "./@co
 export { default as CategoricalLegend } from "./@cori-risi/components/CategoricalLegend";
 // export { default as ControlPanel } from "./@cori-risi/components/ControlPanel"
 // export { default as LineChart } from "./@cori-risi/components/LineChart";
+export { default as FeedbackButton } from "./@cori-risi/components/FeedbackButton";
 export { default as GeocoderControl } from "./@cori-risi/components/GeocoderControl";
 export { default as HoverInfo, HoverObject } from "./@cori-risi/components/HoverInfo";
 export { default as InfoTooltip } from "./@cori-risi/components/InfoTooltip";

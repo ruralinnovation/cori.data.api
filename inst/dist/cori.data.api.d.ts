@@ -1,10 +1,10 @@
-/// <reference types="mapbox-gl" />
 import { MapStyle } from "react-map-gl";
 export declare function helloAnything(thing: string): string;
 export { Button, Input, Label } from "./@cori-risi/components/basic";
 export { default as AmplifyContextProvider, AmplifyContext } from "./@cori-risi/contexts/AmplifyContextProvider";
 export { default as ApiContextProvider, ApiContext, ApiContextType } from "./@cori-risi/contexts/ApiContextProvider";
 export { default as CategoricalLegend } from "./@cori-risi/components/CategoricalLegend";
+export { default as FeedbackButton } from "./@cori-risi/components/FeedbackButton";
 export { default as GeocoderControl } from "./@cori-risi/components/GeocoderControl";
 export { default as HoverInfo, HoverObject } from "./@cori-risi/components/HoverInfo";
 export { default as InfoTooltip } from "./@cori-risi/components/InfoTooltip";
