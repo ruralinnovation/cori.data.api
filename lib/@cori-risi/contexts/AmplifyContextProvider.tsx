@@ -171,7 +171,14 @@ export default function AmplifyContextProvider (props: {
                         // "scope": [ "email", "profile", "openid", "aws.cognito.signin.user.admin" ],
                         // "scope": [ "email", "openid", "profile" ],
                         // "scope": [ "email" ],
-                        "scope": ["openid"],
+                        // "scope": ["openid"],
+                        "scope": [
+                            "openid",
+                            "email",
+                            // "phone",
+                            // "profile",
+                            // "aws.cognito.signin.user.admin"
+                        ],
                         "redirectSignIn": window.location.protocol + "//" + window.location.hostname + ((!!window.location.port) ? ":" + window.location.port : ""),
                         "redirectSignOut": window.location.protocol + "//" + window.location.hostname + ((!!window.location.port) ? ":" + window.location.port : "") + "/",
                         "responseType": ("code" as "code")  // ... or "token", note that REFRESH token will only
