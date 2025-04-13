@@ -1,6 +1,7 @@
 import path from "path";
 import autoprefixer from "autoprefixer";
 import external from "rollup-plugin-peer-deps-external";
+import image from '@rollup/plugin-image';
 import json from "@rollup/plugin-json";
 import postcss from "rollup-plugin-postcss-modules";
 
@@ -44,6 +45,7 @@ export default [{
         nodeResolve(),
         peerDepsExternal(),
         commonjs(),
+        image(),
         json(),
         postcss({
             // extract: "styles.css",

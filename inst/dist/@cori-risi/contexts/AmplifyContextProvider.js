@@ -4,7 +4,8 @@
  * @copyright Rural Innovation Strategies, Inc.
  * @license ISC
  */
-import React__default, { createContext, useState, useEffect } from 'react';
+import * as React from 'react';
+import { createContext, useState, useEffect } from 'react';
 import { Amplify } from 'aws-amplify';
 import amplifyconfig from './amplifyconfiguration.json.js';
 
@@ -232,8 +233,8 @@ function AmplifyContextProvider(props) {
             });
         }
     }, []);
-    return (React__default.createElement(React__default.Fragment, null,
-        React__default.createElement(AmplifyContext.Provider, { value: state }, props.children)));
+    return (React.createElement(React.Fragment, null,
+        React.createElement(AmplifyContext.Provider, { value: state }, props.children)));
 }
 
 export { AmplifyContext, AmplifyContextProvider as default };

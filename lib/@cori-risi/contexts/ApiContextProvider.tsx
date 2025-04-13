@@ -227,7 +227,7 @@ export default function ApiContextProvider (props: {
                 fetchAuthSession
             } = props;
 
-            const session: Promise<AuthSession> = fetchAuthSession();
+            const session: Promise<AuthSession> = fetchAuthSession!();
 
             session
                 .then((sess) => {
@@ -303,7 +303,7 @@ export default function ApiContextProvider (props: {
 
                                 const { getCurrentUser } = props;
 
-                                const user: Promise<User> = getCurrentUser();
+                                const user: Promise<User> = getCurrentUser!();
 
                                 user.then((u) => {
                                     if (!hasAuthUser) {

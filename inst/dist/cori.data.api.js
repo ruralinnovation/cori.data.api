@@ -7,6 +7,7 @@
 export { Button, Input, Label } from './@cori-risi/components/basic.js';
 export { AmplifyContext, default as AmplifyContextProvider } from './@cori-risi/contexts/AmplifyContextProvider.js';
 export { ApiContext, default as ApiContextProvider } from './@cori-risi/contexts/ApiContextProvider.js';
+export { default as SSOAuthenticator } from './@cori-risi/components/SSOAuthenticator.js';
 export { default as CategoricalLegend } from './@cori-risi/components/CategoricalLegend.js';
 export { default as FeedbackButton } from './@cori-risi/components/FeedbackButton.js';
 export { default as GeocoderControl } from './@cori-risi/components/GeocoderControl.js';
