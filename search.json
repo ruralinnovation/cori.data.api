@@ -4,7 +4,7 @@
     "href": "docs/variables/AmplifyContext.html",
     "title": "AmplifyContext",
     "section": "",
-    "text": "@cori-risi/cori.data.api / AmplifyContext\n\nAmplifyContext\n\nconst AmplifyContext: Context&lt;null | AmplifyContextType&gt;\n\nDefined in: lib/@cori-risi/contexts/AmplifyContextProvider.tsx:43\nThis is the configuration context for an Amplify app that uses authentication to connect to the CORI Data API."
+    "text": "@cori-risi/cori.data.api / AmplifyContext\n\nAmplifyContext\n\nconst AmplifyContext: Context&lt;null | AmplifyContextType&gt;\n\nDefined in: lib/@cori-risi/contexts/AmplifyContextProvider.tsx:44\nThis is the configuration context for an Amplify app that uses authentication to connect to the CORI Data API."
   },
   {
     "objectID": "docs/variables/ApiContext.html",
@@ -161,6 +161,41 @@
     "text": "Returns\nPromise&lt;any&gt;"
   },
   {
+    "objectID": "docs/functions/ApiContextProvider.html",
+    "href": "docs/functions/ApiContextProvider.html",
+    "title": "ApiContextProvider()",
+    "section": "",
+    "text": "@cori-risi/cori.data.api / ApiContextProvider"
+  },
+  {
+    "objectID": "docs/functions/ApiContextProvider.html#parameters",
+    "href": "docs/functions/ApiContextProvider.html#parameters",
+    "title": "ApiContextProvider()",
+    "section": "Parameters",
+    "text": "Parameters\n\nprops\n\nbaseURL?\nstring\nBase URL for the RESTful API endpoint, e.g., https://cori-data-api.ruralinnovation.us.\n\n\nchildren?\nReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n\n\nfetchAuthSession?\nFunction\nAn optional function from the Amplify Auth package to start an authenticated session\n\n\ngetCurrentUser?\nFunction\nAn optional function from the Amplify Cognito package to fetch the current authenticated user (if any)\n\n\nsignOut?\nFunction\nAn optional function that is one of many destructured props contained in the Amplify authenticator context (returned by the useAuthenticator() hoook), used to sign out the current user."
+  },
+  {
+    "objectID": "docs/functions/ApiContextProvider.html#returns",
+    "href": "docs/functions/ApiContextProvider.html#returns",
+    "title": "ApiContextProvider()",
+    "section": "Returns",
+    "text": "Returns\nElement"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "@cori-risi/cori.data.api",
+    "section": "",
+    "text": "The Center on Rural Innovation (CORI) is a 501(c)(3) nonprofit organization partnering with rural leaders across the country to build tech economies that support scalable entrepreneurship and lead to more tech jobs in rural America.\nThese repositories are maintained by the Mapping and Data Analytics (MDA) team at CORI/RISI. Our team provides data, analytics and visualizations to support rural participation in the digital economy through scalable entrepreneurship and tech job growth in rural America. We aim to provide a better understanding of the forces and trends affecting rural America as we help communities chart a path to opportunity and prosperity through the tech economy.\nWe strive towards serving as the primary center of excellence advancing sustainable, economic opportunity and equity in rural America. We do this by providing expert spatial and statistical analysis, modernized visualization and tool development, credible technical subject matter expertise, and transparent documentation.\nFollow our work by reading our blog and reviewing the following list of past projects:\n\n\n\nBroadband - Broadband Equity Access and Deployment (BEAD) tool - Climate Risk Mapping\n\n\nResearch - Rural Aperture Project (RWJF) - Defining rural America - Who lives in rural America? Part 1 Part 2 - The equity of economic opportunity in rural America\n\n\n\n\nRural Innovation Network - Ascendium reports and data viz - Economic Development (ERC) tool\n\n\nRural Innovation Initiative - Tech Economy Diagnostic (TED)  (i.e., community assessment → ERC tool)\n\n\n\n\nTech Entrepreneurship  - Feasibility studies - Tech Talent Tracker → ERC tool\n\n\nAdditional work - Economic Development Administration (EDA) reports - Economic impact analysis - Multistate Workforce Analysis - example - Who Is Missing Analysis\n\n\n\nLearn more about the MDA approach to Knowledge here: Research, mapping, and data analytics"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Frontend UI library for the CORI Data API",
+    "section": "",
+    "text": "Frontend UI library for the CORI Data API\n\n\nTip\nNote: This README file is generated from README.qmd in the “R” directory of this repo with the command npm run render:readme.\n\n\nThis is a set of components, contexts, and general functions for any web application that is intended to interact with the CORI Data API backend (including GraphQL, Rest, and S3 resources).\n\nInstallation\nnpm install --save git+https://github.com/ruralinnovation/cori.data.api"
+  },
+  {
     "objectID": "docs/functions/CatLegend.html",
     "href": "docs/functions/CatLegend.html",
     "title": "CatLegend()",
@@ -182,37 +217,23 @@
     "text": "Returns\nElement"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Frontend UI library for the CORI Data API",
+    "objectID": "docs/functions/SSOAuthenticator.html",
+    "href": "docs/functions/SSOAuthenticator.html",
+    "title": "SSOAuthenticator()",
     "section": "",
-    "text": "Frontend UI library for the CORI Data API\n\n\nTip\nNote: This README file is generated from README.qmd in the “R” directory of this repo with the command npm run render:readme.\n\n\nThis is a set of components, contexts, and general functions for any web application that is intended to interact with the CORI Data API backend (including GraphQL, Rest, and S3 resources).\n\nInstallation\nnpm install --save git+https://github.com/ruralinnovation/cori.data.api"
+    "text": "@cori-risi/cori.data.api / SSOAuthenticator"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "@cori-risi/cori.data.api",
-    "section": "",
-    "text": "The Center on Rural Innovation (CORI) is a 501(c)(3) nonprofit organization partnering with rural leaders across the country to build tech economies that support scalable entrepreneurship and lead to more tech jobs in rural America.\nThese repositories are maintained by the Mapping and Data Analytics (MDA) team at CORI/RISI. Our team provides data, analytics and visualizations to support rural participation in the digital economy through scalable entrepreneurship and tech job growth in rural America. We aim to provide a better understanding of the forces and trends affecting rural America as we help communities chart a path to opportunity and prosperity through the tech economy.\nWe strive towards serving as the primary center of excellence advancing sustainable, economic opportunity and equity in rural America. We do this by providing expert spatial and statistical analysis, modernized visualization and tool development, credible technical subject matter expertise, and transparent documentation.\nFollow our work by reading our blog and reviewing the following list of past projects:\n\n\n\nBroadband - Broadband Equity Access and Deployment (BEAD) tool - Climate Risk Mapping\n\n\nResearch - Rural Aperture Project (RWJF) - Defining rural America - Who lives in rural America? Part 1 Part 2 - The equity of economic opportunity in rural America\n\n\n\n\nRural Innovation Network - Ascendium reports and data viz - Economic Development (ERC) tool\n\n\nRural Innovation Initiative - Tech Economy Diagnostic (TED)  (i.e., community assessment → ERC tool)\n\n\n\n\nTech Entrepreneurship  - Feasibility studies - Tech Talent Tracker → ERC tool\n\n\nAdditional work - Economic Development Administration (EDA) reports - Economic impact analysis - Multistate Workforce Analysis - example - Who Is Missing Analysis\n\n\n\nLearn more about the MDA approach to Knowledge here: Research, mapping, and data analytics"
-  },
-  {
-    "objectID": "docs/functions/ApiContextProvider.html",
-    "href": "docs/functions/ApiContextProvider.html",
-    "title": "ApiContextProvider()",
-    "section": "",
-    "text": "@cori-risi/cori.data.api / ApiContextProvider"
-  },
-  {
-    "objectID": "docs/functions/ApiContextProvider.html#parameters",
-    "href": "docs/functions/ApiContextProvider.html#parameters",
-    "title": "ApiContextProvider()",
+    "objectID": "docs/functions/SSOAuthenticator.html#parameters",
+    "href": "docs/functions/SSOAuthenticator.html#parameters",
+    "title": "SSOAuthenticator()",
     "section": "Parameters",
-    "text": "Parameters\n\nprops\n\nbaseURL?\nstring\nBase URL for the RESTful API endpoint, e.g., https://cori-data-api.ruralinnovation.us.\n\n\nchildren?\nReactElement&lt;any, any&gt; | ReactElement&lt;any, any&gt;[]\n\n\nfetchAuthSession?\nFunction\nAn optional function from the Amplify Auth package to start an authenticated session\n\n\ngetCurrentUser?\nFunction\nAn optional function from the Amplify Cognito package to fetch the current authenticated user (if any)\n\n\nsignOut?\nFunction\nAn optional function that is one of many destructured props contained in the Amplify authenticator context (returned by the useAuthenticator() hoook), used to sign out the current user."
+    "text": "Parameters\n\nprops\n\nchildren?\nReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n\n\ndescription?\nstring\n\n\nprovider?\nstring\n\n\ntitle?\nstring"
   },
   {
-    "objectID": "docs/functions/ApiContextProvider.html#returns",
-    "href": "docs/functions/ApiContextProvider.html#returns",
-    "title": "ApiContextProvider()",
+    "objectID": "docs/functions/SSOAuthenticator.html#returns",
+    "href": "docs/functions/SSOAuthenticator.html#returns",
+    "title": "SSOAuthenticator()",
     "section": "Returns",
     "text": "Returns\nElement"
   },
@@ -340,7 +361,7 @@
     "href": "docs/globals.html#functions",
     "title": "@cori-risi/cori.data.api",
     "section": "Functions",
-    "text": "Functions\n\nAmplifyContextProvider\nApiContextProvider\nButton\nCategoricalLegend\nCatLegend\nFeedbackButton\nGeocoderControl\nhelloAnything\nHoverInfo\nInfoTooltip\nInput\nLabel\nmapboxGeocode"
+    "text": "Functions\n\nAmplifyContextProvider\nApiContextProvider\nButton\nCategoricalLegend\nCatLegend\nFeedbackButton\nGeocoderControl\nhelloAnything\nHoverInfo\nInfoTooltip\nInput\nLabel\nmapboxGeocode\nSSOAuthenticator"
   },
   {
     "objectID": "docs/interfaces/ApiContextType.html",
@@ -361,6 +382,6 @@
     "href": "docs/variables/coriLightMapStyle.html",
     "title": "coriLightMapStyle",
     "section": "",
-    "text": "@cori-risi/cori.data.api / coriLightMapStyle\n\ncoriLightMapStyle\n\nconst coriLightMapStyle: MapStyle\n\nDefined in: lib/cori.data.api.ts:58\nThis is the primary Mapbox basemap style used in CORI/RISI frontend mapping applications\n\n\n\n\n\n\nimport { coriLightMapStyle } from \"@cori-risi/cori.data.api\";\n\n// ...\n\n&lt;Map mapboxAccessToken={MAPBOX_TOKEN}\n     mapStyle={{...coriLightMapStyle}} &gt;"
+    "text": "@cori-risi/cori.data.api / coriLightMapStyle\n\ncoriLightMapStyle\n\nconst coriLightMapStyle: MapStyle\n\nDefined in: lib/cori.data.api.ts:59\nThis is the primary Mapbox basemap style used in CORI/RISI frontend mapping applications\n\n\n\n\n\n\nimport { coriLightMapStyle } from \"@cori-risi/cori.data.api\";\n\n// ...\n\n&lt;Map mapboxAccessToken={MAPBOX_TOKEN}\n     mapStyle={{...coriLightMapStyle}} &gt;"
   }
 ]
