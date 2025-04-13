@@ -168,16 +168,13 @@ export default function AmplifyContextProvider (props: {
                     "clientId": userPoolClientId,
                     "oauth": {
                         "domain": domain,
-                        // "scope": [ "email", "profile", "openid", "aws.cognito.signin.user.admin" ],
                         // "scope": [ "email", "openid", "profile" ],
-                        // "scope": [ "email" ],
-                        // "scope": ["openid"],
                         "scope": [
                             "openid",
                             "email",
-                            // "phone",
-                            // "profile",
-                            // "aws.cognito.signin.user.admin"
+                            "phone",
+                            "profile",
+                            "aws.cognito.signin.user.admin"
                         ],
                         "redirectSignIn": window.location.protocol + "//" + window.location.hostname + ((!!window.location.port) ? ":" + window.location.port : ""),
                         "redirectSignOut": window.location.protocol + "//" + window.location.hostname + ((!!window.location.port) ? ":" + window.location.port : "") + "/",
