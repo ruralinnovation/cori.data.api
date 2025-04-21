@@ -228,7 +228,7 @@
     "href": "docs/functions/SSOAuthenticator.html#parameters",
     "title": "SSOAuthenticator()",
     "section": "Parameters",
-    "text": "Parameters\n\nprops\n\nchildren?\nReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n\n\ndescription?\nstring\n\n\nprovider?\nstring\n\n\ntitle?\nstring"
+    "text": "Parameters\n\nprops\n\nchildren?\nReactElement&lt;any, string | JSXElementConstructor&lt;any&gt;&gt;\n\n\ndescription?\nstring\n(optional) description or instructions to be displayed on authentication component\n\n\nlogo?\nstring\n(optional) imported svg file (see example) to be displayed on authentication component\n\n\nprovider?\nstring\nname of the Identity Provider configured in AWS Cognito &gt; Social and custom providers &gt; Federated identity provider sign-in\n\n\ntitle?\nstring\nname of the application (should be same as the value of the title element in index.html)"
   },
   {
     "objectID": "docs/functions/SSOAuthenticator.html#returns",
