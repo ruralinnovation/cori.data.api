@@ -4,6 +4,7 @@ import external from "rollup-plugin-peer-deps-external";
 import image from '@rollup/plugin-image';
 import json from "@rollup/plugin-json";
 import postcss from "rollup-plugin-postcss-modules";
+import svg from 'rollup-plugin-svg-import';
 
 //This plugin prevents packages listed in peerDependencies from being bundled with our component library
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
@@ -55,6 +56,7 @@ export default [{
             writeDefinitions: true,
             // modules: { ... }
         }),
+        svg({ stringify: true }),
         typescript({
             tsconfig: "./tsconfig.json",
         }),

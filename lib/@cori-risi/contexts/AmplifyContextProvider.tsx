@@ -113,14 +113,6 @@ export default function AmplifyContextProvider (props: {
                 userPoolClientId
             } = props;
 
-            console.log("Configuring Amplify context with props:", {
-                domain,
-                region,
-                identityPoolId,
-                userPoolId,
-                userPoolClientId
-            });
-
             // Ex. Auth data structure:
             //     Auth: {
             //         Cognito: {
@@ -300,6 +292,14 @@ export default function AmplifyContextProvider (props: {
             //             }
             //         }
             //     });
+
+            console.log("Configuring Amplify context with props:", {
+                domain,
+                region,
+                identityPoolId,
+                userPoolId,
+                userPoolClientId
+            });
 
             setState({
                 // authenticated_user: authenticated_user,

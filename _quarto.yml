@@ -30,6 +30,7 @@ website:
           - docs/functions/GeocoderControl.md
           - docs/functions/HoverInfo.md
 #          - docs/functions/LineChart.md
+          - docs/functions/SSOAuthenticator.md
       - section: "React contexts"
         contents:
           - docs/functions/AmplifyContextProvider.md
