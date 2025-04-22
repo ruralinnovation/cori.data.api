@@ -205,14 +205,25 @@ export default function SSOAuthenticator (props: { children?: ReactElement, prov
 
                                         setSignInAttemptCount(signInAttemptCount_local);
 
-                                        if (!!sess && (sess as any).hasOwnProperty("tokens") && (sess as any)["tokens"].hasOwnProperty("idToken")) {
+                                        try {
+                                            if (!!sess && (sess as any).hasOwnProperty("tokens") && (sess as any)["tokens"].hasOwnProperty("idToken")) {
 
-                                            /* If we CANNOT fetch a valid token (idToken) then present user with button to initiating SSO signin */
+                                                console.log("API context is authenticated and ready");
+
+                                            } else {
+
+                                                /* If we CANNOT fetch a valid token (idToken) then present user with button to initiating SSO signin */
+                                                setVisibility({
+                                                    "visibility": "visible"
+                                                });
+
+                                            }
+                                        } catch (e: any) {
+                                            console.log(e.message, sess)
 
                                             setVisibility({
                                                 "visibility": "visible"
                                             });
-
                                         }
                                     }
                                 })

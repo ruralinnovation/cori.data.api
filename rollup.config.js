@@ -56,7 +56,9 @@ export default [{
             writeDefinitions: true,
             // modules: { ... }
         }),
-        svg({ stringify: true }),
+        svg({
+            // stringify: true
+        }),
         typescript({
             tsconfig: "./tsconfig.json",
         }),

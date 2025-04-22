@@ -7,7 +7,7 @@ import './styles/images/loading.gif';
  * This is a generalization of the Single Sign-On authentication component developed for the
  * [Calix Impact Tool](https://calix-impact-tool.ruralinnovation.us/){target=_blank}
  *
- * This component is best placed in `main.js` as part of the React mounting code:
+ * This component is best placed in `main.js` as part of the initial React root component mounting code:
  *
  * ```ts
  * import { SSOAuthenticator } from "@cori-risi/cori.data.api";
@@ -50,10 +50,10 @@ import './styles/images/loading.gif';
  *
  * ```
  *
- *  @param provider - string name of the Identity Provider configured in AWS Cognito > Social and custom providers > Federated identity provider sign-in
- *  @param title - string name of the application (should be same as the value of the title element in index.html)
- *  @param description - string (optional) description or instructions to be displayed on authentication component
- *  @param logo - string imported svg file (see example)
+ *  @param props.provider - name of the Identity Provider configured in AWS Cognito > Social and custom providers > Federated identity provider sign-in
+ *  @param props.title - name of the application (should be same as the value of the title element in index.html)
+ *  @param props.description - (optional) description or instructions to be displayed on authentication component
+ *  @param props.logo - (optional) imported svg file (see example) to be displayed on authentication component
  */
 export default function SSOAuthenticator(props: {
     children?: ReactElement;
