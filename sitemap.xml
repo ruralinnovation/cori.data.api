@@ -2,90 +2,90 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/variables/AmplifyContext.html</loc>
-    <lastmod>2025-04-21T20:22:19.291Z</lastmod>
+    <lastmod>2025-04-22T05:19:14.517Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/variables/ApiContext.html</loc>
-    <lastmod>2025-04-21T20:22:18.632Z</lastmod>
+    <lastmod>2025-04-22T05:19:13.837Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/interfaces/HoverObject.html</loc>
-    <lastmod>2025-04-21T20:22:18.121Z</lastmod>
+    <lastmod>2025-04-22T05:19:13.326Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/functions/AmplifyContextProvider.html</loc>
-    <lastmod>2025-04-21T20:22:17.614Z</lastmod>
+    <lastmod>2025-04-22T05:19:12.816Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/functions/GeocoderControl.html</loc>
-    <lastmod>2025-04-21T20:22:16.730Z</lastmod>
+    <lastmod>2025-04-22T05:19:11.877Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/functions/InfoTooltip.html</loc>
-    <lastmod>2025-04-21T20:22:15.826Z</lastmod>
+    <lastmod>2025-04-22T05:19:10.916Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/functions/HoverInfo.html</loc>
-    <lastmod>2025-04-21T20:22:15.121Z</lastmod>
+    <lastmod>2025-04-22T05:19:10.172Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/functions/helloAnything.html</loc>
-    <lastmod>2025-04-21T20:22:14.432Z</lastmod>
+    <lastmod>2025-04-22T05:19:09.463Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/functions/mapboxGeocode.html</loc>
-    <lastmod>2025-04-21T20:22:13.935Z</lastmod>
+    <lastmod>2025-04-22T05:19:08.977Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/functions/ApiContextProvider.html</loc>
-    <lastmod>2025-04-21T20:22:12.999Z</lastmod>
+    <lastmod>2025-04-22T05:19:08.031Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/about.html</loc>
-    <lastmod>2025-04-21T20:22:12.222Z</lastmod>
+    <lastmod>2025-04-22T05:19:07.241Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/index.html</loc>
-    <lastmod>2025-04-21T20:22:11.625Z</lastmod>
+    <lastmod>2025-04-22T05:19:06.646Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/functions/CatLegend.html</loc>
-    <lastmod>2025-04-21T20:22:12.483Z</lastmod>
+    <lastmod>2025-04-22T05:19:07.517Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/functions/SSOAuthenticator.html</loc>
-    <lastmod>2025-04-21T20:22:13.494Z</lastmod>
+    <lastmod>2025-04-22T05:19:08.525Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/functions/Label.html</loc>
-    <lastmod>2025-04-21T20:22:14.187Z</lastmod>
+    <lastmod>2025-04-22T05:19:09.216Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/functions/FeedbackButton.html</loc>
-    <lastmod>2025-04-21T20:22:14.673Z</lastmod>
+    <lastmod>2025-04-22T05:19:09.715Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/functions/Button.html</loc>
-    <lastmod>2025-04-21T20:22:15.569Z</lastmod>
+    <lastmod>2025-04-22T05:19:10.650Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/functions/CategoricalLegend.html</loc>
-    <lastmod>2025-04-21T20:22:16.280Z</lastmod>
+    <lastmod>2025-04-22T05:19:11.425Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/functions/Input.html</loc>
-    <lastmod>2025-04-21T20:22:17.165Z</lastmod>
+    <lastmod>2025-04-22T05:19:12.357Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/globals.html</loc>
-    <lastmod>2025-04-21T20:22:17.886Z</lastmod>
+    <lastmod>2025-04-22T05:19:13.085Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/interfaces/ApiContextType.html</loc>
-    <lastmod>2025-04-21T20:22:18.389Z</lastmod>
+    <lastmod>2025-04-22T05:19:13.593Z</lastmod>
   </url>
   <url>
     <loc>https://ruralinnovation.github.io/cori.data.api/docs/variables/coriLightMapStyle.html</loc>
-    <lastmod>2025-04-21T20:22:19.048Z</lastmod>
+    <lastmod>2025-04-22T05:19:14.253Z</lastmod>
   </url>
 </urlset>
