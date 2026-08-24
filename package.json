@@ -1,6 +1,6 @@
 {
   "name": "@cori-risi/cori.data.api",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Rural Innovation Strategies, Inc.",
   "description": "CORI Data API component library",
   "homepage": "https://github.com/ruralinnovation/cori.data.api#readme",
@@ -42,8 +42,8 @@
     "ts-jest": "~29.2.2",
     "tslib": "^2.6.3",
     "typedoc": "^0.26.5",
-    "typedoc-github-wiki-theme": "^2.0.0",
-    "typedoc-plugin-markdown": "^4.2.3",
+    "typedoc-github-wiki-theme": "~2.0.0",
+    "typedoc-plugin-markdown": "~4.2.3",
     "typescript": "^5.2.2",
     "typescript-plugin-css-modules": "^5.1.0"
   },
