@@ -129,7 +129,10 @@ function AmplifyContextProvider(props) {
                     }
                 }
             };
-            Amplify.configure((Object.assign(Object.assign({}, Amplify.getConfig()), { Auth: Object.assign(Object.assign({}, Amplify.getConfig().Auth), { Cognito: Object.assign(Object.assign(Object.assign({}, Amplify.getConfig().Auth.Cognito), aws_original_auth_config.Auth), { loginWith: Object.assign(Object.assign({}, Amplify.getConfig().Auth.Cognito.loginWith), { oauth: Object.assign(Object.assign(Object.assign({}, Amplify.getConfig().Auth.Cognito.loginWith.oauth), aws_original_auth_config.Auth.oauth), { redirectSignIn: [
+            Amplify.configure((Object.assign(Object.assign({}, Amplify.getConfig()), { Auth: Object.assign(Object.assign({}, Amplify.getConfig().Auth), { Cognito: Object.assign(Object.assign(Object.assign({}, Amplify.getConfig().Auth.Cognito), aws_original_auth_config.Auth), { 
+                        // Never request guest (unauthenticated) identity-pool credentials:
+                        // the apps only need the user pool JWTs.
+                        allowGuestAccess: false, loginWith: Object.assign(Object.assign({}, Amplify.getConfig().Auth.Cognito.loginWith), { oauth: Object.assign(Object.assign(Object.assign({}, Amplify.getConfig().Auth.Cognito.loginWith.oauth), aws_original_auth_config.Auth.oauth), { redirectSignIn: [
                                     aws_original_auth_config.Auth.oauth.redirectSignIn
                                 ], redirectSignOut: [
                                     aws_original_auth_config.Auth.oauth.redirectSignOut
