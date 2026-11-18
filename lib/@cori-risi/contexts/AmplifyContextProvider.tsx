@@ -185,6 +185,9 @@ export default function AmplifyContextProvider (props: {
                     Cognito: {
                         ...Amplify.getConfig().Auth!.Cognito!,
                         ...aws_original_auth_config.Auth,
+                        // Never request guest (unauthenticated) identity-pool credentials:
+                        // the apps only need the user pool JWTs.
+                        allowGuestAccess: false,
                         loginWith: {
                             ...Amplify.getConfig().Auth!.Cognito!.loginWith!,
                             oauth: {
